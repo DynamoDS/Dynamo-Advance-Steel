@@ -3,7 +3,10 @@ Steps to get it work:
 1.  install the Dynamo 0.7.3 
 2.  install AutoCAD 2015
 3.  install Advance Steel 2015.1
-4.  replace ASMgd20x64.dll from "C:\Program Files\Autodesk\Advance Steel 2015.1\Kernel\Bin\" with the one from email(this step is required because we have done some changes that are included just in advance steel 2016)
+4.  replace ASMgd20x64.dll from "C:\Program Files\Autodesk\Advance Steel 2015.1\Kernel\Bin\" with the one from $Github\AcadAdvancedSteel\private\ (this step is required because we have done some changes that are included just in advance steel 2016)
+Since this branch is private i have uploaded the dll file here. I will delete the dll after you get it on your pc
+
+
 5.  verify that the paths from your local computer correspond to the ones from $Github\AcadAdvancedSteel\setupenv.bat, if not modify the bat file
 7.  run $Github\AcadAdvancedSteel\setupenv.bat (this will open visual studio 2013 and set the variables to it) and open $Github\AcadAdvancedSteel\DynamoAdvanceSteel.sln
 8.  build the solution in debug
