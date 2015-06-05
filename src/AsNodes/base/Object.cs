@@ -47,7 +47,7 @@ namespace AdvanceSteel.Nodes
             lock (myLock)
             {
                 // Do not cleanup elements if we are shutting down Dynamo.
-                if (DSNodeServices.DisposeLogic.IsShuttingDown)
+              if (DynamoServices.DisposeLogic.IsShuttingDown)
                     return;
 
                 //this function is not implemented for the moment

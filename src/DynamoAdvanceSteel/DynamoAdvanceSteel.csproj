@@ -54,30 +54,30 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="ASCADLinkMgd20x64">
-      <HintPath>$(ADVANCESTEELAPI)\Kernel\Bin\ASCADLinkMgd20x64.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\ASCADLinkMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASGeometryMgd64">
-      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASGeometryMgd64.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\ASGeometryMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASMgd20x64">
-      <HintPath>$(ADVANCESTEELAPI)\Kernel\Bin\ASMgd20x64.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\ASMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASNETPluginsPlayer">
-      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASNETPluginsPlayer.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\ASNETPluginsPlayer.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASNetRuntime">
-      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASNetRuntime.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\ASNetRuntime.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASProfilesMgd64">
-      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASProfilesMgd64.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\ASProfilesMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DSCoreNodes, Version=0.7.2.2921, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DSCoreNodes">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(DYNAMOAPI)\DSCoreNodes.dll</HintPath>
       <Private>False</Private>
@@ -86,22 +86,26 @@
       <HintPath>$(DYNAMOAPI)\DSIronPython.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DSNodeServices, Version=0.7.2.2921, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DSNodeServices">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(DYNAMOAPI)\DSNodeServices.dll</HintPath>
+      <HintPath>$(DYNAMOAPI)\DynamoServices.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DynamoCore, Version=0.7.2.2921, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DynamoCoreWpf">
+      <HintPath>$(DYNAMOAPI)\DynamoCoreWpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DynamoCore">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(DYNAMOAPI)\DynamoCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DynamoPython, Version=0.7.2.2921, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DynamoPython">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(DYNAMOAPI)\DynamoPython.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DynamoUtilities, Version=0.7.2.2921, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DynamoUtilities">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(DYNAMOAPI)\DynamoUtilities.dll</HintPath>
       <Private>False</Private>
@@ -148,9 +152,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvanceSteelModel.cs" />
+    <Compile Include="AdvanceSteelPathResolver.cs" />
     <Compile Include="SchedulerThread.cs" />
     <Compile Include="Properties\AssemblySharedInfo.cs" />
-    <Compile Include="DynamoAdvanceSteel.cs" />
+    <Compile Include="DynamoAdvanceSteelApplication.cs" />
     <Compile Include="CommandClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

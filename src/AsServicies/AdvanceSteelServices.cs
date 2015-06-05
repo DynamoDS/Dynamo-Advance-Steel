@@ -56,7 +56,7 @@ namespace AdvanceSteelServices
 
         public static string GetHandleFromTrace()
         {
-            ISerializable traceData = DSNodeServices.TraceUtils.GetTraceData(REVIT_TRACE_ID);
+            ISerializable traceData = DynamoServices.TraceUtils.GetTraceData(REVIT_TRACE_ID);
 
             SerializableHandle handle = traceData as SerializableHandle;
             if (handle == null)
@@ -71,7 +71,7 @@ namespace AdvanceSteelServices
             SerializableHandle hand = new SerializableHandle();
             hand.stringID = handle;
 
-            DSNodeServices.TraceUtils.SetTraceData(REVIT_TRACE_ID, hand);
+            DynamoServices.TraceUtils.SetTraceData(REVIT_TRACE_ID, hand);
         }
 
         public static void CleanupAndSetElementForTrace(FilerObject newElement)

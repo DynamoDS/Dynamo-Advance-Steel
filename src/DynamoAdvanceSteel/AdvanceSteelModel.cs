@@ -24,14 +24,14 @@ namespace Dynamo.Applications.Models
     {
         public new static AdvanceSteelModel Start()
         {
-            return AdvanceSteelModel.Start(new StartConfiguration());
+            return AdvanceSteelModel.Start(new DefaultStartConfiguration());
         }
 
-        public new static AdvanceSteelModel Start(StartConfiguration configuration)
+        public new static AdvanceSteelModel Start(IStartConfiguration configuration)
         {
             // where necessary, assign defaults
             if (string.IsNullOrEmpty(configuration.Context))
-                configuration.Context = "advance steel";
+                configuration.Context = "Advance Steel";
 
             if (string.IsNullOrEmpty(configuration.DynamoCorePath))
             {
@@ -45,11 +45,9 @@ namespace Dynamo.Applications.Models
             return new AdvanceSteelModel(configuration);
         }
 
-        private AdvanceSteelModel(StartConfiguration configuration) :
+        private AdvanceSteelModel(IStartConfiguration configuration) :
             base(configuration)
         {
-            Context = configuration.Context;
-
             string corePath = configuration.DynamoCorePath;
             bool isTestMode = configuration.StartInTestMode;
 
@@ -57,7 +55,7 @@ namespace Dynamo.Applications.Models
         }
         protected override void ShutDownCore(bool shutdownHost)
         {
-            DSNodeServices.DisposeLogic.IsShuttingDown = true;
+            DynamoServices.DisposeLogic.IsShuttingDown = true;
             Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.DocumentActivationEnabled = true;
 
             base.ShutDownCore(shutdownHost);

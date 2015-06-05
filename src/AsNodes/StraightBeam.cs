@@ -14,10 +14,10 @@ using System.Threading.Tasks;
 
 namespace AdvanceSteel.Nodes
 {
-    /// <summary>
+    /// <summary>DynamoServices
     /// An AdvanceSteel Straight Beam
     /// </summary>
-    [DSNodeServices.RegisterForTrace]
+    [DynamoServices.RegisterForTrace]
     public class StraightBeam: GraphicObject
     {
         internal StraightBeam( Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd)

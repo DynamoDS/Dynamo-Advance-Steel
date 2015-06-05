@@ -1,0 +1,40 @@
+<Workspace Version="0.7.2.2921" X="0" Y="0" zoom="1" Description="" Category="" Name="Home">
+  <Elements>
+    <Dynamo.Nodes.DSFunction type="Dynamo.Nodes.DSFunction" guid="2ff216e2-8f60-412c-a52c-4f1a657e5788" nickname="Point.ByCoordinates" x="422" y="63.5" isVisible="true" isUpstreamVisible="true" lacing="CrossProduct" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Point.ByCoordinates@double,double,double">
+      <PortInfo index="0" default="True" />
+      <PortInfo index="1" default="True" />
+      <PortInfo index="2" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.DoubleInput type="Dynamo.Nodes.DoubleInput" guid="492404a7-82bc-4856-ada5-339badc1f78d" nickname="Number" x="222" y="42.5" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double value="0..300..100" />
+    </Dynamo.Nodes.DoubleInput>
+    <Dynamo.Nodes.DoubleInput type="Dynamo.Nodes.DoubleInput" guid="5f9d8b28-775d-4c0a-81a7-b7aaf9e73e56" nickname="Number" x="203" y="126.5" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double value="0..300..100" />
+    </Dynamo.Nodes.DoubleInput>
+    <Dynamo.Nodes.DoubleInput type="Dynamo.Nodes.DoubleInput" guid="c3392878-1bd4-4b88-a591-959c992c130b" nickname="Number" x="233" y="196.5" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double value="0..300..100" />
+    </Dynamo.Nodes.DoubleInput>
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="399bb82f-15f1-43e0-b8a5-7dbe13823846" nickname="Code Block" x="624" y="79" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[3];" ShouldFocus="false" />
+    <Dynamo.Nodes.CodeBlockNodeModel type="Dynamo.Nodes.CodeBlockNodeModel" guid="1f32d0c5-fbb3-4b55-850c-5198d83bf6a9" nickname="Code Block" x="801" y="82" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="x[0];" ShouldFocus="false" />
+    <Dynamo.Nodes.DoubleInput type="Dynamo.Nodes.DoubleInput" guid="725f947a-d265-4295-a250-48f5a54b732c" nickname="inaltime" x="42" y="168.5" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double value="100.000" />
+    </Dynamo.Nodes.DoubleInput>
+    <Dynamo.Nodes.DoubleInput type="Dynamo.Nodes.DoubleInput" guid="8be0e4b1-eb31-433f-a234-6ee7e62371a8" nickname="latime" x="42" y="99.5" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double value="100" />
+    </Dynamo.Nodes.DoubleInput>
+    <Dynamo.Nodes.DoubleInput type="Dynamo.Nodes.DoubleInput" guid="9b100c01-2e83-4e54-bedb-c1a9019359d2" nickname="lungime" x="37" y="36.5" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double value="100" />
+    </Dynamo.Nodes.DoubleInput>
+    <Dynamo.Nodes.DoubleInput type="Dynamo.Nodes.DoubleInput" guid="d47b1fa2-4d77-498e-a7cc-476c5eea3682" nickname="Number" x="44" y="235.5" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double value="4" />
+    </Dynamo.Nodes.DoubleInput>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="2ff216e2-8f60-412c-a52c-4f1a657e5788" start_index="0" end="399bb82f-15f1-43e0-b8a5-7dbe13823846" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="492404a7-82bc-4856-ada5-339badc1f78d" start_index="0" end="2ff216e2-8f60-412c-a52c-4f1a657e5788" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="5f9d8b28-775d-4c0a-81a7-b7aaf9e73e56" start_index="0" end="2ff216e2-8f60-412c-a52c-4f1a657e5788" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="c3392878-1bd4-4b88-a591-959c992c130b" start_index="0" end="2ff216e2-8f60-412c-a52c-4f1a657e5788" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="399bb82f-15f1-43e0-b8a5-7dbe13823846" start_index="0" end="1f32d0c5-fbb3-4b55-850c-5198d83bf6a9" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+</Workspace>

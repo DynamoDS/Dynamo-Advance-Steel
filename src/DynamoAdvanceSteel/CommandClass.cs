@@ -36,6 +36,8 @@ using DynamoUtilities;
 using MessageBox = System.Windows.Forms.MessageBox;
 using Dynamo.Applications.Models;
 using AdvanceSteel.Nodes;
+using Dynamo.UpdateManager;
+using Microsoft.Win32;
 
 [assembly: CommandClassAttribute(typeof(Dynamo.Applications.CommandClass))]
 namespace Dynamo.Applications
@@ -51,6 +53,16 @@ namespace Dynamo.Applications
         [CommandMethodAttribute("TEST_GROUP", "Create", "RunDynamo", CommandFlags.Modal | CommandFlags.UsePickSet | CommandFlags.Redraw)]
         public void Create()
         {
+
+          try
+          {
+            string currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+          }
+          catch (Exception ex)
+          {
+            MessageBox.Show(ex.ToString());
+          }
+
             //disable document switch while dynamo is open
             Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.DocumentActivationEnabled = false;
 
@@ -64,17 +76,15 @@ namespace Dynamo.Applications
         }
         private static AdvanceSteelModel InitializeCoreModel()
         {
-            var prefs = PreferenceSettings.Load();
-            var corePath =
-                Path.GetFullPath(
-                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\..\");
-
+            string corePath = DynamoAdvanceSteelApplication.DynamoCorePath;
             return AdvanceSteelModel.Start(
-                new AdvanceSteelModel.StartConfiguration()
+                new Dynamo.Models.DynamoModel.DefaultStartConfiguration()
                 {
-                    Preferences = prefs,
+                    GeometryFactoryPath = GetGeometryFactoryPath(corePath),
+                    //Preferences = prefs,
                     DynamoCorePath = corePath,
-                    SchedulerThread = new SchedulerThread()
+                    SchedulerThread = new SchedulerThread(),
+                    PathResolver = new AdvanceSteelPathResolver()
                 });
         }
         private static DynamoViewModel InitializeCoreViewModel(AdvanceSteelModel advanceSteelModel)
@@ -102,14 +112,38 @@ namespace Dynamo.Applications
         {
             if (initializedCore) return;
 
-            string interactivityPath = Path.Combine(
-               DynamoPathManager.Instance.MainExecPath,
-               "System.Windows.Interactivity.dll");
+            string interactivityPath = "";// Path.Combine(
+                //DynamoPathManager.Instance.MainExecPath,
+                //"System.Windows.Interactivity.dll");
 
             if (File.Exists(interactivityPath))
                 Assembly.LoadFrom(interactivityPath);
 
             initializedCore = true;
+        }
+        /// <summary>
+        /// DynamoShapeManager.dll is a companion assembly of Dynamo core components,
+        /// we do not want a static reference to it (since the Revit add-on can be 
+        /// installed anywhere that's outside of Dynamo), we do not want a duplicated 
+        /// reference to it. Here we use reflection to obtain GetGeometryFactoryPath
+        /// method, and call it to get the geometry factory assembly path.
+        /// </summary>
+        /// <param name="corePath">The path where DynamoShapeManager.dll can be 
+        /// located.</param>
+        /// <returns>Returns the full path to geometry factory assembly.</returns>
+        /// 
+        public static string GetGeometryFactoryPath(string corePath)
+        {
+          var dynamoAsmPath = Path.Combine(corePath, "DynamoShapeManager.dll");
+          var assembly = Assembly.LoadFrom(dynamoAsmPath);
+          if (assembly == null)
+            throw new FileNotFoundException("File not found", dynamoAsmPath);
+
+          var utilities = assembly.GetType("DynamoShapeManager.Utilities");
+          var getGeometryFactoryPath = utilities.GetMethod("GetGeometryFactoryPath");
+
+          return (getGeometryFactoryPath.Invoke(null,
+              new object[] { corePath, 221 }) as string);
         }
     }
 }

@@ -53,7 +53,7 @@ namespace AdvanceSteelServices
             if (wrappers.TryGetValue(elementHandle, out existingWrappers))
             {
                 //handle already existed, check we're not over adding
-                DSNodeServices.Validity.Assert(!existingWrappers.Contains(wrapper),
+              DynamoServices.Validity.Assert(!existingWrappers.Contains(wrapper),
                     "Lifecycle manager alert: registering the same Element Wrapper twice");
             }
             else

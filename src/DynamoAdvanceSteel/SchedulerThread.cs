@@ -14,8 +14,8 @@ namespace Dynamo.Applications
     /// </summary>
     public class SchedulerThread:ISchedulerThread
     {
-        private DynamoScheduler scheduler;
-        public void Initialize(DynamoScheduler owningScheduler)
+        private IScheduler scheduler;
+        public void Initialize(IScheduler owningScheduler)
         {
             scheduler = owningScheduler;
             Application.Idle += Application_Idle;
