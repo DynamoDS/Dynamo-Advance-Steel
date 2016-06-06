@@ -1,48 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Autodesk.AdvanceSteel.Runtime;
+﻿using Autodesk.AdvanceSteel.Runtime;
 
 //using Dynamo.Applications.Properties;
 using Dynamo.Utilities;
-
-using DynamoUtilities;
-
-
-using MessageBox = System.Windows.Forms.MessageBox;
-using System.IO;
-using System.Reflection;
-using Dynamo.Applications.Models;
 using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 [assembly: ExtensionApplicationAttribute(typeof(Dynamo.Applications.DynamoAdvanceSteelApplication))]
+
 namespace Dynamo.Applications
 {
-	public sealed class DynamoAdvanceSteelApplication : IExtensionApplication
-	{
-    public static string DynamoCorePath = DynamoLocator.GetCorePath();
+  public sealed class DynamoAdvanceSteelApplication : IExtensionApplication
+  {
+    public static string DynamoCorePath = ProductLocator.GetDynamoCorePath();
+    public static string ACADCorePath = ProductLocator.GetACADCorePath();
 
-		void IExtensionApplication.Initialize()
-		{
+    void IExtensionApplication.Initialize()
+    {
       SubscribeAssemblyResolvingEvent();
-		}
-		void IExtensionApplication.Terminate()
-		{
-       UnsubscribeAssemblyResolvingEvent();
-		}
+    }
+
+    void IExtensionApplication.Terminate()
+    {
+      UnsubscribeAssemblyResolvingEvent();
+    }
 
     private void SubscribeAssemblyResolvingEvent()
     {
-        AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
+      AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
     }
 
     private void UnsubscribeAssemblyResolvingEvent()
     {
-        AppDomain.CurrentDomain.AssemblyResolve -= ResolveAssembly;
+      AppDomain.CurrentDomain.AssemblyResolve -= ResolveAssembly;
     }
+
     public static Assembly ResolveAssembly(object sender, ResolveEventArgs args)
     {
       var assemblyPath = string.Empty;
@@ -61,18 +56,33 @@ namespace Dynamo.Applications
         throw new Exception(string.Format("The location of the assembly, {0} could not be resolved for loading.", assemblyPath), ex);
       }
     }
-	}
-  internal class DynamoLocator
+  }
+
+  internal class ProductLocator
   {
-    public static string GetCorePath()
+    private static readonly string DynamoProductName = "Dynamo Core 1.0";
+
+    public static string GetDynamoCorePath()
     {
-      var corePaths = GetDynamoInstalls();
+      var corePaths = GetInstallsFor(DynamoProductName);
       if (corePaths.ToArray().Length > 0)
         return corePaths.ToArray()[0];
 
       return string.Empty;
     }
-    static IEnumerable<string> GetDynamoInstalls()
+
+    public static string GetACADCorePath()
+    {
+      string acadExePath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+      return System.IO.Path.GetDirectoryName(acadExePath);
+      //var corePaths = GetInstallsFor(AcadProductName);
+      //if (corePaths.ToArray().Length > 0)
+      //  return corePaths.ToArray()[0];
+
+      //return string.Empty;
+    }
+
+    private static IEnumerable<string> GetInstallsFor(string productName)
     {
       const string regKey64 = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\";
       //Open HKLM for 64bit registry
@@ -81,7 +91,7 @@ namespace Dynamo.Applications
       regKey = regKey.OpenSubKey(regKey64);
 
       //Get "InstallLocation" value as string for all the subkey that starts with "Dynamo"
-      return regKey.GetSubKeyNames().Where(s => s.StartsWith("Autodesk Dynamo Studio 2016")).Select(
+      return regKey.GetSubKeyNames().Where(s => s.StartsWith(productName)).Select(
           (s) => regKey.OpenSubKey(s).GetValue("InstallLocation") as string);
     }
   }

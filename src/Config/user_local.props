@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<OutputPath Condition=" '$(OutputPath)' == '' ">$(SolutionDir)\..\bin\AnyCPU\$(Configuration)</OutputPath>
+    <DYNAMOAPI  Condition=" '$(DYNAMOAPI)' == '' ">$(SolutionDir)..\..\Dynamo-RC1.0.0_master\bin\$(Platform)\$(Configuration)</DYNAMOAPI>
+	<ADVANCESTEELAPI  Condition=" '$(ADVANCESTEELAPI)' == '' ">C:\Program Files\Autodesk\Advance Steel 2017</ADVANCESTEELAPI>
+	<ACADAPI  Condition=" '$(ACADAPI)' == '' ">C:\Program Files\Autodesk\AutoCAD 2017</ACADAPI>
+  </PropertyGroup>
+</Project>

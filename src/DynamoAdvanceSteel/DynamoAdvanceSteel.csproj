@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)Config/CS.props" />
+  </ImportGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -9,7 +11,6 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dynamo.Applications</RootNamespace>
     <AssemblyName>DynamoAdvanceSteel</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -21,24 +22,24 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\AdvanceSteel\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Prefer32Bit>false</Prefer32Bit>
+    <OutputPath>..\..\bin\AnyCPU\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\AdvanceSteel\</OutputPath>
     <DefineConstants>
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
+    <OutputPath>..\..\bin\AnyCPU\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="accoremgd">
@@ -53,32 +54,32 @@
       <HintPath>$(ACADAPI)\acmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASCADLinkMgd20x64">
-      <HintPath>$(ADVANCESTEELAPI)\ASCADLinkMgd.dll</HintPath>
+    <Reference Include="AdWindows">
+      <HintPath>$(ACADAPI)\AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASGeometryMgd64">
-      <HintPath>$(ADVANCESTEELAPI)\ASGeometryMgd.dll</HintPath>
+    <Reference Include="ASCADLinkMgd">
+      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASCADLinkMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASMgd20x64">
-      <HintPath>$(ADVANCESTEELAPI)\ASMgd.dll</HintPath>
+    <Reference Include="ASGeometryMgd">
+      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASGeometryMgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASMgd">
+      <HintPath>$(ADVANCESTEELAPI)\Kernel\Bin\ASMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASObjectsMgd">
-      <HintPath>$(ADVANCESTEELAPI)\ASObjectsMgd.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASObjectsMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASNETPluginsPlayer">
-      <HintPath>$(ADVANCESTEELAPI)\ASNETPluginsPlayer.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASNETPluginsPlayer.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASNetRuntime">
-      <HintPath>$(ADVANCESTEELAPI)\ASNetRuntime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ASProfilesMgd64">
-      <HintPath>$(ADVANCESTEELAPI)\ASProfilesMgd.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASNetRuntime.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DSCoreNodes">
@@ -99,6 +100,10 @@
       <HintPath>$(DYNAMOAPI)\DynamoCoreWpf.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DynamoShapeManager">
+      <HintPath>$(DYNAMOAPI)\DynamoShapeManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="DynamoCore">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(DYNAMOAPI)\DynamoCore.dll</HintPath>
@@ -114,8 +119,12 @@
       <HintPath>$(DYNAMOAPI)\DynamoUtilities.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FSharp.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Dynamic, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL" />
+    <Reference Include="FSharp.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Dynamic, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(DYNAMOAPI)\Microsoft.Practices.Prism.dll</HintPath>
@@ -124,6 +133,7 @@
     <Reference Include="Microsoft.Scripting, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(DYNAMOAPI)\Microsoft.Scripting.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -157,25 +167,32 @@
   <ItemGroup>
     <Compile Include="AdvanceSteelModel.cs" />
     <Compile Include="AdvanceSteelPathResolver.cs" />
+    <Compile Include="DynamoASUtils.cs" />
     <Compile Include="SchedulerThread.cs" />
-    <Compile Include="Properties\AssemblySharedInfo.cs" />
+    <Compile Include="$(SolutionDir)AssemblySharedInfoGenerator\AssemblySharedInfo.cs">
+      <Link>Properties\AssemblySharedInfo.cs</Link>
+    </Compile>
     <Compile Include="DynamoAdvanceSteelApplication.cs" />
     <Compile Include="CommandClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AsNodes\AsNodes.csproj">
+    <ProjectReference Include="..\AdvanceSteelNodes\AdvanceSteelNodes.csproj">
       <Project>{785bb90b-886c-411d-8d34-8f85e9479a9c}</Project>
-      <Name>AsNodes</Name>
+      <Name>AdvanceSteelNodes</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\AsServicies\AsServices.csproj">
+    <ProjectReference Include="..\AdvanceSteelServices\AdvanceSteelServices.csproj">
       <Project>{00ed013f-0b34-4a79-9760-a21fd14d4bd5}</Project>
-      <Name>AsServices</Name>
+      <Name>AdvanceSteelServices</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,38 +1,33 @@
-﻿using System;
+﻿using Dynamo.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
-using Dynamo.Interfaces;
-
 
 namespace Dynamo.Applications
 {
-    class AdvanceSteelPathResolver : IPathResolver
+  internal class AdvanceSteelPathResolver : IPathResolver
+  {
+    private readonly List<string> preloadLibraryPaths;
+    private readonly List<string> additionalNodeDirectories;
+    private readonly List<string> additionalResolutionPaths;
+
+    internal AdvanceSteelPathResolver()
     {
-        private readonly List<string> preloadLibraryPaths;
-        private readonly List<string> additionalNodeDirectories;
-        private readonly List<string> additionalResolutionPaths;
+      string addinDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-        internal AdvanceSteelPathResolver()
-        {
-          string addinDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+      // so we have to walk up one level.
+      var currentAssemblyPath = Assembly.GetExecutingAssembly().Location;
+      var currentAssemblyDir = Path.GetDirectoryName(currentAssemblyPath);
 
-          // so we have to walk up one level.
-          var currentAssemblyPath = Assembly.GetExecutingAssembly().Location;
-          var currentAssemblyDir = Path.GetDirectoryName(currentAssemblyPath);
+      var nodesDirectory = addinDir;
+      var nodesDll = Path.Combine(nodesDirectory, "AdvanceSteelNodes.dll");
 
-          var nodesDirectory = addinDir;
-          var nodesDll = Path.Combine(nodesDirectory, "AsNodes.dll");
+      // Just making sure we are looking at the right level of nesting.
+      if (!Directory.Exists(nodesDirectory))
+        throw new DirectoryNotFoundException(nodesDirectory);
 
-            // Just making sure we are looking at the right level of nesting.
-            if (!Directory.Exists(nodesDirectory))
-                throw new DirectoryNotFoundException(nodesDirectory);
-
-            // Add Revit-specific library paths for preloading.
-            preloadLibraryPaths = new List<string>
+      // Add Revit-specific library paths for preloading.
+      preloadLibraryPaths = new List<string>
             {
                 "VMDataBridge.dll",
                 "ProtoGeometry.dll",
@@ -45,40 +40,41 @@ namespace Dynamo.Applications
                 "DynamoUnits.dll",
                 "Tessellation.dll",
                 "Analysis.dll",
+                "Display.dll",
 
                 nodesDll
             };
 
-            // Add an additional node processing folder
-            additionalNodeDirectories = new List<string> { nodesDirectory };
+      // Add an additional node processing folder
+      additionalNodeDirectories = new List<string> { nodesDirectory };
 
-            // Add the Revit_20xx folder for assembly resolution
-            additionalResolutionPaths = new List<string> { currentAssemblyDir };
-        }
-
-        public IEnumerable<string> AdditionalNodeDirectories
-        {
-            get { return additionalNodeDirectories; }
-        }
-
-        public IEnumerable<string> AdditionalResolutionPaths
-        {
-            get { return additionalResolutionPaths; }
-        }
-
-        public IEnumerable<string> PreloadedLibraryPaths
-        {
-            get { return preloadLibraryPaths; }
-        }
-
-        public string UserDataRootFolder
-        {
-            get { return string.Empty; }
-        }
-
-        public string CommonDataRootFolder
-        {
-            get { return string.Empty; }
-        }
+      // Add the Revit_20xx folder for assembly resolution
+      additionalResolutionPaths = new List<string> { currentAssemblyDir };
     }
+
+    public IEnumerable<string> AdditionalNodeDirectories
+    {
+      get { return additionalNodeDirectories; }
+    }
+
+    public IEnumerable<string> AdditionalResolutionPaths
+    {
+      get { return additionalResolutionPaths; }
+    }
+
+    public IEnumerable<string> PreloadedLibraryPaths
+    {
+      get { return preloadLibraryPaths; }
+    }
+
+    public string UserDataRootFolder
+    {
+      get { return string.Empty; }
+    }
+
+    public string CommonDataRootFolder
+    {
+      get { return string.Empty; }
+    }
+  }
 }

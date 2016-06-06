@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <ComponentGroup Id="SampleFiles">
+      <ComponentRef Id="Surface_Saddle.dyn" />      
+      <ComponentRef Id="Surface_Revolved.dyn" />      
+      <ComponentRef Id="Surface_Rectangular.dyn" />      
+      <ComponentRef Id="Structure_PortalFrame.dyn" />      
+      <ComponentRef Id="Structure_Circus.dyn" />      
+      <ComponentRef Id="Structure_CircularTower.dyn" />
+      <ComponentRef Id="Structure_Bridge.dyn" />       
+    </ComponentGroup>
+  </Fragment>   
+
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+      <Component Id="Surface_Saddle.dyn" Guid="{E9822729-61F6-4DA7-890D-DB2A77E8BCCC}" Win64="yes">
+        <File Id="Surface_Saddle.dyn" Name="Surface_Saddle.dyn" KeyPath="yes">
+          <CopyFile Id="app_Surface_Saddle.dyn" DestinationProperty="ASSamples" />
+        </File>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+      <Component Id="Surface_Revolved.dyn" Guid="{53384550-C330-46DC-A122-183ECB8C0701}" Win64="yes">
+        <File Id="Surface_Revolved.dyn" Name="Surface_Revolved.dyn" KeyPath="yes">
+          <CopyFile Id="app_Surface_Revolved.dyn" DestinationProperty="ASSamples" />
+        </File>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+      <Component Id="Surface_Rectangular.dyn" Guid="{CCD57ECD-7BDA-4318-BA79-FBF48AE1116E}" Win64="yes">
+        <File Id="Surface_Rectangular.dyn" Name="Surface_Rectangular.dyn" KeyPath="yes">
+          <CopyFile Id="app_Surface_Rectangular.dyn" DestinationProperty="ASSamples" />
+        </File>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+      <Component Id="Structure_PortalFrame.dyn" Guid="{94C4903D-F5A5-4009-8D80-DF575EBB5065}" Win64="yes">
+        <File Id="Structure_PortalFrame.dyn" Name="Structure_PortalFrame.dyn" KeyPath="yes">
+          <CopyFile Id="app_Structure_PortalFrame.dyn" DestinationProperty="ASSamples" />
+        </File>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+      <Component Id="Structure_Circus.dyn" Guid="{110A3E45-4C70-4C9F-8181-EFF6F7394590}" Win64="yes">
+        <File Id="Structure_Circus.dyn" Name="Structure_Circus.dyn" KeyPath="yes">
+          <CopyFile Id="app_Structure_Circus.dyn" DestinationProperty="ASSamples" />
+        </File>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+      <Component Id="Structure_CircularTower.dyn" Guid="{D87C876B-0AB6-4C8E-BB51-8C42381CB195}" Win64="yes">
+        <File Id="Structure_CircularTower.dyn" Name="Structure_CircularTower.dyn" KeyPath="yes">
+          <CopyFile Id="app_Structure_CircularTower.dyn" DestinationProperty="ASSamples" />
+        </File>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+      <Component Id="Structure_Bridge.dyn" Guid="{951AA9C5-A7DF-4303-896D-C1A3BFF6DC89}" Win64="yes">
+        <File Id="Structure_Bridge.dyn" Name="Structure_Bridge.dyn" KeyPath="yes">
+          <CopyFile Id="app_Structure_Bridge.dyn" DestinationProperty="ASSamples" />
+        </File>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  
+</Wix>

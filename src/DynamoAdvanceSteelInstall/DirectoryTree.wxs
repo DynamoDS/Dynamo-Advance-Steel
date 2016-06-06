@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <!-- TODO: Put your code here. -->
+    <DirectoryRef Id="TARGETDIR">
+      <Directory Id="ProgramFiles64Folder" Name="Program Files x64">
+        <Directory Id="DynamoFolder" Name="Dynamo">
+          <Directory Id="DynamoCoreFolder" Name="Dynamo Core">
+            <Directory Id="INSTALLDIR" Name="!(bind.property.DYNAMO_VERSION)"> <!--this value is set by "ConfigureInstallLocationProperty" customaction-->
+              <Directory Id="AdvanceSteelDynamo" Name="Advance Steel !(bind.property.AS_VERSION) Dynamo Add-in">
+                <Directory Id="AdvanceSteelSamples" Name="Samples" />
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+        <Directory Id="AdvanceSteelLocation" Name="Advance Steel 2017">
+          <Directory Id="ThirdPartyLocation" Name="ThirdPartySettings">
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="CommonAppDataFolder">
+        <Directory Id="DYNAMOASAPPDATA" Name="Dynamo">
+          <Directory Id="DynamoCoreAppDataFolder" Name="Dynamo Core">
+            <Directory Id="verFolder" Name="!(bind.property.DYNAMO_VERSION)">
+              <Directory Id="DynSamples" Name="samples">              
+                  <Directory Id="Language" Name="en-US">
+                    <Directory Id="ASSamples" Name="Advance Steel"/>
+                </Directory>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

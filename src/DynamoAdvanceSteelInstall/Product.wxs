@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="{A0A1A73C-9DBB-4188-B8C1-4053967D74AA}" Name="Advance Steel 2017 Dynamo Add-in" Language="1033" Version="1.0.0" Manufacturer="Autodesk" UpgradeCode="{83219DEF-433D-4E90-962B-61DC82C3F45F}">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
+    <MajorUpgrade Schedule="afterInstallInitialize" DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Property Id="ARPNOMODIFY">1</Property>
+    <Property Id="AS_VERSION">2017</Property>
+    <Property Id="DYNAMO_VERSION">1.0</Property>
+    
+    <InstallExecuteSequence>
+      <RegisterClassInfo />
+      <RegisterProgIdInfo />
+      <Custom Action="ConfigureInstallLocationProperty" Before="CostFinalize" />
+      <Custom Action="ConfigureAdvanceSteelLocationProperty" After="ConfigureInstallLocationProperty" />
+    </InstallExecuteSequence>
+
+    <CustomAction Id="ConfigureInstallLocationProperty" Property="INSTALLDIR" Value="[DYNAMOLOCATION]" />
+    <CustomAction Id="ConfigureAdvanceSteelLocationProperty" Property="AdvanceSteelLocation" Value="[ADVANCESTEELLOCATION]" />
+    
+    <Property Id="DYNAMOLOCATION">
+      <RegistrySearch Id="DynamoRegistry" Type="raw" Win64="yes" Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Dynamo Core [DYNAMO_VERSION]" Name="InstallLocation" />
+    </Property>
+    
+    <Property Id="ADVANCESTEELLOCATION">
+      <RegistrySearch Id="AdvanceSteelRegistry" Type="raw" Win64="yes" Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Autodesk Advance Steel [AS_VERSION]" Name="InstallLocation" />
+    </Property>
+
+    <Condition Message="This application requires Advance Steel [AS_VERSION]. Please install Advance Steel [AS_VERSION] then run this installer again."><![CDATA[Installed OR ADVANCESTEELLOCATION]]></Condition>
+    
+    <Condition Message="This application requires Dynamo [DYNAMO_VERSION]. Please install Dynamo [DYNAMO_VERSION] then run this installer again."><![CDATA[Installed OR DYNAMOLOCATION]]></Condition>
+    
+    <Icon Id="AS_Dyn_plug_in.ico" SourceFile="$(var.solPath)\tools\Extra\AS_Dyn_plug_in.ico" />
+    
+    <Property Id="ARPPRODUCTICON" Value="AS_Dyn_plug_in.ico" />
+    
+    <Feature Id="ASFeature">
+      <ComponentGroupRef Id="ASFiles"/>
+      <ComponentGroupRef Id ="SampleFiles"/>      
+    </Feature>
+  </Product>
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir" >
+    </Directory>
+  </Fragment>
+</Wix>
