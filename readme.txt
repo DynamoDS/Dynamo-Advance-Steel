@@ -1,5 +1,8 @@
 
-Build
+This repository contains the source files of DynamoAdvanceSteel addin, that connects Dynamo with Advance Steel.
+
+
+How to build the sources:
 
 1. To build the sources you need to have on your machine installed:
 - Visual Studio 2013
@@ -12,7 +15,7 @@ Build
 3. Open in visual studio \src\All.sln, build the solution and register DynamoAdvanceSteel.dll as an addin of Advance Steel(see Register Addin section of Advance Steel docs: http://help.autodesk.com/view/ADSTPR/2017/ENU/?guid=GUID-A4DA627E-6680-4388-9C04-79F5F3D9D075)
 
 
-Build the install
+How to build the install:
 
 1. To build the msi you need to have on your machine Wix v3.7
 2. Build \src\All.sln
