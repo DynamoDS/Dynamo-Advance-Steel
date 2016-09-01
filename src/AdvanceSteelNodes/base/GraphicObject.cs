@@ -4,7 +4,7 @@ using Autodesk.DesignScript.Runtime;
 namespace AdvanceSteel.Nodes
 {
   /// <summary>
-  /// this represents the Advance Steel Objects as graphical objects
+  /// This represents the Advance Steel Objects as graphical objects
   /// </summary>
   [IsVisibleInDynamoLibrary(false)]
   public abstract class GraphicObject : Object, IGraphicItem

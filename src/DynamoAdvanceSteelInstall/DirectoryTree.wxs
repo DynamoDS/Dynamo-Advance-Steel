@@ -7,7 +7,7 @@
         <Directory Id="DynamoFolder" Name="Dynamo">
           <Directory Id="DynamoCoreFolder" Name="Dynamo Core">
             <Directory Id="INSTALLDIR" Name="!(bind.property.DYNAMO_VERSION)"> <!--this value is set by "ConfigureInstallLocationProperty" customaction-->
-              <Directory Id="AdvanceSteelDynamo" Name="Advance Steel !(bind.property.AS_VERSION) Dynamo Add-in">
+              <Directory Id="AdvanceSteelDynamo" Name="Dynamo Extension for Autodesk Advance Steel !(bind.property.AS_VERSION)">
                 <Directory Id="AdvanceSteelSamples" Name="Samples" />
               </Directory>
             </Directory>

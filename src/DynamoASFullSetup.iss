@@ -3,7 +3,7 @@
 
 #define ProductPublisher "Autodesk, Inc."
 #define ProductURL "http://www.autodesk.com/"
-#define ProductName "Advance Steel 2017 Dynamo Add-in"
+#define ProductName "Dynamo Extension for Autodesk® Advance Steel 2017"
 #define ProductVersion "1.0.0"
 
 [Setup]
@@ -24,8 +24,8 @@ SourceDir=..\setup\installers
 LicenseFile=Readme.rtf
 InfoBeforeFile=BeforeInstall.txt
 OutputDir=..\
-OutputBaseFilename=AS2017AddinWithDynamoCore
-SetupIconFile=..\..\tools\Extra\AS_Dyn_plug_in.ico
+OutputBaseFilename=DynamoForAdvanceSteel2017WithDynamoCore
+SetupIconFile=..\..\tools\Extra\W16_DYNADST_launch.ico
 CreateUninstallRegKey=no
 ;UninstallFilesDir={tmp}\Uninstall
 ;UninstallDisplayIcon={tmp}\logo_square_32x32.ico
@@ -40,18 +40,18 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 ;Core Files
 [Files]
 Source: DynamoCore.msi; DestDir: {tmp}; 
-Source: AdvanceSteel2017DynamoAddin.msi; DestDir: {tmp}; 
+Source: DynamoForAdvanceSteel2017.msi; DestDir: {tmp}; 
 Source: IronPython-2.7.3.msi; DestDir: {tmp};  
 Source: fsharp_redist.exe; DestDir: {tmp}; 
 ;Flags: deleteafterinstall;
 ;Source: README.txt; DestDir: {tmp}\; Flags: onlyifdoesntexist isreadme ignoreversion;
 
 ;Icon
-Source: ..\..\tools\Extra\AS_Dyn_plug_in.ico; DestDir: {tmp}; Flags: ignoreversion overwritereadonly;
+Source: ..\..\tools\Extra\W16_DYNADST_launch.ico; DestDir: {tmp}; Flags: ignoreversion overwritereadonly;
 
 [Run]
 Filename: "msiexec.exe"; Parameters: "/i ""{tmp}\DynamoCore.msi"" /qn"; 
-Filename: "msiexec.exe"; Parameters: "/i ""{tmp}\AdvanceSteel2017DynamoAddin.msi"" /qn";
+Filename: "msiexec.exe"; Parameters: "/i ""{tmp}\DynamoForAdvanceSteel2017.msi"" /qn";
 Filename: "msiexec.exe"; Parameters: "/i ""{tmp}\IronPython-2.7.3.msi"" /qn";
 Filename: "msiexec.exe"; Parameters: "/i ""{tmp}\fsharp_redist.exe"" /qn";     
 

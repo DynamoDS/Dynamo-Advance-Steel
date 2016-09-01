@@ -60,7 +60,7 @@ namespace Dynamo.Applications
 
   internal class ProductLocator
   {
-    private static readonly string DynamoProductName = "Dynamo Core 1.0";
+    private static readonly string DynamoProductName = "Dynamo Core 1.1";
 
     public static string GetDynamoCorePath()
     {

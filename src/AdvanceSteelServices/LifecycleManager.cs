@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace AdvanceSteel.Services
 {
   /// <summary>
-  /// used to manage the life of Advance Steel objects
+  /// Used to manage the life of Advance Steel objects
   /// </summary>
   /// <typeparam name="T"></typeparam>
   public class LifecycleManager<T>
@@ -122,7 +122,7 @@ namespace AdvanceSteel.Services
     }
 
     /// <summary>
-    /// Checks whether an element has been deleted in AdvanceSteel
+    /// Checks whether an element has been deleted in Advance Steel
     /// </summary>
     /// <param name="handle"></param>
     /// <returns></returns>
