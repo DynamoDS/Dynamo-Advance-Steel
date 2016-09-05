@@ -65,6 +65,8 @@ Filename: "msiexec.exe"; Parameters: "/i ""{tmp}\fsharp_redist.exe"" /qn";
 
 [Code]
 function InitializeSetup: Boolean;
+var 
+  ResultCode: Integer;
 begin
   // allow the setup to continue initially
   Result := True;
@@ -74,5 +76,16 @@ begin
     Result := False;
     // and display a message box
     MsgBox('This application requires Advance Steel 2017. Please install Advance Steel 2017 then run this installer again.', mbError, MB_OK);
+    exit;
+  end;
+  
+  if RegKeyExists(HKLM64, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{A0A1A73C-9DBB-4188-B8C1-4053967D74AA}') or RegKeyExists(HKLM, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{A0A1A73C-9DBB-4188-B8C1-4053967D74AA}') then
+  begin
+    // return False to prevent installation to continue
+    Result := False;
+    // uninstall the previous version if found
+    if MsgBox('You need to uninstall the previous version of this software. Do you want to continue?', mbConfirmation, MB_YESNO) = IDYES then
+      if Exec('MsiExec.exe', '/X{A0A1A73C-9DBB-4188-B8C1-4053967D74AA} /PASSIVE','', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+         Result := True;
   end;
 end;
