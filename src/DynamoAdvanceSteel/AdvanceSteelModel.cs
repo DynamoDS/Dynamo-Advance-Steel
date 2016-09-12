@@ -36,6 +36,7 @@ namespace Dynamo.Applications.Models
     {
       DisposeLogic.IsShuttingDown = false;
 
+      MigrationManager.MigrationTargets.Add(typeof(WorkspaceMigrationsAdvanceSteel));
       //SetupPython();
     }
 

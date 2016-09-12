@@ -5,7 +5,7 @@ using System;
 namespace AdvanceSteel.Nodes
 {
   /// <summary>
-  /// this is the equivalent of Advance Steel object in Dynamo
+  /// This is the equivalent of an Advance Steel object in Dynamo
   /// </summary>
   [IsVisibleInDynamoLibrary(false)]
   public abstract class Object : IDisposable, IGraphicItem, IFormattable
@@ -14,7 +14,7 @@ namespace AdvanceSteel.Nodes
     internal readonly object myLock = new object();
 
     /// <summary>
-    /// property that holds the handle of the object
+    /// Property that holds the handle of the object
     /// </summary>
     [IsVisibleInDynamoLibrary(false)]
     public string Handle

@@ -4,7 +4,7 @@ using System;
 namespace AdvanceSteel.Services.ObjectAccess
 {
   /// <summary>
-  /// used to manage the documents locking and transactions while accessing advance steel objects
+  /// Used to manage the documents locking and transactions while accessing Advance Steel objects
   /// </summary>
   public class CADContext : IDisposable
   {

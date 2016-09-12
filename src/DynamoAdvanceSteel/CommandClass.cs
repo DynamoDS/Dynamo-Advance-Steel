@@ -11,7 +11,7 @@ using MessageBox = System.Windows.Forms.MessageBox;
 namespace Dynamo.Applications
 {
   /// <summary>
-  /// class that contains the definition for the command that is exposed in AutoCAD
+  /// Class that contains the definition for the command that is exposed in AutoCAD
   /// </summary>
   public class CommandClass
   {

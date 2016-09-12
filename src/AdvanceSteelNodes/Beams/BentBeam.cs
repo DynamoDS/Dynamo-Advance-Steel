@@ -7,7 +7,7 @@ using Autodesk.DesignScript.Runtime;
 namespace AdvanceSteel.Nodes.Beams
 {
   /// <summary>
-  /// An AdvanceSteel Bent Beam
+  /// Advance Steel bent beam
   /// </summary>
   [DynamoServices.RegisterForTrace]
   public class BentBeam : GraphicObject
@@ -47,7 +47,7 @@ namespace AdvanceSteel.Nodes.Beams
             Utils.SetOrientation(beam, Utils.ToAstVector3d(vOrientation, true));
           }
           else
-            throw new System.Exception("Not a BentBeam");
+            throw new System.Exception("Not a bent Beam");
 
           Handle = handle;
 
@@ -56,15 +56,15 @@ namespace AdvanceSteel.Nodes.Beams
       }
     }
 
-    /// <summary>
-    /// Create an advance steel bent beam between two points and a point on arc
-    /// </summary>
-    /// <param name="start"></param>
-    /// <param name="end"></param>
-    /// <param name="ptOnArc"></param>
-    /// <param name="section orientation"></param>
-    /// <returns></returns>
-    public static BentBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector vOrientation)
+		/// <summary>
+		/// Create an Advance Steel bent beam between two points and a point on arc
+		/// </summary>
+		/// <param name="start">Start point</param>
+		/// <param name="end">End point</param>
+		/// <param name="ptOnArc">Point on arc</param>
+		/// <param name="vOrientation">Section orientation</param>
+		/// <returns></returns>
+		public static BentBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector vOrientation)
     {
       return new BentBeam(start, end, ptOnArc, vOrientation);
     }

@@ -4,8 +4,8 @@ using Autodesk.DesignScript.Runtime;
 
 namespace AdvanceSteel.Nodes.Plates
 {
-  /// <summary>DynamoServices
-  /// An AdvanceSteel Plate
+  /// <summary>
+  /// Advance Steel plate
   /// </summary>
   [DynamoServices.RegisterForTrace]
   public class Plate : GraphicObject
@@ -56,7 +56,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// <summary>
     /// Create an Advance Steel plate
     /// </summary>
-    /// <param name="poly"></param>
+    /// <param name="poly">Input polygon</param>
     /// <returns></returns>
     public static Plate ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly)
     {
