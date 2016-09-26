@@ -4,7 +4,7 @@
 #define ProductPublisher "Autodesk, Inc."
 #define ProductURL "http://www.autodesk.com/"
 #define ProductName "Dynamo Extension for Autodesk® Advance Steel 2017"
-#define ProductVersion "1.0.0"
+#define ProductVersion "1.1.0.0"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -24,7 +24,7 @@ SourceDir=..\setup\installers
 LicenseFile=Readme.rtf
 InfoBeforeFile=BeforeInstall.txt
 OutputDir=..\
-OutputBaseFilename=DynamoForAdvanceSteel2017WithDynamoCore
+OutputBaseFilename=DynamoForAdvanceSteel2017_1100EC
 SetupIconFile=..\..\tools\Extra\W16_DYNADST_launch.ico
 CreateUninstallRegKey=no
 ;UninstallFilesDir={tmp}\Uninstall

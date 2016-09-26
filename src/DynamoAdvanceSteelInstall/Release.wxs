@@ -15,6 +15,9 @@
     <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)" >
       <Component Id="AdvanceSteelNodes.dll" Guid="{27AC94E5-BCBC-4333-9FE5-7BA9013EF943}" Win64="yes">
         <File Id="AdvanceSteelNodes.dll" Name="AdvanceSteelNodes.dll" KeyPath="yes" />
+				<RegistryKey Id="ASRegistry" Root="HKLM" Action="create" Key="Software\Autodesk\DynamoExtensionForAdvanceSteel">
+					<RegistryValue Action="write" Name="DynamoExtensionForAdvanceSteel" Type="string" Value="[ProductName]"/>
+				</RegistryKey>
       </Component>
     </DirectoryRef>
   </Fragment>
