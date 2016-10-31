@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyCompany("Autodesk, Inc")]
 [assembly: AssemblyProduct("Dynamo")]
-[assembly: AssemblyCopyright("Copyright © Autodesk, Inc 2014")]
+[assembly: AssemblyCopyright("Copyright © Autodesk, Inc 2016")]
 [assembly: AssemblyTrademark("")]
 
 // Make it easy to distinguish Debug and Release (i.e. Retail) builds;
@@ -35,7 +35,7 @@ using System.Runtime.InteropServices;
 // to distinguish one build from another. AssemblyFileVersion is specified
 // in AssemblyVersionInfo.cs so that it can be easily incremented by the
 // automated build process.
-[assembly: AssemblyVersion("1.0.1.2444")]
+[assembly: AssemblyVersion("1.2.0.3044")]
 
 
 // By default, the "Product version" shown in the file properties window is
@@ -54,4 +54,4 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("1.0.1.2444")]
+[assembly: AssemblyFileVersion("1.2.0.3044")]

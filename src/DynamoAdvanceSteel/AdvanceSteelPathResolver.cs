@@ -10,8 +10,10 @@ namespace Dynamo.Applications
     private readonly List<string> preloadLibraryPaths;
     private readonly List<string> additionalNodeDirectories;
     private readonly List<string> additionalResolutionPaths;
+		private readonly string userDataRootFolder;
+		private readonly string commonDataRootFolder;
 
-    internal AdvanceSteelPathResolver()
+		internal AdvanceSteelPathResolver(string userDataFolder, string commonDataFolder)
     {
       string addinDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
@@ -50,7 +52,9 @@ namespace Dynamo.Applications
 
       // Add the Revit_20xx folder for assembly resolution
       additionalResolutionPaths = new List<string> { currentAssemblyDir };
-    }
+			userDataRootFolder = userDataFolder;
+			commonDataRootFolder = commonDataFolder;
+		}
 
     public IEnumerable<string> AdditionalNodeDirectories
     {
@@ -74,7 +78,9 @@ namespace Dynamo.Applications
 
     public string CommonDataRootFolder
     {
-      get { return string.Empty; }
+      get {
+				return Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel");
+			}
     }
-  }
+	}
 }

@@ -1,36 +1,41 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Fragment>
-    <!-- TODO: Put your code here. -->
-    <DirectoryRef Id="TARGETDIR">
-      <Directory Id="ProgramFiles64Folder" Name="Program Files x64">
-        <Directory Id="DynamoFolder" Name="Dynamo">
-          <Directory Id="DynamoCoreFolder" Name="Dynamo Core">
-            <Directory Id="INSTALLDIR" Name="!(bind.property.DYNAMO_VERSION)"> <!--this value is set by "ConfigureInstallLocationProperty" customaction-->
-              <Directory Id="AdvanceSteelDynamo" Name="Dynamo Extension for Autodesk Advance Steel !(bind.property.AS_VERSION)">
-                <Directory Id="AdvanceSteelSamples" Name="Samples" />
-              </Directory>
-            </Directory>
-          </Directory>
-        </Directory>
-        <Directory Id="AdvanceSteelLocation" Name="Advance Steel 2017">
-          <Directory Id="ThirdPartyLocation" Name="ThirdPartySettings">
-          </Directory>
-        </Directory>
-      </Directory>
-      <Directory Id="CommonAppDataFolder">
-        <Directory Id="DYNAMOASAPPDATA" Name="Dynamo">
-          <Directory Id="DynamoCoreAppDataFolder" Name="Dynamo Core">
-            <Directory Id="verFolder" Name="!(bind.property.DYNAMO_VERSION)">
-              <Directory Id="DynSamples" Name="samples">              
-                  <Directory Id="Language" Name="en-US">
-                    <Directory Id="ASSamples" Name="Advance Steel"/>
-                </Directory>
-              </Directory>
-            </Directory>
-          </Directory>
-        </Directory>
-      </Directory>
-    </DirectoryRef>
-  </Fragment>
+	
+	<Fragment>
+		
+		<Directory Id="TARGETDIR" Name="SourceDir"/>
+		
+		<DirectoryRef Id="TARGETDIR" >
+			
+			<!--Dynamo Extension for Advance Steel Installation Folder-->
+			<Directory Id="INSTALLDIR">
+				<Directory Id="DynamoAdvanceSteel" Name="Dynamo Advance Steel">
+					<Directory Id="AdvanceSteelDynamo" Name="!(bind.property.AS_VERSION)"/>
+				</Directory>
+			</Directory>
+			
+			<!--Advance Steel 2017 Installation Folder-->
+			<Directory Id="AdvanceSteelLocation" Name="Advance Steel 2017">
+				<Directory Id="ThirdPartyLocation" Name="ThirdPartySettings">
+				</Directory>
+			</Directory>
+
+			<!--Advance Steel 2017 Installation Folder-->
+			<Directory Id="CommonAppDataFolder">
+				<Directory Id="DYNAMOASAPPDATA" Name="Dynamo">
+					<Directory Id="DynamoASAppDataFolder" Name="Dynamo Advance Steel">
+						<Directory Id="DynSamples" Name="samples">
+							<Directory Id="Language" Name="en-US">
+								<Directory Id="BasicsSamples" Name="Basics"/>
+								<Directory Id="StructuresSamples" Name="Structures"/>
+							</Directory>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+		
+		</DirectoryRef>
+		
+	</Fragment>
+
 </Wix>

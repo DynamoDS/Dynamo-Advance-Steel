@@ -24,8 +24,8 @@ namespace Dynamo.Applications
     {
       try
       {
-        //disable document switch while dynamo is open
-        //Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.DocumentActivationEnabled = false;
+				//disable document switch while dynamo is open
+				//Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.DocumentActivationEnabled = false;
 
         InitializeCore();
 
@@ -47,15 +47,17 @@ namespace Dynamo.Applications
     private static AdvanceSteelModel InitializeCoreModel()
     {
       string corePath = DynamoAdvanceSteelApplication.DynamoCorePath;
-      return AdvanceSteelModel.Start(
+			var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dynamo", "Dynamo Advance Steel");
+			var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel");
+
+			return AdvanceSteelModel.Start(
           new Dynamo.Models.DynamoModel.DefaultStartConfiguration()
           {
             GeometryFactoryPath = GeometryFactoryPath,
-                  //Preferences = prefs,
-                  DynamoCorePath = corePath,
+            DynamoCorePath = corePath,
             SchedulerThread = new SchedulerThread(),
-            PathResolver = new AdvanceSteelPathResolver()
-          });
+            PathResolver = new AdvanceSteelPathResolver(userDataFolder, commonDataFolder)
+					});
     }
 
     private static DynamoViewModel InitializeCoreViewModel(AdvanceSteelModel advanceSteelModel)
@@ -80,8 +82,8 @@ namespace Dynamo.Applications
     {
       if (initializedCore) return;
 
-      string path = System.Environment.GetEnvironmentVariable("PATH");
-      System.Environment.SetEnvironmentVariable("PATH", path + ";" + DynamoAdvanceSteelApplication.DynamoCorePath);
+      string path = Environment.GetEnvironmentVariable("PATH");
+      Environment.SetEnvironmentVariable("PATH", path + ";" + DynamoAdvanceSteelApplication.DynamoCorePath);
 
       var preloader = new Preloader(DynamoAdvanceSteelApplication.DynamoCorePath, DynamoAdvanceSteelApplication.ACADCorePath, LibraryVersion.Version222);
       preloader.Preload();
