@@ -5,10 +5,10 @@ To build the sources:
 ------
 
 1. Prerequisites needed:
-- Visual Studio 2013;
-- Autocad 2017;
-- Advance Steel 2017 (or 2017.1);
-- Dynamo Core 1.2.0 or later;
+  - Visual Studio 2013;
+  - Autocad 2017;
+  - Advance Steel 2017 (or 2017.1);
+  - Dynamo Core 1.2.0 or later;
 
 2. Update the paths from \src\Config\user_local.props with the ones from your machine
 
@@ -21,7 +21,7 @@ To build the installer:
 ------
 
 1. Prerequisites needed:
-- Wix v3.7 or later;
+  - Wix v3.7 or later;
 
 2. Build All.sln solution;
 
