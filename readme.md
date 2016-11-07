@@ -1,8 +1,8 @@
+# Dynamo Extension for Advance Steel
 
 This repository contains the source files for the Dynamo Extension for Advance Steel, that connects Dynamo with Advance Steel.
 
-To build the sources:
-------
+### To build the sources:
 
 1. Prerequisites needed:
   - Visual Studio 2013;
@@ -14,11 +14,10 @@ To build the sources:
 
 3. Build the All.sln solution.
 
-4. Register DynamoAdvanceSteel.dll as an Addin for Advance Steel (see "Register addin" section of Advance Steel online help: http://help.autodesk.com/view/ADSTPR/2017/ENU/?guid=GUID-A4DA627E-6680-4388-9C04-79F5F3D9D075)
+4. Register DynamoAdvanceSteel.dll as an Addin for Advance Steel (see "Register addin" section of Advance Steel [online help](http://help.autodesk.com/view/ADSTPR/2017/ENU/?guid=GUID-A4DA627E-6680-4388-9C04-79F5F3D9D075))
 
 
-To build the installer:
-------
+### To build the installer:
 
 1. Prerequisites needed:
   - Wix v3.7 or later;
