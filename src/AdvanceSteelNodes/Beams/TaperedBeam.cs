@@ -7,7 +7,7 @@ using Autodesk.DesignScript.Runtime;
 namespace AdvanceSteel.Nodes.Beams
 {
 	/// <summary>
-	/// Advance Steel straight beam
+	/// Advance Steel tapered beam
 	/// </summary>
 	[DynamoServices.RegisterForTrace]
 	public class TaperedBeam : GraphicObject
@@ -56,7 +56,7 @@ namespace AdvanceSteel.Nodes.Beams
 		}
 
 		/// <summary>
-		/// Create an Advance Steel tapered
+		/// Create an Advance Steel tapered beam
 		/// </summary>
 		/// <param name="start">Start point</param>
 		/// <param name="end">End point</param>

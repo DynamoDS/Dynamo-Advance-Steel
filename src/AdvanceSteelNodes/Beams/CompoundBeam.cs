@@ -7,7 +7,7 @@ using Autodesk.DesignScript.Runtime;
 namespace AdvanceSteel.Nodes.Beams
 {
 	/// <summary>
-	/// Advance Steel straight beam
+	/// Advance Steel compound beam
 	/// </summary>
 	[DynamoServices.RegisterForTrace]
 	public class CompoundBeam : GraphicObject
