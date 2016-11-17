@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-	<DYNAMOTESTAPI Condition=" '$(DYNAMOTESTAPI)' == '' ">$(SolutionDir)..\..\Dynamo-RC1.1.0_master\bin\$(Platform)\$(Configuration)</DYNAMOTESTAPI>
+	<DYNAMOTESTAPI Condition=" '$(DYNAMOTESTAPI)' == '' ">$(SolutionDir)..\..\Dynamo-RC1.2.0_master\bin\$(Platform)\$(Configuration)</DYNAMOTESTAPI>
 	<OutputPath Condition=" '$(OutputPath)' == '' ">$(SolutionDir)\..\bin\AnyCPU\$(Configuration)</OutputPath>
-    <DYNAMOAPI  Condition=" '$(DYNAMOAPI)' == '' ">$(SolutionDir)..\..\Dynamo-RC1.1.0_master\bin\$(Platform)\$(Configuration)</DYNAMOAPI>
+    <DYNAMOAPI  Condition=" '$(DYNAMOAPI)' == '' ">$(SolutionDir)..\..\Dynamo-RC1.2.0_master\bin\$(Platform)\$(Configuration)</DYNAMOAPI>
 	<ADVANCESTEELAPI  Condition=" '$(ADVANCESTEELAPI)' == '' ">C:\Program Files\Autodesk\Advance Steel 2017</ADVANCESTEELAPI>
 	<ACADAPI  Condition=" '$(ACADAPI)' == '' ">C:\Program Files\Autodesk\AutoCAD 2017</ACADAPI>
 	<TestOutputPath Condition=" '$(TestOutputPath)' == '' ">$(OutputPath)</TestOutputPath>

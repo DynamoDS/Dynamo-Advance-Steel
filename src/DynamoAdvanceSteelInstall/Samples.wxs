@@ -10,11 +10,13 @@
 			<ComponentRef Id="RectangularSurface.dyn" />
 			<ComponentRef Id="SaddleSurface.dyn" />
 			<ComponentRef Id="RevolvedSurface.dyn" />
+			<ComponentRef Id="Beams.dyn" />
+			<ComponentRef Id="Plates.dyn" />
 		</ComponentGroup>
 	</Fragment>
 
 	<Fragment>
-		<DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+		<DirectoryRef Id="StructuresSamples" FileSource="$(var.samples)">
 			<Component Id="Bridge.dyn" Guid="{951AA9C5-A7DF-4303-896D-C1A3BFF6DC89}" Win64="yes">
 				<File Id="Bridge.dyn" Name="Bridge.dyn" KeyPath="yes">
 					<CopyFile Id="app_Bridge.dyn" DestinationProperty="ASSamples" />
@@ -24,7 +26,7 @@
 	</Fragment>
 
 	<Fragment>
-		<DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+		<DirectoryRef Id="StructuresSamples" FileSource="$(var.samples)">
 			<Component Id="CircularTower.dyn" Guid="{D87C876B-0AB6-4C8E-BB51-8C42381CB195}" Win64="yes">
 				<File Id="CircularTower.dyn" Name="CircularTower.dyn" KeyPath="yes">
 					<CopyFile Id="app_CircularTower.dyn" DestinationProperty="ASSamples" />
@@ -34,7 +36,7 @@
 	</Fragment>
 
 	<Fragment>
-		<DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+		<DirectoryRef Id="StructuresSamples" FileSource="$(var.samples)">
 			<Component Id="Circus.dyn" Guid="{110A3E45-4C70-4C9F-8181-EFF6F7394590}" Win64="yes">
 				<File Id="Circus.dyn" Name="Circus.dyn" KeyPath="yes">
 					<CopyFile Id="app_Circus.dyn" DestinationProperty="ASSamples" />
@@ -44,7 +46,7 @@
 	</Fragment>
 
 	<Fragment>
-		<DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+		<DirectoryRef Id="StructuresSamples" FileSource="$(var.samples)">
 			<Component Id="Dome.dyn" Guid="{2D1EB7F0-545F-474D-937E-884E3FA27B10}" Win64="yes">
 				<File Id="Dome.dyn" Name="Dome.dyn" KeyPath="yes">
 					<CopyFile Id="app_Dome.dyn" DestinationProperty="ASSamples" />
@@ -54,7 +56,7 @@
 	</Fragment>
 
 	<Fragment>
-		<DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+		<DirectoryRef Id="StructuresSamples" FileSource="$(var.samples)">
 			<Component Id="PortalFrame.dyn" Guid="{94C4903D-F5A5-4009-8D80-DF575EBB5065}" Win64="yes">
 				<File Id="PortalFrame.dyn" Name="PortalFrame.dyn" KeyPath="yes">
 					<CopyFile Id="app_PortalFrame.dyn" DestinationProperty="ASSamples" />
@@ -64,7 +66,7 @@
 	</Fragment>
 
 	<Fragment>
-		<DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+		<DirectoryRef Id="StructuresSamples" FileSource="$(var.samples)">
 			<Component Id="RectangularSurface.dyn" Guid="{CCD57ECD-7BDA-4318-BA79-FBF48AE1116E}" Win64="yes">
 				<File Id="RectangularSurface.dyn" Name="RectangularSurface.dyn" KeyPath="yes">
 					<CopyFile Id="app_RectangularSurface.dyn" DestinationProperty="ASSamples" />
@@ -74,7 +76,7 @@
 	</Fragment>
 
 	<Fragment>
-		<DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+		<DirectoryRef Id="StructuresSamples" FileSource="$(var.samples)">
 			<Component Id="SaddleSurface.dyn" Guid="{E9822729-61F6-4DA7-890D-DB2A77E8BCCC}" Win64="yes">
 				<File Id="SaddleSurface.dyn" Name="SaddleSurface.dyn" KeyPath="yes">
 					<CopyFile Id="app_SaddleSurface.dyn" DestinationProperty="ASSamples" />
@@ -84,7 +86,7 @@
 	</Fragment>
 
 	<Fragment>
-		<DirectoryRef Id="AdvanceSteelSamples" FileSource="$(var.samples)">
+		<DirectoryRef Id="StructuresSamples" FileSource="$(var.samples)">
 			<Component Id="RevolvedSurface.dyn" Guid="{53384550-C330-46DC-A122-183ECB8C0701}" Win64="yes">
 				<File Id="RevolvedSurface.dyn" Name="RevolvedSurface.dyn" KeyPath="yes">
 					<CopyFile Id="app_RevolvedSurface.dyn" DestinationProperty="ASSamples" />
@@ -92,5 +94,24 @@
 			</Component>
 		</DirectoryRef>
 	</Fragment>
+	
+	<Fragment>
+		<DirectoryRef Id="BasicsSamples" FileSource="$(var.samples)">
+			<Component Id="Beams.dyn" Guid="{65199CFE-B9CF-4CB9-A664-5098D654F485}" Win64="yes">
+				<File Id="Beams.dyn" Name="Beams.dyn" KeyPath="yes">
+					<CopyFile Id="app_Beams.dyn" DestinationProperty="ASSamples" />
+				</File>
+			</Component>
+		</DirectoryRef>
+	</Fragment>
 
+	<Fragment>
+		<DirectoryRef Id="BasicsSamples" FileSource="$(var.samples)">
+			<Component Id="Plates.dyn" Guid="{9B8A3F4C-157A-452B-A393-FAAD85B67D5A}" Win64="yes">
+				<File Id="Plates.dyn" Name="Plates.dyn" KeyPath="yes">
+					<CopyFile Id="app_Plates.dyn" DestinationProperty="ASSamples" />
+				</File>
+			</Component>
+		</DirectoryRef>
+	</Fragment>
 </Wix>

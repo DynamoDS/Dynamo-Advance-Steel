@@ -15,6 +15,9 @@
     <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)" >
       <Component Id="AdvanceSteelNodes.dll" Guid="{27AC94E5-BCBC-4333-9FE5-7BA9013EF943}" Win64="yes">
         <File Id="AdvanceSteelNodes.dll" Name="AdvanceSteelNodes.dll" KeyPath="yes" />
+				<RegistryKey Id="ASRegistry" Root="HKLM" ForceCreateOnInstall="yes" Key="Software\Autodesk">
+					<RegistryValue Action="write" Name="DynamoExtensionForAdvanceSteel" Type="string" Value="[ProductName]"/>
+				</RegistryKey>
       </Component>
     </DirectoryRef>
   </Fragment>
@@ -53,17 +56,6 @@
       </Component>
     </DirectoryRef>
   </Fragment>
-  <!-- this write in windows registry
-  <Fragment>
-    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\tools\Extra" >
-      <Component Id="DynamoAdvanceSteel.cuiReg" Guid="{0E86822A-83A8-4493-9813-ABDB45EF14BD}" Win64="yes" KeyPath="yes">
-        <RegistryKey  Root ="HKLM"  Key="Software\Autodesk\AdvanceSteel\2016\NETAddins\DynamoForSteel" Action="createAndRemoveOnUninstall">
-          <RegistryValue Name="CuiLocation" Type="string" Value="[AdvanceSteelDynamo]DynamoAdvanceSteel.cui" />
-        </RegistryKey>
-      </Component>
-    </DirectoryRef>
-  </Fragment>
-  -->
   <Fragment>
     <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)" >
       <Component Id="DynamoAdvanceSteel.dll" Guid="{FBC7588D-F405-4049-99EB-CB397D74567C}" Win64="yes">

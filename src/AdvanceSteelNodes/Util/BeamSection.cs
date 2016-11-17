@@ -1,6 +1,5 @@
 ﻿using Autodesk.AdvanceSteel.CADAccess;
 using Autodesk.AdvanceSteel.Modelling;
-using Autodesk.AdvanceSteel.ConstructionTypes;
 
 namespace AdvanceSteel.Nodes.Util
 {
@@ -34,7 +33,7 @@ namespace AdvanceSteel.Nodes.Util
 					string sectionType = string.Empty;
 					string sectionSize = string.Empty;
 
-					string separator = "#@" + '§' + "@#";
+					string separator = "#@§@#";
 					string[] section = sectionName.Split(new string[] { separator }, System.StringSplitOptions.None);
 
 					if (section.Length == 2)
@@ -44,12 +43,34 @@ namespace AdvanceSteel.Nodes.Util
 					}
 
 					Beam beam = obj as Beam;
+					if (obj.IsKindOf(FilerObject.eObjectType.kCompoundBeam) && !CompareCompoundSectionTypes(beam.ProfSectionType, sectionType))
+					{
+						throw new System.Exception("Failed to change section as compound section type is different");
+					}
 					beam.ChangeProfile(sectionType, sectionSize);
 				}
-
 				else
 					throw new System.Exception("Failed to change section");
 			}
+		}
+		/// <summary>
+		/// Returns a concatenated string containing the SectionType, a fixed string separator "#@§@#" and the SectionSize.
+		/// </summary>
+		/// <param name="sectionType">TypeName for a beam section</param>
+		/// <param name="sectionSize">SectionSize for a beam section</param>
+		/// <returns name="sectionName">String representing a beam section name</returns>
+		public static string CreateSectionString(string sectionType, string sectionSize)
+		{
+			string separator = "#@§@#";
+			return sectionType + separator + sectionSize;
+		}
+		private static bool CompareCompoundSectionTypes(string first, string second)
+		{
+			if (first.Equals(second) || (first.Contains("Welded") && second.Contains("Welded")) || (first.Contains("Compound") && second.Contains("Compound")) || (first.Contains("Tapered") && second.Contains("Tapered")))
+			{
+				return true;
+			}
+			return false;
 		}
 	}
 }

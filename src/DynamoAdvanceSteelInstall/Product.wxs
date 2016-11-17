@@ -1,47 +1,56 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="{65A89787-1DB4-45D1-A885-32A4A1576BCA}" Name="Dynamo Extension for Autodesk Advance Steel 2017" Language="1033" Version="1.1.0.0" Manufacturer="Autodesk" UpgradeCode="{83219DEF-433D-4E90-962B-61DC82C3F45F}">
-    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
-    <MajorUpgrade Schedule="afterInstallInitialize" DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-    <MediaTemplate EmbedCab="yes" />
+	<Product Id="{A10B7338-DB59-4A8C-8A95-6023313EF122}" Name="Dynamo Extension for Autodesk Advance Steel 2017" Language="1033" Version="1.2.0.0" Manufacturer="Autodesk" UpgradeCode="{83219DEF-433D-4E90-962B-61DC82C3F45F}">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
+		<MajorUpgrade Schedule="afterInstallInitialize" DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
 
-    <Property Id="ARPNOMODIFY">1</Property>
-    <Property Id="AS_VERSION">2017</Property>
-    <Property Id="DYNAMO_VERSION">1.1</Property>
-    
-    <InstallExecuteSequence>
-      <RegisterClassInfo />
-      <RegisterProgIdInfo />
-      <Custom Action="ConfigureInstallLocationProperty" Before="CostFinalize" />
-      <Custom Action="ConfigureAdvanceSteelLocationProperty" After="ConfigureInstallLocationProperty" />
-    </InstallExecuteSequence>
+		<Property Id="AS_VERSION">2017</Property>
+		<Property Id="ADVANCESTEELLOCATION">
+			<RegistrySearch Id="AdvanceSteelRegistry" Type="raw" Win64="yes" Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Autodesk Advance Steel [AS_VERSION]" Name="InstallLocation" />
+		</Property>
 
-    <CustomAction Id="ConfigureInstallLocationProperty" Property="INSTALLDIR" Value="[DYNAMOLOCATION]" />
-    <CustomAction Id="ConfigureAdvanceSteelLocationProperty" Property="AdvanceSteelLocation" Value="[ADVANCESTEELLOCATION]" />
-    
-    <Property Id="DYNAMOLOCATION">
-      <RegistrySearch Id="DynamoRegistry" Type="raw" Win64="yes" Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Dynamo Core [DYNAMO_VERSION]" Name="InstallLocation" />
-    </Property>
-    
-    <Property Id="ADVANCESTEELLOCATION">
-      <RegistrySearch Id="AdvanceSteelRegistry" Type="raw" Win64="yes" Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Autodesk Advance Steel [AS_VERSION]" Name="InstallLocation" />
-    </Property>
+		<Property Id="ARPNOMODIFY">1</Property>
+		<Property Id="ARPPRODUCTICON" Value="W16_DYNADST_launch.ico" />
+		<SetProperty Id="ARPINSTALLLOCATION" Value="[AdvanceSteelDynamo]" After="CostFinalize" />
 
-    <Condition Message="This application requires Advance Steel [AS_VERSION]. Please install Advance Steel [AS_VERSION] then run this installer again."><![CDATA[Installed OR ADVANCESTEELLOCATION]]></Condition>
-    
-    <Condition Message="This application requires Dynamo [DYNAMO_VERSION]. Please install Dynamo [DYNAMO_VERSION] then run this installer again."><![CDATA[Installed OR DYNAMOLOCATION]]></Condition>
-    
-    <Icon Id="W16_DYNADST_launch.ico" SourceFile="$(var.solPath)\tools\Extra\W16_DYNADST_launch.ico" />
-    
-    <Property Id="ARPPRODUCTICON" Value="W16_DYNADST_launch.ico" />
-    
-    <Feature Id="ASFeature">
-      <ComponentGroupRef Id="ASFiles"/>
-      <ComponentGroupRef Id ="SampleFiles"/>      
-    </Feature>
-  </Product>
-  <Fragment>
-    <Directory Id="TARGETDIR" Name="SourceDir" >
-    </Directory>
-  </Fragment>
+		<InstallUISequence>
+			<Custom Action="CustomActionVersion" Before="LaunchConditions" />
+			<Custom Action="CustomActionPath" After="CustomActionVersion" />
+		</InstallUISequence>
+
+		<InstallExecuteSequence>
+			<RegisterClassInfo />
+			<RegisterProgIdInfo />
+			<Custom Action="CustomActionVersion" Before="LaunchConditions" />
+			<Custom Action="CustomActionPath" After="CustomActionVersion" />
+			<Custom Action="ConfigureInstallLocationProperty" Before="CostFinalize" />
+			<Custom Action="ConfigureAdvanceSteelLocationProperty" After="ConfigureInstallLocationProperty" />
+		</InstallExecuteSequence>
+
+		<Binary Id="CustomAction" SourceFile="$(var.SolutionDir)..\bin\AnyCPU\$(var.Configuration)\CustomAction.CA.dll"/>
+		<CustomAction Id="CustomActionVersion" BinaryKey="CustomAction" DllEntry="GetDynamoCoreVersion"/>
+		<CustomAction Id="CustomActionPath" BinaryKey="CustomAction" DllEntry="GetDynamoCorePath"/>
+		<CustomAction Id="ConfigureInstallLocationProperty" Property="INSTALLDIR" Value="[DYNAMOLOCATION]" />
+		<CustomAction Id="ConfigureAdvanceSteelLocationProperty" Property="AdvanceSteelLocation" Value="[ADVANCESTEELLOCATION]" />
+
+		<Condition Message="This application requires Advance Steel [AS_VERSION]. Please install Advance Steel [AS_VERSION] then run this installer again.">
+			<![CDATA[Installed OR ADVANCESTEELLOCATION]]>
+		</Condition>
+		<Condition Message="This application requires Dynamo 1.2 or newer. Please install Dynamo then run this installer again.">
+			<![CDATA[Installed OR (DYNAMO_VERSION << "1.")]]>
+		</Condition>
+		<Condition Message="The install location for Dynamo could not be identified. Please re-install Dynamo then run this installer again.">
+			<![CDATA[Installed OR DYNAMOLOCATION]]>
+		</Condition>
+
+		<Icon Id="W16_DYNADST_launch.ico" SourceFile="$(var.solPath)\tools\Extra\W16_DYNADST_launch.ico" />
+
+		<Feature Id="ASFeature">
+			<ComponentGroupRef Id = "ASFiles"/>
+			<ComponentGroupRef Id = "SampleFiles"/>
+		</Feature>
+
+	</Product>
+
 </Wix>
