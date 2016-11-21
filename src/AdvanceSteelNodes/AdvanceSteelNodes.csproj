@@ -124,11 +124,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)AdvanceSteelNodes_DynamoCustomization.xml" "$(ProjectDir)..\..\bin\AnyCPU\$(Configuration)\" /y
-if $(ConfigurationName) == Debug xcopy "$(ProjectDir)AdvanceSteelNodes_DynamoCustomization.xml" "C:\Program Files\Dynamo\Dynamo Advance Steel\2017\" /y
-if $(ConfigurationName) == Debug xcopy "$(OutDir)AdvanceSteelNodes.xml" "C:\Program Files\Dynamo\Dynamo Advance Steel\2017\" /y
-if $(ConfigurationName) == Debug xcopy "$(OutDir)$(TargetFileName)" "C:\Program Files\Dynamo\Dynamo Advance Steel\2017\" /y
-	</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)AdvanceSteelNodes_DynamoCustomization.xml" "$(ProjectDir)..\..\bin\AnyCPU\$(Configuration)\" /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

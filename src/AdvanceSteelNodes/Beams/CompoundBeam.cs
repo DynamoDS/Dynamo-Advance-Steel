@@ -12,7 +12,7 @@ namespace AdvanceSteel.Nodes.Beams
 	[DynamoServices.RegisterForTrace]
 	public class CompoundBeam : GraphicObject
 	{
-		internal CompoundBeam(Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Vector vOrientation, string compoundClassName, string compoundTypeName)
+		internal CompoundBeam(Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Vector vOrientation, string beamSection)
 		{
 			//use lock just to be safe
 			//AutoCAD does not support multithreaded access
@@ -26,10 +26,13 @@ namespace AdvanceSteel.Nodes.Beams
 					Point3d beamStart = Utils.ToAstPoint(ptStart, true);
 					Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
 
+					string sectionType = Utils.SplitSectionName(beamSection)[0];
+					string sectionName = Utils.SplitSectionName(beamSection)[1];
+
 					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
 					{
 						var myBeam = new Autodesk.AdvanceSteel.Modelling.CompoundStraightBeam(beamStart, beamEnd, Vector3d.kXAxis);
-						myBeam.CreateComponents(compoundClassName, compoundTypeName);
+						myBeam.CreateComponents(sectionType, sectionName);
 
 						myBeam.WriteToDb();
 						handle = myBeam.Handle;
@@ -43,6 +46,18 @@ namespace AdvanceSteel.Nodes.Beams
 						beamCompound.SetSysStart(beamStart);
 						beamCompound.SetSysEnd(beamEnd);
 						Utils.SetOrientation(beamCompound, Utils.ToAstVector3d(vOrientation, true));
+
+						if (Utils.CompareCompoundSectionTypes(sectionType, beamCompound.ProfSectionType))
+						{
+							if (beamCompound.ProfSectionName != sectionName)
+							{
+								beamCompound.ChangeProfile(sectionType, sectionName);
+							}
+						}
+						else
+						{
+							throw new System.Exception("Failed to change section as compound section type is different than the one created the beam was created with");
+						}
 					}
 					else
 						throw new System.Exception("Not a compound beam");
@@ -54,34 +69,19 @@ namespace AdvanceSteel.Nodes.Beams
 			}
 		}
 
+
 		/// <summary>
-		/// Create an Advance Steel compound beam made of rolled beams
+		/// Create an Advance Steel compound beam
 		/// </summary>
 		/// <param name="start">Start point</param>
 		/// <param name="end">End point</param>
 		/// <param name="vOrientation">Section orientation</param>
-		/// <param name="compoundClassName">Compound class name</param>
-		/// <param name="compoundTypeName">Compound type name</param>
+		/// <param name="sectionName">Section name</param>
 		/// <returns></returns>
-		public static CompoundBeam ByStartPointEndPointWithBeams(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Vector vOrientation, string compoundClassName = "Compound2U", string compoundTypeName = "Default")
+		public static CompoundBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Vector vOrientation, string sectionName)
 		{
-			return new CompoundBeam(start, end, vOrientation, compoundClassName, compoundTypeName);
+			return new CompoundBeam(start, end, vOrientation, sectionName);
 		}
-
-		/// <summary>
-		/// Create an Advance Steel compound beam made of welded plates
-		/// </summary>
-		/// <param name="start">Start point</param>
-		/// <param name="end">End point</param>
-		/// <param name="vOrientation">Section orientation</param>
-		/// <param name="compoundClassName">Compound class name</param>
-		/// <param name="compoundTypeName">Compound type name</param>
-		/// <returns></returns>
-		public static CompoundBeam ByStartPointEndPointWithPlates(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Vector vOrientation, string compoundClassName = "WeldedISymmetric", string compoundTypeName = "Default")
-		{
-			return new CompoundBeam(start, end, vOrientation, compoundClassName, compoundTypeName);
-		}
-
 
 		[IsVisibleInDynamoLibrary(false)]
 		public override Autodesk.DesignScript.Geometry.Curve Curve
