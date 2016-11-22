@@ -1,7 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DynamoAdvanceSteelInstall", "DynamoAdvanceSteelInstall\DynamoAdvanceSteelInstall.wixproj", "{C7495640-0D0C-46AB-A5F3-D5BE78F89A0D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DC4CAC49-9CD1-4454-8215-39CC197CAF3F} = {DC4CAC49-9CD1-4454-8215-39CC197CAF3F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAction", "CustomAction\CustomAction.csproj", "{DC4CAC49-9CD1-4454-8215-39CC197CAF3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +20,10 @@ Global
 		{C7495640-0D0C-46AB-A5F3-D5BE78F89A0D}.Debug|x86.Build.0 = Debug|x86
 		{C7495640-0D0C-46AB-A5F3-D5BE78F89A0D}.Release|x86.ActiveCfg = Release|x86
 		{C7495640-0D0C-46AB-A5F3-D5BE78F89A0D}.Release|x86.Build.0 = Release|x86
+		{DC4CAC49-9CD1-4454-8215-39CC197CAF3F}.Debug|x86.ActiveCfg = Debug|x86
+		{DC4CAC49-9CD1-4454-8215-39CC197CAF3F}.Debug|x86.Build.0 = Debug|x86
+		{DC4CAC49-9CD1-4454-8215-39CC197CAF3F}.Release|x86.ActiveCfg = Release|x86
+		{DC4CAC49-9CD1-4454-8215-39CC197CAF3F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

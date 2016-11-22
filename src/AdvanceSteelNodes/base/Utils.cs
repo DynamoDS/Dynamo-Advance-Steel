@@ -8,6 +8,8 @@ namespace AdvanceSteel.Nodes
   [IsVisibleInDynamoLibrary(false)]
   internal static class Utils
   {
+		private static readonly string separator = "#@§@#";
+
     static public Autodesk.AdvanceSteel.Geometry.Point3d ToAstPoint(Autodesk.DesignScript.Geometry.Point pt, bool bConvertToAstUnits)
     {
       double factor = 1.0;
@@ -102,5 +104,33 @@ namespace AdvanceSteel.Nodes
         beam.SetSysEnd(newBeamEnd);
       }
     }
-  }
+
+		internal static string Separator
+		{
+			get { return separator; }
+		}
+
+		internal static string[] SplitSectionName(string sectionName)
+		{
+			string[] result = sectionName.Split(new string[] { Separator }, System.StringSplitOptions.None);
+
+			if (2 == result.Length)
+			{
+				return result;
+			}
+			else
+			{
+				throw new System.Exception("Invalid section name");
+			}
+		}
+
+		internal static bool CompareCompoundSectionTypes(string first, string second)
+		{
+			if (first.Equals(second) || (first.Contains("Welded") && second.Contains("Welded")) || (first.Contains("Compound") && second.Contains("Compound")) || (first.Contains("Tapered") && second.Contains("Tapered")))
+			{
+				return true;
+			}
+			return false;
+		}
+	}
 }

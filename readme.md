@@ -24,6 +24,4 @@ This repository contains the source files for the Dynamo Extension for Advance S
 
 2. Build All.sln solution;
 
-3. Build CustomAction.sln solution;
-
-4. Build DynamoAdvanceSteelInstall.sln solution;
+3. Build DynamoAdvanceSteelInstall.sln solution;
