@@ -4,6 +4,7 @@ using Dynamo.Controls;
 using Dynamo.ViewModels;
 using DynamoShapeManager;
 using System;
+using System.Reflection;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 [assembly: CommandClassAttribute(typeof(Dynamo.Applications.CommandClass))]
@@ -30,6 +31,11 @@ namespace Dynamo.Applications
         InitializeCore();
 
         advanceSteelModel = InitializeCoreModel();
+        // get Dynamo Advance Steel Version
+        var asDynamoVersion = Assembly.GetExecutingAssembly().GetName().Version;
+        advanceSteelModel.HostName = "Dynamo AS";
+        advanceSteelModel.HostVersion = asDynamoVersion.ToString();
+
         dynamoViewModel = InitializeCoreViewModel(advanceSteelModel);
 
         //show dynamo window
