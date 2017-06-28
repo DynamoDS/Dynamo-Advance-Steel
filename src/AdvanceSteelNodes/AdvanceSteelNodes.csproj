@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)Config/CS.props" />
   </ImportGroup>
@@ -17,6 +17,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <TargetFrameworkProfile />
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,19 +44,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ASCADLinkMgd">
-      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASCADLinkMgd.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\ASCADLinkMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASGeometryMgd">
-      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASGeometryMgd.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\ASGeometryMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASProfilesMgd">
-      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASProfilesMgd.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\ASProfilesMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DotNetRoots">
-      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\DotNetRoots.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\DotNetRoots.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DSCoreNodes, Version=0.7.2.2921, Culture=neutral, processorArchitecture=MSIL">
@@ -69,11 +70,11 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="ASMgd">
-      <HintPath>$(ADVANCESTEELAPI)\Kernel\Bin\ASMgd.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\ASMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASObjectsMgd">
-      <HintPath>$(ADVANCESTEELAPI)\Common\Bin\ASObjectsMgd.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\ASObjectsMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <!--

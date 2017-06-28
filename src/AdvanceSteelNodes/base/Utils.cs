@@ -15,7 +15,7 @@ namespace AdvanceSteel.Nodes
       double factor = 1.0;
       if (bConvertToAstUnits)
       {
-        var units = DocumentManager.getCurrentDocument().CurrentDatabase.Units;
+        var units = DocumentManager.GetCurrentDocument().CurrentDatabase.Units;
         factor = units.UnitOfDistance.Factor;
       }
 
@@ -27,7 +27,7 @@ namespace AdvanceSteel.Nodes
       double factor = 1.0;
       if (bConvertFromAstUnits)
       {
-        var units = DocumentManager.getCurrentDocument().CurrentDatabase.Units;
+        var units = DocumentManager.GetCurrentDocument().CurrentDatabase.Units;
         factor = units.UnitOfDistance.Factor;
       }
       pt = pt * (1 / factor);
@@ -39,7 +39,7 @@ namespace AdvanceSteel.Nodes
       double factor = 1.0;
       if (bConvertToAstUnits)
       {
-        var units = DocumentManager.getCurrentDocument().CurrentDatabase.Units;
+        var units = DocumentManager.GetCurrentDocument().CurrentDatabase.Units;
         factor = units.UnitOfDistance.Factor;
       }
       return new Autodesk.AdvanceSteel.Geometry.Vector3d(v.X, v.Y, v.Z) * factor;

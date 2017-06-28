@@ -8,17 +8,21 @@ namespace AdvanceSteel.Services.ObjectAccess
   /// </summary>
   public class CADContext : IDisposable
   {
-    private bool bTransactionStarted = false;
+		Autodesk.AdvanceSteel.CADAccess.Transaction tr = null;
+		private bool bTransactionStarted = false;
     private bool bDocumentLocked = false;
 
-    public CADContext()
-    {
-      bDocumentLocked = DocumentManager.lockCurrentDocument();
+		public CADContext()
+		{
+			bDocumentLocked = DocumentManager.LockCurrentDocument();
 
-      if (bDocumentLocked == true)
-        bTransactionStarted = Autodesk.AdvanceSteel.CADAccess.TransactionManager.startTransaction();
+			if (bDocumentLocked == true) {
+				tr = Autodesk.AdvanceSteel.CADAccess.TransactionManager.StartTransaction();
+        if(tr != null)
+				  bTransactionStarted = true;
+			}
 
-      if (bDocumentLocked == false || bTransactionStarted == false)
+			if (bDocumentLocked == false || bTransactionStarted == false)
       {
         UnInitialize();
         throw new System.Exception("Failed to access AutoCAD Document");
@@ -30,9 +34,11 @@ namespace AdvanceSteel.Services.ObjectAccess
       if (bDocumentLocked == true)
       {
         if (bTransactionStarted == true)
-          bTransactionStarted = Autodesk.AdvanceSteel.CADAccess.TransactionManager.endTransaction();
+				{
+					tr.Commit();
+				}
 
-        bDocumentLocked = DocumentManager.unlockCurrentDocument();
+        bDocumentLocked = DocumentManager.UnlockCurrentDocument();
       }
 
       bDocumentLocked = bTransactionStarted = false;
