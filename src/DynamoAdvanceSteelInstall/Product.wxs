@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="{FD1A64F2-9CD9-4F80-AAC6-E679556A105B}" Name="Dynamo Extension for Autodesk Advance Steel 2018" Language="1033" Version="1.3.0.0" Manufacturer="Autodesk" UpgradeCode="{DFD45EEE-E3CD-4981-B0D9-F0C0B3CBEFCF}">
+	<Product Id="{9A29383C-F2B5-4FD9-9B76-7B148FD11189}" Name="Dynamo Extension for Autodesk Advance Steel 2019" Language="1033" Version="1.3.0.0" Manufacturer="Autodesk" UpgradeCode="{0E35278A-9ABD-4170-8501-63EFB1923F4E}">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 		<MajorUpgrade Schedule="afterInstallInitialize" DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes" />
 
-		<Property Id="AS_VERSION">2018</Property>
+		<Property Id="AS_VERSION">2019</Property>
 		<Property Id="ADVANCESTEELLOCATION">
-			<RegistrySearch Id="AdvanceSteelRegistry" Type="raw" Win64="yes" Root="HKLM" Key="SOFTWARE\Autodesk\AutoCAD\R22.0\ACAD-1026" Name="BinPath" />
+			<RegistrySearch Id="AdvanceSteelRegistry" Type="raw" Win64="yes" Root="HKLM" Key="SOFTWARE\Autodesk\AutoCAD\R23.0\ACAD-2026" Name="BinPath" />
 		</Property>
 
 		<Property Id="ARPNOMODIFY">1</Property>
@@ -37,7 +37,7 @@
 		<Condition Message="This application requires Advance Steel [AS_VERSION]. Please install Advance Steel [AS_VERSION] then run this installer again.">
 			<![CDATA[Installed OR ADVANCESTEELLOCATION]]>
 		</Condition>
-		<Condition Message="This application requires Dynamo 1.2 or newer. Please install Dynamo then run this installer again.">
+		<Condition Message="This application requires Dynamo 1.3 . Please install Dynamo then run this installer again.">
 			<![CDATA[Installed OR (DYNAMO_VERSION << "1.")]]>
 		</Condition>
 		<Condition Message="The install location for Dynamo could not be identified. Please re-install Dynamo then run this installer again.">
