@@ -11,7 +11,7 @@ namespace CustomAction
 {
 	public class CustomActions
 	{
-		private static readonly string DynamoProductName = "Dynamo Core 1.";
+		private static readonly string DynamoProductName = "Dynamo Core 2.";
 		[CustomAction]
 		public static ActionResult GetDynamoCorePath(Session session)
 		{
