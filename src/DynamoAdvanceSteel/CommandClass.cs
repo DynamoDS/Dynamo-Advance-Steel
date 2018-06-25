@@ -91,7 +91,7 @@ namespace Dynamo.Applications
 			string path = Environment.GetEnvironmentVariable("PATH");
 			Environment.SetEnvironmentVariable("PATH", path + ";" + DynamoAdvanceSteelApplication.DynamoCorePath);
 
-			var preloader = new Preloader(DynamoAdvanceSteelApplication.DynamoCorePath, DynamoAdvanceSteelApplication.ACADCorePath, LibraryVersion.Version223);
+			var preloader = new Preloader(DynamoAdvanceSteelApplication.DynamoCorePath, DynamoAdvanceSteelApplication.ACADCorePath, LibraryVersion.Version224);
 			preloader.Preload();
 			GeometryFactoryPath = preloader.GeometryFactoryPath;
 
