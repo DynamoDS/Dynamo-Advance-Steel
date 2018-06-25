@@ -115,18 +115,12 @@
     <Compile Include="Util\UserAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AdvanceSteelNodes_DynamoCustomization.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\AdvanceSteelServices\AdvanceSteelServices.csproj">
       <Project>{00ed013f-0b34-4a79-9760-a21fd14d4bd5}</Project>
       <Name>AdvanceSteelServices</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)AdvanceSteelNodes_DynamoCustomization.xml" "$(ProjectDir)..\..\bin\AnyCPU\$(Configuration)\" /y</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
