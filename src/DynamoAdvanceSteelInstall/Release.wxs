@@ -8,7 +8,6 @@
       <ComponentRef Id="AdvanceSteelNodes.xml" />
       <ComponentRef Id="DynamoAdvanceSteel.cuix" />
       <ComponentRef Id="DynamoAdvanceSteel.xml" />
-      <ComponentRef Id="AdvanceSteelNodes_DynamoCustomization.xml"/>
     </ComponentGroup>
   </Fragment>
   <Fragment>
@@ -67,13 +66,6 @@
     <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)">
       <Component Id="AdvanceSteelNodes.xml" Guid="{0A734974-5A4D-4180-864B-35FC3C85EE88}" Win64="yes">
         <File Id="AdvanceSteelNodes.xml" Name="AdvanceSteelNodes.xml" KeyPath="yes" />
-      </Component>
-    </DirectoryRef>
-  </Fragment>
-  <Fragment>
-    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)">
-      <Component Id="AdvanceSteelNodes_DynamoCustomization.xml" Guid="{084A4F31-7878-4478-B14E-7A8CEAB5505F}" Win64="yes">
-        <File Id="AdvanceSteelNodes_DynamoCustomization.xml" Name="AdvanceSteelNodes_DynamoCustomization.xml" KeyPath="yes" />
       </Component>
     </DirectoryRef>
   </Fragment>
