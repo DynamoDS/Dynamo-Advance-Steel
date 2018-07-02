@@ -17,15 +17,17 @@ namespace Dynamo.Applications
 	{
 		public static string DynamoCorePath = ProductLocator.GetDynamoCorePath();
 		public static string ACADCorePath = ProductLocator.GetACADCorePath();
+        public static Action ShutdownHandler = null;
 
-		void IExtensionApplication.Initialize()
+        void IExtensionApplication.Initialize()
 		{
 			SubscribeAssemblyResolvingEvent();
 		}
 
 		void IExtensionApplication.Terminate()
 		{
-			UnsubscribeAssemblyResolvingEvent();
+            ShutdownHandler?.Invoke();
+            UnsubscribeAssemblyResolvingEvent();
 		}
 
 		private void SubscribeAssemblyResolvingEvent()
