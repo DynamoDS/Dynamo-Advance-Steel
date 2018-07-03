@@ -23,7 +23,7 @@ namespace Dynamo.Applications
 		private static AdvanceSteelModel advanceSteelModel;
 		private static string GeometryFactoryPath = "";
 
-		[CommandMethodAttribute("TEST_GROUP", "Create", "RunDynamo", CommandFlags.Modal | CommandFlags.UsePickSet | CommandFlags.Redraw)]
+        [CommandMethodAttribute("TEST_GROUP", "Create", "RunDynamo", CommandFlags.Modal | CommandFlags.UsePickSet | CommandFlags.Redraw)]
 		public void Create()
 		{
 			try
@@ -83,10 +83,16 @@ namespace Dynamo.Applications
 		{
 			IntPtr mwHandle = Autodesk.AdvanceSteel.CADAccess.CADUtilities.GetCADWindowHandle();
 			DynamoView dynamoView = new DynamoView(dynamoViewModel);
+            dynamoView.Closed += OnDynamoViewClosed;
             dynamoView.Loaded += (o, e) => UpdateLibraryLayoutSpec();
 
 
             return dynamoView;
+        }
+        private static void OnDynamoViewClosed(object sender, EventArgs e)
+        {
+            var view = (DynamoView)sender;
+            view.Closed -= OnDynamoViewClosed;
         }
         /// <summary>
         /// Updates the Libarary Layout spec to include layout for Steel nodes. 
@@ -97,6 +103,9 @@ namespace Dynamo.Applications
             //Get the library view customization service to update spec
             var customization = advanceSteelModel.ExtensionManager.Service<ILibraryViewCustomization>();
             if (customization == null) return;
+
+            //Make sure to notify customization for application closing
+            DynamoAdvanceSteelApplication.ShutdownHandler = () => customization.OnAppShutdown();
 
             //Register the icon resource
             /*customization.RegisterResourceStream("/icons/Category.AdvanceSteel.svg", 
