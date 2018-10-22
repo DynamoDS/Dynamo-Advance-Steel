@@ -8,7 +8,7 @@ This repository contains the source files for the Dynamo Extension for Advance S
   - Visual Studio 2015;
   - AutoCAD 2019;
   - Advance Steel 2019;
-  - Dynamo Core 2.0.1 or later;
+  - Dynamo Core 2.0.2 or later;
 
 2. Update the paths from \src\Config\user_local.props with the ones from your machine
 
