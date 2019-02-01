@@ -55,8 +55,8 @@ namespace Dynamo.Applications
 		private static AdvanceSteelModel InitializeCoreModel()
 		{
 			string corePath = DynamoAdvanceSteelApplication.DynamoCorePath;
-			var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dynamo", "Dynamo Advance Steel");
-			var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel");
+			var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dynamo", "Dynamo Advance Steel", "2.0.2");
+			var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel", "2.0.2");
 
 			return AdvanceSteelModel.Start(
 					new Dynamo.Models.DynamoModel.DefaultStartConfiguration()
