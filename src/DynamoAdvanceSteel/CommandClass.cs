@@ -3,7 +3,6 @@ using Dynamo.Applications.Models;
 using Dynamo.Controls;
 using Dynamo.ViewModels;
 using Dynamo.Wpf.Interfaces;
-using DynamoShapeManager;
 using System;
 using System.IO;
 using System.Linq;
@@ -56,8 +55,8 @@ namespace Dynamo.Applications
 		private static AdvanceSteelModel InitializeCoreModel()
 		{
 			string corePath = DynamoAdvanceSteelApplication.DynamoCorePath;
-			var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dynamo", "Dynamo Advance Steel");
-			var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel");
+			var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dynamo", "Dynamo Advance Steel", "2.0.2");
+			var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel", "2.0.2");
 
 			return AdvanceSteelModel.Start(
 					new Dynamo.Models.DynamoModel.DefaultStartConfiguration()
@@ -137,16 +136,39 @@ namespace Dynamo.Applications
 
 		private static bool initializedCore;
 
-		private static void InitializeCore()
+    /// <summary>
+    /// Returns the version of ASM which is installed with AutoCAD at the requested path.
+    /// This version number can be used to load the appropriate libG version.
+    /// </summary>
+    /// <param name="asmLocation">path where asm dlls are located, this is usually the product(AutoCAD) install path</param>
+    /// <returns></returns>
+    internal static Version findCurrentASMVersion(string asmLocation)
+    {
+      var lookup = new DynamoInstallDetective.InstalledProductLookUp("AutoCAD", "ASMAHL*.dll");
+      var product = lookup.GetProductFromInstallPath(asmLocation);
+      var libGversion = new Version(product.VersionInfo.Item1, product.VersionInfo.Item2, product.VersionInfo.Item3);
+      return libGversion;
+    }
+    internal static Version PreloadAsm()
+    {
+      var acadPath = DynamoAdvanceSteelApplication.ACADCorePath;
+      Version libGversion = findCurrentASMVersion(acadPath);
+
+      var libGFolderName = string.Format("libg_{0}_{1}_{2}", libGversion.Major, libGversion.Minor, libGversion.Build);
+      var preloaderLocation = Path.Combine(DynamoAdvanceSteelApplication.DynamoCorePath, libGFolderName);
+
+      DynamoShapeManager.Utilities.PreloadAsmFromPath(preloaderLocation, acadPath);
+      return libGversion;
+    }
+    private static void InitializeCore()
 		{
 			if (initializedCore) return;
 
 			string path = Environment.GetEnvironmentVariable("PATH");
 			Environment.SetEnvironmentVariable("PATH", path + ";" + DynamoAdvanceSteelApplication.DynamoCorePath);
 
-			var preloader = new Preloader(DynamoAdvanceSteelApplication.DynamoCorePath, DynamoAdvanceSteelApplication.ACADCorePath, LibraryVersion.Version224);
-			preloader.Preload();
-			GeometryFactoryPath = preloader.GeometryFactoryPath;
+      var loadedLibGVersion = PreloadAsm();
+			GeometryFactoryPath = DynamoShapeManager.Utilities.GetGeometryFactoryPath2(DynamoAdvanceSteelApplication.DynamoCorePath, loadedLibGVersion);
 
 			initializedCore = true;
 		}
