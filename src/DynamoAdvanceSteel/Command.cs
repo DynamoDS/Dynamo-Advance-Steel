@@ -57,7 +57,7 @@ namespace Dynamo.Applications.AdvanceSteel
       var startConfiguration = new Dynamo.Models.DynamoModel.DefaultStartConfiguration()
       {
         GeometryFactoryPath = GeometryFactoryPath,
-        DynamoCorePath = SteelApplicationAddin.DynamoCorePath,
+        DynamoCorePath = DynamoSteelApp.DynamoCorePath,
         SchedulerThread = new SchedulerThread(),
         PathResolver = new PathResolver(userDataFolder, commonDataFolder)
       };
@@ -98,7 +98,7 @@ namespace Dynamo.Applications.AdvanceSteel
       if (customization == null) return;
 
       //Make sure to notify customization for application closing
-      SteelApplicationAddin.ShutdownHandler = () => customization.OnAppShutdown();
+      DynamoSteelApp.ShutdownHandler = () => customization.OnAppShutdown();
 
       //Register the icon resource
       /*customization.RegisterResourceStream("/icons/Category.AdvanceSteel.svg", 
@@ -143,11 +143,11 @@ namespace Dynamo.Applications.AdvanceSteel
     }
     internal static Version PreloadAsm()
     {
-      var acadPath = SteelApplicationAddin.ACADCorePath;
+      var acadPath = DynamoSteelApp.ACADCorePath;
       Version libGversion = findCurrentASMVersion(acadPath);
 
       var libGFolderName = string.Format("libg_{0}_{1}_{2}", libGversion.Major, libGversion.Minor, libGversion.Build);
-      var preloaderLocation = Path.Combine(SteelApplicationAddin.DynamoCorePath, libGFolderName);
+      var preloaderLocation = Path.Combine(DynamoSteelApp.DynamoCorePath, libGFolderName);
 
       DynamoShapeManager.Utilities.PreloadAsmFromPath(preloaderLocation, acadPath);
       return libGversion;
@@ -157,10 +157,10 @@ namespace Dynamo.Applications.AdvanceSteel
       if (initializedCore) return;
 
       string path = Environment.GetEnvironmentVariable("PATH");
-      Environment.SetEnvironmentVariable("PATH", path + ";" + SteelApplicationAddin.DynamoCorePath);
+      Environment.SetEnvironmentVariable("PATH", path + ";" + DynamoSteelApp.DynamoCorePath);
 
       var loadedLibGVersion = PreloadAsm();
-      GeometryFactoryPath = DynamoShapeManager.Utilities.GetGeometryFactoryPath2(SteelApplicationAddin.DynamoCorePath, loadedLibGVersion);
+      GeometryFactoryPath = DynamoShapeManager.Utilities.GetGeometryFactoryPath2(DynamoSteelApp.DynamoCorePath, loadedLibGVersion);
 
       initializedCore = true;
     }

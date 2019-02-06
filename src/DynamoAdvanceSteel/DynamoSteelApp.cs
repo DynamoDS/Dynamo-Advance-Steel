@@ -9,11 +9,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-[assembly: ExtensionApplicationAttribute(typeof(Dynamo.Applications.AdvanceSteel.SteelApplicationAddin))]
+[assembly: ExtensionApplicationAttribute(typeof(Dynamo.Applications.AdvanceSteel.DynamoSteelApp))]
 
 namespace Dynamo.Applications.AdvanceSteel
 {
-  public sealed class SteelApplicationAddin : IExtensionApplication
+  public sealed class DynamoSteelApp : IExtensionApplication
   {
     public static string DynamoCorePath = ProductLocator.GetDynamoCorePath();
     public static string ACADCorePath = ProductLocator.GetACADCorePath();
@@ -47,7 +47,7 @@ namespace Dynamo.Applications.AdvanceSteel
 
       try
       {
-        var corePath = SteelApplicationAddin.DynamoCorePath;
+        var corePath = DynamoCorePath;
 
         assemblyPath = Path.Combine(corePath, assemblyName);
 
