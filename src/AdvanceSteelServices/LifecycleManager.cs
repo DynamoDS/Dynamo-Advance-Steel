@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AdvanceSteel.Services
+namespace Dynamo.Applications.AdvanceSteel.Services
 {
   /// <summary>
   /// Used to manage the life of Advance Steel objects

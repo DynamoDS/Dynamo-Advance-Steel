@@ -1,4 +1,4 @@
-﻿namespace AdvanceSteel.Services
+﻿namespace Dynamo.Applications.AdvanceSteel.Services
 {
   public static class DisposeLogic
   {

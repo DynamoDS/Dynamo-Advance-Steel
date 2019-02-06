@@ -2,7 +2,7 @@
 using Dynamo.Scheduler;
 using System;
 
-namespace Dynamo.Applications
+namespace Dynamo.Applications.AdvanceSteel
 {
   /// <summary>
   /// class used to execute dynamo tasks in AutoCAD application context

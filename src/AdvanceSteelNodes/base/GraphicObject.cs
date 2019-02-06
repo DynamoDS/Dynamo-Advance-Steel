@@ -7,22 +7,22 @@ namespace AdvanceSteel.Nodes
   /// This represents the Advance Steel Objects as graphical objects
   /// </summary>
   [IsVisibleInDynamoLibrary(false)]
-  public abstract class GraphicObject : Object, IGraphicItem
+  public abstract class GraphicObject : SteelDbObject, IGraphicItem
   {
     private const byte DefR = 101;
     private const byte DefG = 86;
     private const byte DefB = 130;
     private const byte DefA = 255;
 
-    public abstract Autodesk.DesignScript.Geometry.Curve Curve
-    {
-      get;
-    }
+    public abstract Autodesk.DesignScript.Geometry.Curve GetDynCurve();
 
     public new void Tessellate(IRenderPackage package, TessellationParameters parameters)
     {
-      this.Curve.Tessellate(package, parameters);
-      package.ApplyLineVertexColors(CreateColorByteArrayOfSize(package.LineVertexCount, DefR, DefG, DefB, DefA));
+      using (var crv = GetDynCurve())
+      {
+        crv.Tessellate(package, parameters);
+        package.ApplyLineVertexColors(CreateColorByteArrayOfSize(package.LineVertexCount, DefR, DefG, DefB, DefA));
+      }
     }
 
     private static byte[] CreateColorByteArrayOfSize(int size, byte red, byte green, byte blue, byte alpha)

@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace AdvanceSteel.Services
+namespace Dynamo.Applications.AdvanceSteel.Services
 {
   /// <summary>
   /// Holds a representation of a AutoCAD Handle that supports serialization
