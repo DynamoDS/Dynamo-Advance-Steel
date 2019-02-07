@@ -39,15 +39,15 @@
       <Component Id="DynamoAdvanceSteel.xml" Guid="{82066C8C-6CAD-43C1-A3DB-9AC013C648D4}" Win64="yes">
         <File Id="DynamoAdvanceSteel.xml" Name="DynamoAdvanceSteel.xml" KeyPath="yes" />
         <Util:XmlConfig Id="DynamoAdvanceSteelDllPath" Action="create" On="install" Node="value" 
-                        ElementPath="//ASSettingsData/Root/Key[\[]@Name='Software'[\]]/Key[\[]@Name='Autodesk'[\]]/Key[\[]@Name='AdvanceSteel'[\]]/Key[\[]@Name='!(bind.property.AS_VERSION)'[\]]/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='InstallLocation'[\]]"
-                        VerifyPath ="//ASSettingsData/Root/Key[\[]@Name='Software'[\]]/Key[\[]@Name='Autodesk'[\]]/Key[\[]@Name='AdvanceSteel'[\]]/Key[\[]@Name='!(bind.property.AS_VERSION)'[\]]/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='InstallLocation'[\]]"
+                        ElementPath="//ASSettingsData/Root/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='InstallLocation'[\]]"
+                        VerifyPath ="//ASSettingsData/Root/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='InstallLocation'[\]]"
                         Value="[AdvanceSteelDynamo]DynamoAdvanceSteel.dll" 
                         File="[ThirdPartyLocation]DynamoAdvanceSteel.xml">
          
         </Util:XmlConfig>
         <Util:XmlConfig Id="DynamoAdvanceSteelCuixPath" Action="create" On="install" Node="value"
-                        ElementPath="//ASSettingsData/Root/Key[\[]@Name='Software'[\]]/Key[\[]@Name='Autodesk'[\]]/Key[\[]@Name='AdvanceSteel'[\]]/Key[\[]@Name='!(bind.property.AS_VERSION)'[\]]/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='CuiLocation'[\]]"
-                        VerifyPath ="//ASSettingsData/Root/Key[\[]@Name='Software'[\]]/Key[\[]@Name='Autodesk'[\]]/Key[\[]@Name='AdvanceSteel'[\]]/Key[\[]@Name='!(bind.property.AS_VERSION)'[\]]/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='CuiLocation'[\]]"
+                        ElementPath="//ASSettingsData/Root/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='CuiLocation'[\]]"
+                        VerifyPath ="//ASSettingsData/Root/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='CuiLocation'[\]]"
                         Value="[AdvanceSteelDynamo]DynamoAdvanceSteel"
                         File="[ThirdPartyLocation]DynamoAdvanceSteel.xml">
 

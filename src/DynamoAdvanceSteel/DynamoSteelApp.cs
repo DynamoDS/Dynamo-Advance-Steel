@@ -1,7 +1,4 @@
 ﻿using Autodesk.AdvanceSteel.Runtime;
-
-//using Dynamo.Applications.Properties;
-using Dynamo.Utilities;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
