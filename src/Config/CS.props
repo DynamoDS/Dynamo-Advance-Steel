@@ -5,12 +5,9 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-	<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-	<OutputPath Condition=" '$(OutputPath)' == '' ">$(SolutionDir)..\bin\$(Platform)\$(Configuration)</OutputPath>
-    <NunitPath Condition=" '$(NunitPath)' == '' ">$(SolutionDir)..\extern\NUnit</NunitPath>
-	<DYNAMOAPI  Condition=" '$(DYNAMOAPI)' == '' ">C:\Program Files\Dynamo\Dynamo Core\1.2</DYNAMOAPI>
-	<DynamoExternPath  Condition=" '$(DynamoExternPath)' == '' ">$(SolutionDir)..\extern</DynamoExternPath>
-	<BaseIntermediateOutputPath>$(OutputPath)\int\</BaseIntermediateOutputPath>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <OutputPath Condition=" '$(OutputPath)' == '' ">$(SolutionDir)..\bin\$(Platform)\$(Configuration)</OutputPath>
+    <BaseIntermediateOutputPath>$(OutputPath)\int\</BaseIntermediateOutputPath>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,11 +18,8 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-	<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-	<OutputPath Condition=" '$(OutputPath)' == '' ">$(SolutionDir)..\bin\$(Platform)\$(Configuration)</OutputPath>
-    <NunitPath Condition=" '$(NunitPath)' == '' ">$(SolutionDir)..\extern\NUnit</NunitPath>
-	<DYNAMOAPI  Condition=" '$(DYNAMOAPI)' == '' ">C:\Program Files\Dynamo\Dynamo Core\1.2</DYNAMOAPI>
-	<DynamoExternPath  Condition=" '$(DynamoExternPath)' == '' ">$(SolutionDir)..\extern</DynamoExternPath>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <OutputPath Condition=" '$(OutputPath)' == '' ">$(SolutionDir)..\bin\$(Platform)\$(Configuration)</OutputPath>
     <BaseIntermediateOutputPath>$(OutputPath)\int\</BaseIntermediateOutputPath>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
