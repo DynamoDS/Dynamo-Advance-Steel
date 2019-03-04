@@ -1,41 +1,43 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	
-	<Fragment>
-		
-		<Directory Id="TARGETDIR" Name="SourceDir"/>
-		
-		<DirectoryRef Id="TARGETDIR" >
-			
-			<!--Dynamo Extension for Advance Steel Installation Folder-->
-			<Directory Id="INSTALLDIR">
-				<Directory Id="DynamoAdvanceSteel" Name="Dynamo Advance Steel">
-					<Directory Id="AdvanceSteelDynamo" Name="!(bind.property.AS_VERSION)"/>
-				</Directory>
-			</Directory>
-			
-			<!--Advance Steel 2019 Installation Folder-->
-			<Directory Id="AdvanceSteelLocation" Name="Advance Steel 2019">
-				<Directory Id="ThirdPartyLocation" Name="ThirdPartySettings">
-				</Directory>
-			</Directory>
 
-			<!--Advance Steel 2019 Installation Folder-->
-			<Directory Id="CommonAppDataFolder">
-				<Directory Id="DYNAMOASAPPDATA" Name="Dynamo">
-					<Directory Id="DynamoASAppDataFolder" Name="Dynamo Advance Steel">
-						<Directory Id="DynSamples" Name="samples">
-							<Directory Id="Language" Name="en-US">
-								<Directory Id="BasicsSamples" Name="Basics"/>
-								<Directory Id="StructuresSamples" Name="Structures"/>
-							</Directory>
-						</Directory>
-					</Directory>
-				</Directory>
-			</Directory>
-		
-		</DirectoryRef>
-		
-	</Fragment>
+  <Fragment>
+
+    <Directory Id="TARGETDIR" Name="SourceDir"/>
+
+    <DirectoryRef Id="TARGETDIR" >
+
+      <!--Dynamo Extension for Advance Steel Installation Folder-->
+      <Directory Id="INSTALLDIR">
+        <Directory Id="DynamoAdvanceSteel" Name="Dynamo Advance Steel">
+          <Directory Id="AdvanceSteelDynamo" Name="!(bind.property.AS_VERSION)"/>
+        </Directory>
+      </Directory>
+
+      <!--Advance Steel 2020 Installation Folder-->
+      <Directory Id="AdvanceSteelLocation" Name="Advance Steel 2020">
+        <Directory Id="ThirdPartyLocation" Name="ThirdPartySettings">
+        </Directory>
+      </Directory>
+
+      <!--Dynamo Extension for Advance Steel Samples Folder-->
+      <Directory Id="CommonAppDataFolder">
+        <Directory Id="DYNAMOASAPPDATA" Name="Dynamo">
+          <Directory Id="DynamoASAppDataFolder" Name="Dynamo Advance Steel">
+            <Directory Id="DynamoASAppVersionDataFolder" Name="!(bind.property.AS_VERSION)">
+              <Directory Id="DynSamples" Name="samples">
+                <Directory Id="Language" Name="en-US">
+                  <Directory Id="BasicsSamples" Name="Basics"/>
+                  <Directory Id="StructuresSamples" Name="Structures"/>
+                </Directory>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
+    </DirectoryRef>
+
+  </Fragment>
 
 </Wix>

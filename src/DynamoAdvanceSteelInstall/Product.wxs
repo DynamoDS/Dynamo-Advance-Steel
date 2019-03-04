@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="{9A29383C-F2B5-4FD9-9B76-7B148FD11189}" Name="Dynamo Extension for Autodesk Advance Steel 2019" Language="1033" Version="2.0.0.0" Manufacturer="Autodesk" UpgradeCode="{0E35278A-9ABD-4170-8501-63EFB1923F4E}">
+	<Product Id="{610C9FA6-CCCE-4FBD-BE89-D67E182C1CC3}" Name="Dynamo Extension for Autodesk Advance Steel 2020" Language="1033" Version="1.0.0.0" Manufacturer="Autodesk" UpgradeCode="{EEF4DA03-7CC3-4189-BCC5-9B2787F528E3}">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 		<MajorUpgrade Schedule="afterInstallInitialize" DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes" />
 
-		<Property Id="AS_VERSION">2019</Property>
+		<Property Id="AS_VERSION">2020</Property>
 		<Property Id="ADVANCESTEELLOCATION">
-			<RegistrySearch Id="AdvanceSteelRegistry" Type="raw" Win64="yes" Root="HKLM" Key="SOFTWARE\Autodesk\AutoCAD\R23.0\ACAD-2026" Name="BinPath" />
+			<RegistrySearch Id="AdvanceSteelRegistry" Type="raw" Win64="yes" Root="HKLM" Key="SOFTWARE\Autodesk\AutoCAD\R23.1\ACAD-3026" Name="BinPath" />
 		</Property>
 
 		<Property Id="ARPNOMODIFY">1</Property>

@@ -1,6 +1,7 @@
 ﻿using Autodesk.DesignScript.Interfaces;
 using Autodesk.DesignScript.Runtime;
 using System;
+using Dynamo.Applications.AdvanceSteel.Services;
 
 namespace AdvanceSteel.Nodes
 {
@@ -8,10 +9,10 @@ namespace AdvanceSteel.Nodes
   /// This is the equivalent of an Advance Steel object in Dynamo
   /// </summary>
   [IsVisibleInDynamoLibrary(false)]
-  public abstract class Object : IDisposable, IGraphicItem, IFormattable
+  public abstract class SteelDbObject : SteelDynObject, IGraphicItem
   {
-    private string ObjectHandle;
-    internal readonly object myLock = new object();
+    protected string ObjectHandle;
+    protected static readonly object access_obj = new object();
 
     /// <summary>
     /// Property that holds the handle of the object
@@ -27,35 +28,33 @@ namespace AdvanceSteel.Nodes
       {
         ObjectHandle = value;
 
-        var elementManager = AdvanceSteel.Services.LifecycleManager<string>.GetInstance();
+        var elementManager = LifecycleManager<string>.GetInstance();
         elementManager.RegisterAsssociation(ObjectHandle, this);
       }
     }
 
     [IsVisibleInDynamoLibrary(false)]
-    public virtual void Dispose()
+    public override void Dispose()
     {
-      //use lock just to be safe
-      //AutoCAD does not support multithreaded access
-      lock (myLock)
+      lock (access_obj)
       {
         // Do not cleanup elements if we are shutting down Dynamo.
-        if (AdvanceSteel.Services.DisposeLogic.IsShuttingDown || AdvanceSteel.Services.DisposeLogic.IsClosingHomeworkspace)
+        if (DisposeLogic.IsShuttingDown || DisposeLogic.IsClosingHomeworkspace)
           return;
 
         //this function is not implemented for the moment
-        bool didAdvanceSteelDelete = AdvanceSteel.Services.LifecycleManager<string>.GetInstance().IsAdvanceSteelDeleted(Handle);
+        bool didAdvanceSteelDelete = LifecycleManager<string>.GetInstance().IsAdvanceSteelDeleted(Handle);
 
-        var elementManager = AdvanceSteel.Services.LifecycleManager<string>.GetInstance();
+        var elementManager = LifecycleManager<string>.GetInstance();
         int remainingBindings = elementManager.UnRegisterAssociation(Handle, this);
 
         // Do not delete owned elements
         if (remainingBindings == 0 && !didAdvanceSteelDelete)
         {
-          //lock the document and start a transaction
-          using (var _CADAccess = new AdvanceSteel.Services.ObjectAccess.CADContext())
+          if (Handle != null)
           {
-            if (Handle != null)
+            //lock the document and start a transaction
+            using (var ctx = new DocContext())
             {
               var filerObject = Utils.GetObject(Handle);
 
@@ -77,17 +76,6 @@ namespace AdvanceSteel.Nodes
     [IsVisibleInDynamoLibrary(false)]
     public void Tessellate(IRenderPackage package, TessellationParameters parameters)
     {
-    }
-
-    [IsVisibleInDynamoLibrary(false)]
-    public override string ToString()
-    {
-      return GetType().Name;
-    }
-
-    public virtual string ToString(string format, IFormatProvider formatProvider)
-    {
-      return ToString();
     }
   }
 }

@@ -11,7 +11,7 @@
     </ComponentGroup>
   </Fragment>
   <Fragment>
-    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)" >
+    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)\steel-pkg\bin" >
       <Component Id="AdvanceSteelNodes.dll" Guid="{27AC94E5-BCBC-4333-9FE5-7BA9013EF943}" Win64="yes">
         <File Id="AdvanceSteelNodes.dll" Name="AdvanceSteelNodes.dll" KeyPath="yes" />
 				<RegistryKey Id="ASRegistry" Root="HKLM" ForceCreateOnInstall="yes" Key="Software\Autodesk">
@@ -21,7 +21,7 @@
     </DirectoryRef>
   </Fragment>
   <Fragment>
-    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)" >
+    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)\steel-pkg\bin" >
       <Component Id="AdvanceSteelServices.dll" Guid="{33BCFBB5-6532-489F-9DA8-823A79A19255}" Win64="yes">
         <File Id="AdvanceSteelServices.dll" Name="AdvanceSteelServices.dll" KeyPath="yes" />
       </Component>
@@ -39,15 +39,15 @@
       <Component Id="DynamoAdvanceSteel.xml" Guid="{82066C8C-6CAD-43C1-A3DB-9AC013C648D4}" Win64="yes">
         <File Id="DynamoAdvanceSteel.xml" Name="DynamoAdvanceSteel.xml" KeyPath="yes" />
         <Util:XmlConfig Id="DynamoAdvanceSteelDllPath" Action="create" On="install" Node="value" 
-                        ElementPath="//ASSettingsData/Root/Key[\[]@Name='Software'[\]]/Key[\[]@Name='Autodesk'[\]]/Key[\[]@Name='AdvanceSteel'[\]]/Key[\[]@Name='!(bind.property.AS_VERSION)'[\]]/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='InstallLocation'[\]]"
-                        VerifyPath ="//ASSettingsData/Root/Key[\[]@Name='Software'[\]]/Key[\[]@Name='Autodesk'[\]]/Key[\[]@Name='AdvanceSteel'[\]]/Key[\[]@Name='!(bind.property.AS_VERSION)'[\]]/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='InstallLocation'[\]]"
+                        ElementPath="//ASSettingsData/Root/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='InstallLocation'[\]]"
+                        VerifyPath ="//ASSettingsData/Root/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='InstallLocation'[\]]"
                         Value="[AdvanceSteelDynamo]DynamoAdvanceSteel.dll" 
                         File="[ThirdPartyLocation]DynamoAdvanceSteel.xml">
          
         </Util:XmlConfig>
         <Util:XmlConfig Id="DynamoAdvanceSteelCuixPath" Action="create" On="install" Node="value"
-                        ElementPath="//ASSettingsData/Root/Key[\[]@Name='Software'[\]]/Key[\[]@Name='Autodesk'[\]]/Key[\[]@Name='AdvanceSteel'[\]]/Key[\[]@Name='!(bind.property.AS_VERSION)'[\]]/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='CuiLocation'[\]]"
-                        VerifyPath ="//ASSettingsData/Root/Key[\[]@Name='Software'[\]]/Key[\[]@Name='Autodesk'[\]]/Key[\[]@Name='AdvanceSteel'[\]]/Key[\[]@Name='!(bind.property.AS_VERSION)'[\]]/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='CuiLocation'[\]]"
+                        ElementPath="//ASSettingsData/Root/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='CuiLocation'[\]]"
+                        VerifyPath ="//ASSettingsData/Root/Key[\[]@Name='NETAddins'[\]]/Key[\[]@Name='DynamoAdvanceSteel'[\]]/Value[\[]@Name='CuiLocation'[\]]"
                         Value="[AdvanceSteelDynamo]DynamoAdvanceSteel"
                         File="[ThirdPartyLocation]DynamoAdvanceSteel.xml">
 
@@ -56,14 +56,14 @@
     </DirectoryRef>
   </Fragment>
   <Fragment>
-    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)" >
+    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)\steel-pkg\bin" >
       <Component Id="DynamoAdvanceSteel.dll" Guid="{FBC7588D-F405-4049-99EB-CB397D74567C}" Win64="yes">
         <File Id="DynamoAdvanceSteel.dll" Name="DynamoAdvanceSteel.dll" KeyPath="yes" />
       </Component>
     </DirectoryRef>
   </Fragment>
   <Fragment>
-    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)">
+    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)\steel-pkg\bin">
       <Component Id="AdvanceSteelNodes.xml" Guid="{0A734974-5A4D-4180-864B-35FC3C85EE88}" Win64="yes">
         <File Id="AdvanceSteelNodes.xml" Name="AdvanceSteelNodes.xml" KeyPath="yes" />
       </Component>

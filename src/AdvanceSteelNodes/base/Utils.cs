@@ -1,21 +1,27 @@
 ﻿using Autodesk.AdvanceSteel.CADAccess;
 using Autodesk.AdvanceSteel.DocumentManagement;
 using Autodesk.DesignScript.Runtime;
+using Dynamo.Applications.AdvanceSteel.Services;
 using System;
+using Autodesk.AdvanceSteel.Geometry;
 
 namespace AdvanceSteel.Nodes
 {
   [IsVisibleInDynamoLibrary(false)]
-  internal static class Utils
+  public static class Utils
   {
-		private static readonly string separator = "#@§@#";
+    private static readonly string separator = "#@§@#";
 
+    public static double RadToDegree(double rad)
+    {
+      return 180.0 * rad / System.Math.PI;
+    }
     static public Autodesk.AdvanceSteel.Geometry.Point3d ToAstPoint(Autodesk.DesignScript.Geometry.Point pt, bool bConvertToAstUnits)
     {
       double factor = 1.0;
       if (bConvertToAstUnits)
       {
-        var units = DocumentManager.GetCurrentDocument().CurrentDatabase.Units;
+        var units = AppResolver.Instance.Resolve<IAppInteraction>().DbUnits;
         factor = units.UnitOfDistance.Factor;
       }
 
@@ -27,11 +33,22 @@ namespace AdvanceSteel.Nodes
       double factor = 1.0;
       if (bConvertFromAstUnits)
       {
-        var units = DocumentManager.GetCurrentDocument().CurrentDatabase.Units;
+        var units = AppResolver.Instance.Resolve<IAppInteraction>().DbUnits;
         factor = units.UnitOfDistance.Factor;
       }
       pt = pt * (1 / factor);
       return Autodesk.DesignScript.Geometry.Point.ByCoordinates(pt.x, pt.y, pt.z);
+    }
+    static public Autodesk.DesignScript.Geometry.Vector ToDynVector(Autodesk.AdvanceSteel.Geometry.Vector3d vect, bool bConvertFromAstUnits)
+    {
+      double factor = 1.0;
+      if (bConvertFromAstUnits)
+      {
+        var units = AppResolver.Instance.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfDistance.Factor;
+      }
+      vect = vect * (1 / factor);
+      return Autodesk.DesignScript.Geometry.Vector.ByCoordinates(vect.x, vect.y, vect.z);
     }
 
     static public Autodesk.AdvanceSteel.Geometry.Vector3d ToAstVector3d(Autodesk.DesignScript.Geometry.Vector v, bool bConvertToAstUnits)
@@ -39,7 +56,7 @@ namespace AdvanceSteel.Nodes
       double factor = 1.0;
       if (bConvertToAstUnits)
       {
-        var units = DocumentManager.GetCurrentDocument().CurrentDatabase.Units;
+        var units = AppResolver.Instance.Resolve<IAppInteraction>().DbUnits;
         factor = units.UnitOfDistance.Factor;
       }
       return new Autodesk.AdvanceSteel.Geometry.Vector3d(v.X, v.Y, v.Z) * factor;
@@ -80,12 +97,10 @@ namespace AdvanceSteel.Nodes
 
     internal static void SetOrientation(Autodesk.AdvanceSteel.Modelling.Beam beam, Autodesk.AdvanceSteel.Geometry.Vector3d vOrientation)
     {
-      Autodesk.AdvanceSteel.Geometry.Point3d ptOrigin;
-      Autodesk.AdvanceSteel.Geometry.Vector3d vXAxis, vYAxis, vZAxis, vProj;
-      beam.PhysCSStart.GetCoordSystem(out ptOrigin, out vXAxis, out vYAxis, out vZAxis);
+      beam.PhysCSStart.GetCoordSystem(out _, out Vector3d vXAxis, out Vector3d vYAxis, out Vector3d vZAxis);
       if (!vXAxis.IsParallelTo(vOrientation))
       {
-        vProj = vOrientation.OrthoProject(vXAxis);
+        Vector3d vProj = vOrientation.OrthoProject(vXAxis);
 
         double dAngle = vZAxis.GetAngleTo(vProj, vXAxis);
 
@@ -105,32 +120,32 @@ namespace AdvanceSteel.Nodes
       }
     }
 
-		internal static string Separator
-		{
-			get { return separator; }
-		}
+    internal static string Separator
+    {
+      get { return separator; }
+    }
 
-		internal static string[] SplitSectionName(string sectionName)
-		{
-			string[] result = sectionName.Split(new string[] { Separator }, System.StringSplitOptions.None);
+    internal static string[] SplitSectionName(string sectionName)
+    {
+      string[] result = sectionName.Split(new string[] { Separator }, System.StringSplitOptions.None);
 
-			if (2 == result.Length)
-			{
-				return result;
-			}
-			else
-			{
-				throw new System.Exception("Invalid section name");
-			}
-		}
+      if (2 == result.Length)
+      {
+        return result;
+      }
+      else
+      {
+        throw new System.Exception("Invalid section name");
+      }
+    }
 
-		internal static bool CompareCompoundSectionTypes(string first, string second)
-		{
-			if (first.Equals(second) || (first.Contains("Welded") && second.Contains("Welded")) || (first.Contains("Compound") && second.Contains("Compound")) || (first.Contains("Tapered") && second.Contains("Tapered")))
-			{
-				return true;
-			}
-			return false;
-		}
-	}
+    internal static bool CompareCompoundSectionTypes(string first, string second)
+    {
+      if (first.Equals(second) || (first.Contains("Welded") && second.Contains("Welded")) || (first.Contains("Compound") && second.Contains("Compound")) || (first.Contains("Tapered") && second.Contains("Tapered")))
+      {
+        return true;
+      }
+      return false;
+    }
+  }
 }

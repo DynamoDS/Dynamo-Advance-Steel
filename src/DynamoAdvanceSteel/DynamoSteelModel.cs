@@ -1,23 +1,25 @@
-﻿using AdvanceSteel.Services;
-using Dynamo.Graph.Workspaces;
+﻿using Dynamo.Graph.Workspaces;
+using Dynamo.Migration.AdvanceSteel;
 using Dynamo.Models;
 using System.IO;
 using System.Reflection;
 
-namespace Dynamo.Applications.Models
+namespace Dynamo.Applications.AdvanceSteel
 {
-  public class AdvanceSteelModel : DynamoModel
+  public class DynamoSteelModel : DynamoModel
   {
-    public new static AdvanceSteelModel Start()
+    public new static DynamoSteelModel Start()
     {
       return Start(new DefaultStartConfiguration());
     }
 
-    public new static AdvanceSteelModel Start(IStartConfiguration configuration)
+    public new static DynamoSteelModel Start(IStartConfiguration configuration)
     {
       // where necessary, assign defaults
       if (string.IsNullOrEmpty(configuration.Context))
+      {
         configuration.Context = "Advance Steel";
+      }
 
       if (string.IsNullOrEmpty(configuration.DynamoCorePath))
       {
@@ -28,26 +30,26 @@ namespace Dynamo.Applications.Models
       //if (configuration.Preferences == null)
       //    configuration.Preferences = new PreferenceSettings();
 
-      return new AdvanceSteelModel(configuration);
+      return new DynamoSteelModel(configuration);
     }
 
-    private AdvanceSteelModel(IStartConfiguration configuration) :
+    private DynamoSteelModel(IStartConfiguration configuration) :
         base(configuration)
     {
-      DisposeLogic.IsShuttingDown = false;
+      Services.DisposeLogic.IsShuttingDown = false;
 
-      MigrationManager.MigrationTargets.Add(typeof(WorkspaceMigrationsAdvanceSteel));
+      MigrationManager.MigrationTargets.Add(typeof(WorkspaceMigrations));
       //SetupPython();
     }
 
     protected override void ShutDownCore(bool shutdownHost)
     {
-      DisposeLogic.IsShuttingDown = true;
+      Services.DisposeLogic.IsShuttingDown = true;
       //Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.DocumentActivationEnabled = true;
 
       base.ShutDownCore(shutdownHost);
 
-      DynamoASUtils.modifyRibbon(DynamoASUtils.tabUIDDynamoAS, DynamoASUtils.panelUIDDynamoAS, DynamoASUtils.buttonUIDDynamoAS, true);
+      RibbonUtils.SetEnabled(RibbonUtils.tabUIDDynamoAS, RibbonUtils.panelUIDDynamoAS, RibbonUtils.buttonUIDDynamoAS, true);
     }
 
     protected override void OnWorkspaceRemoveStarted(WorkspaceModel workspace)
@@ -55,7 +57,7 @@ namespace Dynamo.Applications.Models
       base.OnWorkspaceRemoveStarted(workspace);
 
       if (workspace is HomeWorkspaceModel)
-        DisposeLogic.IsClosingHomeworkspace = true;
+        Services.DisposeLogic.IsClosingHomeworkspace = true;
     }
 
     protected override void OnWorkspaceRemoved(WorkspaceModel workspace)
@@ -63,7 +65,7 @@ namespace Dynamo.Applications.Models
       base.OnWorkspaceRemoved(workspace);
 
       if (workspace is HomeWorkspaceModel)
-        DisposeLogic.IsClosingHomeworkspace = false;
+        Services.DisposeLogic.IsClosingHomeworkspace = false;
     }
   }
 }
