@@ -1,13 +1,12 @@
 ﻿using Autodesk.AdvanceSteel.Runtime;
-using Dynamo.Applications.AdvanceSteel.Services;
 using Dynamo.Controls;
 using Dynamo.ViewModels;
 using Dynamo.Wpf.Interfaces;
-using DynamoShapeManager;
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 [assembly: CommandClassAttribute(typeof(Dynamo.Applications.AdvanceSteel.Command))]
@@ -144,13 +143,30 @@ namespace Dynamo.Applications.AdvanceSteel
     internal static Version PreloadAsm()
     {
       var acadPath = DynamoSteelApp.ACADCorePath;
-      Version libGversion = findCurrentASMVersion(acadPath);
+      Version libGVersion = findCurrentASMVersion(acadPath);
+      var preloaderLocation = DynamoShapeManager.Utilities.GetLibGPreloaderLocation(libGVersion, DynamoSteelApp.DynamoCorePath);
 
-      var libGFolderName = string.Format("libg_{0}_{1}_{2}", libGversion.Major, libGversion.Minor, libGversion.Build);
-      var preloaderLocation = Path.Combine(DynamoSteelApp.DynamoCorePath, libGFolderName);
+      // The LibG version maybe different in Dynamo and AutoCAD, using the one which is in Dynamo.
+      Version preLoadLibGVersion = PreloadLibGVersion(preloaderLocation);
 
       DynamoShapeManager.Utilities.PreloadAsmFromPath(preloaderLocation, acadPath);
-      return libGversion;
+      return preLoadLibGVersion;
+    }
+    internal static Version PreloadLibGVersion(string preloaderLocation)
+    {
+      preloaderLocation = new DirectoryInfo(preloaderLocation).Name;
+      var regExp = new Regex(@"^libg_(\d\d\d)_(\d)_(\d)$", RegexOptions.IgnoreCase);
+
+      var match = regExp.Match(preloaderLocation);
+      if (match.Groups.Count == 4)
+      {
+        return new Version(
+            Convert.ToInt32(match.Groups[1].Value),
+            Convert.ToInt32(match.Groups[2].Value),
+            Convert.ToInt32(match.Groups[3].Value));
+      }
+
+      return new Version();
     }
     private static void InitializeCore()
     {
