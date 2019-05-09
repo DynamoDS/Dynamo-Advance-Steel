@@ -59,32 +59,16 @@ namespace Dynamo.Applications.AdvanceSteel
 
   internal class ProductLocator
   {
-    private static readonly string DynamoProductName = "Dynamo Core 2.";
-
     public static string GetDynamoCorePath()
     {
-      var corePaths = GetInstallsFor(DynamoProductName);
-      if (corePaths.ToArray().Length > 0)
-        return corePaths.ToArray()[0];
-
-      return string.Empty;
+      string currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+      return Path.Combine(currentDir, "Core");
     }
 
     public static string GetACADCorePath()
     {
       string acadExePath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
       return System.IO.Path.GetDirectoryName(acadExePath);
-    }
-
-    private static IEnumerable<string> GetInstallsFor(string productName)
-    {
-      const string regKey64 = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\";
-      var regKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
-      regKey = regKey.OpenSubKey(regKey64);
-
-      //Get "InstallLocation" value as string for all the subkey that starts with "Dynamo Core 1."
-      return regKey.GetSubKeyNames().Where(s => s.StartsWith(productName)).Select(
-              (s) => regKey.OpenSubKey(s).GetValue("InstallLocation") as string);
     }
   }
 }

@@ -1,34 +1,15 @@
 ﻿using Dynamo.Graph.Workspaces;
 using Dynamo.Migration.AdvanceSteel;
 using Dynamo.Models;
-using System.IO;
-using System.Reflection;
 
 namespace Dynamo.Applications.AdvanceSteel
 {
   public class DynamoSteelModel : DynamoModel
   {
-    public new static DynamoSteelModel Start()
-    {
-      return Start(new DefaultStartConfiguration());
-    }
-
     public new static DynamoSteelModel Start(IStartConfiguration configuration)
     {
-      // where necessary, assign defaults
       if (string.IsNullOrEmpty(configuration.Context))
-      {
         configuration.Context = "Advance Steel";
-      }
-
-      if (string.IsNullOrEmpty(configuration.DynamoCorePath))
-      {
-        var asmLocation = Assembly.GetExecutingAssembly().Location;
-        configuration.DynamoCorePath = Path.GetDirectoryName(asmLocation);
-      }
-
-      //if (configuration.Preferences == null)
-      //    configuration.Preferences = new PreferenceSettings();
 
       return new DynamoSteelModel(configuration);
     }

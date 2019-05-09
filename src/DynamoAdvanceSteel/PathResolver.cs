@@ -15,21 +15,17 @@ namespace Dynamo.Applications.AdvanceSteel
 
     internal PathResolver(string userDataFolder, string commonDataFolder)
     {
-      string addinDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+      userDataRootFolder = userDataFolder;
+      commonDataRootFolder = commonDataFolder;
 
-      // so we have to walk up one level.
-      var currentAssemblyPath = Assembly.GetExecutingAssembly().Location;
-      var currentAssemblyDir = Path.GetDirectoryName(currentAssemblyPath);
+      string steelNodesDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-      var nodesDirectory = addinDir;
-      var nodesDll = Path.Combine(nodesDirectory, "AdvanceSteelNodes.dll");
-      var connAutoDll = Path.Combine(nodesDirectory, "AdvanceSteelConnAutoNodes.dll");
 
-      // Just making sure we are looking at the right level of nesting.
-      if (!Directory.Exists(nodesDirectory))
-        throw new DirectoryNotFoundException(nodesDirectory);
+      additionalNodeDirectories = new List<string> { steelNodesDirectory };
+      additionalResolutionPaths = new List<string> { steelNodesDirectory };
 
-      // Add Revit-specific library paths for preloading.
+      var steelNodesDll = Path.Combine(steelNodesDirectory, "AdvanceSteelNodes.dll");
+      
       preloadLibraryPaths = new List<string>
             {
                 "VMDataBridge.dll",
@@ -45,18 +41,8 @@ namespace Dynamo.Applications.AdvanceSteel
                 "Tessellation.dll",
                 "Analysis.dll",
                 "GeometryColor.dll",
-
-                nodesDll,
-                connAutoDll
+                steelNodesDll
             };
-
-      // Add an additional node processing folder
-      additionalNodeDirectories = new List<string> { nodesDirectory };
-
-      // Add the Revit_20xx folder for assembly resolution
-      additionalResolutionPaths = new List<string> { currentAssemblyDir };
-      userDataRootFolder = userDataFolder;
-      commonDataRootFolder = commonDataFolder;
     }
 
     public IEnumerable<string> AdditionalNodeDirectories

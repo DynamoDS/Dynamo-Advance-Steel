@@ -3,6 +3,7 @@ using Dynamo.Controls;
 using Dynamo.ViewModels;
 using Dynamo.Wpf.Interfaces;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -18,9 +19,7 @@ namespace Dynamo.Applications.AdvanceSteel
     public static DynamoViewModel ViewModel;
     public static DynamoSteelModel DynamoModel;
   }
-  /// <summary>
-  /// Class that contains the definition for the command exposed in Advance Steel
-  /// </summary>
+
   public class Command
   {
     private static string GeometryFactoryPath = "";
@@ -33,8 +32,10 @@ namespace Dynamo.Applications.AdvanceSteel
         InitializeCore();
 
         Model.DynamoModel = InitializeCoreModel();
+
         Model.DynamoModel.HostName = "Dynamo AS";
         Model.DynamoModel.HostVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        Model.DynamoModel.UpdateManager.RegisterExternalApplicationProcessId(Process.GetCurrentProcess().Id);
 
         Model.ViewModel = InitializeCoreViewModel(Model.DynamoModel);
 
@@ -58,8 +59,10 @@ namespace Dynamo.Applications.AdvanceSteel
         GeometryFactoryPath = GeometryFactoryPath,
         DynamoCorePath = DynamoSteelApp.DynamoCorePath,
         SchedulerThread = new SchedulerThread(),
-        PathResolver = new PathResolver(userDataFolder, commonDataFolder)
+        PathResolver = new PathResolver(userDataFolder, commonDataFolder),
+        AuthProvider = new SteelAuthProvider()
       };
+      
       return DynamoSteelModel.Start(startConfiguration);
     }
 
@@ -125,7 +128,6 @@ namespace Dynamo.Applications.AdvanceSteel
       var stream = assembly.GetManifestResourceStream(resource);
       return stream;
     }
-    private static bool initializedCore;
 
     /// <summary>
     /// Returns the version of ASM which is installed with AutoCAD at the requested path.
@@ -168,12 +170,18 @@ namespace Dynamo.Applications.AdvanceSteel
 
       return new Version();
     }
+
+    private static bool initializedCore = false;
     private static void InitializeCore()
     {
-      if (initializedCore) return;
+      if (initializedCore)
+        return;
 
       string path = Environment.GetEnvironmentVariable("PATH");
       Environment.SetEnvironmentVariable("PATH", path + ";" + DynamoSteelApp.DynamoCorePath);
+
+      //var acadLocale = CultureInfo.CurrentUICulture.ToString();
+      //Environment.SetEnvironmentVariable("LANGUAGE", acadLocale.Replace("-", "_"));
 
       var loadedLibGVersion = PreloadAsm();
       GeometryFactoryPath = DynamoShapeManager.Utilities.GetGeometryFactoryPath2(DynamoSteelApp.DynamoCorePath, loadedLibGVersion);
