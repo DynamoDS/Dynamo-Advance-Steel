@@ -60,7 +60,8 @@ namespace Dynamo.Applications.AdvanceSteel
         DynamoCorePath = DynamoSteelApp.DynamoCorePath,
         SchedulerThread = new SchedulerThread(),
         PathResolver = new PathResolver(userDataFolder, commonDataFolder),
-        AuthProvider = new SteelAuthProvider()
+        AuthProvider = new SteelAuthProvider(),
+        ProcessMode = Scheduler.TaskProcessMode.Asynchronous
       };
       
       return DynamoSteelModel.Start(startConfiguration);
