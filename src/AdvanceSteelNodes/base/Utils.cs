@@ -40,6 +40,17 @@ namespace AdvanceSteel.Nodes
 			return (value * factor);
 		}
 
+		static public Double FromInternalUnits(double value, bool bConvertFromAstUnits)
+		{
+			double factor = 1.0;
+			if(bConvertFromAstUnits)
+			{
+				var units = AppResolver.Instance.Resolve<IAppInteraction>().DbUnits;
+				factor = units.UnitOfDistance.Factor;
+			}
+			return (value * (1 / factor));
+		}
+
 		static public Autodesk.DesignScript.Geometry.Point ToDynPoint(Autodesk.AdvanceSteel.Geometry.Point3d pt, bool bConvertFromAstUnits)
 		{
 			double factor = 1.0;
