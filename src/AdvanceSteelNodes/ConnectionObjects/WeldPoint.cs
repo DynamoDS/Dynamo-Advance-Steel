@@ -79,7 +79,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 
 		[IsVisibleInDynamoLibrary(false)]
 		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
-		{ 
+		{
 			lock (access_obj)
 			{
 				using (var ctx = new SteelServices.DocContext())
@@ -97,9 +97,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 					}
 				}
 			}
-
 		}
-
 	}
 }
 
