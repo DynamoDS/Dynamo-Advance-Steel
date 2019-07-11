@@ -26,21 +26,20 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 				{
 					using (var ctx = new SteelServices.DocContext())
 					{
-						var bolts = Utils.GetObject(this.Handle) as Autodesk.AdvanceSteel.Modelling.AnchorPattern;
-						return ObjectsConnection.GetDynAssemblyLocation(bolts.AssemblyLocation);
+						var anchors = Utils.GetObject(this.Handle) as Autodesk.AdvanceSteel.Modelling.AnchorPattern;
+						return ObjectsConnection.GetDynAssemblyLocation(anchors.AssemblyLocation);
 
 					}
 				}
 			}
 		}
 
-		internal void UpdateAnchorPattern(ref Autodesk.AdvanceSteel.Modelling.AnchorPattern toUpdate, int noScrews, double radius, AssemblyLocation assemblyLocation)
+		internal void UpdateAnchorPattern(Autodesk.AdvanceSteel.Modelling.AnchorPattern toUpdate, int noScrews, double radius)
 		{
 			toUpdate.NumberOfScrews = noScrews;
-			toUpdate.AssemblyLocation = ObjectsConnection.GetSteelAssemblyLocation(assemblyLocation);
 			toUpdate.Radius = Utils.ToInternalUnits(radius, true);
 		}
-		internal CircularAnchorPattern(SteelGeometry.Point3d astPointRef, double radius, IEnumerable<string> handlesToConnect, int nBolts, SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy, AssemblyLocation assemblyLocation)
+		internal CircularAnchorPattern(SteelGeometry.Point3d astPointRef, double radius, IEnumerable<string> handlesToConnect, int nAnchors, SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy, AssemblyLocation assemblyLocation)
 		{
 			lock (access_obj)
 			{
@@ -53,13 +52,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 					{
 						anchors = new Autodesk.AdvanceSteel.Modelling.AnchorPattern(astPointRef, vx, vy);
 						anchors.ArrangerType = Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle;
-						UpdateAnchorPattern(ref anchors, nBolts, radius, assemblyLocation);
 						anchors.WriteToDb();
-
-						HashSet<FilerObject> objectsToConnect = new HashSet<FilerObject>();
-						objectsToConnect = ObjectsConnection.GetSteelObjectsToConnect(handlesToConnect);
-
-						anchors.Connect(objectsToConnect, anchors.AssemblyLocation);
 					}
 					else
 					{
@@ -70,16 +63,16 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 							anchors.RefPoint = astPointRef;
 							anchors.XDirection = vx;
 							anchors.YDirection = vy;
-							UpdateAnchorPattern(ref anchors, nBolts, radius, assemblyLocation);
-
-							HashSet<FilerObject> filerObjects = new HashSet<FilerObject>();
-							filerObjects = ObjectsConnection.GetFilerObjects(handlesToConnect);
-
-							anchors.Connect(filerObjects, anchors.AssemblyLocation);
+							
 						}
 						else
 							throw new System.Exception("Not a circular pattern");
 					}
+
+					UpdateAnchorPattern(anchors, nAnchors, radius);
+
+					HashSet<FilerObject> filerObjects = ObjectsConnection.GetFilerObjects(handlesToConnect);
+					anchors.Connect(filerObjects, ObjectsConnection.GetSteelAssemblyLocation(assemblyLocation));
 
 					Handle = anchors.Handle;
 					SteelServices.ElementBinder.CleanupAndSetElementForTrace(anchors);
@@ -92,17 +85,16 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 		/// </summary>
 		/// <param name="circle">Input circle</param>
 		/// <param name="objectsToConnect">Input objects</param>
-		/// <param name="nBolts">Input no. of bolts</param>
+		/// <param name="nAnchors">Input no. of anchors</param>
 		/// <param name="location">Input location</param>
 		/// <returns></returns>
-		public static CircularAnchorPattern ByCircle(Autodesk.DesignScript.Geometry.Circle circle, IEnumerable<SteelDbObject> objectsToConnect, int nBolts, AssemblyLocation location)
+		public static CircularAnchorPattern ByCircle(Autodesk.DesignScript.Geometry.Circle circle, IEnumerable<SteelDbObject> objectsToConnect, int nAnchors, AssemblyLocation location)
 		{
 			var norm = Utils.ToAstVector3d(circle.Normal, true);
 			var vx = norm.GetPerpVector();
 			var vy = norm.CrossProduct(vx);
-			List<string> handlesList = new List<string>();
-			handlesList = ObjectsConnection.GetSteelDbObjectsToConnect(objectsToConnect);
-			return new CircularAnchorPattern(Utils.ToAstPoint(circle.CenterPoint, true), circle.Radius, handlesList, nBolts, vx, vy, location);
+			List<string> handlesList = ObjectsConnection.GetSteelDbObjectsToConnect(objectsToConnect);
+			return new CircularAnchorPattern(Utils.ToAstPoint(circle.CenterPoint, true), circle.Radius, handlesList, nAnchors, vx, vy, location);
 		}
 
 		/// <summary>
@@ -112,10 +104,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 		/// <param name="radius">Input objects</param>
 		/// <param name="normal">Input norm </param>
 		/// <param name="objectsToConnect">Input objects</param>
-		/// <param name="nBolts">Input no. of bolts</param>
+		/// <param name="nAnchors">Input no. of anchors</param>
 		/// <param name="location">Input location</param>
 		/// <returns></returns>
-		public static CircularAnchorPattern ByCenterPointRadiusNormal(DynGeometry.Point point, double radius, IEnumerable<SteelDbObject> objectsToConnect, int nBolts, DynGeometry.Vector normal, AssemblyLocation location)
+		public static CircularAnchorPattern ByCenterPointRadiusNormal(DynGeometry.Point point, double radius, IEnumerable<SteelDbObject> objectsToConnect, int nAnchors, DynGeometry.Vector normal, AssemblyLocation location)
 		{
 			SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
 
@@ -125,7 +117,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 
 			IEnumerable<string> handles = objectsToConnect.Select(obj => obj.Handle);
 
-			return new CircularAnchorPattern(Utils.ToAstPoint(point, true), radius, handles, nBolts, vx, vy, location);
+			return new CircularAnchorPattern(astPointRef, radius, handles, nAnchors, vx, vy, location);
 		}
 
 		[IsVisibleInDynamoLibrary(false)]
@@ -138,7 +130,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 					var anchorPattern = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.AnchorPattern;
 					if (anchorPattern == null)
 					{
-						throw new Exception("Null bolt pattern");
+						throw new Exception("Null anchor pattern");
 					}
 
 					using (var point = Utils.ToDynPoint(anchorPattern.RefPoint, true))

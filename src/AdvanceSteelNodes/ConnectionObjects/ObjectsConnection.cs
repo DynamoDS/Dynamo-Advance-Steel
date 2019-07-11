@@ -76,16 +76,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 			var temp = Utils.GetObject(aux.Handle) as Autodesk.AdvanceSteel.Modelling.ScrewBoltPattern;
 			if (temp.IsKindOf(FilerObject.eObjectType.kCircleScrewBoltPattern) || temp.IsKindOf(FilerObject.eObjectType.kFinitRectScrewBoltPattern))
 			{
-				if (location == AssemblyLocation.kWrong)
-					temp.AssemblyLocation = AtomicElement.eAssemblyLocation.kWrong;
-				else if (location == AssemblyLocation.kUnknown)
-					temp.AssemblyLocation = AtomicElement.eAssemblyLocation.kUnknown;
-				else if (location == AssemblyLocation.kSiteDrill)
-					temp.AssemblyLocation = AtomicElement.eAssemblyLocation.kSiteDrill;
-				else if (location == AssemblyLocation.kOnSite)
-					temp.AssemblyLocation = AtomicElement.eAssemblyLocation.kOnSite;
-				else
-					temp.AssemblyLocation = AtomicElement.eAssemblyLocation.kInShop;
+				temp.AssemblyLocation = GetSteelAssemblyLocation(location);
 			}
 		}
 		/// <summary>

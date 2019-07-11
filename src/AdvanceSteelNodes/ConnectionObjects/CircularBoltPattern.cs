@@ -33,10 +33,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 			}
 		}
 
-		internal void UpdateBoltPattern(ref Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern toUpdate, int noScrews, double radius, AssemblyLocation assemblyLocation)
+		internal void UpdateBoltPattern(Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern toUpdate, int noScrews, double radius)
 		{
 			toUpdate.NumberOfScrews = noScrews;
-			toUpdate.AssemblyLocation = ObjectsConnection.GetSteelAssemblyLocation(assemblyLocation);
 			toUpdate.Radius = Utils.ToInternalUnits(radius, true);
 		}
 		internal CircularBoltPattern(SteelGeometry.Point3d astPointRef, double radius, IEnumerable<string> handlesToConnect, int nBolts, SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy, AssemblyLocation assemblyLocation)
@@ -51,14 +50,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
 					{
 						bolts = new Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern(astPointRef, vx, vy);
-						UpdateBoltPattern(ref bolts, nBolts, radius, assemblyLocation);
-						bolts.AssemblyLocation = ObjectsConnection.GetSteelAssemblyLocation(assemblyLocation);
 						bolts.WriteToDb();
-
-						HashSet<FilerObject> objectsToConnect = new HashSet<FilerObject>();
-						objectsToConnect = ObjectsConnection.GetSteelObjectsToConnect(handlesToConnect);
-					
-						bolts.Connect(objectsToConnect, bolts.AssemblyLocation);
 					}
 					else
 					{
@@ -69,17 +61,14 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 							bolts.RefPoint = astPointRef;
 							bolts.XDirection = vx;
 							bolts.YDirection = vy;
-							//bolts.AssemblyLocation = ObjectsConnection.GetSteelAssemblyLocation(assemblyLocation);
-							UpdateBoltPattern(ref bolts, nBolts, radius, assemblyLocation);
-
-							HashSet<FilerObject> filerObjects = new HashSet<FilerObject>();
-							filerObjects = ObjectsConnection.GetFilerObjects(handlesToConnect);
-
-							bolts.Connect(filerObjects, bolts.AssemblyLocation);
 						}
 						else
 							throw new System.Exception("Not a circular pattern");
 					}
+
+					UpdateBoltPattern(bolts, nBolts, radius);
+					HashSet<FilerObject> filerObjects = ObjectsConnection.GetFilerObjects(handlesToConnect);
+					bolts.Connect(filerObjects, ObjectsConnection.GetSteelAssemblyLocation(assemblyLocation));
 
 					Handle = bolts.Handle;
 					SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolts);
@@ -100,8 +89,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 			var norm = Utils.ToAstVector3d(circle.Normal, true);
 			var vx = norm.GetPerpVector();
 			var vy = norm.CrossProduct(vx);
-			List<string> handlesList = new List<string>();
-			handlesList = ObjectsConnection.GetSteelDbObjectsToConnect(objectsToConnect);
+			List<string> handlesList = ObjectsConnection.GetSteelDbObjectsToConnect(objectsToConnect);
 			return new CircularBoltPattern(Utils.ToAstPoint(circle.CenterPoint, true), circle.Radius, handlesList, nBolts, vx, vy, location);
 		}
 

@@ -36,18 +36,18 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 
 			return diagLen * Math.Sin(alpha);
 		}
-		internal void UpdateShearStudPattern(Autodesk.AdvanceSteel.Modelling.Connector toUpdate, int nx, int ny, double dx, double dy, double length, double diameter)
+		internal void UpdateShearStudPattern(Autodesk.AdvanceSteel.Modelling.Connector toUpdate, int nx, int ny, double dx, double dy, double length, double studDiameter)
 		{
 			toUpdate.Arranger.Nx = nx;
 			toUpdate.Arranger.Ny = ny;
 			toUpdate.Arranger.Dx = dx;
 			toUpdate.Arranger.Dy = dy;
-			toUpdate.Diameter = diameter;
+			toUpdate.Diameter = studDiameter;
 			toUpdate.Length = length;
 		}
 
 		internal RectangularShearStudsPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2, string handleToConnect, SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
-																					SteelGeometry.Matrix3d coordSyst, int nx, int ny, double length, double diameter)
+																					SteelGeometry.Matrix3d coordSyst, int nx, int ny, double studLen, double studDiameter)
 		{
 			lock (access_obj)
 			{
@@ -62,23 +62,19 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 					{
 						shearStuds = new Autodesk.AdvanceSteel.Modelling.Connector();
 						shearStuds.Arranger = new Autodesk.AdvanceSteel.Arrangement.RectangularArranger(Matrix2d.kIdentity, dx, dy, nx, ny);
-						UpdateShearStudPattern(shearStuds, nx, ny, dx, dy, length, diameter);
-						FilerObject obj = Utils.GetObject(handleToConnect);
-						shearStuds.Connect(obj, coordSyst);
 						shearStuds.WriteToDb();
 					}
 					else
 					{
 						shearStuds = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Connector;
-						if (shearStuds != null && shearStuds.IsKindOf(FilerObject.eObjectType.kConnector))
-						{
-							UpdateShearStudPattern(shearStuds, nx, ny, dx, dy, length, diameter);
-							FilerObject obj = Utils.GetObject(handleToConnect);
-							shearStuds.Connect(obj, coordSyst);
-						}
-						else
+						if (shearStuds == null || !shearStuds.IsKindOf(FilerObject.eObjectType.kConnector))
 							throw new System.Exception("Not a shear stud pattern");
 					}
+
+					UpdateShearStudPattern(shearStuds, nx, ny, dx, dy, studLen, studDiameter);
+					FilerObject obj = Utils.GetObject(handleToConnect);
+					shearStuds.Connect(obj, coordSyst);
+
 					Handle = shearStuds.Handle;
 					SteelServices.ElementBinder.CleanupAndSetElementForTrace(shearStuds);
 				}
@@ -107,9 +103,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 			vy = vy.Normalize();
 			vz = vz.Normalize();
 
-			List<string> handlesList = new List<string>();
 			List<SteelDbObject> tempList = new List<SteelDbObject>() { objectToConnect };
-			handlesList = ObjectsConnection.GetSteelDbObjectsToConnect(tempList);
+			List<string> handlesList = ObjectsConnection.GetSteelDbObjectsToConnect(tempList);
 
 			var rectangleCenter = astCorners[0] + (astCorners[2] - astCorners[0]) * 0.5;
 			Matrix3d matrix3D = new Matrix3d();

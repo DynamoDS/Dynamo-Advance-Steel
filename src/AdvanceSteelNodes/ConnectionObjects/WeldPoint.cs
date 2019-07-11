@@ -31,11 +31,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 					{
 						weld = new Autodesk.AdvanceSteel.Modelling.WeldPoint(astPoint, Vector3d.kXAxis, Vector3d.kYAxis);
 						weld.WriteToDb();
-
-						HashSet<FilerObject> objectsToConnect = new HashSet<FilerObject>();
-						objectsToConnect = ObjectsConnection.GetSteelObjectsToConnect(handlesToConnect);
-
-						weld.Connect(objectsToConnect, AtomicElement.eAssemblyLocation.kOnSite);
 					}
 					else
 					{
@@ -43,19 +38,16 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 
 						if (weld != null && weld.IsKindOf(FilerObject.eObjectType.kWeldPattern))
 						{
-							
 							Matrix3d coordinateSystem = new Matrix3d();
 							coordinateSystem.SetCoordSystem(astPoint, Vector3d.kXAxis, Vector3d.kYAxis, Vector3d.kZAxis);
 							weld.SetCS(coordinateSystem);
-							
-							HashSet<FilerObject> filerObjects = new HashSet<FilerObject>();
-							filerObjects = ObjectsConnection.GetFilerObjects(handlesToConnect);
-				
-							weld.Connect(filerObjects, AtomicElement.eAssemblyLocation.kOnSite);
 						}
 						else
 							throw new System.Exception("Not a weld point");
 					}
+
+					HashSet<FilerObject> filerObjects = ObjectsConnection.GetFilerObjects(handlesToConnect);
+					weld.Connect(filerObjects, AtomicElement.eAssemblyLocation.kOnSite);
 
 					Handle = weld.Handle;
 					SteelServices.ElementBinder.CleanupAndSetElementForTrace(weld);

@@ -51,14 +51,13 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 
 			return diagLen * Math.Sin(alpha);
 		}
-		internal void UpdateAnchorPattern(ref Autodesk.AdvanceSteel.Modelling.AnchorPattern toUpdate, int nx, int ny, Point3d point1, Point3d point2, AssemblyLocation assemblyLocation, double dx, double dy)
+		internal void UpdateAnchorPattern(Autodesk.AdvanceSteel.Modelling.AnchorPattern toUpdate, int nx, int ny, Point3d point1, Point3d point2, double dx, double dy)
 		{
 			toUpdate.Nx = nx;
 			toUpdate.Ny = ny;
 			toUpdate.Dx = dx;
 			toUpdate.Dy = dy;
 			toUpdate.RefPoint = point1 + (point2 - point1) * 0.5;
-			toUpdate.AssemblyLocation = ObjectsConnection.GetSteelAssemblyLocation(assemblyLocation);
 		}
 		internal RectangularAnchorPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2, IEnumerable<string> handlesToConnect, SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
 																			int nx, int ny, AssemblyLocation assemblyLocation, double dx, double dy)
@@ -68,19 +67,13 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 				using (var ctx = new SteelServices.DocContext())
 				{
 					Autodesk.AdvanceSteel.Modelling.AnchorPattern anchors = null;
-
 					string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+					var astPointRef = astPoint1 + (astPoint2 - astPoint1) * 0.5;
+
 					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
 					{
-						var astPointRef = astPoint1 + (astPoint2 - astPoint1) * 0.5;
 						anchors = new Autodesk.AdvanceSteel.Modelling.AnchorPattern(astPointRef, vx, vy);
-						UpdateAnchorPattern(ref anchors, nx, ny, astPoint1, astPoint2, assemblyLocation, dx, dy);
 						anchors.WriteToDb();
-
-						HashSet<FilerObject> objectsToConnect = new HashSet<FilerObject>();
-						objectsToConnect = ObjectsConnection.GetSteelObjectsToConnect(handlesToConnect);
-
-						anchors.Connect(objectsToConnect, anchors.AssemblyLocation);
 					}
 					else
 					{
@@ -88,19 +81,17 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 
 						if (anchors != null && anchors.IsKindOf(FilerObject.eObjectType.kAnchorPattern))
 						{
-							anchors.RefPoint = astPoint1 + (astPoint2 - astPoint1) * 0.5;
+							anchors.RefPoint = astPointRef;
 							anchors.XDirection = vx;
 							anchors.YDirection = vy;
-							UpdateAnchorPattern(ref anchors, nx, ny, astPoint1, astPoint2, assemblyLocation, dx, dy);
-
-							HashSet<FilerObject> filerObjects = new HashSet<FilerObject>();
-							filerObjects = ObjectsConnection.GetFilerObjects(handlesToConnect);
-
-							anchors.Connect(filerObjects, anchors.AssemblyLocation);
 						}
 						else
 							throw new System.Exception("Not an anchor pattern");
 					}
+
+					UpdateAnchorPattern(anchors, nx, ny, astPoint1, astPoint2, dx, dy);
+					HashSet<FilerObject> filerObjects = ObjectsConnection.GetFilerObjects(handlesToConnect);
+					anchors.Connect(filerObjects, ObjectsConnection.GetSteelAssemblyLocation(assemblyLocation));
 
 					Handle = anchors.Handle;
 					SteelServices.ElementBinder.CleanupAndSetElementForTrace(anchors);
@@ -118,8 +109,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 		public static RectangularAnchorPattern ByRectangle(Autodesk.DesignScript.Geometry.Rectangle rectangle, IEnumerable<SteelDbObject> objectsToConnect,
 																											int nx, int ny, AssemblyLocation location)
 		{
-			List<string> handlesList = new List<string>();
-			handlesList = ObjectsConnection.GetSteelDbObjectsToConnect(objectsToConnect);
+			List<string> handlesList = ObjectsConnection.GetSteelDbObjectsToConnect(objectsToConnect);
 
 			var dynCorners = rectangle.Corners();
 			var astCorners = Utils.ToAstPoints(dynCorners, true);

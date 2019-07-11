@@ -56,14 +56,13 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 
 			return diagLen * Math.Sin(alpha);
 		}
-		internal void UpdateBoltPattern(ref Autodesk.AdvanceSteel.Modelling.FinitRectScrewBoltPattern toUpdate, int nx, int ny, Point3d point1, Point3d point2, AssemblyLocation assemblyLocation)
+		internal void UpdateBoltPattern(Autodesk.AdvanceSteel.Modelling.FinitRectScrewBoltPattern toUpdate, int nx, int ny, Point3d point1, Point3d point2)
 		{
 			toUpdate.Nx = nx;
 			toUpdate.Ny = ny;
 			toUpdate.RefPoint = point1 + (point2 - point1) * 0.5;
 			toUpdate.Length = GetRectangleLength(point1, point2, toUpdate.XDirection);
 			toUpdate.Height = GetRectangleHeight(point1, point2, toUpdate.XDirection);
-			toUpdate.AssemblyLocation = ObjectsConnection.GetSteelAssemblyLocation(assemblyLocation);
 		}
 		internal RectangularBoltPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2, IEnumerable<string> handlesToConnect, SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
 																		int nx, int ny, AssemblyLocation assemblyLocation)
@@ -79,14 +78,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
 					{
 						bolts = new Autodesk.AdvanceSteel.Modelling.FinitRectScrewBoltPattern(astPoint1, astPoint2, vx, vy);
-
-						UpdateBoltPattern(ref bolts, nx, ny, astPoint1, astPoint2, assemblyLocation);
 						bolts.WriteToDb();
-
-						HashSet<FilerObject> objectsToConnect = new HashSet<FilerObject>();
-						objectsToConnect = ObjectsConnection.GetSteelObjectsToConnect(handlesToConnect);
-			
-						bolts.Connect(objectsToConnect, bolts.AssemblyLocation);
 					}
 					else
 					{
@@ -96,17 +88,14 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 						{
 							bolts.XDirection = vx;
 							bolts.YDirection = vy;
-
-							UpdateBoltPattern(ref bolts, nx, ny, astPoint1, astPoint2, assemblyLocation);
-
-							HashSet<FilerObject> filerObjects = new HashSet<FilerObject>();
-							filerObjects = ObjectsConnection.GetFilerObjects(handlesToConnect);
-
-							bolts.Connect(filerObjects, bolts.AssemblyLocation);
 						}
 						else
 							throw new System.Exception("Not a rectangular pattern");
 					}
+
+					UpdateBoltPattern(bolts, nx, ny, astPoint1, astPoint2);
+					HashSet<FilerObject> filerObjects = ObjectsConnection.GetSteelObjectsToConnect(handlesToConnect);
+					bolts.Connect(filerObjects, ObjectsConnection.GetSteelAssemblyLocation(assemblyLocation));
 
 					Handle = bolts.Handle;
 					SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolts);

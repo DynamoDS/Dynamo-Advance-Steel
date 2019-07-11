@@ -49,8 +49,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 		/// <param name="objectsToConnect"> Input objects </param>
 		public static WeldLine ByPolyCurve(DynGeometry.PolyCurve polyCurve, IEnumerable<SteelDbObject> objectsToConnect)
 		{
-			List<string> handlesList = new List<string>();
-			handlesList = ObjectsConnection.GetSteelDbObjectsToConnect(objectsToConnect);
+			List<string> handlesList = ObjectsConnection.GetSteelDbObjectsToConnect(objectsToConnect);
 
 			var temp = polyCurve.Curves();
 			SteelGeometry.Point3d[] astArr = new SteelGeometry.Point3d[temp.Length + 1];
@@ -63,10 +62,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 			Point3d endPoint = Utils.ToAstPoint(temp[temp.Length - 1].EndPoint, true);
 			astArr[temp.Length] = endPoint;
 
-			if (polyCurve.IsClosed)
-				return new WeldLine(astArr, handlesList, true);
-			else
-				return new WeldLine(astArr, handlesList, false);
+			return new WeldLine(astArr, handlesList, polyCurve.IsClosed);
 		}
 
 		[IsVisibleInDynamoLibrary(false)]
