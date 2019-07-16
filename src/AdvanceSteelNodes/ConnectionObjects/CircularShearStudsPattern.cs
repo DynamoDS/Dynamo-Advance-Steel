@@ -12,6 +12,10 @@ using System.Linq;
 
 namespace AdvanceSteel.Nodes.ConnectionObjects
 {
+	/// <summary>
+	/// Advance Steel Circular Shear Stud Pattern
+	/// </summary>
+	[DynamoServices.RegisterForTrace]
 	public class CircularShearStudsPattern : GraphicObject
 	{
 		internal void UpdateShearStudPattern(Autodesk.AdvanceSteel.Modelling.Connector toUpdate, int noElements, double diameter, double length)
@@ -60,11 +64,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 		/// </summary>
 		/// <param name="circle">Input circle</param>
 		/// <param name="objectToConnect">Input objects</param>
-		/// <param name="studDiameter">Input diameter</param>
+		/// <param name="diameter">Input diameter</param>
 		/// <param name="noElements">Input number of elements</param>
-		/// <param name="studLen">Input length</param>
+		/// <param name="lenght">Input length</param>
 		/// <returns></returns>
-		public static CircularShearStudsPattern ByCircle(Autodesk.DesignScript.Geometry.Circle circle, SteelDbObject objectToConnect, double studDiameter, int noElements, double studLen)
+		public static CircularShearStudsPattern ByCircle(Autodesk.DesignScript.Geometry.Circle circle, SteelDbObject objectToConnect, double diameter, int noElements, double lenght)
 		{
 			var norm = Utils.ToAstVector3d(circle.Normal, true);
 			var vx = norm.GetPerpVector();
@@ -81,7 +85,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 			Matrix3d matrix3D = new Matrix3d();
 			matrix3D.SetCoordSystem(Utils.ToAstPoint(circle.CenterPoint, true), vx, vy, vz);
 	
-			return new CircularShearStudsPattern(Utils.ToInternalUnits(studDiameter, true), handlesList[0], matrix3D, noElements, circle.Radius, Utils.ToInternalUnits(studLen, true));
+			return new CircularShearStudsPattern(Utils.ToInternalUnits(diameter, true), handlesList[0], matrix3D, noElements, circle.Radius, Utils.ToInternalUnits(lenght, true));
 		}
 
 		[IsVisibleInDynamoLibrary(false)]

@@ -12,7 +12,7 @@ using System;
 
 namespace AdvanceSteel.Nodes.ConnectionObjects
 {
-	[IsVisibleInDynamoLibrary(true)]
+	[IsVisibleInDynamoLibrary(false)]
 	public class ObjectsConnection
 	{
 		public static HashSet<FilerObject> GetSteelObjectsToConnect(IEnumerable<string> handlesToConnect)
@@ -173,6 +173,33 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 				else
 					throw new System.Exception("Failed to set anchor type");
 			}
+		}
+
+		/// <summary>
+		/// Functions to draw a rectangle OXYZ
+		/// </summary>
+		/// <returns></returns>
+		public static double GetDiagonalLength(SteelGeometry.Point3d point1, SteelGeometry.Point3d point2)
+		{
+			return (point2 - point1).GetLength();
+		}
+		public static double GetRectangleAngle(SteelGeometry.Point3d point1, SteelGeometry.Point3d point2, SteelGeometry.Vector3d vx)
+		{
+			return (point2 - point1).GetAngleTo(vx);
+		}
+		public static double GetRectangleLength(SteelGeometry.Point3d point1, SteelGeometry.Point3d point2, SteelGeometry.Vector3d vx)
+		{
+			var diagLen = GetDiagonalLength(point1, point2);
+			var alpha = GetRectangleAngle(point1, point2, vx);
+
+			return diagLen * Math.Cos(alpha);
+		}
+		public static double GetRectangleHeight(SteelGeometry.Point3d point1, SteelGeometry.Point3d point2, SteelGeometry.Vector3d vx)
+		{
+			var diagLen = GetDiagonalLength(point1, point2);
+			var alpha = GetRectangleAngle(point1, point2, vx);
+
+			return diagLen * Math.Sin(alpha);
 		}
 
 	}

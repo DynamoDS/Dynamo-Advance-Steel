@@ -12,6 +12,10 @@ using System;
 
 namespace AdvanceSteel.Nodes.ConnectionObjects
 {
+	/// <summary>
+	/// Advance Steel Rectangular Anchor Pattern
+	/// </summary>
+	[DynamoServices.RegisterForTrace]
 	public class RectangularAnchorPattern : GraphicObject
 	{
 		public AssemblyLocation AssemblyLocation
@@ -28,28 +32,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 					}
 				}
 			}
-		}
-		internal double GetDiagonalLength(SteelGeometry.Point3d point1, SteelGeometry.Point3d point2)
-		{
-			return (point2 - point1).GetLength();
-		}
-		internal double GetRectangleAngle(SteelGeometry.Point3d point1, SteelGeometry.Point3d point2, SteelGeometry.Vector3d vx)
-		{
-			return (point2 - point1).GetAngleTo(vx);
-		}
-		internal double GetRectangleLength(SteelGeometry.Point3d point1, SteelGeometry.Point3d point2, SteelGeometry.Vector3d vx)
-		{
-			var diagLen = GetDiagonalLength(point1, point2);
-			var alpha = GetRectangleAngle(point1, point2, vx);
-
-			return diagLen * Math.Cos(alpha);
-		}
-		internal double GetRectangleHeight(SteelGeometry.Point3d point1, SteelGeometry.Point3d point2, SteelGeometry.Vector3d vx)
-		{
-			var diagLen = GetDiagonalLength(point1, point2);
-			var alpha = GetRectangleAngle(point1, point2, vx);
-
-			return diagLen * Math.Sin(alpha);
 		}
 		internal void UpdateAnchorPattern(Autodesk.AdvanceSteel.Modelling.AnchorPattern toUpdate, int nx, int ny, Point3d point1, Point3d point2, double dx, double dy)
 		{
@@ -119,6 +101,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 			return new RectangularAnchorPattern(astCorners[0], astCorners[2], handlesList, vx, vy, nx, ny, location,
 																					Utils.ToInternalUnits(rectangle.Height, true), Utils.ToInternalUnits(rectangle.Width, true));
 		}
+		[IsVisibleInDynamoLibrary(false)]
 		public override DynGeometry.Curve GetDynCurve()
 		{
 			lock (access_obj)
@@ -148,12 +131,13 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 					pt4.Add(-temp1 + temp2);
 
 					{
-						List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>();
-
-						polyPoints.Add(Utils.ToDynPoint(pt1, true));
-						polyPoints.Add(Utils.ToDynPoint(pt2, true));
-						polyPoints.Add(Utils.ToDynPoint(pt3, true));
-						polyPoints.Add(Utils.ToDynPoint(pt4, true));
+						List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>
+						{
+							Utils.ToDynPoint(pt1, true),
+							Utils.ToDynPoint(pt2, true),
+							Utils.ToDynPoint(pt3, true),
+							Utils.ToDynPoint(pt4, true)
+						};
 
 						return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
 					}

@@ -34,35 +34,13 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 			}
 		}
 
-		internal double GetDiagonalLength(SteelGeometry.Point3d point1, SteelGeometry.Point3d point2)
-		{
-			return (point2 - point1).GetLength();
-		}	
-		internal double GetRectangleAngle(SteelGeometry.Point3d point1, SteelGeometry.Point3d point2, SteelGeometry.Vector3d vx)
-		{
-			return (point2 - point1).GetAngleTo(vx);
-		}
-		internal double GetRectangleLength(SteelGeometry.Point3d point1, SteelGeometry.Point3d point2, SteelGeometry.Vector3d vx)
-		{
-			var diagLen = GetDiagonalLength(point1, point2);
-			var alpha = GetRectangleAngle(point1, point2, vx);
-			
-			return diagLen * Math.Cos(alpha);
-		}
-		internal double GetRectangleHeight(SteelGeometry.Point3d point1, SteelGeometry.Point3d point2, SteelGeometry.Vector3d vx)
-		{
-			var diagLen = GetDiagonalLength(point1, point2);
-			var alpha = GetRectangleAngle(point1, point2, vx);
-
-			return diagLen * Math.Sin(alpha);
-		}
 		internal void UpdateBoltPattern(Autodesk.AdvanceSteel.Modelling.FinitRectScrewBoltPattern toUpdate, int nx, int ny, Point3d point1, Point3d point2)
 		{
 			toUpdate.Nx = nx;
 			toUpdate.Ny = ny;
 			toUpdate.RefPoint = point1 + (point2 - point1) * 0.5;
-			toUpdate.Length = GetRectangleLength(point1, point2, toUpdate.XDirection);
-			toUpdate.Height = GetRectangleHeight(point1, point2, toUpdate.XDirection);
+			toUpdate.Length = ObjectsConnection.GetRectangleLength(point1, point2, toUpdate.XDirection);
+			toUpdate.Height = ObjectsConnection.GetRectangleHeight(point1, point2, toUpdate.XDirection);
 		}
 		internal RectangularBoltPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2, IEnumerable<string> handlesToConnect, SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
 																		int nx, int ny, AssemblyLocation assemblyLocation)
@@ -72,7 +50,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 				using (var ctx = new SteelServices.DocContext())
 				{
 					Autodesk.AdvanceSteel.Modelling.FinitRectScrewBoltPattern bolts = null;
-					List<SteelGeometry.Point3d> astPointsList = new List<Point3d>();
 
 					string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
@@ -155,12 +132,13 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 					pt4.Add(-temp1 + temp2);
 
 					{
-						List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>();
-
-						polyPoints.Add(Utils.ToDynPoint(pt1, true));
-						polyPoints.Add(Utils.ToDynPoint(pt2, true));
-						polyPoints.Add(Utils.ToDynPoint(pt3, true));
-						polyPoints.Add(Utils.ToDynPoint(pt4, true));
+						List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>
+						{
+							Utils.ToDynPoint(pt1, true),
+							Utils.ToDynPoint(pt2, true),
+							Utils.ToDynPoint(pt3, true),
+							Utils.ToDynPoint(pt4, true)
+						};
 
 						return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
 					}
