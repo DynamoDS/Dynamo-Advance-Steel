@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using Autodesk.AdvanceSteel.Geometry;
 using System.Linq;
 
-namespace AdvanceSteel.Nodes.ConnectionObjects
+namespace AdvanceSteel.Nodes.Gratings
 {
 	/// <summary>
 	/// Advance Steel Variable Grating Pattern
@@ -19,7 +19,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 	public class VariableGrating : GraphicObject
 	{
 
-		internal VariableGrating(string strClass, string strName, Plane plane, Point3d ptCenter, double dWidth, double dLength, SteelGeometry.Point3d point1, SteelGeometry.Point3d point2, Vector3d vx, Vector3d vy)
+		internal VariableGrating(string strClass, string strName, Plane plane, Point3d ptCenter, double dWidth, double dLength)
 		{
 			lock (access_obj)
 			{
@@ -42,8 +42,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 							gratings.GratingClass = strClass;
 							gratings.GratingSize = strName;
 							gratings.DefinitionPlane = plane;
-							gratings.SetLength(ObjectsConnection.GetRectangleLength(point1, point2, vx), true);
-							gratings.SetWidth(ObjectsConnection.GetRectangleHeight(point1, point2, vx), true);
+							gratings.SetLength(dLength, true);
+							gratings.SetWidth(dWidth, true);
 						}
 						else
 						{
@@ -71,7 +71,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 			var vy = astCorners[3] - astCorners[0];
 
 			Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(refPoint, vx, vy);
-			return new VariableGrating(strClass, strName, plane, refPoint, Utils.ToInternalUnits(rectangle.Width, true), Utils.ToInternalUnits(rectangle.Height, true), astCorners[0], astCorners[2], vx, vy);
+			return new VariableGrating(strClass, strName, plane, refPoint, Utils.ToInternalUnits(rectangle.Width, true), Utils.ToInternalUnits(rectangle.Height, true));
 		}
 		[IsVisibleInDynamoLibrary(false)]
 		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
@@ -88,11 +88,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects
 					}
 
 					var coordSystem = grating.CS;
-					var tempVx = new Vector3d(coordSystem.Values[0][0], coordSystem.Values[1][0], coordSystem.Values[2][0]);
-					var tempVy = new Vector3d(coordSystem.Values[0][1], coordSystem.Values[1][1], coordSystem.Values[2][1]);
+					coordSystem.GetCoordSystem(out var origPt, out var vX, out var vY, out var vZ);
 
-					var temp1 = tempVx * grating.Length / 2.0;
-					var temp2 = tempVy * grating.Width / 2.0;
+					var temp1 = vX * grating.Length / 2.0;
+					var temp2 = vY * grating.Width / 2.0;
 
 					var pt1 = new SteelGeometry.Point3d(grating.CenterPoint);
 					pt1.Add(temp1 + temp2);
