@@ -29,7 +29,7 @@ namespace AdvanceSteel.Nodes.Gratings
 
 					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
 					{
-						gratings = new Autodesk.AdvanceSteel.Modelling.Grating("ADT", 11, 2, "3 / 16 inch", "10", "3/16", plane,  ptCenter, dLength);
+						gratings = new Autodesk.AdvanceSteel.Modelling.Grating("ADT", 11, 2, "3 / 16 inch", "10", "3/16", plane, ptCenter, dLength);
 						gratings.WriteToDb();
 					}
 					else
@@ -50,22 +50,27 @@ namespace AdvanceSteel.Nodes.Gratings
 				}
 			}
 		}
-
 		/// <summary>
 		/// Create an Advance Steel Bar Grating
 		/// </summary>
 		/// <returns></returns>
-		public static BarGrating ByRectangle(Autodesk.DesignScript.Geometry.Rectangle rectangle)
-		{
-			var dynCorners = rectangle.Corners();
-			var astCorners = Utils.ToAstPoints(dynCorners, true);
-			var refPoint = astCorners[0] + (astCorners[2] - astCorners[0]) * 0.5;
-			var vx = astCorners[1] - astCorners[0];
-			var vy = astCorners[3] - astCorners[0];
 
-			Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(refPoint, vx, vy);
-			return new BarGrating(plane, refPoint, Utils.ToInternalUnits(rectangle.Height, true));
+		public static BarGrating ByLine(Autodesk.DesignScript.Geometry.Line line, Autodesk.DesignScript.Geometry.Vector planDirection)
+		{
+			var start = Utils.ToAstPoint(line.StartPoint, true);
+			var end = Utils.ToAstPoint(line.EndPoint, true);
+			var refPoint = start + (end - start) * 0.5;
+			var planeNorm = Utils.ToAstVector3d(planDirection, true);
+
+			if (!planeNorm.IsPerpendicularTo(Utils.ToAstVector3d(line.Direction, true)))
+			{
+				throw new System.Exception("Plan Direction must be perpendicular to line");
+			}
+
+			Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(refPoint, planeNorm);
+			return new BarGrating(plane, refPoint, Utils.ToInternalUnits(line.Length, true));
 		}
+
 		[IsVisibleInDynamoLibrary(false)]
 		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
 		{
@@ -77,38 +82,12 @@ namespace AdvanceSteel.Nodes.Gratings
 
 					if (grating == null)
 					{
-						throw new Exception("Null Bar Grating pattern");
+						throw new Exception("Null Variable Grating pattern");
 					}
 
-					var coordSystem = grating.CS;
-					coordSystem.GetCoordSystem(out var origPt, out var vX, out var vY, out var vZ);
+					List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>(GratingDraw.GetPointsToDraw(grating));
 
-					var temp1 = vX * grating.Length / 2.0;
-					var temp2 = vY * grating.Width / 2.0;
-
-					var pt1 = new SteelGeometry.Point3d(grating.CenterPoint);
-					pt1.Add(temp1 + temp2);
-
-					var pt2 = new SteelGeometry.Point3d(grating.CenterPoint);
-					pt2.Add(temp1 - temp2);
-
-					var pt3 = new SteelGeometry.Point3d(grating.CenterPoint);
-					pt3.Add(-temp1 - temp2);
-
-					var pt4 = new SteelGeometry.Point3d(grating.CenterPoint);
-					pt4.Add(-temp1 + temp2);
-				
-					{
-						List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>
-						{
-							Utils.ToDynPoint(pt1, true),
-							Utils.ToDynPoint(pt2, true),
-							Utils.ToDynPoint(pt3, true),
-							Utils.ToDynPoint(pt4, true)
-						};
-
-						return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
-					}
+					return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
 				}
 			}
 		}

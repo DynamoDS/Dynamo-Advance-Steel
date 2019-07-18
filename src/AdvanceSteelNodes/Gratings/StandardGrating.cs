@@ -19,7 +19,7 @@ namespace AdvanceSteel.Nodes.Gratings
 	public class StandardGrating : GraphicObject
 	{
 
-		internal StandardGrating(string strClass, string strName, Plane plane, Point3d ptCenter, double dWidth)
+		internal StandardGrating(string strClass, string strName, Plane plane, Point3d ptCenter)
 		{
 			lock (access_obj)
 			{
@@ -31,7 +31,7 @@ namespace AdvanceSteel.Nodes.Gratings
 					
 					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
 					{
-						gratings = new Autodesk.AdvanceSteel.Modelling.Grating(strClass, strName, plane, ptCenter, dWidth, dWidth);
+						gratings = new Autodesk.AdvanceSteel.Modelling.Grating(strClass, strName, plane, ptCenter);
 						gratings.WriteToDb();
 					}
 					else
@@ -42,8 +42,6 @@ namespace AdvanceSteel.Nodes.Gratings
 							gratings.GratingClass = strClass;
 							gratings.GratingSize = strName;
 							gratings.DefinitionPlane = plane;
-							gratings.SetLength(dWidth, true);
-							gratings.SetWidth(dWidth, true);
 						}
 						else
 						{
@@ -62,16 +60,10 @@ namespace AdvanceSteel.Nodes.Gratings
 		/// </summary>
 
 		/// <returns></returns>
-		public static StandardGrating BySquare(Autodesk.DesignScript.Geometry.Rectangle rectangle, string gratingClass, string gratingName)
+		public static StandardGrating ByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, string gratingClass, string gratingName)
 		{
-			var dynCorners = rectangle.Corners();
-			var astCorners = Utils.ToAstPoints(dynCorners, true);
-			var refPoint = astCorners[0] + (astCorners[2] - astCorners[0]) * 0.5;
-			var vx = astCorners[1] - astCorners[0];
-			var vy = astCorners[3] - astCorners[0];
-
-			Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(refPoint, vx, vy);
-			return new StandardGrating(gratingClass, gratingName, plane, refPoint, Utils.ToInternalUnits(rectangle.Width, true));
+			Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToAstVector3d(coordinateSystem.XAxis, true), Utils.ToAstVector3d(coordinateSystem.YAxis, true));
+			return new StandardGrating(gratingClass, gratingName, plane, Utils.ToAstPoint(coordinateSystem.Origin, true));
 		}
 		[IsVisibleInDynamoLibrary(false)]
 		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
@@ -87,35 +79,10 @@ namespace AdvanceSteel.Nodes.Gratings
 						throw new Exception("Null Standard Grating pattern");
 					}
 
-					var coordSystem = grating.CS;
-					coordSystem.GetCoordSystem(out var origPt, out var vX, out var vY, out var vZ);
+					List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>(GratingDraw.GetPointsToDraw(grating));
 
-					var temp1 = vX * grating.Length / 2.0;
-					var temp2 = vY * grating.Width / 2.0;
-
-					var pt1 = new SteelGeometry.Point3d(grating.CenterPoint);
-					pt1.Add(temp1 + temp2);
-
-					var pt2 = new SteelGeometry.Point3d(grating.CenterPoint);
-					pt2.Add(temp1 - temp2);
-
-					var pt3 = new SteelGeometry.Point3d(grating.CenterPoint);
-					pt3.Add(-temp1 - temp2);
-
-					var pt4 = new SteelGeometry.Point3d(grating.CenterPoint);
-					pt4.Add(-temp1 + temp2);
-
-					{
-						List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>
-						{
-							Utils.ToDynPoint(pt1, true),
-							Utils.ToDynPoint(pt2, true),
-							Utils.ToDynPoint(pt3, true),
-							Utils.ToDynPoint(pt4, true)
-						};
-
-						return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
-					}
+					return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
+					
 				}
 			}
 		}
