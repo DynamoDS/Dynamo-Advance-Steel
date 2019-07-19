@@ -19,13 +19,13 @@ namespace AdvanceSteel.Nodes.Gratings
 	public class StandardGrating : GraphicObject
 	{
 
-		internal StandardGrating(string strClass, string strName, Plane plane, Point3d ptCenter)
+		internal StandardGrating(string strClass, string strName, Point3d ptCenter, Vector3d vNormal)
 		{
 			lock (access_obj)
 			{
 				using (var ctx = new SteelServices.DocContext())
 				{
-					
+					Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
 					Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
 					string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 					
@@ -58,12 +58,14 @@ namespace AdvanceSteel.Nodes.Gratings
 		/// <summary>
 		/// Create an Advance Steel Standard Grating
 		/// </summary>
-
 		/// <returns></returns>
 		public static StandardGrating ByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, string gratingClass, string gratingName)
 		{
-			Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToAstVector3d(coordinateSystem.XAxis, true), Utils.ToAstVector3d(coordinateSystem.YAxis, true));
-			return new StandardGrating(gratingClass, gratingName, plane, Utils.ToAstPoint(coordinateSystem.Origin, true));
+			var vx = Utils.ToAstVector3d(coordinateSystem.XAxis, true);
+			var vy = Utils.ToAstVector3d(coordinateSystem.YAxis, true);
+			var norm = vx.CrossProduct(vy);
+			
+			return new StandardGrating(gratingClass, gratingName, Utils.ToAstPoint(coordinateSystem.Origin, true), norm);
 		}
 		[IsVisibleInDynamoLibrary(false)]
 		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
@@ -79,7 +81,7 @@ namespace AdvanceSteel.Nodes.Gratings
 						throw new Exception("Null Standard Grating pattern");
 					}
 
-					List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>(GratingDraw.GetPointsToDraw(grating));
+					List<DynGeometry.Point> polyPoints = GratingDraw.GetPointsToDraw(grating);
 
 					return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
 					

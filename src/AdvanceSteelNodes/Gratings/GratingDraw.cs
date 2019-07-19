@@ -12,7 +12,7 @@ using System;
 namespace AdvanceSteel.Nodes.Gratings
 {
 	[IsVisibleInDynamoLibrary(false)]
-	public class GratingDraw
+	public static class GratingDraw
 	{
 		public static List<DynGeometry.Point> GetPointsToDraw(Autodesk.AdvanceSteel.Modelling.Grating grating)
 		{

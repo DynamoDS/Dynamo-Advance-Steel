@@ -19,13 +19,13 @@ namespace AdvanceSteel.Nodes.Gratings
 	public class VariableGrating : GraphicObject
 	{
 
-		internal VariableGrating(string strClass, string strName, Plane plane, Point3d ptCenter, double dWidth, double dLength)
+		internal VariableGrating(string strClass, string strName, Point3d ptCenter, double dWidth, double dLength, Vector3d vNormal)
 		{
 			lock (access_obj)
 			{
 				using (var ctx = new SteelServices.DocContext())
 				{
-
+					Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
 					Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
 					string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -56,23 +56,19 @@ namespace AdvanceSteel.Nodes.Gratings
 				}
 			}
 		}
-
 		/// <summary>
-		/// Create an Advance Steel Variable grating
+		/// Create an Advance Steel Variable Grating
 		/// </summary>
-
 		/// <returns></returns>
-		public static VariableGrating ByRectangle(Autodesk.DesignScript.Geometry.Rectangle rectangle, string strClass, string strName)
+		public static VariableGrating ByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, string strClass, string strName, double dWidth, double dLength)
 		{
-			var dynCorners = rectangle.Corners();
-			var astCorners = Utils.ToAstPoints(dynCorners, true);
-			var refPoint = astCorners[0] + (astCorners[2] - astCorners[0]) * 0.5;
-			var vx = astCorners[1] - astCorners[0];
-			var vy = astCorners[3] - astCorners[0];
+			var vx = Utils.ToAstVector3d(coordinateSystem.XAxis, true);
+			var vy = Utils.ToAstVector3d(coordinateSystem.YAxis, true);
+			var norm = vx.CrossProduct(vy);
 
-			Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(refPoint, vx, vy);
-			return new VariableGrating(strClass, strName, plane, refPoint, Utils.ToInternalUnits(rectangle.Width, true), Utils.ToInternalUnits(rectangle.Height, true));
+			return new VariableGrating(strClass, strName, Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToInternalUnits(dWidth, true), Utils.ToInternalUnits(dLength, true), norm);
 		}
+
 		[IsVisibleInDynamoLibrary(false)]
 		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
 		{
@@ -87,7 +83,7 @@ namespace AdvanceSteel.Nodes.Gratings
 						throw new Exception("Null Variable Grating pattern");
 					}
 
-					List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>(GratingDraw.GetPointsToDraw(grating));
+					List<DynGeometry.Point> polyPoints = GratingDraw.GetPointsToDraw(grating);
 
 					return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
 				}

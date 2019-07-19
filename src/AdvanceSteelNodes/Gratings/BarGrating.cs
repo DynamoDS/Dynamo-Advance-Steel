@@ -85,7 +85,7 @@ namespace AdvanceSteel.Nodes.Gratings
 						throw new Exception("Null Variable Grating pattern");
 					}
 
-					List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>(GratingDraw.GetPointsToDraw(grating));
+					List<DynGeometry.Point> polyPoints = GratingDraw.GetPointsToDraw(grating);
 
 					return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
 				}
