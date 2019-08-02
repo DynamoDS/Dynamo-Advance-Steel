@@ -18,7 +18,6 @@ namespace AdvanceSteel.Nodes.Gratings
 	[DynamoServices.RegisterForTrace]
 	public class StandardGrating : GraphicObject
 	{
-
 		internal StandardGrating(string strClass, string strName, Point3d ptCenter, Vector3d vNormal)
 		{
 			lock (access_obj)
@@ -48,7 +47,6 @@ namespace AdvanceSteel.Nodes.Gratings
 							throw new System.Exception("Not a Standard Grating pattern");
 						}
 					}
-			
 					Handle = gratings.Handle;
 					SteelServices.ElementBinder.CleanupAndSetElementForTrace(gratings);
 				}
@@ -61,11 +59,7 @@ namespace AdvanceSteel.Nodes.Gratings
 		/// <returns></returns>
 		public static StandardGrating ByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, string gratingClass, string gratingName)
 		{
-			var vx = Utils.ToAstVector3d(coordinateSystem.XAxis, true);
-			var vy = Utils.ToAstVector3d(coordinateSystem.YAxis, true);
-			var norm = vx.CrossProduct(vy);
-			
-			return new StandardGrating(gratingClass, gratingName, Utils.ToAstPoint(coordinateSystem.Origin, true), norm);
+			return new StandardGrating(gratingClass, gratingName, Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true));
 		}
 		[IsVisibleInDynamoLibrary(false)]
 		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()

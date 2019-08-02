@@ -31,7 +31,7 @@ namespace AdvanceSteel.Nodes.Gratings
 
 					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
 					{
-						gratings = new Autodesk.AdvanceSteel.Modelling.Grating(strClass, strName, plane, ptCenter, dLength, dWidth);
+						gratings = new Autodesk.AdvanceSteel.Modelling.Grating(strClass, strName, plane, ptCenter, dWidth, dLength);
 						gratings.WriteToDb();
 					}
 					else
@@ -42,8 +42,8 @@ namespace AdvanceSteel.Nodes.Gratings
 							gratings.GratingClass = strClass;
 							gratings.GratingSize = strName;
 							gratings.DefinitionPlane = plane;
-							gratings.SetLength(dLength, true);
-							gratings.SetWidth(dWidth, true);
+							gratings.SetLength(dWidth, true);
+							gratings.SetWidth(dLength, true);
 						}
 						else
 						{
@@ -62,11 +62,8 @@ namespace AdvanceSteel.Nodes.Gratings
 		/// <returns></returns>
 		public static VariableGrating ByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, string strClass, string strName, double dWidth, double dLength)
 		{
-			var vx = Utils.ToAstVector3d(coordinateSystem.XAxis, true);
-			var vy = Utils.ToAstVector3d(coordinateSystem.YAxis, true);
-			var norm = vx.CrossProduct(vy);
-
-			return new VariableGrating(strClass, strName, Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToInternalUnits(dWidth, true), Utils.ToInternalUnits(dLength, true), norm);
+	  	return new VariableGrating(strClass, strName, Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToInternalUnits(dWidth, true), Utils.ToInternalUnits(dLength, true),
+																 Utils.ToAstVector3d(coordinateSystem.ZAxis, true));
 		}
 
 		[IsVisibleInDynamoLibrary(false)]

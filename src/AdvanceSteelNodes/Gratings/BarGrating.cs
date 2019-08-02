@@ -18,12 +18,13 @@ namespace AdvanceSteel.Nodes.Gratings
 	[DynamoServices.RegisterForTrace]
 	public class BarGrating : GraphicObject
 	{
-		internal BarGrating(Plane plane, Point3d ptCenter, double dLength)
+		internal BarGrating(Vector3d vNormal, Point3d ptCenter, double dLength)
 		{
 			lock (access_obj)
 			{
 				using (var ctx = new SteelServices.DocContext())
 				{
+					Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
 					Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
 					string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -54,7 +55,6 @@ namespace AdvanceSteel.Nodes.Gratings
 		/// Create an Advance Steel Bar Grating
 		/// </summary>
 		/// <returns></returns>
-
 		public static BarGrating ByLine(Autodesk.DesignScript.Geometry.Line line, Autodesk.DesignScript.Geometry.Vector planDirection)
 		{
 			var start = Utils.ToAstPoint(line.StartPoint, true);
@@ -67,8 +67,7 @@ namespace AdvanceSteel.Nodes.Gratings
 				throw new System.Exception("Plan Direction must be perpendicular to line");
 			}
 
-			Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(refPoint, planeNorm);
-			return new BarGrating(plane, refPoint, Utils.ToInternalUnits(line.Length, true));
+			return new BarGrating(planeNorm, refPoint, Utils.ToInternalUnits(line.Length, true));
 		}
 
 		[IsVisibleInDynamoLibrary(false)]
