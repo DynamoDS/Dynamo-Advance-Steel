@@ -22,6 +22,7 @@ namespace AdvanceSteel.Nodes.Beams
 
           Point3d beamStart = Utils.ToAstPoint(ptStart, true);
           Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
+          Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
 
           string sectionType = Utils.SplitSectionName(beamSection)[0];
           string sectionName = Utils.SplitSectionName(beamSection)[1];
@@ -29,10 +30,8 @@ namespace AdvanceSteel.Nodes.Beams
           Autodesk.AdvanceSteel.Modelling.CompoundStraightBeam beam = null;
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
-            beam = new Autodesk.AdvanceSteel.Modelling.CompoundStraightBeam(beamStart, beamEnd, Vector3d.kXAxis);
+            beam = new Autodesk.AdvanceSteel.Modelling.CompoundStraightBeam(beamStart, beamEnd, refVect);
             beam.CreateComponents(sectionType, sectionName);
-            Utils.SetOrientation(beam, Utils.ToAstVector3d(vOrientation, true));
-
             beam.WriteToDb();
           }
           else
@@ -44,7 +43,7 @@ namespace AdvanceSteel.Nodes.Beams
               Utils.AdjustBeamEnd(beam, beamStart);
               beam.SetSysStart(beamStart);
               beam.SetSysEnd(beamEnd);
-              Utils.SetOrientation(beam, Utils.ToAstVector3d(vOrientation, true));
+              Utils.SetOrientation(beam, refVect);
 
               if (Utils.CompareCompoundSectionTypes(sectionType, beam.ProfSectionType))
               {

@@ -22,11 +22,12 @@ namespace AdvanceSteel.Nodes.Beams
 
           Point3d beamStart = Utils.ToAstPoint(ptStart, true);
           Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
+          Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
 
           Autodesk.AdvanceSteel.Modelling.BeamTapered beam = null;
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
-            beam = new Autodesk.AdvanceSteel.Modelling.BeamTapered(beamStart, beamEnd, Vector3d.kXAxis, startHeight, endHeight, webThickness);
+            beam = new Autodesk.AdvanceSteel.Modelling.BeamTapered(beamStart, beamEnd, refVect, startHeight, endHeight, webThickness);
             beam.CreateComponents();
             beam.WriteToDb();
           }
@@ -40,7 +41,7 @@ namespace AdvanceSteel.Nodes.Beams
               beam.SetSysStart(beamStart);
               beam.SetSysEnd(beamEnd);
 
-              Utils.SetOrientation(beam, Utils.ToAstVector3d(vOrientation, true));
+              Utils.SetOrientation(beam, refVect);
             }
             else
               throw new System.Exception("Not a tapered beam");

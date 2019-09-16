@@ -22,8 +22,9 @@ namespace AdvanceSteel.Nodes.Beams
         using (var ctx = new SteelServices.DocContext())
         {
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-          var beamStart = (ptStart == null ? new Point3d() : Utils.ToAstPoint(ptStart, true));
-          var beamEnd = (ptEnd == null ? new Point3d() : Utils.ToAstPoint(ptEnd, true));
+          Point3d beamStart = (ptStart == null ? new Point3d() : Utils.ToAstPoint(ptStart, true));
+          Point3d beamEnd = (ptEnd == null ? new Point3d() : Utils.ToAstPoint(ptEnd, true));
+          Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
           _ptOnArc = Utils.ToAstPoint(ptOnArc, true);
 
           Autodesk.AdvanceSteel.Modelling.BentBeam beam = null;
@@ -32,8 +33,7 @@ namespace AdvanceSteel.Nodes.Beams
             ProfileName profName = new ProfileName();
             ProfilesManager.GetProfTypeAsDefault("I", out profName);
 
-            beam = new Autodesk.AdvanceSteel.Modelling.BentBeam(profName.Name, Vector3d.kZAxis, beamStart, _ptOnArc, beamEnd);
-
+            beam = new Autodesk.AdvanceSteel.Modelling.BentBeam(profName.Name, refVect, beamStart, _ptOnArc, beamEnd);
             beam.WriteToDb();
           }
           else
@@ -43,7 +43,7 @@ namespace AdvanceSteel.Nodes.Beams
             if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kBentBeam))
             {
               beam.SetSystemline(beamStart, _ptOnArc, beamEnd);
-              Utils.SetOrientation(beam, Utils.ToAstVector3d(vOrientation, true));
+              Utils.SetOrientation(beam, refVect);
             }
             else
               throw new System.Exception("Not a bent Beam");
