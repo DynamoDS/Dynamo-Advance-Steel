@@ -6,34 +6,24 @@ namespace Dynamo.Applications.AdvanceSteel.Services
   /// <summary>
   /// Used to manage the life of Advance Steel objects
   /// </summary>
-  /// <typeparam name="T"></typeparam>
-  public class LifecycleManager<T>
+  public class LifecycleManager
   {
-    //Note this is only a mutex for a specific type param
-    private static Object singletonMutex = new object();
-
-    private static LifecycleManager<T> manager;
-
-    private Dictionary<T, List<Object>> wrappers;
-    private Dictionary<T, bool> advanceSteelDeleted;
+    private static LifecycleManager manager;
+    private Dictionary<string, List<Object>> wrappers;
 
     private LifecycleManager()
     {
-      wrappers = new Dictionary<T, List<object>>();
-      advanceSteelDeleted = new Dictionary<T, bool>();
+      wrappers = new Dictionary<string, List<object>>();
     }
 
-    public static LifecycleManager<T> GetInstance()
+    public static LifecycleManager GetInstance()
     {
-      lock (singletonMutex)
+      if (manager == null)
       {
-        if (manager == null)
-        {
-          manager = new LifecycleManager<T>();
-        }
-
-        return manager;
+        manager = new LifecycleManager();
       }
+
+      return manager;
     }
 
     /// <summary>
@@ -41,9 +31,9 @@ namespace Dynamo.Applications.AdvanceSteel.Services
     /// </summary>
     /// <param name="elementHandle"></param>
     /// <param name="wrapper"></param>
-    public void RegisterAsssociation(T elementHandle, Object wrapper)
+    public void RegisterAsssociation(string elementHandle, object wrapper)
     {
-      List<Object> existingWrappers;
+      List<object> existingWrappers;
       if (wrappers.TryGetValue(elementHandle, out existingWrappers))
       {
         //handle already existed, check we're not over adding
@@ -57,10 +47,6 @@ namespace Dynamo.Applications.AdvanceSteel.Services
       }
 
       existingWrappers.Add(wrapper);
-      if (!advanceSteelDeleted.ContainsKey(elementHandle))
-      {
-        advanceSteelDeleted.Add(elementHandle, false);
-      }
     }
 
     /// <summary>
@@ -69,9 +55,9 @@ namespace Dynamo.Applications.AdvanceSteel.Services
     /// <param name="elementHandle"></param>
     /// <param name="wrapper"></param>
     /// <returns>The number of remaining associations</returns>
-    public int UnRegisterAssociation(T elementHandle, Object wrapper)
+    public int UnRegisterAssociation(string elementHandle, object wrapper)
     {
-      List<Object> existingWrappers;
+      List<object> existingWrappers;
       if (wrappers.TryGetValue(elementHandle, out existingWrappers))
       {
         //handle already existed, check we're not over adding
@@ -81,7 +67,6 @@ namespace Dynamo.Applications.AdvanceSteel.Services
           if (existingWrappers.Count == 0)
           {
             wrappers.Remove(elementHandle);
-            advanceSteelDeleted.Remove(elementHandle);
             return 0;
           }
           else
@@ -102,47 +87,6 @@ namespace Dynamo.Applications.AdvanceSteel.Services
         throw new InvalidOperationException(
             "Attempting to remove a wrapper, but there were no ids registered");
       }
-    }
-
-    /// <summary>
-    /// Get the number of wrappers that are registered
-    /// </summary>
-    /// <param name="handle"></param>
-    /// <returns></returns>
-    public int GetRegisteredCount(T handle)
-    {
-      if (!wrappers.ContainsKey(handle))
-      {
-        return 0;
-      }
-      else
-      {
-        return wrappers[handle].Count;
-      }
-    }
-
-    /// <summary>
-    /// Checks whether an element has been deleted in Advance Steel
-    /// </summary>
-    /// <param name="handle"></param>
-    /// <returns></returns>
-    public bool IsAdvanceSteelDeleted(T handle)
-    {
-      if (!advanceSteelDeleted.ContainsKey(handle))
-      {
-        throw new ArgumentException("Element is not registered");
-      }
-
-      return advanceSteelDeleted[handle];
-    }
-
-    /// <summary>
-    /// This method tells the life cycle
-    /// </summary>
-    /// <param name="handle"The element that needs to be deleted></param>
-    public void NotifyOfDeletion(T handle)
-    {
-      advanceSteelDeleted[handle] = true;
     }
   }
 }

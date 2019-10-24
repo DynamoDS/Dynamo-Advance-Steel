@@ -10,16 +10,11 @@ namespace Dynamo.Applications.AdvanceSteel.Services
   [Serializable]
   public class SerializableHandle : ISerializable
   {
-    public String stringID { get; set; }
-
-    public void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-      info.AddValue("stringID", stringID, typeof(string));
-    }
+    public string Handle { get; set; }
 
     public SerializableHandle()
     {
-      stringID = "";
+      Handle = "";
     }
 
     /// <summary>
@@ -29,7 +24,16 @@ namespace Dynamo.Applications.AdvanceSteel.Services
     /// <param name="context"></param>
     public SerializableHandle(SerializationInfo info, StreamingContext context)
     {
-      stringID = (string)info.GetValue("stringID", typeof(string));
+      Handle = (string)info.GetValue("Handle", typeof(string));
+    }
+    /// <summary>
+    /// Populates a System.Runtime.Serialization.SerializationInfo with the data needed
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    public void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+      info.AddValue("Handle", Handle, typeof(string));
     }
   }
 
@@ -42,34 +46,27 @@ namespace Dynamo.Applications.AdvanceSteel.Services
     //for the moment dynamo is using only this hardcoded key (see ..\Dynamo\src\Engine\ProtoCore\Lang\TraceUtils.cs)
     private const string REVIT_TRACE_ID = "{0459D869-0C72-447F-96D8-08A7FB92214B}-REVIT";
 
-    //by default we let it true
-    //we must to disable while we execute code from python(TO_DO)
-    public static bool IsEnabled = true;
-
     public static string GetHandleFromTrace()
     {
       ISerializable traceData = DynamoServices.TraceUtils.GetTraceData(REVIT_TRACE_ID);
 
-      SerializableHandle handle = traceData as SerializableHandle;
-      if (handle == null)
+      SerializableHandle tracedHandle = traceData as SerializableHandle;
+      if (tracedHandle == null)
         return null; //There was no usable data in the trace cache
 
-      return handle.stringID;
+      return tracedHandle.Handle;
     }
 
-    public static void SetElementForTrace(String handle)
+    public static void SetElementForTrace(string handle)
     {
-      if (!IsEnabled) return;
+      SerializableHandle tracedHandle = new SerializableHandle();
+      tracedHandle.Handle = handle;
 
-      SerializableHandle hand = new SerializableHandle();
-      hand.stringID = handle;
-
-      DynamoServices.TraceUtils.SetTraceData(REVIT_TRACE_ID, hand);
+      DynamoServices.TraceUtils.SetTraceData(REVIT_TRACE_ID, tracedHandle);
     }
 
     public static void CleanupAndSetElementForTrace(FilerObject newElement)
     {
-      if (!IsEnabled) return;
       if (newElement == null) return;
 
       var oldHandle = GetHandleFromTrace();
@@ -77,7 +74,6 @@ namespace Dynamo.Applications.AdvanceSteel.Services
       {
         //right now do not delete anything
         //
-        //TO_DO
       }
 
       SetElementForTrace(newElement.Handle);

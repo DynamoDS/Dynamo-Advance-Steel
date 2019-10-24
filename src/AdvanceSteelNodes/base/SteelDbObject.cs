@@ -28,7 +28,7 @@ namespace AdvanceSteel.Nodes
       {
         ObjectHandle = value;
 
-        var elementManager = LifecycleManager<string>.GetInstance();
+        var elementManager = LifecycleManager.GetInstance();
         elementManager.RegisterAsssociation(ObjectHandle, this);
       }
     }
@@ -42,14 +42,11 @@ namespace AdvanceSteel.Nodes
         if (DisposeLogic.IsShuttingDown || DisposeLogic.IsClosingHomeworkspace)
           return;
 
-        //this function is not implemented for the moment
-        bool didAdvanceSteelDelete = LifecycleManager<string>.GetInstance().IsAdvanceSteelDeleted(Handle);
-
-        var elementManager = LifecycleManager<string>.GetInstance();
+        var elementManager = LifecycleManager.GetInstance();
         int remainingBindings = elementManager.UnRegisterAssociation(Handle, this);
 
         // Do not delete owned elements
-        if (remainingBindings == 0 && !didAdvanceSteelDelete)
+        if (remainingBindings == 0)
         {
           if (Handle != null)
           {

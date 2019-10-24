@@ -13,7 +13,7 @@ namespace AdvanceSteel.Nodes.Beams
   [DynamoServices.RegisterForTrace]
   public class BentBeam : GraphicObject
   {
-    private Point3d _ptOnArc;
+    private Point3d PointOnArc;
 
     internal BentBeam(Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector vOrientation)
     {
@@ -25,7 +25,7 @@ namespace AdvanceSteel.Nodes.Beams
           Point3d beamStart = (ptStart == null ? new Point3d() : Utils.ToAstPoint(ptStart, true));
           Point3d beamEnd = (ptEnd == null ? new Point3d() : Utils.ToAstPoint(ptEnd, true));
           Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
-          _ptOnArc = Utils.ToAstPoint(ptOnArc, true);
+          PointOnArc = Utils.ToAstPoint(ptOnArc, true);
 
           Autodesk.AdvanceSteel.Modelling.BentBeam beam = null;
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
@@ -33,7 +33,7 @@ namespace AdvanceSteel.Nodes.Beams
             ProfileName profName = new ProfileName();
             ProfilesManager.GetProfTypeAsDefault("I", out profName);
 
-            beam = new Autodesk.AdvanceSteel.Modelling.BentBeam(profName.Name, refVect, beamStart, _ptOnArc, beamEnd);
+            beam = new Autodesk.AdvanceSteel.Modelling.BentBeam(profName.Name, refVect, beamStart, PointOnArc, beamEnd);
             beam.WriteToDb();
           }
           else
@@ -42,7 +42,7 @@ namespace AdvanceSteel.Nodes.Beams
 
             if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kBentBeam))
             {
-              beam.SetSystemline(beamStart, _ptOnArc, beamEnd);
+              beam.SetSystemline(beamStart, PointOnArc, beamEnd);
               Utils.SetOrientation(beam, refVect);
             }
             else
@@ -79,7 +79,7 @@ namespace AdvanceSteel.Nodes.Beams
 
           using (var start = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
           using (var end = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
-          using (var ptOnArc = Utils.ToDynPoint(_ptOnArc, true))
+          using (var ptOnArc = Utils.ToDynPoint(PointOnArc, true))
           {
             var arc = Autodesk.DesignScript.Geometry.Arc.ByThreePoints(start, ptOnArc, end);
             return arc;
