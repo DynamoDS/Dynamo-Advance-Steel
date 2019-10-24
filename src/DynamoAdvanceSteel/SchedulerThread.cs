@@ -9,11 +9,11 @@ namespace Dynamo.Applications.AdvanceSteel
   /// </summary>
   public class SchedulerThread : ISchedulerThread
   {
-    private IScheduler scheduler;
+    private IScheduler Scheduler;
 
     public void Initialize(IScheduler owningScheduler)
     {
-      scheduler = owningScheduler;
+      Scheduler = owningScheduler;
       Application.Idle += Application_Idle;
     }
 
@@ -24,7 +24,7 @@ namespace Dynamo.Applications.AdvanceSteel
 
     public void ExecuteInApplicationContextCallback(object userData)
     {
-      while (scheduler.ProcessNextTask(false))
+      while (Scheduler.ProcessNextTask(false))
       {
       }
     }

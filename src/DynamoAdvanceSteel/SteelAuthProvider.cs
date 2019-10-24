@@ -13,14 +13,14 @@ namespace Dynamo.Applications.AdvanceSteel
 {
   internal class SteelAuthProvider : IAuthProvider
   {
-    private readonly SynchronizationContext _syncContext;
+    private readonly SynchronizationContext SyncContext;
 
     public event Func<object, bool> RequestLogin;
     public event Action<LoginState> LoginStateChanged;
 
     public SteelAuthProvider()
     {
-      _syncContext = new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher);
+      SyncContext = new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher);
     }
 
     public LoginState LoginState
@@ -28,7 +28,7 @@ namespace Dynamo.Applications.AdvanceSteel
       get
       {
         bool result = false;
-        _syncContext.Send((_) => result = WSUtils.IsLoggedIn(), null);
+        SyncContext.Send((_) => result = WSUtils.IsLoggedIn(), null);
         return result ? LoginState.LoggedIn : LoginState.LoggedOut;
       }
     }
@@ -38,7 +38,7 @@ namespace Dynamo.Applications.AdvanceSteel
       get
       {
         var result = string.Empty;
-        _syncContext.Send((_) => result = WSUtils.GetLoginUserName(), null);
+        SyncContext.Send((_) => result = WSUtils.GetLoginUserName(), null);
         return result;
       }
     }
@@ -47,7 +47,7 @@ namespace Dynamo.Applications.AdvanceSteel
     {
       bool result = false;
 
-      _syncContext.Send((_) => result = WSUtils.Login(), null);
+      SyncContext.Send((_) => result = WSUtils.Login(), null);
       LoginStateChanged?.Invoke(result ? LoginState.LoggedIn : LoginState.LoggedOut);
 
       return result;
@@ -55,7 +55,7 @@ namespace Dynamo.Applications.AdvanceSteel
 
     public void Logout()
     {
-      _syncContext.Send((_) => PInvoke.AcConnectWebServicesLogout(), null);
+      SyncContext.Send((_) => PInvoke.AcConnectWebServicesLogout(), null);
       LoginStateChanged?.Invoke(LoginState.LoggedOut);
     }
 

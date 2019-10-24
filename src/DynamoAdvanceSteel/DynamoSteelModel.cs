@@ -30,7 +30,7 @@ namespace Dynamo.Applications.AdvanceSteel
 
       base.ShutDownCore(shutdownHost);
 
-      RibbonUtils.SetEnabled(RibbonUtils.tabUIDDynamoAS, RibbonUtils.panelUIDDynamoAS, RibbonUtils.buttonUIDDynamoAS, true);
+      RibbonUtils.SetEnabled(RibbonUtils.DynamoASTabUID, RibbonUtils.DynamoASPanelUID, RibbonUtils.DynamoASButtonUID, true);
     }
 
     protected override void OnWorkspaceRemoveStarted(WorkspaceModel workspace)

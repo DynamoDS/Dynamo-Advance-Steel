@@ -10,22 +10,22 @@ namespace Dynamo.Applications.AdvanceSteel
 {
   public class OneTransactionPerContext : IContextManager
   {
-    private Autodesk.AdvanceSteel.CADAccess.Transaction steelTransaction = null;
-    private bool bDocumentLocked = false;
+    private Autodesk.AdvanceSteel.CADAccess.Transaction SteelTransaction = null;
+    private bool DocumentLocked = false;
 
     public void EnsureInContext(DocContext ctx)
     {
-      if (steelTransaction != null || bDocumentLocked == true)
+      if (SteelTransaction != null || DocumentLocked == true)
         throw new System.Exception("Nested context");
 
-      bDocumentLocked = DocumentManager.LockCurrentDocument();
+      DocumentLocked = DocumentManager.LockCurrentDocument();
 
-      if (bDocumentLocked == true)
+      if (DocumentLocked == true)
       {
-        steelTransaction = Autodesk.AdvanceSteel.CADAccess.TransactionManager.StartTransaction();
+        SteelTransaction = Autodesk.AdvanceSteel.CADAccess.TransactionManager.StartTransaction();
       }
 
-      if (bDocumentLocked == false || steelTransaction == null)
+      if (DocumentLocked == false || SteelTransaction == null)
       {
         throw new System.Exception("Failed to access Document");
       }
@@ -33,16 +33,16 @@ namespace Dynamo.Applications.AdvanceSteel
 
     public void LeaveContext(DocContext ctx)
     {
-      if (steelTransaction != null)
+      if (SteelTransaction != null)
       {
-        steelTransaction.Commit();
-        steelTransaction = null;
+        SteelTransaction.Commit();
+        SteelTransaction = null;
       }
 
-      if (bDocumentLocked == true)
+      if (DocumentLocked == true)
       {
-        bDocumentLocked = DocumentManager.UnlockCurrentDocument();
-        bDocumentLocked = false;
+        DocumentLocked = DocumentManager.UnlockCurrentDocument();
+        DocumentLocked = false;
       }
     }
   }

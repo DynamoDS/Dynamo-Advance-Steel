@@ -10,9 +10,9 @@ namespace Dynamo.Applications.AdvanceSteel
 {
   public class OneTransactionPerAllContexts : IContextManager
   {
-    private static Autodesk.AdvanceSteel.CADAccess.Transaction steelTransaction = null;
-    private static bool bDocumentLocked = false;
-    private static bool bSubscribedToRefreshCompleted = false;
+    private static Autodesk.AdvanceSteel.CADAccess.Transaction SteelTransaction = null;
+    private static bool DocumentLocked = false;
+    private static bool SubscribedToRefreshCompleted = false;
 
     public void EnsureInContext(DocContext ctx)
     {
@@ -26,33 +26,33 @@ namespace Dynamo.Applications.AdvanceSteel
     }
     private static void StartTransaction()
     {
-      if (bDocumentLocked == false)
+      if (DocumentLocked == false)
       {
-        bDocumentLocked = DocumentManager.LockCurrentDocument();
+        DocumentLocked = DocumentManager.LockCurrentDocument();
       }
 
-      if (steelTransaction == null && bDocumentLocked == true)
+      if (SteelTransaction == null && DocumentLocked == true)
       {
-        steelTransaction = Autodesk.AdvanceSteel.CADAccess.TransactionManager.StartTransaction();
+        SteelTransaction = Autodesk.AdvanceSteel.CADAccess.TransactionManager.StartTransaction();
       }
 
-      if (bDocumentLocked == false || steelTransaction == null)
+      if (DocumentLocked == false || SteelTransaction == null)
       {
         throw new System.Exception("Failed to access Document");
       }
     }
     private static void CloseTransaction()
     {
-      if (steelTransaction != null)
+      if (SteelTransaction != null)
       {
-        steelTransaction.Commit();
-        steelTransaction = null;
+        SteelTransaction.Commit();
+        SteelTransaction = null;
       }
 
-      if (bDocumentLocked == true)
+      if (DocumentLocked == true)
       {
-        bDocumentLocked = DocumentManager.UnlockCurrentDocument();
-        bDocumentLocked = false;
+        DocumentLocked = DocumentManager.UnlockCurrentDocument();
+        DocumentLocked = false;
       }
     }
     private static void RefreshCompleted(Graph.Workspaces.HomeWorkspaceModel obj)
@@ -62,20 +62,20 @@ namespace Dynamo.Applications.AdvanceSteel
     }
     private static void SubscribeToRefreshCompleted()
     {
-      if (bSubscribedToRefreshCompleted == false)
+      if (SubscribedToRefreshCompleted == false)
       {
         var dynModel = Dynamo.Applications.AdvanceSteel.Model.DynamoModel;
         dynModel.RefreshCompleted += RefreshCompleted;
-        bSubscribedToRefreshCompleted = true;
+        SubscribedToRefreshCompleted = true;
       }
     }
     private static void UnsubscribeFromRefreshCompleted()
     {
-      if (bSubscribedToRefreshCompleted == true)
+      if (SubscribedToRefreshCompleted == true)
       {
         var dynModel = Dynamo.Applications.AdvanceSteel.Model.DynamoModel;
         dynModel.RefreshCompleted -= RefreshCompleted;
-        bSubscribedToRefreshCompleted = false;
+        SubscribedToRefreshCompleted = false;
       }
     }
   }

@@ -4,28 +4,28 @@ namespace Dynamo.Applications.AdvanceSteel
 {
   public class RibbonUtils
   {
-    public static string tabUIDDynamoAS = "Add-ins";
-    public static string panelUIDDynamoAS = "ID_PanelOnlineDocuments";
-    public static string buttonUIDDynamoAS = "DYNAMOAS";
+    public static string DynamoASTabUID = "Add-ins";
+    public static string DynamoASPanelUID = "ID_PanelOnlineDocuments";
+    public static string DynamoASButtonUID = "DYNAMOAS";
 
-    public static void SetEnabled(string strTabName, string strPanelUID, string strButtonUID, bool bEnable)
+    public static void SetEnabled(string tabName, string panelUID, string buttonUID, bool enabled)
     {
       RibbonTabCollection oTabs = Autodesk.Windows.ComponentManager.Ribbon.Tabs;
       foreach (RibbonTab oTab in oTabs)
       {
-        if (oTab.Title == strTabName)
+        if (oTab.Title == tabName)
         {
           RibbonPanelCollection bPans = oTab.Panels;
 
           foreach (RibbonPanel oPanel in bPans)
           {
-            if (oPanel.UID == strPanelUID)
+            if (oPanel.UID == panelUID)
             {
               foreach (RibbonItem item in oPanel.Source.Items)
               {
-                if (item.UID == strButtonUID)
+                if (item.UID == buttonUID)
                 {
-                  item.IsEnabled = bEnable;
+                  item.IsEnabled = enabled;
                 }
               }
             }

@@ -41,7 +41,7 @@ namespace Dynamo.Applications.AdvanceSteel
 
         Autodesk.AutoCAD.ApplicationServices.Application.ShowModelessWindow(InitializeCoreView());
 
-        RibbonUtils.SetEnabled(RibbonUtils.tabUIDDynamoAS, RibbonUtils.panelUIDDynamoAS, RibbonUtils.buttonUIDDynamoAS, false);
+        RibbonUtils.SetEnabled(RibbonUtils.DynamoASTabUID, RibbonUtils.DynamoASPanelUID, RibbonUtils.DynamoASButtonUID, false);
       }
       catch (Exception ex)
       {
