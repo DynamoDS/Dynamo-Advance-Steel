@@ -13,7 +13,7 @@ This repository contains the source files for the Dynamo Extension for Advance S
 
 2. Update the paths from \src\Config\user_local.props with the ones from your machine
 
-3. Build the All.sln solution in Release configuration.
+3. Build the DynamoAdvanceSteel.sln solution in Release configuration.
 
 4. Copy all files & folders from "Dynamo Core 2.1" to bin\AnyCPU\Release\steel-pkg\bin\Core
 
@@ -25,6 +25,6 @@ This repository contains the source files for the Dynamo Extension for Advance S
 1. Prerequisites needed:
   - Wix v3.11 or later;
 
-2. Build All.sln solution;
+2. Build DynamoAdvanceSteel.sln solution;
 
 3. Build DynamoAdvanceSteelInstall.sln solution;
