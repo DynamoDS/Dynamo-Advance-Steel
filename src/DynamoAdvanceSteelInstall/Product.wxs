@@ -13,24 +13,14 @@
 		<Property Id="ARPNOMODIFY">1</Property>
 		<Property Id="ARPPRODUCTICON" Value="W16_DYNADST_launch.ico" />
 		<SetProperty Id="ARPINSTALLLOCATION" Value="[AdvanceSteelDynamo]" After="CostFinalize" />
-
-		<InstallUISequence>
-			<Custom Action="CustomActionVersion" Before="LaunchConditions" />
-			<Custom Action="CustomActionPath" After="CustomActionVersion" />
-		</InstallUISequence>
-
+    
 		<InstallExecuteSequence>
 			<RegisterClassInfo />
 			<RegisterProgIdInfo />
-			<Custom Action="CustomActionVersion" Before="LaunchConditions" />
-			<Custom Action="CustomActionPath" After="CustomActionVersion" />
 			<Custom Action="ConfigureInstallLocationProperty" Before="CostFinalize" />
 			<Custom Action="ConfigureAdvanceSteelLocationProperty" After="ConfigureInstallLocationProperty" />
 		</InstallExecuteSequence>
 
-		<Binary Id="CustomAction" SourceFile="$(var.SolutionDir)..\bin\AnyCPU\$(var.Configuration)\CustomAction.CA.dll"/>
-		<CustomAction Id="CustomActionVersion" BinaryKey="CustomAction" DllEntry="GetDynamoCoreVersion"/>
-		<CustomAction Id="CustomActionPath" BinaryKey="CustomAction" DllEntry="GetDynamoCorePath"/>
 		<CustomAction Id="ConfigureInstallLocationProperty" Property="INSTALLDIR" Value="[DYNAMOLOCATION]" />
 		<CustomAction Id="ConfigureAdvanceSteelLocationProperty" Property="AdvanceSteelLocation" Value="[ADVANCESTEELLOCATION]" />
 
