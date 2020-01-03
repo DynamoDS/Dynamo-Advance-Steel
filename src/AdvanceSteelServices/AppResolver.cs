@@ -8,9 +8,13 @@ namespace Dynamo.Applications.AdvanceSteel.Services
 {
   public abstract class AppResolver
   {
-    public abstract T Resolve<T>() where T : class;
+    public abstract T ResolveType<T>() where T : class;
+    public static T Resolve<T>() where T : class
+    {
+      return Instance.ResolveType<T>();
+    }
 
-    public static AppResolver Instance
+    internal static AppResolver Instance
     {
       get
       {
@@ -21,18 +25,18 @@ namespace Dynamo.Applications.AdvanceSteel.Services
           {
             case "revit.exe":
               {
-                inst = (AppResolver)Activator.CreateInstance("DynamoSteelRevit", "Dynamo.Applications.AdvanceSteel.RevitAppResolver").Unwrap();
+                inst = Activator.CreateInstance("DynamoSteelRevit", "Dynamo.Applications.AdvanceSteel.RevitAppResolver").Unwrap() as AppResolver;
                 break;
               }
             case "acad.exe":
               {
-                inst = (AppResolver)Activator.CreateInstance("DynamoAdvanceSteel", "Dynamo.Applications.AdvanceSteel.SteelAppResolver").Unwrap();
+                inst = Activator.CreateInstance("DynamoAdvanceSteel", "Dynamo.Applications.AdvanceSteel.SteelAppResolver").Unwrap() as AppResolver;
                 break;
               }
             case "vstest.executionengine.exe":
             case "testhost.exe":
               {
-                inst = (AppResolver)Activator.CreateInstance("DynamoSteelTests", "DynamoSteelTests.TestsAppResolver").Unwrap();
+                inst = Activator.CreateInstance("DynamoSteelTests", "DynamoSteelTests.TestsAppResolver").Unwrap() as AppResolver;
                 break;
               }
             default:
@@ -44,7 +48,7 @@ namespace Dynamo.Applications.AdvanceSteel.Services
 
         return inst;
       }
-      internal set
+      set
       {
         inst = value;
       }

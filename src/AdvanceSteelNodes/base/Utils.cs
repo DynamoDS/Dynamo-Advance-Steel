@@ -21,7 +21,7 @@ namespace AdvanceSteel.Nodes
       double factor = 1.0;
       if (bConvertToAstUnits)
       {
-        var units = AppResolver.Instance.Resolve<IAppInteraction>().DbUnits;
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
         factor = units.UnitOfDistance.Factor;
       }
 
@@ -33,7 +33,7 @@ namespace AdvanceSteel.Nodes
       double factor = 1.0;
       if (bConvertFromAstUnits)
       {
-        var units = AppResolver.Instance.Resolve<IAppInteraction>().DbUnits;
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
         factor = units.UnitOfDistance.Factor;
       }
       pt = pt * (1 / factor);
@@ -44,7 +44,7 @@ namespace AdvanceSteel.Nodes
       double factor = 1.0;
       if (bConvertFromAstUnits)
       {
-        var units = AppResolver.Instance.Resolve<IAppInteraction>().DbUnits;
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
         factor = units.UnitOfDistance.Factor;
       }
       vect = vect * (1 / factor);
@@ -56,7 +56,7 @@ namespace AdvanceSteel.Nodes
       double factor = 1.0;
       if (bConvertToAstUnits)
       {
-        var units = AppResolver.Instance.Resolve<IAppInteraction>().DbUnits;
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
         factor = units.UnitOfDistance.Factor;
       }
       return new Autodesk.AdvanceSteel.Geometry.Vector3d(v.X, v.Y, v.Z) * factor;

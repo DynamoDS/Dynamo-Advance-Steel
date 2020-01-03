@@ -27,7 +27,7 @@ namespace Dynamo.Applications.AdvanceSteel.Services
       {
         if (manager == null)
         {
-          manager = AppResolver.Instance.Resolve<IContextManager>();
+          manager = AppResolver.Resolve<IContextManager>();
         }
 
         return manager;

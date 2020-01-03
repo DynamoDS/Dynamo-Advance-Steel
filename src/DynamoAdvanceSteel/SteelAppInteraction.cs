@@ -17,6 +17,11 @@ namespace Dynamo.Applications.AdvanceSteel
 
     public event EventHandler DocumentOpened;
 
+    public void ExecuteOnIdle(Action a)
+    {
+      throw new NotImplementedException();
+    }
+
     public IEnumerable<string> GetCurrentSelection()
     {
       throw new NotImplementedException();

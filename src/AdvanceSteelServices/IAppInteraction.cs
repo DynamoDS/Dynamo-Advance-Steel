@@ -10,6 +10,6 @@ namespace Dynamo.Applications.AdvanceSteel.Services
     UnitsSet DbUnits { get; }
     IEnumerable<string> PickElements();
     IEnumerable<string> GetCurrentSelection();
-
+    void ExecuteOnIdle(Action a);
   }
 }

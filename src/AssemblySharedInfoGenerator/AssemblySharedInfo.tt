@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyCompany("Autodesk, Inc")]
 [assembly: AssemblyProduct("Dynamo")]
-[assembly: AssemblyCopyright("Copyright © Autodesk, Inc 2019")]
+[assembly: AssemblyCopyright("Copyright © Autodesk, Inc 2020")]
 [assembly: AssemblyTrademark("")]
 
 // Make it easy to distinguish Debug and Release (i.e. Retail) builds;
@@ -22,7 +22,6 @@ using System.Runtime.InteropServices;
 #endif
 
 [assembly: CLSCompliant(true)]
-
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
@@ -58,7 +57,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("<#= this.MajorVersion #>.<#= this.MinorVersion #>.<#= this.BuildNumber #>.<#= this.RevisionNumber #>")]
 <#+
 int MajorVersion = 2;
-int MinorVersion = 1;
+int MinorVersion = 5;
 int BuildNumber = 0;
 int RevisionNumber = ((int)(DateTime.UtcNow - new DateTime(2019,1,1)).TotalDays)*10+((int)DateTime.UtcNow.Hour)/3;
 #>
