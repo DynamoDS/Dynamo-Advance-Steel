@@ -33,11 +33,11 @@
       <HintPath>$(ADVANCESTEELAPI)\DotNetRoots.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DynamoServices">      
+    <Reference Include="DynamoServices">
       <HintPath>$(DYNAMOAPI)\DynamoServices.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DynamoCore">      
+    <Reference Include="DynamoCore">
       <HintPath>$(DYNAMOAPI)\DynamoCore.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -58,9 +58,10 @@
     <Compile Include="IAppInteraction.cs" />
     <Compile Include="IContextManager.cs" />
     <Compile Include="LifecycleManager.cs" />
-    <Compile Include="AdvanceSteelServices.cs" />
+    <Compile Include="ElementBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DocContext.cs" />
+    <Compile Include="SerializableHandle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
