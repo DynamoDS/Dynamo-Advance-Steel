@@ -28,6 +28,28 @@ namespace AdvanceSteel.Nodes
       return new Autodesk.AdvanceSteel.Geometry.Point3d(pt.X, pt.Y, pt.Z) * factor;
     }
 
+    static public Double ToInternalUnits(double value, bool bConvert)
+    {
+      double factor = 1.0;
+      if (bConvert)
+      {
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfDistance.Factor;
+      }
+
+      return (value * factor);
+    }
+
+    static public Double FromInternalUnits(double value, bool bConvertFromAstUnits)
+    {
+      double factor = 1.0;
+      if (bConvertFromAstUnits)
+      {
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfDistance.Factor;
+      }
+      return (value * (1 / factor));
+    }
     static public Autodesk.DesignScript.Geometry.Point ToDynPoint(Autodesk.AdvanceSteel.Geometry.Point3d pt, bool bConvertFromAstUnits)
     {
       double factor = 1.0;
