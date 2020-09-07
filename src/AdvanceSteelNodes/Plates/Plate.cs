@@ -269,7 +269,7 @@ namespace AdvanceSteel.Nodes.Plates
     }
 
     /// <summary>
-    /// Create an Advance Steel Plate by 3 Points - Orgin, X Direction & Y Direction
+    /// Create an Advance Steel Plate by 3 Points - Orgin, X Direction and Y Direction
     /// </summary>
     /// <param name="orginPoint">Input the Origin of the Rectangular Plate</param>
     /// <param name="xDirectionPoint">Input Point in the X Direction - distance from orgin will determine the width</param>

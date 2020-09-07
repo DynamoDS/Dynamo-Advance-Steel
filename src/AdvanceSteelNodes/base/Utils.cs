@@ -26,6 +26,17 @@ namespace AdvanceSteel.Nodes
       return returnPnt;
     }
 
+    static public Autodesk.AdvanceSteel.Geometry.Point3d GetMidPointOnArc(this Point3d startPointOnArc, Point3d endPointOnArc, Point3d arcCentrePoint)
+    {
+      Autodesk.AdvanceSteel.Geometry.Point3d returnPnt = new Autodesk.AdvanceSteel.Geometry.Point3d();
+      double radius = arcCentrePoint.DistanceTo(startPointOnArc);
+      Autodesk.AdvanceSteel.Geometry.Point3d biSectPoint = startPointOnArc.GetMidPointBetween(endPointOnArc);
+      Autodesk.AdvanceSteel.Geometry.Vector3d v = biSectPoint.Subtract(arcCentrePoint);
+      v.Normalize();
+      returnPnt = startPointOnArc + (radius * v);
+      return returnPnt;
+    }
+
     static public Autodesk.AdvanceSteel.Geometry.Point3d ToAstPoint(Autodesk.DesignScript.Geometry.Point pt, bool bConvertToAstUnits)
     {
       double factor = 1.0;
@@ -60,6 +71,30 @@ namespace AdvanceSteel.Nodes
       }
       return (value * (1 / factor));
     }
+
+    static public Double ToInternalAngleUnits(double value, bool bConvert)
+    {
+      double factor = 1.0;
+      if (bConvert)
+      {
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfAngle.Factor;
+      }
+
+      return (value * factor);
+    }
+
+    static public Double FromInternalAngleUnits(double value, bool bConvertFromAstUnits)
+    {
+      double factor = 1.0;
+      if (bConvertFromAstUnits)
+      {
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfAngle.Factor;
+      }
+      return (value * (1 / factor));
+    }
+
     static public Autodesk.DesignScript.Geometry.Point ToDynPoint(Autodesk.AdvanceSteel.Geometry.Point3d pt, bool bConvertFromAstUnits)
     {
       double factor = 1.0;

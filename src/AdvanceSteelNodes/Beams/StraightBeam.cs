@@ -8,12 +8,13 @@ using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 namespace AdvanceSteel.Nodes.Beams
 {
   /// <summary>
-  /// Advance Steel straight beam
+  /// Advance Steel straight beams
   /// </summary>
   [DynamoServices.RegisterForTrace]
   public class StraightBeam : GraphicObject
   {
-    internal StraightBeam(Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Vector vOrientation)
+    internal StraightBeam(Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Vector vOrientation, 
+                          string modelRole, string sectionName, double rotation, int refAxis, bool crossSectionMirror)
     {
       lock (access_obj)
       {
@@ -25,12 +26,27 @@ namespace AdvanceSteel.Nodes.Beams
           Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
           Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
 
-          Autodesk.AdvanceSteel.Modelling.StraightBeam beam = null;
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          if (string.IsNullOrEmpty(sectionName))
           {
             ProfileName profName = new ProfileName();
             ProfilesManager.GetProfTypeAsDefault("I", out profName);
-            beam = new Autodesk.AdvanceSteel.Modelling.StraightBeam(profName.Name, beamStart, beamEnd, refVect);
+            sectionName = profName.Name;
+          }
+
+          Autodesk.AdvanceSteel.Modelling.StraightBeam beam = null;
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
+
+            beam = new Autodesk.AdvanceSteel.Modelling.StraightBeam(sectionName, beamStart, beamEnd, refVect);
+            if (!string.IsNullOrEmpty(modelRole))
+            {
+              beam.Role = modelRole;
+            }
+            {
+              beam.RefAxis = (Beam.eRefAxis)refAxis;
+            }
+            beam.SetXRotation(rotation);
+            beam.SetCrossSectionMirrored(crossSectionMirror, false);
             beam.WriteToDb();
 
           }
@@ -40,10 +56,22 @@ namespace AdvanceSteel.Nodes.Beams
 
             if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kStraightBeam))
             {
+              string sectionType = Utils.SplitSectionName(sectionName)[0];
+              string sectionSize = Utils.SplitSectionName(sectionName)[1];
               Utils.AdjustBeamEnd(beam, beamStart);
               beam.SetSysStart(beamStart);
               beam.SetSysEnd(beamEnd);
-
+              beam.ChangeProfile(sectionType, sectionSize);
+              if (!string.IsNullOrEmpty(modelRole))
+              {
+                beam.Role = modelRole;
+              }
+              if (refAxis > -1)
+              {
+                beam.RefAxis = (Beam.eRefAxis)refAxis;
+              }
+              beam.SetXRotation(rotation);
+              beam.SetCrossSectionMirrored(crossSectionMirror, false);
               Utils.SetOrientation(beam, refVect);
             }
             else
@@ -58,13 +86,97 @@ namespace AdvanceSteel.Nodes.Beams
     /// <summary>
     /// Create an Advance Steel straight beam between two points
     /// </summary>
-    /// <param name="start">Start point</param>
-    /// <param name="end">End point</param>
-    /// <param name="vOrientation">Section orientation</param>
+    /// <param name="start">Input Start point of Beam</param>
+    /// <param name="end">Input End point of Beam</param>
+    /// <param name="orientation">Section orientation</param>
     /// <returns></returns>
-    public static StraightBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Vector vOrientation)
+    public static StraightBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Vector orientation)
     {
-      return new StraightBeam(start, end, vOrientation);
+      return new StraightBeam(start, end, orientation, "", "", 0, -1, false);
+    }
+
+    /// <summary>
+    /// Create an Advance Steel straight beam between two points from a Dynamo Line
+    /// </summary>
+    /// <param name="line">Inpu Dynamo Line to get start and end points from</param>
+    /// <param name="orientation">Section orientation</param>
+    /// <returns></returns>
+    public static StraightBeam ByLine(Autodesk.DesignScript.Geometry.Line line, Autodesk.DesignScript.Geometry.Vector orientation)
+    {
+      return new StraightBeam(line.StartPoint, line.EndPoint, orientation, "", "", 0, -1, false);
+    }
+
+    /// <summary>
+    /// Create an Advance Steel straight beam from a Point, direction and length
+    /// </summary>
+    /// <param name="start">Input Start point of Beam</param>
+    /// <param name="direction">Input vector direction of beam</param>
+    /// <param name="orientation">Section orientation</param>
+    /// <param name="length">Input Beam Length relative to Start Point</param>
+    /// <returns></returns>
+    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Vector direction, Autodesk.DesignScript.Geometry.Vector orientation, double length)
+    {
+      Vector3d columnDirection = Utils.ToAstVector3d(direction, true).Normalize();
+      Point3d tempPoint = Utils.ToAstPoint(start, true);
+      Point3d end = tempPoint.Add(columnDirection * length);
+      return new StraightBeam(start, Utils.ToDynPoint(end, true), orientation, "", "", 0, -1, false);
+    }
+
+    /// <summary>
+    /// Create an Advance Steel straight beam between two points - inc ModelRole and Section Size
+    /// </summary>
+    /// <param name="start">Input Start point of Beam</param>
+    /// <param name="end">Input End point of Beam</param>
+    /// <param name="orientation">Section orientation</param>
+    /// <param name="modelRole">Input Beam Model Role - Key Column of Model Table</param>
+    /// <param name="sectionName">Input Beam Section size</param>
+    /// <param name="rotation">Input Beam rotation</param>
+    /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
+    /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
+    /// <returns></returns>
+    public static StraightBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Vector orientation, 
+                                                    string modelRole, string sectionName, [DefaultArgument("0;")]double rotation, int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
+    {
+      return new StraightBeam(start, end, orientation, modelRole, sectionName, Utils.ToInternalAngleUnits(rotation, true), refAxis, crossSectionMirror);
+    }
+
+    /// <summary>
+    /// Create an Advance Steel straight beam between two points from a Dynamo Line - inc ModelRole and Section Size
+    /// </summary>
+    /// <param name="line">Inpu Dynamo Line to get start and end points from</param>
+    /// <param name="orientation">Section orientation</param>
+    /// <param name="modelRole">Input Beam Model Role - Key Column of Model Table</param>
+    /// <param name="sectionName">Input Beam Section size</param>
+    /// <param name="rotation">Input Beam rotation</param>
+    /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
+    /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
+    /// <returns></returns>
+    public static StraightBeam ByLine(Autodesk.DesignScript.Geometry.Line line, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ZAxis();")]Autodesk.DesignScript.Geometry.Vector orientation, 
+                                      string modelRole, string sectionName, [DefaultArgument("0;")]double rotation, int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
+    {
+      return new StraightBeam(line.StartPoint, line.EndPoint, orientation, modelRole, sectionName, Utils.ToInternalAngleUnits(rotation, true), refAxis, crossSectionMirror);
+    }
+
+    /// <summary>
+    /// Create an Advance Steel straight beam from a Point, direction and length - inc ModelRole and Section Size
+    /// </summary>
+    /// <param name="start">Input Start point of Beam</param>
+    /// <param name="direction">Input vector direction of beam</param>
+    /// <param name="orientation">Section orientation</param>
+    /// <param name="length">Input Beam Length relative to Start Point</param>
+    /// <param name="modelRole">Input Beam Model Role - Key Column of Model Table</param>
+    /// <param name="sectionName">Input Beam Section size</param>
+    /// <param name="rotation">Input Beam rotation</param>
+    /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
+    /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
+    /// <returns></returns>
+    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Vector direction, Autodesk.DesignScript.Geometry.Vector orientation, double length, 
+                                                            string modelRole, string sectionName, double rotation, int refAxis, bool crossSectionMirror)
+    {
+      Vector3d columnDirection = Utils.ToAstVector3d(direction, true).Normalize();
+      Point3d tempPoint = Utils.ToAstPoint(start, true);
+      Point3d end = tempPoint.Add(columnDirection * length);
+      return new StraightBeam(start, Utils.ToDynPoint(end, true), orientation, modelRole, sectionName, Utils.ToInternalAngleUnits(rotation, true), refAxis, crossSectionMirror);
     }
 
     [IsVisibleInDynamoLibrary(false)]
