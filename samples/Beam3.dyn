@@ -1,0 +1,789 @@
+{
+  "Uuid": "3c9d0464-8643-5ffe-96e5-ab1769818209",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "Beam3",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "Point": {
+        "Key": "Autodesk.DesignScript.Geometry.Point",
+        "Value": "ProtoGeometry.dll"
+      },
+      "Vector": {
+        "Key": "Autodesk.DesignScript.Geometry.Vector",
+        "Value": "ProtoGeometry.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "Point.ByCoordinates(0,0,0);\nPoint.ByCoordinates(1001,1200,0);\nPoint.ByCoordinates(2001,2000,0);\nVector.ZAxis();",
+      "Id": "e74da84f2d7c48a6bbd6e75cd06e8387",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "315aa4de9675458b9ab1d1580d7551a2",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4ebc3c14b5964ed38dde32314dfdaa29",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7fbc7fc01c13479b8db0bdd79e3efcda",
+          "Name": "",
+          "Description": "Value of expression at line 3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d279c902145f4c79b07b69c57ca8789d",
+          "Name": "",
+          "Description": "Value of expression at line 4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"Lindab Z Profiles\";\n\"ZUni 35030\";",
+      "Id": "ff8ffc58dd0a4507aedf7ddebd4fbd73",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "dea24dbd7a864ac8b291770cac8f8be8",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "27a56a3d74e946a1ba199cfd9185a9a6",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.BeamSection.CreateSectionString@string,string",
+      "Id": "64db9ba865ed49b7aa62c48cd2904897",
+      "Inputs": [
+        {
+          "Id": "6805721c28814c379be0cc72c6f5b542",
+          "Name": "sectionType",
+          "Description": "SectionType for a beam section\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "24870078cec6496583406b4981d5ead4",
+          "Name": "sectionSize",
+          "Description": "SectionSize for a beam section\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a0c18c26f7e4467aaca2573f1f0b0fc7",
+          "Name": "sectionName",
+          "Description": "Beam section name",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns a concatenated string containing the SectionType, a fixed string separator \"#@§@#\" and the SectionSize.\n\nBeamSection.CreateSectionString (sectionType: string, sectionSize: string): string"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,string,string,int,bool",
+      "Id": "b2be85a2d6df4231820e48f14d080808",
+      "Inputs": [
+        {
+          "Id": "bd40e4e8930e4dd691e0fc5329e533aa",
+          "Name": "start",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "753153313782493d81ea4a3a2788279d",
+          "Name": "end",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d4cfde740ce74b97a8ae6c5eaaa69a1d",
+          "Name": "ptOnArc",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "cdc15c793a42478b909c129fd034f545",
+          "Name": "orientation",
+          "Description": "Section orientation\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "617caa00e0f5445682e9d2a4bf196557",
+          "Name": "modelRole",
+          "Description": "Input Beam Model Role - Key Column of Model Table\n\nstring\nDefault value : BentBeam (disabled)",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c75466bf7b384f5fb3b1df4dccb42687",
+          "Name": "sectionName",
+          "Description": "Input Beam Section size\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1ee3b3cd0864434db77f00b411d7036a",
+          "Name": "refAxis",
+          "Description": "Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9\n\nint\nDefault value : 5",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e28854fd691e4404b7ea3805382926b9",
+          "Name": "crossSectionMirror",
+          "Description": "Input Beam Mirror Option\n\nbool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "90a16d0e9b4e4c03bec471acb330ca8e",
+          "Name": "BentBeam",
+          "Description": "BentBeam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel bent beam between two points and a point on arc - inc ModelRole and Section Size\n\nBentBeam.ByStartPointEndPoint (start: Point, end: Point, ptOnArc: Point, orientation: Vector, modelRole: string = BentBeam, sectionName: string, refAxis: int = 5, crossSectionMirror: bool = false): BentBeam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "2;",
+      "Id": "7b9bfdd6bfe64c69a8d26a7f72eca104",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "712edd3b35634971afd724a3aec25230",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"beams\";",
+      "Id": "8faeaf64c5314ee8b15411040c69aa3a",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f3e7a0039c164cafbb90233e4dd5d6bf",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "true;",
+      "Id": "ba51feeabb9a47ff8731441f9553e8fc",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "3932d99d318f4298976bdc470d1f2413",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByArc@Autodesk.DesignScript.Geometry.Arc,Autodesk.DesignScript.Geometry.Vector,string,string,int,bool",
+      "Id": "388189163f194529a8d3260a2991ab15",
+      "Inputs": [
+        {
+          "Id": "5dc9c15e52b2476c962b39c287dae501",
+          "Name": "arc",
+          "Description": "Input Dynamo Node\n\nArc",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e9489d613c964f64b339f93a18e21335",
+          "Name": "orientation",
+          "Description": "Section orientation\n\nVector\nDefault value : Autodesk.DesignScript.Geometry.Vector.ZAxis()",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "87228b688cb648aab54bb3fd55dda0bb",
+          "Name": "modelRole",
+          "Description": "Input Beam Model Role - Key Column of Model Table\n\nstring\nDefault value : BentBeam (disabled)",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "23926ca3c75347808a40b43cc6ce6f0f",
+          "Name": "sectionName",
+          "Description": "Input Beam Section size\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "25141ba303894a158c3ca3af784acee1",
+          "Name": "refAxis",
+          "Description": "Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9\n\nint\nDefault value : 5",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e3eaf2f370c441f598a8bb8568d0a88b",
+          "Name": "crossSectionMirror",
+          "Description": "Input Beam Mirror Option\n\nbool\nDefault value : false (disabled)",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "69c5be0aead94c40adb38185c61707f9",
+          "Name": "BentBeam",
+          "Description": "BentBeam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel bent beam on a Dynamo Arc- inc ModelRole and Section Size\n\nBentBeam.ByArc (arc: Arc, orientation: Vector = Autodesk.DesignScript.Geometry.Vector.ZAxis(), modelRole: string = BentBeam, sectionName: string, refAxis: int = 5, crossSectionMirror: bool = false): BentBeam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "Point.ByCoordinates(0,0,0);\nPoint.ByCoordinates(2001,1200,0);\nPoint.ByCoordinates(3001,2000,0);\nVector.ZAxis();",
+      "Id": "fc9ca05f20f14a96ab249cd75f01e393",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "803acf3055bc43fa92e54c21b8b5b49b",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2ab0d95fd68640d8adb1b5bc0b97247b",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "787ed458238d4ef7b0a7aa5fde5081d2",
+          "Name": "",
+          "Description": "Value of expression at line 3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "08663482d6c74f72916f0968eda2784a",
+          "Name": "",
+          "Description": "Value of expression at line 4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Arc.ByThreePoints@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point",
+      "Id": "03bfb185908d46fca6a4b36d7c68c4a3",
+      "Inputs": [
+        {
+          "Id": "55c93a2a6bb44a95bc73e2faf5c3fc7b",
+          "Name": "firstPoint",
+          "Description": "First point along the curve\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a8a7a8d3c4e740a0810cbc22545cca2a",
+          "Name": "secondPoint",
+          "Description": "Second point along the curve\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "35b71ad721f142ce9b46942e2b7d894f",
+          "Name": "thirdPoint",
+          "Description": "Third point along the curve\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9f5a63c347fb4206932c60058da885af",
+          "Name": "Arc",
+          "Description": "An Arc",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an arc by providing three sequential points along its circumference.\n\nArc.ByThreePoints (firstPoint: Point, secondPoint: Point, thirdPoint: Point): Arc"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"Lindab Z Profiles\";\n\"ZUni 35025\";",
+      "Id": "3d40cf7a734e470a9478f91384a6f45d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8e2e3e8ea5f3436180cf8b605ae5db43",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c076e82581de44cb8cc9f31a7f82b523",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.BeamSection.CreateSectionString@string,string",
+      "Id": "0d727b7065614f95a0367614eb11c258",
+      "Inputs": [
+        {
+          "Id": "0cb2ea9c3c524ba2be67d1b451585ba4",
+          "Name": "sectionType",
+          "Description": "SectionType for a beam section\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "82d3d2663cce40af81e4eef256bd9f12",
+          "Name": "sectionSize",
+          "Description": "SectionSize for a beam section\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "526ec45792084d99aa08a2fdb62c0e0d",
+          "Name": "sectionName",
+          "Description": "Beam section name",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns a concatenated string containing the SectionType, a fixed string separator \"#@§@#\" and the SectionSize.\n\nBeamSection.CreateSectionString (sectionType: string, sectionSize: string): string"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "315aa4de9675458b9ab1d1580d7551a2",
+      "End": "bd40e4e8930e4dd691e0fc5329e533aa",
+      "Id": "ab41f0f1285c4025adfb4fb317dfe738"
+    },
+    {
+      "Start": "4ebc3c14b5964ed38dde32314dfdaa29",
+      "End": "d4cfde740ce74b97a8ae6c5eaaa69a1d",
+      "Id": "4e74890f4c2b4cb0aca9ab918bcd49d3"
+    },
+    {
+      "Start": "7fbc7fc01c13479b8db0bdd79e3efcda",
+      "End": "753153313782493d81ea4a3a2788279d",
+      "Id": "7d350be16a594561890ec0985ea2e907"
+    },
+    {
+      "Start": "d279c902145f4c79b07b69c57ca8789d",
+      "End": "cdc15c793a42478b909c129fd034f545",
+      "Id": "5b504fff42614872b6c285991e6d583c"
+    },
+    {
+      "Start": "dea24dbd7a864ac8b291770cac8f8be8",
+      "End": "6805721c28814c379be0cc72c6f5b542",
+      "Id": "27e51618289f4c008cc9cf26ad8bca9f"
+    },
+    {
+      "Start": "27a56a3d74e946a1ba199cfd9185a9a6",
+      "End": "24870078cec6496583406b4981d5ead4",
+      "Id": "696af0cb3ffd420fbd75ed20c64ebf17"
+    },
+    {
+      "Start": "a0c18c26f7e4467aaca2573f1f0b0fc7",
+      "End": "c75466bf7b384f5fb3b1df4dccb42687",
+      "Id": "a8d963cde66d430184be302c55feda3b"
+    },
+    {
+      "Start": "712edd3b35634971afd724a3aec25230",
+      "End": "e28854fd691e4404b7ea3805382926b9",
+      "Id": "834f3cc939c04f16afbeba9644d26733"
+    },
+    {
+      "Start": "712edd3b35634971afd724a3aec25230",
+      "End": "e3eaf2f370c441f598a8bb8568d0a88b",
+      "Id": "f4e64bfabd5e40e9b42564514c812b5f"
+    },
+    {
+      "Start": "f3e7a0039c164cafbb90233e4dd5d6bf",
+      "End": "617caa00e0f5445682e9d2a4bf196557",
+      "Id": "2b8dea27cf514aa282c7220defe8baa5"
+    },
+    {
+      "Start": "f3e7a0039c164cafbb90233e4dd5d6bf",
+      "End": "87228b688cb648aab54bb3fd55dda0bb",
+      "Id": "9ffb46e09dbe4ce0b0cd0e27deff026e"
+    },
+    {
+      "Start": "803acf3055bc43fa92e54c21b8b5b49b",
+      "End": "55c93a2a6bb44a95bc73e2faf5c3fc7b",
+      "Id": "c7ef6c39bb8b4c96b155812de1be6ca8"
+    },
+    {
+      "Start": "2ab0d95fd68640d8adb1b5bc0b97247b",
+      "End": "a8a7a8d3c4e740a0810cbc22545cca2a",
+      "Id": "d4947c79d0f245e08f285dd8d87bebf6"
+    },
+    {
+      "Start": "787ed458238d4ef7b0a7aa5fde5081d2",
+      "End": "35b71ad721f142ce9b46942e2b7d894f",
+      "Id": "cd50a33ecd974c65848132c2aaba7145"
+    },
+    {
+      "Start": "08663482d6c74f72916f0968eda2784a",
+      "End": "e9489d613c964f64b339f93a18e21335",
+      "Id": "ff9d8322d8e4452c8bea82ff4a43af61"
+    },
+    {
+      "Start": "9f5a63c347fb4206932c60058da885af",
+      "End": "5dc9c15e52b2476c962b39c287dae501",
+      "Id": "c09c219a3a114cc1963226cce10a5d60"
+    },
+    {
+      "Start": "8e2e3e8ea5f3436180cf8b605ae5db43",
+      "End": "0cb2ea9c3c524ba2be67d1b451585ba4",
+      "Id": "0eca5f79d68c4d5ab875b523f7a5fe7c"
+    },
+    {
+      "Start": "c076e82581de44cb8cc9f31a7f82b523",
+      "End": "82d3d2663cce40af81e4eef256bd9f12",
+      "Id": "3e185e109d3e4ea2a8d584a8f1910c3c"
+    },
+    {
+      "Start": "526ec45792084d99aa08a2fdb62c0e0d",
+      "End": "23926ca3c75347808a40b43cc6ce6f0f",
+      "Id": "f856d699351d443989971c02e253ec0c"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [
+    {
+      "NodeId": "b2be85a2-d6df-4231-820e-48f14d080808",
+      "Binding": {
+        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_b2be85a2-d6df-4231-820e-48f14d080808": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJNVFl6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJME1Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+      }
+    },
+    {
+      "NodeId": "38818916-3f19-4529-a8d3-260a2991ab15",
+      "Binding": {
+        "ByArc_InClassDecl-1_InFunctionScope-1_Instance0_38818916-3f19-4529-a8d3-260a2991ab15": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJNVFl6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelJqd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+      }
+    }
+  ],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.5.2.7915",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -291.60639784034919,
+      "EyeY": 321.49026432704483,
+      "EyeZ": 1377.2642562283538,
+      "LookX": 286.60639784034919,
+      "LookY": -310.49026432704483,
+      "LookZ": -1385.2642562283538,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "e74da84f2d7c48a6bbd6e75cd06e8387",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -244.97638235447823,
+        "Y": -153.08532708809537
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "ff8ffc58dd0a4507aedf7ddebd4fbd73",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -145.14177223723357,
+        "Y": 272.19098824571097
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "BeamSection.CreateSectionString",
+        "Id": "64db9ba865ed49b7aa62c48cd2904897",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 150.881251857233,
+        "Y": 197.438127859877
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "BentBeam.ByStartPointEndPoint",
+        "Id": "b2be85a2d6df4231820e48f14d080808",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 575.38421726052229,
+        "Y": -164.02967763030682
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "7b9bfdd6bfe64c69a8d26a7f72eca104",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -37.146985126242157,
+        "Y": 138.68247473275846
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "8faeaf64c5314ee8b15411040c69aa3a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -44.0,
+        "Y": 52.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "ba51feeabb9a47ff8731441f9553e8fc",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 349.12248760520174,
+        "Y": 110.34139445075971
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "BentBeam.ByArc",
+        "Id": "388189163f194529a8d3260a2991ab15",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 618.48987918473415,
+        "Y": -496.15845460917285
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "fc9ca05f20f14a96ab249cd75f01e393",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -256.05471756484167,
+        "Y": -557.4996490548923
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Arc.ByThreePoints",
+        "Id": "03bfb185908d46fca6a4b36d7c68c4a3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 175.22064335740458,
+        "Y": -686.12659060330691
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "3d40cf7a734e470a9478f91384a6f45d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -303.2419398310484,
+        "Y": -301.70507946392564
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "BeamSection.CreateSectionString",
+        "Id": "0d727b7065614f95a0367614eb11c258",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -30.15650903504843,
+        "Y": -404.49277610344063
+      }
+    ],
+    "Annotations": [],
+    "X": 273.69501726243897,
+    "Y": 281.66770097339423,
+    "Zoom": 0.45496108468425711
+  }
+}
