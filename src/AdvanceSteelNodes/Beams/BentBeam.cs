@@ -1,4 +1,5 @@
 ﻿using Autodesk.AdvanceSteel.CADAccess;
+using Autodesk.AdvanceSteel.Modelling;
 using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.AdvanceSteel.Profiles;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
@@ -16,7 +17,7 @@ namespace AdvanceSteel.Nodes.Beams
     //private Point3d PointOnArc;
 
     internal BentBeam(Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector vOrientation,
-                          string modelRole, string sectionName, double rotation, int refAxis, bool crossSectionMirror)
+                          string modelRole, string sectionName, int refAxis, bool crossSectionMirror)
     {
       lock (access_obj)
       {
@@ -43,10 +44,10 @@ namespace AdvanceSteel.Nodes.Beams
             {
               beam.Role = modelRole;
             }
+            if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
             {
-              beam.RefAxis = (Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis)refAxis;
+              beam.RefAxis = (Beam.eRefAxis)refAxis;
             }
-            beam.SetXRotation(rotation);
             beam.SetCrossSectionMirrored(crossSectionMirror, false);
             beam.WriteToDb();
           }
@@ -64,11 +65,10 @@ namespace AdvanceSteel.Nodes.Beams
               {
                 beam.Role = modelRole;
               }
-              if (refAxis > -1)
+              if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
               {
-                beam.RefAxis = (Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis)refAxis;
+                beam.RefAxis = (Beam.eRefAxis)refAxis;
               }
-              beam.SetXRotation(rotation);
               beam.SetCrossSectionMirrored(crossSectionMirror, false);
               Utils.SetOrientation(beam, refVect);
             }
@@ -92,7 +92,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <returns></returns>
     public static BentBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector orientation)
     {
-      return new BentBeam(start, end, ptOnArc, orientation, "", "", 0, -1, false);
+      return new BentBeam(start, end, ptOnArc, orientation, "", "", -1, false);
     }
 
     /// <summary>
@@ -104,16 +104,15 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="orientation">Section orientation</param>
     /// <param name="modelRole">Input Beam Model Role - Key Column of Model Table</param>
     /// <param name="sectionName">Input Beam Section size</param>
-    /// <param name="rotation">Input Beam rotation</param>
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <returns></returns>
     public static BentBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector orientation,
-                                                    string modelRole, string sectionName, [DefaultArgument("0;")]double rotation, [DefaultArgument("-1;")]int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
+                                                    [DefaultArgument("BentBeam;")]string modelRole, string sectionName, [DefaultArgument("5;")]int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
     {
       var arc = Autodesk.DesignScript.Geometry.Arc.ByThreePoints(start, ptOnArc, end);
       Autodesk.DesignScript.Geometry.Point[] cvs = arc.PointsAtEqualSegmentLength(2);
-      return new BentBeam(arc.StartPoint, arc.EndPoint, cvs[0], orientation, modelRole, sectionName, Utils.ToInternalAngleUnits(rotation, true), refAxis, crossSectionMirror);
+      return new BentBeam(arc.StartPoint, arc.EndPoint, cvs[0], orientation, modelRole, sectionName, refAxis, crossSectionMirror);
 
       //return new BentBeam(start, end, ptOnArc, orientation, modelRole, sectionName, Utils.ToInternalAngleUnits(rotation, true), refAxis, crossSectionMirror);
     }
@@ -125,15 +124,14 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="orientation">Section orientation</param>
     /// <param name="modelRole">Input Beam Model Role - Key Column of Model Table</param>
     /// <param name="sectionName">Input Beam Section size</param>
-    /// <param name="rotation">Input Beam rotation</param>
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <returns></returns>
     public static BentBeam ByArc(Autodesk.DesignScript.Geometry.Arc arc, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ZAxis();")]Autodesk.DesignScript.Geometry.Vector orientation,
-                                  string modelRole, string sectionName, [DefaultArgument("0;")]double rotation, int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
+                                  [DefaultArgument("BentBeam;")]string modelRole, string sectionName, [DefaultArgument("5;")]int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
     {
       Autodesk.DesignScript.Geometry.Point[] cvs = arc.PointsAtEqualSegmentLength(2);
-      return new BentBeam(arc.StartPoint, arc.EndPoint, cvs[0], orientation, modelRole, sectionName, Utils.ToInternalAngleUnits(rotation, true), refAxis, crossSectionMirror);
+      return new BentBeam(arc.StartPoint, arc.EndPoint, cvs[0], orientation, modelRole, sectionName, refAxis, crossSectionMirror);
     }
 
     [IsVisibleInDynamoLibrary(false)]
@@ -144,12 +142,11 @@ namespace AdvanceSteel.Nodes.Beams
         using (var ctx = new SteelServices.DocContext())
         {
           var beam = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.BentBeam;
-          //var midPointOnArc = GetPointAtStart(0).GetMidPointOnArc(beam.GetPointAtEnd(0), beam.CenterPoint);
           var midPointOnArc = beam.CenterPoint;
 
           using (var start = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
           using (var end = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
-          using (var ptOnArc = Utils.ToDynPoint(midPointOnArc, true)) //PointOnArc
+          using (var ptOnArc = Utils.ToDynPoint(midPointOnArc, true)) 
           {
             var arc = Autodesk.DesignScript.Geometry.Arc.ByThreePoints(start, ptOnArc, end);
             return arc;

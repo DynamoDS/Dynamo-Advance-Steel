@@ -14,7 +14,7 @@ namespace AdvanceSteel.Nodes.Beams
   public class StraightBeam : GraphicObject
   {
     internal StraightBeam(Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Vector vOrientation, 
-                          string modelRole, string sectionName, double rotation, int refAxis, bool crossSectionMirror)
+                          string modelRole, string sectionName, int refAxis, bool crossSectionMirror)
     {
       lock (access_obj)
       {
@@ -42,10 +42,10 @@ namespace AdvanceSteel.Nodes.Beams
             {
               beam.Role = modelRole;
             }
+            if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
             {
               beam.RefAxis = (Beam.eRefAxis)refAxis;
             }
-            beam.SetXRotation(rotation);
             beam.SetCrossSectionMirrored(crossSectionMirror, false);
             beam.WriteToDb();
 
@@ -66,11 +66,10 @@ namespace AdvanceSteel.Nodes.Beams
               {
                 beam.Role = modelRole;
               }
-              if (refAxis > -1)
+              if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
               {
                 beam.RefAxis = (Beam.eRefAxis)refAxis;
               }
-              beam.SetXRotation(rotation);
               beam.SetCrossSectionMirrored(crossSectionMirror, false);
               Utils.SetOrientation(beam, refVect);
             }
@@ -92,7 +91,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <returns></returns>
     public static StraightBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Vector orientation)
     {
-      return new StraightBeam(start, end, orientation, "", "", 0, -1, false);
+      return new StraightBeam(start, end, orientation, "", "", -1, false);
     }
 
     /// <summary>
@@ -103,7 +102,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <returns></returns>
     public static StraightBeam ByLine(Autodesk.DesignScript.Geometry.Line line, Autodesk.DesignScript.Geometry.Vector orientation)
     {
-      return new StraightBeam(line.StartPoint, line.EndPoint, orientation, "", "", 0, -1, false);
+      return new StraightBeam(line.StartPoint, line.EndPoint, orientation, "", "", -1, false);
     }
 
     /// <summary>
@@ -114,12 +113,31 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="orientation">Section orientation</param>
     /// <param name="length">Input Beam Length relative to Start Point</param>
     /// <returns></returns>
-    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Vector direction, Autodesk.DesignScript.Geometry.Vector orientation, double length)
+    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Vector direction, 
+                                                            Autodesk.DesignScript.Geometry.Vector orientation, [DefaultArgument("1000;")]double length)
     {
       Vector3d columnDirection = Utils.ToAstVector3d(direction, true).Normalize();
       Point3d tempPoint = Utils.ToAstPoint(start, true);
       Point3d end = tempPoint.Add(columnDirection * length);
-      return new StraightBeam(start, Utils.ToDynPoint(end, true), orientation, "", "", 0, -1, false);
+      return new StraightBeam(start, Utils.ToDynPoint(end, true), orientation, "", "", -1, false);
+    }
+
+    /// <summary>
+    /// Create an Advance Steel straight beam from a Point, direction and length and Ref Axis
+    /// </summary>
+    /// <param name="start">Input Start point of Beam</param>
+    /// <param name="direction">Input vector direction of beam</param>
+    /// <param name="orientation">Section orientation</param>
+    /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
+    /// <param name="length">Input Beam Length relative to Start Point</param>
+    /// <returns></returns>
+    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Vector direction, 
+                                                           Autodesk.DesignScript.Geometry.Vector orientation, [DefaultArgument("5;")]int refAxis, [DefaultArgument("1000;")]double length)
+    {
+      Vector3d columnDirection = Utils.ToAstVector3d(direction, true).Normalize();
+      Point3d tempPoint = Utils.ToAstPoint(start, true);
+      Point3d end = tempPoint.Add(columnDirection * length);
+      return new StraightBeam(start, Utils.ToDynPoint(end, true), orientation, "", "", refAxis, false);
     }
 
     /// <summary>
@@ -130,14 +148,13 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="orientation">Section orientation</param>
     /// <param name="modelRole">Input Beam Model Role - Key Column of Model Table</param>
     /// <param name="sectionName">Input Beam Section size</param>
-    /// <param name="rotation">Input Beam rotation</param>
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <returns></returns>
-    public static StraightBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Vector orientation, 
-                                                    string modelRole, string sectionName, [DefaultArgument("0;")]double rotation, int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
+    public static StraightBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Vector orientation,
+                                                    [DefaultArgument("Horizontal_Beam;")]string modelRole, string sectionName, [DefaultArgument("5;")]int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
     {
-      return new StraightBeam(start, end, orientation, modelRole, sectionName, Utils.ToInternalAngleUnits(rotation, true), refAxis, crossSectionMirror);
+      return new StraightBeam(start, end, orientation, modelRole, sectionName, refAxis, crossSectionMirror);
     }
 
     /// <summary>
@@ -147,14 +164,13 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="orientation">Section orientation</param>
     /// <param name="modelRole">Input Beam Model Role - Key Column of Model Table</param>
     /// <param name="sectionName">Input Beam Section size</param>
-    /// <param name="rotation">Input Beam rotation</param>
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <returns></returns>
-    public static StraightBeam ByLine(Autodesk.DesignScript.Geometry.Line line, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ZAxis();")]Autodesk.DesignScript.Geometry.Vector orientation, 
-                                      string modelRole, string sectionName, [DefaultArgument("0;")]double rotation, int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
+    public static StraightBeam ByLine(Autodesk.DesignScript.Geometry.Line line, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ZAxis();")]Autodesk.DesignScript.Geometry.Vector orientation,
+                                      [DefaultArgument("Horizontal_Beam;")]string modelRole, string sectionName, [DefaultArgument("5;")]int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
     {
-      return new StraightBeam(line.StartPoint, line.EndPoint, orientation, modelRole, sectionName, Utils.ToInternalAngleUnits(rotation, true), refAxis, crossSectionMirror);
+      return new StraightBeam(line.StartPoint, line.EndPoint, orientation, modelRole, sectionName, refAxis, crossSectionMirror);
     }
 
     /// <summary>
@@ -166,17 +182,16 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="length">Input Beam Length relative to Start Point</param>
     /// <param name="modelRole">Input Beam Model Role - Key Column of Model Table</param>
     /// <param name="sectionName">Input Beam Section size</param>
-    /// <param name="rotation">Input Beam rotation</param>
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <returns></returns>
-    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Vector direction, Autodesk.DesignScript.Geometry.Vector orientation, double length, 
-                                                            string modelRole, string sectionName, double rotation, int refAxis, bool crossSectionMirror)
+    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Vector direction, Autodesk.DesignScript.Geometry.Vector orientation, double length,
+                                                            [DefaultArgument("Horizontal_Beam;")]string modelRole, string sectionName, [DefaultArgument("5;")]int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
     {
       Vector3d columnDirection = Utils.ToAstVector3d(direction, true).Normalize();
       Point3d tempPoint = Utils.ToAstPoint(start, true);
       Point3d end = tempPoint.Add(columnDirection * length);
-      return new StraightBeam(start, Utils.ToDynPoint(end, true), orientation, modelRole, sectionName, Utils.ToInternalAngleUnits(rotation, true), refAxis, crossSectionMirror);
+      return new StraightBeam(start, Utils.ToDynPoint(end, true), orientation, modelRole, sectionName, refAxis, crossSectionMirror);
     }
 
     [IsVisibleInDynamoLibrary(false)]
