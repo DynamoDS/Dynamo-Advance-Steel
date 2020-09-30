@@ -4,6 +4,7 @@ using Autodesk.DesignScript.Runtime;
 using Dynamo.Applications.AdvanceSteel.Services;
 using System;
 using Autodesk.AdvanceSteel.Geometry;
+using System.Collections.Generic;
 
 namespace AdvanceSteel.Nodes
 {
@@ -233,6 +234,83 @@ namespace AdvanceSteel.Nodes
         return true;
       }
       return false;
+    }
+
+    public static double GetDiagonalLength(Autodesk.AdvanceSteel.Geometry.Point3d point1, Autodesk.AdvanceSteel.Geometry.Point3d point2)
+    {
+      return (point2 - point1).GetLength();
+    }
+    public static double GetRectangleAngle(Autodesk.AdvanceSteel.Geometry.Point3d point1, Autodesk.AdvanceSteel.Geometry.Point3d point2, Autodesk.AdvanceSteel.Geometry.Vector3d vx)
+    {
+      return (point2 - point1).GetAngleTo(vx);
+    }
+    public static double GetRectangleLength(Autodesk.AdvanceSteel.Geometry.Point3d point1, Autodesk.AdvanceSteel.Geometry.Point3d point2, Autodesk.AdvanceSteel.Geometry.Vector3d vx)
+    {
+      var diagLen = GetDiagonalLength(point1, point2);
+      var alpha = GetRectangleAngle(point1, point2, vx);
+
+      return diagLen * Math.Cos(alpha);
+    }
+    public static double GetRectangleHeight(Autodesk.AdvanceSteel.Geometry.Point3d point1, Autodesk.AdvanceSteel.Geometry.Point3d point2, Autodesk.AdvanceSteel.Geometry.Vector3d vx)
+    {
+      var diagLen = GetDiagonalLength(point1, point2);
+      var alpha = GetRectangleAngle(point1, point2, vx);
+
+      return diagLen * Math.Sin(alpha);
+    }
+
+    public static FilerObject[] GetSteelObjectsToConnect(IEnumerable<string> handlesToConnect)
+    {
+      var ret = new List<FilerObject>();
+      bool Objs = false;
+      foreach (var objHandle in handlesToConnect)
+      {
+        FilerObject obj = Utils.GetObject(objHandle);
+        if (obj != null && (obj.IsKindOf(FilerObject.eObjectType.kBeam) ||
+                            obj.IsKindOf(FilerObject.eObjectType.kBentBeam) ||
+                            obj.IsKindOf(FilerObject.eObjectType.kPlate)))
+        {
+          Objs = true;
+          ret.Add(obj);
+        }
+        else
+        {
+          throw new System.Exception("Object is empty");
+        }
+      }
+      return Objs ? ret.ToArray() : Array.Empty<FilerObject>();
+    }
+
+    public static FilerObject[] GetFilerObjects(IEnumerable<string> handles)
+    {
+      var ret = new List<FilerObject>();
+      bool Objs = false;
+      foreach (var objHandle in handles)
+      {
+        Objs = true;
+        ret.Add(Utils.GetObject(objHandle));
+      }
+
+      return Objs ? ret.ToArray() : Array.Empty<FilerObject>();
+    }
+
+    public static List<string> GetSteelDbObjectsToConnect(IEnumerable<SteelDbObject> objectsToConnect)
+    {
+      List<string> handlesList = new List<string>();
+      foreach (var obj in objectsToConnect)
+      {
+        if (obj is AdvanceSteel.Nodes.Beams.BentBeam ||
+            obj is AdvanceSteel.Nodes.Beams.StraightBeam ||
+            obj is AdvanceSteel.Nodes.Plates.Plate)
+        {
+          handlesList.Add(obj.Handle);
+        }
+        else
+        {
+          throw new Exception("Only beams and plates can be connected");
+        }
+      }
+      return handlesList;
     }
   }
 }

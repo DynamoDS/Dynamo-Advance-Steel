@@ -46,7 +46,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Welds
 							throw new System.Exception("Not a weld point");
 					}
 
-					FilerObject[] filerObjects = ObjectsConnection.GetFilerObjects(handlesToConnect);
+					FilerObject[] filerObjects = Utils.GetFilerObjects(handlesToConnect);
 					weld.Connect(filerObjects, (AtomicElement.eAssemblyLocation)connectionType);
 
 					Handle = weld.Handle;
@@ -57,14 +57,14 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Welds
     /// <summary>
     /// Create an Advance Steel Weld Pattern By Point
     /// </summary>
-    /// <param name="point">Input Weld Point Location</param>
-    /// <param name="objectsToConnect">Input Connected Objects</param>
-    /// <param name="connectionType">Input Weld Type - 0-OnSite or 2-InShop</param>
+    /// <param name="point"> Input Weld Point Location</param>
+    /// <param name="objectsToConnect"> Input Connected Objects</param>
+    /// <param name="connectionType"> Input Weld Type - 0-OnSite or 2-InShop</param>
     public static WeldPoint ByPoint(DynGeometry.Point point, IEnumerable<SteelDbObject> objectsToConnect, [DefaultArgument("2;")]int connectionType)
 		{
 		
 			List<string> handlesList = new List<string>();
-			handlesList = ObjectsConnection.GetSteelDbObjectsToConnect(objectsToConnect);
+			handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
 
 			var astPoint = Utils.ToAstPoint(point, true);
 			return new WeldPoint(astPoint, handlesList, connectionType);

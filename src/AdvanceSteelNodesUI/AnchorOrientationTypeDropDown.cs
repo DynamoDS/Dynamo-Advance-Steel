@@ -5,21 +5,20 @@ using Dynamo.Utilities;
 using ProtoCore.AST.AssociativeAST;
 using Newtonsoft.Json;
 
-
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Weld Connection Type")]
-	[NodeDescription("Set Weld Connection type - InShop or OnSite")]
-  [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects.Welds")]
-  [OutPortNames("Weld Type")]
+	[NodeName("Anchor Orientation Type")]
+	[NodeDescription("Set Anchor Orientation")]
+  [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects.Anchors")]
+  [OutPortNames("Anchor Orientation Type")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
-	public class WeldConnectionType : AstDropDownBase
+	public class AnchorOrientationType : AstDropDownBase
 	{
-		private const string outputName = "Weld Type";
+		private const string outputName = "Anchor Orientation Type";
 
-		public WeldConnectionType()
+		public AnchorOrientationType()
 				: base(outputName)
 		{
 			InPorts.Clear();
@@ -28,7 +27,7 @@ namespace AdvanceSteel.Nodes
 		}
 
 		[JsonConstructor]
-		public WeldConnectionType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+		public AnchorOrientationType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
 		: base(outputName, inPorts, outPorts)
 		{
 		}
@@ -39,10 +38,15 @@ namespace AdvanceSteel.Nodes
 
 			var newItems = new List<DynamoDropDownItem>()
 						{
-								new DynamoDropDownItem("Select Weld Type...", -1),
-								new DynamoDropDownItem("OnSite", 0),
-								new DynamoDropDownItem("InShop", 2)
-						};
+								new DynamoDropDownItem("Select Anchor Orientation...", -1),
+								new DynamoDropDownItem("Normal Orientation", 0),
+								new DynamoDropDownItem("Diagonal Inside", 1),
+                new DynamoDropDownItem("Diagonal Outside", 2),
+                new DynamoDropDownItem("All Outside", 3),
+                new DynamoDropDownItem("All Inside", 4),
+                new DynamoDropDownItem("Inside Rotated", 5),
+                new DynamoDropDownItem("Outside Rotated", 6)
+            };
 
 			Items.AddRange(newItems);
 
@@ -53,7 +57,7 @@ namespace AdvanceSteel.Nodes
 		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
 		{
       if (Items.Count == 0 ||
-          Items[SelectedIndex].Name == "Select Weld Type..." ||
+          Items[SelectedIndex].Name == "Select Anchor Orientation..." ||
           SelectedIndex < 0)
       {
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
