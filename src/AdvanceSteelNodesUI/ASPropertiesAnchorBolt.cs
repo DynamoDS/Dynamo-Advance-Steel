@@ -4,7 +4,6 @@ using Dynamo.Graph.Nodes;
 using Dynamo.Utilities;
 using ProtoCore.AST.AssociativeAST;
 using Newtonsoft.Json;
-using xxx = AdvanceSteel.Nodes;
 
 namespace AdvanceSteel.Nodes
 {
