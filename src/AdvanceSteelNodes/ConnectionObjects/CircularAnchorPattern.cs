@@ -20,8 +20,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 	{
 
 		internal CircularAnchorPattern(SteelGeometry.Point3d astPointRef, IEnumerable<string> handlesToConnect, 
-                                   SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy, 
-                                   PropertiesAnchorBolts anchorBoltData)
+                                   SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
+                                   List<Property> anchorBoltData, int boltCon)
 		{
 			lock (access_obj)
 			{
@@ -33,54 +33,27 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
 					{
 						anchors = new Autodesk.AdvanceSteel.Modelling.AnchorPattern(astPointRef, vx, vy);
-						anchors.ArrangerType = Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle;
-            anchors.BoundedSide = Autodesk.AdvanceSteel.Modelling.AnchorPattern.eBoundedSide.kAll;
-            anchors.NumberOfScrews = anchorBoltData.XCount;
-            anchors.Radius = Utils.ToInternalUnits(anchorBoltData.Radius, true);
-
-            if (string.IsNullOrEmpty(anchorBoltData.Standard) == false) { anchors.Standard = anchorBoltData.Standard; }
-            if (string.IsNullOrEmpty(anchorBoltData.AnchorBoltAssembly) == false) { anchors.BoltAssembly = anchorBoltData.AnchorBoltAssembly; }
-            if (string.IsNullOrEmpty(anchorBoltData.Grade) == false) { anchors.Material = anchorBoltData.Grade; }
-
-            if (anchorBoltData.Diameter > 0) { anchors.ScrewDiameter = Utils.ToInternalUnits(anchorBoltData.Diameter, true); }
-            if (anchorBoltData.HoleTolerance > -1) { anchors.HoleTolerance = Utils.ToInternalUnits(anchorBoltData.HoleTolerance, true); }
-            anchors.ScrewLength = Utils.ToInternalUnits(anchorBoltData.AnchorBoltLength, true);
-            anchors.OrientationType = (Autodesk.AdvanceSteel.Modelling.AnchorPattern.eOrientationType)anchorBoltData.AnchorBoltOrientationType;
-            anchors.IsInverted = anchorBoltData.AnchorBoltInverted;
-
+            SetAnchorSetOutDetails(anchors, astPointRef, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle);
+            Utils.SetParameters(anchors, anchorBoltData);
             anchors.WriteToDb();
-					}
+          }
 					else
 					{
 						anchors = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.AnchorPattern;
 
 						if (anchors != null && anchors.IsKindOf(FilerObject.eObjectType.kAnchorPattern))
 						{
-						  anchors.ArrangerType = Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle;
-              anchors.BoundedSide = Autodesk.AdvanceSteel.Modelling.AnchorPattern.eBoundedSide.kAll;
-							anchors.RefPoint = astPointRef;
+              SetAnchorSetOutDetails(anchors, astPointRef, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle);
               anchors.XDirection = vx;
-							anchors.YDirection = vy;
-              anchors.NumberOfScrews = anchorBoltData.XCount;
-
-              if (string.IsNullOrEmpty(anchorBoltData.Standard) == false) { anchors.Standard = anchorBoltData.Standard; }
-              if (string.IsNullOrEmpty(anchorBoltData.AnchorBoltAssembly) == false) { anchors.BoltAssembly = anchorBoltData.AnchorBoltAssembly; }
-              if (string.IsNullOrEmpty(anchorBoltData.Grade) == false) { anchors.Material = anchorBoltData.Grade; }
-
-              if (anchorBoltData.Diameter > 0) { anchors.ScrewDiameter = Utils.ToInternalUnits(anchorBoltData.Diameter, true); }
-              if (anchorBoltData.HoleTolerance > -1) { anchors.HoleTolerance = Utils.ToInternalUnits(anchorBoltData.HoleTolerance, true); }
-              anchors.ScrewLength = Utils.ToInternalUnits(anchorBoltData.AnchorBoltLength, true);
-              anchors.OrientationType = (Autodesk.AdvanceSteel.Modelling.AnchorPattern.eOrientationType)anchorBoltData.AnchorBoltOrientationType;
-
-              anchors.Radius = Utils.ToInternalUnits(anchorBoltData.Radius, true);
-              anchors.IsInverted = anchorBoltData.AnchorBoltInverted;
+              anchors.YDirection = vy;
+              Utils.SetParameters(anchors, anchorBoltData);
             }
             else
 							throw new System.Exception("Not a circular pattern");
 					}
 
           FilerObject[] filerObjects = Utils.GetFilerObjects(handlesToConnect);
-					anchors.Connect(filerObjects, (AtomicElement.eAssemblyLocation)anchorBoltData.AnchorBoltConnectionType);
+					anchors.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
 
 					Handle = anchors.Handle;
 					SteelServices.ElementBinder.CleanupAndSetElementForTrace(anchors);
@@ -94,53 +67,78 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
     /// <param name="circle"> Input circle</param>
     /// <param name="referenceVector"> Input Dynamo Vector for alignment of circle</param>
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
-    /// <param name="anchorBoltData"> Input Bolt Build Properties </param>
+    /// <param name="AnchorBoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="ListofAdditionalAnchorBoltParameters"> Optional Input Bolt Build Properties </param>
     /// <returns></returns>
     public static CircularAnchorPattern ByCircle(DynGeometry.Circle circle,
                                                   DynGeometry.Vector referenceVector,
-                                                  IEnumerable<SteelDbObject> objectsToConnect, 
-                                                  PropertiesAnchorBolts anchorBoltData)
-		{
-			var norm = Utils.ToAstVector3d(circle.Normal, true);
+                                                  IEnumerable<SteelDbObject> objectsToConnect,
+                                                  [DefaultArgument("2;")]int AnchorBoltConnectionType,
+                                                  [DefaultArgument("null")]List<Property> ListofAdditionalAnchorBoltParameters)
+    {
+      if (ListofAdditionalAnchorBoltParameters == null)
+      {
+        ListofAdditionalAnchorBoltParameters = new List<Property>() { };
+      }
+
+      var norm = Utils.ToAstVector3d(circle.Normal, true);
 			var vx = Utils.ToAstVector3d(referenceVector, true);
       var vy = norm.CrossProduct(vx);
 
       vx = vx.Normalize();
       vy = vy.Normalize();
 
-      anchorBoltData.Radius = circle.Radius;
-
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
-			return new CircularAnchorPattern(Utils.ToAstPoint(circle.CenterPoint, true), handlesList, vx, vy, anchorBoltData);
+      PreSetValuesInListProps(ListofAdditionalAnchorBoltParameters, Utils.ToInternalUnits(circle.Radius, true));
+			return new CircularAnchorPattern(Utils.ToAstPoint(circle.CenterPoint, true), handlesList, vx, vy, ListofAdditionalAnchorBoltParameters, AnchorBoltConnectionType);
 		}
 
     /// <summary>
     /// Create an Advance Steel Circular Anchor Pattern By Center Point and Dynamo Coordinate System
     /// </summary>
     /// <param name="point"> Input radius center point</param>
-    /// <param name="anchorCS"></param>
+    /// <param name="anchorCS"> Input Dynamo Coordinate System</param>
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
-    /// <param name="anchorBoltData"> Input Bolt Build Properties </param>
+    /// <param name="AnchorBoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="ListofAdditionalAnchorBoltParameters"> Optional Input Bolt Build Properties </param>
     /// <returns></returns>
     public static CircularAnchorPattern AtCentrePoint(DynGeometry.Point point,
                                                       DynGeometry.CoordinateSystem anchorCS,
-                                                      IEnumerable<SteelDbObject> objectsToConnect, 
-                                                      PropertiesAnchorBolts anchorBoltData)
-		{
-			SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
+                                                      IEnumerable<SteelDbObject> objectsToConnect,
+                                                      [DefaultArgument("2;")]int AnchorBoltConnectionType,
+                                                      [DefaultArgument("null")]List<Property> ListofAdditionalAnchorBoltParameters)
+    {
+      if (ListofAdditionalAnchorBoltParameters == null)
+      {
+        ListofAdditionalAnchorBoltParameters = new List<Property>() { };
+      }
+
+      SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
 
       var vx = Utils.ToAstVector3d(anchorCS.XAxis, true);
       var vy = Utils.ToAstVector3d(anchorCS.YAxis, true);
-
       vx = vx.Normalize();
       vy = vy.Normalize();
 
       IEnumerable<string> handles = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
-
-      return new CircularAnchorPattern(astPointRef, handles, vx, vy, anchorBoltData);
+      return new CircularAnchorPattern(astPointRef, handles, vx, vy, ListofAdditionalAnchorBoltParameters, AnchorBoltConnectionType);
 		}
 
-		[IsVisibleInDynamoLibrary(false)]
+    private static void PreSetValuesInListProps(List<Property> listOfAnchorBoltParameters, double radius)
+    {
+      Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Radius", radius);
+    }
+
+    private void SetAnchorSetOutDetails(Autodesk.AdvanceSteel.Modelling.AnchorPattern anchors,
+                                Point3d RefPoint,
+                                Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType anchorArr)
+    {
+      anchors.ArrangerType = anchorArr;
+      anchors.BoundedSide = Autodesk.AdvanceSteel.Modelling.AnchorPattern.eBoundedSide.kAll;
+      anchors.RefPoint = RefPoint;
+    }
+
+    [IsVisibleInDynamoLibrary(false)]
 		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
 		{
 			lock (access_obj)

@@ -23,7 +23,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     internal RectangularBoltPattern(SteelGeometry.Point3d boltPatternInsertPoint,
                                     SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
                                     IEnumerable<string> handlesToConnect,
-                                    PropertiesBolts boltData)
+                                    List<Property> boltData, int boltCon)
     {
       lock (access_obj)
       {
@@ -35,21 +35,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
             bolts = new Autodesk.AdvanceSteel.Modelling.InfinitMidScrewBoltPattern(boltPatternInsertPoint, vx, vy);
-            
-            if (string.IsNullOrEmpty(boltData.Standard) == false) { bolts.Standard = boltData.Standard; }
-            if (string.IsNullOrEmpty(boltData.BoltAssembly) == false) { bolts.BoltAssembly = boltData.BoltAssembly; }
-            if (string.IsNullOrEmpty(boltData.Grade) == false) { bolts.Material = boltData.Grade; }
-
-            if (boltData.Diameter > 0) { bolts.ScrewDiameter = boltData.Diameter; }
-            if (boltData.HoleTolerance > -1) { bolts.HoleTolerance = boltData.HoleTolerance; }
-
-            if (boltData.XSpacing > 0) { bolts.Dx = boltData.XSpacing; }
-            if (boltData.YSpacing > 0) { bolts.Dy = boltData.YSpacing; }
-            if (boltData.XCount > -1) { bolts.Nx = boltData.XCount; }
-            if (boltData.YCount > -1) { bolts.Ny = boltData.YCount; }
-            bolts.BindingLengthAddition = boltData.LengthAddition;
-            bolts.IsInverted = boltData.BoltInverted;
-
+            Utils.SetParameters(bolts, boltData);
             bolts.WriteToDb();
           }
           else
@@ -58,26 +44,14 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 
             if (bolts != null && bolts.IsKindOf(FilerObject.eObjectType.kInfinitMidScrewBoltPattern))
             {
-              if (string.IsNullOrEmpty(boltData.Standard) == false) { bolts.Standard = boltData.Standard; }
-              if (string.IsNullOrEmpty(boltData.BoltAssembly) == false) { bolts.BoltAssembly = boltData.BoltAssembly; }
-              if (string.IsNullOrEmpty(boltData.Grade) == false) { bolts.Material = boltData.Grade; }
-
-              if (boltData.Diameter > 0) { bolts.ScrewDiameter = boltData.Diameter; }
-              if (boltData.HoleTolerance > -1) { bolts.HoleTolerance = boltData.HoleTolerance; }
-
-              if (boltData.XSpacing > 0) { bolts.Dx = boltData.XSpacing; }
-              if (boltData.YSpacing > 0) { bolts.Dy = boltData.YSpacing; }
-              if (boltData.XCount > -1) { bolts.Nx = boltData.XCount; }
-              if (boltData.YCount > -1) { bolts.Ny = boltData.YCount; }
-              bolts.BindingLengthAddition = boltData.LengthAddition;
-              bolts.IsInverted = boltData.BoltInverted;
+              Utils.SetParameters(bolts, boltData);
             }
             else
               throw new System.Exception("Not a rectangular pattern");
           }
 
           FilerObject[] filerObjects = Utils.GetSteelObjectsToConnect(handlesToConnect);
-          bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltData.BoltConnectionType);
+          bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
 
           Handle = bolts.Handle;
           SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolts);
@@ -88,7 +62,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     internal RectangularBoltPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2, 
                                             IEnumerable<string> handlesToConnect, 
                                             SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
-																		        PropertiesBolts boltData)
+                                            List<Property> boltData, int boltCon)
 		{
 			lock (access_obj)
 			{
@@ -101,20 +75,12 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 					{
 						bolts = new Autodesk.AdvanceSteel.Modelling.FinitRectScrewBoltPattern(astPoint1, astPoint2, vx, vy);
 
-            if (string.IsNullOrEmpty(boltData.Standard) == false) { bolts.Standard = boltData.Standard; }
-            if (string.IsNullOrEmpty(boltData.BoltAssembly) == false) { bolts.BoltAssembly = boltData.BoltAssembly; }
-            if (string.IsNullOrEmpty(boltData.Grade) == false) { bolts.Material = boltData.Grade; }
-
-            if (boltData.Diameter > 0) { bolts.ScrewDiameter = boltData.Diameter; }
-            if (boltData.HoleTolerance > -1) { bolts.HoleTolerance = boltData.HoleTolerance; }
-            if (boltData.XCount > -1) { bolts.Nx = boltData.XCount; }
-            if (boltData.YCount > -1) { bolts.Ny = boltData.YCount; }
-
             bolts.RefPoint = astPoint1 + (astPoint2 - astPoint1) * 0.5;
             bolts.Length = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
             bolts.Height = Utils.GetRectangleHeight(astPoint1, astPoint2, vy);
-            bolts.BindingLengthAddition = boltData.LengthAddition;
-            bolts.IsInverted = boltData.BoltInverted;
+
+            Utils.SetParameters(bolts, boltData);
+
             bolts.WriteToDb();
 					}
 					else
@@ -126,27 +92,19 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 							bolts.XDirection = vx;
 							bolts.YDirection = vy;
 
-              if (string.IsNullOrEmpty(boltData.Standard) == false) { bolts.Standard = boltData.Standard; }
-              if (string.IsNullOrEmpty(boltData.BoltAssembly) == false) { bolts.BoltAssembly = boltData.BoltAssembly; }
-              if (string.IsNullOrEmpty(boltData.Grade) == false) { bolts.Material = boltData.Grade; }
-
-              if (boltData.Diameter > 0) { bolts.ScrewDiameter = boltData.Diameter; }
-              if (boltData.HoleTolerance > -1) { bolts.HoleTolerance = boltData.HoleTolerance; }
-
-              if (boltData.XCount > -1) { bolts.Nx = boltData.XCount; }
-              if (boltData.YCount > -1) { bolts.Ny = boltData.YCount; }
               bolts.RefPoint = astPoint1 + (astPoint2 - astPoint1) * 0.5;
               bolts.Length = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
               bolts.Height = Utils.GetRectangleHeight(astPoint1, astPoint2, vy);
-              bolts.BindingLengthAddition = boltData.LengthAddition;
-              bolts.IsInverted = boltData.BoltInverted;
+
+              Utils.SetParameters(bolts, boltData);
+
             }
             else
 							throw new System.Exception("Not a rectangular pattern");
 					}
 
           FilerObject[] filerObjects = Utils.GetSteelObjectsToConnect(handlesToConnect);
-					bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltData.BoltConnectionType);
+					bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
 
 					Handle = bolts.Handle;
 					SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolts);
@@ -158,13 +116,24 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// Create an Advance Steel Rectangular Pattern By Rectangle
     /// </summary>
     /// <param name="rectangle"> Input rectangle </param>
+    /// <param name="noOfBoltsX"> Input No of Bolts in the X direction</param>
+    /// <param name="noOfBoltsY"> Input No of Bolts in the Y direction</param>
     /// <param name="objectsToConnect"> Objects to be bolted </param>
-    /// <param name="boltData"> Bolt Build Properties </param>
-    public static RectangularBoltPattern ByRectangle(Autodesk.DesignScript.Geometry.Rectangle rectangle, 
-                                                      IEnumerable<SteelDbObject> objectsToConnect, 
-                                                      PropertiesBolts boltData)
+    /// <param name="BoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="ListofAdditionalBoltParameters"> Optional Bolt Build Properties </param>
+    public static RectangularBoltPattern ByRectangle(Autodesk.DesignScript.Geometry.Rectangle rectangle,
+                                                      [DefaultArgument("2;")]int noOfBoltsX,
+                                                      [DefaultArgument("2;")]int noOfBoltsY,
+                                                      IEnumerable<SteelDbObject> objectsToConnect,
+                                                      [DefaultArgument("2;")]int BoltConnectionType,
+                                                      [DefaultArgument("null")]List<Property> ListofAdditionalBoltParameters)
 		{
-			var norm = Utils.ToAstVector3d(rectangle.Normal, true);
+      if (ListofAdditionalBoltParameters == null)
+      {
+        ListofAdditionalBoltParameters = new List<Property>() { };
+      }
+
+      var norm = Utils.ToAstVector3d(rectangle.Normal, true);
 
 			List<string> handlesList = new List<string>();
 			handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
@@ -174,7 +143,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 			var vx = astCorners[1] - astCorners[0];
 			var vy = astCorners[3] - astCorners[0];
 
-			return new RectangularBoltPattern(astCorners[0], astCorners[2], handlesList, vx, vy, boltData);
+      PreSetValuesInListProps(ListofAdditionalBoltParameters, noOfBoltsX, noOfBoltsY);
+
+      return new RectangularBoltPattern(astCorners[0], astCorners[2], handlesList, vx, vy, ListofAdditionalBoltParameters, BoltConnectionType);
 		}
 
     /// <summary>
@@ -182,21 +153,40 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// </summary>
     /// <param name="connectionPoint"> Input Insertion point of Bolt Pattern </param>
     /// <param name="boltCS"> Input Bolt Coordinate System </param>
+    /// <param name="NoOfBoltsX"> Input No of Bolts in the X direction</param>
+    /// <param name="NoOfBoltsY"> Input No of Bolts in the Y direction</param>
     /// <param name="objectsToConnect"> Objects to be bolted </param>
-    /// <param name="boltData"> Bolt Build Properties </param>
+    /// <param name="BoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="ListofAdditionalBoltParameters"> Optional Bolt Build Properties </param>
     /// <returns></returns>
     public static RectangularBoltPattern AtCentrePoint(Autodesk.DesignScript.Geometry.Point connectionPoint,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem boltCS,
+                                                  [DefaultArgument("2;")]int NoOfBoltsX,
+                                                  [DefaultArgument("2;")]int NoOfBoltsY,
                                                   IEnumerable<SteelDbObject> objectsToConnect,
-                                                  PropertiesBolts boltData)
+                                                  [DefaultArgument("2;")]int BoltConnectionType,
+                                                  [DefaultArgument("null")]List<Property> ListofAdditionalBoltParameters)
     {
+      if (ListofAdditionalBoltParameters == null)
+      {
+        ListofAdditionalBoltParameters = new List<Property>() { };
+      }
+
       List<string> handlesList = new List<string>();
       handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
       
       var vx = Utils.ToAstVector3d(boltCS.XAxis, true);
       var vy = Utils.ToAstVector3d(boltCS.YAxis, true);
 
-      return new RectangularBoltPattern(Utils.ToAstPoint(connectionPoint, true), vx, vy, handlesList, boltData);
+      PreSetValuesInListProps(ListofAdditionalBoltParameters, NoOfBoltsX, NoOfBoltsY);
+
+      return new RectangularBoltPattern(Utils.ToAstPoint(connectionPoint, true), vx, vy, handlesList, ListofAdditionalBoltParameters, BoltConnectionType);
+    }
+
+    private static void PreSetValuesInListProps(List<Property> listOfBoltParameters, int nx, int ny)
+    {
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Nx", nx);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Ny", ny);
     }
 
     [IsVisibleInDynamoLibrary(false)]

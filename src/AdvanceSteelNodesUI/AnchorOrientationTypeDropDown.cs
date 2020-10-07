@@ -9,7 +9,7 @@ namespace AdvanceSteel.Nodes
 {
 	[NodeName("Anchor Orientation Type")]
 	[NodeDescription("Set Anchor Orientation")]
-  [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects.Anchors")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties")]
   [OutPortNames("Anchor Orientation Type")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]

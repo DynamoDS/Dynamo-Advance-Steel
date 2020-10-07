@@ -123,6 +123,9 @@
     <Compile Include="$(SolutionDir)AssemblySharedInfoGenerator\AssemblySharedInfo.cs">
       <Link>Properties\AssemblySharedInfo.cs</Link>
     </Compile>
+    <Compile Include="ASPropertiesAnchorBolt.cs" />
+    <Compile Include="ASPropertiesShearStuds.cs" />
+    <Compile Include="ASPropertiesBolts.cs" />
     <Compile Include="AnchorOrientationTypeDropDown.cs" />
     <Compile Include="AstDropDownBase.cs" />
     <Compile Include="BoltConnectionTypeDropDown.cs" />
@@ -130,6 +133,10 @@
     <Compile Include="WeldConnectionTypeDropDown.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AdvanceSteelNodes\AdvanceSteelNodes.csproj">
+      <Project>{785bb90b-886c-411d-8d34-8f85e9479a9c}</Project>
+      <Name>AdvanceSteelNodes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AdvanceSteelServices\AdvanceSteelServices.csproj">
       <Project>{00ed013f-0b34-4a79-9760-a21fd14d4bd5}</Project>
       <Name>AdvanceSteelServices</Name>

@@ -21,7 +21,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 
     internal RectangularAnchorPattern(SteelGeometry.Point3d anchorBoltPatternInsertPoint, IEnumerable<string> handlesToConnect,
                                       SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
-                                      PropertiesAnchorBolts anchorBoltData)
+                                      List<Property> anchorBoltData, int boltCon)
     {
       lock (access_obj)
       {
@@ -33,24 +33,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
             anchors = new Autodesk.AdvanceSteel.Modelling.AnchorPattern(anchorBoltPatternInsertPoint, vx, vy);
-            anchors.ArrangerType = Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular;
-            anchors.BoundedSide = Autodesk.AdvanceSteel.Modelling.AnchorPattern.eBoundedSide.kAll;
+            SetAnchorSetOutDetails(anchors, anchorBoltPatternInsertPoint, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular);
+            Utils.SetParameters(anchors, anchorBoltData);
 
-            if (string.IsNullOrEmpty(anchorBoltData.Standard) == false) { anchors.Standard = anchorBoltData.Standard; }
-            if (string.IsNullOrEmpty(anchorBoltData.AnchorBoltAssembly) == false) { anchors.BoltAssembly = anchorBoltData.AnchorBoltAssembly; }
-            if (string.IsNullOrEmpty(anchorBoltData.Grade) == false) { anchors.Material = anchorBoltData.Grade; }
-            anchors.ScrewLength = anchorBoltData.AnchorBoltLength;
-            anchors.OrientationType = (Autodesk.AdvanceSteel.Modelling.AnchorPattern.eOrientationType)anchorBoltData.AnchorBoltOrientationType;
-
-            if (anchorBoltData.Diameter > 0) { anchors.ScrewDiameter = anchorBoltData.Diameter; }
-            if (anchorBoltData.HoleTolerance > -1) { anchors.HoleTolerance = anchorBoltData.HoleTolerance; }
-            if (anchorBoltData.XCount > -1) { anchors.Nx = anchorBoltData.XCount; }
-            if (anchorBoltData.YCount > -1) { anchors.Ny = anchorBoltData.YCount; }
-            if (anchorBoltData.XSpacing > 0) { anchors.Dx = anchorBoltData.XSpacing; }
-            if (anchorBoltData.YSpacing > 0) { anchors.Dy = anchorBoltData.YSpacing; }
-
-            anchors.RefPoint = anchorBoltPatternInsertPoint;
-            anchors.IsInverted = anchorBoltData.AnchorBoltInverted;
             anchors.WriteToDb();
           }
           else
@@ -59,31 +44,15 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 
             if (anchors != null && anchors.IsKindOf(FilerObject.eObjectType.kAnchorPattern))
             {
-              anchors.ArrangerType = Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular;
-              anchors.BoundedSide = Autodesk.AdvanceSteel.Modelling.AnchorPattern.eBoundedSide.kAll;
-
-              if (string.IsNullOrEmpty(anchorBoltData.Standard) == false) { anchors.Standard = anchorBoltData.Standard; }
-              if (string.IsNullOrEmpty(anchorBoltData.AnchorBoltAssembly) == false) { anchors.BoltAssembly = anchorBoltData.AnchorBoltAssembly; }
-              if (string.IsNullOrEmpty(anchorBoltData.Grade) == false) { anchors.Material = anchorBoltData.Grade; }
-              anchors.ScrewLength = anchorBoltData.AnchorBoltLength;
-              anchors.OrientationType = (Autodesk.AdvanceSteel.Modelling.AnchorPattern.eOrientationType)anchorBoltData.AnchorBoltOrientationType;
-
-              if (anchorBoltData.Diameter > 0) { anchors.ScrewDiameter = anchorBoltData.Diameter; }
-              if (anchorBoltData.HoleTolerance > -1) { anchors.HoleTolerance = anchorBoltData.HoleTolerance; }
-              if (anchorBoltData.XCount > -1) { anchors.Nx = anchorBoltData.XCount; }
-              if (anchorBoltData.YCount > -1) { anchors.Ny = anchorBoltData.YCount; }
-              if (anchorBoltData.XSpacing > 0) { anchors.Dx = anchorBoltData.XSpacing; }
-              if (anchorBoltData.YSpacing > 0) { anchors.Dy = anchorBoltData.YSpacing; }
-
-              anchors.RefPoint = anchorBoltPatternInsertPoint;
-              anchors.IsInverted = anchorBoltData.AnchorBoltInverted;
+              SetAnchorSetOutDetails(anchors, anchorBoltPatternInsertPoint, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular);
+              Utils.SetParameters(anchors, anchorBoltData);
             }
             else
               throw new System.Exception("Not an anchor pattern");
           }
 
           FilerObject[] filerObjects = Utils.GetFilerObjects(handlesToConnect);
-          anchors.Connect(filerObjects, (AtomicElement.eAssemblyLocation)anchorBoltData.AnchorBoltConnectionType);
+          anchors.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
 
           Handle = anchors.Handle;
           SteelServices.ElementBinder.CleanupAndSetElementForTrace(anchors);
@@ -93,7 +62,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 
     internal RectangularAnchorPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2, IEnumerable<string> handlesToConnect, 
                                       SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
-																			PropertiesAnchorBolts anchorBoltData)
+                                      List<Property> anchorBoltData, int boltCon)
 		{
 			lock (access_obj)
 			{
@@ -106,29 +75,14 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
 					{
 						anchors = new Autodesk.AdvanceSteel.Modelling.AnchorPattern(astPoint1, astPoint2, vx, vy);
-            anchors.ArrangerType = Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kBounded;
-            anchors.BoundedSide = Autodesk.AdvanceSteel.Modelling.AnchorPattern.eBoundedSide.kAll;
-
-            if (string.IsNullOrEmpty(anchorBoltData.Standard) == false) { anchors.Standard = anchorBoltData.Standard; }
-            if (string.IsNullOrEmpty(anchorBoltData.AnchorBoltAssembly) == false) { anchors.BoltAssembly = anchorBoltData.AnchorBoltAssembly; }
-            if (string.IsNullOrEmpty(anchorBoltData.Grade) == false) { anchors.Material = anchorBoltData.Grade; }
-            anchors.ScrewLength = anchorBoltData.AnchorBoltLength;
-            anchors.OrientationType = (Autodesk.AdvanceSteel.Modelling.AnchorPattern.eOrientationType)anchorBoltData.AnchorBoltOrientationType;
-
-            if (anchorBoltData.Diameter > 0) { anchors.ScrewDiameter = anchorBoltData.Diameter; }
-            if (anchorBoltData.HoleTolerance > -1) { anchors.HoleTolerance = anchorBoltData.HoleTolerance; }
-            if (anchorBoltData.XCount > -1) { anchors.Nx = anchorBoltData.XCount; }
-            if (anchorBoltData.YCount > -1) { anchors.Ny = anchorBoltData.YCount; }
-            if (anchorBoltData.XSpacing > 0) { anchors.Dx = anchorBoltData.XSpacing; }
-            if (anchorBoltData.YSpacing > 0) { anchors.Dy = anchorBoltData.YSpacing; }
-
-            anchors.RefPoint = astPoint1 + (astPoint2 - astPoint1) * 0.5;
+            SetAnchorSetOutDetails(anchors, astPoint1 + (astPoint2 - astPoint1) * 0.5, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kBounded);
 
             double aLengthX = Utils.GetRectangleLength(astPoint1, astPoint2, vx);// / (anchors.Nx - 1);
             double aLengthY = Utils.GetRectangleLength(astPoint1, astPoint2, vy);// / (anchors.Ny - 1);
             anchors.SetArrangerLength(aLengthX, 0);
             anchors.SetArrangerLength(aLengthY, 1);
-            anchors.IsInverted = anchorBoltData.AnchorBoltInverted;
+
+            Utils.SetParameters(anchors, anchorBoltData);
 
             anchors.WriteToDb();
 					}
@@ -138,29 +92,14 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 
 						if (anchors != null && anchors.IsKindOf(FilerObject.eObjectType.kAnchorPattern))
 						{
-              anchors.ArrangerType = Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kBounded;
-              anchors.BoundedSide = Autodesk.AdvanceSteel.Modelling.AnchorPattern.eBoundedSide.kAll;
-
-              if (string.IsNullOrEmpty(anchorBoltData.Standard) == false) { anchors.Standard = anchorBoltData.Standard; }
-              if (string.IsNullOrEmpty(anchorBoltData.AnchorBoltAssembly) == false) { anchors.BoltAssembly = anchorBoltData.AnchorBoltAssembly; }
-              if (string.IsNullOrEmpty(anchorBoltData.Grade) == false) { anchors.Material = anchorBoltData.Grade; }
-              anchors.ScrewLength = anchorBoltData.AnchorBoltLength;
-              anchors.OrientationType = (Autodesk.AdvanceSteel.Modelling.AnchorPattern.eOrientationType)anchorBoltData.AnchorBoltOrientationType;
-
-              if (anchorBoltData.Diameter > 0) { anchors.ScrewDiameter = anchorBoltData.Diameter; }
-              if (anchorBoltData.HoleTolerance > -1) { anchors.HoleTolerance = anchorBoltData.HoleTolerance; }
-              if (anchorBoltData.XCount > -1) { anchors.Nx = anchorBoltData.XCount; }
-              if (anchorBoltData.YCount > -1) { anchors.Ny = anchorBoltData.YCount; }
-              if (anchorBoltData.XSpacing > 0) { anchors.Dx = anchorBoltData.XSpacing; }
-              if (anchorBoltData.YSpacing > 0) { anchors.Dy = anchorBoltData.YSpacing; }
-
-              anchors.RefPoint = astPoint1 + (astPoint2 - astPoint1) * 0.5;
+              SetAnchorSetOutDetails(anchors, astPoint1 + (astPoint2 - astPoint1) * 0.5, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kBounded);
 
               double aLengthX = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
               double aLengthY = Utils.GetRectangleLength(astPoint1, astPoint2, vy);
               anchors.SetArrangerLength(aLengthX , 0);
               anchors.SetArrangerLength(aLengthY, 1);
-              anchors.IsInverted = anchorBoltData.AnchorBoltInverted;
+
+              Utils.SetParameters(anchors, anchorBoltData);
 
             }
             else
@@ -168,7 +107,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 					}
 
           FilerObject[] filerObjects = Utils.GetFilerObjects(handlesToConnect);
-					anchors.Connect(filerObjects, (AtomicElement.eAssemblyLocation)anchorBoltData.AnchorBoltConnectionType);
+					anchors.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
 
 					Handle = anchors.Handle;
 					SteelServices.ElementBinder.CleanupAndSetElementForTrace(anchors);
@@ -180,20 +119,33 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
     /// Create an Advance Steel Rectangular Anchor Pattern bound By Rectangle
     /// </summary>
     /// <param name="rectangle"> Input rectangle </param>
+    /// <param name="NoOfBoltsX"> Input No of Anchor Bolts in the X direction</param>
+    /// <param name="NoOfBoltsY"> Input No of Anchor Bolts in the Y direction</param>
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
-    /// <param name="anchorBoltData"> Input Anchor Bolt Build Properties </param>
-    public static RectangularAnchorPattern ByRectangle(Autodesk.DesignScript.Geometry.Rectangle rectangle, 
+    /// <param name="BoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="ListofAdditionalAnchorBoltParameters"> Optional Input Anchor Bolt Build Properties </param>
+    public static RectangularAnchorPattern ByRectangle(Autodesk.DesignScript.Geometry.Rectangle rectangle,
+                                                      [DefaultArgument("2;")]int NoOfBoltsX,
+                                                      [DefaultArgument("2;")]int NoOfBoltsY,
                                                       IEnumerable<SteelDbObject> objectsToConnect,
-																											PropertiesAnchorBolts anchorBoltData)
+                                                      [DefaultArgument("2;")]int BoltConnectionType,
+                                                      [DefaultArgument("null")]List<Property> ListofAdditionalAnchorBoltParameters)
 		{
-			List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
+      if (ListofAdditionalAnchorBoltParameters == null)
+      {
+        ListofAdditionalAnchorBoltParameters = new List<Property>() { };
+      }
+
+      List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
 
 			var dynCorners = rectangle.Corners();
 			var astCorners = Utils.ToAstPoints(dynCorners, true);
 			var vx = astCorners[1] - astCorners[0];
 			var vy = astCorners[3] - astCorners[0];
 
-			return new RectangularAnchorPattern(astCorners[0], astCorners[2], handlesList, vx, vy, anchorBoltData);
+      PreSetValuesInListProps(ListofAdditionalAnchorBoltParameters, NoOfBoltsX, NoOfBoltsY);
+
+      return new RectangularAnchorPattern(astCorners[0], astCorners[2], handlesList, vx, vy, ListofAdditionalAnchorBoltParameters, BoltConnectionType);
 		}
 
     /// <summary>
@@ -201,20 +153,48 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
     /// </summary>
     /// <param name="connectionPoint"> Input Insertion point of Anchor Bolt Pattern </param>
     /// <param name="boltCS"> Input Anchor Bolt Coordinate System </param>
+    /// <param name="noOfBoltsX"> Input No of Anchor Bolts in the X direction</param>
+    /// <param name="noOfBoltsY"> Input No of Anchor Bolts in the Y direction</param>
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
-    /// <param name="anchorBoltData"> Input Anchor Bolt Build Properties </param>
+    /// <param name="BoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="ListofAdditionalAnchorBoltParameters"> Optional Input Anchor Bolt Build Properties </param>
     /// <returns></returns>
     public static RectangularAnchorPattern AtCentrePoint(Autodesk.DesignScript.Geometry.Point connectionPoint,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem boltCS,
+                                                  [DefaultArgument("2;")]int noOfBoltsX,
+                                                  [DefaultArgument("2;")]int noOfBoltsY,
                                                   IEnumerable<SteelDbObject> objectsToConnect,
-                                                  PropertiesAnchorBolts anchorBoltData)
+                                                  [DefaultArgument("2;")]int BoltConnectionType,
+                                                  [DefaultArgument("null")]List<Property> ListofAdditionalAnchorBoltParameters)
     {
+      if (ListofAdditionalAnchorBoltParameters == null)
+      {
+        ListofAdditionalAnchorBoltParameters = new List<Property>() { };
+      }
+
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
 
       var vx = Utils.ToAstVector3d(boltCS.XAxis, true);
       var vy = Utils.ToAstVector3d(boltCS.YAxis, true);
 
-      return new RectangularAnchorPattern(Utils.ToAstPoint(connectionPoint, true), handlesList, vx, vy, anchorBoltData);
+      PreSetValuesInListProps(ListofAdditionalAnchorBoltParameters, noOfBoltsX, noOfBoltsY);
+
+      return new RectangularAnchorPattern(Utils.ToAstPoint(connectionPoint, true), handlesList, vx, vy, ListofAdditionalAnchorBoltParameters, BoltConnectionType);
+    }
+
+    private static void PreSetValuesInListProps(List<Property> listOfAnchorBoltParameters, int nx, int ny)
+    {
+      Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Nx", nx);
+      Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Ny", ny);
+    }
+
+    private void SetAnchorSetOutDetails(Autodesk.AdvanceSteel.Modelling.AnchorPattern anchors,
+                                    Point3d RefPoint,
+                                    Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType anchorArr)
+    {
+      anchors.ArrangerType = anchorArr;
+      anchors.BoundedSide = Autodesk.AdvanceSteel.Modelling.AnchorPattern.eBoundedSide.kAll;
+      anchors.RefPoint = RefPoint;
     }
 
     [IsVisibleInDynamoLibrary(false)]

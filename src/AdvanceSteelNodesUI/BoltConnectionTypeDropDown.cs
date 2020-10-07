@@ -12,7 +12,7 @@ namespace AdvanceSteel.Nodes
 {
 	[NodeName("Bolt Connection Type")]
 	[NodeDescription("Set Bolt Connection type - InShop or OnSite or SiteDrill")]
-  [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects.Bolts")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties")]
   [OutPortNames("Bolt Type")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
