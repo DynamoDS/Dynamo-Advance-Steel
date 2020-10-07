@@ -5,21 +5,21 @@ using Dynamo.Utilities;
 using ProtoCore.AST.AssociativeAST;
 using Newtonsoft.Json;
 
-
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Weld Connection Type")]
-	[NodeDescription("Set Weld Connection type - InShop or OnSite")]
+	[NodeName("Anchor Bolt Properties")]
+	[NodeDescription("Select Advance Steel Anchor Bolt Property Type")]
   [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Weld Type")]
-  [OutPortTypes("int")]
-  [OutPortDescriptions("integer")]
+  [OutPortNames("Anchor Bolt Property")]
+  [OutPortTypes("string")]
+  [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class WeldConnectionType : AstDropDownBase
+	public class ASPropertiesAnchorBolt : AstDropDownBase
 	{
-		private const string outputName = "Weld Type";
+		private const string outputName = "Advance Steel Anchor Bolt Property";
 
-		public WeldConnectionType()
+    //AdvanceSteel.Nodes.Properties
+    public ASPropertiesAnchorBolt()
 				: base(outputName)
 		{
 			InPorts.Clear();
@@ -28,7 +28,7 @@ namespace AdvanceSteel.Nodes
 		}
 
 		[JsonConstructor]
-		public WeldConnectionType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+		public ASPropertiesAnchorBolt(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
 		: base(outputName, inPorts, outPorts)
 		{
 		}
@@ -37,13 +37,11 @@ namespace AdvanceSteel.Nodes
 		{
 			Items.Clear();
 
-			var newItems = new List<DynamoDropDownItem>()
-						{
-								new DynamoDropDownItem("Select Weld Type...", -1),
-								new DynamoDropDownItem("OnSite", 0),
-								new DynamoDropDownItem("InShop", 2)
-						};
-
+      var newItems = new List<DynamoDropDownItem>() { };
+      foreach(var item in Utils.GetAnchorBoltPropertyList())
+      {
+        newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
+      }
 			Items.AddRange(newItems);
 
 			SelectedIndex = 0;
@@ -53,14 +51,15 @@ namespace AdvanceSteel.Nodes
 		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
 		{
       if (Items.Count == 0 ||
-          Items[SelectedIndex].Name == "Select Weld Type..." ||
+          Items[SelectedIndex].Name == "None" ||
           SelectedIndex < 0)
       {
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }
 
-      var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
-			var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
+      var intNode = AstFactory.BuildPrimitiveNodeFromObject((string)Items[SelectedIndex].Name);
+      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
+
       return new List<AssociativeNode> { assign };
 
     }

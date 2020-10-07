@@ -20,8 +20,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 	{
 
 		internal CircularBoltPattern(SteelGeometry.Point3d holeInsertPoint, IEnumerable<string> handlesToConnect, 
-                                  SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy, 
-                                  PropertiesBolts boltData)
+                                  SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
+                                  List<Property> boltData,
+                                  int boltCon)
 		{
 			lock (access_obj)
 			{
@@ -33,17 +34,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
 					{
 						bolts = new Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern(holeInsertPoint, vx, vy);
-            bolts.NumberOfScrews = boltData.XCount;
-            bolts.Radius = Utils.ToInternalUnits(boltData.Radius, true);
-            bolts.BindingLengthAddition = boltData.LengthAddition;
 
-            if (string.IsNullOrEmpty(boltData.Standard) == false) { bolts.Standard = boltData.Standard; }
-            if (string.IsNullOrEmpty(boltData.BoltAssembly) == false) { bolts.BoltAssembly = boltData.BoltAssembly; }
-            if (string.IsNullOrEmpty(boltData.Grade) == false) { bolts.Material = boltData.Grade; }
-
-            if (boltData.Diameter > 0) { bolts.ScrewDiameter = boltData.Diameter; }
-            if (boltData.HoleTolerance > -1) { bolts.HoleTolerance = boltData.HoleTolerance; }
-            bolts.IsInverted = boltData.BoltInverted;
+            Utils.SetParameters(bolts, boltData);
 
             bolts.WriteToDb();
 					}
@@ -56,25 +48,16 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 							bolts.RefPoint = holeInsertPoint;
 							bolts.XDirection = vx;
 							bolts.YDirection = vy;
-              bolts.NumberOfScrews = boltData.XCount;
-              bolts.BindingLengthAddition = boltData.LengthAddition;
 
-              if (string.IsNullOrEmpty(boltData.Standard) == false) { bolts.Standard = boltData.Standard; }
-              if (string.IsNullOrEmpty(boltData.BoltAssembly) == false) { bolts.BoltAssembly = boltData.BoltAssembly; }
-              if (string.IsNullOrEmpty(boltData.Grade) == false) { bolts.Material = boltData.Grade; }
+              Utils.SetParameters(bolts, boltData);
 
-              if (boltData.Diameter > 0) { bolts.ScrewDiameter = boltData.Diameter; }
-              if (boltData.HoleTolerance > -1) { bolts.HoleTolerance = boltData.HoleTolerance; }
-
-              bolts.Radius = Utils.ToInternalUnits(boltData.Radius, true);
-              bolts.IsInverted = boltData.BoltInverted;
             }
-						else
+            else
 							throw new System.Exception("Not a circular pattern");
 					}
 
           FilerObject[] filerObjects = Utils.GetFilerObjects(handlesToConnect);
-					bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltData.BoltConnectionType);
+					bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
 
 					Handle = bolts.Handle;
 					SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolts);
@@ -88,24 +71,31 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// <param name="circle"> Input circle</param>
     /// <param name="referenceVector"> Input Dynamo Vector for alignment of circle</param>
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
-    /// <param name="boltData"> Input Bolt Build Properties </param>
+    /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="additionalBoltParameters"> Optional Input Bolt Build Properties </param>
     /// <returns></returns>
     public static CircularBoltPattern ByCircle(DynGeometry.Circle circle,
                                                 DynGeometry.Vector referenceVector,
                                                 IEnumerable<SteelDbObject> objectsToConnect,
-                                                PropertiesBolts boltData)
+                                                [DefaultArgument("2;")]int boltConnectionType,
+                                                [DefaultArgument("null")]List<Property> additionalBoltParameters)
 		{
-			var norm = Utils.ToAstVector3d(circle.Normal, true);
+      if (additionalBoltParameters == null)
+      {
+        additionalBoltParameters = new List<Property>() { };
+      }
+
+      var norm = Utils.ToAstVector3d(circle.Normal, true);
 			var vx = Utils.ToAstVector3d(referenceVector, true);
       var vy = norm.CrossProduct(vx);
 
       vx = vx.Normalize();
       vy = vy.Normalize();
 
-      boltData.Radius = circle.Radius;
+      PreSetCircularValuesInListProps(additionalBoltParameters, Utils.ToInternalUnits(circle.Radius, true));
 
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
-			return new CircularBoltPattern(Utils.ToAstPoint(circle.CenterPoint, true), handlesList, vx, vy, boltData);
+			return new CircularBoltPattern(Utils.ToAstPoint(circle.CenterPoint, true), handlesList, vx, vy, additionalBoltParameters, boltConnectionType);
 		}
 
     /// <summary>
@@ -114,14 +104,21 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// <param name="point"> Input radius center point</param>
     /// <param name="boltCS"> Input Coordinate System </param>
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
-    /// <param name="boltData"> Input Bolt Build Properties </param>
+    /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="additionalBoltParameters"> Optional Input Bolt Build Properties </param>
     /// <returns></returns>
     public static CircularBoltPattern AtCentrePoint(DynGeometry.Point point,
                                                     DynGeometry.CoordinateSystem boltCS,
-                                                    IEnumerable<SteelDbObject> objectsToConnect, 
-                                                    PropertiesBolts boltData)
+                                                    IEnumerable<SteelDbObject> objectsToConnect,
+                                                    [DefaultArgument("2;")]int boltConnectionType,
+                                                    [DefaultArgument("null")]List<Property> additionalBoltParameters)
 		{
-			SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
+      if (additionalBoltParameters == null)
+      {
+        additionalBoltParameters = new List<Property>() { };
+      }
+
+      SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
 
       var vx = Utils.ToAstVector3d(boltCS.XAxis, true);
       var vy = Utils.ToAstVector3d(boltCS.YAxis, true);
@@ -131,10 +128,15 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 
       IEnumerable<string> handles = Utils.GetSteelDbObjectsToConnect(objectsToConnect); 
 
-			return new CircularBoltPattern(Utils.ToAstPoint(point, true), handles, vx, vy, boltData );
+			return new CircularBoltPattern(Utils.ToAstPoint(point, true), handles, vx, vy, additionalBoltParameters, boltConnectionType);
 		}
 
-		[IsVisibleInDynamoLibrary(false)]
+    private static void PreSetCircularValuesInListProps(List<Property> listOfBoltParameters, double radius)
+    {
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Radius", radius);
+    }
+
+    [IsVisibleInDynamoLibrary(false)]
 		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
 		{
 			lock (access_obj)

@@ -1,10 +1,10 @@
 ﻿using Autodesk.AdvanceSteel.CADAccess;
-using Autodesk.AdvanceSteel.DocumentManagement;
+using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.DesignScript.Runtime;
 using Dynamo.Applications.AdvanceSteel.Services;
 using System;
-using Autodesk.AdvanceSteel.Geometry;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AdvanceSteel.Nodes
 {
@@ -311,6 +311,178 @@ namespace AdvanceSteel.Nodes
         }
       }
       return handlesList;
+    }
+
+    public static Dictionary<string, Property> GetBoltProperties()
+    {
+      return BuildBoltPropertyList();
+    }
+
+    public static Dictionary<string, Property> GetAnchorBoltPropertyList()
+    {
+      return BuildAnchorBoltPropertyList();
+    }
+
+    public static Dictionary<string, Property> GetShearStudPropertyList()
+    {
+      return BuildShearStudPropertyList();
+    }
+
+    public static Property GetProperty(string keyValue)
+    {
+      Dictionary<string, Property> searchData = BuildBoltPropertyList().Union(
+                                                  BuildAnchorBoltPropertyList()).Union(
+                                                  BuildShearStudPropertyList()).ToDictionary(s => s.Key, s => s.Value);
+      Property retValue = null;
+      searchData.TryGetValue(keyValue, out retValue);
+      return retValue;
+    }
+
+    public static Property GetAnchorBoltProperty(string keyValue)
+    {
+      Dictionary<string, Property> lstData = BuildAnchorBoltPropertyList();
+      Property retValue = null;
+      lstData.TryGetValue(keyValue, out retValue);
+      return retValue;
+    }
+
+    public static Property GetShearStudProperty(string keyValue)
+    {
+      Dictionary<string, Property> lstData = BuildShearStudPropertyList();
+      Property retValue = null;
+      lstData.TryGetValue(keyValue, out retValue);
+      return retValue;
+    }
+
+    private static Dictionary<string, Property> BuildBoltPropertyList()
+    {
+      Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
+      dictProps.Add("Select Bolt Property...", new Property("none", typeof(string)));
+      dictProps.Add("Bolt Standard", new Property("Standard", typeof(string)));
+      dictProps.Add("Bolt Assembly", new Property("BoltAssembly", typeof(string)));
+      dictProps.Add("Bolt Grade", new Property("Grade", typeof(string)));
+      dictProps.Add("Bolt Diameter", new Property("ScrewDiameter", typeof(double)));
+      dictProps.Add("Bolt Hole Tolerance", new Property("HoleTolerance", typeof(double)));
+      dictProps.Add("No of Bolts Circle", new Property("NumberOfScrews", typeof(int)));
+      dictProps.Add("X Bolt Count", new Property("Nx", typeof(int)));
+      dictProps.Add("Y Bolt Count", new Property("Ny", typeof(int)));
+      dictProps.Add("Bolt X Spacing", new Property("Dx", typeof(double)));
+      dictProps.Add("Bolt Y Spacing", new Property("Dy", typeof(double)));
+      dictProps.Add("Bolt Pattern Radius", new Property("Radius", typeof(double)));
+      dictProps.Add("Bolt Length Addition", new Property("BindingLengthAddition", typeof(double)));
+      dictProps.Add("Bolt Inverted", new Property("IsInverted", typeof(bool)));
+
+      return dictProps;
+    }
+
+    private static Dictionary<string, Property> BuildAnchorBoltPropertyList()
+    {
+      Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
+      dictProps.Add("Select Anchor Property...", new Property("none", typeof(string)));
+      dictProps.Add("Anchor Standard", new Property("Standard", typeof(string)));
+      dictProps.Add("Anchor Assembly", new Property("BoltAssembly", typeof(string)));
+      dictProps.Add("Anchor Grade", new Property("Grade", typeof(string))); 
+      dictProps.Add("Anchor Length", new Property("ScrewLength", typeof(double)));
+      dictProps.Add("Anchor Diameter", new Property("ScrewDiameter", typeof(double)));
+      dictProps.Add("Anchor Hole Tolerance", new Property("HoleTolerance", typeof(double)));
+      dictProps.Add("No of Anchor Circle", new Property("NumberOfScrews", typeof(int)));
+      dictProps.Add("X Anchor Count", new Property("Nx", typeof(int)));
+      dictProps.Add("Y Anchor Count", new Property("Ny", typeof(int)));
+      dictProps.Add("Anchor X Spacing", new Property("Dx", typeof(double)));
+      dictProps.Add("Anchor Y Spacing", new Property("Dy", typeof(double)));
+      dictProps.Add("Anchor Pattern Radius", new Property("Radius", typeof(double))); 
+      //dictProps.Add("Anchor Orientation", new ASProperty("OrientationType", typeof(int))); 
+      dictProps.Add("Anchor Inverted", new Property("IsInverted", typeof(bool)));
+
+      return dictProps;
+    }
+
+    private static Dictionary<string, Property> BuildShearStudPropertyList()
+    {
+      Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
+      dictProps.Add("Select Stud Property...", new Property("none", typeof(string)));
+      dictProps.Add("Stud Standard", new Property("Standard", typeof(string)));
+      dictProps.Add("Stud Grade", new Property("Grade", typeof(string)));
+      dictProps.Add("Stud Length", new Property("Length", typeof(double)));
+      dictProps.Add("Stud Diameter", new Property("Diameter", typeof(double)));
+      dictProps.Add("Stud Hole Tolerance", new Property("HoleTolerance", typeof(double)));
+      dictProps.Add("No of Shear Studs Circle", new Property("NumberOfElements", typeof(int), "Arranger"));
+      dictProps.Add("Shear Stud Radius", new Property("Radius", typeof(double), "Arranger")); 
+      dictProps.Add("X Stud Count", new Property("Nx", typeof(int), "Arranger"));
+      dictProps.Add("Y Stud Count", new Property("Ny", typeof(int), "Arranger"));
+      dictProps.Add("Stud X Spacing", new Property("Dx", typeof(double), "Arranger"));
+      dictProps.Add("Stud Y Spacing", new Property("Dy", typeof(double), "Arranger"));
+      dictProps.Add("Display Stud As Solid", new Property("ReprMode", typeof(int), "Z_PostWriteDB"));
+
+      return dictProps;
+    }
+
+    public static void CheckListUpdateOrAddValue(List<Property> listOfDataboltData, string propName, object propValue, string propLevel = "")
+    {
+      var foundItem = listOfDataboltData.FirstOrDefault<Property>(props => props.PropName == propName);
+      if (foundItem != null)
+      {
+        foundItem.PropValue = propValue;
+      }
+      else
+      {
+        listOfDataboltData.Add(new Property(propName, propValue, propValue.GetType(), propLevel));
+      }
+    }
+
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.CountableScrewBoltPattern objToMod, List<Property> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
+    }
+
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern objToMod, List<Property> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
+    }
+    
+    public static void SetParameters(Autodesk.AdvanceSteel.Arrangement.Arranger objToMod, List<Property> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
+    }
+
+    public static void SetParameters(Autodesk.AdvanceSteel.ConstructionTypes.AtomicElement objToMod, List<Property> properties)
+    {
+      if (properties != null) 
+      { 
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
+    }
+
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.AnchorPattern objToMod, List<Property> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
     }
   }
 }
