@@ -71,20 +71,18 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// <param name="circle"> Input circle</param>
     /// <param name="referenceVector"> Input Dynamo Vector for alignment of circle</param>
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
-    /// <param name="BoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
-    /// <param name="ListofAdditionalBoltParameters"> Optional Input Bolt Build Properties </param>
+    /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="additionalBoltParameters"> Optional Input Bolt Build Properties </param>
     /// <returns></returns>
     public static CircularBoltPattern ByCircle(DynGeometry.Circle circle,
                                                 DynGeometry.Vector referenceVector,
                                                 IEnumerable<SteelDbObject> objectsToConnect,
-                                                [DefaultArgument("2;")]int BoltConnectionType,
-                                                [DefaultArgument("null")]List<Property> ListofAdditionalBoltParameters)
+                                                [DefaultArgument("2;")]int boltConnectionType,
+                                                [DefaultArgument("null")]List<Property> additionalBoltParameters)
 		{
-                                                //[DefaultArgument("6;")]int NoOfBoltsinCircle,
-                                                // < param name = "NoOfBoltsinCircle" > Input No of Bolts for Circle of Bolts </ param >
-      if (ListofAdditionalBoltParameters == null)
+      if (additionalBoltParameters == null)
       {
-        ListofAdditionalBoltParameters = new List<Property>() { };
+        additionalBoltParameters = new List<Property>() { };
       }
 
       var norm = Utils.ToAstVector3d(circle.Normal, true);
@@ -94,10 +92,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       vx = vx.Normalize();
       vy = vy.Normalize();
 
-      PreSetCircularValuesInListProps(ListofAdditionalBoltParameters, Utils.ToInternalUnits(circle.Radius, true));
+      PreSetCircularValuesInListProps(additionalBoltParameters, Utils.ToInternalUnits(circle.Radius, true));
 
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
-			return new CircularBoltPattern(Utils.ToAstPoint(circle.CenterPoint, true), handlesList, vx, vy, ListofAdditionalBoltParameters, BoltConnectionType);
+			return new CircularBoltPattern(Utils.ToAstPoint(circle.CenterPoint, true), handlesList, vx, vy, additionalBoltParameters, boltConnectionType);
 		}
 
     /// <summary>
@@ -106,18 +104,18 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// <param name="point"> Input radius center point</param>
     /// <param name="boltCS"> Input Coordinate System </param>
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
-    /// <param name="BoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
-    /// <param name="ListofAdditionalBoltParameters"> Optional Input Bolt Build Properties </param>
+    /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="listofAdditionalBoltParameters"> Optional Input Bolt Build Properties </param>
     /// <returns></returns>
     public static CircularBoltPattern AtCentrePoint(DynGeometry.Point point,
                                                     DynGeometry.CoordinateSystem boltCS,
                                                     IEnumerable<SteelDbObject> objectsToConnect,
-                                                    [DefaultArgument("2;")]int BoltConnectionType,
-                                                    [DefaultArgument("null")]List<Property> ListofAdditionalBoltParameters)
+                                                    [DefaultArgument("2;")]int boltConnectionType,
+                                                    [DefaultArgument("null")]List<Property> listofAdditionalBoltParameters)
 		{
-      if (ListofAdditionalBoltParameters == null)
+      if (listofAdditionalBoltParameters == null)
       {
-        ListofAdditionalBoltParameters = new List<Property>() { };
+        listofAdditionalBoltParameters = new List<Property>() { };
       }
 
       SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
@@ -130,7 +128,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 
       IEnumerable<string> handles = Utils.GetSteelDbObjectsToConnect(objectsToConnect); 
 
-			return new CircularBoltPattern(Utils.ToAstPoint(point, true), handles, vx, vy, ListofAdditionalBoltParameters, BoltConnectionType);
+			return new CircularBoltPattern(Utils.ToAstPoint(point, true), handles, vx, vy, listofAdditionalBoltParameters, boltConnectionType);
 		}
 
     private static void PreSetCircularValuesInListProps(List<Property> listOfBoltParameters, double radius)

@@ -119,18 +119,18 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// <param name="noOfBoltsX"> Input No of Bolts in the X direction</param>
     /// <param name="noOfBoltsY"> Input No of Bolts in the Y direction</param>
     /// <param name="objectsToConnect"> Objects to be bolted </param>
-    /// <param name="BoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
-    /// <param name="ListofAdditionalBoltParameters"> Optional Bolt Build Properties </param>
+    /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="additionalBoltParameters"> Optional Bolt Build Properties </param>
     public static RectangularBoltPattern ByRectangle(Autodesk.DesignScript.Geometry.Rectangle rectangle,
                                                       [DefaultArgument("2;")]int noOfBoltsX,
                                                       [DefaultArgument("2;")]int noOfBoltsY,
                                                       IEnumerable<SteelDbObject> objectsToConnect,
-                                                      [DefaultArgument("2;")]int BoltConnectionType,
-                                                      [DefaultArgument("null")]List<Property> ListofAdditionalBoltParameters)
+                                                      [DefaultArgument("2;")]int boltConnectionType,
+                                                      [DefaultArgument("null")]List<Property> additionalBoltParameters)
 		{
-      if (ListofAdditionalBoltParameters == null)
+      if (additionalBoltParameters == null)
       {
-        ListofAdditionalBoltParameters = new List<Property>() { };
+        additionalBoltParameters = new List<Property>() { };
       }
 
       var norm = Utils.ToAstVector3d(rectangle.Normal, true);
@@ -143,9 +143,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 			var vx = astCorners[1] - astCorners[0];
 			var vy = astCorners[3] - astCorners[0];
 
-      PreSetValuesInListProps(ListofAdditionalBoltParameters, noOfBoltsX, noOfBoltsY);
+      PreSetValuesInListProps(additionalBoltParameters, noOfBoltsX, noOfBoltsY);
 
-      return new RectangularBoltPattern(astCorners[0], astCorners[2], handlesList, vx, vy, ListofAdditionalBoltParameters, BoltConnectionType);
+      return new RectangularBoltPattern(astCorners[0], astCorners[2], handlesList, vx, vy, additionalBoltParameters, boltConnectionType);
 		}
 
     /// <summary>
@@ -153,23 +153,23 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// </summary>
     /// <param name="connectionPoint"> Input Insertion point of Bolt Pattern </param>
     /// <param name="boltCS"> Input Bolt Coordinate System </param>
-    /// <param name="NoOfBoltsX"> Input No of Bolts in the X direction</param>
-    /// <param name="NoOfBoltsY"> Input No of Bolts in the Y direction</param>
+    /// <param name="noOfBoltsX"> Input No of Bolts in the X direction</param>
+    /// <param name="noOfBoltsY"> Input No of Bolts in the Y direction</param>
     /// <param name="objectsToConnect"> Objects to be bolted </param>
-    /// <param name="BoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
-    /// <param name="ListofAdditionalBoltParameters"> Optional Bolt Build Properties </param>
+    /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="additionalBoltParameters"> Optional Bolt Build Properties </param>
     /// <returns></returns>
     public static RectangularBoltPattern AtCentrePoint(Autodesk.DesignScript.Geometry.Point connectionPoint,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem boltCS,
-                                                  [DefaultArgument("2;")]int NoOfBoltsX,
-                                                  [DefaultArgument("2;")]int NoOfBoltsY,
+                                                  [DefaultArgument("2;")]int noOfBoltsX,
+                                                  [DefaultArgument("2;")]int noOfBoltsY,
                                                   IEnumerable<SteelDbObject> objectsToConnect,
-                                                  [DefaultArgument("2;")]int BoltConnectionType,
-                                                  [DefaultArgument("null")]List<Property> ListofAdditionalBoltParameters)
+                                                  [DefaultArgument("2;")]int boltConnectionType,
+                                                  [DefaultArgument("null")]List<Property> additionalBoltParameters)
     {
-      if (ListofAdditionalBoltParameters == null)
+      if (additionalBoltParameters == null)
       {
-        ListofAdditionalBoltParameters = new List<Property>() { };
+        additionalBoltParameters = new List<Property>() { };
       }
 
       List<string> handlesList = new List<string>();
@@ -178,9 +178,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       var vx = Utils.ToAstVector3d(boltCS.XAxis, true);
       var vy = Utils.ToAstVector3d(boltCS.YAxis, true);
 
-      PreSetValuesInListProps(ListofAdditionalBoltParameters, NoOfBoltsX, NoOfBoltsY);
+      PreSetValuesInListProps(additionalBoltParameters, noOfBoltsX, noOfBoltsY);
 
-      return new RectangularBoltPattern(Utils.ToAstPoint(connectionPoint, true), vx, vy, handlesList, ListofAdditionalBoltParameters, BoltConnectionType);
+      return new RectangularBoltPattern(Utils.ToAstPoint(connectionPoint, true), vx, vy, handlesList, additionalBoltParameters, boltConnectionType);
     }
 
     private static void PreSetValuesInListProps(List<Property> listOfBoltParameters, int nx, int ny)

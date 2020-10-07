@@ -99,8 +99,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
     /// <param name="studLength"> Input Shear Stud Length</param>
     /// <param name="studDiameter"> Input Shear Stud Diameter</param>
     /// <param name="noOfShearStudsInCircle"> Input Number of Shear Stud to be placed in the Circle Pattern</param>
-    /// <param name="ShearStudConnectionType"> Input Shear Bolt Connection type - Shop Bolt Default</param>
-    /// <param name="ListOfdAdditionalShearStudParameters"> Optional Input ShearStud Build Properties </param>
+    /// <param name="shearStudConnectionType"> Input Shear Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="additionalShearStudParameters"> Optional Input ShearStud Build Properties </param>
     /// <returns></returns>
     public static CircularShearStudsPattern ByCircle(Autodesk.DesignScript.Geometry.Circle circle,
                                                       Autodesk.DesignScript.Geometry.Vector referenceVector,
@@ -108,12 +108,12 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
                                                       double studLength,
                                                       double studDiameter,
                                                       [DefaultArgument("9;")]int noOfShearStudsInCircle,
-                                                      [DefaultArgument("2;")]int ShearStudConnectionType,
-                                                      [DefaultArgument("null")]List<Property> ListOfdAdditionalShearStudParameters)
+                                                      [DefaultArgument("2;")]int shearStudConnectionType,
+                                                      [DefaultArgument("null")]List<Property> additionalShearStudParameters)
 		{
-      if (ListOfdAdditionalShearStudParameters == null)
+      if (additionalShearStudParameters == null)
       {
-        ListOfdAdditionalShearStudParameters = new List<Property>() { };
+        additionalShearStudParameters = new List<Property>() { };
       }
 
       var norm = Utils.ToAstVector3d(circle.Normal, true);
@@ -131,9 +131,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
 			Matrix3d matrix3D = new Matrix3d();
 			matrix3D.SetCoordSystem(Utils.ToAstPoint(circle.CenterPoint, true), vx, vy, vz);
 
-      PreSetValuesInListProps(ListOfdAdditionalShearStudParameters, noOfShearStudsInCircle, Utils.ToInternalUnits(circle.Radius, true), Utils.ToInternalUnits(studLength, true), Utils.ToInternalUnits(studDiameter, true));
+      PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsInCircle, Utils.ToInternalUnits(circle.Radius, true), Utils.ToInternalUnits(studLength, true), Utils.ToInternalUnits(studDiameter, true));
 
-      return new CircularShearStudsPattern(handlesList[0], matrix3D, ListOfdAdditionalShearStudParameters, ShearStudConnectionType);
+      return new CircularShearStudsPattern(handlesList[0], matrix3D, additionalShearStudParameters, shearStudConnectionType);
 		}
 
     /// <summary>

@@ -119,21 +119,21 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
     /// Create an Advance Steel Rectangular Anchor Pattern bound By Rectangle
     /// </summary>
     /// <param name="rectangle"> Input rectangle </param>
-    /// <param name="NoOfBoltsX"> Input No of Anchor Bolts in the X direction</param>
-    /// <param name="NoOfBoltsY"> Input No of Anchor Bolts in the Y direction</param>
+    /// <param name="noOfBoltsX"> Input No of Anchor Bolts in the X direction</param>
+    /// <param name="noOfBoltsY"> Input No of Anchor Bolts in the Y direction</param>
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
-    /// <param name="BoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
-    /// <param name="ListofAdditionalAnchorBoltParameters"> Optional Input Anchor Bolt Build Properties </param>
+    /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="additionalAnchorBoltParameters"> Optional Input Anchor Bolt Build Properties </param>
     public static RectangularAnchorPattern ByRectangle(Autodesk.DesignScript.Geometry.Rectangle rectangle,
-                                                      [DefaultArgument("2;")]int NoOfBoltsX,
-                                                      [DefaultArgument("2;")]int NoOfBoltsY,
+                                                      [DefaultArgument("2;")]int noOfBoltsX,
+                                                      [DefaultArgument("2;")]int noOfBoltsY,
                                                       IEnumerable<SteelDbObject> objectsToConnect,
-                                                      [DefaultArgument("2;")]int BoltConnectionType,
-                                                      [DefaultArgument("null")]List<Property> ListofAdditionalAnchorBoltParameters)
+                                                      [DefaultArgument("2;")]int boltConnectionType,
+                                                      [DefaultArgument("null")]List<Property> additionalAnchorBoltParameters)
 		{
-      if (ListofAdditionalAnchorBoltParameters == null)
+      if (additionalAnchorBoltParameters == null)
       {
-        ListofAdditionalAnchorBoltParameters = new List<Property>() { };
+        additionalAnchorBoltParameters = new List<Property>() { };
       }
 
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
@@ -143,9 +143,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 			var vx = astCorners[1] - astCorners[0];
 			var vy = astCorners[3] - astCorners[0];
 
-      PreSetValuesInListProps(ListofAdditionalAnchorBoltParameters, NoOfBoltsX, NoOfBoltsY);
+      PreSetValuesInListProps(additionalAnchorBoltParameters, noOfBoltsX, noOfBoltsY);
 
-      return new RectangularAnchorPattern(astCorners[0], astCorners[2], handlesList, vx, vy, ListofAdditionalAnchorBoltParameters, BoltConnectionType);
+      return new RectangularAnchorPattern(astCorners[0], astCorners[2], handlesList, vx, vy, additionalAnchorBoltParameters, boltConnectionType);
 		}
 
     /// <summary>
@@ -156,20 +156,20 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
     /// <param name="noOfBoltsX"> Input No of Anchor Bolts in the X direction</param>
     /// <param name="noOfBoltsY"> Input No of Anchor Bolts in the Y direction</param>
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
-    /// <param name="BoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
-    /// <param name="ListofAdditionalAnchorBoltParameters"> Optional Input Anchor Bolt Build Properties </param>
+    /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
+    /// <param name="additionalAnchorBoltParameters"> Optional Input Anchor Bolt Build Properties </param>
     /// <returns></returns>
     public static RectangularAnchorPattern AtCentrePoint(Autodesk.DesignScript.Geometry.Point connectionPoint,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem boltCS,
                                                   [DefaultArgument("2;")]int noOfBoltsX,
                                                   [DefaultArgument("2;")]int noOfBoltsY,
                                                   IEnumerable<SteelDbObject> objectsToConnect,
-                                                  [DefaultArgument("2;")]int BoltConnectionType,
-                                                  [DefaultArgument("null")]List<Property> ListofAdditionalAnchorBoltParameters)
+                                                  [DefaultArgument("2;")]int boltConnectionType,
+                                                  [DefaultArgument("null")]List<Property> additionalAnchorBoltParameters)
     {
-      if (ListofAdditionalAnchorBoltParameters == null)
+      if (additionalAnchorBoltParameters == null)
       {
-        ListofAdditionalAnchorBoltParameters = new List<Property>() { };
+        additionalAnchorBoltParameters = new List<Property>() { };
       }
 
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
@@ -177,9 +177,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       var vx = Utils.ToAstVector3d(boltCS.XAxis, true);
       var vy = Utils.ToAstVector3d(boltCS.YAxis, true);
 
-      PreSetValuesInListProps(ListofAdditionalAnchorBoltParameters, noOfBoltsX, noOfBoltsY);
+      PreSetValuesInListProps(additionalAnchorBoltParameters, noOfBoltsX, noOfBoltsY);
 
-      return new RectangularAnchorPattern(Utils.ToAstPoint(connectionPoint, true), handlesList, vx, vy, ListofAdditionalAnchorBoltParameters, BoltConnectionType);
+      return new RectangularAnchorPattern(Utils.ToAstPoint(connectionPoint, true), handlesList, vx, vy, additionalAnchorBoltParameters, boltConnectionType);
     }
 
     private static void PreSetValuesInListProps(List<Property> listOfAnchorBoltParameters, int nx, int ny)
