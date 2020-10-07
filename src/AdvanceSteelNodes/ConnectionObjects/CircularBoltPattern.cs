@@ -105,17 +105,17 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// <param name="boltCS"> Input Coordinate System </param>
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
     /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
-    /// <param name="listofAdditionalBoltParameters"> Optional Input Bolt Build Properties </param>
+    /// <param name="additionalBoltParameters"> Optional Input Bolt Build Properties </param>
     /// <returns></returns>
     public static CircularBoltPattern AtCentrePoint(DynGeometry.Point point,
                                                     DynGeometry.CoordinateSystem boltCS,
                                                     IEnumerable<SteelDbObject> objectsToConnect,
                                                     [DefaultArgument("2;")]int boltConnectionType,
-                                                    [DefaultArgument("null")]List<Property> listofAdditionalBoltParameters)
+                                                    [DefaultArgument("null")]List<Property> additionalBoltParameters)
 		{
-      if (listofAdditionalBoltParameters == null)
+      if (additionalBoltParameters == null)
       {
-        listofAdditionalBoltParameters = new List<Property>() { };
+        additionalBoltParameters = new List<Property>() { };
       }
 
       SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
@@ -128,7 +128,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 
       IEnumerable<string> handles = Utils.GetSteelDbObjectsToConnect(objectsToConnect); 
 
-			return new CircularBoltPattern(Utils.ToAstPoint(point, true), handles, vx, vy, listofAdditionalBoltParameters, boltConnectionType);
+			return new CircularBoltPattern(Utils.ToAstPoint(point, true), handles, vx, vy, additionalBoltParameters, boltConnectionType);
 		}
 
     private static void PreSetCircularValuesInListProps(List<Property> listOfBoltParameters, double radius)
