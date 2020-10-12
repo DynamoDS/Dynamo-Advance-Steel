@@ -21,7 +21,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 
 		internal CircularBoltPattern(SteelGeometry.Point3d holeInsertPoint, IEnumerable<string> handlesToConnect, 
                                   SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
-                                  List<Property> boltData,
+                                  List<ASProperty> boltData,
                                   int boltCon)
 		{
 			lock (access_obj)
@@ -78,13 +78,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
                                                 DynGeometry.Vector referenceVector,
                                                 IEnumerable<SteelDbObject> objectsToConnect,
                                                 [DefaultArgument("2;")]int boltConnectionType,
-                                                [DefaultArgument("null")]List<Property> additionalBoltParameters)
+                                                [DefaultArgument("null")]List<ASProperty> additionalBoltParameters)
 		{
-      if (additionalBoltParameters == null)
-      {
-        additionalBoltParameters = new List<Property>() { };
-      }
-
       var norm = Utils.ToAstVector3d(circle.Normal, true);
 			var vx = Utils.ToAstVector3d(referenceVector, true);
       var vy = norm.CrossProduct(vx);
@@ -111,13 +106,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
                                                     DynGeometry.CoordinateSystem boltCS,
                                                     IEnumerable<SteelDbObject> objectsToConnect,
                                                     [DefaultArgument("2;")]int boltConnectionType,
-                                                    [DefaultArgument("null")]List<Property> additionalBoltParameters)
+                                                    [DefaultArgument("null")]List<ASProperty> additionalBoltParameters)
 		{
-      if (additionalBoltParameters == null)
-      {
-        additionalBoltParameters = new List<Property>() { };
-      }
-
       SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
 
       var vx = Utils.ToAstVector3d(boltCS.XAxis, true);
@@ -131,8 +121,13 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 			return new CircularBoltPattern(Utils.ToAstPoint(point, true), handles, vx, vy, additionalBoltParameters, boltConnectionType);
 		}
 
-    private static void PreSetCircularValuesInListProps(List<Property> listOfBoltParameters, double radius)
+    private static void PreSetCircularValuesInListProps(List<ASProperty> listOfBoltParameters, double radius)
     {
+      if (listOfBoltParameters == null)
+      {
+        listOfBoltParameters = new List<ASProperty>() { };
+      }
+
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Radius", radius);
     }
 

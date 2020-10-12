@@ -313,124 +313,287 @@ namespace AdvanceSteel.Nodes
       return handlesList;
     }
 
-    public static Dictionary<string, Property> GetBoltProperties()
+    public static Dictionary<string, ASProperty> GetBoltProperties(int listFilter)
     {
-      return BuildBoltPropertyList();
+      return BuildBoltPropertyList(listFilter);
     }
 
-    public static Dictionary<string, Property> GetAnchorBoltPropertyList()
+    public static Dictionary<string, ASProperty> GetAnchorBoltPropertyList(int listFilter)
     {
-      return BuildAnchorBoltPropertyList();
+      return BuildAnchorBoltPropertyList(listFilter);
     }
 
-    public static Dictionary<string, Property> GetShearStudPropertyList()
+    public static Dictionary<string, ASProperty> GetShearStudPropertyList(int listFilter)
     {
-      return BuildShearStudPropertyList();
+      return BuildShearStudPropertyList(listFilter);
     }
 
-    public static Property GetProperty(string keyValue)
+    public static Dictionary<string, ASProperty> GetStraighBeamPropertyList(int listFilter)
     {
-      Dictionary<string, Property> searchData = BuildBoltPropertyList().Union(
-                                                  BuildAnchorBoltPropertyList()).Union(
-                                                  BuildShearStudPropertyList()).ToDictionary(s => s.Key, s => s.Value);
-      Property retValue = null;
+      Dictionary<string, ASProperty> combinedData = BuildStriaghtBeamPropertyList(listFilter).Union(
+                                            BuildGenericBeamPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
+      return combinedData;
+    }
+
+    public static Dictionary<string, ASProperty> GetBentBeamPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> combinedData = BuildBentBeamPropertyList(listFilter).Union(
+                                            BuildGenericBeamPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
+      return combinedData;
+    }
+
+    public static Dictionary<string, ASProperty> GetTaperBeamPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> combinedData = BuildTaperedBeamPropertyList(listFilter).Union(
+                                                  BuildCompundBaseBeamPropertyList(listFilter)).Union(
+                                                  BuildGenericBeamPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
+      return combinedData;
+    }
+
+    public static Dictionary<string, ASProperty> GetCompoundStraightBeamPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> combinedData = BuildCompoundStraightBeamPropertyList(listFilter).Union(
+                                                  BuildCompundBaseBeamPropertyList(listFilter)).Union(
+                                                  BuildGenericBeamPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
+      return combinedData;
+    }
+
+    public static ASProperty GetProperty(string keyValue)
+    {
+      Dictionary<string, ASProperty> searchData = CombineAllLists(0);
+      ASProperty retValue = null;
       searchData.TryGetValue(keyValue, out retValue);
       return retValue;
     }
 
-    public static Property GetAnchorBoltProperty(string keyValue)
+    private static Dictionary<string, ASProperty> CombineAllLists(int listFilter)
     {
-      Dictionary<string, Property> lstData = BuildAnchorBoltPropertyList();
-      Property retValue = null;
-      lstData.TryGetValue(keyValue, out retValue);
-      return retValue;
+      Dictionary<string, ASProperty> searchData = BuildGenericBeamPropertyList(listFilter).Union(
+                                                BuildStriaghtBeamPropertyList(listFilter)).Union(
+                                                BuildCompoundStraightBeamPropertyList(listFilter)).Union(
+                                                BuildTaperedBeamPropertyList(listFilter)).Union(
+                                                BuildBentBeamPropertyList(listFilter)).Union(
+                                                BuildCompundBaseBeamPropertyList(listFilter)).Union(
+                                                BuildBoltPropertyList(listFilter)).Union(
+                                                BuildAnchorBoltPropertyList(listFilter)).Union(
+                                                BuildShearStudPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
+      return searchData;
     }
 
-    public static Property GetShearStudProperty(string keyValue)
+    private static Dictionary<string, ASProperty> filterDictionary(Dictionary<string, ASProperty> dictProps, int listFilter)
     {
-      Dictionary<string, Property> lstData = BuildShearStudPropertyList();
-      Property retValue = null;
-      lstData.TryGetValue(keyValue, out retValue);
-      return retValue;
+      return (listFilter > 0 ? dictProps.Where(x => (x.Value.PropertyDataOp % listFilter) == 0).ToDictionary(x => x.Key, x => x.Value) : dictProps);
     }
 
-    private static Dictionary<string, Property> BuildBoltPropertyList()
+    private static Dictionary<string, ASProperty> BuildBoltPropertyList(int listFilter)
     {
-      Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
-      dictProps.Add("Select Bolt Property...", new Property("none", typeof(string)));
-      dictProps.Add("Bolt Standard", new Property("Standard", typeof(string)));
-      dictProps.Add("Bolt Assembly", new Property("BoltAssembly", typeof(string)));
-      dictProps.Add("Bolt Grade", new Property("Grade", typeof(string)));
-      dictProps.Add("Bolt Diameter", new Property("ScrewDiameter", typeof(double)));
-      dictProps.Add("Bolt Hole Tolerance", new Property("HoleTolerance", typeof(double)));
-      dictProps.Add("No of Bolts Circle", new Property("NumberOfScrews", typeof(int)));
-      dictProps.Add("X Bolt Count", new Property("Nx", typeof(int)));
-      dictProps.Add("Y Bolt Count", new Property("Ny", typeof(int)));
-      dictProps.Add("Bolt X Spacing", new Property("Dx", typeof(double)));
-      dictProps.Add("Bolt Y Spacing", new Property("Dy", typeof(double)));
-      dictProps.Add("Bolt Pattern Radius", new Property("Radius", typeof(double)));
-      dictProps.Add("Bolt Length Addition", new Property("BindingLengthAddition", typeof(double)));
-      dictProps.Add("Bolt Inverted", new Property("IsInverted", typeof(bool)));
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Bolt Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Bolt Standard", new ASProperty("Standard", typeof(string)));
+      dictProps.Add("Bolt Assembly", new ASProperty("BoltAssembly", typeof(string)));
+      dictProps.Add("Bolt Grade", new ASProperty("Grade", typeof(string)));
+      dictProps.Add("Bolt Diameter", new ASProperty("ScrewDiameter", typeof(double)));
+      dictProps.Add("Bolt Hole Tolerance", new ASProperty("HoleTolerance", typeof(double)));
+      dictProps.Add("No of Bolts Circle", new ASProperty("NumberOfScrews", typeof(int)));
+      dictProps.Add("X Bolt Count", new ASProperty("Nx", typeof(int)));
+      dictProps.Add("Y Bolt Count", new ASProperty("Ny", typeof(int)));
+      dictProps.Add("Bolt X Spacing", new ASProperty("Dx", typeof(double)));
+      dictProps.Add("Bolt Y Spacing", new ASProperty("Dy", typeof(double)));
+      dictProps.Add("Bolt Pattern Radius", new ASProperty("Radius", typeof(double)));
+      dictProps.Add("Bolt Fake Set", new ASProperty("BBBB", typeof(double), ".", 2));
+      dictProps.Add("Bolt Fake Get", new ASProperty("AAA", typeof(double), ".", 3));
+      dictProps.Add("Bolt Length Addition", new ASProperty("BindingLengthAddition", typeof(double)));
+      dictProps.Add("Bolt Inverted", new ASProperty("IsInverted", typeof(bool)));
 
-      return dictProps;
+      return filterDictionary(dictProps, listFilter);
     }
 
-    private static Dictionary<string, Property> BuildAnchorBoltPropertyList()
+    private static Dictionary<string, ASProperty> BuildAnchorBoltPropertyList(int listFilter)
     {
-      Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
-      dictProps.Add("Select Anchor Property...", new Property("none", typeof(string)));
-      dictProps.Add("Anchor Standard", new Property("Standard", typeof(string)));
-      dictProps.Add("Anchor Assembly", new Property("BoltAssembly", typeof(string)));
-      dictProps.Add("Anchor Grade", new Property("Grade", typeof(string))); 
-      dictProps.Add("Anchor Length", new Property("ScrewLength", typeof(double)));
-      dictProps.Add("Anchor Diameter", new Property("ScrewDiameter", typeof(double)));
-      dictProps.Add("Anchor Hole Tolerance", new Property("HoleTolerance", typeof(double)));
-      dictProps.Add("No of Anchor Circle", new Property("NumberOfScrews", typeof(int)));
-      dictProps.Add("X Anchor Count", new Property("Nx", typeof(int)));
-      dictProps.Add("Y Anchor Count", new Property("Ny", typeof(int)));
-      dictProps.Add("Anchor X Spacing", new Property("Dx", typeof(double)));
-      dictProps.Add("Anchor Y Spacing", new Property("Dy", typeof(double)));
-      dictProps.Add("Anchor Pattern Radius", new Property("Radius", typeof(double))); 
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Anchor Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Anchor Standard", new ASProperty("Standard", typeof(string)));
+      dictProps.Add("Anchor Assembly", new ASProperty("BoltAssembly", typeof(string)));
+      dictProps.Add("Anchor Grade", new ASProperty("Grade", typeof(string))); 
+      dictProps.Add("Anchor Length", new ASProperty("ScrewLength", typeof(double)));
+      dictProps.Add("Anchor Diameter", new ASProperty("ScrewDiameter", typeof(double)));
+      dictProps.Add("Anchor Hole Tolerance", new ASProperty("HoleTolerance", typeof(double)));
+      dictProps.Add("No of Anchor Circle", new ASProperty("NumberOfScrews", typeof(int)));
+      dictProps.Add("X Anchor Count", new ASProperty("Nx", typeof(int)));
+      dictProps.Add("Y Anchor Count", new ASProperty("Ny", typeof(int)));
+      dictProps.Add("Anchor X Spacing", new ASProperty("Dx", typeof(double)));
+      dictProps.Add("Anchor Fake Set", new ASProperty("as", typeof(double), ".", 2));
+      dictProps.Add("Anchor Fake Get", new ASProperty("as", typeof(double), ".", 3));
+      dictProps.Add("Anchor Y Spacing", new ASProperty("Dy", typeof(double)));
+      dictProps.Add("Anchor Pattern Radius", new ASProperty("Radius", typeof(double))); 
       //dictProps.Add("Anchor Orientation", new ASProperty("OrientationType", typeof(int))); 
-      dictProps.Add("Anchor Inverted", new Property("IsInverted", typeof(bool)));
+      dictProps.Add("Anchor Inverted", new ASProperty("IsInverted", typeof(bool)));
 
-      return dictProps;
+      return filterDictionary(dictProps, listFilter);
     }
 
-    private static Dictionary<string, Property> BuildShearStudPropertyList()
+    private static Dictionary<string, ASProperty> BuildShearStudPropertyList(int listFilter)
     {
-      Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
-      dictProps.Add("Select Stud Property...", new Property("none", typeof(string)));
-      dictProps.Add("Stud Standard", new Property("Standard", typeof(string)));
-      dictProps.Add("Stud Grade", new Property("Grade", typeof(string)));
-      dictProps.Add("Stud Length", new Property("Length", typeof(double)));
-      dictProps.Add("Stud Diameter", new Property("Diameter", typeof(double)));
-      dictProps.Add("Stud Hole Tolerance", new Property("HoleTolerance", typeof(double)));
-      dictProps.Add("No of Shear Studs Circle", new Property("NumberOfElements", typeof(int), "Arranger"));
-      dictProps.Add("Shear Stud Radius", new Property("Radius", typeof(double), "Arranger")); 
-      dictProps.Add("X Stud Count", new Property("Nx", typeof(int), "Arranger"));
-      dictProps.Add("Y Stud Count", new Property("Ny", typeof(int), "Arranger"));
-      dictProps.Add("Stud X Spacing", new Property("Dx", typeof(double), "Arranger"));
-      dictProps.Add("Stud Y Spacing", new Property("Dy", typeof(double), "Arranger"));
-      dictProps.Add("Display Stud As Solid", new Property("ReprMode", typeof(int), "Z_PostWriteDB"));
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Stud Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Stud Standard", new ASProperty("Standard", typeof(string)));
+      dictProps.Add("Stud Grade", new ASProperty("Grade", typeof(string)));
+      dictProps.Add("Stud Length", new ASProperty("Length", typeof(double)));
+      dictProps.Add("Stud Diameter", new ASProperty("Diameter", typeof(double)));
+      dictProps.Add("Stud Hole Tolerance", new ASProperty("HoleTolerance", typeof(double)));
+      dictProps.Add("No of Shear Studs Circle", new ASProperty("NumberOfElements", typeof(int), "Arranger"));
+      dictProps.Add("Shear Stud Radius", new ASProperty("Radius", typeof(double), "Arranger")); 
+      dictProps.Add("X Stud Count", new ASProperty("Nx", typeof(int), "Arranger"));
+      dictProps.Add("Stud Fake Set", new ASProperty("BBBB", typeof(double), ".", 2));
+      dictProps.Add("Stud Fake Get", new ASProperty("BBBB", typeof(double), ".", 3));
+      dictProps.Add("Y Stud Count", new ASProperty("Ny", typeof(int), "Arranger"));
+      dictProps.Add("Stud X Spacing", new ASProperty("Dx", typeof(double), "Arranger"));
+      dictProps.Add("Stud Y Spacing", new ASProperty("Dy", typeof(double), "Arranger"));
+      dictProps.Add("Display Stud As Solid", new ASProperty("ReprMode", typeof(int), "Z_PostWriteDB"));
 
-      return dictProps;
+      return filterDictionary(dictProps, listFilter);
     }
 
-    public static void CheckListUpdateOrAddValue(List<Property> listOfDataboltData, string propName, object propValue, string propLevel = "")
+    private static Dictionary<string, ASProperty> BuildGenericBeamPropertyList(int listFilter)
     {
-      var foundItem = listOfDataboltData.FirstOrDefault<Property>(props => props.PropName == propName);
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      //dictProps.Add("Select Beam Property...", new Property("none", typeof(string)));
+      dictProps.Add("Beam Angle", new ASProperty("Angle", typeof(double)));
+      dictProps.Add("Beam Approval Comment", new ASProperty("ApprovalComment", typeof(string)));
+      dictProps.Add("Beam Approval Status Code", new ASProperty("ApprovalStatusCode", typeof(string)));
+      dictProps.Add("Beam Assembly", new ASProperty("Assembly", typeof(string)));
+      dictProps.Add("Beam Assembly Used For Numbering", new ASProperty("AssemblyUsedForNumbering", typeof(int)));
+      dictProps.Add("Beam Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", 3));
+      dictProps.Add("Beam Carrier", new ASProperty("Carrier", typeof(string)));
+      dictProps.Add("Beam Coating", new ASProperty("Coating", typeof(string))); 
+      dictProps.Add("Beam Coating Description", new ASProperty("CoatingDescription", typeof(string), ".", 3));
+      dictProps.Add("Beam Coating Used For Numbering", new ASProperty("CoatingUsedForNumbering", typeof(int))); 
+      dictProps.Add("Beam Delivery Date", new ASProperty("DeliveryDate", typeof(string)));
+      dictProps.Add("Beam Denotation Used For Numbering", new ASProperty("DennotationUsedForNumbering", typeof(int))); 
+      dictProps.Add("Beam Denotation Role", new ASProperty("Denotation", typeof(string)));
+      dictProps.Add("Beam Deviation", new ASProperty("Deviation", typeof(double)));
+      dictProps.Add("Beam Explicit Quantity", new ASProperty("ExplicitQuantity", typeof(int))); 
+      dictProps.Add("Beam Fabrication Station", new ASProperty("FabricationStation", typeof(string)));
+      dictProps.Add("Beam Fabrication Station UsedF or Numbering", new ASProperty("FabricationStationUsedForNumbering", typeof(bool)));
+      dictProps.Add("Beam Handle", new ASProperty("Handle", typeof(string),".", 3));
+      dictProps.Add("Beam Heat Number", new ASProperty("HeatNumber", typeof(string)));
+      dictProps.Add("Beam Heat Number Used For Numbering", new ASProperty("HeatNumberUsedForNumbering", typeof(bool)));
+      dictProps.Add("Beam Holes Used For Numbering", new ASProperty("HolesUsedForNumbering", typeof(int))); 
+      dictProps.Add("Beam Set IsMainPart Flag", new ASProperty("IsMainPart", typeof(bool), "Z_PostWriteDB"));
+      dictProps.Add("Beam Get IsAttachedPart Flag", new ASProperty("IsAttachedPart", typeof(bool), ".", 3));
+      dictProps.Add("Beam Get IsCrossSectionMirrored Flag", new ASProperty("IsCrossSectionMirrored", typeof(bool), ".", 3));
+      dictProps.Add("Beam ItemNumber", new ASProperty("ItemNumber", typeof(string)));
+      dictProps.Add("Beam ItemNumber Used For Numbering", new ASProperty("ItemNumberUsedForNumbering", typeof(int))); 
+      dictProps.Add("Beam Layer", new ASProperty("Layer", typeof(string)));
+      dictProps.Add("Beam Load Number", new ASProperty("LoadNumber", typeof(string)));
+      dictProps.Add("Beam MainPart Number", new ASProperty("MainPartNumber", typeof(string)));
+      dictProps.Add("Beam MainPart Number Prefix", new ASProperty("MainPartPrefix", typeof(string)));
+      dictProps.Add("Beam MainPart Used For BOM", new ASProperty("MainPartUsedForBOM", typeof(int))); 
+      dictProps.Add("Beam MainPart Used For Collision Check", new ASProperty("MainPartUsedForCollisionCheck", typeof(int))); 
+      dictProps.Add("Beam MainPart Used For Numbering", new ASProperty("MainPartUsedForNumbering", typeof(int))); 
+      dictProps.Add("Beam Material", new ASProperty("Material", typeof(string)));
+      dictProps.Add("Beam Material Description", new ASProperty("MaterialDescription", typeof(string), ".", 3));
+      dictProps.Add("Beam Material Used For Numbering", new ASProperty("MaterialUsedForNumbering", typeof(int))); 
+      dictProps.Add("Beam Note", new ASProperty("Note", typeof(string)));
+      dictProps.Add("Beam Note Used For Numbering", new ASProperty("NoteUsedForNumbering", typeof(int))); 
+      dictProps.Add("Beam Number Of Holes", new ASProperty("NumberOfHoles", typeof(int), ".", 3)); 
+      dictProps.Add("Beam PONumber", new ASProperty("PONumber", typeof(string)));
+      dictProps.Add("Beam PONumber Used For Numbering", new ASProperty("PONumberUsedForNumbering", typeof(bool)));
+      dictProps.Add("Beam Preliminary Part Number", new ASProperty("PreliminaryPartNumber", typeof(string))); 
+      dictProps.Add("Beam Preliminary Part Position Number", new ASProperty("PreliminaryPartPositionNumber", typeof(string), ".", 3)); 
+      dictProps.Add("Beam Preliminary Part Prefix", new ASProperty("PreliminaryPartPrefix", typeof(string)));
+      dictProps.Add("Beam Profile Name", new ASProperty("ProfName", typeof(string)));
+      dictProps.Add("Beam Profile Section Type", new ASProperty("ProfSectionType", typeof(string), ".", 3));
+      dictProps.Add("Beam Profile Section name", new ASProperty("ProfSectionName", typeof(string), ".", 3));
+      dictProps.Add("Beam Requisition Number", new ASProperty("RequisitionNumber", typeof(string)));
+      dictProps.Add("Beam Requisition Number Used For Numbering", new ASProperty("RequisitionNumberUsedForNumbering", typeof(bool)));
+      dictProps.Add("Beam Model Role", new ASProperty("Role", typeof(string)));
+      dictProps.Add("Beam Model Role Description", new ASProperty("RoleDescription", typeof(string)));
+      dictProps.Add("Beam Role Used For Numbering", new ASProperty("RoleUsedForNumbering", typeof(int)));
+      dictProps.Add("Beam Runname", new ASProperty("Runname", typeof(string), ".", 3));
+      dictProps.Add("Beam Shipped Date", new ASProperty("ShippedDate", typeof(string)));
+      dictProps.Add("Beam ShrinkValue", new ASProperty("ShrinkValue", typeof(double), ".", 3));
+      dictProps.Add("Beam Single Part Number", new ASProperty("SinglePartNumber", typeof(string)));
+      dictProps.Add("Beam Single Part Prefix", new ASProperty("SinglePartPrefix", typeof(string)));
+      dictProps.Add("Beam Single Part Used For BOM", new ASProperty("SinglePartUsedForBOM", typeof(int))); 
+      dictProps.Add("Beam Single Part Used For CollisionCheck", new ASProperty("SinglePartUsedForCollisionCheck", typeof(int))); 
+      dictProps.Add("Beam Single Part Used For Numbering", new ASProperty("SinglePartUsedForNumbering", typeof(int)));
+      dictProps.Add("Beam Specific Gravity", new ASProperty("SpecificGravity", typeof(double), ".", 3)); 
+      dictProps.Add("Beam Structural Member", new ASProperty("StructuralMember", typeof(int)));
+      dictProps.Add("Beam System Line Length", new ASProperty("SysLength", typeof(double), ".", 3));
+      dictProps.Add("Beam Supplier", new ASProperty("Supplier", typeof(string)));
+      dictProps.Add("Beam SupplierUsedForNumbering", new ASProperty("SupplierUsedForNumbering", typeof(bool)));
+      dictProps.Add("Beam Unwind / Unfolder", new ASProperty("Unwind", typeof(bool)));
+      dictProps.Add("Beam UnwindStartFactor", new ASProperty("UnwindStartFactor", typeof(double)));
+      dictProps.Add("Beam Volume", new ASProperty("Volume", typeof(double), ".", 3));
+      dictProps.Add("Change Beam Display Mode", new ASProperty("ReprMode", typeof(int), "Z_PostWriteDB"));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildStriaghtBeamPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Straight Beam Property...", new ASProperty("none", typeof(string)));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildCompoundStraightBeamPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Compound Straiht Beam Property...", new ASProperty("none", typeof(string)));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildTaperedBeamPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Tapered Beam Property...", new ASProperty("none", typeof(string)));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildBentBeamPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Bend Beam Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("BendBeam Offset Curve Radius", new ASProperty("OffsetCurveRadius", typeof(double)));
+      dictProps.Add("BendBeam Curve Offset", new ASProperty("CurveOffset", typeof(double), ".", 3));
+      dictProps.Add("BendBeam Systemline Radius", new ASProperty("SystemlineRadius", typeof(double), ".", 3));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildCompundBaseBeamPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Use Compound Beam As One Beam", new ASProperty("UseCompoundAsOneBeam", typeof(bool)));
+      dictProps.Add("Compound Beam ClassName", new ASProperty("CompoundClassName", typeof(string), ".", 3));
+      dictProps.Add("Compound Beam TypeName", new ASProperty("CompoundTypeName", typeof(string), ".", 3));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    public static void CheckListUpdateOrAddValue(List<ASProperty> listOfPropertyData, 
+                                                  string propName, 
+                                                  object propValue, 
+                                                  string propLevel = "",
+                                                  int propertyDataOp = 6)
+    {
+      var foundItem = listOfPropertyData.FirstOrDefault<ASProperty>(props => props.PropName == propName);
       if (foundItem != null)
       {
         foundItem.PropValue = propValue;
       }
       else
       {
-        listOfDataboltData.Add(new Property(propName, propValue, propValue.GetType(), propLevel));
+        listOfPropertyData.Add(new ASProperty(propName, propValue, propValue.GetType(), propLevel, propertyDataOp));
       }
     }
 
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.CountableScrewBoltPattern objToMod, List<Property> properties)
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.CountableScrewBoltPattern objToMod, List<ASProperty> properties)
     {
       if (properties != null)
       {
@@ -441,7 +604,7 @@ namespace AdvanceSteel.Nodes
       }
     }
 
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern objToMod, List<Property> properties)
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern objToMod, List<ASProperty> properties)
     {
       if (properties != null)
       {
@@ -452,7 +615,7 @@ namespace AdvanceSteel.Nodes
       }
     }
     
-    public static void SetParameters(Autodesk.AdvanceSteel.Arrangement.Arranger objToMod, List<Property> properties)
+    public static void SetParameters(Autodesk.AdvanceSteel.Arrangement.Arranger objToMod, List<ASProperty> properties)
     {
       if (properties != null)
       {
@@ -463,7 +626,7 @@ namespace AdvanceSteel.Nodes
       }
     }
 
-    public static void SetParameters(Autodesk.AdvanceSteel.ConstructionTypes.AtomicElement objToMod, List<Property> properties)
+    public static void SetParameters(Autodesk.AdvanceSteel.ConstructionTypes.AtomicElement objToMod, List<ASProperty> properties)
     {
       if (properties != null) 
       { 
@@ -474,7 +637,7 @@ namespace AdvanceSteel.Nodes
       }
     }
 
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.AnchorPattern objToMod, List<Property> properties)
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.AnchorPattern objToMod, List<ASProperty> properties)
     {
       if (properties != null)
       {

@@ -7,19 +7,18 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Writable Anchor Bolt Properties")]
-	[NodeDescription("Select Advance Steel Anchor Bolt Property Type to Set")]
+	[NodeName("Writable Compound Straight Beam Properties")]
+	[NodeDescription("Select Advance Steel Compound Straight Beam Property Type to Set")]
   [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Writable Anchor Bolt Property")]
+  [OutPortNames("Writable Compound Straight Beam Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class ASPropertiesAnchorBolt : AstDropDownBase
+	public class ASPropertiesCompoundStraightBeam : AstDropDownBase
 	{
-		private const string outputName = "Advance Steel Anchor Bolt Property";
+		private const string outputName = "Advance Steel Compound Straight Beam Property";
 
-    //AdvanceSteel.Nodes.Properties
-    public ASPropertiesAnchorBolt()
+    public ASPropertiesCompoundStraightBeam()
 				: base(outputName)
 		{
 			InPorts.Clear();
@@ -28,7 +27,7 @@ namespace AdvanceSteel.Nodes
 		}
 
 		[JsonConstructor]
-		public ASPropertiesAnchorBolt(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+		public ASPropertiesCompoundStraightBeam(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
 		: base(outputName, inPorts, outPorts)
 		{
 		}
@@ -38,7 +37,7 @@ namespace AdvanceSteel.Nodes
 			Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetAnchorBoltPropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetCompoundStraightBeamPropertyList(ePropertyDataOperator.Set))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }
