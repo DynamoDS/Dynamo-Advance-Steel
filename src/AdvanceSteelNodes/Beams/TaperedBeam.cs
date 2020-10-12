@@ -20,14 +20,14 @@ namespace AdvanceSteel.Nodes.Beams
                           double startHeight, 
                           double endHeight, 
                           double webThickness,
-                          List<Property> beamProperties)
+                          List<ASProperty> beamProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<Property> defaultData = beamProperties.Where(x => x.PropLevel == ".").ToList<Property>();
-          List<Property> postWriteDBData = beamProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<Property>();
+          List<ASProperty> defaultData = beamProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = beamProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -97,7 +97,7 @@ namespace AdvanceSteel.Nodes.Beams
     public static TaperedBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, 
                                                     Autodesk.DesignScript.Geometry.Point end, 
                                                     Autodesk.DesignScript.Geometry.Vector vOrientation,
-                                                    [DefaultArgument("null")]List<Property> additionalBeamParameters)
+                                                    [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       return new TaperedBeam(start, end, vOrientation, 100, 100, 100, additionalBeamParameters);
@@ -120,7 +120,7 @@ namespace AdvanceSteel.Nodes.Beams
                                                           [DefaultArgument("100")]double startHeight,
                                                           [DefaultArgument("100")]double endHeight,
                                                           [DefaultArgument("100")]double webThickness,
-                                                          [DefaultArgument("null")]List<Property> additionalBeamParameters)
+                                                          [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       return new TaperedBeam(start, end, vOrientation, 
@@ -129,11 +129,11 @@ namespace AdvanceSteel.Nodes.Beams
                               Utils.ToInternalUnits(webThickness, true), additionalBeamParameters);
     }
 
-    private static List<Property> PreSetDefaults(List<Property> listBeamData)
+    private static List<ASProperty> PreSetDefaults(List<ASProperty> listBeamData)
     {
       if (listBeamData == null)
       {
-        listBeamData = new List<Property>() { };
+        listBeamData = new List<ASProperty>() { };
       }
       return listBeamData;
     }

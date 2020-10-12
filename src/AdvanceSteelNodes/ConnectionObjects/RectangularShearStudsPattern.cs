@@ -22,16 +22,16 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
     internal RectangularShearStudsPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2, string handleToConnect, 
                                           SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
 																					SteelGeometry.Matrix3d coordSyst,
-                                          List<Property> shearStudData, int boltCon)
+                                          List<ASProperty> shearStudData, int boltCon)
 		{
 			lock (access_obj)
 			{
-        List<Property> defaultShearStudData = shearStudData.Where(x => x.PropLevel == ".").ToList<Property>();
-        List<Property> arrangerShearStudData = shearStudData.Where(x => x.PropLevel == "Arranger").ToList<Property>();
-        List<Property> postWriteDBData = shearStudData.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<Property>();
+        List<ASProperty> defaultShearStudData = shearStudData.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+        List<ASProperty> arrangerShearStudData = shearStudData.Where(x => x.PropLevel == "Arranger").ToList<ASProperty>();
+        List<ASProperty> postWriteDBData = shearStudData.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
 
-        int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.PropName == "Nx").PropValue;
-        int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.PropName == "Ny").PropValue;
+        int temp_nx = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Nx").PropValue;
+        int temp_ny = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Ny").PropValue;
 
         var dx = Utils.GetRectangleLength(astPoint1, astPoint2, vx) / (temp_nx - 1);
         Utils.CheckListUpdateOrAddValue(arrangerShearStudData, "Dx", dx, "Arranger");
@@ -99,26 +99,26 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
 
     internal RectangularShearStudsPattern(string handleToConnect, 
                                           SteelGeometry.Matrix3d coordSyst,
-                                          List<Property> shearStudData,
+                                          List<ASProperty> shearStudData,
                                           int boltCon)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<Property> defaultShearStudData = shearStudData.Where(x => x.PropLevel == ".").ToList<Property>();
-          List<Property> arrangerShearStudData = shearStudData.Where(x => x.PropLevel == "Arranger").ToList<Property>();
-          List<Property> postWriteDBData = shearStudData.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<Property>();
+          List<ASProperty> defaultShearStudData = shearStudData.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> arrangerShearStudData = shearStudData.Where(x => x.PropLevel == "Arranger").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = shearStudData.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
 
           Autodesk.AdvanceSteel.Modelling.Connector shearStuds = null;
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
 
-            double temp_Dx = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.PropName == "Dx").PropValue;
-            double temp_Dy = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.PropName == "Dy").PropValue;
-            int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.PropName == "Nx").PropValue;
-            int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.PropName == "Ny").PropValue;
+            double temp_Dx = (double)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Dx").PropValue;
+            double temp_Dy = (double)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Dy").PropValue;
+            int temp_nx = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Nx").PropValue;
+            int temp_ny = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Ny").PropValue;
 
             shearStuds = new Autodesk.AdvanceSteel.Modelling.Connector();
             Autodesk.AdvanceSteel.Arrangement.Arranger arranger = new Autodesk.AdvanceSteel.Arrangement.RectangularArranger(Matrix2d.kIdentity, temp_Dx, temp_Dy, temp_nx, temp_ny);
@@ -188,7 +188,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
                                                             [DefaultArgument("2;")]int noOfShearStudsX,
                                                             [DefaultArgument("2;")]int noOfShearStudsY,
                                                             [DefaultArgument("2;")]int shearStudConnectionType,
-                                                            [DefaultArgument("null")]List<Property> additionalShearStudParameters)
+                                                            [DefaultArgument("null")]List<ASProperty> additionalShearStudParameters)
 		{
       var dynCorners = rectangle.Corners();
 			var astCorners = Utils.ToAstPoints(dynCorners, true);
@@ -238,7 +238,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
                                                             double studSpacingX,
                                                             double studSpacingY,
                                                             [DefaultArgument("2;")]int shearStudConnectionType,
-                                                            [DefaultArgument("null")]List<Property> additionalShearStudParameters)
+                                                            [DefaultArgument("null")]List<ASProperty> additionalShearStudParameters)
     {
       List<SteelDbObject> tempList = new List<SteelDbObject>() { objectToConnect };
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(tempList);
@@ -260,12 +260,12 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       return new RectangularShearStudsPattern(handlesList[0], matrix3D, additionalShearStudParameters, shearStudConnectionType);
     }
 
-    private static void PreSetValuesInListProps(List<Property> listOfBoltParameters, int nx, int ny, 
+    private static void PreSetValuesInListProps(List<ASProperty> listOfBoltParameters, int nx, int ny, 
                                                 double studLength, double studDiameter)
     {
       if (listOfBoltParameters == null)
       {
-        listOfBoltParameters = new List<Property>() { };
+        listOfBoltParameters = new List<ASProperty>() { };
       }
 
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Nx", nx, "Arranger");

@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Set Tapered Beam Properties")]
+	[NodeName("Writable Tapered Beam Properties")]
 	[NodeDescription("Select Advance Steel Tapered Beam Property Type to Set")]
   [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Set Tapered Beam Property")]
+  [OutPortNames("Writable Tapered Beam Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
 			Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetTaperBeamPropertyList(3))
+      foreach (var item in Utils.GetTaperBeamPropertyList(ePropertyDataOperator.Set))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

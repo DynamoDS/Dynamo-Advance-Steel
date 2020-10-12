@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Set Shear Stud Properties")]
+	[NodeName("Writable Shear Stud Properties")]
 	[NodeDescription("Select Advance Steel Shear Stud Property Type to Set")]
   [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Set Shear Stud Property")]
+  [OutPortNames("Writable Shear Stud Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
@@ -38,7 +38,7 @@ namespace AdvanceSteel.Nodes
 			Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };//
-      foreach (var item in Utils.GetShearStudPropertyList(6))
+      foreach (var item in Utils.GetShearStudPropertyList(ePropertyDataOperator.Set))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

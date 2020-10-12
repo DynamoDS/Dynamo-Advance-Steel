@@ -22,15 +22,15 @@ namespace AdvanceSteel.Nodes.Beams
                       Autodesk.DesignScript.Geometry.Point ptOnArc, 
                       Autodesk.DesignScript.Geometry.Vector vOrientation,
                       int refAxis, bool crossSectionMirror,
-                      List<Property> beamProperties)
+                      List<ASProperty> beamProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<Property> defaultData = beamProperties.Where(x => x.PropLevel == ".").ToList<Property>();
-          List<Property> postWriteDBData = beamProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<Property>();
-          Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.PropName == "ProfName");
+          List<ASProperty> defaultData = beamProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = beamProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          ASProperty foundProfName = beamProperties.FirstOrDefault<ASProperty>(x => x.PropName == "ProfName");
           string sectionName = "";
           if (foundProfName != null)
           {
@@ -125,7 +125,7 @@ namespace AdvanceSteel.Nodes.Beams
                                                 Autodesk.DesignScript.Geometry.Point end, 
                                                 Autodesk.DesignScript.Geometry.Point ptOnArc, 
                                                 Autodesk.DesignScript.Geometry.Vector orientation,
-                                                [DefaultArgument("null")]List<Property> additionalBeamParameters)
+                                                [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       return new BentBeam(start, end, ptOnArc, orientation, -1, false, additionalBeamParameters);
@@ -148,7 +148,7 @@ namespace AdvanceSteel.Nodes.Beams
                                                 Autodesk.DesignScript.Geometry.Vector orientation,
                                                 [DefaultArgument("5;")]int refAxis, 
                                                 [DefaultArgument("false;")]bool crossSectionMirror,
-                                                [DefaultArgument("null")]List<Property> additionalBeamParameters)
+                                                [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
     {
       var arc = Autodesk.DesignScript.Geometry.Arc.ByThreePoints(start, ptOnArc, end);
       Autodesk.DesignScript.Geometry.Point[] cvs = arc.PointsAtEqualSegmentLength(2);
@@ -171,18 +171,18 @@ namespace AdvanceSteel.Nodes.Beams
                                 [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ZAxis();")]Autodesk.DesignScript.Geometry.Vector orientation,
                                 [DefaultArgument("5;")]int refAxis, 
                                 [DefaultArgument("false;")]bool crossSectionMirror,
-                                [DefaultArgument("null")]List<Property> additionalBeamParameters)
+                                [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
     {
       Autodesk.DesignScript.Geometry.Point[] cvs = arc.PointsAtEqualSegmentLength(2);
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       return new BentBeam(arc.StartPoint, arc.EndPoint, cvs[0], orientation, refAxis, crossSectionMirror, additionalBeamParameters);
     }
 
-    private static List<Property> PreSetDefaults(List<Property> listBeamData)
+    private static List<ASProperty> PreSetDefaults(List<ASProperty> listBeamData)
     {
       if (listBeamData == null)
       {
-        listBeamData = new List<Property>() { };
+        listBeamData = new List<ASProperty>() { };
       }
       return listBeamData;
     }

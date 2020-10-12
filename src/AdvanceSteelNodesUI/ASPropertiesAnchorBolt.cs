@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Set Anchor Bolt Properties")]
+	[NodeName("Writable Anchor Bolt Properties")]
 	[NodeDescription("Select Advance Steel Anchor Bolt Property Type to Set")]
   [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Set Anchor Bolt Property")]
+  [OutPortNames("Writable Anchor Bolt Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
@@ -38,7 +38,7 @@ namespace AdvanceSteel.Nodes
 			Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetAnchorBoltPropertyList(2))
+      foreach (var item in Utils.GetAnchorBoltPropertyList(ePropertyDataOperator.Set))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

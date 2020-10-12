@@ -9,7 +9,7 @@ using Autodesk.AdvanceSteel.ConstructionTypes;
 namespace AdvanceSteel.Nodes
 {
   [IsVisibleInDynamoLibrary(false)]
-  public class Property : IASProperty
+  public class ASProperty : IASProperty
   {
 
     private string _propName;
@@ -18,7 +18,7 @@ namespace AdvanceSteel.Nodes
     private object _objectValue;
     private int _propertyDataOp = 6;// eProperty_Data_Ops.Set_Get;
     
-    public Property(string propName, System.Type propType, string propLevel = ".", int propertyDataOp = 6)
+    public ASProperty(string propName, System.Type propType, string propLevel = ".", int propertyDataOp = 6)
     {
       PropName = propName;
       _objectValueType = propType;
@@ -26,7 +26,7 @@ namespace AdvanceSteel.Nodes
       PropertyDataOp = propertyDataOp;
     }
 
-    public Property(string propName, object propValue, System.Type propType, string propLevel = ".", int propertyDataOp = 6)
+    public ASProperty(string propName, object propValue, System.Type propType, string propLevel = ".", int propertyDataOp = 6)
     {
       PropName = propName;
       _objectValueType = propType;

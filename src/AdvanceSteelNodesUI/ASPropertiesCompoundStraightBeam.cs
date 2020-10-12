@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Set Compound Straight Beam Properties")]
+	[NodeName("Writable Compound Straight Beam Properties")]
 	[NodeDescription("Select Advance Steel Compound Straight Beam Property Type to Set")]
   [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Set Compound Straight Beam Property")]
+  [OutPortNames("Writable Compound Straight Beam Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
 			Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetCompoundStraightBeamPropertyList(2))
+      foreach (var item in Utils.GetCompoundStraightBeamPropertyList(ePropertyDataOperator.Set))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

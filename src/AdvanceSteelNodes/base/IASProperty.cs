@@ -48,4 +48,11 @@ namespace AdvanceSteel.Nodes
     bool hasValidValue();
   }
 
+  [IsVisibleInDynamoLibrary(false)]
+  public static class ePropertyDataOperator
+  {
+    public static readonly int Set = 2;
+    public static readonly int Get = 3;
+    public static readonly int Set_Get = 6;
+  }
 }

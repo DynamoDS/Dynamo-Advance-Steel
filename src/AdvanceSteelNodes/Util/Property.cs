@@ -17,43 +17,21 @@ namespace AdvanceSteel.Nodes.Util
 	/// <summary>
 	/// Store Bolts properties in a Node to pass to Bolt Node
 	/// </summary>
-	public class Properties
+	public class Property
 	{
-		internal Properties()
+		internal Property()
 		{
 		}
 
     /// <summary>
-    /// Set AS Property Objects
+    /// Build AS Property - Writeable or Readable
     /// </summary>
     /// <param name="propertyType"> Input Property from Property Node for particular Object Type</param>
     /// <param name="propertyValue"> Input Property value for Property Type</param>
     /// <returns></returns>
-    public static Property SetParameter(string propertyType, object propertyValue)
+    public static ASProperty ByNameAndValue(string propertyType, object propertyValue)
     {
-      Property selectedProperty = Utils.GetProperty(propertyType, 2);
-      if (selectedProperty != null)
-      {
-        selectedProperty.PropValue = propertyValue;
-        if (!selectedProperty.hasValidValue())
-        {
-          throw new System.Exception("Property Value not Valid");
-        }
-      }
-      else
-        throw new System.Exception("No Property object found");
-      return selectedProperty;
-    }
-
-    /// <summary>
-    /// Get AS Property Objects
-    /// </summary>
-    /// <param name="propertyType"> Input Property from Property Node for particular Object Type</param>
-    /// <param name="propertyValue"> Input Property value for Property Type</param>
-    /// <returns></returns>
-    public static Property GetParameter(string propertyType, object propertyValue)
-    {
-      Property selectedProperty = Utils.GetProperty(propertyType, 3);
+      ASProperty selectedProperty = Utils.GetProperty(propertyType);
       if (selectedProperty != null)
       {
         selectedProperty.PropValue = propertyValue;
@@ -74,7 +52,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="parameter"> Input modifcation Value</param>
     /// <returns></returns>
     public static AtomicElement ModifyObjectParameter(AtomicElement objectToModifiy, 
-                                                      Property parameter)
+                                                      ASProperty parameter)
     {
       if (parameter != null)
       {
@@ -95,7 +73,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="parameters"> List of Properties to modify </param>
     /// <returns></returns>
     public static AtomicElement ModifyObjectParameters(AtomicElement objectToModifiy,
-                                                       List<Property> parameters)
+                                                       List<ASProperty> parameters)
     {
       if (parameters != null)
       {
