@@ -16,20 +16,35 @@ namespace AdvanceSteel.Nodes
     private string _propLevel =".";
     private System.Type _objectValueType;
     private object _objectValue;
+    private int _propertyDataOp = 6;// eProperty_Data_Ops.Set_Get;
     
-    public Property(string propName, System.Type propType, string propLevel = ".")
+    public Property(string propName, System.Type propType, string propLevel = ".", int propertyDataOp = 6)
     {
       PropName = propName;
       _objectValueType = propType;
       PropLevel = propLevel;
+      PropertyDataOp = propertyDataOp;
     }
 
-    public Property(string propName, object propValue, System.Type propType, string propLevel = ".")
+    public Property(string propName, object propValue, System.Type propType, string propLevel = ".", int propertyDataOp = 6)
     {
       PropName = propName;
       _objectValueType = propType;
       PropValue = propValue;
       PropLevel = propLevel;
+      PropertyDataOp = propertyDataOp;
+    }
+
+    public int PropertyDataOp
+    {
+      get
+      {
+        return _propertyDataOp;
+      }
+      set
+      {
+        _propertyDataOp = value;
+      }
     }
 
     public object PropValue

@@ -3,8 +3,9 @@ using Autodesk.AdvanceSteel.Modelling;
 using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.AdvanceSteel.Profiles;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
-
 using Autodesk.DesignScript.Runtime;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdvanceSteel.Nodes.Beams
 {
@@ -16,13 +17,26 @@ namespace AdvanceSteel.Nodes.Beams
   {
     //private Point3d PointOnArc;
 
-    internal BentBeam(Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector vOrientation,
-                          string modelRole, string sectionName, int refAxis, bool crossSectionMirror)
+    internal BentBeam(Autodesk.DesignScript.Geometry.Point ptStart, 
+                      Autodesk.DesignScript.Geometry.Point ptEnd, 
+                      Autodesk.DesignScript.Geometry.Point ptOnArc, 
+                      Autodesk.DesignScript.Geometry.Vector vOrientation,
+                      int refAxis, bool crossSectionMirror,
+                      List<Property> beamProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
+          List<Property> defaultData = beamProperties.Where(x => x.PropLevel == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<Property>();
+          Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.PropName == "ProfName");
+          string sectionName = "";
+          if (foundProfName != null)
+          {
+            sectionName = (string)foundProfName.PropValue;
+          }
+
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
           Point3d beamStart = (ptStart == null ? new Point3d() : Utils.ToAstPoint(ptStart, true));
           Point3d beamEnd = (ptEnd == null ? new Point3d() : Utils.ToAstPoint(ptEnd, true));
@@ -40,16 +54,23 @@ namespace AdvanceSteel.Nodes.Beams
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
             beam = new Autodesk.AdvanceSteel.Modelling.BentBeam(sectionName, refVect, beamStart, pointOnArc, beamEnd);
-            if (!string.IsNullOrEmpty(modelRole))
-            {
-              beam.Role = modelRole;
-            }
             if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
             {
               beam.RefAxis = (Beam.eRefAxis)refAxis;
             }
             beam.SetCrossSectionMirrored(crossSectionMirror, false);
+
+            if (defaultData != null)
+            {
+              Utils.SetParameters(beam, defaultData);
+            }
+
             beam.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(beam, postWriteDBData);
+            }
           }
           else
           {
@@ -61,16 +82,24 @@ namespace AdvanceSteel.Nodes.Beams
               string sectionSize = Utils.SplitSectionName(sectionName)[1];
               beam.SetSystemline(beamStart, pointOnArc, beamEnd);
               beam.ChangeProfile(sectionType, sectionSize);
-              if (!string.IsNullOrEmpty(modelRole))
-              {
-                beam.Role = modelRole;
-              }
               if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
               {
                 beam.RefAxis = (Beam.eRefAxis)refAxis;
               }
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(beam, defaultData);
+              }
+
               beam.SetCrossSectionMirrored(crossSectionMirror, false);
               Utils.SetOrientation(beam, refVect);
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(beam, postWriteDBData);
+              }
+
             }
             else
               throw new System.Exception("Not a bent Beam");
@@ -78,6 +107,7 @@ namespace AdvanceSteel.Nodes.Beams
 
           Handle = beam.Handle;
           SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
+
         }
       }
     }
@@ -89,10 +119,16 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="end">End point</param>
     /// <param name="ptOnArc">Point on arc</param>
     /// <param name="orientation">Section orientation</param>
+    /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
     /// <returns></returns>
-    public static BentBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector orientation)
+    public static BentBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, 
+                                                Autodesk.DesignScript.Geometry.Point end, 
+                                                Autodesk.DesignScript.Geometry.Point ptOnArc, 
+                                                Autodesk.DesignScript.Geometry.Vector orientation,
+                                                [DefaultArgument("null")]List<Property> additionalBeamParameters)
     {
-      return new BentBeam(start, end, ptOnArc, orientation, "", "", -1, false);
+      additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
+      return new BentBeam(start, end, ptOnArc, orientation, -1, false, additionalBeamParameters);
     }
 
     /// <summary>
@@ -102,17 +138,22 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="end"></param>
     /// <param name="ptOnArc"></param>
     /// <param name="orientation">Section orientation</param>
-    /// <param name="modelRole">Input Beam Model Role - Key Column of Model Table</param>
-    /// <param name="sectionName">Input Beam Section size</param>
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
+    /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
     /// <returns></returns>
-    public static BentBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector orientation,
-                                                    [DefaultArgument("BentBeam;")]string modelRole, string sectionName, [DefaultArgument("5;")]int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
+    public static BentBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, 
+                                                Autodesk.DesignScript.Geometry.Point end, 
+                                                Autodesk.DesignScript.Geometry.Point ptOnArc, 
+                                                Autodesk.DesignScript.Geometry.Vector orientation,
+                                                [DefaultArgument("5;")]int refAxis, 
+                                                [DefaultArgument("false;")]bool crossSectionMirror,
+                                                [DefaultArgument("null")]List<Property> additionalBeamParameters)
     {
       var arc = Autodesk.DesignScript.Geometry.Arc.ByThreePoints(start, ptOnArc, end);
       Autodesk.DesignScript.Geometry.Point[] cvs = arc.PointsAtEqualSegmentLength(2);
-      return new BentBeam(arc.StartPoint, arc.EndPoint, cvs[0], orientation, modelRole, sectionName, refAxis, crossSectionMirror);
+      additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
+      return new BentBeam(arc.StartPoint, arc.EndPoint, cvs[0], orientation, refAxis, crossSectionMirror, additionalBeamParameters);
 
       //return new BentBeam(start, end, ptOnArc, orientation, modelRole, sectionName, Utils.ToInternalAngleUnits(rotation, true), refAxis, crossSectionMirror);
     }
@@ -122,16 +163,28 @@ namespace AdvanceSteel.Nodes.Beams
     /// </summary>
     /// <param name="arc">Input Dynamo Node</param>
     /// <param name="orientation">Section orientation</param>
-    /// <param name="modelRole">Input Beam Model Role - Key Column of Model Table</param>
-    /// <param name="sectionName">Input Beam Section size</param>
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
+    /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
     /// <returns></returns>
-    public static BentBeam ByArc(Autodesk.DesignScript.Geometry.Arc arc, [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ZAxis();")]Autodesk.DesignScript.Geometry.Vector orientation,
-                                  [DefaultArgument("BentBeam;")]string modelRole, string sectionName, [DefaultArgument("5;")]int refAxis, [DefaultArgument("false;")]bool crossSectionMirror)
+    public static BentBeam ByArc(Autodesk.DesignScript.Geometry.Arc arc, 
+                                [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ZAxis();")]Autodesk.DesignScript.Geometry.Vector orientation,
+                                [DefaultArgument("5;")]int refAxis, 
+                                [DefaultArgument("false;")]bool crossSectionMirror,
+                                [DefaultArgument("null")]List<Property> additionalBeamParameters)
     {
       Autodesk.DesignScript.Geometry.Point[] cvs = arc.PointsAtEqualSegmentLength(2);
-      return new BentBeam(arc.StartPoint, arc.EndPoint, cvs[0], orientation, modelRole, sectionName, refAxis, crossSectionMirror);
+      additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
+      return new BentBeam(arc.StartPoint, arc.EndPoint, cvs[0], orientation, refAxis, crossSectionMirror, additionalBeamParameters);
+    }
+
+    private static List<Property> PreSetDefaults(List<Property> listBeamData)
+    {
+      if (listBeamData == null)
+      {
+        listBeamData = new List<Property>() { };
+      }
+      return listBeamData;
     }
 
     [IsVisibleInDynamoLibrary(false)]

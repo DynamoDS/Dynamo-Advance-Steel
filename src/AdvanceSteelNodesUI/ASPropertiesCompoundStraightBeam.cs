@@ -7,19 +7,18 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Set Shear Stud Properties")]
-	[NodeDescription("Select Advance Steel Shear Stud Property Type to Set")]
+	[NodeName("Set Compound Straight Beam Properties")]
+	[NodeDescription("Select Advance Steel Compound Straight Beam Property Type to Set")]
   [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Set Shear Stud Property")]
+  [OutPortNames("Set Compound Straight Beam Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class ASPropertiesShearStud : AstDropDownBase
+	public class ASPropertiesCompoundStraightBeam : AstDropDownBase
 	{
-		private const string outputName = "Advance Steel Shear Stud Property";
+		private const string outputName = "Advance Steel Compound Straight Beam Property";
 
-    //AdvanceSteel.Nodes.Properties
-    public ASPropertiesShearStud()
+    public ASPropertiesCompoundStraightBeam()
 				: base(outputName)
 		{
 			InPorts.Clear();
@@ -28,7 +27,7 @@ namespace AdvanceSteel.Nodes
 		}
 
 		[JsonConstructor]
-		public ASPropertiesShearStud(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+		public ASPropertiesCompoundStraightBeam(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
 		: base(outputName, inPorts, outPorts)
 		{
 		}
@@ -37,8 +36,8 @@ namespace AdvanceSteel.Nodes
 		{
 			Items.Clear();
 
-      var newItems = new List<DynamoDropDownItem>() { };//
-      foreach (var item in Utils.GetShearStudPropertyList(6))
+      var newItems = new List<DynamoDropDownItem>() { };
+      foreach (var item in Utils.GetCompoundStraightBeamPropertyList(2))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

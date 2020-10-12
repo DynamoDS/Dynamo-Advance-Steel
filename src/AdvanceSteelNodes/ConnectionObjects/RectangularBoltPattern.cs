@@ -128,11 +128,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
                                                       [DefaultArgument("2;")]int boltConnectionType,
                                                       [DefaultArgument("null")]List<Property> additionalBoltParameters)
 		{
-      if (additionalBoltParameters == null)
-      {
-        additionalBoltParameters = new List<Property>() { };
-      }
-
       var norm = Utils.ToAstVector3d(rectangle.Normal, true);
 
 			List<string> handlesList = new List<string>();
@@ -167,11 +162,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
                                                   [DefaultArgument("2;")]int boltConnectionType,
                                                   [DefaultArgument("null")]List<Property> additionalBoltParameters)
     {
-      if (additionalBoltParameters == null)
-      {
-        additionalBoltParameters = new List<Property>() { };
-      }
-
       List<string> handlesList = new List<string>();
       handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
       
@@ -185,6 +175,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 
     private static void PreSetValuesInListProps(List<Property> listOfBoltParameters, int nx, int ny)
     {
+      if (listOfBoltParameters == null)
+      {
+        listOfBoltParameters = new List<Property>() { };
+      }
+
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Nx", nx);
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Ny", ny);
     }

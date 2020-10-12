@@ -131,11 +131,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
                                                       [DefaultArgument("2;")]int boltConnectionType,
                                                       [DefaultArgument("null")]List<Property> additionalAnchorBoltParameters)
 		{
-      if (additionalAnchorBoltParameters == null)
-      {
-        additionalAnchorBoltParameters = new List<Property>() { };
-      }
-
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
 
 			var dynCorners = rectangle.Corners();
@@ -167,11 +162,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
                                                   [DefaultArgument("2;")]int boltConnectionType,
                                                   [DefaultArgument("null")]List<Property> additionalAnchorBoltParameters)
     {
-      if (additionalAnchorBoltParameters == null)
-      {
-        additionalAnchorBoltParameters = new List<Property>() { };
-      }
-
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
 
       var vx = Utils.ToAstVector3d(boltCS.XAxis, true);
@@ -184,6 +174,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 
     private static void PreSetValuesInListProps(List<Property> listOfAnchorBoltParameters, int nx, int ny)
     {
+      if (listOfAnchorBoltParameters == null)
+      {
+        listOfAnchorBoltParameters = new List<Property>() { };
+      }
+
       Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Nx", nx);
       Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Ny", ny);
     }

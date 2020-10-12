@@ -76,11 +76,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
                                                   [DefaultArgument("2;")]int anchorBoltConnectionType,
                                                   [DefaultArgument("null")]List<Property> additionalAnchorBoltParameters)
     {
-      if (additionalAnchorBoltParameters == null)
-      {
-        additionalAnchorBoltParameters = new List<Property>() { };
-      }
-
       var norm = Utils.ToAstVector3d(circle.Normal, true);
 			var vx = Utils.ToAstVector3d(referenceVector, true);
       var vy = norm.CrossProduct(vx);
@@ -108,11 +103,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
                                                       [DefaultArgument("2;")]int anchorBoltConnectionType,
                                                       [DefaultArgument("null")]List<Property> additionalAnchorBoltParameters)
     {
-      if (additionalAnchorBoltParameters == null)
-      {
-        additionalAnchorBoltParameters = new List<Property>() { };
-      }
-
       SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
 
       var vx = Utils.ToAstVector3d(anchorCS.XAxis, true);
@@ -126,6 +116,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 
     private static void PreSetValuesInListProps(List<Property> listOfAnchorBoltParameters, double radius)
     {
+      if (listOfAnchorBoltParameters == null)
+      {
+        listOfAnchorBoltParameters = new List<Property>() { };
+      }
+
       Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Radius", radius);
     }
 

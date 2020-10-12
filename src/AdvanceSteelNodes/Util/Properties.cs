@@ -24,14 +24,36 @@ namespace AdvanceSteel.Nodes.Util
 		}
 
     /// <summary>
-    /// Create AS Property Objects
+    /// Set AS Property Objects
     /// </summary>
     /// <param name="propertyType"> Input Property from Property Node for particular Object Type</param>
     /// <param name="propertyValue"> Input Property value for Property Type</param>
     /// <returns></returns>
-    public static Property CreateParameter(string propertyType, object propertyValue)
+    public static Property SetParameter(string propertyType, object propertyValue)
     {
-      Property selectedProperty = Utils.GetProperty(propertyType);
+      Property selectedProperty = Utils.GetProperty(propertyType, 2);
+      if (selectedProperty != null)
+      {
+        selectedProperty.PropValue = propertyValue;
+        if (!selectedProperty.hasValidValue())
+        {
+          throw new System.Exception("Property Value not Valid");
+        }
+      }
+      else
+        throw new System.Exception("No Property object found");
+      return selectedProperty;
+    }
+
+    /// <summary>
+    /// Get AS Property Objects
+    /// </summary>
+    /// <param name="propertyType"> Input Property from Property Node for particular Object Type</param>
+    /// <param name="propertyValue"> Input Property value for Property Type</param>
+    /// <returns></returns>
+    public static Property GetParameter(string propertyType, object propertyValue)
+    {
+      Property selectedProperty = Utils.GetProperty(propertyType, 3);
       if (selectedProperty != null)
       {
         selectedProperty.PropValue = propertyValue;

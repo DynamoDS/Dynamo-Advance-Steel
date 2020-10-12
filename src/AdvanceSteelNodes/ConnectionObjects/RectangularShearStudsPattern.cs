@@ -190,11 +190,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
                                                             [DefaultArgument("2;")]int shearStudConnectionType,
                                                             [DefaultArgument("null")]List<Property> additionalShearStudParameters)
 		{
-      if (additionalShearStudParameters == null)
-      {
-        additionalShearStudParameters = new List<Property>() { };
-      }
-
       var dynCorners = rectangle.Corners();
 			var astCorners = Utils.ToAstPoints(dynCorners, true);
 			var vx = astCorners[1] - astCorners[0];
@@ -245,11 +240,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
                                                             [DefaultArgument("2;")]int shearStudConnectionType,
                                                             [DefaultArgument("null")]List<Property> additionalShearStudParameters)
     {
-      if (additionalShearStudParameters == null)
-      {
-        additionalShearStudParameters = new List<Property>() { };
-      }
-
       List<SteelDbObject> tempList = new List<SteelDbObject>() { objectToConnect };
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(tempList);
 
@@ -273,6 +263,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
     private static void PreSetValuesInListProps(List<Property> listOfBoltParameters, int nx, int ny, 
                                                 double studLength, double studDiameter)
     {
+      if (listOfBoltParameters == null)
+      {
+        listOfBoltParameters = new List<Property>() { };
+      }
+
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Nx", nx, "Arranger");
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Ny", ny, "Arranger");
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Length", studLength, ".");

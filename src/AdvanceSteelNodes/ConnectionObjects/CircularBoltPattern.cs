@@ -80,11 +80,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
                                                 [DefaultArgument("2;")]int boltConnectionType,
                                                 [DefaultArgument("null")]List<Property> additionalBoltParameters)
 		{
-      if (additionalBoltParameters == null)
-      {
-        additionalBoltParameters = new List<Property>() { };
-      }
-
       var norm = Utils.ToAstVector3d(circle.Normal, true);
 			var vx = Utils.ToAstVector3d(referenceVector, true);
       var vy = norm.CrossProduct(vx);
@@ -113,11 +108,6 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
                                                     [DefaultArgument("2;")]int boltConnectionType,
                                                     [DefaultArgument("null")]List<Property> additionalBoltParameters)
 		{
-      if (additionalBoltParameters == null)
-      {
-        additionalBoltParameters = new List<Property>() { };
-      }
-
       SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
 
       var vx = Utils.ToAstVector3d(boltCS.XAxis, true);
@@ -133,6 +123,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 
     private static void PreSetCircularValuesInListProps(List<Property> listOfBoltParameters, double radius)
     {
+      if (listOfBoltParameters == null)
+      {
+        listOfBoltParameters = new List<Property>() { };
+      }
+
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Radius", radius);
     }
 
