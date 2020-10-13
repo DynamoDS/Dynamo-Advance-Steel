@@ -217,7 +217,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.TaperedBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.TaperedBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "308d0d6003714393b391621f02e8e0ed",
       "Inputs": [
         {
@@ -250,7 +250,7 @@
         {
           "Id": "6ccea40f70484c63872e46ae2f28da6f",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -269,7 +269,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel tapered beam\n\nTaperedBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector, additionalBeamParameters: Property[] = null): TaperedBeam"
+      "Description": "Create an Advance Steel tapered beam\n\nTaperedBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector, additionalBeamParameters: ASProperty[] = null): TaperedBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -765,7 +765,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.CompoundBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,string,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.CompoundBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,string,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "5d81d422463140e7957a881271998a89",
       "Inputs": [
         {
@@ -807,7 +807,7 @@
         {
           "Id": "fbf08d432c6e4a9c8e52d5be4ec19087",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -826,12 +826,12 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel compound beam\n\nCompoundBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, sectionName: string, additionalBeamParameters: Property[] = null): CompoundBeam"
+      "Description": "Create an Advance Steel compound beam\n\nCompoundBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, sectionName: string, additionalBeamParameters: ASProperty[] = null): CompoundBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.CompoundBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,string,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.CompoundBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,string,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "ad2852b525df4bc3a5d5522b274e684a",
       "Inputs": [
         {
@@ -873,7 +873,7 @@
         {
           "Id": "4a4a646a369848d0947c7e37300d1bc6",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -892,12 +892,12 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel compound beam\n\nCompoundBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, sectionName: string, additionalBeamParameters: Property[] = null): CompoundBeam"
+      "Description": "Create an Advance Steel compound beam\n\nCompoundBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, sectionName: string, additionalBeamParameters: ASProperty[] = null): CompoundBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.CompoundBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,string,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.CompoundBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,string,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "fc4cc70dbe6b44db827292a6fef59707",
       "Inputs": [
         {
@@ -939,7 +939,7 @@
         {
           "Id": "3b76f2e3c28842ddbc68f309bd2eb44d",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -958,7 +958,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel compound beam\n\nCompoundBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, sectionName: string, additionalBeamParameters: Property[] = null): CompoundBeam"
+      "Description": "Create an Advance Steel compound beam\n\nCompoundBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, sectionName: string, additionalBeamParameters: ASProperty[] = null): CompoundBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -1041,7 +1041,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "84e3e99f010f46b7be822924e3623d39",
       "Inputs": [
         {
@@ -1083,7 +1083,7 @@
         {
           "Id": "caedae747ff64f20bc231595fe3fe282",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1102,12 +1102,12 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel bent beam between two points and a point on arc\n\nBentBeam.ByStartPointEndPoint (start: Point, end: Point, ptOnArc: Point, orientation: Vector, additionalBeamParameters: Property[] = null): BentBeam"
+      "Description": "Create an Advance Steel bent beam between two points and a point on arc\n\nBentBeam.ByStartPointEndPoint (start: Point, end: Point, ptOnArc: Point, orientation: Vector, additionalBeamParameters: ASProperty[] = null): BentBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "dddb6a00109a488f8c62fb1f761e0f1f",
       "Inputs": [
         {
@@ -1140,7 +1140,7 @@
         {
           "Id": "feba900f4fe84fb492c9d209d5a1116b",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1159,12 +1159,12 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: ASProperty[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "125006f121d14f079989083d32124419",
       "Inputs": [
         {
@@ -1215,7 +1215,7 @@
         {
           "Id": "7df897503d8748509534f4b14f26897e",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1234,12 +1234,12 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: ASProperty[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointDirectionLength@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Vector,double,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointDirectionLength@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Vector,double,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "b5981b9f36bf4e4193db5532b0e7fd73",
       "Inputs": [
         {
@@ -1281,7 +1281,7 @@
         {
           "Id": "133c8e06b44e4e05b3d8353eab9d343d",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1300,7 +1300,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam from a Point, direction and length\n\nStraightBeam.ByStartPointDirectionLength (start: Point, direction: Vector, orientation: Vector, length: double = 1000, additionalBeamParameters: Property[] = null): StraightBeam"
+      "Description": "Create an Advance Steel straight beam from a Point, direction and length\n\nStraightBeam.ByStartPointDirectionLength (start: Point, direction: Vector, orientation: Vector, length: double = 1000, additionalBeamParameters: ASProperty[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -1476,7 +1476,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointDirectionLength@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Vector,double,int,bool,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointDirectionLength@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Vector,double,int,bool,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "dbfd26b910c74db9a8e8295d6940d093",
       "Inputs": [
         {
@@ -1536,7 +1536,7 @@
         {
           "Id": "4300bbe29a2c43d8a91e9708e0bd1c8a",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1555,7 +1555,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam from a Point, direction and length\n\nStraightBeam.ByStartPointDirectionLength (start: Point, direction: Vector, orientation: Vector, length: double, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): StraightBeam"
+      "Description": "Create an Advance Steel straight beam from a Point, direction and length\n\nStraightBeam.ByStartPointDirectionLength (start: Point, direction: Vector, orientation: Vector, length: double, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: ASProperty[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -1599,7 +1599,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByLine@Autodesk.DesignScript.Geometry.Line,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByLine@Autodesk.DesignScript.Geometry.Line,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "e7551404687f4678be65177e9d59dc0d",
       "Inputs": [
         {
@@ -1641,7 +1641,7 @@
         {
           "Id": "261727336a394ad08c4637c3a6289b94",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1660,7 +1660,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points from a Dynamo Line\n\nStraightBeam.ByLine (line: Line, orientation: Vector = Autodesk.DesignScript.Geometry.Vector.ZAxis(), refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points from a Dynamo Line\n\nStraightBeam.ByLine (line: Line, orientation: Vector = Autodesk.DesignScript.Geometry.Vector.ZAxis(), refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: ASProperty[] = null): StraightBeam"
     },
     {
       "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
@@ -1709,84 +1709,6 @@
       ],
       "Replication": "Disabled",
       "Description": "Makes a new list out of the given inputs"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Properties.SetParameter@string,var",
-      "Id": "600a5309c82d499fa3e2e1b8735d1c0a",
-      "Inputs": [
-        {
-          "Id": "bfdcb48f0ab24863816fc125ebb606bf",
-          "Name": "propertyType",
-          "Description": "Input Property from Property Node for particular Object Type\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "0a9979478b394046994530a5a7e09b81",
-          "Name": "propertyValue",
-          "Description": "Input Property value for Property Type\n\nvar",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "444c53449d794ca19a41850146cdb0ba",
-          "Name": "Property",
-          "Description": "Property",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Set AS Property Objects\n\nProperties.SetParameter (propertyType: string, propertyValue: var): Property"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Properties.SetParameter@string,var",
-      "Id": "bc92d8ef7b23405ca42cec3507ec4566",
-      "Inputs": [
-        {
-          "Id": "ee10cf5875db4bdb90c981dac8a248c0",
-          "Name": "propertyType",
-          "Description": "Input Property from Property Node for particular Object Type\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "0f45a3e63e074e55aef5620f9d7c88bc",
-          "Name": "propertyValue",
-          "Description": "Input Property value for Property Type\n\nvar",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "7d1fcb8153954ff384ed13ba52152fe7",
-          "Name": "Property",
-          "Description": "Property",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Set AS Property Objects\n\nProperties.SetParameter (propertyType: string, propertyValue: var): Property"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -1860,45 +1782,6 @@
       "Description": "Select Advance Steel Straight Beam Property Type to Set"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Properties.SetParameter@string,var",
-      "Id": "da86ccca247241808c6d7cd1ec66ee06",
-      "Inputs": [
-        {
-          "Id": "ccda1a479a0e4cd0bee28e2cddf83fee",
-          "Name": "propertyType",
-          "Description": "Input Property from Property Node for particular Object Type\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "75a060336f3f418691f18df35515e07c",
-          "Name": "propertyValue",
-          "Description": "Input Property value for Property Type\n\nvar",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "06633e97bc9b4817b2826e07eef3f9e8",
-          "Name": "Property",
-          "Description": "Property",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Set AS Property Objects\n\nProperties.SetParameter (propertyType: string, propertyValue: var): Property"
-    },
-    {
       "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesStraightBeam, AdvanceSteelNodesUI",
       "SelectedIndex": 37,
       "SelectedString": "Beam Profile Name",
@@ -1950,45 +1833,6 @@
       "Description": "Makes a new list out of the given inputs"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Properties.SetParameter@string,var",
-      "Id": "52724c0b473b48d9beb948038a34933f",
-      "Inputs": [
-        {
-          "Id": "63250e9f32814dc386ab8d41b5d0390a",
-          "Name": "propertyType",
-          "Description": "Input Property from Property Node for particular Object Type\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "77107a7df8d449f18a27941111b84b76",
-          "Name": "propertyValue",
-          "Description": "Input Property value for Property Type\n\nvar",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "c71c08115a5f44599601c64056e54206",
-          "Name": "Property",
-          "Description": "Property",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Set AS Property Objects\n\nProperties.SetParameter (propertyType: string, propertyValue: var): Property"
-    },
-    {
       "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesStraightBeam, AdvanceSteelNodesUI",
       "SelectedIndex": 29,
       "SelectedString": "Beam Material",
@@ -2008,6 +1852,162 @@
       ],
       "Replication": "Disabled",
       "Description": "Select Advance Steel Straight Beam Property Type to Set"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.ByNameAndValue@string,var",
+      "Id": "d5601bec3ad642e6ac0964cd10bb5108",
+      "Inputs": [
+        {
+          "Id": "83d6236e3f7847b29f612e15d801aae3",
+          "Name": "propertyType",
+          "Description": "Input Property from Property Node for particular Object Type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c78ceb1221414a299a9a9bcab7fc77a0",
+          "Name": "propertyValue",
+          "Description": "Input Property value for Property Type\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "02ebcde55f584524b40db276ca6defa3",
+          "Name": "ASProperty",
+          "Description": "ASProperty",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Build AS Property - Writeable or Readable\n\nProperty.ByNameAndValue (propertyType: string, propertyValue: var): ASProperty"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.ByNameAndValue@string,var",
+      "Id": "8a2b6a5742b047b39530f491fbc286d3",
+      "Inputs": [
+        {
+          "Id": "64de134986d6458ba66f9a1db2ccccc4",
+          "Name": "propertyType",
+          "Description": "Input Property from Property Node for particular Object Type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "91a7c6e1e2d94212bd3c7be756ee216d",
+          "Name": "propertyValue",
+          "Description": "Input Property value for Property Type\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ebb1f1390d2c4a079d87e55a5025461c",
+          "Name": "ASProperty",
+          "Description": "ASProperty",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Build AS Property - Writeable or Readable\n\nProperty.ByNameAndValue (propertyType: string, propertyValue: var): ASProperty"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.ByNameAndValue@string,var",
+      "Id": "0e0586db974546e8a24fcfec27ffee16",
+      "Inputs": [
+        {
+          "Id": "ace84923e6714f16afea25926880cb64",
+          "Name": "propertyType",
+          "Description": "Input Property from Property Node for particular Object Type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c11cde0e93aa4cdb987c0dad33e33da4",
+          "Name": "propertyValue",
+          "Description": "Input Property value for Property Type\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d27f0092d2894d268517e572edd61247",
+          "Name": "ASProperty",
+          "Description": "ASProperty",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Build AS Property - Writeable or Readable\n\nProperty.ByNameAndValue (propertyType: string, propertyValue: var): ASProperty"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.ByNameAndValue@string,var",
+      "Id": "4446a2148eaa4eccbf6d83d2f2cabc17",
+      "Inputs": [
+        {
+          "Id": "b78367aad1314bfdac8e0847a0f1619e",
+          "Name": "propertyType",
+          "Description": "Input Property from Property Node for particular Object Type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "78759de9dfd842519ee7ddb33af7bef3",
+          "Name": "propertyValue",
+          "Description": "Input Property value for Property Type\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b26e500cafd1453eb5271264e1fb05fb",
+          "Name": "ASProperty",
+          "Description": "ASProperty",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Build AS Property - Writeable or Readable\n\nProperty.ByNameAndValue (propertyType: string, propertyValue: var): ASProperty"
     }
   ],
   "Connectors": [
@@ -2168,8 +2168,8 @@
     },
     {
       "Start": "39eb1b07f8714c13844d033c4c6fa560",
-      "End": "75a060336f3f418691f18df35515e07c",
-      "Id": "2b46d5bdc6554a41a04025fbcbcaca50"
+      "End": "78759de9dfd842519ee7ddb33af7bef3",
+      "Id": "ff83cdaff43d4e77bc349d5e12b144a1"
     },
     {
       "Start": "1ad262c477e6498c9e591595dfb52682",
@@ -2198,8 +2198,8 @@
     },
     {
       "Start": "8a814c6e32c54fd7b8ca977a2134e2a6",
-      "End": "0f45a3e63e074e55aef5620f9d7c88bc",
-      "Id": "651bcd444ff74dd2adaf8ff2b6ca2791"
+      "End": "c78ceb1221414a299a9a9bcab7fc77a0",
+      "Id": "7ca1c2aaa3a44f56a374d1d1104a00d1"
     },
     {
       "Start": "9d2644442df34b9eac02b21bcd646951",
@@ -2267,44 +2267,29 @@
       "Id": "00f974f48d694ca09934f67444b5a4fe"
     },
     {
-      "Start": "444c53449d794ca19a41850146cdb0ba",
-      "End": "3e07f95b6fd0470481d65409e2f26763",
-      "Id": "5b4cc01ada514cd6a94f3843bce3262f"
-    },
-    {
-      "Start": "7d1fcb8153954ff384ed13ba52152fe7",
-      "End": "ca7c3ef84ec24696804da0bcd018bf26",
-      "Id": "cd9436823c3d472e87a78b1d826b8b1d"
-    },
-    {
       "Start": "36466131a1cf461cad422f4935334534",
-      "End": "0a9979478b394046994530a5a7e09b81",
-      "Id": "f434796944ee4514920cdf1ae4f255c9"
+      "End": "91a7c6e1e2d94212bd3c7be756ee216d",
+      "Id": "10c28b153758424c956d2e5b02910601"
     },
     {
       "Start": "465114b91b4f4d50a0a992ac3e2aa632",
-      "End": "77107a7df8d449f18a27941111b84b76",
-      "Id": "77e44505fc3a467ba938341364b84e05"
+      "End": "c11cde0e93aa4cdb987c0dad33e33da4",
+      "Id": "9bdceda4a218476fbee5962b076f6f18"
     },
     {
       "Start": "5e640d7cc2444617ac1a0ed724e5ffc1",
-      "End": "bfdcb48f0ab24863816fc125ebb606bf",
-      "Id": "605214732cd84327bd52fabed9685627"
+      "End": "64de134986d6458ba66f9a1db2ccccc4",
+      "Id": "3cac44219fb849f3992e0415acaa9acf"
     },
     {
       "Start": "56a79331f2354ad597f1cc09d3d37937",
-      "End": "ee10cf5875db4bdb90c981dac8a248c0",
-      "Id": "1d1600a22d9b4bcc8d0bce5fda16e99c"
-    },
-    {
-      "Start": "06633e97bc9b4817b2826e07eef3f9e8",
-      "End": "71bef30b732b44fab8b587437946a48b",
-      "Id": "d1ee5d410425418190c85ab9befc2213"
+      "End": "83d6236e3f7847b29f612e15d801aae3",
+      "Id": "2ad017adf9e2471984110930e00181b3"
     },
     {
       "Start": "73117abe5c5742fe97d0cf18b026f0cc",
-      "End": "ccda1a479a0e4cd0bee28e2cddf83fee",
-      "Id": "13f00a78d0e949f9a18c1ed6d77b5e7d"
+      "End": "b78367aad1314bfdac8e0847a0f1619e",
+      "Id": "4cf5b5b44cfc403d9f9f9e4da67a21c4"
     },
     {
       "Start": "2a57ea74a3b64aef895acd127be9383c",
@@ -2312,14 +2297,29 @@
       "Id": "8fdd300bbd774f22874467ffdf3b6da8"
     },
     {
-      "Start": "c71c08115a5f44599601c64056e54206",
-      "End": "0c5a792873754c1eb6961b88a1b64fe2",
-      "Id": "5df73e5e672c47fbb99a25af287af527"
+      "Start": "3ac8a088f05b4d30aac606d42281c105",
+      "End": "ace84923e6714f16afea25926880cb64",
+      "Id": "19e9387528134e74b02daba8a38190de"
     },
     {
-      "Start": "3ac8a088f05b4d30aac606d42281c105",
-      "End": "63250e9f32814dc386ab8d41b5d0390a",
-      "Id": "2883694f60cb419ea6c7555f5ef36345"
+      "Start": "02ebcde55f584524b40db276ca6defa3",
+      "End": "ca7c3ef84ec24696804da0bcd018bf26",
+      "Id": "60d7bf7351394602be41fe24afda8559"
+    },
+    {
+      "Start": "ebb1f1390d2c4a079d87e55a5025461c",
+      "End": "3e07f95b6fd0470481d65409e2f26763",
+      "Id": "230a14b5d35d4c91b751ab8720da57d1"
+    },
+    {
+      "Start": "d27f0092d2894d268517e572edd61247",
+      "End": "0c5a792873754c1eb6961b88a1b64fe2",
+      "Id": "e29df021e6e74106b61f98d281f0520a"
+    },
+    {
+      "Start": "b26e500cafd1453eb5271264e1fb05fb",
+      "End": "71bef30b732b44fab8b587437946a48b",
+      "Id": "602d4155dd4445ebacac1dc2209c8dd6"
     }
   ],
   "Dependencies": [],
@@ -2654,8 +2654,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -3021.94922001561,
-        "Y": 1495.5547498966821
+        "X": -3044.5826236316643,
+        "Y": 1444.3317838182436
       },
       {
         "ShowGeometry": true,
@@ -2719,26 +2719,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "Properties.SetParameter",
-        "Id": "600a5309c82d499fa3e2e1b8735d1c0a",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -2801.4721102837257,
-        "Y": 1666.829078086228
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Properties.SetParameter",
-        "Id": "bc92d8ef7b23405ca42cec3507ec4566",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -2672.8614740279386,
-        "Y": 1464.990003549191
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Code Block",
         "Id": "788855c9807f4cb8b458c2d11bfa3fde",
         "IsSetAsInput": false,
@@ -2769,16 +2749,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "Properties.SetParameter",
-        "Id": "da86ccca247241808c6d7cd1ec66ee06",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -411.68695163894586,
-        "Y": 2830.3991118998192
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Set Straight Beam Properties",
         "Id": "74dd9838a6cd42b7891a3bb9e2d660c0",
         "IsSetAsInput": false,
@@ -2799,23 +2769,53 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "Properties.SetParameter",
-        "Id": "52724c0b473b48d9beb948038a34933f",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -2793.602973303673,
-        "Y": 1827.7162954371486
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Set Straight Beam Properties",
         "Id": "496dc85c320c4b8daa83187e1da14ca0",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -3306.9952154975017,
-        "Y": 1830.9831431753259
+        "X": -3232.6791036099203,
+        "Y": 1855.30477979308
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "d5601bec3ad642e6ac0964cd10bb5108",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -2706.0225217960633,
+        "Y": 1311.3106322722572
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "8a2b6a5742b047b39530f491fbc286d3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -2668.8842684246556,
+        "Y": 1501.2609435529821
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "0e0586db974546e8a24fcfec27ffee16",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -2689.7102264517493,
+        "Y": 1735.9703202023779
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "4446a2148eaa4eccbf6d83d2f2cabc17",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -441.93120298381825,
+        "Y": 2793.1987715400392
       }
     ],
     "Annotations": [
@@ -3002,22 +3002,23 @@
         "Title": "SET",
         "Nodes": [
           "19da038da3e641f6b0c3c301a369e36e",
-          "bc92d8ef7b23405ca42cec3507ec4566",
           "a6038595db754fc2b3ccd2e65630e895",
-          "600a5309c82d499fa3e2e1b8735d1c0a",
           "e37872ff3aaf4874992b7e79e1e938b4",
           "788855c9807f4cb8b458c2d11bfa3fde",
           "abf7d15103f74e37b09b6687ece61610",
           "17766c2c8ce64df08ef296d0d804b2ab",
-          "52724c0b473b48d9beb948038a34933f",
-          "29a0efc30e574596a7847404e61779a1"
+          "29a0efc30e574596a7847404e61779a1",
+          "496dc85c320c4b8daa83187e1da14ca0",
+          "0e0586db974546e8a24fcfec27ffee16",
+          "8a2b6a5742b047b39530f491fbc286d3",
+          "d5601bec3ad642e6ac0964cd10bb5108"
         ],
         "Left": -3515.4130276628889,
-        "Top": 1273.7152507402518,
+        "Top": 1258.3106322722572,
         "Width": 1454.1442489613505,
-        "Height": 673.00104469689677,
+        "Height": 689.99414752082271,
         "FontSize": 36.0,
-        "InitialTop": 1326.7152507402518,
+        "InitialTop": 1311.3106322722572,
         "InitialHeight": 646.00104469689677,
         "TextblockHeight": 43.0,
         "Background": "#FF71C6A8"
@@ -3316,8 +3317,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 2836.9031528066816,
-    "Y": -990.45697882593709,
-    "Zoom": 0.81438431127771482
+    "X": 996.06489517136674,
+    "Y": 177.93404882494872,
+    "Zoom": 0.27479930604463104
   }
 }

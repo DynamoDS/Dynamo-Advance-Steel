@@ -327,6 +327,11 @@ namespace AdvanceSteel.Nodes
     {
       return BuildShearStudPropertyList(listFilter);
     }
+    
+    public static Dictionary<string, ASProperty> GetPlatePropertyList(int listFilter)
+    {
+      return BuildGenericPlatePropertyList(listFilter);
+    }
 
     public static Dictionary<string, ASProperty> GetStraighBeamPropertyList(int listFilter)
     {
@@ -374,6 +379,7 @@ namespace AdvanceSteel.Nodes
                                                 BuildTaperedBeamPropertyList(listFilter)).Union(
                                                 BuildBentBeamPropertyList(listFilter)).Union(
                                                 BuildCompundBaseBeamPropertyList(listFilter)).Union(
+                                                BuildGenericPlatePropertyList(listFilter)).Union(
                                                 BuildBoltPropertyList(listFilter)).Union(
                                                 BuildAnchorBoltPropertyList(listFilter)).Union(
                                                 BuildShearStudPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
@@ -400,8 +406,6 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Bolt X Spacing", new ASProperty("Dx", typeof(double)));
       dictProps.Add("Bolt Y Spacing", new ASProperty("Dy", typeof(double)));
       dictProps.Add("Bolt Pattern Radius", new ASProperty("Radius", typeof(double)));
-      dictProps.Add("Bolt Fake Set", new ASProperty("BBBB", typeof(double), ".", 2));
-      dictProps.Add("Bolt Fake Get", new ASProperty("AAA", typeof(double), ".", 3));
       dictProps.Add("Bolt Length Addition", new ASProperty("BindingLengthAddition", typeof(double)));
       dictProps.Add("Bolt Inverted", new ASProperty("IsInverted", typeof(bool)));
 
@@ -422,11 +426,8 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("X Anchor Count", new ASProperty("Nx", typeof(int)));
       dictProps.Add("Y Anchor Count", new ASProperty("Ny", typeof(int)));
       dictProps.Add("Anchor X Spacing", new ASProperty("Dx", typeof(double)));
-      dictProps.Add("Anchor Fake Set", new ASProperty("as", typeof(double), ".", 2));
-      dictProps.Add("Anchor Fake Get", new ASProperty("as", typeof(double), ".", 3));
       dictProps.Add("Anchor Y Spacing", new ASProperty("Dy", typeof(double)));
       dictProps.Add("Anchor Pattern Radius", new ASProperty("Radius", typeof(double))); 
-      //dictProps.Add("Anchor Orientation", new ASProperty("OrientationType", typeof(int))); 
       dictProps.Add("Anchor Inverted", new ASProperty("IsInverted", typeof(bool)));
 
       return filterDictionary(dictProps, listFilter);
@@ -444,8 +445,6 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("No of Shear Studs Circle", new ASProperty("NumberOfElements", typeof(int), "Arranger"));
       dictProps.Add("Shear Stud Radius", new ASProperty("Radius", typeof(double), "Arranger")); 
       dictProps.Add("X Stud Count", new ASProperty("Nx", typeof(int), "Arranger"));
-      dictProps.Add("Stud Fake Set", new ASProperty("BBBB", typeof(double), ".", 2));
-      dictProps.Add("Stud Fake Get", new ASProperty("BBBB", typeof(double), ".", 3));
       dictProps.Add("Y Stud Count", new ASProperty("Ny", typeof(int), "Arranger"));
       dictProps.Add("Stud X Spacing", new ASProperty("Dx", typeof(double), "Arranger"));
       dictProps.Add("Stud Y Spacing", new ASProperty("Dy", typeof(double), "Arranger"));
@@ -463,10 +462,10 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Beam Approval Status Code", new ASProperty("ApprovalStatusCode", typeof(string)));
       dictProps.Add("Beam Assembly", new ASProperty("Assembly", typeof(string)));
       dictProps.Add("Beam Assembly Used For Numbering", new ASProperty("AssemblyUsedForNumbering", typeof(int)));
-      dictProps.Add("Beam Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", 3));
+      dictProps.Add("Beam Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
       dictProps.Add("Beam Carrier", new ASProperty("Carrier", typeof(string)));
       dictProps.Add("Beam Coating", new ASProperty("Coating", typeof(string))); 
-      dictProps.Add("Beam Coating Description", new ASProperty("CoatingDescription", typeof(string), ".", 3));
+      dictProps.Add("Beam Coating Description", new ASProperty("CoatingDescription", typeof(string), ".", ePropertyDataOperator.Get));
       dictProps.Add("Beam Coating Used For Numbering", new ASProperty("CoatingUsedForNumbering", typeof(int))); 
       dictProps.Add("Beam Delivery Date", new ASProperty("DeliveryDate", typeof(string)));
       dictProps.Add("Beam Denotation Used For Numbering", new ASProperty("DennotationUsedForNumbering", typeof(int))); 
@@ -475,13 +474,13 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Beam Explicit Quantity", new ASProperty("ExplicitQuantity", typeof(int))); 
       dictProps.Add("Beam Fabrication Station", new ASProperty("FabricationStation", typeof(string)));
       dictProps.Add("Beam Fabrication Station UsedF or Numbering", new ASProperty("FabricationStationUsedForNumbering", typeof(bool)));
-      dictProps.Add("Beam Handle", new ASProperty("Handle", typeof(string),".", 3));
+      dictProps.Add("Beam Handle", new ASProperty("Handle", typeof(string),".", ePropertyDataOperator.Get));
       dictProps.Add("Beam Heat Number", new ASProperty("HeatNumber", typeof(string)));
       dictProps.Add("Beam Heat Number Used For Numbering", new ASProperty("HeatNumberUsedForNumbering", typeof(bool)));
       dictProps.Add("Beam Holes Used For Numbering", new ASProperty("HolesUsedForNumbering", typeof(int))); 
       dictProps.Add("Beam Set IsMainPart Flag", new ASProperty("IsMainPart", typeof(bool), "Z_PostWriteDB"));
-      dictProps.Add("Beam Get IsAttachedPart Flag", new ASProperty("IsAttachedPart", typeof(bool), ".", 3));
-      dictProps.Add("Beam Get IsCrossSectionMirrored Flag", new ASProperty("IsCrossSectionMirrored", typeof(bool), ".", 3));
+      dictProps.Add("Beam Get IsAttachedPart Flag", new ASProperty("IsAttachedPart", typeof(bool), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Get IsCrossSectionMirrored Flag", new ASProperty("IsCrossSectionMirrored", typeof(bool), ".", ePropertyDataOperator.Get));
       dictProps.Add("Beam ItemNumber", new ASProperty("ItemNumber", typeof(string)));
       dictProps.Add("Beam ItemNumber Used For Numbering", new ASProperty("ItemNumberUsedForNumbering", typeof(int))); 
       dictProps.Add("Beam Layer", new ASProperty("Layer", typeof(string)));
@@ -492,41 +491,112 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Beam MainPart Used For Collision Check", new ASProperty("MainPartUsedForCollisionCheck", typeof(int))); 
       dictProps.Add("Beam MainPart Used For Numbering", new ASProperty("MainPartUsedForNumbering", typeof(int))); 
       dictProps.Add("Beam Material", new ASProperty("Material", typeof(string)));
-      dictProps.Add("Beam Material Description", new ASProperty("MaterialDescription", typeof(string), ".", 3));
+      dictProps.Add("Beam Material Description", new ASProperty("MaterialDescription", typeof(string), ".", ePropertyDataOperator.Get));
       dictProps.Add("Beam Material Used For Numbering", new ASProperty("MaterialUsedForNumbering", typeof(int))); 
       dictProps.Add("Beam Note", new ASProperty("Note", typeof(string)));
       dictProps.Add("Beam Note Used For Numbering", new ASProperty("NoteUsedForNumbering", typeof(int))); 
-      dictProps.Add("Beam Number Of Holes", new ASProperty("NumberOfHoles", typeof(int), ".", 3)); 
+      dictProps.Add("Beam Number Of Holes", new ASProperty("NumberOfHoles", typeof(int), ".", ePropertyDataOperator.Get)); 
       dictProps.Add("Beam PONumber", new ASProperty("PONumber", typeof(string)));
       dictProps.Add("Beam PONumber Used For Numbering", new ASProperty("PONumberUsedForNumbering", typeof(bool)));
       dictProps.Add("Beam Preliminary Part Number", new ASProperty("PreliminaryPartNumber", typeof(string))); 
-      dictProps.Add("Beam Preliminary Part Position Number", new ASProperty("PreliminaryPartPositionNumber", typeof(string), ".", 3)); 
+      dictProps.Add("Beam Preliminary Part Position Number", new ASProperty("PreliminaryPartPositionNumber", typeof(string), ".", ePropertyDataOperator.Get)); 
       dictProps.Add("Beam Preliminary Part Prefix", new ASProperty("PreliminaryPartPrefix", typeof(string)));
       dictProps.Add("Beam Profile Name", new ASProperty("ProfName", typeof(string)));
-      dictProps.Add("Beam Profile Section Type", new ASProperty("ProfSectionType", typeof(string), ".", 3));
-      dictProps.Add("Beam Profile Section name", new ASProperty("ProfSectionName", typeof(string), ".", 3));
+      dictProps.Add("Beam Profile Section Type", new ASProperty("ProfSectionType", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Profile Section name", new ASProperty("ProfSectionName", typeof(string), ".", ePropertyDataOperator.Get));
       dictProps.Add("Beam Requisition Number", new ASProperty("RequisitionNumber", typeof(string)));
       dictProps.Add("Beam Requisition Number Used For Numbering", new ASProperty("RequisitionNumberUsedForNumbering", typeof(bool)));
       dictProps.Add("Beam Model Role", new ASProperty("Role", typeof(string)));
       dictProps.Add("Beam Model Role Description", new ASProperty("RoleDescription", typeof(string)));
       dictProps.Add("Beam Role Used For Numbering", new ASProperty("RoleUsedForNumbering", typeof(int)));
-      dictProps.Add("Beam Runname", new ASProperty("Runname", typeof(string), ".", 3));
+      dictProps.Add("Beam Runname", new ASProperty("Runname", typeof(string), ".", ePropertyDataOperator.Get));
       dictProps.Add("Beam Shipped Date", new ASProperty("ShippedDate", typeof(string)));
-      dictProps.Add("Beam ShrinkValue", new ASProperty("ShrinkValue", typeof(double), ".", 3));
+      dictProps.Add("Beam ShrinkValue", new ASProperty("ShrinkValue", typeof(double), ".", ePropertyDataOperator.Get));
       dictProps.Add("Beam Single Part Number", new ASProperty("SinglePartNumber", typeof(string)));
       dictProps.Add("Beam Single Part Prefix", new ASProperty("SinglePartPrefix", typeof(string)));
       dictProps.Add("Beam Single Part Used For BOM", new ASProperty("SinglePartUsedForBOM", typeof(int))); 
       dictProps.Add("Beam Single Part Used For CollisionCheck", new ASProperty("SinglePartUsedForCollisionCheck", typeof(int))); 
       dictProps.Add("Beam Single Part Used For Numbering", new ASProperty("SinglePartUsedForNumbering", typeof(int)));
-      dictProps.Add("Beam Specific Gravity", new ASProperty("SpecificGravity", typeof(double), ".", 3)); 
+      dictProps.Add("Beam Specific Gravity", new ASProperty("SpecificGravity", typeof(double), ".", ePropertyDataOperator.Get)); 
       dictProps.Add("Beam Structural Member", new ASProperty("StructuralMember", typeof(int)));
-      dictProps.Add("Beam System Line Length", new ASProperty("SysLength", typeof(double), ".", 3));
+      dictProps.Add("Beam System Line Length", new ASProperty("SysLength", typeof(double), ".", ePropertyDataOperator.Get));
       dictProps.Add("Beam Supplier", new ASProperty("Supplier", typeof(string)));
       dictProps.Add("Beam SupplierUsedForNumbering", new ASProperty("SupplierUsedForNumbering", typeof(bool)));
       dictProps.Add("Beam Unwind / Unfolder", new ASProperty("Unwind", typeof(bool)));
       dictProps.Add("Beam UnwindStartFactor", new ASProperty("UnwindStartFactor", typeof(double)));
-      dictProps.Add("Beam Volume", new ASProperty("Volume", typeof(double), ".", 3));
+      dictProps.Add("Beam Volume", new ASProperty("Volume", typeof(double), ".", ePropertyDataOperator.Get));
       dictProps.Add("Change Beam Display Mode", new ASProperty("ReprMode", typeof(int), "Z_PostWriteDB"));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildGenericPlatePropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Plate Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Plate Approval Comment", new ASProperty("ApprovalComment", typeof(string)));
+      dictProps.Add("Plate Approval Status Code", new ASProperty("ApprovalStatusCode", typeof(string)));
+      dictProps.Add("Plate Assembly", new ASProperty("Assembly", typeof(string)));
+      dictProps.Add("Plate Assembly Used For Numbering", new ASProperty("AssemblyUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Carrier", new ASProperty("Carrier", typeof(string)));
+      dictProps.Add("Plate Coating", new ASProperty("Coating", typeof(string)));
+      dictProps.Add("Plate Coating Description", new ASProperty("CoatingDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Coating Used For Numbering", new ASProperty("CoatingUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Delivery Date", new ASProperty("DeliveryDate", typeof(string)));
+      dictProps.Add("Plate Denotation Used For Numbering", new ASProperty("DennotationUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Denotation", new ASProperty("Denotation", typeof(string)));
+      dictProps.Add("Plate Explicit Quantity", new ASProperty("ExplicitQuantity", typeof(int)));
+      dictProps.Add("Plate Fabrication Station", new ASProperty("FabricationStation", typeof(string)));
+      dictProps.Add("Plate Fabrication Station UsedF or Numbering", new ASProperty("FabricationStationUsedForNumbering", typeof(bool)));
+      dictProps.Add("Plate Handle", new ASProperty("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Heat Number", new ASProperty("HeatNumber", typeof(string)));
+      dictProps.Add("Plate Heat Number Used For Numbering", new ASProperty("HeatNumberUsedForNumbering", typeof(bool)));
+      dictProps.Add("Plate Holes Used For Numbering", new ASProperty("HolesUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Set IsAttached Flag", new ASProperty("IsAttachedPart", typeof(bool), "Z_PostWriteDB"));
+      dictProps.Add("Plate Set IsMainPart Flag", new ASProperty("IsMainPart", typeof(bool), "Z_PostWriteDB"));
+      dictProps.Add("Plate ItemNumber", new ASProperty("ItemNumber", typeof(string)));
+      dictProps.Add("Plate ItemNumber Used For Numbering", new ASProperty("ItemNumberUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Layer", new ASProperty("Layer", typeof(string)));
+      dictProps.Add("Plate Length", new ASProperty("Length", typeof(double)));
+      dictProps.Add("Plate Load Number", new ASProperty("LoadNumber", typeof(string)));
+      dictProps.Add("Plate MainPart Number", new ASProperty("MainPartNumber", typeof(string)));
+      dictProps.Add("Plate MainPart Number Prefix", new ASProperty("MainPartPrefix", typeof(string)));
+      dictProps.Add("Plate MainPart Used For BOM", new ASProperty("MainPartUsedForBOM", typeof(int)));
+      dictProps.Add("Plate MainPart Used For Collision Check", new ASProperty("MainPartUsedForCollisionCheck", typeof(int)));
+      dictProps.Add("Plate MainPart Used For Numbering", new ASProperty("MainPartUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Material", new ASProperty("Material", typeof(string)));
+      dictProps.Add("Plate Material Description", new ASProperty("MaterialDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Material Used For Numbering", new ASProperty("MaterialUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Note", new ASProperty("Note", typeof(string)));
+      dictProps.Add("Plate Note Used For Numbering", new ASProperty("NoteUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Number Of Holes", new ASProperty("NumberOfHoles", typeof(int), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate PONumber", new ASProperty("PONumber", typeof(string)));
+      dictProps.Add("Plate PONumber Used For Numbering", new ASProperty("PONumberUsedForNumbering", typeof(bool)));
+      dictProps.Add("Plate Face Alignment", new ASProperty("Portioning", typeof(double)));
+      dictProps.Add("Plate Preliminary Part Number", new ASProperty("PreliminaryPartNumber", typeof(string)));
+      dictProps.Add("Plate Preliminary Part Position Number", new ASProperty("PreliminaryPartPositionNumber", typeof(string)));
+      dictProps.Add("Plate Preliminary Part Prefix", new ASProperty("PreliminaryPartPrefix", typeof(string)));
+      dictProps.Add("Plate Radius Increment", new ASProperty("RadIncrement", typeof(double)));
+      dictProps.Add("Plate Radius", new ASProperty("Radius", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Requisition Number", new ASProperty("RequisitionNumber", typeof(string)));
+      dictProps.Add("Plate Requisition Number Used For Numbering", new ASProperty("RequisitionNumberUsedForNumbering", typeof(bool)));
+      dictProps.Add("Plate Model Role", new ASProperty("Role", typeof(string)));
+      dictProps.Add("Plate Model Role Description", new ASProperty("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Role Used For Numbering", new ASProperty("RoleUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Shipped Date", new ASProperty("ShippedDate", typeof(string)));
+      dictProps.Add("Plate Single Part Number", new ASProperty("SinglePartNumber", typeof(string)));
+      dictProps.Add("Plate Single Part Prefix", new ASProperty("SinglePartPrefix", typeof(string)));
+      dictProps.Add("Plate Single Part Used For BOM", new ASProperty("SinglePartUsedForBOM", typeof(int)));
+      dictProps.Add("Plate Single Part Used For CollisionCheck", new ASProperty("SinglePartUsedForCollisionCheck", typeof(int)));
+      dictProps.Add("Plate Single Part Used For Numbering", new ASProperty("SinglePartUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate SpecificGravity", new ASProperty("SpecificGravity", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Supplier", new ASProperty("Supplier", typeof(string)));
+      dictProps.Add("Plate SupplierUsedForNumbering", new ASProperty("SupplierUsedForNumbering", typeof(bool)));
+      dictProps.Add("Plate Thickness", new ASProperty("Thickness", typeof(double)));
+      dictProps.Add("Plate Volume", new ASProperty("Volume", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Width", new ASProperty("Width", typeof(double)));
+      dictProps.Add("Change Plate Display Mode", new ASProperty("ReprMode", typeof(int), "Z_PostWriteDB"));
 
       return filterDictionary(dictProps, listFilter);
     }
@@ -560,8 +630,8 @@ namespace AdvanceSteel.Nodes
       Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
       dictProps.Add("Select Bend Beam Property...", new ASProperty("none", typeof(string)));
       dictProps.Add("BendBeam Offset Curve Radius", new ASProperty("OffsetCurveRadius", typeof(double)));
-      dictProps.Add("BendBeam Curve Offset", new ASProperty("CurveOffset", typeof(double), ".", 3));
-      dictProps.Add("BendBeam Systemline Radius", new ASProperty("SystemlineRadius", typeof(double), ".", 3));
+      dictProps.Add("BendBeam Curve Offset", new ASProperty("CurveOffset", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("BendBeam Systemline Radius", new ASProperty("SystemlineRadius", typeof(double), ".", ePropertyDataOperator.Get));
 
       return filterDictionary(dictProps, listFilter);
     }
@@ -570,8 +640,8 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
       dictProps.Add("Use Compound Beam As One Beam", new ASProperty("UseCompoundAsOneBeam", typeof(bool)));
-      dictProps.Add("Compound Beam ClassName", new ASProperty("CompoundClassName", typeof(string), ".", 3));
-      dictProps.Add("Compound Beam TypeName", new ASProperty("CompoundTypeName", typeof(string), ".", 3));
+      dictProps.Add("Compound Beam ClassName", new ASProperty("CompoundClassName", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Compound Beam TypeName", new ASProperty("CompoundTypeName", typeof(string), ".", ePropertyDataOperator.Get));
 
       return filterDictionary(dictProps, listFilter);
     }

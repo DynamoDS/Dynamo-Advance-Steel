@@ -672,7 +672,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.RectangularBoltPattern.AtCentrePoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.CoordinateSystem,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.RectangularBoltPattern.AtCentrePoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.CoordinateSystem,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "7b81bd6ba8864b39a23be13d9564c0ba",
       "Inputs": [
         {
@@ -695,7 +695,7 @@
         },
         {
           "Id": "fa9bdd8cebb6440a924eccc545b7949d",
-          "Name": "NoOfBoltsX",
+          "Name": "noOfBoltsX",
           "Description": "Input No of Bolts in the X direction\n\nint\nDefault value : 2 (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -704,7 +704,7 @@
         },
         {
           "Id": "f00a4cd14e33466290c6e4a41e4a027e",
-          "Name": "NoOfBoltsY",
+          "Name": "noOfBoltsY",
           "Description": "Input No of Bolts in the Y direction\n\nint\nDefault value : 2 (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -722,7 +722,7 @@
         },
         {
           "Id": "0c11b8fa0855495db8c96781b17989be",
-          "Name": "BoltConnectionType",
+          "Name": "boltConnectionType",
           "Description": "Input Bolt Connection type - Shop Bolt Default\n\nint\nDefault value : 2 (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -731,8 +731,8 @@
         },
         {
           "Id": "bde8830ce020419982afa7175e3b181f",
-          "Name": "ListofAdditionalBoltParameters",
-          "Description": "Optional Bolt Build Properties\n\nProperty[]\nDefault value : null",
+          "Name": "additionalBoltParameters",
+          "Description": "Optional Bolt Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -751,7 +751,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Rectangular Pattern By Rectangle\n\nRectangularBoltPattern.AtCentrePoint (connectionPoint: Point, boltCS: CoordinateSystem, NoOfBoltsX: int = 2, NoOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], BoltConnectionType: int = 2, ListofAdditionalBoltParameters: Property[] = null): RectangularBoltPattern"
+      "Description": "Create an Advance Steel Rectangular Pattern By Rectangle\n\nRectangularBoltPattern.AtCentrePoint (connectionPoint: Point, boltCS: CoordinateSystem, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalBoltParameters: ASProperty[] = null): RectangularBoltPattern"
     },
     {
       "ConcreteType": "AdvanceSteel.Nodes.BoltConnectionType, AdvanceSteelNodesUI",
@@ -806,7 +806,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.CircularBoltPattern.ByCircle@Autodesk.DesignScript.Geometry.Circle,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.CircularBoltPattern.ByCircle@Autodesk.DesignScript.Geometry.Circle,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "edb7a89e03364f609276b71eff73e1ae",
       "Inputs": [
         {
@@ -838,7 +838,7 @@
         },
         {
           "Id": "30b13c13ad6342faab85fa9e293401db",
-          "Name": "BoltConnectionType",
+          "Name": "boltConnectionType",
           "Description": "Input Bolt Connection type - Shop Bolt Default\n\nint\nDefault value : 2 (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -847,8 +847,8 @@
         },
         {
           "Id": "2087aef01eb843c79927f6245b42216a",
-          "Name": "ListofAdditionalBoltParameters",
-          "Description": "Optional Input Bolt Build Properties\n\nProperty[]\nDefault value : null",
+          "Name": "additionalBoltParameters",
+          "Description": "Optional Input Bolt Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -867,7 +867,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Circular Bolt Pattern By Circle\n\nCircularBoltPattern.ByCircle (circle: Circle, referenceVector: Vector, objectsToConnect: SteelDbObject[], BoltConnectionType: int = 2, ListofAdditionalBoltParameters: Property[] = null): CircularBoltPattern"
+      "Description": "Create an Advance Steel Circular Bolt Pattern By Circle\n\nCircularBoltPattern.ByCircle (circle: Circle, referenceVector: Vector, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalBoltParameters: ASProperty[] = null): CircularBoltPattern"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -1737,7 +1737,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.RectangularBoltPattern.ByRectangle@Autodesk.DesignScript.Geometry.Rectangle,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.RectangularBoltPattern.ByRectangle@Autodesk.DesignScript.Geometry.Rectangle,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "24f728ee8c0c4841ae4c5fac19a80498",
       "Inputs": [
         {
@@ -1778,7 +1778,7 @@
         },
         {
           "Id": "1b903b5e0fc543bfabc9a8b5d9f83b7b",
-          "Name": "BoltConnectionType",
+          "Name": "boltConnectionType",
           "Description": "Input Bolt Connection type - Shop Bolt Default\n\nint\nDefault value : 2 (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -1787,8 +1787,8 @@
         },
         {
           "Id": "32698d5075f84661a273b7a55b565245",
-          "Name": "ListofAdditionalBoltParameters",
-          "Description": "Optional Bolt Build Properties\n\nProperty[]\nDefault value : null",
+          "Name": "additionalBoltParameters",
+          "Description": "Optional Bolt Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1807,7 +1807,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Rectangular Pattern By Rectangle\n\nRectangularBoltPattern.ByRectangle (rectangle: Rectangle, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], BoltConnectionType: int = 2, ListofAdditionalBoltParameters: Property[] = null): RectangularBoltPattern"
+      "Description": "Create an Advance Steel Rectangular Pattern By Rectangle\n\nRectangularBoltPattern.ByRectangle (rectangle: Rectangle, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalBoltParameters: ASProperty[] = null): RectangularBoltPattern"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -2881,7 +2881,7 @@
         ],
         "Left": 242.60654467793665,
         "Top": 3175.3554114462872,
-        "Width": 1866.8858507033376,
+        "Width": 1832.8858507033376,
         "Height": 1350.3524042407385,
         "FontSize": 36.0,
         "InitialTop": 3228.3554114462872,
@@ -2910,7 +2910,7 @@
         ],
         "Left": -106.07712816166395,
         "Top": 1702.6704780678692,
-        "Width": 2354.3150926527042,
+        "Width": 2320.3150926527042,
         "Height": 1246.8233316703468,
         "FontSize": 36.0,
         "InitialTop": 1755.6704780678692,
@@ -2937,7 +2937,7 @@
         ],
         "Left": -15.88704888306961,
         "Top": 260.53919051804837,
-        "Width": 2243.7668996264638,
+        "Width": 2209.7668996264638,
         "Height": 1138.2695293438173,
         "FontSize": 36.0,
         "InitialTop": 313.53919051804837,
@@ -2952,13 +2952,13 @@
           "7d28ce05208b447d95e71a71e4224256"
         ],
         "Left": 557.49763846396286,
-        "Top": -436.76739402575129,
+        "Top": -459.76739402575129,
         "Width": 243.0,
-        "Height": 74.0,
+        "Height": 97.0,
         "FontSize": 36.0,
         "InitialTop": -406.76739402575129,
         "InitialHeight": 140.0,
-        "TextblockHeight": 0.0,
+        "TextblockHeight": 43.0,
         "Background": "#FFBB87C6"
       },
       {
@@ -2968,13 +2968,13 @@
           "759d74dac9b041df97f177e73fd75792"
         ],
         "Left": 557.95424502839137,
-        "Top": -335.25858345103109,
+        "Top": -358.25858345103109,
         "Width": 244.0,
-        "Height": 74.0,
+        "Height": 97.0,
         "FontSize": 36.0,
         "InitialTop": -305.25858345103109,
         "InitialHeight": 140.0,
-        "TextblockHeight": 0.0,
+        "TextblockHeight": 43.0,
         "Background": "#FFFF7BAC"
       },
       {
@@ -2984,13 +2984,13 @@
           "23c0d9e6a67c4cb0b74f90f37c354143"
         ],
         "Left": 558.47194008981546,
-        "Top": -234.80169725672397,
+        "Top": -257.80169725672397,
         "Width": 243.0,
-        "Height": 74.0,
+        "Height": 97.0,
         "FontSize": 36.0,
         "InitialTop": -204.80169725672397,
         "InitialHeight": 140.0,
-        "TextblockHeight": 0.0,
+        "TextblockHeight": 43.0,
         "Background": "#FFFFAA45"
       },
       {
@@ -3000,13 +3000,13 @@
           "051757e799b54f4988b651f792cb6d50"
         ],
         "Left": 557.63128449368264,
-        "Top": -132.87294847918258,
+        "Top": -155.87294847918258,
         "Width": 244.0,
-        "Height": 74.0,
+        "Height": 97.0,
         "FontSize": 36.0,
         "InitialTop": -102.87294847918258,
         "InitialHeight": 140.0,
-        "TextblockHeight": 0.0,
+        "TextblockHeight": 43.0,
         "Background": "#FFFFC999"
       },
       {
@@ -3016,13 +3016,13 @@
           "dce3ab9e764a43dda9a280ade8cc73a8"
         ],
         "Left": 807.10118564165418,
-        "Top": -132.84138429874918,
+        "Top": -155.84138429874918,
         "Width": 232.0,
-        "Height": 74.0,
+        "Height": 97.0,
         "FontSize": 36.0,
         "InitialTop": -102.84138429874918,
         "InitialHeight": 140.0,
-        "TextblockHeight": 0.0,
+        "TextblockHeight": 43.0,
         "Background": "#FFD8D8D8"
       },
       {
@@ -3032,13 +3032,13 @@
           "ee50c304b4d84996b25897e4286ebb7b"
         ],
         "Left": 806.0272831499658,
-        "Top": -235.12874277173057,
+        "Top": -258.12874277173057,
         "Width": 234.0,
-        "Height": 74.0,
+        "Height": 97.0,
         "FontSize": 36.0,
         "InitialTop": -205.12874277173057,
         "InitialHeight": 140.0,
-        "TextblockHeight": 0.0,
+        "TextblockHeight": 43.0,
         "Background": "#FF71C6A8"
       },
       {
@@ -3048,13 +3048,13 @@
           "8e890eb5f2914fd6aca78b0ddcd6e887"
         ],
         "Left": 806.11362214474116,
-        "Top": -335.33661306859392,
+        "Top": -358.33661306859392,
         "Width": 235.0,
-        "Height": 74.0,
+        "Height": 97.0,
         "FontSize": 36.0,
         "InitialTop": -305.33661306859392,
         "InitialHeight": 140.0,
-        "TextblockHeight": 0.0,
+        "TextblockHeight": 43.0,
         "Background": "#FF48B9FF"
       },
       {
@@ -3064,13 +3064,13 @@
           "107d7439528a424e833d1dbbbde1f463"
         ],
         "Left": 807.22892969006875,
-        "Top": -437.11180446161063,
+        "Top": -460.11180446161063,
         "Width": 236.0,
-        "Height": 74.0,
+        "Height": 97.0,
         "FontSize": 36.0,
         "InitialTop": -407.11180446161063,
         "InitialHeight": 140.0,
-        "TextblockHeight": 0.0,
+        "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
       },
       {
@@ -3186,8 +3186,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 465.36318475108703,
-    "Y": 174.58124888698319,
-    "Zoom": 0.16789404629445348
+    "X": 269.9629703972646,
+    "Y": -142.8744924047943,
+    "Zoom": 0.23254277619489727
   }
 }
