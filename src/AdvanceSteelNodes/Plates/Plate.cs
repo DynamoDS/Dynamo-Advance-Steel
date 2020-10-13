@@ -1,7 +1,8 @@
 ﻿using Autodesk.AdvanceSteel.CADAccess;
 using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.DesignScript.Runtime;
-
+using System.Collections.Generic;
+using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 
 namespace AdvanceSteel.Nodes.Plates
@@ -12,7 +13,7 @@ namespace AdvanceSteel.Nodes.Plates
   [DynamoServices.RegisterForTrace]
   public class Plate : GraphicObject
   {
-    internal Plate(Autodesk.DesignScript.Geometry.Polygon poly, double thickness, double side)
+    internal Plate(Autodesk.DesignScript.Geometry.Polygon poly, List<ASProperty> plateProperties)
     {
       if (poly.IsPlanar == false)
         throw new System.Exception("Polygon is not planar");
@@ -21,6 +22,10 @@ namespace AdvanceSteel.Nodes.Plates
       {
         using (var ctx = new SteelServices.DocContext())
         {
+
+          List<ASProperty> defaultData = plateProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = plateProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
           Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
@@ -31,12 +36,18 @@ namespace AdvanceSteel.Nodes.Plates
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
             plate = new Autodesk.AdvanceSteel.Modelling.Plate(polyPlane, astPoints);
-            if (thickness > 0)
+            if (defaultData != null)
             {
-              plate.Thickness = thickness;
+              Utils.SetParameters(plate, defaultData);
             }
-            plate.Portioning = side;
+
             plate.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(plate, postWriteDBData);
+            }
+            
           }
           else
           {
@@ -45,12 +56,18 @@ namespace AdvanceSteel.Nodes.Plates
             if (plate != null && plate.IsKindOf(FilerObject.eObjectType.kPlate))
             {
               plate.DefinitionPlane = polyPlane;
-              if (thickness > 0)
+              if (defaultData != null)
               {
-                plate.Thickness = thickness;
+                Utils.SetParameters(plate, defaultData);
               }
-              plate.Portioning = side;
+
               plate.SetPolygonContour(astPoints);
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(plate, postWriteDBData);
+              }
+
             }
             else
               throw new System.Exception("Not a Plate");
@@ -62,12 +79,15 @@ namespace AdvanceSteel.Nodes.Plates
       }
     }
 
-    internal Plate(Point3d planePoint, Vector3d normal, double thickness, double length, double width, double side, int corner)
+    internal Plate(Point3d planePoint, Vector3d normal, double length, double width, int corner, List<ASProperty> plateProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
+          List<ASProperty> defaultData = plateProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = plateProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
           var polyPlane = new Plane(planePoint, normal);
 
@@ -76,10 +96,6 @@ namespace AdvanceSteel.Nodes.Plates
           {
             plate = new Autodesk.AdvanceSteel.Modelling.Plate(polyPlane, planePoint, length, width);
             plate.SetLengthAndWidth(length, width, 1);
-            if (thickness > 0)
-            {
-              plate.Thickness = thickness;
-            }
             Vector2d offset;
             switch (corner)
             {
@@ -100,8 +116,18 @@ namespace AdvanceSteel.Nodes.Plates
                 break;
             }
             plate.Offset = offset;
-            plate.Portioning = side;
+
+            if (defaultData != null)
+            {
+              Utils.SetParameters(plate, defaultData);
+            }
+
             plate.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(plate, postWriteDBData);
+            }
           }
           else
           {
@@ -109,10 +135,6 @@ namespace AdvanceSteel.Nodes.Plates
             if (plate != null && plate.IsKindOf(FilerObject.eObjectType.kPlate))
             {
               plate.DefinitionPlane = polyPlane;
-              if (thickness > 0)
-              {
-                plate.Thickness = thickness;
-              }
               plate.SetLengthAndWidth(length, width, 1);
               Vector2d offset;
               switch (corner)
@@ -133,8 +155,18 @@ namespace AdvanceSteel.Nodes.Plates
                   offset = new Vector2d(0, 0);
                   break;
               }
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(plate, defaultData);
+              }
+
               plate.Offset = offset;
-              plate.Portioning = side;
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(plate, postWriteDBData);
+              }
             }
             else
               throw new System.Exception("Not a Plate");
@@ -145,38 +177,18 @@ namespace AdvanceSteel.Nodes.Plates
         }
       }
     }
-    
+
     /// <summary>
     /// Create an Advance Steel plate (Position default to 0, with system thickness as default)
     /// </summary>
     /// <param name="poly">Input Dynamo Closed Polygon</param>
+    /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly)
+    public static Plate ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly,
+                                  [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
     {
-      return new Plate(poly, 0, 0);
-    }
-
-    /// <summary>
-    /// Create an Advance Steel Plate by polygon, including setting the side. Thickness is as system Default
-    /// </summary>
-    /// <param name="poly">Input Dynamo Closed Polygon</param>
-    /// <param name="side">Input Plate Side - 0, 0.5, 1</param>
-    /// <returns></returns>
-    public static Plate ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly, double side)
-    {
-      return new Plate(poly, 0, side);
-    }
-
-    /// <summary>
-    /// Create an Advance Steel Plate by polygon, including setting the side and thickness
-    /// </summary>
-    /// <param name="poly">Input Dynamo Closed Polygon</param>
-    /// <param name="thickness">Input Plate Thickness - 0 will use system defaults</param>
-    /// <param name="side">Input Plate Side - 0, 0.5, 1</param>
-    /// <returns></returns>
-    public static Plate ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly, double thickness, double side)
-    {
-      return new Plate(poly, thickness, side);
+      additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
+      return new Plate(poly, additionalPlateParameters);
     }
 
     /// <summary>
@@ -185,13 +197,21 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="coordinateSystem">Input Dynamo CoordinateSytem</param>
     /// <param name="length">Input Plate Length</param>
     /// <param name="width">Input Plate Width</param>
-    /// <param name="thickness">Input Plate Thickness - 0 will use system defaults</param>
-    /// <param name="side">Input Plate Side - 0, 0.5, 1</param>
     /// <param name="corner">0 - TL, 1 - TR, 2 - BR, 3 - BL, else center</param>
+    /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByRectanglarByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, double length, double width, double thickness, double side, int corner)
+    public static Plate ByRectanglarByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
+                                          double length, 
+                                          double width,
+                                          [DefaultArgument("-1")]int corner,
+                                          [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
     {
-      return new Plate(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), Utils.ToInternalUnits(thickness, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), side, corner);
+      if (length == 0)
+        throw new System.Exception("Length Cant be Zero");
+      if (width == 0)
+        throw new System.Exception("Width Cant be Zero");
+      additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
+      return new Plate(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), corner, additionalPlateParameters);
     }
 
     /// <summary>
@@ -201,13 +221,22 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="normal">Input Plate Normal</param>
     /// <param name="length">Input Plate Length</param>
     /// <param name="width">Input Plate Width</param>
-    /// <param name="thickness">Input Plate Thickness - 0 will use system defaults</param>
-    /// <param name="side">Input Plate Side - 0, 0.5, 1</param>
     /// <param name="corner">0 - TL, 1 - TR, 2 - BR, 3 - BL, else center</param>
+    /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByRectanglarByPointandNormal(Autodesk.DesignScript.Geometry.Point origin, Autodesk.DesignScript.Geometry.Vector normal, double length, double width, double thickness, double side, int corner)
+    public static Plate ByRectanglarByPointandNormal(Autodesk.DesignScript.Geometry.Point origin, 
+                                                      Autodesk.DesignScript.Geometry.Vector normal, 
+                                                      double length, 
+                                                      double width,
+                                                      [DefaultArgument("-1")]int corner,
+                                                      [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
     {
-      return new Plate(Utils.ToAstPoint(origin, true), Utils.ToAstVector3d(normal, true), Utils.ToInternalUnits(thickness, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), side, corner);
+      if (length == 0)
+        throw new System.Exception("Length Cant be Zero");
+      if (width == 0)
+        throw new System.Exception("Width Cant be Zero");
+      additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
+      return new Plate(Utils.ToAstPoint(origin, true), Utils.ToAstVector3d(normal, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), corner, additionalPlateParameters);
     }
 
     /// <summary>
@@ -216,14 +245,19 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="line">Input Dynamo Line</param>
     /// <param name="normal">Input Plate Normal</param>
     /// <param name="width">Input Plate Width</param>
-    /// <param name="thickness">Input Plate Thickness</param>
-    /// <param name="side">Input Plate Side - 0, 0.5, 1</param>
+    /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByLengthEdge(Autodesk.DesignScript.Geometry.Line line, Autodesk.DesignScript.Geometry.Vector normal, double width, double thickness, double side)
+    public static Plate ByLengthEdge(Autodesk.DesignScript.Geometry.Line line, 
+                                      Autodesk.DesignScript.Geometry.Vector normal, 
+                                      double width,
+                                      [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
     {
       if (line.Length == 0)
         throw new System.Exception("Line length Cant be Zero");
-      return new Plate(Utils.ToAstPoint(line.StartPoint, true), Utils.ToAstVector3d(normal, true), Utils.ToInternalUnits(thickness, true), Utils.ToInternalUnits(line.Length, true), Utils.ToInternalUnits(width, true), side, 1);
+      if (width == 0)
+        throw new System.Exception("Width Cant be Zero");
+      additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
+      return new Plate(Utils.ToAstPoint(line.StartPoint, true), Utils.ToAstVector3d(normal, true), Utils.ToInternalUnits(line.Length, true), Utils.ToInternalUnits(width, true), 1, additionalPlateParameters);
     }
 
     /// <summary>
@@ -233,15 +267,21 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="EndPoint">Input End Point of Length</param>
     /// <param name="normal">Input Plate Normal</param>
     /// <param name="width">Input Plate Width</param>
-    /// <param name="thickness">Input Plate Thickness</param>
-    /// <param name="side">Input Plate Side - 0, 0.5, 1</param>
+    /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByLengthEdge(Autodesk.DesignScript.Geometry.Point startPoint, Autodesk.DesignScript.Geometry.Point EndPoint, Autodesk.DesignScript.Geometry.Vector normal, double width, double thickness, double side)
+    public static Plate ByLengthEdge(Autodesk.DesignScript.Geometry.Point startPoint, 
+                                      Autodesk.DesignScript.Geometry.Point EndPoint, 
+                                      Autodesk.DesignScript.Geometry.Vector normal, 
+                                      double width,
+                                      [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
     {
       double length = Utils.ToAstPoint(startPoint, true).DistanceTo(Utils.ToAstPoint(EndPoint, true));
       if (length == 0)
         throw new System.Exception("Distance between 2 points Cant be Zero");
-      return new Plate(Utils.ToAstPoint(startPoint, true), Utils.ToAstVector3d(normal, true), Utils.ToInternalUnits(thickness, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), side, 1);
+      if (width == 0)
+        throw new System.Exception("Width Cant be Zero");
+      additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
+      return new Plate(Utils.ToAstPoint(startPoint, true), Utils.ToAstVector3d(normal, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), 1, additionalPlateParameters);
     }
 
     /// <summary>
@@ -250,10 +290,12 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="cs">Input Dynamo Corrdinate System</param>
     /// <param name="cornerPoint1">Input Point of Lower Left of plate</param>
     /// <param name="cornerPoint2">Input Point of Upper right of plate</param>
-    /// <param name="thickness">Input Plate Thickness</param>
-    /// <param name="side">Input Plate Side - 0, 0.5, 1</param>
+    /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByTwoDiagonalPointsByCS(Autodesk.DesignScript.Geometry.CoordinateSystem cs, Autodesk.DesignScript.Geometry.Point cornerPoint1, Autodesk.DesignScript.Geometry.Point cornerPoint2, double thickness, double side)
+    public static Plate ByTwoDiagonalPointsByCS(Autodesk.DesignScript.Geometry.CoordinateSystem cs, 
+                                                Autodesk.DesignScript.Geometry.Point cornerPoint1, 
+                                                Autodesk.DesignScript.Geometry.Point cornerPoint2,
+                                                [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
     {
       Point3d cpt1 = Utils.ToAstPoint(cornerPoint1, true);
       Point3d cpt2 = Utils.ToAstPoint(cornerPoint2, true);
@@ -265,7 +307,8 @@ namespace AdvanceSteel.Nodes.Plates
       double length = cpt2.OrthoProject(ply1).DistanceTo(cpt2);
       if (length == 0)
         throw new System.Exception("Length Cant be Zero");
-      return new Plate(Utils.ToAstPoint(cs.Origin, true), Utils.ToAstVector3d(cs.ZAxis, true), Utils.ToInternalUnits(thickness, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), side, 0);
+      additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
+      return new Plate(Utils.ToAstPoint(cs.Origin, true), Utils.ToAstVector3d(cs.ZAxis, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), 0, additionalPlateParameters);
     }
 
     /// <summary>
@@ -274,10 +317,12 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="orginPoint">Input the Origin of the Rectangular Plate</param>
     /// <param name="xDirectionPoint">Input Point in the X Direction - distance from orgin will determine the width</param>
     /// <param name="yDirectionPoint">Input Point in approximate Y Direction - True Y Direction will get recalculated</param>
-    /// <param name="thickness">Input Plate Thickness</param>
-    /// <param name="side">Input Plate Side - 0, 0.5, 1</param>
+    /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByThreePoints(Autodesk.DesignScript.Geometry.Point orginPoint, Autodesk.DesignScript.Geometry.Point xDirectionPoint, Autodesk.DesignScript.Geometry.Point yDirectionPoint, double thickness, double side)
+    public static Plate ByThreePoints(Autodesk.DesignScript.Geometry.Point orginPoint, 
+                                      Autodesk.DesignScript.Geometry.Point xDirectionPoint, 
+                                      Autodesk.DesignScript.Geometry.Point yDirectionPoint,
+                                      [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
     {
       Point3d cpOrigin = Utils.ToAstPoint(orginPoint, true);
       Point3d xDPoint = Utils.ToAstPoint(xDirectionPoint, true);
@@ -298,7 +343,17 @@ namespace AdvanceSteel.Nodes.Plates
       if (length == 0)
         throw new System.Exception("Length Cant be Zero");
 
-      return new Plate(cpOrigin, zAxis, Utils.ToInternalUnits(thickness, true), Utils.ToInternalUnits(width, true), Utils.ToInternalUnits(length , true), side, 0);
+      additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
+      return new Plate(cpOrigin, zAxis, Utils.ToInternalUnits(width, true), Utils.ToInternalUnits(length , true), 0, additionalPlateParameters);
+    }
+
+    private static List<ASProperty> PreSetDefaults(List<ASProperty> listPlateData)
+    {
+      if (listPlateData == null)
+      {
+        listPlateData = new List<ASProperty>() { };
+      }
+      return listPlateData;
     }
 
     [IsVisibleInDynamoLibrary(false)]

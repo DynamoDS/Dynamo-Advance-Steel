@@ -327,6 +327,11 @@ namespace AdvanceSteel.Nodes
     {
       return BuildShearStudPropertyList(listFilter);
     }
+    
+    public static Dictionary<string, ASProperty> GetPlatePropertyList(int listFilter)
+    {
+      return BuildGenericPlatePropertyList(listFilter);
+    }
 
     public static Dictionary<string, ASProperty> GetStraighBeamPropertyList(int listFilter)
     {
@@ -374,6 +379,7 @@ namespace AdvanceSteel.Nodes
                                                 BuildTaperedBeamPropertyList(listFilter)).Union(
                                                 BuildBentBeamPropertyList(listFilter)).Union(
                                                 BuildCompundBaseBeamPropertyList(listFilter)).Union(
+                                                BuildGenericPlatePropertyList(listFilter)).Union(
                                                 BuildBoltPropertyList(listFilter)).Union(
                                                 BuildAnchorBoltPropertyList(listFilter)).Union(
                                                 BuildShearStudPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
@@ -527,6 +533,77 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Beam UnwindStartFactor", new ASProperty("UnwindStartFactor", typeof(double)));
       dictProps.Add("Beam Volume", new ASProperty("Volume", typeof(double), ".", 3));
       dictProps.Add("Change Beam Display Mode", new ASProperty("ReprMode", typeof(int), "Z_PostWriteDB"));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildGenericPlatePropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Plate Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Plate Approval Comment", new ASProperty("ApprovalComment", typeof(string)));
+      dictProps.Add("Plate Approval Status Code", new ASProperty("ApprovalStatusCode", typeof(string)));
+      dictProps.Add("Plate Assembly", new ASProperty("Assembly", typeof(string)));
+      dictProps.Add("Plate Assembly Used For Numbering", new ASProperty("AssemblyUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", 3));
+      dictProps.Add("Plate Carrier", new ASProperty("Carrier", typeof(string)));
+      dictProps.Add("Plate Coating", new ASProperty("Coating", typeof(string)));
+      dictProps.Add("Plate Coating Description", new ASProperty("CoatingDescription", typeof(string), ".", 3));
+      dictProps.Add("Plate Coating Used For Numbering", new ASProperty("CoatingUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Delivery Date", new ASProperty("DeliveryDate", typeof(string)));
+      dictProps.Add("Plate Denotation Used For Numbering", new ASProperty("DennotationUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Denotation", new ASProperty("Denotation", typeof(string)));
+      dictProps.Add("Plate Explicit Quantity", new ASProperty("ExplicitQuantity", typeof(int)));
+      dictProps.Add("Plate Fabrication Station", new ASProperty("FabricationStation", typeof(string)));
+      dictProps.Add("Plate Fabrication Station UsedF or Numbering", new ASProperty("FabricationStationUsedForNumbering", typeof(bool)));
+      dictProps.Add("Plate Handle", new ASProperty("Handle", typeof(string), ".", 3));
+      dictProps.Add("Plate Heat Number", new ASProperty("HeatNumber", typeof(string)));
+      dictProps.Add("Plate Heat Number Used For Numbering", new ASProperty("HeatNumberUsedForNumbering", typeof(bool)));
+      dictProps.Add("Plate Holes Used For Numbering", new ASProperty("HolesUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Set IsAttached Flag", new ASProperty("IsAttachedPart", typeof(bool), "Z_PostWriteDB"));
+      dictProps.Add("Plate Set IsMainPart Flag", new ASProperty("IsMainPart", typeof(bool), "Z_PostWriteDB"));
+      dictProps.Add("Plate ItemNumber", new ASProperty("ItemNumber", typeof(string)));
+      dictProps.Add("Plate ItemNumber Used For Numbering", new ASProperty("ItemNumberUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Layer", new ASProperty("Layer", typeof(string)));
+      dictProps.Add("Plate Length", new ASProperty("Length", typeof(double)));
+      dictProps.Add("Plate Load Number", new ASProperty("LoadNumber", typeof(string)));
+      dictProps.Add("Plate MainPart Number", new ASProperty("MainPartNumber", typeof(string)));
+      dictProps.Add("Plate MainPart Number Prefix", new ASProperty("MainPartPrefix", typeof(string)));
+      dictProps.Add("Plate MainPart Used For BOM", new ASProperty("MainPartUsedForBOM", typeof(int)));
+      dictProps.Add("Plate MainPart Used For Collision Check", new ASProperty("MainPartUsedForCollisionCheck", typeof(int)));
+      dictProps.Add("Plate MainPart Used For Numbering", new ASProperty("MainPartUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Material", new ASProperty("Material", typeof(string)));
+      dictProps.Add("Plate Material Description", new ASProperty("MaterialDescription", typeof(string), ".", 3));
+      dictProps.Add("Plate Material Used For Numbering", new ASProperty("MaterialUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Note", new ASProperty("Note", typeof(string)));
+      dictProps.Add("Plate Note Used For Numbering", new ASProperty("NoteUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Number Of Holes", new ASProperty("NumberOfHoles", typeof(int), ".", 3));
+      dictProps.Add("Plate PONumber", new ASProperty("PONumber", typeof(string)));
+      dictProps.Add("Plate PONumber Used For Numbering", new ASProperty("PONumberUsedForNumbering", typeof(bool)));
+      dictProps.Add("Plate Face Alignment", new ASProperty("Portioning", typeof(double)));
+      dictProps.Add("Plate Preliminary Part Number", new ASProperty("PreliminaryPartNumber", typeof(string)));
+      dictProps.Add("Plate Preliminary Part Position Number", new ASProperty("PreliminaryPartPositionNumber", typeof(string)));
+      dictProps.Add("Plate Preliminary Part Prefix", new ASProperty("PreliminaryPartPrefix", typeof(string)));
+      dictProps.Add("Plate Radius Increment", new ASProperty("RadIncrement", typeof(double)));
+      dictProps.Add("Plate Radius", new ASProperty("Radius", typeof(double), ".", 3));
+      dictProps.Add("Plate Requisition Number", new ASProperty("RequisitionNumber", typeof(string)));
+      dictProps.Add("Plate Requisition Number Used For Numbering", new ASProperty("RequisitionNumberUsedForNumbering", typeof(bool)));
+      dictProps.Add("Plate Model Role", new ASProperty("Role", typeof(string)));
+      dictProps.Add("Plate Model Role Description", new ASProperty("RoleDescription", typeof(string), ".", 3));
+      dictProps.Add("Plate Role Used For Numbering", new ASProperty("RoleUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate Shipped Date", new ASProperty("ShippedDate", typeof(string)));
+      dictProps.Add("Plate Single Part Number", new ASProperty("SinglePartNumber", typeof(string)));
+      dictProps.Add("Plate Single Part Prefix", new ASProperty("SinglePartPrefix", typeof(string)));
+      dictProps.Add("Plate Single Part Used For BOM", new ASProperty("SinglePartUsedForBOM", typeof(int)));
+      dictProps.Add("Plate Single Part Used For CollisionCheck", new ASProperty("SinglePartUsedForCollisionCheck", typeof(int)));
+      dictProps.Add("Plate Single Part Used For Numbering", new ASProperty("SinglePartUsedForNumbering", typeof(int)));
+      dictProps.Add("Plate SpecificGravity", new ASProperty("SpecificGravity", typeof(double), ".", 3));
+      dictProps.Add("Plate Supplier", new ASProperty("Supplier", typeof(string)));
+      dictProps.Add("Plate SupplierUsedForNumbering", new ASProperty("SupplierUsedForNumbering", typeof(bool)));
+      dictProps.Add("Plate Thickness", new ASProperty("Thickness", typeof(double)));
+      dictProps.Add("Plate Volume", new ASProperty("Volume", typeof(double), ".", 3));
+      dictProps.Add("Plate Width", new ASProperty("Width", typeof(double)));
+      dictProps.Add("Change Plate Display Mode", new ASProperty("ReprMode", typeof(int), "Z_PostWriteDB"));
 
       return filterDictionary(dictProps, listFilter);
     }

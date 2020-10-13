@@ -543,7 +543,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Anchors.RectangularAnchorPattern.ByRectangle@Autodesk.DesignScript.Geometry.Rectangle,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Anchors.RectangularAnchorPattern.ByRectangle@Autodesk.DesignScript.Geometry.Rectangle,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "4cc0430aae0d4aa689b4c7e97d1a0710",
       "Inputs": [
         {
@@ -594,7 +594,7 @@
         {
           "Id": "73d32f031bfb4ce9a952f3ecaee5832a",
           "Name": "additionalAnchorBoltParameters",
-          "Description": "Optional Input Anchor Bolt Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Anchor Bolt Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -613,7 +613,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Rectangular Anchor Pattern bound By Rectangle\n\nRectangularAnchorPattern.ByRectangle (rectangle: Rectangle, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalAnchorBoltParameters: Property[] = null): RectangularAnchorPattern"
+      "Description": "Create an Advance Steel Rectangular Anchor Pattern bound By Rectangle\n\nRectangularAnchorPattern.ByRectangle (rectangle: Rectangle, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalAnchorBoltParameters: ASProperty[] = null): RectangularAnchorPattern"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -1026,7 +1026,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Anchors.RectangularAnchorPattern.AtCentrePoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.CoordinateSystem,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Anchors.RectangularAnchorPattern.AtCentrePoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.CoordinateSystem,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "dd51a9245bea4d969dd2586d753113b9",
       "Inputs": [
         {
@@ -1086,7 +1086,7 @@
         {
           "Id": "41c7e8af0e3a4e6890eef7efd1f42e57",
           "Name": "additionalAnchorBoltParameters",
-          "Description": "Optional Input Anchor Bolt Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Anchor Bolt Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1105,7 +1105,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel unbounded Rectangular Pattern at a Point\n\nRectangularAnchorPattern.AtCentrePoint (connectionPoint: Point, boltCS: CoordinateSystem, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalAnchorBoltParameters: Property[] = null): RectangularAnchorPattern"
+      "Description": "Create an Advance Steel unbounded Rectangular Pattern at a Point\n\nRectangularAnchorPattern.AtCentrePoint (connectionPoint: Point, boltCS: CoordinateSystem, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalAnchorBoltParameters: ASProperty[] = null): RectangularAnchorPattern"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -1627,7 +1627,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Anchors.CircularAnchorPattern.ByCircle@Autodesk.DesignScript.Geometry.Circle,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.Property[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Anchors.CircularAnchorPattern.ByCircle@Autodesk.DesignScript.Geometry.Circle,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.ASProperty[]",
       "Id": "ff6060f058504320b09871e9378115a5",
       "Inputs": [
         {
@@ -1669,7 +1669,7 @@
         {
           "Id": "df255280de7a41bbb2f890078a6da01a",
           "Name": "additionalAnchorBoltParameters",
-          "Description": "Optional Input Bolt Build Properties\n\nProperty[]\nDefault value : null",
+          "Description": "Optional Input Bolt Build Properties\n\nASProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1688,7 +1688,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Circular Anchor Pattern By Circle\n\nCircularAnchorPattern.ByCircle (circle: Circle, referenceVector: Vector, objectsToConnect: SteelDbObject[], anchorBoltConnectionType: int = 2, additionalAnchorBoltParameters: Property[] = null): CircularAnchorPattern"
+      "Description": "Create an Advance Steel Circular Anchor Pattern By Circle\n\nCircularAnchorPattern.ByCircle (circle: Circle, referenceVector: Vector, objectsToConnect: SteelDbObject[], anchorBoltConnectionType: int = 2, additionalAnchorBoltParameters: ASProperty[] = null): CircularAnchorPattern"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -1897,45 +1897,6 @@
       "Description": "Select Advance Steel Anchor Bolt Property Type to Set"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Properties.SetAnchorBoltOrientation@var,int",
-      "Id": "e5d68470dc8e4784870ac035408788de",
-      "Inputs": [
-        {
-          "Id": "c2f0a383f1644781a009b9081eb9b1ad",
-          "Name": "anchorBolts",
-          "Description": "Input aux\n\nvar",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "1a59955b3c7649e49de344e8e0a22135",
-          "Name": "orientation",
-          "Description": "Input Anchor Bolt Orientation location\n\nint",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "e8f89cf581b94761a92d7dba10c9e3a1",
-          "Name": "var",
-          "Description": "var",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Set Anchor Bolt Orientation\n\nProperties.SetAnchorBoltOrientation (anchorBolts: var, orientation: int): var"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
       "Code": "",
@@ -1948,11 +1909,11 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Properties.SetParameter@string,var",
-      "Id": "b42515e51fc2450f8a83bf567c6d6eac",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.ByNameAndValue@string,var",
+      "Id": "9f83f98226d34b26808671ebfb957b3a",
       "Inputs": [
         {
-          "Id": "53c525e48515420986bafcd117fa1a85",
+          "Id": "9b9cc1b5c2f04c7c9e9b563b4836660c",
           "Name": "propertyType",
           "Description": "Input Property from Property Node for particular Object Type\n\nstring",
           "UsingDefaultValue": false,
@@ -1961,7 +1922,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "f26f1e027e84491dbd7d754656ffceb5",
+          "Id": "cd9d621d474a4eaa9c919d1ac0fbe49a",
           "Name": "propertyValue",
           "Description": "Input Property value for Property Type\n\nvar",
           "UsingDefaultValue": false,
@@ -1972,9 +1933,9 @@
       ],
       "Outputs": [
         {
-          "Id": "4e6ad3a66fec4667bbd4f977de5849ec",
-          "Name": "Property",
-          "Description": "Property",
+          "Id": "209f0c70f5fb43108f245e615227c6fc",
+          "Name": "ASProperty",
+          "Description": "ASProperty",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1982,16 +1943,55 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Set AS Property Objects\n\nProperties.SetParameter (propertyType: string, propertyValue: var): Property"
+      "Description": "Build AS Property - Writeable or Readable\n\nProperty.ByNameAndValue (propertyType: string, propertyValue: var): ASProperty"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Properties.SetParameter@string,var",
-      "Id": "f81b55ea93af4d5cb3ed0b5287037f44",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.SetAnchorBoltOrientation@var,int",
+      "Id": "d321bb74c9c94df497ac4d6f2ff0c6a1",
       "Inputs": [
         {
-          "Id": "533d5125498941b8bec44f21eb65f31c",
+          "Id": "da5b956e4ca04a7db13fe6552dabffac",
+          "Name": "anchorBolts",
+          "Description": "Input aux\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a99d208a9b0d447b882fe193f0d78448",
+          "Name": "orientation",
+          "Description": "Input Anchor Bolt Orientation location\n\nint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7663f1006f5a43a18a4441190664c729",
+          "Name": "var",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Set Anchor Bolt Orientation\n\nProperty.SetAnchorBoltOrientation (anchorBolts: var, orientation: int): var"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.ByNameAndValue@string,var",
+      "Id": "ea91b916abee41778c21c188b79fdcfb",
+      "Inputs": [
+        {
+          "Id": "caf32512e3a74b789db8cf7b1b555321",
           "Name": "propertyType",
           "Description": "Input Property from Property Node for particular Object Type\n\nstring",
           "UsingDefaultValue": false,
@@ -2000,7 +2000,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "012be9fe083047dfa02a3cec9c6535b3",
+          "Id": "da6f360133a74762b9007af6c3b30fc6",
           "Name": "propertyValue",
           "Description": "Input Property value for Property Type\n\nvar",
           "UsingDefaultValue": false,
@@ -2011,9 +2011,9 @@
       ],
       "Outputs": [
         {
-          "Id": "f3e6ecd0c1bd4be89fb2b68c0211c0b1",
-          "Name": "Property",
-          "Description": "Property",
+          "Id": "4f0141408ef1477dab272fd8397f98b4",
+          "Name": "ASProperty",
+          "Description": "ASProperty",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -2021,7 +2021,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Set AS Property Objects\n\nProperties.SetParameter (propertyType: string, propertyValue: var): Property"
+      "Description": "Build AS Property - Writeable or Readable\n\nProperty.ByNameAndValue (propertyType: string, propertyValue: var): ASProperty"
     }
   ],
   "Connectors": [
@@ -2107,8 +2107,8 @@
     },
     {
       "Start": "65b3c03c08cc463581e28381bb57e874",
-      "End": "f26f1e027e84491dbd7d754656ffceb5",
-      "Id": "aec9df7b06744c3bb76f5ecfe389e484"
+      "End": "da6f360133a74762b9007af6c3b30fc6",
+      "Id": "9c100ea5af0247a0ae493a1e68fe9d95"
     },
     {
       "Start": "88343d179ef541c7a325f422e83037cf",
@@ -2347,13 +2347,13 @@
     },
     {
       "Start": "202bdd1ef13f45cbb2801f5a0e57a28b",
-      "End": "012be9fe083047dfa02a3cec9c6535b3",
-      "Id": "a4808de95bf243c0bc5644cc47d32da2"
+      "End": "cd9d621d474a4eaa9c919d1ac0fbe49a",
+      "Id": "d751e14433e8435da41b393fa7056ffd"
     },
     {
       "Start": "0a1c0e4f78564a1cbd8550c02580251b",
-      "End": "c2f0a383f1644781a009b9081eb9b1ad",
-      "Id": "7e588d437b11475bb369a6152bc73e6c"
+      "End": "da5b956e4ca04a7db13fe6552dabffac",
+      "Id": "8f025440d7fc4d48b329c572594009bf"
     },
     {
       "Start": "0ce039f09caa4f69a768bf3c1fd4dd01",
@@ -2362,8 +2362,8 @@
     },
     {
       "Start": "e26222c632eb46fba332ee2310c9a108",
-      "End": "1a59955b3c7649e49de344e8e0a22135",
-      "Id": "266953e5227e4a2297164560977598b8"
+      "End": "a99d208a9b0d447b882fe193f0d78448",
+      "Id": "a0e95046a96044839cd7616e7170b19b"
     },
     {
       "Start": "69f727e904554630aff40080e2dccc20",
@@ -2377,8 +2377,8 @@
     },
     {
       "Start": "7ec5b0948fbd48bd9b196e2d084f0fff",
-      "End": "53c525e48515420986bafcd117fa1a85",
-      "Id": "f4b1a646cba0495fba9d180a1e07ce28"
+      "End": "caf32512e3a74b789db8cf7b1b555321",
+      "Id": "f3aa7ee1f2ae4e949839823a521373ea"
     },
     {
       "Start": "0280bb4439dc4225bda2f7991b79fe84",
@@ -2397,18 +2397,18 @@
     },
     {
       "Start": "2ad86e17f5b44e8eb1af61738c2d1a18",
-      "End": "533d5125498941b8bec44f21eb65f31c",
-      "Id": "99f8885a2f914429968bd4b297746201"
+      "End": "9b9cc1b5c2f04c7c9e9b563b4836660c",
+      "Id": "23eb2b7335df493b905d2a479868f9c1"
     },
     {
-      "Start": "4e6ad3a66fec4667bbd4f977de5849ec",
-      "End": "c0cd14b31bc947a6bfc19202417de701",
-      "Id": "39156aaba6ce452ab328e66fe3458910"
-    },
-    {
-      "Start": "f3e6ecd0c1bd4be89fb2b68c0211c0b1",
+      "Start": "209f0c70f5fb43108f245e615227c6fc",
       "End": "ad236f3eff4b4bae9e24701f850647da",
-      "Id": "cf88931749b4439cb676e6150f09a2a4"
+      "Id": "4e6373136ff34349882e1abe2ff020d3"
+    },
+    {
+      "Start": "4f0141408ef1477dab272fd8397f98b4",
+      "End": "c0cd14b31bc947a6bfc19202417de701",
+      "Id": "7c362089fe6749b8890e832714696db7"
     }
   ],
   "Dependencies": [],
@@ -2443,8 +2443,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 814.5,
-        "Y": 268.354211521543
+        "X": 807.94854292746868,
+        "Y": 266.71634725341028
       },
       {
         "ShowGeometry": true,
@@ -2453,8 +2453,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -153.72477506881796,
-        "Y": 214.49501639938296
+        "X": -160.27623214134928,
+        "Y": 212.85715213125025
       },
       {
         "ShowGeometry": true,
@@ -2463,8 +2463,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 323.0,
-        "Y": 436.354211521543
+        "X": 316.44854292746868,
+        "Y": 434.71634725341028
       },
       {
         "ShowGeometry": true,
@@ -2473,8 +2473,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 844.564929225133,
-        "Y": 581.07050653328
+        "X": 838.01347215260171,
+        "Y": 579.43264226514725
       },
       {
         "ShowGeometry": true,
@@ -2483,8 +2483,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 743.56888833695,
-        "Y": 1057.18858196819
+        "X": 737.01743126441863,
+        "Y": 1055.5507177000572
       },
       {
         "ShowGeometry": true,
@@ -2493,8 +2493,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1353.85071868809,
-        "Y": 631.588956231284
+        "X": 1347.2992616155586,
+        "Y": 629.95109196315127
       },
       {
         "ShowGeometry": true,
@@ -2503,8 +2503,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1228.84114065387,
-        "Y": 450.54060183690603
+        "X": 1222.2896835813387,
+        "Y": 448.90273756877332
       },
       {
         "ShowGeometry": true,
@@ -2513,8 +2513,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1125.48941289703,
-        "Y": 688.011549042439
+        "X": 1118.9379558244987,
+        "Y": 686.3736847743063
       },
       {
         "ShowGeometry": true,
@@ -2523,8 +2523,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1346.51563936242,
-        "Y": 786.810971826058
+        "X": 1339.9641822898886,
+        "Y": 785.17310755792528
       },
       {
         "ShowGeometry": true,
@@ -2533,8 +2533,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 610.702308521529,
-        "Y": 870.663250876691
+        "X": 604.15085144899763,
+        "Y": 869.02538660855828
       },
       {
         "ShowGeometry": true,
@@ -2543,8 +2543,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1760.08971942538,
-        "Y": 693.96593482975
+        "X": 1753.5382623528487,
+        "Y": 692.32807056161732
       },
       {
         "ShowGeometry": true,
@@ -2663,8 +2663,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 909.86684593760015,
-        "Y": 3598.0637993125165
+        "X": 909.05413559257181,
+        "Y": 3598.8765096575453
       },
       {
         "ShowGeometry": true,
@@ -2673,8 +2673,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 165.18161452507934,
-        "Y": 3742.5819593336064
+        "X": 164.36890418005123,
+        "Y": 3743.3946696786352
       },
       {
         "ShowGeometry": true,
@@ -2683,8 +2683,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1197.3079967838819,
-        "Y": 3832.7292819496965
+        "X": 1196.4952864388536,
+        "Y": 3833.5419922947253
       },
       {
         "ShowGeometry": true,
@@ -2693,8 +2693,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 858.60489717579435,
-        "Y": 3786.5604595327763
+        "X": 857.792186830766,
+        "Y": 3787.3731698778051
       },
       {
         "ShowGeometry": true,
@@ -2703,8 +2703,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 869.87258275822728,
-        "Y": 4063.9407497929365
+        "X": 869.059872413199,
+        "Y": 4064.7534601379652
       },
       {
         "ShowGeometry": true,
@@ -2713,8 +2713,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 340.7629360174468,
-        "Y": 4186.7823090208958
+        "X": 339.95022567241858,
+        "Y": 4187.5950193659246
       },
       {
         "ShowGeometry": true,
@@ -2723,8 +2723,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 343.38582907867703,
-        "Y": 4322.2230142906337
+        "X": 342.5731187336487,
+        "Y": 4323.0357246356625
       },
       {
         "ShowGeometry": true,
@@ -2733,8 +2733,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1642.8804568717769,
-        "Y": 3724.0062862434766
+        "X": 1642.0677465267486,
+        "Y": 3724.8189965885053
       },
       {
         "ShowGeometry": true,
@@ -2743,8 +2743,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1230.1252305656371,
-        "Y": 3727.9452065847254
+        "X": 1229.3125202206088,
+        "Y": 3728.7579169297542
       },
       {
         "ShowGeometry": true,
@@ -2753,8 +2753,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1972.0958083339551,
-        "Y": 4015.2385333719626
+        "X": 1872.1324358954407,
+        "Y": 4003.0478781965339
       },
       {
         "ShowGeometry": true,
@@ -2773,8 +2773,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1478.3909261832,
-        "Y": 1199.31408990023
+        "X": 1471.8394691106687,
+        "Y": 1197.6762256320974
       },
       {
         "ShowGeometry": true,
@@ -2783,8 +2783,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 878.619189561158,
-        "Y": 919.511370762281
+        "X": 818.63699496929189,
+        "Y": 935.13574476962572
       },
       {
         "ShowGeometry": true,
@@ -2793,8 +2793,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1517.12557229708,
-        "Y": 905.476133553814
+        "X": 1510.5741152245487,
+        "Y": 903.83826928568124
       },
       {
         "ShowGeometry": true,
@@ -2803,8 +2803,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1205.5489847912838,
-        "Y": 4067.0957121436063
+        "X": 1204.7362744462555,
+        "Y": 4067.9084224886351
       },
       {
         "ShowGeometry": true,
@@ -2813,8 +2813,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1250.7270297610357,
-        "Y": 4336.5709491284661
+        "X": 1249.9143194160074,
+        "Y": 4337.3836594734948
       },
       {
         "ShowGeometry": true,
@@ -2823,18 +2823,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 396.89657113061924,
-        "Y": 4474.3469284983494
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Properties.SetAnchorBoltOrientation",
-        "Id": "e5d68470dc8e4784870ac035408788de",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 2434.1422865734712,
-        "Y": 3809.2917315387663
+        "X": 396.08386078559079,
+        "Y": 4475.1596388433782
       },
       {
         "ShowGeometry": true,
@@ -2848,23 +2838,33 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "Properties.SetParameter",
-        "Id": "b42515e51fc2450f8a83bf567c6d6eac",
+        "Name": "Property.ByNameAndValue",
+        "Id": "9f83f98226d34b26808671ebfb957b3a",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1219.6065775834772,
-        "Y": 1015.2402020058532
+        "X": 860.38385762018083,
+        "Y": 4375.8164418390434
       },
       {
         "ShowGeometry": true,
-        "Name": "Properties.SetParameter",
-        "Id": "f81b55ea93af4d5cb3ed0b5287037f44",
+        "Name": "Property.SetAnchorBoltOrientation",
+        "Id": "d321bb74c9c94df497ac4d6f2ff0c6a1",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 891.29950387988038,
-        "Y": 4368.2331426752853
+        "X": 2328.8143688162768,
+        "Y": 3851.0814845600344
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "ea91b916abee41778c21c188b79fdcfb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1187.0229738571472,
+        "Y": 1046.8696032334178
       }
     ],
     "Annotations": [
@@ -2885,15 +2885,15 @@
           "bf90607c55d44d289b5e3bd7c7d05c4e",
           "bff9706838cb4333bfbb5f1b32c2574f",
           "e5194ca4d64642b48d068b5ae1d6623d",
-          "e5d68470dc8e4784870ac035408788de",
-          "f81b55ea93af4d5cb3ed0b5287037f44"
+          "9f83f98226d34b26808671ebfb957b3a",
+          "d321bb74c9c94df497ac4d6f2ff0c6a1"
         ],
-        "Left": 155.18161452507934,
-        "Top": 3545.0637993125165,
-        "Width": 2530.9606720483916,
+        "Left": 154.36890418005123,
+        "Top": 3545.8765096575453,
+        "Width": 2415.4454646362256,
         "Height": 1022.2831291858329,
         "FontSize": 36.0,
-        "InitialTop": 3598.0637993125165,
+        "InitialTop": 3598.8765096575453,
         "InitialHeight": 1021.2831291858329,
         "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
@@ -2943,15 +2943,15 @@
           "33712b6a553c4f8bab6f5b1e1c43ed14",
           "f0e1df8b0dd94478becf355f08216f06",
           "6f9bfca67ee5438d8735eebdc88dbe1e",
-          "b42515e51fc2450f8a83bf567c6d6eac"
+          "ea91b916abee41778c21c188b79fdcfb"
         ],
-        "Left": -163.72477506881796,
-        "Top": 161.49501639938296,
+        "Left": -170.27623214134928,
+        "Top": 159.85715213125025,
         "Width": 2412.8144944941978,
         "Height": 1130.819073500847,
         "FontSize": 36.0,
-        "InitialTop": 214.49501639938296,
-        "InitialHeight": 1129.81907350085,
+        "InitialTop": 212.85715213125025,
+        "InitialHeight": 1129.819073500847,
         "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
       },
@@ -3196,8 +3196,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 265.22393625304693,
-    "Y": -21.89056786318497,
-    "Zoom": 0.17988280308162014
+    "X": 466.42505524454907,
+    "Y": 213.70599228218219,
+    "Zoom": 0.11884903477100861
   }
 }
