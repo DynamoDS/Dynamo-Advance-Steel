@@ -333,6 +333,11 @@ namespace AdvanceSteel.Nodes
       return BuildGenericPlatePropertyList(listFilter);
     }
 
+    public static Dictionary<string, ASProperty> GetGratingPropertyList(int listFilter)
+    {
+      return BuildGenericGratingPropertyList(listFilter);
+    }
+
     public static Dictionary<string, ASProperty> GetStraighBeamPropertyList(int listFilter)
     {
       Dictionary<string, ASProperty> combinedData = BuildStriaghtBeamPropertyList(listFilter).Union(
@@ -380,6 +385,7 @@ namespace AdvanceSteel.Nodes
                                                 BuildBentBeamPropertyList(listFilter)).Union(
                                                 BuildCompundBaseBeamPropertyList(listFilter)).Union(
                                                 BuildGenericPlatePropertyList(listFilter)).Union(
+                                                BuildGenericGratingPropertyList(listFilter)).Union(
                                                 BuildBoltPropertyList(listFilter)).Union(
                                                 BuildAnchorBoltPropertyList(listFilter)).Union(
                                                 BuildShearStudPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
@@ -597,6 +603,102 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Plate Volume", new ASProperty("Volume", typeof(double), ".", ePropertyDataOperator.Get));
       dictProps.Add("Plate Width", new ASProperty("Width", typeof(double)));
       dictProps.Add("Change Plate Display Mode", new ASProperty("ReprMode", typeof(int), "Z_PostWriteDB"));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildGenericGratingPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Grating Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Grating Approval Comment", new ASProperty("ApprovalComment", typeof(string)));
+      dictProps.Add("Grating Approval Status Code", new ASProperty("ApprovalStatusCode", typeof(string)));
+      dictProps.Add("Grating Assembly", new ASProperty("Assembly", typeof(string)));
+      dictProps.Add("Grating Assembly Used For Numbering", new ASProperty("AssemblyUsedForNumbering", typeof(int)));
+      dictProps.Add("Grating Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Bearing Bar Quantity", new ASProperty("BearingBarQuantity", typeof(int), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Bearing Bar Spacing", new ASProperty("BearingBarSpacing", typeof(int), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Bearing Bar Spacing Distance", new ASProperty("BearingBarSpacingDistance", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Carrier", new ASProperty("Carrier", typeof(string)));
+      dictProps.Add("Grating Coating", new ASProperty("Coating", typeof(string)));
+      dictProps.Add("Grating Coating Description", new ASProperty("CoatingDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Coating Used For Numbering", new ASProperty("CoatingUsedForNumbering", typeof(int)));
+      dictProps.Add("Grating Connector Key", new ASProperty("ConnectorKey", typeof(int)));
+      dictProps.Add("Grating Connector Name", new ASProperty("ConnectorName", typeof(string)));
+      dictProps.Add("Grating Connector Quantity", new ASProperty("ConnectorQuantity", typeof(int)));
+      dictProps.Add("Grating Cross Bar", new ASProperty("CrossBar", typeof(string))); 
+      dictProps.Add("Grating Cross Bar Quantity", new ASProperty("CrossBarQuantity", typeof(int), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Cross Bar Spacing", new ASProperty("CrossBarSpacing", typeof(int), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Cross Bar Spacing Distance", new ASProperty("CrossBarSpacingDistance", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Custom Hatch", new ASProperty("CustomHatch", typeof(string)));
+      dictProps.Add("Grating EDValue", new ASProperty("EDValue", typeof(double)));
+      dictProps.Add("Grating Direction", new ASProperty("Direction", typeof(Vector3d)));
+      dictProps.Add("Grating Delivery Date", new ASProperty("DeliveryDate", typeof(string)));
+      dictProps.Add("Grating Denotation Used For Numbering", new ASProperty("DennotationUsedForNumbering", typeof(int)));
+      dictProps.Add("Grating Denotation", new ASProperty("Denotation", typeof(string)));
+      dictProps.Add("Grating Explicit Quantity", new ASProperty("ExplicitQuantity", typeof(int)));
+      dictProps.Add("Grating Fabrication Station", new ASProperty("FabricationStation", typeof(string)));
+      dictProps.Add("Grating Fabrication Station UsedF or Numbering", new ASProperty("FabricationStationUsedForNumbering", typeof(bool)));
+      dictProps.Add("Grating Class", new ASProperty("GratingClass", typeof(string)));
+      dictProps.Add("Grating Size", new ASProperty("GratingSize", typeof(string)));
+      dictProps.Add("Grating Handle", new ASProperty("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Heat Number", new ASProperty("HeatNumber", typeof(string)));
+      dictProps.Add("Grating Heat Number Used For Numbering", new ASProperty("HeatNumberUsedForNumbering", typeof(bool)));
+      dictProps.Add("Grating Holes Used For Numbering", new ASProperty("HolesUsedForNumbering", typeof(int)));
+      dictProps.Add("Grating Set IsAttached Flag", new ASProperty("IsAttachedPart", typeof(bool), "Z_PostWriteDB"));
+      dictProps.Add("Grating Set IsMainPart Flag", new ASProperty("IsMainPart", typeof(bool), "Z_PostWriteDB"));
+      dictProps.Add("Grating Set IsMatCoating Database Defined", new ASProperty("IsMatCoatDbDefined", typeof(bool)));
+      dictProps.Add("Grating Set IsUsing Standard ED Value", new ASProperty("IsUsingStandardED", typeof(bool)));
+      dictProps.Add("Grating Set IsUsing Standard Hatch Value", new ASProperty("IsUsingStandardHatch", typeof(bool)));
+      dictProps.Add("Grating ItemNumber", new ASProperty("ItemNumber", typeof(string)));
+      dictProps.Add("Grating ItemNumber Used For Numbering", new ASProperty("ItemNumberUsedForNumbering", typeof(int)));
+      dictProps.Add("Grating Layer", new ASProperty("Layer", typeof(string)));
+      dictProps.Add("Grating Length", new ASProperty("Length", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Length Increment", new ASProperty("LengthIncrement", typeof(double)));
+      dictProps.Add("Grating Load Number", new ASProperty("LoadNumber", typeof(string)));
+      dictProps.Add("Grating MainPart Number", new ASProperty("MainPartNumber", typeof(string)));
+      dictProps.Add("Grating MainPart Number Prefix", new ASProperty("MainPartPrefix", typeof(string)));
+      dictProps.Add("Grating MainPart Used For BOM", new ASProperty("MainPartUsedForBOM", typeof(int)));
+      dictProps.Add("Grating MainPart Used For Collision Check", new ASProperty("MainPartUsedForCollisionCheck", typeof(int)));
+      dictProps.Add("Grating MainPart Used For Numbering", new ASProperty("MainPartUsedForNumbering", typeof(int)));
+      dictProps.Add("Grating Material", new ASProperty("Material", typeof(string)));
+      dictProps.Add("Grating Material Description", new ASProperty("MaterialDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Material Used For Numbering", new ASProperty("MaterialUsedForNumbering", typeof(int)));
+      dictProps.Add("Grating Note", new ASProperty("Note", typeof(string)));
+      dictProps.Add("Grating Note Used For Numbering", new ASProperty("NoteUsedForNumbering", typeof(int)));
+      dictProps.Add("Grating Number Of Holes", new ASProperty("NumberOfHoles", typeof(int), ".", ePropertyDataOperator.Get)); 
+      dictProps.Add("Grating Normal", new ASProperty("PlateNormal", typeof(Vector3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating OED Value", new ASProperty("OEDValue", typeof(double)));
+      dictProps.Add("Grating PONumber", new ASProperty("PONumber", typeof(string)));
+      dictProps.Add("Grating PONumber Used For Numbering", new ASProperty("PONumberUsedForNumbering", typeof(bool)));
+      dictProps.Add("Grating Face Alignment", new ASProperty("Portioning", typeof(double)));
+      dictProps.Add("Grating Preliminary Part Number", new ASProperty("PreliminaryPartNumber", typeof(string)));
+      dictProps.Add("Grating Preliminary Part Position Number", new ASProperty("PreliminaryPartPositionNumber", typeof(string)));
+      dictProps.Add("Grating Preliminary Part Prefix", new ASProperty("PreliminaryPartPrefix", typeof(string)));
+      dictProps.Add("Grating Radius Increment", new ASProperty("RadIncrement", typeof(double)));
+      dictProps.Add("Grating Radius", new ASProperty("Radius", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Requisition Number", new ASProperty("RequisitionNumber", typeof(string)));
+      dictProps.Add("Grating Requisition Number Used For Numbering", new ASProperty("RequisitionNumberUsedForNumbering", typeof(bool)));
+      dictProps.Add("Grating Model Role", new ASProperty("Role", typeof(string)));
+      dictProps.Add("Grating Model Role Description", new ASProperty("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Role Used For Numbering", new ASProperty("RoleUsedForNumbering", typeof(int)));
+      dictProps.Add("Grating Shipped Date", new ASProperty("ShippedDate", typeof(string)));
+      dictProps.Add("Grating Single Part Number", new ASProperty("SinglePartNumber", typeof(string)));
+      dictProps.Add("Grating Single Part Prefix", new ASProperty("SinglePartPrefix", typeof(string)));
+      dictProps.Add("Grating Single Part Used For BOM", new ASProperty("SinglePartUsedForBOM", typeof(int)));
+      dictProps.Add("Grating Single Part Used For CollisionCheck", new ASProperty("SinglePartUsedForCollisionCheck", typeof(int)));
+      dictProps.Add("Grating Single Part Used For Numbering", new ASProperty("SinglePartUsedForNumbering", typeof(int)));
+      dictProps.Add("Grating SpecificGravity", new ASProperty("SpecificGravity", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Standard Hatch", new ASProperty("StandardHatch", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Supplier", new ASProperty("Supplier", typeof(string)));
+      dictProps.Add("Grating SupplierUsedForNumbering", new ASProperty("SupplierUsedForNumbering", typeof(bool)));
+      dictProps.Add("Grating Thickness", new ASProperty("Thickness", typeof(double)));
+      dictProps.Add("Grating Thickness Of A Bearing Bar", new ASProperty("ThicknessOfABearingBar", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Width Extension Left", new ASProperty("WidthExtensionLeft", typeof(double)));
+      dictProps.Add("Grating Width Extension Right", new ASProperty("WidthExtensionRight", typeof(double)));
+      dictProps.Add("Grating Volume", new ASProperty("Volume", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Width", new ASProperty("Width", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Change Grating Display Mode", new ASProperty("ReprMode", typeof(int), "Z_PostWriteDB"));
 
       return filterDictionary(dictProps, listFilter);
     }
