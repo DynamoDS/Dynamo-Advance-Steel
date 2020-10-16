@@ -8,7 +8,7 @@ using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 namespace AdvanceSteel.Nodes.NonSteelItems
 {
   /// <summary>
-  /// Advance Steel plate
+  /// Advance Steel camera
   /// </summary>
   [DynamoServices.RegisterForTrace]
   public class Camera : GraphicObject
@@ -73,10 +73,10 @@ namespace AdvanceSteel.Nodes.NonSteelItems
     }
 
     /// <summary>
-    /// Create an Advance Steel plate (Position default to 0, with system thickness as default)
+    /// Create an Advance Steel Camera
     /// </summary>
     /// <param name="coordinateSystem">Input Dynamo Coordinate System</param>
-    /// <param name="additionalCameraParameters"> Optional Input Plate Build Properties </param>
+    /// <param name="additionalCameraParameters"> Optional Input Camera Build Properties </param>
     /// <returns></returns>
     public static Camera ByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                   [DefaultArgument("null")]List<ASProperty> additionalCameraParameters)
@@ -104,13 +104,25 @@ namespace AdvanceSteel.Nodes.NonSteelItems
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          var plate = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.Plate;
+          var camera = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.ConstructionHelper.Camera;
 
-          Polyline3d astPoly = null;
-          plate.GetBaseContourPolygon(0.0, out astPoly);
+          Matrix3d cameraCS = camera.CameraCS;
+          Vector3d xVect = null;
+          Vector3d yVect = null;
+          Vector3d ZVect = null;
+          Point3d origin = null;
+          cameraCS.GetCoordSystem(out origin, out xVect, out yVect, out ZVect);
+          var cameraPoint = Utils.ToDynPoint(origin, true);
+          var p1 = origin + (xVect * -100);
+          p1 = p1 + (yVect * 100);
+          var p2 = p1 + (xVect * 200);
+          var p4 = p1 + (yVect * -200);
+          var p3 = p4 + (xVect * 200);
 
-          var dynPoints = Utils.ToDynPoints(astPoly.Vertices, true);
-          var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, astPoly.IsClosed);
+          List<Point3d> lstPoints = new List<Point3d>() { p1, p2, p3, p4 };
+
+          IEnumerable<Autodesk.DesignScript.Geometry.Point> dynPoints = Utils.ToDynPoints(lstPoints.ToArray(), true);
+          var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, true);
           foreach (var pt in dynPoints) { pt.Dispose(); }
 
           return poly;
