@@ -332,7 +332,12 @@ namespace AdvanceSteel.Nodes
     {
       return BuildGenericPlatePropertyList(listFilter);
     }
-
+    
+    public static Dictionary<string, ASProperty> GetCameraPropertyList(int listFilter)
+    {
+      return BuildCameraPropertyList(listFilter);
+    }
+    
     public static Dictionary<string, ASProperty> GetGratingPropertyList(int listFilter)
     {
       return BuildGenericGratingPropertyList(listFilter);
@@ -386,6 +391,7 @@ namespace AdvanceSteel.Nodes
                                                 BuildCompundBaseBeamPropertyList(listFilter)).Union(
                                                 BuildGenericPlatePropertyList(listFilter)).Union(
                                                 BuildGenericGratingPropertyList(listFilter)).Union(
+                                                BuildCameraPropertyList(listFilter)).Union(
                                                 BuildBoltPropertyList(listFilter)).Union(
                                                 BuildAnchorBoltPropertyList(listFilter)).Union(
                                                 BuildShearStudPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
@@ -738,6 +744,24 @@ namespace AdvanceSteel.Nodes
       return filterDictionary(dictProps, listFilter);
     }
 
+    private static Dictionary<string, ASProperty> BuildCameraPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Camera Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Camera Description", new ASProperty("Description", typeof(string)));
+      dictProps.Add("Camera Scale", new ASProperty("Scale", typeof(double)));
+      dictProps.Add("Camera Type", new ASProperty("CameraType", typeof(string)));
+      dictProps.Add("Camera 3D Coordinate System", new ASProperty("CameraCS", typeof(Matrix3d)));
+      dictProps.Add("Camera SupplierUsedForNumbering", new ASProperty("DetailingFilterEnabled", typeof(bool)));
+      dictProps.Add("Camera Type Description", new ASProperty("TypeDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Camera Supports Detailing Disable", new ASProperty("SupportsDetailingDisable", typeof(bool), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Camera Detail Style", new ASProperty("DetailStyle", typeof(int)));
+      dictProps.Add("Camera Detail Style Location", new ASProperty("DetailStyleLocation", typeof(int)));
+      dictProps.Add("Camera Disable Detailing", new ASProperty("DisableDetailing", typeof(bool)));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
     private static Dictionary<string, ASProperty> BuildCompundBaseBeamPropertyList(int listFilter)
     {
       Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
@@ -766,6 +790,17 @@ namespace AdvanceSteel.Nodes
     }
 
     public static void SetParameters(Autodesk.AdvanceSteel.Modelling.CountableScrewBoltPattern objToMod, List<ASProperty> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
+    }
+
+    public static void SetParameters(Autodesk.AdvanceSteel.ConstructionHelper.Camera objToMod, List<ASProperty> properties)
     {
       if (properties != null)
       {
