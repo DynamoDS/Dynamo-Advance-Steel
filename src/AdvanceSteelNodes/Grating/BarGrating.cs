@@ -18,21 +18,36 @@ namespace AdvanceSteel.Nodes.Gratings
 	[DynamoServices.RegisterForTrace]
 	public class BarGrating : GraphicObject
 	{
-		internal BarGrating(Vector3d vNormal, Point3d ptCenter, double dLength)
+		internal BarGrating(Vector3d vNormal, Point3d ptCenter, double dLength, List<ASProperty> additionalGratingParameters)
 		{
 			lock (access_obj)
 			{
 				using (var ctx = new SteelServices.DocContext())
 				{
-					Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
+          List<ASProperty> defaultData = additionalGratingParameters.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = additionalGratingParameters.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+
+          Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
 					Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
 					string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
 					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
 					{
-						gratings = new Autodesk.AdvanceSteel.Modelling.Grating("ADT", 11, 2, "3 / 16 inch", "10", "3/16", plane, ptCenter, dLength);
-						gratings.WriteToDb();
-					}
+
+            gratings = new Autodesk.AdvanceSteel.Modelling.Grating("ADT", 11, 2, "3 / 16 inch", "10", "3/16", plane, ptCenter, dLength);
+
+            if (defaultData != null)
+            {
+              Utils.SetParameters(gratings, defaultData);
+            }
+
+            gratings.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(gratings, postWriteDBData);
+            }
+          }
 					else
 					{
 						gratings = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Grating;
@@ -40,7 +55,17 @@ namespace AdvanceSteel.Nodes.Gratings
 						{
 							gratings.DefinitionPlane = plane;
 							gratings.SetLength(dLength, true);
-						}
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(gratings, defaultData);
+              }
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(gratings, postWriteDBData);
+              }
+            }
 						else
 						{
 							throw new System.Exception("Not a Bar Grating pattern");
@@ -51,26 +76,41 @@ namespace AdvanceSteel.Nodes.Gratings
 				}
 			}
 		}
-		/// <summary>
-		/// Create an Advance Steel Bar Grating
-		/// </summary>
-		/// <returns></returns>
-		public static BarGrating ByLine(Autodesk.DesignScript.Geometry.Line line, Autodesk.DesignScript.Geometry.Vector planDirection)
+    /// <summary>
+    /// Create an Advance Steel Bar Grating
+    /// </summary>
+    /// <param name="line"> Input Dynamo Line</param>
+    /// <param name="planeDirection"> Input Dynamo Vector to set Normal of Grating</param>
+    /// <param name="additionalGratingParameters"> Optional Input Grating Build Properties </param>
+    /// <returns></returns>
+    public static BarGrating ByLine(Autodesk.DesignScript.Geometry.Line line, 
+                                    Autodesk.DesignScript.Geometry.Vector planeDirection,
+                                    [DefaultArgument("null")]List<ASProperty> additionalGratingParameters)
 		{
 			var start = Utils.ToAstPoint(line.StartPoint, true);
 			var end = Utils.ToAstPoint(line.EndPoint, true);
 			var refPoint = start + (end - start) * 0.5;
-			var planeNorm = Utils.ToAstVector3d(planDirection, true);
+			var planeNorm = Utils.ToAstVector3d(planeDirection, true);
 
 			if (!planeNorm.IsPerpendicularTo(Utils.ToAstVector3d(line.Direction, true)))
 			{
 				throw new System.Exception("Plan Direction must be perpendicular to line");
 			}
 
-			return new BarGrating(planeNorm, refPoint, Utils.ToInternalUnits(line.Length, true));
+      additionalGratingParameters = PreSetDefaults(additionalGratingParameters);
+			return new BarGrating(planeNorm, refPoint, Utils.ToInternalUnits(line.Length, true), additionalGratingParameters);
 		}
 
-		[IsVisibleInDynamoLibrary(false)]
+    private static List<ASProperty> PreSetDefaults(List<ASProperty> listGratingData)
+    {
+      if (listGratingData == null)
+      {
+        listGratingData = new List<ASProperty>() { };
+      }
+      return listGratingData;
+    }
+
+    [IsVisibleInDynamoLibrary(false)]
 		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
 		{
 			lock (access_obj)
