@@ -7,19 +7,18 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Writable Bolt Properties")]
-	[NodeDescription("Select Advance Steel Bolt Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Writable Bolt Property")]
+	[NodeName("Beam Ortho Notch Feature Properties")]
+	[NodeDescription("Select Advance Steel Beam Ortho Notch Feature Property Type to Set")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
+  [OutPortNames("Writable Beam Ortho Notch Feature Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class ASPropertiesBolts : AstDropDownBase
+	public class ASPropertiesBeamNotchSqFeatures : AstDropDownBase
 	{
-		private const string outputName = "Advance Steel Bolt Property";
+		private const string outputName = "Advance Steel Beam Ortho Notch Feature Property";
 
-    //AdvanceSteel.Nodes.Properties
-    public ASPropertiesBolts()
+    public ASPropertiesBeamNotchSqFeatures()
 				: base(outputName)
 		{
 			InPorts.Clear();
@@ -28,7 +27,7 @@ namespace AdvanceSteel.Nodes
 		}
 
 		[JsonConstructor]
-		public ASPropertiesBolts(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+		public ASPropertiesBeamNotchSqFeatures(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
 		: base(outputName, inPorts, outPorts)
 		{
 		}
@@ -38,7 +37,7 @@ namespace AdvanceSteel.Nodes
 			Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetBoltProperties(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetBeamNotchOrthoPropertyList(ePropertyDataOperator.Set))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

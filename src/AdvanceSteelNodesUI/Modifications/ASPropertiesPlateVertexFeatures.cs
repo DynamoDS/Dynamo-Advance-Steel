@@ -7,18 +7,18 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Writable Grating Properties")]
-	[NodeDescription("Select Advance Steel Grating Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Writable Grating Property")]
+	[NodeName("Plate Vertex Feature Properties")]
+	[NodeDescription("Select Advance Steel Plate Vertex Feature Property Type to Set")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
+  [OutPortNames("Writable Plate Vertex Feature Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class ASPropertiesGrating : AstDropDownBase
+	public class ASPropertiesPlateVertexFeatures : AstDropDownBase
 	{
-		private const string outputName = "Advance Steel Grating Property";
+		private const string outputName = "Advance Steel Plate Vertex Feature Property";
 
-    public ASPropertiesGrating()
+    public ASPropertiesPlateVertexFeatures()
 				: base(outputName)
 		{
 			InPorts.Clear();
@@ -27,7 +27,7 @@ namespace AdvanceSteel.Nodes
 		}
 
 		[JsonConstructor]
-		public ASPropertiesGrating(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+		public ASPropertiesPlateVertexFeatures(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
 		: base(outputName, inPorts, outPorts)
 		{
 		}
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
 			Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetGratingPropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetPlateVertexPropertyList(ePropertyDataOperator.Set))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

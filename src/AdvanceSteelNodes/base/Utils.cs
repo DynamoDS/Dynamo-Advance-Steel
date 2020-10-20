@@ -337,7 +337,36 @@ namespace AdvanceSteel.Nodes
     {
       return BuildCameraPropertyList(listFilter);
     }
-    
+
+    public static Dictionary<string, ASProperty> GetPlateFeaturePropertyList(int listFilter)
+    {
+      return BuildPlateFeaturePropertyList(listFilter);
+    }
+
+    public static Dictionary<string, ASProperty> GetBeamCutPlanePropertyList(int listFilter)
+    {
+      return BuildBeamCutPlanePropertyList(listFilter);
+    }
+
+    public static Dictionary<string, ASProperty> GetBeamNotchOrthoPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> combinedData = BuildBeamNotchOrthoPropertyList(listFilter).Union(
+                                            BuildBaseBeamNotchPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
+      return combinedData;
+    }
+
+    public static Dictionary<string, ASProperty> GetBeamNotchRotatedPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> combinedData = BuildBeamNotchRotatedPropertyList(listFilter).Union(
+                                            BuildBaseBeamNotchPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
+      return combinedData;
+    }
+
+    public static Dictionary<string, ASProperty> GetPlateVertexPropertyList(int listFilter)
+    {
+      return BuildPlateVertexFilletPropertyList(listFilter);
+    }
+
     public static Dictionary<string, ASProperty> GetGratingPropertyList(int listFilter)
     {
       return BuildGenericGratingPropertyList(listFilter);
@@ -392,6 +421,9 @@ namespace AdvanceSteel.Nodes
                                                 BuildGenericPlatePropertyList(listFilter)).Union(
                                                 BuildGenericGratingPropertyList(listFilter)).Union(
                                                 BuildCameraPropertyList(listFilter)).Union(
+                                                BuildBeamCutPlanePropertyList(listFilter)).Union(
+                                                BuildPlateFeaturePropertyList(listFilter)).Union(
+                                                BuildPlateVertexFilletPropertyList(listFilter)).Union(
                                                 BuildBoltPropertyList(listFilter)).Union(
                                                 BuildAnchorBoltPropertyList(listFilter)).Union(
                                                 BuildShearStudPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
@@ -762,6 +794,106 @@ namespace AdvanceSteel.Nodes
       return filterDictionary(dictProps, listFilter);
     }
 
+    private static Dictionary<string, ASProperty> BuildPlateFeaturePropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Plate Feature Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Plate Feature Boring Out Switch", new ASProperty("BoringOut", typeof(int)));
+      dictProps.Add("Plate Feature Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Feature Gap", new ASProperty("Gap", typeof(double)));
+      dictProps.Add("Plate Feature Handle", new ASProperty("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Feature Layer", new ASProperty("Layer", typeof(string)));
+      dictProps.Add("Plate Feature Length", new ASProperty("Length", typeof(double)));
+      dictProps.Add("Plate Feature LengthIncrement", new ASProperty("LengthIncrement", typeof(double)));
+      dictProps.Add("Plate Feature PureRole", new ASProperty("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Feature RadIncrement", new ASProperty("RadIncrement", typeof(double)));
+      dictProps.Add("Plate Feature Radius", new ASProperty("Radius", typeof(double)));
+      dictProps.Add("Plate Feature Display Mode", new ASProperty("ReprMode", typeof(int)));
+      dictProps.Add("Plate Feature Role", new ASProperty("Role", typeof(string)));
+      dictProps.Add("Plate Feature Role Description", new ASProperty("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Feature Use Gap Switch", new ASProperty("UseGap", typeof(double)));
+      dictProps.Add("Plate Feature Width", new ASProperty("Width", typeof(bool)));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildPlateVertexFilletPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Plate Vertex Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Plate Vertex Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Vertex Contour Index", new ASProperty("ContourIndex", typeof(int)));
+      dictProps.Add("Plate Vertex Handle", new ASProperty("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Vertex Layer", new ASProperty("Layer", typeof(string)));
+      dictProps.Add("Plate Vertex Length 1", new ASProperty("Length1", typeof(double)));
+      dictProps.Add("Plate Vertex Length 2", new ASProperty("Length2", typeof(double)));
+      dictProps.Add("Plate Vertex Object Index", new ASProperty("ObjectIndex", typeof(int)));
+      dictProps.Add("Plate Vertex PureRole", new ASProperty("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Vertex Radius", new ASProperty("Radius", typeof(double)));
+      dictProps.Add("Plate Vertex RadIncrement", new ASProperty("RadIncrement", typeof(double)));
+      dictProps.Add("Plate Vertex Display Mode", new ASProperty("ReprMode", typeof(int)));
+      dictProps.Add("Plate Vertex Role", new ASProperty("Role", typeof(string)));
+      dictProps.Add("Plate Vertex Role Description", new ASProperty("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Vertex Use Gap", new ASProperty("UseGap", typeof(bool)));
+      dictProps.Add("Plate Vertex Vertex Index", new ASProperty("VertexIndex", typeof(short)));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildBeamCutPlanePropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Beam Cut Plane Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Beam Cut Plane AngleOnY", new ASProperty("AngleOnY", typeof(double)));
+      dictProps.Add("Beam Cut Plane AngleOnZ", new ASProperty("AngleOnZ", typeof(double)));
+      dictProps.Add("Beam Cut Plane Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Cut Plane Handle", new ASProperty("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Cut Plane Cut Length", new ASProperty("InsLength", typeof(double)));
+      dictProps.Add("Beam Cut Plane Layer", new ASProperty("Layer", typeof(string)));
+      dictProps.Add("Beam Cut Plane PureRole", new ASProperty("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Cut Plane Display Mode", new ASProperty("ReprMode", typeof(int)));
+      dictProps.Add("Beam Cut Plane Role", new ASProperty("Role", typeof(string)));
+      dictProps.Add("Beam Cut Plane Role Description", new ASProperty("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildBaseBeamNotchPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Beam Notch Corner Radius", new ASProperty("CornerRadius", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Notch Plane Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Notch Plane Handle", new ASProperty("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Notch Plane Cut Length", new ASProperty("ReferenceDepth", typeof(double)));
+      dictProps.Add("Beam Notch Plane Cut Length", new ASProperty("ReferenceLength", typeof(double)));
+      dictProps.Add("Beam Notch Plane Layer", new ASProperty("Layer", typeof(string)));
+      dictProps.Add("Beam Notch Plane PureRole", new ASProperty("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Notch Plane Display Mode", new ASProperty("ReprMode", typeof(int)));
+      dictProps.Add("Beam Notch Plane Role", new ASProperty("Role", typeof(string)));
+      dictProps.Add("Beam Notch Plane Role Description", new ASProperty("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildBeamNotchOrthoPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Beam Notch Ortho Property...", new ASProperty("none", typeof(string)));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildBeamNotchRotatedPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Beam Notch Rotated Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Beam Notch Axis Angle", new ASProperty("AxisAngle", typeof(double)));
+      dictProps.Add("Beam Notch Z Angle", new ASProperty("ZAngle", typeof(double)));
+      dictProps.Add("Beam Notch X Angle", new ASProperty("XAngle", typeof(double)));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
     private static Dictionary<string, ASProperty> BuildCompundBaseBeamPropertyList(int listFilter)
     {
       Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
@@ -790,6 +922,60 @@ namespace AdvanceSteel.Nodes
     }
 
     public static void SetParameters(Autodesk.AdvanceSteel.Modelling.CountableScrewBoltPattern objToMod, List<ASProperty> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
+    }
+
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.PlateFeatContour objToMod, List<ASProperty> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
+    }
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.BeamShortening objToMod, List<ASProperty> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
+    }
+
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.BeamNotch2Ortho objToMod, List<ASProperty> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
+    }
+
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.BeamNotchEx objToMod, List<ASProperty> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
+    }
+
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.PlateFeatVertFillet objToMod, List<ASProperty> properties)
     {
       if (properties != null)
       {

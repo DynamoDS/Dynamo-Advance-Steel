@@ -5,20 +5,23 @@ using Dynamo.Utilities;
 using ProtoCore.AST.AssociativeAST;
 using Newtonsoft.Json;
 
+//[OutPortNames("Object Type")]
+//[OutPortTypes("int")]
+//[OutPortDescriptions("integer")]
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Anchor Orientation Type")]
-	[NodeDescription("Set Anchor Orientation")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Anchor Orientation Type")]
+	[NodeName("Bolt Connection Type")]
+	[NodeDescription("Set Bolt Connection type - InShop or OnSite or SiteDrill")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
+  [OutPortNames("Bolt Type")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
-	public class AnchorOrientationType : AstDropDownBase
+	public class BoltConnectionType : AstDropDownBase
 	{
-		private const string outputName = "Anchor Orientation Type";
+		private const string outputName = "Bolt Type";
 
-		public AnchorOrientationType()
+		public BoltConnectionType()
 				: base(outputName)
 		{
 			InPorts.Clear();
@@ -27,7 +30,7 @@ namespace AdvanceSteel.Nodes
 		}
 
 		[JsonConstructor]
-		public AnchorOrientationType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+		public BoltConnectionType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
 		: base(outputName, inPorts, outPorts)
 		{
 		}
@@ -38,15 +41,11 @@ namespace AdvanceSteel.Nodes
 
 			var newItems = new List<DynamoDropDownItem>()
 						{
-								new DynamoDropDownItem("Select Anchor Orientation...", -1),
-								new DynamoDropDownItem("Normal Orientation", 0),
-								new DynamoDropDownItem("Diagonal Inside", 1),
-                new DynamoDropDownItem("Diagonal Outside", 2),
-                new DynamoDropDownItem("All Outside", 3),
-                new DynamoDropDownItem("All Inside", 4),
-                new DynamoDropDownItem("Inside Rotated", 5),
-                new DynamoDropDownItem("Outside Rotated", 6)
-            };
+								new DynamoDropDownItem("Select Bolt Type...", -1),
+								new DynamoDropDownItem("OnSite", 0),
+								new DynamoDropDownItem("Site Drill", 1),
+                new DynamoDropDownItem("InShop", 2)
+						};
 
 			Items.AddRange(newItems);
 
@@ -57,7 +56,7 @@ namespace AdvanceSteel.Nodes
 		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
 		{
       if (Items.Count == 0 ||
-          Items[SelectedIndex].Name == "Select Anchor Orientation..." ||
+          Items[SelectedIndex].Name == "Select Bolt Type..." ||
           SelectedIndex < 0)
       {
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };

@@ -7,18 +7,19 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Writable Tapered Beam Properties")]
-	[NodeDescription("Select Advance Steel Tapered Beam Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Writable Tapered Beam Property")]
+	[NodeName("Shear Stud Properties")]
+	[NodeDescription("Select Advance Steel Shear Stud Property Type to Set")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
+  [OutPortNames("Writable Shear Stud Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class ASPropertiesTaperedBeam : AstDropDownBase
+	public class ASPropertiesShearStud : AstDropDownBase
 	{
-		private const string outputName = "Advance Steel Tapered Beam Property";
+		private const string outputName = "Advance Steel Shear Stud Property";
 
-    public ASPropertiesTaperedBeam()
+    //AdvanceSteel.Nodes.Properties
+    public ASPropertiesShearStud()
 				: base(outputName)
 		{
 			InPorts.Clear();
@@ -27,7 +28,7 @@ namespace AdvanceSteel.Nodes
 		}
 
 		[JsonConstructor]
-		public ASPropertiesTaperedBeam(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+		public ASPropertiesShearStud(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
 		: base(outputName, inPorts, outPorts)
 		{
 		}
@@ -36,8 +37,8 @@ namespace AdvanceSteel.Nodes
 		{
 			Items.Clear();
 
-      var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetTaperBeamPropertyList(ePropertyDataOperator.Set))
+      var newItems = new List<DynamoDropDownItem>() { };//
+      foreach (var item in Utils.GetShearStudPropertyList(ePropertyDataOperator.Set))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

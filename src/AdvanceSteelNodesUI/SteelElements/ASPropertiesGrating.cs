@@ -7,18 +7,18 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Writable Camera Properties")]
-	[NodeDescription("Select Advance Steel Camera Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Writable Camera Property")]
+	[NodeName("Grating Properties")]
+	[NodeDescription("Select Advance Steel Grating Property Type to Set")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
+  [OutPortNames("Writable Grating Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class ASPropertiesCamera : AstDropDownBase
+	public class ASPropertiesGrating : AstDropDownBase
 	{
-		private const string outputName = "Advance Steel Camera Property";
+		private const string outputName = "Advance Steel Grating Property";
 
-    public ASPropertiesCamera()
+    public ASPropertiesGrating()
 				: base(outputName)
 		{
 			InPorts.Clear();
@@ -27,7 +27,7 @@ namespace AdvanceSteel.Nodes
 		}
 
 		[JsonConstructor]
-		public ASPropertiesCamera(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+		public ASPropertiesGrating(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
 		: base(outputName, inPorts, outPorts)
 		{
 		}
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
 			Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetCameraPropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetGratingPropertyList(ePropertyDataOperator.Set))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }
