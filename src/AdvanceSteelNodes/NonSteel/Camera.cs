@@ -31,7 +31,6 @@ namespace AdvanceSteel.Nodes.NonSteelItems
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
             camera = new Autodesk.AdvanceSteel.ConstructionHelper.Camera(cameraMat);
-
             if (defaultData != null)
             {
               Utils.SetParameters(camera, defaultData);

@@ -5,21 +5,20 @@ using Dynamo.Utilities;
 using ProtoCore.AST.AssociativeAST;
 using Newtonsoft.Json;
 
-
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Weld Connection Type")]
-	[NodeDescription("Set Weld Connection type - InShop or OnSite")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Weld Type")]
+	[NodeName("Plate Fillet Vertex Type")]
+	[NodeDescription("Set Plate Fillet Vertex type - Convex, Concave, Chamfer")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
+  [OutPortNames("Plate Fillet Vertex Type")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
-	public class WeldConnectionType : AstDropDownBase
+	public class PlateFilletVertexType : AstDropDownBase
 	{
-		private const string outputName = "Weld Type";
+		private const string outputName = "Plate Fillet Vertex Type";
 
-		public WeldConnectionType()
+		public PlateFilletVertexType()
 				: base(outputName)
 		{
 			InPorts.Clear();
@@ -28,7 +27,7 @@ namespace AdvanceSteel.Nodes
 		}
 
 		[JsonConstructor]
-		public WeldConnectionType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+		public PlateFilletVertexType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
 		: base(outputName, inPorts, outPorts)
 		{
 		}
@@ -39,9 +38,10 @@ namespace AdvanceSteel.Nodes
 
 			var newItems = new List<DynamoDropDownItem>()
 						{
-								new DynamoDropDownItem("Select Weld Type...", -1),
-								new DynamoDropDownItem("OnSite", 0),
-								new DynamoDropDownItem("InShop", 2)
+								new DynamoDropDownItem("Select Plate Corener Cut Type...", -1),
+								new DynamoDropDownItem("Convex", (short)0),
+								new DynamoDropDownItem("Concave", (short)1),
+                new DynamoDropDownItem("Striaght", (short)2)
 						};
 
 			Items.AddRange(newItems);
@@ -53,7 +53,7 @@ namespace AdvanceSteel.Nodes
 		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
 		{
       if (Items.Count == 0 ||
-          Items[SelectedIndex].Name == "Select Weld Type..." ||
+          Items[SelectedIndex].Name == "Select Plate Corener Cut Type..." ||
           SelectedIndex < 0)
       {
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };

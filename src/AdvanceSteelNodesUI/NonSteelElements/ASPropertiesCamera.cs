@@ -7,19 +7,18 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Writable Shear Stud Properties")]
-	[NodeDescription("Select Advance Steel Shear Stud Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Writable Shear Stud Property")]
+	[NodeName("Camera Properties")]
+	[NodeDescription("Select Advance Steel Camera Property Type to Set")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
+  [OutPortNames("Writable Camera Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class ASPropertiesShearStud : AstDropDownBase
+	public class ASPropertiesCamera : AstDropDownBase
 	{
-		private const string outputName = "Advance Steel Shear Stud Property";
+		private const string outputName = "Advance Steel Camera Property";
 
-    //AdvanceSteel.Nodes.Properties
-    public ASPropertiesShearStud()
+    public ASPropertiesCamera()
 				: base(outputName)
 		{
 			InPorts.Clear();
@@ -28,7 +27,7 @@ namespace AdvanceSteel.Nodes
 		}
 
 		[JsonConstructor]
-		public ASPropertiesShearStud(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+		public ASPropertiesCamera(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
 		: base(outputName, inPorts, outPorts)
 		{
 		}
@@ -37,8 +36,8 @@ namespace AdvanceSteel.Nodes
 		{
 			Items.Clear();
 
-      var newItems = new List<DynamoDropDownItem>() { };//
-      foreach (var item in Utils.GetShearStudPropertyList(ePropertyDataOperator.Set))
+      var newItems = new List<DynamoDropDownItem>() { };
+      foreach (var item in Utils.GetCameraPropertyList(ePropertyDataOperator.Set))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

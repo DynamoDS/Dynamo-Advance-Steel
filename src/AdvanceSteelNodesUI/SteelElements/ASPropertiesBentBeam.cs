@@ -7,18 +7,18 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Writable Plate Properties")]
-	[NodeDescription("Select Advance Steel Plate Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties")]
-  [OutPortNames("Writable Plate Property")]
+	[NodeName("Bent Beam Properties")]
+	[NodeDescription("Select Advance Steel Bent Beam Property Type to Set")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
+  [OutPortNames("Writable Bent Beam Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class ASPropertiesPlate : AstDropDownBase
+	public class ASPropertiesBentBeam : AstDropDownBase
 	{
-		private const string outputName = "Advance Steel Plate Property";
+		private const string outputName = "Advance Steel Bent Beam Property";
 
-    public ASPropertiesPlate()
+    public ASPropertiesBentBeam()
 				: base(outputName)
 		{
 			InPorts.Clear();
@@ -27,7 +27,7 @@ namespace AdvanceSteel.Nodes
 		}
 
 		[JsonConstructor]
-		public ASPropertiesPlate(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+		public ASPropertiesBentBeam(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
 		: base(outputName, inPorts, outPorts)
 		{
 		}
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
 			Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetPlatePropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetBentBeamPropertyList(ePropertyDataOperator.Set))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

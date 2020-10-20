@@ -123,21 +123,27 @@
     <Compile Include="$(SolutionDir)AssemblySharedInfoGenerator\AssemblySharedInfo.cs">
       <Link>Properties\AssemblySharedInfo.cs</Link>
     </Compile>
-    <Compile Include="ASPropertiesAnchorBolt.cs" />
-    <Compile Include="ASPropertiesCompoundStraightBeam.cs" />
-    <Compile Include="ASPropertiesGrating.cs" />
-    <Compile Include="ASPropertiesCamera.cs" />
-    <Compile Include="ASPropertiesPlate.cs" />
-    <Compile Include="ASPropertiesTaperedBeam.cs" />
-    <Compile Include="ASPropertiesBentBeam.cs" />
-    <Compile Include="ASPropertiesStraightBeam.cs" />
-    <Compile Include="ASPropertiesShearStuds.cs" />
-    <Compile Include="ASPropertiesBolts.cs" />
-    <Compile Include="AnchorOrientationTypeDropDown.cs" />
-    <Compile Include="AstDropDownBase.cs" />
-    <Compile Include="BoltConnectionTypeDropDown.cs" />
+    <Compile Include="ConnectionObjects\ASPropertiesAnchorBolt.cs" />
+    <Compile Include="Modifications\ASPropertiesBeamNotchExFeatures.cs" />
+    <Compile Include="Modifications\ASPropertiesBeamNotchSqFeatures.cs" />
+    <Compile Include="Modifications\ASPropertiesBeamCutPlaneFeatures.cs" />
+    <Compile Include="Modifications\ASPropertiesPlateVertexFeatures.cs" />
+    <Compile Include="Modifications\ASPropertiesPlateFeatures.cs" />
+    <Compile Include="Modifications\PlateFilletVertexTypeDropDown.cs" />
+    <Compile Include="SteelElements\ASPropertiesCompoundStraightBeam.cs" />
+    <Compile Include="SteelElements\ASPropertiesGrating.cs" />
+    <Compile Include="NonSteelElements\ASPropertiesCamera.cs" />
+    <Compile Include="SteelElements\ASPropertiesPlate.cs" />
+    <Compile Include="SteelElements\ASPropertiesTaperedBeam.cs" />
+    <Compile Include="SteelElements\ASPropertiesBentBeam.cs" />
+    <Compile Include="SteelElements\ASPropertiesStraightBeam.cs" />
+    <Compile Include="ConnectionObjects\ASPropertiesShearStuds.cs" />
+    <Compile Include="ConnectionObjects\ASPropertiesBolts.cs" />
+    <Compile Include="ConnectionObjects\AnchorOrientationTypeDropDown.cs" />
+    <Compile Include="Base\AstDropDownBase.cs" />
+    <Compile Include="ConnectionObjects\BoltConnectionTypeDropDown.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WeldConnectionTypeDropDown.cs" />
+    <Compile Include="ConnectionObjects\WeldConnectionTypeDropDown.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AdvanceSteelNodes\AdvanceSteelNodes.csproj">
