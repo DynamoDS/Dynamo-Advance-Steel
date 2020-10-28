@@ -96,6 +96,134 @@ namespace AdvanceSteel.Nodes
       return (value * (1 / factor));
     }
 
+    static public List<Autodesk.DesignScript.Geometry.Curve> ToDynPolyCurves(Autodesk.AdvanceSteel.Geometry.Polyline3d poly, bool bConvertFromAstUnits)
+    {
+      List<Autodesk.DesignScript.Geometry.Curve> retData = new List<Autodesk.DesignScript.Geometry.Curve>();
+      Curve3d[] foundPolyCurves;
+      poly.GetCurves(out foundPolyCurves);
+      for (int i = 0; i < foundPolyCurves.Length; i++)
+      {
+        Curve3d nextCurve;
+        nextCurve = foundPolyCurves[i];
+        LineSeg3d line = nextCurve as LineSeg3d;
+        if (line != null)
+        {
+          Point3d lStartPoint;
+          Point3d lEndPoint;
+          line.HasStartPoint(out lStartPoint);
+          line.HasEndPoint(out lEndPoint);
+
+          retData.Add(Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(Utils.ToDynPoint(lStartPoint, true),
+                                                                                Utils.ToDynPoint(lEndPoint, true)));
+        }
+        CircArc3d arc = nextCurve as CircArc3d;
+        if (line != null)
+        {
+          Point3d aStartPoint = arc.StartPoint;
+          Point3d aEndPoint = arc.EndPoint;
+          Point3d aCentrePoint = arc.Center;
+          Vector3d arcNormal = arc.Normal;
+
+          retData.Add(Autodesk.DesignScript.Geometry.Arc.ByCenterPointStartPointEndPoint(Utils.ToDynPoint(aCentrePoint, true),
+                                                                                         Utils.ToDynPoint(aStartPoint, true),
+                                                                                         Utils.ToDynPoint(aEndPoint, true)));
+        }
+      }
+      return retData;
+    }
+
+    static public Autodesk.AdvanceSteel.Geometry.Polyline3d ToAstPolyline3d(Autodesk.DesignScript.Geometry.PolyCurve poly, bool bConvertToAstUnits)
+    {
+      Polyline3d newReturnPoly = new Polyline3d();
+
+      if (poly.IsClosed == true)
+      {
+        Autodesk.DesignScript.Geometry.Curve[] curves = poly.Curves();
+        Point3d[] PolyPoint = new Point3d[curves.Length];
+        VertexInfo[] PolyVertexs = new VertexInfo[curves.Length];
+
+        for (int i = 0; i < curves.Length; i++)
+        {
+          Autodesk.DesignScript.Geometry.Curve nextCurve = curves[i];
+
+          Autodesk.DesignScript.Geometry.Vector startNormal = nextCurve.NormalAtParameter(0);
+          Autodesk.DesignScript.Geometry.Vector midNormal = nextCurve.NormalAtParameter(nextCurve.Length/2);
+          Autodesk.DesignScript.Geometry.Vector endNormal = nextCurve.NormalAtParameter(nextCurve.Length);
+
+
+          if (startNormal.IsParallel(endNormal)) //Line
+          {
+            PolyPoint[i] = Utils.ToAstPoint(nextCurve.StartPoint, bConvertToAstUnits);
+            PolyVertexs[i] = new VertexInfo();
+          }
+          else //Other Curve
+          {
+            double angleStart = Utils.ToInternalAngleUnits(startNormal.AngleWithVector(midNormal), bConvertToAstUnits);
+            double angleEnd = Utils.ToInternalAngleUnits(midNormal.AngleWithVector(endNormal), bConvertToAstUnits);
+            angleStart = Math.Round(angleStart, 5);
+            angleEnd = Math.Round(angleEnd, 5);
+
+            if (angleStart == angleEnd)
+            {
+              Autodesk.DesignScript.Geometry.Point midPointOnCurve = nextCurve.PointAtSegmentLength(nextCurve.Length / 2);
+              Autodesk.DesignScript.Geometry.Arc tempArc = Autodesk.DesignScript.Geometry.Arc.ByThreePoints(nextCurve.StartPoint,
+                                                                                                            midPointOnCurve,
+                                                                                                            nextCurve.EndPoint);
+
+              PolyPoint[i] = Utils.ToAstPoint(tempArc.StartPoint, bConvertToAstUnits);
+              PolyVertexs[i] = new VertexInfo(Utils.FromInternalUnits(tempArc.Radius, bConvertToAstUnits),
+                                    Utils.ToAstPoint(tempArc.CenterPoint, bConvertToAstUnits),
+                                    Utils.ToAstVector3d(tempArc.Normal, bConvertToAstUnits));
+            }
+            else
+            {
+              throw new System.Exception("Curve is not made of Lines and Arc");
+            }
+          }
+        }
+        newReturnPoly.CreateFrom(PolyPoint, PolyVertexs, true, true);
+      }
+
+      if (newReturnPoly.IsClosed != true)
+      {
+        throw new System.Exception("Not a Valid PolyLine3D");
+      }
+      return newReturnPoly;
+    }
+
+    static public Autodesk.AdvanceSteel.Geometry.Polyline3d ToAstPolyline3d(List<Autodesk.DesignScript.Geometry.Curve> curves, bool bConvertToAstUnits)
+    {
+      Polyline3d newReturnPoly = new Polyline3d();
+      Point3d[] PolyPoint = new Point3d[curves.Count];
+      VertexInfo[] PolyVertexs = new VertexInfo[curves.Count]; 
+      for (int i = 0; i < curves.Count; i++)
+      {
+        Autodesk.DesignScript.Geometry.Curve nextCurve = curves[i];
+        Autodesk.DesignScript.Geometry.Line line = nextCurve as Autodesk.DesignScript.Geometry.Line;
+        if (line != null)
+        {
+          PolyPoint[i] = Utils.ToAstPoint(line.StartPoint, bConvertToAstUnits);
+          PolyVertexs[i] = new VertexInfo();
+        }
+        Autodesk.DesignScript.Geometry.Arc arc = nextCurve as Autodesk.DesignScript.Geometry.Arc;
+        if (arc != null)
+        {
+          PolyPoint[i] = Utils.ToAstPoint(arc.StartPoint, bConvertToAstUnits);
+          PolyVertexs[i] = new VertexInfo(Utils.FromInternalUnits(arc.Radius, bConvertToAstUnits),
+                                Utils.ToAstPoint(arc.CenterPoint, bConvertToAstUnits),
+                                Utils.ToAstVector3d(arc.Normal, bConvertToAstUnits));
+        }
+
+      }
+
+      newReturnPoly.CreateFrom(PolyPoint, PolyVertexs, true, true);
+      if (newReturnPoly.IsClosed != true)
+      {
+        throw new System.Exception("Not a Valid PolyLine3D");
+      }
+      return newReturnPoly;
+    }
+
     static public Autodesk.DesignScript.Geometry.Point ToDynPoint(Autodesk.AdvanceSteel.Geometry.Point3d pt, bool bConvertFromAstUnits)
     {
       double factor = 1.0;
@@ -346,6 +474,16 @@ namespace AdvanceSteel.Nodes
     public static Dictionary<string, ASProperty> GetBeamCutPlanePropertyList(int listFilter)
     {
       return BuildBeamCutPlanePropertyList(listFilter);
+    }
+    
+    public static Dictionary<string, ASProperty> GetBeamMultiNotchPropertyList(int listFilter)
+    {
+      return BuildBeamMultiNotchPropertyList(listFilter);
+    }
+    
+    public static Dictionary<string, ASProperty> GetPlateNotchContourPropertyList(int listFilter)
+    {
+      return BuildPlateNotchContourPropertyList(listFilter);
     }
 
     public static Dictionary<string, ASProperty> GetBeamNotchOrthoPropertyList(int listFilter)
@@ -883,6 +1021,56 @@ namespace AdvanceSteel.Nodes
       return filterDictionary(dictProps, listFilter);
     }
 
+    private static Dictionary<string, ASProperty> BuildBeamMultiNotchPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Beam Multi Notch Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Beam Beam Multi Boring Out", new ASProperty("BoringOut", typeof(int)));
+      dictProps.Add("Beam Beam Multi Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Beam Multi Coordinate System", new ASProperty("CS", typeof(Matrix3d)));
+      dictProps.Add("Beam Beam Multi Gap", new ASProperty("Gap", typeof(double)));
+      dictProps.Add("Beam Beam Multi Handle", new ASProperty("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Beam Multi Layer", new ASProperty("Layer", typeof(string)));
+      dictProps.Add("Beam Beam Multi Length", new ASProperty("Length", typeof(double)));
+      dictProps.Add("Beam Beam Multi Length Increment", new ASProperty("LengthIncrement", typeof(double)));
+      dictProps.Add("Beam Beam Multi Normal Vector", new ASProperty("Normal", typeof(Vector3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Beam Multi Radius Increment", new ASProperty("RadIncrement", typeof(double)));
+      dictProps.Add("Beam Beam Multi Radius", new ASProperty("Radius", typeof(double)));
+      dictProps.Add("Beam Beam Multi Display Mode", new ASProperty("ReprMode", typeof(int)));
+      dictProps.Add("Beam Beam Multi Role", new ASProperty("Role", typeof(string)));
+      dictProps.Add("Beam Beam Multi Role Description", new ASProperty("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Beam Multi PureRole", new ASProperty("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Beam Multi Use Gap", new ASProperty("UseGap", typeof(bool)));
+      dictProps.Add("Beam Beam Multi Width", new ASProperty("Width", typeof(double)));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildPlateNotchContourPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Plate Notch Contour Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Beam Plate Notch Contour Boring Out", new ASProperty("BoringOut", typeof(int)));
+      dictProps.Add("Beam Plate Notch Contour Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Plate Notch Contour Coordinate System", new ASProperty("CS", typeof(Matrix3d)));
+      dictProps.Add("Beam Plate Notch Contour Gap", new ASProperty("Gap", typeof(double)));
+      dictProps.Add("Beam Plate Notch Contour Handle", new ASProperty("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Plate Notch Contour Layer", new ASProperty("Layer", typeof(string)));
+      dictProps.Add("Beam Plate Notch Contour Length", new ASProperty("Length", typeof(double)));
+      dictProps.Add("Beam Plate Notch Contour Length Increment", new ASProperty("LengthIncrement", typeof(double)));
+      dictProps.Add("Beam Plate Notch Contour Normal Vector", new ASProperty("Normal", typeof(Vector3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Plate Notch Contour Radius Increment", new ASProperty("RadIncrement", typeof(double)));
+      dictProps.Add("Beam Plate Notch Contour Radius", new ASProperty("Radius", typeof(double)));
+      dictProps.Add("Beam Plate Notch Contour Display Mode", new ASProperty("ReprMode", typeof(int)));
+      dictProps.Add("Beam Plate Notch Contour Role", new ASProperty("Role", typeof(string)));
+      dictProps.Add("Beam Plate Notch Contour Role Description", new ASProperty("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Plate Notch Contour PureRole", new ASProperty("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Plate Notch Contour Use Gap", new ASProperty("UseGap", typeof(bool)));
+      dictProps.Add("Beam Plate Notch Contour Width", new ASProperty("Width", typeof(double)));
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
     private static Dictionary<string, ASProperty> BuildBeamNotchRotatedPropertyList(int listFilter)
     {
       Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
@@ -922,6 +1110,17 @@ namespace AdvanceSteel.Nodes
     }
 
     public static void SetParameters(Autodesk.AdvanceSteel.Modelling.CountableScrewBoltPattern objToMod, List<ASProperty> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
+    }
+
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.PlateContourNotch objToMod, List<ASProperty> properties)
     {
       if (properties != null)
       {
@@ -974,7 +1173,18 @@ namespace AdvanceSteel.Nodes
         }
       }
     }
-
+    
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.BeamMultiContourNotch objToMod, List<ASProperty> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.UpdateASObject(objToMod);
+        }
+      }
+    }
+    
     public static void SetParameters(Autodesk.AdvanceSteel.Modelling.PlateFeatVertFillet objToMod, List<ASProperty> properties)
     {
       if (properties != null)
