@@ -29,6 +29,10 @@
       <Private>False</Private>
     </Reference>
     -->
+    <Reference Include="ASObjectsMgd">
+      <HintPath>..\..\..\..\Program Files\Autodesk\AutoCAD 2021\ADVS\ASObjectsMgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="CoreNodeModels">
       <HintPath>$(DYNAMOAPI)\nodes\CoreNodeModels.dll</HintPath>
       <Private>False</Private>
@@ -124,6 +128,8 @@
       <Link>Properties\AssemblySharedInfo.cs</Link>
     </Compile>
     <Compile Include="ConnectionObjects\ASPropertiesAnchorBolt.cs" />
+    <Compile Include="Modifications\ASPropertiesPlatePolylineNotchFeatures.cs" />
+    <Compile Include="Modifications\ASPropertiesBeamPolylineNotchFeatures.cs" />
     <Compile Include="Modifications\ASPropertiesBeamNotchExFeatures.cs" />
     <Compile Include="Modifications\ASPropertiesBeamNotchSqFeatures.cs" />
     <Compile Include="Modifications\ASPropertiesBeamCutPlaneFeatures.cs" />
@@ -144,6 +150,7 @@
     <Compile Include="ConnectionObjects\BoltConnectionTypeDropDown.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConnectionObjects\WeldConnectionTypeDropDown.cs" />
+    <Compile Include="SteelElements\BeamRefAxisTypeDropDown.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AdvanceSteelNodes\AdvanceSteelNodes.csproj">

@@ -45,7 +45,7 @@ namespace AdvanceSteel.Nodes.Modifications
           }
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
-
+          
           string elementHandle = element.Handle;
           FilerObject obj = Utils.GetObject(elementHandle);
           PlateFeatContour plateFeat = null;
@@ -150,6 +150,80 @@ namespace AdvanceSteel.Nodes.Modifications
       }
     }
 
+    internal PlatePolycut(AdvanceSteel.Nodes.SteelDbObject element,
+                          Polyline3d cutPolyline,
+                          Autodesk.AdvanceSteel.Geometry.Vector3d normal,
+                          Autodesk.AdvanceSteel.Geometry.Vector3d lengthVector,
+                          List<ASProperty> plateFeatureProperties)
+    {
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          List<ASProperty> defaultData = plateFeatureProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = plateFeatureProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+
+          string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
+
+          string elementHandle = element.Handle;
+          FilerObject obj = Utils.GetObject(elementHandle);
+          PlateContourNotch plateFeat = null;
+          if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kPlate))
+          {
+            if (string.IsNullOrEmpty(existingFeatureHandle) || Utils.GetObject(existingFeatureHandle) == null)
+            {
+              Plate plate = obj as Plate;
+              plateFeat = new PlateContourNotch(plate, 0, cutPolyline, normal, lengthVector);
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(plateFeat, defaultData);
+              }
+
+              plate.AddFeature(plateFeat);
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(plateFeat, postWriteDBData);
+              }
+
+            }
+            else
+            {
+              plateFeat = Utils.GetObject(existingFeatureHandle) as PlateContourNotch;
+              if (plateFeat != null && plateFeat.IsKindOf(FilerObject.eObjectType.kPlateContourNotch))
+              {
+
+                Plate plate = obj as Plate;
+                plate.DelFeature(plateFeat);
+                plate.WriteToDb();
+
+                plateFeat = new PlateContourNotch(plate, 0, cutPolyline, normal, lengthVector);
+
+                if (defaultData != null)
+                {
+                  Utils.SetParameters(plateFeat, defaultData);
+                }
+
+                if (postWriteDBData != null)
+                {
+                  Utils.SetParameters(plateFeat, postWriteDBData);
+                }
+
+              }
+              else
+                throw new System.Exception("Not a Plate Feature");
+            }
+          }
+          else
+            throw new System.Exception("No Input Element found");
+
+          Handle = plateFeat.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(plateFeat);
+        }
+      }
+    }
+
     /// <summary>
     /// Create an Advance Steel rectangular plate feature
     /// </summary>
@@ -194,6 +268,52 @@ namespace AdvanceSteel.Nodes.Modifications
       return new PlatePolycut(element, Utils.ToInternalUnits(xOffset, true), Utils.ToInternalUnits(yOffset, true), corner, 1, additionalPlateFeatureParameters);
     }
 
+    /// <summary>
+    /// Create an Advance Steel Polycut driven by Dynamo Curves on a Plate
+    /// </summary>
+    /// <param name="element"> Input Beam</param>
+    /// <param name="curves"> Input Dynamo Curves referencing Clockwise in sequence to form a closed polyline</param>
+    /// <param name="lengthVec"> Input vector in the length direction of rectangular polycut</param>
+    /// <param name="additionalPlateFeatureParameters"> Optional Input Plate Notch Countour Build Properties </param>
+    /// <returns></returns>
+    public static PlatePolycut FromListCurves(AdvanceSteel.Nodes.SteelDbObject element,
+                                            List<Autodesk.DesignScript.Geometry.Curve> curves,
+                                            Autodesk.DesignScript.Geometry.Vector lengthVec,
+                                            [DefaultArgument("null")]List<ASProperty> additionalPlateFeatureParameters)
+    {
+
+      Polyline3d curveCreatedPolyline = Utils.ToAstPolyline3d(curves, true);
+      additionalPlateFeatureParameters = PreSetDefaults(additionalPlateFeatureParameters);
+      return new PlatePolycut(element,
+                        curveCreatedPolyline,
+                        curveCreatedPolyline.Normal,
+                        Utils.ToAstVector3d(lengthVec, true),
+                        additionalPlateFeatureParameters);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="element"> Input Beam</param>
+    /// <param name="polyCurve"> Input Dynamo PolyCurve Object</param>
+    /// <param name="lengthVec"> Input vector in the length direction of rectangular polycut</param>
+    /// <param name="additionalPlateFeatureParameters"> Optional Input Plate Notch Countour Build Properties </param>
+    /// <returns></returns>
+    public static PlatePolycut FromPolyCurve(AdvanceSteel.Nodes.SteelDbObject element,
+                                    Autodesk.DesignScript.Geometry.PolyCurve polyCurve,
+                                    Autodesk.DesignScript.Geometry.Vector lengthVec,
+                                    [DefaultArgument("null")]List<ASProperty> additionalPlateFeatureParameters)
+    {
+
+      Polyline3d curveCreatedPolyline = Utils.ToAstPolyline3d(polyCurve, true);
+      additionalPlateFeatureParameters = PreSetDefaults(additionalPlateFeatureParameters);
+      return new PlatePolycut(element,
+                        curveCreatedPolyline,
+                        curveCreatedPolyline.Normal,
+                        Utils.ToAstVector3d(lengthVec, true),
+                        additionalPlateFeatureParameters);
+    }
+
     private static List<ASProperty> PreSetDefaults(List<ASProperty> listPlateFeatureData, double length = 0, double width = 0, double radius = 0)
     {
       if (listPlateFeatureData == null)
@@ -213,11 +333,24 @@ namespace AdvanceSteel.Nodes.Modifications
       {
         using (var ctx = new SteelServices.DocContext())
         {
+          Autodesk.DesignScript.Geometry.PolyCurve poly = null;
           var plateFeat = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.PlateFeatContour;
 
-          var dynPoints = Utils.ToDynPoints(plateFeat.GetContourPolygon(0), true);
-          var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, true);
-          foreach (var pt in dynPoints) { pt.Dispose(); }
+          if (plateFeat != null)
+          {
+            var dynPoints = Utils.ToDynPoints(plateFeat.GetContourPolygon(0), true);
+            poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, true);
+            foreach (var pt in dynPoints) { pt.Dispose(); }
+          }
+          else
+          {
+            var plateFeatx = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.PlateContourNotch;
+            if (plateFeatx != null)
+            {
+              Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = plateFeat.CS;
+              poly = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(plateFeatx.GetPolygon(), true));
+            }
+          }
 
           return poly;
         }
