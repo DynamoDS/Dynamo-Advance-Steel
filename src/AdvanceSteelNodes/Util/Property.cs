@@ -91,6 +91,17 @@ namespace AdvanceSteel.Nodes.Util
       return objectToModifiy;
     }
 
+    private static ClassTypeFilter createFilterObject(List<int> objectFilters)
+    {
+			ClassTypeFilter filter = new ClassTypeFilter();
+      filter.RejectAllFirst();
+      for (int i = 0; i < objectFilters.Count; i++)
+      {
+        filter.AppendAcceptedClass((FilerObject.eObjectType)objectFilters[i]);
+      }
+      return filter;
+    }
+
     /// <summary>
     /// Set Assembly Location 
     /// </summary>

@@ -15,6 +15,11 @@ namespace AdvanceSteel.Nodes.Beams
   [DynamoServices.RegisterForTrace]
   public class StraightBeam : GraphicObject
   {
+
+    internal StraightBeam()
+    {
+    }
+
     internal StraightBeam(Autodesk.DesignScript.Geometry.Point ptStart, 
                           Autodesk.DesignScript.Geometry.Point ptEnd, 
                           Autodesk.DesignScript.Geometry.Vector vOrientation,

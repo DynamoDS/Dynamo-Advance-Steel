@@ -14,6 +14,10 @@ namespace AdvanceSteel.Nodes.Modifications
   [DynamoServices.RegisterForTrace]
   public class BeamCope : GraphicObject
   {
+    internal BeamCope()
+    {
+    }
+
     internal BeamCope(AdvanceSteel.Nodes.SteelDbObject element, 
                       int end, int side, 
                       int cnrType, double radius,

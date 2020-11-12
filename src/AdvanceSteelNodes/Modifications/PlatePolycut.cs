@@ -15,6 +15,10 @@ namespace AdvanceSteel.Nodes.Modifications
   [DynamoServices.RegisterForTrace]
   public class PlatePolycut : GraphicObject
   {
+    internal PlatePolycut()
+    {
+    }
+
     internal PlatePolycut(AdvanceSteel.Nodes.SteelDbObject element, 
                       double xOffset, double yOffset, int corner,
                       int cutShapeRectCircle,

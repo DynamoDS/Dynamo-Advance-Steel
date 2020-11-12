@@ -13,6 +13,10 @@ namespace AdvanceSteel.Nodes.Concrete
   [DynamoServices.RegisterForTrace]
   public class Slabs : GraphicObject
   {
+    internal Slabs()
+    {
+    }
+
     internal Slabs(Autodesk.DesignScript.Geometry.Polygon poly, double thickness, double side)
     {
       if (poly.IsPlanar == false)

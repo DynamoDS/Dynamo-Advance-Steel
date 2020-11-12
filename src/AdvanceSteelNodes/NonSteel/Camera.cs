@@ -13,6 +13,10 @@ namespace AdvanceSteel.Nodes.NonSteelItems
   [DynamoServices.RegisterForTrace]
   public class Camera : GraphicObject
   {
+    internal Camera()
+    {
+    }
+
     internal Camera(List<ASProperty> cameraProperties)
     {
       lock (access_obj)

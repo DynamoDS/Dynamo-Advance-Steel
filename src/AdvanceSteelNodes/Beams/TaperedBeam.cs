@@ -14,6 +14,11 @@ namespace AdvanceSteel.Nodes.Beams
   [DynamoServices.RegisterForTrace]
   public class TaperedBeam : GraphicObject
   {
+
+    internal TaperedBeam()
+    {
+    }
+
     internal TaperedBeam(Autodesk.DesignScript.Geometry.Point ptStart, 
                           Autodesk.DesignScript.Geometry.Point ptEnd, 
                           Autodesk.DesignScript.Geometry.Vector vOrientation, 

@@ -19,7 +19,7 @@ namespace AdvanceSteel.Nodes
   /// </summary>
   [IsDesignScriptCompatible]
   [IsVisibleInDynamoLibrary(true)]
-  [NodeCategory("AdvanceSteel.Nodes.ObjectSelection")]
+  [NodeCategory("AdvanceSteel.Nodes.Selection.ObjectSelection")]
   [NodeName("SelectSteelObjects")]
   [NodeDescription("Select the Steel Objects")]
   [OutPortNames("SteelObject")]
@@ -84,7 +84,7 @@ namespace AdvanceSteel.Nodes
       {
         IEnumerable<AssociativeNode> strInputs = SelectionResults.Select(res => AstFactory.BuildStringNode(res) as AssociativeNode);
         ExprListNode inputNode1 = AstFactory.BuildExprList(strInputs.ToList());
-        node = AstFactory.BuildFunctionCall(new Func<IEnumerable<string>, IEnumerable<Steel>>(Model.StructureDataByIds), new List<AssociativeNode>() { inputNode1 });
+        node = AstFactory.BuildFunctionCall(new Func<IEnumerable<string>, IEnumerable<SteelDbObject>>(Utils.GetDynObjects), new List<AssociativeNode>() { inputNode1 });
       }
 
       return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), node) };

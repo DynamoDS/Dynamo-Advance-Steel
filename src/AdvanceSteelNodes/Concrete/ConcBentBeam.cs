@@ -14,6 +14,9 @@ namespace AdvanceSteel.Nodes.Concrete
   public class ConcBentBeam : GraphicObject
   {
     private Point3d PointOnArc;
+    internal ConcBentBeam()
+    {
+    }
 
     internal ConcBentBeam(string concName, Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector vOrientation)
     {

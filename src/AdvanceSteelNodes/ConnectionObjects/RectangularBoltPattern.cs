@@ -19,6 +19,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 	[DynamoServices.RegisterForTrace]
 	public class RectangularBoltPattern : GraphicObject
 	{
+    internal RectangularBoltPattern()
+    {
+    }
 
     internal RectangularBoltPattern(SteelGeometry.Point3d boltPatternInsertPoint,
                                     SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,

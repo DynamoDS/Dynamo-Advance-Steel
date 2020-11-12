@@ -18,6 +18,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 	[DynamoServices.RegisterForTrace]
 	public class RectangularAnchorPattern : GraphicObject
 	{
+    internal RectangularAnchorPattern()
+    {
+    }
 
     internal RectangularAnchorPattern(SteelGeometry.Point3d anchorBoltPatternInsertPoint, IEnumerable<string> handlesToConnect,
                                       SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,

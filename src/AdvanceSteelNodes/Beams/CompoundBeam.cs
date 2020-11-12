@@ -14,6 +14,10 @@ namespace AdvanceSteel.Nodes.Beams
   [DynamoServices.RegisterForTrace]
   public class CompoundBeam : GraphicObject
   {
+    internal CompoundBeam()
+    {
+    }
+
     internal CompoundBeam(Autodesk.DesignScript.Geometry.Point ptStart, 
                           Autodesk.DesignScript.Geometry.Point ptEnd, 
                           Autodesk.DesignScript.Geometry.Vector vOrientation, 

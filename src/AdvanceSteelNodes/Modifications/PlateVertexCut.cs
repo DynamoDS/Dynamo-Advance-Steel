@@ -14,6 +14,10 @@ namespace AdvanceSteel.Nodes.Modifications
   [DynamoServices.RegisterForTrace]
   public class PlateVertexCut : GraphicObject
   {
+    internal PlateVertexCut()
+    {
+    }
+
     internal PlateVertexCut(AdvanceSteel.Nodes.SteelDbObject element, 
                       int vertexFeatureType,
                       List<ASProperty> plateFeatureProperties)
