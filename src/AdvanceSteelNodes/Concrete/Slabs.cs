@@ -187,7 +187,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="thickness">Slab Thickness in Current Model Length Unit Settings</param>
     /// <param name="side">0, 1, 0.5 - Nearside, Farside or Center</param>
     /// <returns></returns>
-    private static Slabs ByCircularByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, double radius, double thickness, double side)
+    public static Slabs ByCircularByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, double radius, double thickness, double side)
     {
       return new Slabs(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToInternalUnits(radius, true), Utils.ToInternalUnits(thickness, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), side);
     }

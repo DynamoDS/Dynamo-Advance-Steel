@@ -548,51 +548,6 @@ namespace AdvanceSteel.Nodes
           {
             if (avaliableSteelObjects.ContainsKey(obj.Type()))
             {
-              //SteelDbObject foundSteelObj = null;
-              //if (obj.Type() == FilerObject.eObjectType.kGrating)
-              //{
-              //  var gratings = obj as Autodesk.AdvanceSteel.Modelling.Grating;
-              //  switch (gratings.GratingType)
-              //  {
-              //    case Autodesk.AdvanceSteel.Modelling.Grating.eGratingType.kStandard:
-              //      foundSteelObj = new StandardGrating();
-              //      break;
-              //    case Autodesk.AdvanceSteel.Modelling.Grating.eGratingType.kVariable:
-              //      foundSteelObj = new VariableGrating();
-              //      break;
-              //    case Autodesk.AdvanceSteel.Modelling.Grating.eGratingType.kBar:
-              //      foundSteelObj = new BarGrating();
-              //      break;
-              //  }
-              //}
-              //else if(obj.Type() == FilerObject.eObjectType.kConnector)
-              //{
-              //  var shearStuds = obj as Autodesk.AdvanceSteel.Modelling.Connector;
-              //  switch (shearStuds.Arranger.Type)
-              //  {
-              //    case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle:
-              //      foundSteelObj = new CircularShearStudsPattern();
-              //      break;
-              //    case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular:
-              //      foundSteelObj = new RectangularShearStudsPattern();
-              //      break;
-              //  }
-              //}
-              //else if (obj.Type() == FilerObject.eObjectType.kAnchorPattern)
-              //{
-              //  var anchors = obj as Autodesk.AdvanceSteel.Modelling.AnchorPattern;
-              //  switch (anchors.ArrangerType)
-              //  {
-              //    case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle:
-              //      break;
-              //    case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular:
-              //      break;
-              //  }
-              //}
-              //else
-              //{
-              //  foundSteelObj = avaliableSteelObjects[obj.Type()]();
-              //}
               SteelDbObject foundSteelObj = avaliableSteelObjects[obj.Type()](objHandle);
               foundSteelObj.Handle = objHandle;
               retListOfSteelObjects.Add(foundSteelObj);

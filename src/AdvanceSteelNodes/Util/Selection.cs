@@ -15,13 +15,10 @@ using System;
 namespace AdvanceSteel.Nodes.Selection
 {
 	/// <summary>
-	/// Store Bolts properties in a Node to pass to Bolt Node
+	/// Select Advance Steel Objects
 	/// </summary>
-	public class ObjectSelection
+	public static class ObjectSelection
 	{
-		internal ObjectSelection()
-		{
-		}
 
     /// <summary>
     /// Filter a Selection Set based on Object Types
