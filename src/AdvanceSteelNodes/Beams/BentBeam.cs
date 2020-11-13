@@ -15,7 +15,9 @@ namespace AdvanceSteel.Nodes.Beams
   [DynamoServices.RegisterForTrace]
   public class BentBeam : GraphicObject
   {
-    //private Point3d PointOnArc;
+    internal BentBeam() 
+    {
+    }
 
     internal BentBeam(Autodesk.DesignScript.Geometry.Point ptStart, 
                       Autodesk.DesignScript.Geometry.Point ptEnd, 

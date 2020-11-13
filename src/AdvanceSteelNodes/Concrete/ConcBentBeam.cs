@@ -13,7 +13,9 @@ namespace AdvanceSteel.Nodes.Concrete
   [DynamoServices.RegisterForTrace]
   public class ConcBentBeam : GraphicObject
   {
-    private Point3d PointOnArc;
+    internal ConcBentBeam()
+    {
+    }
 
     internal ConcBentBeam(string concName, Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector vOrientation)
     {
@@ -26,12 +28,12 @@ namespace AdvanceSteel.Nodes.Concrete
           Point3d beamStart = (ptStart == null ? new Point3d() : Utils.ToAstPoint(ptStart, true));
           Point3d beamEnd = (ptEnd == null ? new Point3d() : Utils.ToAstPoint(ptEnd, true));
           Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
-          PointOnArc = Utils.ToAstPoint(ptOnArc, true);
+          Point3d pointOnArc = Utils.ToAstPoint(ptOnArc, true);
 
           Autodesk.AdvanceSteel.Modelling.ConcreteBentBeam concBentBeam = null;
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
-            concBentBeam = new Autodesk.AdvanceSteel.Modelling.ConcreteBentBeam(concName, refVect, beamStart, PointOnArc, beamEnd);
+            concBentBeam = new Autodesk.AdvanceSteel.Modelling.ConcreteBentBeam(concName, refVect, beamStart, pointOnArc, beamEnd);
             concBentBeam.WriteToDb();
           }
           else
@@ -40,7 +42,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
             if (concBentBeam != null && concBentBeam.IsKindOf(FilerObject.eObjectType.kConcreteBentBeam))
             {
-              concBentBeam.SetSystemline(beamStart, PointOnArc, beamEnd);
+              concBentBeam.SetSystemline(beamStart, pointOnArc, beamEnd);
               concBentBeam.SetSysStart(beamStart);
               concBentBeam.SetSysEnd(beamEnd);
               concBentBeam.ProfName = concName;
@@ -93,10 +95,11 @@ namespace AdvanceSteel.Nodes.Concrete
         using (var ctx = new SteelServices.DocContext())
         {
           var beam = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.ConcreteBentBeam;
+          var midPointOnArc = beam.CenterPoint;
 
           using (var start = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
           using (var end = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
-          using (var ptOnArc = Utils.ToDynPoint(PointOnArc, true))
+          using (var ptOnArc = Utils.ToDynPoint(midPointOnArc, true))
           {
             var arc = Autodesk.DesignScript.Geometry.Arc.ByThreePoints(start, ptOnArc, end);
             return arc;

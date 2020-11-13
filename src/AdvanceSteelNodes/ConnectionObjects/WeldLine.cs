@@ -18,7 +18,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Welds
   [DynamoServices.RegisterForTrace]
 	public class WeldLine : GraphicObject
 	{
-		internal WeldLine(SteelGeometry.Point3d[] astPoints, IEnumerable<string> handlesToConnect, int connectionType, bool isClosed = false)
+    internal WeldLine()
+    {
+    }
+
+    internal WeldLine(SteelGeometry.Point3d[] astPoints, IEnumerable<string> handlesToConnect, int connectionType, bool isClosed = false)
 		{
 			lock (access_obj)
 			{

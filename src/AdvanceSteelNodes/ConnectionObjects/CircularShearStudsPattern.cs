@@ -18,8 +18,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
 	[DynamoServices.RegisterForTrace]
 	public class CircularShearStudsPattern : GraphicObject
 	{
+    internal CircularShearStudsPattern()
+    {
+    }
 
-		internal CircularShearStudsPattern(string handleToConnect, 
+    internal CircularShearStudsPattern(string handleToConnect, 
                                         SteelGeometry.Matrix3d coordSyst,
                                         List<ASProperty> shearStudData,
                                         int boltCon)

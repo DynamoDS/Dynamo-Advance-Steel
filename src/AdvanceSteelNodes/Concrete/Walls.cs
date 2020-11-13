@@ -15,6 +15,9 @@ namespace AdvanceSteel.Nodes.Concrete
   [DynamoServices.RegisterForTrace]
   public class Walls : GraphicObject
   {
+    internal Walls()
+    {
+    }
 
     internal Walls(SteelGeometry.Point3d ptCenter, double dLength, double dHeight, double thickness, SteelGeometry.Vector3d vNormal, double side)
     {

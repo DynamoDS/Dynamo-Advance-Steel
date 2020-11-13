@@ -18,8 +18,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 	[DynamoServices.RegisterForTrace]
 	public class CircularAnchorPattern : GraphicObject
 	{
+    internal CircularAnchorPattern()
+    {
+    }
 
-		internal CircularAnchorPattern(SteelGeometry.Point3d astPointRef, IEnumerable<string> handlesToConnect, 
+    internal CircularAnchorPattern(SteelGeometry.Point3d astPointRef, IEnumerable<string> handlesToConnect, 
                                    SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
                                    List<ASProperty> anchorBoltData, int boltCon)
 		{

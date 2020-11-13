@@ -1,4 +1,14 @@
-﻿using Autodesk.AdvanceSteel.CADAccess;
+﻿using AdvanceSteel.Nodes.Beams;
+using AdvanceSteel.Nodes.Concrete;
+using AdvanceSteel.Nodes.Gratings;
+using AdvanceSteel.Nodes.Plates;
+using AdvanceSteel.Nodes.ConnectionObjects.Anchors;
+using AdvanceSteel.Nodes.ConnectionObjects.Bolts;
+using AdvanceSteel.Nodes.ConnectionObjects.ShearStuds;
+using AdvanceSteel.Nodes.ConnectionObjects.Welds;
+using AdvanceSteel.Nodes.Modifications;
+using AdvanceSteel.Nodes.NonSteelItems;
+using Autodesk.AdvanceSteel.CADAccess;
 using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.DesignScript.Runtime;
 using Dynamo.Applications.AdvanceSteel.Services;
@@ -12,6 +22,61 @@ namespace AdvanceSteel.Nodes
   public static class Utils
   {
     private static readonly string separator = "#@§@#";
+    //GetDynGrating
+    private static Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>> avaliableSteelObjects = new Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>>()
+    {
+      { FilerObject.eObjectType.kStraightBeam, (string handle) => new StraightBeam() },
+      { FilerObject.eObjectType.kCompoundStraightBeam, (string handle) => new CompoundBeam() },
+      { FilerObject.eObjectType.kBeamTapered, (string handle) => new TaperedBeam() },
+      { FilerObject.eObjectType.kBentBeam, (string handle) => new BentBeam() },
+      { FilerObject.eObjectType.kConcreteBentBeam, (string handle) => new ConcBentBeam() },
+      { FilerObject.eObjectType.kConcreteBeam, (string handle) => new ConcStraightBeam() },
+      { FilerObject.eObjectType.kFootingIsolated, (string handle) => new Footings() },
+      { FilerObject.eObjectType.kSlab, (string handle) => new Slabs() },
+      { FilerObject.eObjectType.kWall, (string handle) => new Walls() },
+      { FilerObject.eObjectType.kPlate, (string handle) => new Plate() },
+      { FilerObject.eObjectType.kGrating, (string handle) => GetDynGrating(handle) },
+      { FilerObject.eObjectType.kCamera, (string handle) => new Camera() },
+      { FilerObject.eObjectType.kAnchorPattern, (string handle) => GetDynAnchor(handle) },
+      { FilerObject.eObjectType.kCircleScrewBoltPattern, (string handle) => new CircularBoltPattern() },
+      { FilerObject.eObjectType.kConnector, (string handle) => GetDynShearStud(handle) },
+      { FilerObject.eObjectType.kInfinitMidScrewBoltPattern, (string handle) => new RectangularBoltPattern() },
+      { FilerObject.eObjectType.kWeldStraight, (string handle) => new WeldLine() },
+      { FilerObject.eObjectType.kWeldPattern, (string handle) => new WeldPoint() },
+      { FilerObject.eObjectType.kBeamNotch2Ortho, (string handle) => new BeamCope() },
+      { FilerObject.eObjectType.kBeamShortening, (string handle) => new BeamPlaneCut() },
+      { FilerObject.eObjectType.kBeamMultiContourNotch, (string handle) => new BeamPolycut() },
+      { FilerObject.eObjectType.kPlateFeatContour, (string handle) => new PlatePolycut() },
+      { FilerObject.eObjectType.kPlateFeatVertFillet, (string handle) => new PlateVertexCut() }
+    };
+
+    private static readonly Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string> filterSteelObjects = new Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string>()
+    {
+      { FilerObject.eObjectType.kUnknown , "Select As Object Type..." },
+      { FilerObject.eObjectType.kStraightBeam, "Advance Steel Straight Beam" },
+      { FilerObject.eObjectType.kCompoundStraightBeam, "Advance Steel Compound Beam" },
+      { FilerObject.eObjectType.kBeamTapered, "Advance Steel Tapered Beam" },
+      { FilerObject.eObjectType.kBentBeam, "Advance Steel Bent Beam" },
+      { FilerObject.eObjectType.kConcreteBentBeam, "Advance Steel Concrete Bent Beam" },
+      { FilerObject.eObjectType.kConcreteBeam, "Advance Steel Concrete Striaght Beam" },
+      { FilerObject.eObjectType.kFootingIsolated, "Advance Steel Isolated Footings" },
+      { FilerObject.eObjectType.kSlab, "Advance Steel Slabs" },
+      { FilerObject.eObjectType.kWall, "Advance Steel Wals" },
+      { FilerObject.eObjectType.kPlate, "Advance Steel Plate" },
+      { FilerObject.eObjectType.kGrating, "Advance Steel Grating" },
+      { FilerObject.eObjectType.kAnchorPattern, "Advance Steel Anchor Pattern" },
+      { FilerObject.eObjectType.kCircleScrewBoltPattern, "Advance Steel Circular Bolt Pattern" },
+      { FilerObject.eObjectType.kConnector, "Advance Steel Shear Studs" },
+      { FilerObject.eObjectType.kInfinitMidScrewBoltPattern, "Advance Steel Rectangular Bolt Pattern" },
+      { FilerObject.eObjectType.kWeldStraight, "Advance Steel Weld Line" },
+      { FilerObject.eObjectType.kWeldPattern, "Advance Steel Weld Point" },
+      { FilerObject.eObjectType.kBeamNotch2Ortho, "Advance Steel Beam Cope" },
+      { FilerObject.eObjectType.kBeamShortening, "Advance Steel Beam Shortening" },
+      { FilerObject.eObjectType.kBeamMultiContourNotch, "Advance Steel Beam Polycut" },
+      { FilerObject.eObjectType.kPlateFeatContour, "Advance Steel Plate Polycut" },
+      { FilerObject.eObjectType.kPlateFeatVertFillet, "Advance Steel Plate Corner Cut" },
+      { FilerObject.eObjectType.kCamera, "Advance Steel Camera" }
+    };
 
     public static double RadToDegree(double rad)
     {
@@ -385,6 +450,116 @@ namespace AdvanceSteel.Nodes
       var alpha = GetRectangleAngle(point1, point2, vx);
 
       return diagLen * Math.Sin(alpha);
+    }
+
+    public static Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string> GetASObjectFilters()
+    {
+      return filterSteelObjects;
+    }
+
+    private static SteelDbObject GetDynGrating(string handle)
+    {
+      SteelDbObject foundSteelObj = null;
+      FilerObject obj = Utils.GetObject(handle);
+      if (obj != null)
+      {
+        if (avaliableSteelObjects.ContainsKey(obj.Type()))
+        {
+          if (obj.Type() == FilerObject.eObjectType.kGrating)
+          {
+            var gratings = obj as Autodesk.AdvanceSteel.Modelling.Grating;
+            switch (gratings.GratingType)
+            {
+              case Autodesk.AdvanceSteel.Modelling.Grating.eGratingType.kStandard:
+                foundSteelObj = new StandardGrating();
+                break;
+              case Autodesk.AdvanceSteel.Modelling.Grating.eGratingType.kVariable:
+                foundSteelObj = new VariableGrating();
+                break;
+              case Autodesk.AdvanceSteel.Modelling.Grating.eGratingType.kBar:
+                foundSteelObj = new BarGrating();
+                break;
+            }
+          }
+        }
+      }
+      return foundSteelObj;
+    }
+
+    private static SteelDbObject GetDynShearStud(string handle)
+    {
+      SteelDbObject foundSteelObj = null;
+      FilerObject obj = Utils.GetObject(handle);
+      if (obj != null)
+      {
+        if (avaliableSteelObjects.ContainsKey(obj.Type()))
+        {
+          if (obj.Type() == FilerObject.eObjectType.kConnector)
+          {
+            var shearStuds = obj as Autodesk.AdvanceSteel.Modelling.Connector;
+            switch (shearStuds.Arranger.Type)
+            {
+              case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle:
+                foundSteelObj = new CircularShearStudsPattern();
+                break;
+              case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular:
+                foundSteelObj = new RectangularShearStudsPattern();
+                break;
+            }
+          }
+        }
+      }
+      return foundSteelObj;
+    }
+    
+    private static SteelDbObject GetDynAnchor(string handle)
+    {
+      SteelDbObject foundSteelObj = null;
+      FilerObject obj = Utils.GetObject(handle);
+      if (obj != null)
+      {
+        if (avaliableSteelObjects.ContainsKey(obj.Type()))
+        {
+          if (obj.Type() == FilerObject.eObjectType.kAnchorPattern)
+          {
+            var anchors = obj as Autodesk.AdvanceSteel.Modelling.AnchorPattern;
+            switch (anchors.ArrangerType)
+            {
+              case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle:
+                break;
+              case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular:
+                break;
+            }
+          }
+        }
+      }
+      return foundSteelObj;
+    }
+
+    public static IEnumerable<SteelDbObject> GetDynObjects(IEnumerable<string> handlesToConnect)
+    {
+      var retListOfSteelObjects = new List<SteelDbObject>();
+      using (var ctx = new DocContext())
+      {
+        foreach (var objHandle in handlesToConnect)
+        {
+          FilerObject obj = Utils.GetObject(objHandle);
+          if (obj != null)
+          {
+            if (avaliableSteelObjects.ContainsKey(obj.Type()))
+            {
+              SteelDbObject foundSteelObj = avaliableSteelObjects[obj.Type()](objHandle);
+              foundSteelObj.Handle = objHandle;
+              retListOfSteelObjects.Add(foundSteelObj);
+            }
+          }
+          else
+          {
+            throw new System.Exception("Object is empty");
+          }
+        }
+      }
+      return retListOfSteelObjects;
     }
 
     public static FilerObject[] GetSteelObjectsToConnect(IEnumerable<string> handlesToConnect)

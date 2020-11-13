@@ -18,7 +18,11 @@ namespace AdvanceSteel.Nodes.Gratings
 	[DynamoServices.RegisterForTrace]
 	public class StandardGrating : GraphicObject
 	{
-		internal StandardGrating(Point3d ptCenter, Vector3d vNormal, List<ASProperty> additionalGratingParameters)
+    internal StandardGrating()
+    {
+    }
+
+    internal StandardGrating(Point3d ptCenter, Vector3d vNormal, List<ASProperty> additionalGratingParameters)
 		{
 			lock (access_obj)
 			{

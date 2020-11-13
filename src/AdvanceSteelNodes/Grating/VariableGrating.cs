@@ -18,8 +18,11 @@ namespace AdvanceSteel.Nodes.Gratings
 	[DynamoServices.RegisterForTrace]
 	public class VariableGrating : GraphicObject
 	{
+    internal VariableGrating()
+    {
+    }
 
-		internal VariableGrating(Point3d ptCenter, 
+    internal VariableGrating(Point3d ptCenter, 
                       Vector3d vNormal,
                       double dWidth,
                       double dLength,

@@ -15,6 +15,10 @@ namespace AdvanceSteel.Nodes.Modifications
   [DynamoServices.RegisterForTrace]
   public class BeamPolycut : GraphicObject
   {
+    internal BeamPolycut()
+    {
+    }
+
     internal BeamPolycut(AdvanceSteel.Nodes.SteelDbObject element,
                       int cutShapeRectCircle,
                       Autodesk.AdvanceSteel.Geometry.Point3d insertPoint,

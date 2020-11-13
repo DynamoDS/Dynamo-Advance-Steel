@@ -18,7 +18,11 @@ namespace AdvanceSteel.Nodes.Gratings
 	[DynamoServices.RegisterForTrace]
 	public class BarGrating : GraphicObject
 	{
-		internal BarGrating(Vector3d vNormal, Point3d ptCenter, double dLength, List<ASProperty> additionalGratingParameters)
+    internal BarGrating()
+    {
+    }
+
+    internal BarGrating(Vector3d vNormal, Point3d ptCenter, double dLength, List<ASProperty> additionalGratingParameters)
 		{
 			lock (access_obj)
 			{

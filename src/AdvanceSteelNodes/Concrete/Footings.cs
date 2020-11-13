@@ -12,6 +12,10 @@ namespace AdvanceSteel.Nodes.Concrete
   [DynamoServices.RegisterForTrace]
   public class Footings : GraphicObject
   {
+    internal Footings()
+    {
+    }
+
     internal Footings(Point3d ptCenter, Vector3d vNormal, double depth, double radius)
     {
       lock (access_obj)

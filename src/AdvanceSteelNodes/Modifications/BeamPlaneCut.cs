@@ -15,6 +15,10 @@ namespace AdvanceSteel.Nodes.Modifications
   [DynamoServices.RegisterForTrace]
   public class BeamPlaneCut : GraphicObject
   {
+    internal BeamPlaneCut()
+    {
+    }
+
     internal BeamPlaneCut(AdvanceSteel.Nodes.SteelDbObject element, 
                       Point3d cutPoint,
                       Vector3d normal,

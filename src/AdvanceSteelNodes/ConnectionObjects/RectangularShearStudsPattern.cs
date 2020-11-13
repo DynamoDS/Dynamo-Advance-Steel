@@ -18,6 +18,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
 	[DynamoServices.RegisterForTrace]
 	public class RectangularShearStudsPattern : GraphicObject
 	{
+    internal RectangularShearStudsPattern()
+    {
+    }
 
     internal RectangularShearStudsPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2, string handleToConnect, 
                                           SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,

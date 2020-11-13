@@ -13,6 +13,10 @@ namespace AdvanceSteel.Nodes.Concrete
   [DynamoServices.RegisterForTrace]
   public class ConcStraightBeam : GraphicObject
   {
+    internal ConcStraightBeam()
+    {
+    }
+
     internal ConcStraightBeam(string concName, Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Vector vOrientation)
     {
       lock (access_obj)

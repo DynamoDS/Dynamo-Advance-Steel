@@ -18,8 +18,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 	[DynamoServices.RegisterForTrace]
 	public class CircularBoltPattern : GraphicObject
 	{
+    internal CircularBoltPattern()
+    {
+    }
 
-		internal CircularBoltPattern(SteelGeometry.Point3d holeInsertPoint, IEnumerable<string> handlesToConnect, 
+    internal CircularBoltPattern(SteelGeometry.Point3d holeInsertPoint, IEnumerable<string> handlesToConnect, 
                                   SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
                                   List<ASProperty> boltData,
                                   int boltCon)

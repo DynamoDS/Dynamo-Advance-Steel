@@ -13,6 +13,10 @@ namespace AdvanceSteel.Nodes.Plates
   [DynamoServices.RegisterForTrace]
   public class Plate : GraphicObject
   {
+    internal Plate()
+    {
+    }
+
     internal Plate(Autodesk.DesignScript.Geometry.Polygon poly, List<ASProperty> plateProperties)
     {
       if (poly.IsPlanar == false)
