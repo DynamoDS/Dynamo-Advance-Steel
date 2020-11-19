@@ -1,10 +1,12 @@
-﻿using Autodesk.AdvanceSteel.CADAccess;
+﻿using System.Collections.Generic;
+using Autodesk.AdvanceSteel.CADAccess;
 using Autodesk.AdvanceSteel.DocumentManagement;
 using Autodesk.DesignScript.Runtime;
 using Dynamo.Applications.AdvanceSteel.Services;
 using System;
 using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.AdvanceSteel.ConstructionTypes;
+using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
 
 namespace AdvanceSteel.Nodes
 {
@@ -16,8 +18,9 @@ namespace AdvanceSteel.Nodes
     private string _propLevel =".";
     private System.Type _objectValueType;
     private object _objectValue;
-    private int _propertyDataOp = 6;// eProperty_Data_Ops.Set_Get;
-    
+    private int _propertyDataOp = 6;//eProperty_Data_Ops.Set_Get;
+    private List<eObjectType> _elementType;
+
     public ASProperty(string propName, System.Type propType, string propLevel = ".", int propertyDataOp = 6)
     {
       PropName = propName;
@@ -45,6 +48,24 @@ namespace AdvanceSteel.Nodes
       {
         _propertyDataOp = value;
       }
+    }
+
+    public List<eObjectType> ElementTypeList
+    {
+      set
+      {
+        _elementType = value;
+      }
+      get
+      {
+        return _elementType;
+      }
+    }
+
+    public T GetFormatedValue<T>()
+    {
+      if (PropValue == null) { return default(T); }
+      return (T)PropValue;
     }
 
     public object PropValue
@@ -92,6 +113,29 @@ namespace AdvanceSteel.Nodes
           asObjectToUpdate.GetType().GetProperty(PropName).SetValue(asObjectToUpdate, PropValue);
         }
       }
+    }
+
+    public bool GetValueFromSteelDBObject(SteelDbObject steelObject)
+    {
+      bool ret = false;
+      if (steelObject != null)
+      {
+        FilerObject fObj = Utils.GetObject(steelObject.Handle);
+        try
+        {
+          PropValue = fObj.GetType().GetProperty(PropName).GetValue(fObj, null);
+          ret = true;
+        }
+        catch (Exception)
+        {
+          throw new System.Exception("Object Has no Property - " + PropName);
+        }
+      }
+      else
+      {
+        throw new System.Exception("Invalid / Empty SteelDBObject");
+      }
+      return ret;
     }
 
     public bool hasValidValue()
