@@ -29,17 +29,17 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="steelObject"> Selected Advance Steel Object</param>
     /// <param name="propertyType"> Advance Steel Property</param>
     /// <returns></returns>
-    public static Object GetPropertyByElement(SteelDbObject steelObject, string propertyType)
+    public static ASProperty GetPropertyByElement(SteelDbObject steelObject, string propertyType)
     {
-      Object ret = null;
+      ASProperty ret = null;
       using (var ctx = new SteelServices.DocContext())
       {
         ASProperty extractionProperty = Utils.GetProperty(propertyType, ePropertyDataOperator.Get);
         if (extractionProperty != null)
         {
-          if (extractionProperty.GetValueFromSteelDBObject(steelObject))
+          if (extractionProperty.EvaluateValueFromSteelDBObject(steelObject))
           {
-            ret = extractionProperty.PropValue;
+            ret = extractionProperty;
           }
         }
         else
@@ -55,13 +55,11 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="steelObject"> Selected Advance Steel Object</param>
     /// <param name="propertyTypes"> List of Property type per Object Type</param>
-    /// <param name="asStringForReference"> Displays the data as String</param>
     /// <returns></returns>
-    public static Object GetPropertiesByElement(SteelDbObject steelObject, 
-                                                List<string> propertyTypes,
-                                                [DefaultArgument("false")]bool asStringForReference)
+    public static List<ASProperty> GetPropertiesByElement(SteelDbObject steelObject, 
+                                                List<string> propertyTypes)
     {
-      List<Object> ret = new List<object>() { };
+      List<ASProperty> ret = new List<ASProperty>() { };
       using (var ctx = new SteelServices.DocContext())
       {
         for (int i = 0; i < propertyTypes.Count; i++)
@@ -70,16 +68,9 @@ namespace AdvanceSteel.Nodes.Util
           ASProperty extractionProperty = Utils.GetProperty(propertyType, ePropertyDataOperator.Get);
           if (extractionProperty != null)
           {
-            if (extractionProperty.GetValueFromSteelDBObject(steelObject))
+            if (extractionProperty.EvaluateValueFromSteelDBObject(steelObject))
             {
-              if (asStringForReference)
-              {
-                ret.Add(extractionProperty.PropValue.ToString());
-              }
-              else
-              {
-                ret.Add(extractionProperty.PropValue);
-              }
+              ret.Add(extractionProperty);
             }
           }
           else
@@ -97,10 +88,9 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="steelObject"> Selected Advance Steel Object</param>
     /// <param name="asStringForReference"> Displays the data as String with Property Name as Prefix</param>
     /// <returns></returns>
-    public static List<Object> GetElementProperties(SteelDbObject steelObject,
-                                                    [DefaultArgument("false")]bool asStringForReference)
+    public static List<ASProperty> GetElementProperties(SteelDbObject steelObject)
     {
-      List<Object> ret = new List<object>() { };
+      List<ASProperty> ret = new List<ASProperty>() { };
       using (var ctx = new SteelServices.DocContext())
       {
         Dictionary<string, ASProperty> allProperties = Utils.GetAllProperties(ePropertyDataOperator.Get);
@@ -113,16 +103,9 @@ namespace AdvanceSteel.Nodes.Util
             ASProperty extractionProperty = prop.Value;
             if (extractionProperty != null)
             {
-              if (extractionProperty.GetValueFromSteelDBObject(steelObject))
+              if (extractionProperty.EvaluateValueFromSteelDBObject(steelObject))
               {
-                if (asStringForReference)
-                {
-                  ret.Add(prop.Key.ToString() + " = "  + extractionProperty.PropValue.ToString());
-                }
-                else
-                {
-                  ret.Add(extractionProperty.PropValue);
-                }
+                ret.Add(extractionProperty);
               }
             }
           }

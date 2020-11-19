@@ -13,12 +13,11 @@ namespace AdvanceSteel.Nodes
   [IsVisibleInDynamoLibrary(false)]
   public class ASProperty : IASProperty
   {
-
     private string _propName;
     private string _propLevel =".";
     private System.Type _objectValueType;
     private object _objectValue;
-    private int _propertyDataOp = 6;//eProperty_Data_Ops.Set_Get;
+    private int _propertyDataOp = ePropertyDataOperator.Set_Get;
     private List<eObjectType> _elementType;
 
     public ASProperty(string propName, System.Type propType, string propLevel = ".", int propertyDataOp = 6)
@@ -104,6 +103,11 @@ namespace AdvanceSteel.Nodes
       }
     }
 
+    public override string ToString()
+    {
+      return PropName?.ToString() + " = " + PropValue?.ToString();
+    }
+
     public void UpdateASObject(object asObjectToUpdate)
     {
       if (hasValidValue())
@@ -115,7 +119,7 @@ namespace AdvanceSteel.Nodes
       }
     }
 
-    public bool GetValueFromSteelDBObject(SteelDbObject steelObject)
+    public bool EvaluateValueFromSteelDBObject(SteelDbObject steelObject)
     {
       bool ret = false;
       if (steelObject != null)

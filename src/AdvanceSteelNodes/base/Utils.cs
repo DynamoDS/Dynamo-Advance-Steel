@@ -595,7 +595,6 @@ namespace AdvanceSteel.Nodes
                 retListOfSteelObjects.Add(foundSteelObj);
               }
             }
-            obj.Dispose();
           }
         }
       }
