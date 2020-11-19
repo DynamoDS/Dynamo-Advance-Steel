@@ -13,6 +13,7 @@ namespace AdvanceSteel.Nodes
   {
     protected string ObjectHandle;
     protected static readonly object access_obj = new object();
+    internal bool IsOwnedByDynamo = true;
 
     /// <summary>
     /// Property that holds the handle of the object
@@ -43,10 +44,11 @@ namespace AdvanceSteel.Nodes
           return;
 
         var elementManager = LifecycleManager.GetInstance();
+
         int remainingBindings = elementManager.UnRegisterAssociation(Handle, this);
 
         // Do not delete owned elements
-        if (remainingBindings == 0)
+        if (remainingBindings == 0 && IsOwnedByDynamo == true)
         {
           if (Handle != null)
           {

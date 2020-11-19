@@ -24,6 +24,97 @@ namespace AdvanceSteel.Nodes.Util
 		}
 
     /// <summary>
+    /// Get Single Advance Steel Property from Advance Steel Object
+    /// </summary>
+    /// <param name="steelObject"> Selected Advance Steel Object</param>
+    /// <param name="propertyType"> Advance Steel Property</param>
+    /// <returns></returns>
+    public static ASProperty GetPropertyByElement(SteelDbObject steelObject, string propertyType)
+    {
+      ASProperty ret = null;
+      using (var ctx = new SteelServices.DocContext())
+      {
+        ASProperty extractionProperty = Utils.GetProperty(propertyType, ePropertyDataOperator.Get);
+        if (extractionProperty != null)
+        {
+          if (extractionProperty.EvaluateValueFromSteelDBObject(steelObject))
+          {
+            ret = extractionProperty;
+          }
+        }
+        else
+        {
+          throw new System.Exception("InValid Property");
+        }
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Generate a List of Advance Steel Object Properties based on Property Types
+    /// </summary>
+    /// <param name="steelObject"> Selected Advance Steel Object</param>
+    /// <param name="propertyTypes"> List of Property type per Object Type</param>
+    /// <returns></returns>
+    public static List<ASProperty> GetPropertiesByElement(SteelDbObject steelObject, 
+                                                List<string> propertyTypes)
+    {
+      List<ASProperty> ret = new List<ASProperty>() { };
+      using (var ctx = new SteelServices.DocContext())
+      {
+        for (int i = 0; i < propertyTypes.Count; i++)
+        {
+          string propertyType = propertyTypes[i];
+          ASProperty extractionProperty = Utils.GetProperty(propertyType, ePropertyDataOperator.Get);
+          if (extractionProperty != null)
+          {
+            if (extractionProperty.EvaluateValueFromSteelDBObject(steelObject))
+            {
+              ret.Add(extractionProperty);
+            }
+          }
+          else
+          {
+            throw new System.Exception("InValid Property");
+          }
+        }
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Generate a List of Advance Steel Object Property Data based on Get Type Properties
+    /// </summary>
+    /// <param name="steelObject"> Selected Advance Steel Object</param>
+    /// <param name="asStringForReference"> Displays the data as String with Property Name as Prefix</param>
+    /// <returns></returns>
+    public static List<ASProperty> GetElementProperties(SteelDbObject steelObject)
+    {
+      List<ASProperty> ret = new List<ASProperty>() { };
+      using (var ctx = new SteelServices.DocContext())
+      {
+        Dictionary<string, ASProperty> allProperties = Utils.GetAllProperties(ePropertyDataOperator.Get);
+        FilerObject fObj = Utils.GetObject(steelObject.Handle);
+
+        foreach ( KeyValuePair<string, ASProperty> prop in allProperties)
+        {
+          if (prop.Value.ElementTypeList.Contains(fObj.Type()))
+          {
+            ASProperty extractionProperty = prop.Value;
+            if (extractionProperty != null)
+            {
+              if (extractionProperty.EvaluateValueFromSteelDBObject(steelObject))
+              {
+                ret.Add(extractionProperty);
+              }
+            }
+          }
+        }
+      }
+      return ret;
+    }
+
+    /// <summary>
     /// Build AS Property - Writeable or Readable
     /// </summary>
     /// <param name="propertyType"> Input Property from Property Node for particular Object Type</param>
@@ -31,7 +122,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <returns></returns>
     public static ASProperty ByNameAndValue(string propertyType, object propertyValue)
     {
-      ASProperty selectedProperty = Utils.GetProperty(propertyType);
+      ASProperty selectedProperty = Utils.GetProperty(propertyType, ePropertyDataOperator.Set_Get);
       if (selectedProperty != null)
       {
         selectedProperty.PropValue = propertyValue;
