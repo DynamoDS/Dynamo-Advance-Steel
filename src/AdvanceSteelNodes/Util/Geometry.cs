@@ -10,25 +10,23 @@ using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 namespace AdvanceSteel.Nodes.Util
 {
   /// <summary>
-  /// Custom User attributes for Advance Steel elements
+  /// Geometric functions to work with steel objects to return construction geometry
   /// </summary>
   public class Geometry
   {
 
     /// <summary>
-    /// Get line segments of
+    /// Get line segments of steel body that interected with plane
     /// </summary>
-    /// <param name="steelObject"></param>
-    /// <param name="bodyResolution"></param>
-    /// <param name="intersectionPlane"></param>
+    /// <param name="steelObject">Advance Steel element</param>
+    /// <param name="bodyResolution"> Set Steel body display resolution</param>
+    /// <param name="intersectionPlane"> Dynamo Plane to intersect with Steel body</param>
     /// <returns></returns>
     public static List<Autodesk.DesignScript.Geometry.Line> CutElementByPlane(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                               int bodyResolution,
                                                                               Autodesk.DesignScript.Geometry.Plane intersectionPlane)
     {
       List<Autodesk.DesignScript.Geometry.Line> ret = new List<Autodesk.DesignScript.Geometry.Line>() { };
-
-
       using (var ctx = new SteelServices.DocContext())
       {
         if (steelObject != null  || intersectionPlane != null)
@@ -56,13 +54,19 @@ namespace AdvanceSteel.Nodes.Util
       }
       return ret;
     }
+
+    /// <summary>
+    /// Get points on the steel body that interected with line
+    /// </summary>
+    /// <param name="steelObject">Advance Steel element</param>
+    /// <param name="bodyResolution"> Set Steel body display resolution</param>
+    /// <param name="line"> Dynamo Line to intersect with Steel body</param>
+    /// <returns></returns>
     public static List<Autodesk.DesignScript.Geometry.Point> IntersectElementByLine(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                                     int bodyResolution,
                                                                                     Autodesk.DesignScript.Geometry.Line line)
     {
       List<Autodesk.DesignScript.Geometry.Point> ret = new List<Autodesk.DesignScript.Geometry.Point>() { };
-
-
       using (var ctx = new SteelServices.DocContext())
       {
         if (steelObject != null || line != null)
@@ -78,64 +82,18 @@ namespace AdvanceSteel.Nodes.Util
             ModelerBody modelerTestBody = selectedObj.GetModeler((BodyContext.eBodyContext)bodyResolution);
 
             modelerTestBody.IntersectWith(projectedLine, out foundPoints);
-            List<MyPoint> sortedPoints = new List<MyPoint>() { };
+            foundPoints.OrderByDescending(Ptx => Ptx.DistanceTo(originPoint));
+
             for (int i = 0; i < foundPoints.Length; i++)
             {
-              sortedPoints.Add(new MyPoint(originPoint, foundPoints[i]));
+              ret.Add(Utils.ToDynPoint(foundPoints[i], true));
             }
-
-            List<MyPoint> sortedByDistance = sortedPoints.OrderByDescending(Ptx => Ptx.Distance).ToList();
-
-            for (int i = 0; i < sortedByDistance.Count; i++)
-            {
-              ret.Add(Utils.ToDynPoint(sortedByDistance[i].Point, true));
-            }
-
           }
         }
         else
           throw new System.Exception("No Steel Object found or Line Object is null");
       }
       return ret;
-    }
-
-    private class MyPoint
-    {
-      private Point3d _Point;
-      private Point3d _OriginPoint;
-      private double _Distance;
-      private double _ZValue;
-
-      public MyPoint(Point3d originPoint, Point3d point)
-      {
-        _Point = point;
-        _OriginPoint = originPoint;
-        _Distance = originPoint.DistanceTo(point);
-        _ZValue = point.z;
-      }
-
-      public Point3d Point
-      {
-        get
-        {
-          return _Point;
-        }
-      }
-
-      public double Distance
-      {
-        get
-        {
-          return _Distance;
-        }
-      }
-      public double ZValue
-      {
-        get
-        {
-          return _ZValue;
-        }
-      }
     }
   }
 
