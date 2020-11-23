@@ -31,6 +31,9 @@
       <HintPath>$(ADVANCESTEELAPI)\ASGeometryMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ASModelerMgd">
+      <HintPath>..\..\..\..\Program Files\Autodesk\AutoCAD 2021\ADVS\ASModelerMgd.dll</HintPath>
+    </Reference>
     <Reference Include="ASProfilesMgd">
       <HintPath>$(ADVANCESTEELAPI)\ASProfilesMgd.dll</HintPath>
       <Private>False</Private>
@@ -114,6 +117,7 @@
     <Compile Include="Util\Material.cs" />
     <Compile Include="Util\Selection.cs" />
     <Compile Include="Util\Property.cs" />
+    <Compile Include="Util\Geometry.cs" />
     <Compile Include="Util\UserAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

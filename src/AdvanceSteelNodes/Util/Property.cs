@@ -86,7 +86,6 @@ namespace AdvanceSteel.Nodes.Util
     /// Generate a List of Advance Steel Object Property Data based on Get Type Properties
     /// </summary>
     /// <param name="steelObject"> Selected Advance Steel Object</param>
-    /// <param name="asStringForReference"> Displays the data as String with Property Name as Prefix</param>
     /// <returns></returns>
     public static List<ASProperty> GetElementProperties(SteelDbObject steelObject)
     {
@@ -111,6 +110,44 @@ namespace AdvanceSteel.Nodes.Util
           }
         }
       }
+      return ret;
+    }
+
+    /// <summary>
+    /// Get the AS Property Name from ASProperty Object
+    /// </summary>
+    /// <param name="property"> AS Property object to extrcat information from</param>
+    /// <returns></returns>
+    public static string GetPropertyName(ASProperty property)
+    {
+      string ret = string.Empty;
+
+      if (property != null)
+      {
+        ret = property.PropName;
+      }
+      else
+        throw new System.Exception("No Property object found");
+
+      return ret;
+    }
+
+    /// <summary>
+    /// Get the AS Property Value from ASProperty Object
+    /// </summary>
+    /// <param name="property"> AS Property object to extrcat information from</param>
+    /// <returns></returns>
+    public static object GetPropertyValue(ASProperty property)
+    {
+      object ret = null ;
+
+      if (property != null)
+      {
+        ret = property.PropValue;
+      }
+      else
+        throw new System.Exception("No Property object found");
+
       return ret;
     }
 
