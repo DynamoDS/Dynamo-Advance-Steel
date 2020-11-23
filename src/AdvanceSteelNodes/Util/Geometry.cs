@@ -82,7 +82,7 @@ namespace AdvanceSteel.Nodes.Util
             ModelerBody modelerTestBody = selectedObj.GetModeler((BodyContext.eBodyContext)bodyResolution);
 
             modelerTestBody.IntersectWith(projectedLine, out foundPoints);
-            foundPoints.OrderByDescending(Ptx => Ptx.DistanceTo(originPoint));
+            foundPoints = foundPoints.OrderByDescending(Ptx => Ptx.DistanceTo(originPoint)).ToArray();
 
             for (int i = 0; i < foundPoints.Length; i++)
             {
