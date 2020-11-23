@@ -94,12 +94,12 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
-      "Code": "Point.ByCoordinates(0,0,0);\nPoint.ByCoordinates(2000,0,500);\nPoint.ByCoordinates(1000,0,0);\nVector.ZAxis();\nVector.XAxis();",
+      "Code": "Point.ByCoordinates(0,0,0);\nPoint.ByCoordinates(2000,0,500);\nPoint.ByCoordinates(1001,0,0);\nVector.ZAxis();\nVector.XAxis();",
       "Id": "26f62adb9d7b421e8847fc6d6da0a5d1",
       "Inputs": [],
       "Outputs": [
         {
-          "Id": "36d8aa27deb44a5cb3dbc324ce7a9b4a",
+          "Id": "ace136cb19f549c49ae4163aaf3ca311",
           "Name": "",
           "Description": "Value of expression at line 1",
           "UsingDefaultValue": false,
@@ -108,7 +108,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "38bbbf05d7f74a6cbfc8df85fe73909c",
+          "Id": "e7f217867d28448d90bd5d96a9b245a1",
           "Name": "",
           "Description": "Value of expression at line 2",
           "UsingDefaultValue": false,
@@ -117,7 +117,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "2d2162046aa841799ff232da5873d3d0",
+          "Id": "908660ff87a84ceea820505ca8e6710f",
           "Name": "",
           "Description": "Value of expression at line 3",
           "UsingDefaultValue": false,
@@ -126,7 +126,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "38b6edf749c747a89256938f2711a5e2",
+          "Id": "cc73f4acb83a4d528b0b320fd6908d94",
           "Name": "",
           "Description": "Value of expression at line 4",
           "UsingDefaultValue": false,
@@ -135,7 +135,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "79e430773fb2421d9ee678501b6bc2e1",
+          "Id": "4c52d04cacf94ec3a3dea12417e7dfec",
           "Name": "",
           "Description": "Value of expression at line 5",
           "UsingDefaultValue": false,
@@ -164,7 +164,7 @@
         },
         {
           "Id": "a7705bf8024149bea4bc00c9bf3e1ff0",
-          "Name": "bodyResultion",
+          "Name": "bodyResolution",
           "Description": "int",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -193,27 +193,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Get line segments of\n\nGeometry.CutElementByPlane (steelObject: SteelDbObject, bodyResultion: int, intersectionPlane: Plane): Line[]"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
-      "NodeType": "CodeBlockNode",
-      "Code": "0;",
-      "Id": "b34880d1d27f420cb23fce518a8a1635",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "98ce8558156b4623820a36f69710bcff",
-          "Name": "",
-          "Description": "Value of expression at line 1",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Allows for DesignScript code to be authored directly"
+      "Description": "Get line segments of\n\nGeometry.CutElementByPlane (steelObject: SteelDbObject, bodyResolution: int, intersectionPlane: Plane): Line[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -387,12 +367,12 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
-      "Code": "Point.ByCoordinates(500,50,0);\nPoint.ByCoordinates(2000,0,1500);\n0;",
+      "Code": "Point.ByCoordinates(500,50,0);\nPoint.ByCoordinates(2000,0,1500);",
       "Id": "0b2adb3b2ba54dde909626a0841092af",
       "Inputs": [],
       "Outputs": [
         {
-          "Id": "f8bff84a9d2743a09056bc18d8403ff6",
+          "Id": "4e9c1b1613d64a65b9a475888a305943",
           "Name": "",
           "Description": "Value of expression at line 1",
           "UsingDefaultValue": false,
@@ -401,18 +381,9 @@
           "KeepListStructure": false
         },
         {
-          "Id": "832cec8270464484b1040f36f189e20e",
+          "Id": "464996e6343b4475a2dc2f91c1dc55e9",
           "Name": "",
           "Description": "Value of expression at line 2",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "1fcb4b0dc0bf415ca6d6c6e816221a20",
-          "Name": "",
-          "Description": "Value of expression at line 3",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -478,7 +449,7 @@
         },
         {
           "Id": "4b3080d382a04006919529dd124d9002",
-          "Name": "bodyResultion",
+          "Name": "bodyResolution",
           "Description": "int",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -507,7 +478,49 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Geometry.IntersectElementByLine (steelObject: SteelDbObject, bodyResultion: int, line: Line): Point[]"
+      "Description": "Geometry.IntersectElementByLine (steelObject: SteelDbObject, bodyResolution: int, line: Line): Point[]"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.SteelObjectResolution, AdvanceSteelNodesUI",
+      "SelectedIndex": 2,
+      "SelectedString": "Detailed",
+      "NodeType": "ExtensionNode",
+      "Id": "879136e38d00444d98a1ef373b332ad4",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "748094e5baa94d83aae8edd972bfd5c3",
+          "Name": "Steel Object Resolution Type",
+          "Description": "integer",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Set Steel Object Resolution Type"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.SteelObjectResolution, AdvanceSteelNodesUI",
+      "SelectedIndex": 1,
+      "SelectedString": "Normal",
+      "NodeType": "ExtensionNode",
+      "Id": "1d19e1380be6418a9dff6a38b8438c09",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "32dc10df8c6d45aa94fb13df560582d3",
+          "Name": "Steel Object Resolution Type",
+          "Description": "integer",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Set Steel Object Resolution Type"
     }
   ],
   "Connectors": [
@@ -527,24 +540,19 @@
       "Id": "a8ef5e37ac8c4d22aa078640280506a6"
     },
     {
-      "Start": "36d8aa27deb44a5cb3dbc324ce7a9b4a",
+      "Start": "ace136cb19f549c49ae4163aaf3ca311",
       "End": "ea90fa5172084b08af6e34d4ac51123f",
-      "Id": "deeb98392c934c418ff4e4101e1729c5"
+      "Id": "7e8f9449123a442892784a8dae42c447"
     },
     {
-      "Start": "38bbbf05d7f74a6cbfc8df85fe73909c",
+      "Start": "e7f217867d28448d90bd5d96a9b245a1",
       "End": "3ad7c82cb0914c64b1a49c73d8d17cf0",
-      "Id": "f2174a5f7ed141ef85fb68fd6e1b22c3"
+      "Id": "c37691585d18464f9e838b59079fddc6"
     },
     {
-      "Start": "38b6edf749c747a89256938f2711a5e2",
+      "Start": "cc73f4acb83a4d528b0b320fd6908d94",
       "End": "21e9c30bdbd443ff91dd65d649764152",
-      "Id": "2e3b5907ae4a493e99a8a5dd5d14f82b"
-    },
-    {
-      "Start": "98ce8558156b4623820a36f69710bcff",
-      "End": "a7705bf8024149bea4bc00c9bf3e1ff0",
-      "Id": "70c696f2bc494bfebab6125ff7bc6a30"
+      "Id": "26a1957610124e48ba4999bf8aaa0e49"
     },
     {
       "Start": "0c5b5b2ebf3b4490b084c71cc8ddc3c0",
@@ -577,24 +585,29 @@
       "Id": "c64b88252b9245089bd003ae58a9ee6f"
     },
     {
-      "Start": "f8bff84a9d2743a09056bc18d8403ff6",
+      "Start": "4e9c1b1613d64a65b9a475888a305943",
       "End": "31182aced73a42c58b1d23a1f527b83a",
-      "Id": "814f2b9f7b394a0c95b241cc992db51c"
+      "Id": "aa0c0d11e4a14fdca6c63f963a487d6c"
     },
     {
-      "Start": "832cec8270464484b1040f36f189e20e",
+      "Start": "464996e6343b4475a2dc2f91c1dc55e9",
       "End": "8c1e0a21c2e84503a4bd772fa98b21ee",
-      "Id": "d194f065e50e461ab2b6153b9a8b1b6d"
-    },
-    {
-      "Start": "1fcb4b0dc0bf415ca6d6c6e816221a20",
-      "End": "4b3080d382a04006919529dd124d9002",
-      "Id": "555fc6b086654749b7e75c924477a9ff"
+      "Id": "4a7d5510abeb4a019d84d7dffe34b6b8"
     },
     {
       "Start": "41f41b368eb741ec80814d568ff82a00",
       "End": "9316d5afc6034d7ebfd276db477b468e",
       "Id": "192c1793942a4d36a3efb927a2adf982"
+    },
+    {
+      "Start": "748094e5baa94d83aae8edd972bfd5c3",
+      "End": "a7705bf8024149bea4bc00c9bf3e1ff0",
+      "Id": "58f2bdcdf66647a6b30594d3f6f4fb93"
+    },
+    {
+      "Start": "32dc10df8c6d45aa94fb13df560582d3",
+      "End": "4b3080d382a04006919529dd124d9002",
+      "Id": "a6958cac5a834a06956f4eaff53b98a7"
     }
   ],
   "Dependencies": [],
@@ -603,7 +616,7 @@
     {
       "NodeId": "73bb0c70-9e35-4265-9f0a-6b01d372bd76",
       "Binding": {
-        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_73bb0c70-9e35-4265-9f0a-6b01d372bd76": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJPVEV5SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJek9Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_73bb0c70-9e35-4265-9f0a-6b01d372bd76": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJPVEl5SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJek9Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
       }
     }
   ],
@@ -618,151 +631,161 @@
     },
     "Camera": {
       "Name": "Background Preview",
-      "EyeX": 230.62620503505138,
-      "EyeY": 818.48384356287306,
-      "EyeZ": 907.52907261531607,
-      "LookX": 422.82749442392355,
-      "LookY": -568.53952985552837,
-      "LookZ": -963.71371177602441,
-      "UpX": 0.11074499110555622,
-      "UpY": 0.96126169593832433,
-      "UpZ": -0.25241136833910371
+      "EyeX": -301.82181846172034,
+      "EyeY": 289.41704293004892,
+      "EyeZ": 691.70555805370714,
+      "LookX": 803.21659090901187,
+      "LookY": -18.360551369795644,
+      "LookZ": -886.154841749562,
+      "UpX": -0.13389214076661968,
+      "UpY": 0.97992470462083825,
+      "UpZ": 0.14771752744583816
     },
     "NodeViews": [
       {
+        "ShowGeometry": true,
+        "Name": "StraightBeam.ByStartPointEndPoint",
         "Id": "73bb0c709e3542659f0a6b01d372bd76",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Name": "StraightBeam.ByStartPointEndPoint",
-        "ShowGeometry": true,
         "Excluded": false,
         "X": 600.80330118523807,
         "Y": 79.987170017618809
       },
       {
+        "ShowGeometry": true,
+        "Name": "Code Block",
         "Id": "26f62adb9d7b421e8847fc6d6da0a5d1",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Name": "Code Block",
-        "ShowGeometry": true,
         "Excluded": false,
         "X": 74.051463213333363,
         "Y": 11.921003029047313
       },
       {
+        "ShowGeometry": true,
+        "Name": "Geometry.CutElementByPlane",
         "Id": "92235c93263d4e6b9c0e15a4b8f78bf1",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Name": "Geometry.CutElementByPlane",
-        "ShowGeometry": true,
         "Excluded": false,
         "X": 1212.5,
         "Y": 205.0
       },
       {
-        "Id": "b34880d1d27f420cb23fce518a8a1635",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Name": "Code Block",
         "ShowGeometry": true,
-        "Excluded": false,
-        "X": 755.58278524711716,
-        "Y": 406.35559393682212
-      },
-      {
+        "Name": "Code Block",
         "Id": "53cdc2c6dac64ee3a67af2b9c8816d51",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Name": "Code Block",
-        "ShowGeometry": true,
         "Excluded": false,
         "X": 167.00738386116564,
         "Y": 667.27616232241439
       },
       {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
         "Id": "c8eefd25b9e641088d495d38cc550abf",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Name": "Property.ByNameAndValue",
-        "ShowGeometry": true,
         "Excluded": false,
         "X": -92.457121255591176,
         "Y": 249.37722378905826
       },
       {
+        "ShowGeometry": true,
+        "Name": "Straight Beam Properties",
         "Id": "0a02d53d0a004632a89871c94944cdc0",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Name": "Straight Beam Properties",
-        "ShowGeometry": true,
         "Excluded": false,
         "X": -604.282899703429,
         "Y": 142.29262874901295
       },
       {
+        "ShowGeometry": true,
+        "Name": "Code Block",
         "Id": "ded4d2a226e14cb3a3a198056edcf2b4",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Name": "Code Block",
-        "ShowGeometry": true,
         "Excluded": false,
         "X": -335.0,
         "Y": 285.0
       },
       {
+        "ShowGeometry": true,
+        "Name": "List Create",
         "Id": "0a0dd63b6cb94dd38c67a066a5290741",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Name": "List Create",
-        "ShowGeometry": true,
         "Excluded": false,
         "X": 295.70874024704597,
         "Y": 198.31864347273427
       },
       {
+        "ShowGeometry": true,
+        "Name": "Property.GetPropertyByElement",
         "Id": "28ac0367aaa64c3fbe6f7df40fd2fb3d",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Name": "Property.GetPropertyByElement",
-        "ShowGeometry": true,
         "Excluded": false,
         "X": 1159.3206175628407,
         "Y": -46.511084524849821
       },
       {
+        "ShowGeometry": true,
+        "Name": "Code Block",
         "Id": "0b2adb3b2ba54dde909626a0841092af",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Name": "Code Block",
-        "ShowGeometry": true,
         "Excluded": false,
-        "X": 1101.7467568609266,
-        "Y": 636.77598900642136
+        "X": 1097.43812712013,
+        "Y": 579.32759246246781
       },
       {
+        "ShowGeometry": true,
+        "Name": "Line.ByStartPointEndPoint",
         "Id": "f58e1fd473a249c18921651d3a95d2a7",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Name": "Line.ByStartPointEndPoint",
-        "ShowGeometry": true,
         "Excluded": false,
         "X": 1535.8354038591003,
         "Y": 335.13775506423713
       },
       {
+        "ShowGeometry": true,
+        "Name": "Geometry.IntersectElementByLine",
         "Id": "9714aec5b13c478baf359386c4bd1bfe",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Name": "Geometry.IntersectElementByLine",
-        "ShowGeometry": true,
         "Excluded": false,
         "X": 1830.3696059303297,
         "Y": 75.9301504095202
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "SteelObjectResolution",
+        "Id": "879136e38d00444d98a1ef373b332ad4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 600.57757460961466,
+        "Y": 364.80789395499636
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "SteelObjectResolution",
+        "Id": "1d19e1380be6418a9dff6a38b8438c09",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1110.9555922542486,
+        "Y": 702.21028486033981
       }
     ],
     "Annotations": [],
-    "X": -216.31267868840746,
-    "Y": 133.28967088613476,
-    "Zoom": 0.4350574484620488
+    "X": -771.11503508805049,
+    "Y": 90.72226865075794,
+    "Zoom": 0.73098652646863638
   }
 }

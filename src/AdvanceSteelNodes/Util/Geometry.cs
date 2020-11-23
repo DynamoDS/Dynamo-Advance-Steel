@@ -19,11 +19,11 @@ namespace AdvanceSteel.Nodes.Util
     /// Get line segments of
     /// </summary>
     /// <param name="steelObject"></param>
-    /// <param name="bodyResultion"></param>
+    /// <param name="bodyResolution"></param>
     /// <param name="intersectionPlane"></param>
     /// <returns></returns>
     public static List<Autodesk.DesignScript.Geometry.Line> CutElementByPlane(AdvanceSteel.Nodes.SteelDbObject steelObject,
-                                                                              int bodyResultion,
+                                                                              int bodyResolution,
                                                                               Autodesk.DesignScript.Geometry.Plane intersectionPlane)
     {
       List<Autodesk.DesignScript.Geometry.Line> ret = new List<Autodesk.DesignScript.Geometry.Line>() { };
@@ -39,7 +39,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             AtomicElement selectedObj = filerObj as AtomicElement;
 
-            ModelerBody modelerTestBody = selectedObj.GetModeler((BodyContext.eBodyContext)bodyResultion);
+            ModelerBody modelerTestBody = selectedObj.GetModeler((BodyContext.eBodyContext)bodyResolution);
             LineSeg3d[] segs = null;
 
             modelerTestBody.IntersectWith(cutPlane, out segs);
@@ -57,7 +57,7 @@ namespace AdvanceSteel.Nodes.Util
       return ret;
     }
     public static List<Autodesk.DesignScript.Geometry.Point> IntersectElementByLine(AdvanceSteel.Nodes.SteelDbObject steelObject,
-                                                                                    int bodyResultion,
+                                                                                    int bodyResolution,
                                                                                     Autodesk.DesignScript.Geometry.Line line)
     {
       List<Autodesk.DesignScript.Geometry.Point> ret = new List<Autodesk.DesignScript.Geometry.Point>() { };
@@ -75,7 +75,7 @@ namespace AdvanceSteel.Nodes.Util
             AtomicElement selectedObj = filerObj as AtomicElement;
             Point3d[] foundPoints = null;
 
-            ModelerBody modelerTestBody = selectedObj.GetModeler((BodyContext.eBodyContext)bodyResultion);
+            ModelerBody modelerTestBody = selectedObj.GetModeler((BodyContext.eBodyContext)bodyResolution);
 
             modelerTestBody.IntersectWith(projectedLine, out foundPoints);
             List<MyPoint> sortedPoints = new List<MyPoint>() { };
