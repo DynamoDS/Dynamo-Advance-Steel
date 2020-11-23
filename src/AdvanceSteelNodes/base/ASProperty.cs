@@ -14,7 +14,7 @@ namespace AdvanceSteel.Nodes
   public class ASProperty : IASProperty
   {
     private string _propName;
-    private string _propLevel =".";
+    private string _propLevel = ".";
     private System.Type _objectValueType;
     private object _objectValue;
     private int _propertyDataOp = ePropertyDataOperator.Set_Get;

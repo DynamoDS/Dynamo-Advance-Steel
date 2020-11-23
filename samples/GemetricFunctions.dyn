@@ -1,0 +1,768 @@
+{
+  "Uuid": "00c56394-e901-4a84-a4f2-690224a5ad78",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "GemetricFunctions",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "Point": {
+        "Key": "Autodesk.DesignScript.Geometry.Point",
+        "Value": "ProtoGeometry.dll"
+      },
+      "Vector.ZAxis": {
+        "Key": "Autodesk.DesignScript.Geometry.Vector",
+        "Value": "ProtoGeometry.dll"
+      },
+      "Vector.XAxis": {
+        "Key": "Autodesk.DesignScript.Geometry.Vector",
+        "Value": "ProtoGeometry.dll"
+      },
+      "Vector": {
+        "Key": "Autodesk.DesignScript.Geometry.Vector",
+        "Value": "ProtoGeometry.dll"
+      },
+      "DesignScript.Plane": {
+        "Key": "Autodesk.DesignScript.Geometry.Plane",
+        "Value": "ProtoGeometry.dll"
+      },
+      "Autodesk.DesignScript.Geometry.Plane": {
+        "Key": "Autodesk.DesignScript.Geometry.Plane",
+        "Value": "ProtoGeometry.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.ASProperty[]",
+      "Id": "73bb0c709e3542659f0a6b01d372bd76",
+      "Inputs": [
+        {
+          "Id": "ea90fa5172084b08af6e34d4ac51123f",
+          "Name": "start",
+          "Description": "Input Start point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3ad7c82cb0914c64b1a49c73d8d17cf0",
+          "Name": "end",
+          "Description": "Input End point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "21e9c30bdbd443ff91dd65d649764152",
+          "Name": "orientation",
+          "Description": "Section orientation\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "33dc092ef897452db2cc5b8193c75f80",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5d34e4d78a334424b327f54e0771927b",
+          "Name": "StraightBeam",
+          "Description": "StraightBeam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: ASProperty[] = null): StraightBeam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "Point.ByCoordinates(0,0,0);\nPoint.ByCoordinates(2000,0,500);\nPoint.ByCoordinates(1000,0,0);\nVector.ZAxis();\nVector.XAxis();",
+      "Id": "26f62adb9d7b421e8847fc6d6da0a5d1",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "36d8aa27deb44a5cb3dbc324ce7a9b4a",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "38bbbf05d7f74a6cbfc8df85fe73909c",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2d2162046aa841799ff232da5873d3d0",
+          "Name": "",
+          "Description": "Value of expression at line 3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "38b6edf749c747a89256938f2711a5e2",
+          "Name": "",
+          "Description": "Value of expression at line 4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "79e430773fb2421d9ee678501b6bc2e1",
+          "Name": "",
+          "Description": "Value of expression at line 5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Geometry.CutElementByPlane@AdvanceSteel.Nodes.SteelDbObject,int,Autodesk.DesignScript.Geometry.Plane",
+      "Id": "92235c93263d4e6b9c0e15a4b8f78bf1",
+      "Inputs": [
+        {
+          "Id": "9581574b2a9743cb8c5c5296acb810fd",
+          "Name": "steelObject",
+          "Description": "SteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a7705bf8024149bea4bc00c9bf3e1ff0",
+          "Name": "bodyResultion",
+          "Description": "int",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f6145e80e7d14d3dbc54e06642ee0f0c",
+          "Name": "intersectionPlane",
+          "Description": "Plane",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e8f93fda7b2e4e74a9e491b83430bfa2",
+          "Name": "Line[]",
+          "Description": "Line[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get line segments of\n\nGeometry.CutElementByPlane (steelObject: SteelDbObject, bodyResultion: int, intersectionPlane: Plane): Line[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "0;",
+      "Id": "b34880d1d27f420cb23fce518a8a1635",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "98ce8558156b4623820a36f69710bcff",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "DesignScript.Plane.ByOriginNormal(Point.ByCoordinates(1000,0,0),Vector.XAxis());",
+      "Id": "53cdc2c6dac64ee3a67af2b9c8816d51",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "0c5b5b2ebf3b4490b084c71cc8ddc3c0",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.ByNameAndValue@string,var",
+      "Id": "c8eefd25b9e641088d495d38cc550abf",
+      "Inputs": [
+        {
+          "Id": "2d8bc0250d6e46978338390751dcfc3b",
+          "Name": "propertyType",
+          "Description": "Input Property from Property Node for particular Object Type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "349bbb641eb04a639533181adcbad5f7",
+          "Name": "propertyValue",
+          "Description": "Input Property value for Property Type\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "20ad611498594dc1acc4079e5457b7e4",
+          "Name": "ASProperty",
+          "Description": "ASProperty",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Build AS Property - Writeable or Readable\n\nProperty.ByNameAndValue (propertyType: string, propertyValue: var): ASProperty"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesStraightBeam, AdvanceSteelNodesUI",
+      "SelectedIndex": 29,
+      "SelectedString": "Straight Beam Material",
+      "NodeType": "ExtensionNode",
+      "Id": "0a02d53d0a004632a89871c94944cdc0",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ce09246c473e4160a2814c7abef47953",
+          "Name": "Writable Straight Beam Property",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Select Advance Steel Straight Beam Property Type to Set"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"250\";",
+      "Id": "ded4d2a226e14cb3a3a198056edcf2b4",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "6031d85ae5aa4c71800f67d6ddaa3fc1",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "0a0dd63b6cb94dd38c67a066a5290741",
+      "Inputs": [
+        {
+          "Id": "84aa721854ed458e97bea9e84704583b",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "bf01d8ba5d8c40dc9bbc2be6297bb734",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.GetPropertyByElement@AdvanceSteel.Nodes.SteelDbObject,string",
+      "Id": "28ac0367aaa64c3fbe6f7df40fd2fb3d",
+      "Inputs": [
+        {
+          "Id": "c6ea3d7673434143a616cd4cf242ce9b",
+          "Name": "steelObject",
+          "Description": "Selected Advance Steel Object\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c170f05232cc4a918fd74f1b4ac6d0f3",
+          "Name": "propertyType",
+          "Description": "Advance Steel Property\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "2d1f42619de04179ba6b66bbd50320f1",
+          "Name": "ASProperty",
+          "Description": "ASProperty",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get Single Advance Steel Property from Advance Steel Object\n\nProperty.GetPropertyByElement (steelObject: SteelDbObject, propertyType: string): ASProperty"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "Point.ByCoordinates(500,50,0);\nPoint.ByCoordinates(2000,0,1500);\n0;",
+      "Id": "0b2adb3b2ba54dde909626a0841092af",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f8bff84a9d2743a09056bc18d8403ff6",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "832cec8270464484b1040f36f189e20e",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1fcb4b0dc0bf415ca6d6c6e816221a20",
+          "Name": "",
+          "Description": "Value of expression at line 3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point",
+      "Id": "f58e1fd473a249c18921651d3a95d2a7",
+      "Inputs": [
+        {
+          "Id": "31182aced73a42c58b1d23a1f527b83a",
+          "Name": "startPoint",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8c1e0a21c2e84503a4bd772fa98b21ee",
+          "Name": "endPoint",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "41f41b368eb741ec80814d568ff82a00",
+          "Name": "Line",
+          "Description": "Line",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Creates a straight Line between two input Points.\n\nLine.ByStartPointEndPoint (startPoint: Point, endPoint: Point): Line"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Geometry.IntersectElementByLine@AdvanceSteel.Nodes.SteelDbObject,int,Autodesk.DesignScript.Geometry.Line",
+      "Id": "9714aec5b13c478baf359386c4bd1bfe",
+      "Inputs": [
+        {
+          "Id": "66d224a7615e46ec8d03893e6e04e085",
+          "Name": "steelObject",
+          "Description": "SteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4b3080d382a04006919529dd124d9002",
+          "Name": "bodyResultion",
+          "Description": "int",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9316d5afc6034d7ebfd276db477b468e",
+          "Name": "line",
+          "Description": "Line",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1ca8db0092df497d9dd118933fccaf04",
+          "Name": "Point[]",
+          "Description": "Point[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Geometry.IntersectElementByLine (steelObject: SteelDbObject, bodyResultion: int, line: Line): Point[]"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "5d34e4d78a334424b327f54e0771927b",
+      "End": "9581574b2a9743cb8c5c5296acb810fd",
+      "Id": "e32c9a8881f746238c35ca211e98566a"
+    },
+    {
+      "Start": "5d34e4d78a334424b327f54e0771927b",
+      "End": "c6ea3d7673434143a616cd4cf242ce9b",
+      "Id": "7fa1100716db4b8da2cbcd9a123ffff8"
+    },
+    {
+      "Start": "5d34e4d78a334424b327f54e0771927b",
+      "End": "66d224a7615e46ec8d03893e6e04e085",
+      "Id": "a8ef5e37ac8c4d22aa078640280506a6"
+    },
+    {
+      "Start": "36d8aa27deb44a5cb3dbc324ce7a9b4a",
+      "End": "ea90fa5172084b08af6e34d4ac51123f",
+      "Id": "deeb98392c934c418ff4e4101e1729c5"
+    },
+    {
+      "Start": "38bbbf05d7f74a6cbfc8df85fe73909c",
+      "End": "3ad7c82cb0914c64b1a49c73d8d17cf0",
+      "Id": "f2174a5f7ed141ef85fb68fd6e1b22c3"
+    },
+    {
+      "Start": "38b6edf749c747a89256938f2711a5e2",
+      "End": "21e9c30bdbd443ff91dd65d649764152",
+      "Id": "2e3b5907ae4a493e99a8a5dd5d14f82b"
+    },
+    {
+      "Start": "98ce8558156b4623820a36f69710bcff",
+      "End": "a7705bf8024149bea4bc00c9bf3e1ff0",
+      "Id": "70c696f2bc494bfebab6125ff7bc6a30"
+    },
+    {
+      "Start": "0c5b5b2ebf3b4490b084c71cc8ddc3c0",
+      "End": "f6145e80e7d14d3dbc54e06642ee0f0c",
+      "Id": "e698d208385a428894671be75b2c0fed"
+    },
+    {
+      "Start": "20ad611498594dc1acc4079e5457b7e4",
+      "End": "84aa721854ed458e97bea9e84704583b",
+      "Id": "c9369299daa74b38ad21c7c9598cec14"
+    },
+    {
+      "Start": "ce09246c473e4160a2814c7abef47953",
+      "End": "2d8bc0250d6e46978338390751dcfc3b",
+      "Id": "bf7278e3092342d1a0ead2a92c903223"
+    },
+    {
+      "Start": "ce09246c473e4160a2814c7abef47953",
+      "End": "c170f05232cc4a918fd74f1b4ac6d0f3",
+      "Id": "7911492b1f9340a38a74de83f9dbc4d7"
+    },
+    {
+      "Start": "6031d85ae5aa4c71800f67d6ddaa3fc1",
+      "End": "349bbb641eb04a639533181adcbad5f7",
+      "Id": "da206f8e639d4d1cb40e2c0367ed804a"
+    },
+    {
+      "Start": "bf01d8ba5d8c40dc9bbc2be6297bb734",
+      "End": "33dc092ef897452db2cc5b8193c75f80",
+      "Id": "c64b88252b9245089bd003ae58a9ee6f"
+    },
+    {
+      "Start": "f8bff84a9d2743a09056bc18d8403ff6",
+      "End": "31182aced73a42c58b1d23a1f527b83a",
+      "Id": "814f2b9f7b394a0c95b241cc992db51c"
+    },
+    {
+      "Start": "832cec8270464484b1040f36f189e20e",
+      "End": "8c1e0a21c2e84503a4bd772fa98b21ee",
+      "Id": "d194f065e50e461ab2b6153b9a8b1b6d"
+    },
+    {
+      "Start": "1fcb4b0dc0bf415ca6d6c6e816221a20",
+      "End": "4b3080d382a04006919529dd124d9002",
+      "Id": "555fc6b086654749b7e75c924477a9ff"
+    },
+    {
+      "Start": "41f41b368eb741ec80814d568ff82a00",
+      "End": "9316d5afc6034d7ebfd276db477b468e",
+      "Id": "192c1793942a4d36a3efb927a2adf982"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [
+    {
+      "NodeId": "73bb0c70-9e35-4265-9f0a-6b01d372bd76",
+      "Binding": {
+        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_73bb0c70-9e35-4265-9f0a-6b01d372bd76": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJPVEV5SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJek9Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+      }
+    }
+  ],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.5.2.7915",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": 230.62620503505138,
+      "EyeY": 818.48384356287306,
+      "EyeZ": 907.52907261531607,
+      "LookX": 422.82749442392355,
+      "LookY": -568.53952985552837,
+      "LookZ": -963.71371177602441,
+      "UpX": 0.11074499110555622,
+      "UpY": 0.96126169593832433,
+      "UpZ": -0.25241136833910371
+    },
+    "NodeViews": [
+      {
+        "Id": "73bb0c709e3542659f0a6b01d372bd76",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "StraightBeam.ByStartPointEndPoint",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 600.80330118523807,
+        "Y": 79.987170017618809
+      },
+      {
+        "Id": "26f62adb9d7b421e8847fc6d6da0a5d1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 74.051463213333363,
+        "Y": 11.921003029047313
+      },
+      {
+        "Id": "92235c93263d4e6b9c0e15a4b8f78bf1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Geometry.CutElementByPlane",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 1212.5,
+        "Y": 205.0
+      },
+      {
+        "Id": "b34880d1d27f420cb23fce518a8a1635",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 755.58278524711716,
+        "Y": 406.35559393682212
+      },
+      {
+        "Id": "53cdc2c6dac64ee3a67af2b9c8816d51",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 167.00738386116564,
+        "Y": 667.27616232241439
+      },
+      {
+        "Id": "c8eefd25b9e641088d495d38cc550abf",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Property.ByNameAndValue",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": -92.457121255591176,
+        "Y": 249.37722378905826
+      },
+      {
+        "Id": "0a02d53d0a004632a89871c94944cdc0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Straight Beam Properties",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": -604.282899703429,
+        "Y": 142.29262874901295
+      },
+      {
+        "Id": "ded4d2a226e14cb3a3a198056edcf2b4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": -335.0,
+        "Y": 285.0
+      },
+      {
+        "Id": "0a0dd63b6cb94dd38c67a066a5290741",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "List Create",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 295.70874024704597,
+        "Y": 198.31864347273427
+      },
+      {
+        "Id": "28ac0367aaa64c3fbe6f7df40fd2fb3d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Property.GetPropertyByElement",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 1159.3206175628407,
+        "Y": -46.511084524849821
+      },
+      {
+        "Id": "0b2adb3b2ba54dde909626a0841092af",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 1101.7467568609266,
+        "Y": 636.77598900642136
+      },
+      {
+        "Id": "f58e1fd473a249c18921651d3a95d2a7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Line.ByStartPointEndPoint",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 1535.8354038591003,
+        "Y": 335.13775506423713
+      },
+      {
+        "Id": "9714aec5b13c478baf359386c4bd1bfe",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Geometry.IntersectElementByLine",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 1830.3696059303297,
+        "Y": 75.9301504095202
+      }
+    ],
+    "Annotations": [],
+    "X": -216.31267868840746,
+    "Y": 133.28967088613476,
+    "Zoom": 0.4350574484620488
+  }
+}

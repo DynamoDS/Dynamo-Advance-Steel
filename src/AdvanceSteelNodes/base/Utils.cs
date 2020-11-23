@@ -345,6 +345,50 @@ namespace AdvanceSteel.Nodes
       return matrix;
     }
 
+    static public Autodesk.AdvanceSteel.Geometry.Plane ToAstPlane(Autodesk.DesignScript.Geometry.Plane dynPlane, bool bConvertToAstUnits)
+    {
+      Point3d planeOrigin = ToAstPoint(dynPlane.Origin, bConvertToAstUnits);
+      Vector3d planeNormal = ToAstVector3d(dynPlane.Normal, bConvertToAstUnits);
+      Autodesk.AdvanceSteel.Geometry.Plane plane = new Autodesk.AdvanceSteel.Geometry.Plane(planeOrigin, planeNormal);
+      return plane;
+    }
+
+    static public Autodesk.DesignScript.Geometry.Plane ToDynPlane(Autodesk.AdvanceSteel.Geometry.Plane astPlane, bool bConvertToAstUnits)
+    {
+      Autodesk.DesignScript.Geometry.Point planeOrigin = ToDynPoint(astPlane.Origin, bConvertToAstUnits);
+      Autodesk.DesignScript.Geometry.Vector planeNormal = ToDynVector(astPlane.Normal, bConvertToAstUnits);
+      Autodesk.DesignScript.Geometry.Plane plane = Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(planeOrigin, planeNormal);
+      return plane;
+    }
+
+    static public Autodesk.AdvanceSteel.Geometry.Line3d ToAstLine3D(Autodesk.DesignScript.Geometry.Line line, bool bConvertToAstUnits)
+    {
+      Autodesk.AdvanceSteel.Geometry.Line3d ret = null;
+
+      if (line != null)
+      {
+        Autodesk.AdvanceSteel.Geometry.Point3d startPoint = ToAstPoint(line.StartPoint, bConvertToAstUnits);
+        Autodesk.AdvanceSteel.Geometry.Point3d endPoint = ToAstPoint(line.EndPoint, bConvertToAstUnits);
+        ret = new Line3d(startPoint, endPoint);
+      }
+
+      return ret;
+    }
+
+    static public Autodesk.DesignScript.Geometry.Line ToDynLine(Autodesk.AdvanceSteel.Geometry.Line3d line, bool bConvertToAstUnits)
+    {
+      Autodesk.DesignScript.Geometry.Line ret = null;
+
+      if (line != null)
+      {
+        Autodesk.DesignScript.Geometry.Point startPoint = ToDynPoint(line.EvalPoint(0), bConvertToAstUnits);
+        Autodesk.DesignScript.Geometry.Point endPoint = ToDynPoint(line.EvalPoint(line.GetLength()), bConvertToAstUnits);
+        ret = Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(startPoint, endPoint);
+      }
+
+      return ret;
+    }
+
     static public Autodesk.AdvanceSteel.Geometry.Point3d[] ToAstPoints(Autodesk.DesignScript.Geometry.Point[] pts, bool bConvertToAstUnits)
     {
       if (pts == null)
@@ -703,14 +747,14 @@ namespace AdvanceSteel.Nodes
     public static Dictionary<string, ASProperty> GetBeamNotchOrthoPropertyList(int listFilter)
     {
       Dictionary<string, ASProperty> combinedData = BuildBeamNotchOrthoPropertyList(listFilter).Union(
-                                            BuildBaseBeamNotchPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
+                                            BuildBaseBeamNotchPropertyList(listFilter, "Othro ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
     public static Dictionary<string, ASProperty> GetBeamNotchRotatedPropertyList(int listFilter)
     {
       Dictionary<string, ASProperty> combinedData = BuildBeamNotchRotatedPropertyList(listFilter).Union(
-                                            BuildBaseBeamNotchPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
+                                            BuildBaseBeamNotchPropertyList(listFilter, "Rotated ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
@@ -741,7 +785,7 @@ namespace AdvanceSteel.Nodes
     public static Dictionary<string, ASProperty> GetTaperBeamPropertyList(int listFilter)
     {
       Dictionary<string, ASProperty> combinedData = BuildTaperedBeamPropertyList(listFilter).Union(
-                                                  BuildCompundBaseBeamPropertyList(listFilter)).Union(
+                                                  BuildCompundBaseBeamPropertyList(listFilter, "Tapered ")).Union(
                                                   BuildGenericBeamPropertyList(listFilter, "Tapered ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
@@ -749,7 +793,7 @@ namespace AdvanceSteel.Nodes
     public static Dictionary<string, ASProperty> GetCompoundStraightBeamPropertyList(int listFilter)
     {
       Dictionary<string, ASProperty> combinedData = BuildCompoundStraightBeamPropertyList(listFilter).Union(
-                                                  BuildCompundBaseBeamPropertyList(listFilter)).Union(
+                                                  BuildCompundBaseBeamPropertyList(listFilter, "Compound ")).Union(
                                                   BuildGenericBeamPropertyList(listFilter, "Compound ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
@@ -769,21 +813,23 @@ namespace AdvanceSteel.Nodes
 
     private static Dictionary<string, ASProperty> CombineAllLists(int listFilter)
     {
-      Dictionary<string, ASProperty> searchData = BuildGenericBeamPropertyList(listFilter).Union(
-                                                BuildStriaghtBeamPropertyList(listFilter)).Union(
-                                                BuildCompoundStraightBeamPropertyList(listFilter)).Union(
-                                                BuildTaperedBeamPropertyList(listFilter)).Union(
-                                                BuildBentBeamPropertyList(listFilter)).Union(
-                                                BuildCompundBaseBeamPropertyList(listFilter)).Union(
-                                                BuildGenericPlatePropertyList(listFilter)).Union(
-                                                BuildGenericGratingPropertyList(listFilter)).Union(
-                                                BuildCameraPropertyList(listFilter)).Union(
-                                                BuildBeamCutPlanePropertyList(listFilter)).Union(
-                                                BuildPlateFeaturePropertyList(listFilter)).Union(
-                                                BuildPlateVertexFilletPropertyList(listFilter)).Union(
-                                                BuildBoltPropertyList(listFilter)).Union(
-                                                BuildAnchorBoltPropertyList(listFilter)).Union(
-                                                BuildShearStudPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, ASProperty> searchData = GetBoltProperties(listFilter).Union(
+                                                  GetAnchorBoltPropertyList(listFilter)).Union(
+                                                  GetShearStudPropertyList(listFilter)).Union(
+                                                  GetPlatePropertyList(listFilter)).Union(
+                                                  GetCameraPropertyList(listFilter)).Union(
+                                                  GetPlateFeaturePropertyList(listFilter)).Union(
+                                                  GetBeamCutPlanePropertyList(listFilter)).Union(
+                                                  GetBeamMultiNotchPropertyList(listFilter)).Union(
+                                                  GetPlateNotchContourPropertyList(listFilter)).Union(
+                                                  GetBeamNotchOrthoPropertyList(listFilter)).Union(
+                                                  GetBeamNotchRotatedPropertyList(listFilter)).Union(
+                                                  GetPlateVertexPropertyList(listFilter)).Union(
+                                                  GetGratingPropertyList(listFilter)).Union(
+                                                  GetStraighBeamPropertyList(listFilter)).Union(
+                                                  GetBentBeamPropertyList(listFilter)).Union(
+                                                  GetTaperBeamPropertyList(listFilter)).Union(
+                                                  GetCompoundStraightBeamPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
       return searchData;
     }
 
@@ -1273,19 +1319,19 @@ namespace AdvanceSteel.Nodes
       return filterDictionary(dictProps, listFilter);
     }
 
-    private static Dictionary<string, ASProperty> BuildBaseBeamNotchPropertyList(int listFilter)
+    private static Dictionary<string, ASProperty> BuildBaseBeamNotchPropertyList(int listFilter, string prefix = "")
     {
       Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
-      dictProps.Add("Beam Notch Corner Radius", new ASProperty("CornerRadius", typeof(double), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Beam Notch Plane Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Beam Notch Plane Handle", new ASProperty("Handle", typeof(string), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Beam Notch Plane Cut Length", new ASProperty("ReferenceDepth", typeof(double)));
-      dictProps.Add("Beam Notch Plane Cut Length", new ASProperty("ReferenceLength", typeof(double)));
-      dictProps.Add("Beam Notch Plane Layer", new ASProperty("Layer", typeof(string)));
-      dictProps.Add("Beam Notch Plane PureRole", new ASProperty("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Beam Notch Plane Display Mode", new ASProperty("ReprMode", typeof(int)));
-      dictProps.Add("Beam Notch Plane Role", new ASProperty("Role", typeof(string)));
-      dictProps.Add("Beam Notch Plane Role Description", new ASProperty("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Notch Corner Radius", new ASProperty("CornerRadius", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Notch Plane Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Notch Plane Handle", new ASProperty("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Notch Plane Cut Depth", new ASProperty("ReferenceDepth", typeof(double)));
+      dictProps.Add(prefix + "Beam Notch Plane Cut Length", new ASProperty("ReferenceLength", typeof(double)));
+      dictProps.Add(prefix + "Beam Notch Plane Layer", new ASProperty("Layer", typeof(string)));
+      dictProps.Add(prefix + "Beam Notch Plane PureRole", new ASProperty("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Notch Plane Display Mode", new ASProperty("ReprMode", typeof(int)));
+      dictProps.Add(prefix + "Beam Notch Plane Role", new ASProperty("Role", typeof(string)));
+      dictProps.Add(prefix + "Beam Notch Plane Role Description", new ASProperty("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kBeamNotch2Ortho, 
@@ -1376,12 +1422,12 @@ namespace AdvanceSteel.Nodes
       return filterDictionary(dictProps, listFilter);
     }
 
-    private static Dictionary<string, ASProperty> BuildCompundBaseBeamPropertyList(int listFilter)
+    private static Dictionary<string, ASProperty> BuildCompundBaseBeamPropertyList(int listFilter, string prefix = "")
     {
       Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
-      dictProps.Add("Use Compound Beam As One Beam", new ASProperty("UseCompoundAsOneBeam", typeof(bool)));
-      dictProps.Add("Compound Beam ClassName", new ASProperty("CompoundClassName", typeof(string), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Compound Beam TypeName", new ASProperty("CompoundTypeName", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Use " + prefix + "Beam As One Beam", new ASProperty("UseCompoundAsOneBeam", typeof(bool)));
+      dictProps.Add(prefix + "Beam ClassName", new ASProperty("CompoundClassName", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam TypeName", new ASProperty("CompoundTypeName", typeof(string), ".", ePropertyDataOperator.Get));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kCompoundStraightBeam });
