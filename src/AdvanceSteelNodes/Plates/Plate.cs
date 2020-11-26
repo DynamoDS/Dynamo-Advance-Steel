@@ -8,7 +8,7 @@ using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 namespace AdvanceSteel.Nodes.Plates
 {
   /// <summary>
-  /// Advance Steel plate
+  /// Advance Steel Plate
   /// </summary>
   [DynamoServices.RegisterForTrace]
   public class Plate : GraphicObject

@@ -4,11 +4,13 @@ using Autodesk.AdvanceSteel.Profiles;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 
 using Autodesk.DesignScript.Runtime;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdvanceSteel.Nodes.Concrete
 {
   /// <summary>
-  /// Advance Steel bent beam
+  /// Advance Steel Concrete Bent Beam
   /// </summary>
   [DynamoServices.RegisterForTrace]
   public class ConcBentBeam : GraphicObject
@@ -17,12 +19,20 @@ namespace AdvanceSteel.Nodes.Concrete
     {
     }
 
-    internal ConcBentBeam(string concName, Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector vOrientation)
+    internal ConcBentBeam(string concName, 
+                          Autodesk.DesignScript.Geometry.Point ptStart, 
+                          Autodesk.DesignScript.Geometry.Point ptEnd, 
+                          Autodesk.DesignScript.Geometry.Point ptOnArc, 
+                          Autodesk.DesignScript.Geometry.Vector vOrientation,
+                          List<ASProperty> concreteProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
+          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
           Point3d beamStart = (ptStart == null ? new Point3d() : Utils.ToAstPoint(ptStart, true));
@@ -34,7 +44,17 @@ namespace AdvanceSteel.Nodes.Concrete
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
             concBentBeam = new Autodesk.AdvanceSteel.Modelling.ConcreteBentBeam(concName, refVect, beamStart, pointOnArc, beamEnd);
+            if (defaultData != null)
+            {
+              Utils.SetParameters(concBentBeam, defaultData);
+            }
+
             concBentBeam.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(concBentBeam, postWriteDBData);
+            }
           }
           else
           {
@@ -47,6 +67,16 @@ namespace AdvanceSteel.Nodes.Concrete
               concBentBeam.SetSysEnd(beamEnd);
               concBentBeam.ProfName = concName;
               Utils.SetOrientation(concBentBeam, refVect);
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(concBentBeam, defaultData);
+              }
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(concBentBeam, postWriteDBData);
+              }
             }
             else
               throw new System.Exception("Not a Bent Concrete Beam");
@@ -59,32 +89,50 @@ namespace AdvanceSteel.Nodes.Concrete
     }
 
     /// <summary>
-    /// Create an Advance Steel bent beam between two points and a point on arc
+    /// Create an Advance Steel Concrete Bent Beam between two points and a point on an arc
     /// </summary>
-    /// <param name="concName"></param>
+    /// <param name="concName"> Concrete Profile Name</param>
     /// <param name="start">Start point</param>
     /// <param name="end">End point</param>
     /// <param name="ptOnArc">Point on arc</param>
-    /// <param name="vOrientation">Section orientation</param>
+    /// <param name="orientation">Section orientation</param>
+    /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcBentBeam ByStartPointEndPointOnArc(string concName, Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Point ptOnArc, Autodesk.DesignScript.Geometry.Vector vOrientation)
+    public static ConcBentBeam ByStartPointEndPointOnArc(string concName, Autodesk.DesignScript.Geometry.Point start, 
+                                                          Autodesk.DesignScript.Geometry.Point end, 
+                                                          Autodesk.DesignScript.Geometry.Point ptOnArc, 
+                                                          Autodesk.DesignScript.Geometry.Vector orientation,
+                                                          [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
     {
-      return new ConcBentBeam(concName, start, end, ptOnArc, vOrientation);
+      additionalConcParameters = PreSetDefaults(additionalConcParameters);
+      return new ConcBentBeam(concName, start, end, ptOnArc, orientation, additionalConcParameters);
     }
 
     /// <summary>
-    /// Create an Advance Steel bent beam from arc
+    /// Create an Advance Steel Concrete Bent Beam from a Dynamo Arc
     /// </summary>
-    /// <param name="concName"></param>
-    /// <param name="arc"></param>
+    /// <param name="concName"> Concrete Profile Name</param>
+    /// <param name="arc"> Dynamo Arc to define beam</param>
+    /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcBentBeam ByArc(string concName, Autodesk.DesignScript.Geometry.Arc arc)
+    public static ConcBentBeam ByArc(string concName, 
+                                      Autodesk.DesignScript.Geometry.Arc arc,
+                                      [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
     {
       Autodesk.DesignScript.Geometry.Point start = arc.StartPoint;
       Autodesk.DesignScript.Geometry.Point end = arc.EndPoint;
       Autodesk.DesignScript.Geometry.Point ptOnArc = arc.PointAtChordLength();
+      additionalConcParameters = PreSetDefaults(additionalConcParameters);
+      return new ConcBentBeam(concName, start, end, ptOnArc, arc.Normal, additionalConcParameters);
+    }
 
-      return new ConcBentBeam(concName, start, end, ptOnArc, arc.Normal);
+    private static List<ASProperty> PreSetDefaults(List<ASProperty> listOfProps)
+    {
+      if (listOfProps == null)
+      {
+        listOfProps = new List<ASProperty>() { };
+      }
+      return listOfProps;
     }
 
     [IsVisibleInDynamoLibrary(false)]

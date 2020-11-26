@@ -10,7 +10,7 @@ using System.Linq;
 namespace AdvanceSteel.Nodes.Beams
 {
   /// <summary>
-  /// Advance Steel straight beams
+  /// Advance Steel Straight Beams
   /// </summary>
   [DynamoServices.RegisterForTrace]
   public class StraightBeam : GraphicObject
@@ -57,10 +57,6 @@ namespace AdvanceSteel.Nodes.Beams
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
             beam = new Autodesk.AdvanceSteel.Modelling.StraightBeam(sectionName, beamStart, beamEnd, refVect);
-            //if (!string.IsNullOrEmpty(modelRole))
-            //{
-            //  beam.Role = modelRole;
-            //}
             if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
             {
               beam.RefAxis = (Beam.eRefAxis)refAxis;
@@ -91,10 +87,6 @@ namespace AdvanceSteel.Nodes.Beams
               beam.SetSysStart(beamStart);
               beam.SetSysEnd(beamEnd);
               beam.ChangeProfile(sectionType, sectionSize);
-              //if (!string.IsNullOrEmpty(modelRole))
-              //{
-              //  beam.Role = modelRole;
-              //}
               if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
               {
                 beam.RefAxis = (Beam.eRefAxis)refAxis;
