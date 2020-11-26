@@ -1,7 +1,8 @@
 ﻿using Autodesk.AdvanceSteel.CADAccess;
 using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.DesignScript.Runtime;
-
+using System.Collections.Generic;
+using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 
 namespace AdvanceSteel.Nodes.Concrete
@@ -16,12 +17,17 @@ namespace AdvanceSteel.Nodes.Concrete
     {
     }
 
-    internal Footings(Point3d ptCenter, Vector3d vNormal, double depth, double radius)
+    internal Footings(Point3d ptCenter, Vector3d vNormal, 
+                      double depth, double radius,
+                      List<ASProperty> concreteProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
+          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
           Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
@@ -31,7 +37,17 @@ namespace AdvanceSteel.Nodes.Concrete
           {
             padFooting = new Autodesk.AdvanceSteel.Modelling.FootingIsolated(plane, ptCenter, radius);
             padFooting.Thickness = depth;
+            if (defaultData != null)
+            {
+              Utils.SetParameters(padFooting, defaultData);
+            }
+
             padFooting.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(padFooting, postWriteDBData);
+            }
           }
           else
           {
@@ -42,6 +58,16 @@ namespace AdvanceSteel.Nodes.Concrete
               padFooting.DefinitionPlane = plane;
               padFooting.Thickness = depth;
               padFooting.setRadius(radius, true);
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(padFooting, defaultData);
+              }
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(padFooting, postWriteDBData);
+              }
             }
             else
               throw new System.Exception("Not an Isolated Footing");
@@ -53,12 +79,17 @@ namespace AdvanceSteel.Nodes.Concrete
       }
     }
 
-    internal Footings(Point3d ptCenter, Vector3d vNormal, double depth, double width, double length)
+    internal Footings(Point3d ptCenter, Vector3d vNormal, 
+                      double depth, double width, double length,
+                      List<ASProperty> concreteProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
+          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
           Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
@@ -70,7 +101,18 @@ namespace AdvanceSteel.Nodes.Concrete
             padFooting.SetLength(length, false);
             padFooting.SetWidth(width, false);
             padFooting.Thickness = depth;
+
+            if (defaultData != null)
+            {
+              Utils.SetParameters(padFooting, defaultData);
+            }
+
             padFooting.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(padFooting, postWriteDBData);
+            }
           }
           else
           {
@@ -82,6 +124,16 @@ namespace AdvanceSteel.Nodes.Concrete
               padFooting.Thickness = depth;
               padFooting.SetLength(length, false);
               padFooting.SetWidth(width, false);
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(padFooting, defaultData);
+              }
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(padFooting, postWriteDBData);
+              }
             }
             else
               throw new System.Exception("Not an Isolated Footing");
@@ -96,26 +148,49 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <summary>
     /// Create an Advance Steel Isolated Footing - Circular
     /// </summary>
-    /// <param name="coordinateSystem">Footing Insert Coordinate System</param>
-    /// <param name="footingDepth">Depth of Footing</param>
-    /// <param name="footingRadius">Footing Radius</param>
+    /// <param name="coordinateSystem"> Input Dynamo Coordinate System to Input location of footing</param>
+    /// <param name="footingDepth"> Input Depth of Footing</param>
+    /// <param name="footingRadius"> Input Footing Radius</param>
+    /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Footings ByRadiusOnCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, double footingDepth, double footingRadius)
+    public static Footings ByRadiusOnCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
+                                        double footingDepth, double footingRadius,
+                                        [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
     {
-      return new Footings(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), footingDepth, footingRadius);
+      additionalConcParameters = PreSetDefaults(additionalConcParameters);
+      return new Footings(Utils.ToAstPoint(coordinateSystem.Origin, true), 
+                          Utils.ToAstVector3d(coordinateSystem.ZAxis, true), 
+                          footingDepth, footingRadius,
+                          additionalConcParameters);
     }
 
     /// <summary>
     /// Create an Advance Steel Isolated Footing - Rectangular
     /// </summary>
-    /// <param name="coordinateSystem"></param>
-    /// <param name="footingDepth"></param>
-    /// <param name="footingWidth"></param>
-    /// <param name="footingLength"></param>
+    /// <param name="coordinateSystem"> Input Dynamo Coordinate System to Input location of footing</param>
+    /// <param name="footingDepth"> Input Depth of Footing</param>
+    /// <param name="footingWidth"> Input Width of Footing</param>
+    /// <param name="footingLength"> Input Length of Footing</param>
+    /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Footings ByLengthWidthOnCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, double footingDepth, double footingWidth, double footingLength)
+    public static Footings ByLengthWidthOnCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
+                                              double footingDepth, double footingWidth, double footingLength,
+                                              [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
     {
-      return new Footings(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), footingDepth, footingWidth,footingLength);
+      additionalConcParameters = PreSetDefaults(additionalConcParameters);
+      return new Footings(Utils.ToAstPoint(coordinateSystem.Origin, true), 
+                          Utils.ToAstVector3d(coordinateSystem.ZAxis, true), 
+                          footingDepth, footingWidth, footingLength,
+                          additionalConcParameters);
+    }
+
+    private static List<ASProperty> PreSetDefaults(List<ASProperty> listOfProps)
+    {
+      if (listOfProps == null)
+      {
+        listOfProps = new List<ASProperty>() { };
+      }
+      return listOfProps;
     }
 
     [IsVisibleInDynamoLibrary(false)]

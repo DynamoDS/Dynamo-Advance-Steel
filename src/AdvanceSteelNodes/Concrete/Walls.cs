@@ -6,11 +6,12 @@ using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 using System.Collections.Generic;
 using Autodesk.AdvanceSteel.CADLink.Database;
 using Autodesk.AdvanceSteel.Geometry;
+using System.Linq;
 
 namespace AdvanceSteel.Nodes.Concrete
 {
   /// <summary>
-  /// Advance Steel plate
+  /// Advance Steel Walls
   /// </summary>
   [DynamoServices.RegisterForTrace]
   public class Walls : GraphicObject
@@ -19,12 +20,18 @@ namespace AdvanceSteel.Nodes.Concrete
     {
     }
 
-    internal Walls(SteelGeometry.Point3d ptCenter, double dLength, double dHeight, double thickness, SteelGeometry.Vector3d vNormal, double side)
+    internal Walls(SteelGeometry.Point3d ptCenter, 
+                    double dLength, double dHeight, double thickness, 
+                    SteelGeometry.Vector3d vNormal, 
+                    List<ASProperty> concreteProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
+          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+
           SteelGeometry.Plane plane = new SteelGeometry.Plane(ptCenter, vNormal);
           Autodesk.AdvanceSteel.Modelling.Wall wallObject = null;
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
@@ -33,8 +40,17 @@ namespace AdvanceSteel.Nodes.Concrete
           {
             wallObject = new Autodesk.AdvanceSteel.Modelling.Wall(plane, ptCenter, dLength, dHeight);
             wallObject.Thickness = thickness;
-            wallObject.Portioning = side;
+            if (defaultData != null)
+            {
+              Utils.SetParameters(wallObject, defaultData);
+            }
+
             wallObject.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(wallObject, postWriteDBData);
+            }
           }
           else
           {
@@ -45,7 +61,16 @@ namespace AdvanceSteel.Nodes.Concrete
               wallObject.Thickness = thickness;
               wallObject.SetLength(dLength, true);
               wallObject.SetWidth(dHeight, true);
-              wallObject.Portioning = side;
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(wallObject, defaultData);
+              }
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(wallObject, postWriteDBData);
+              }
             }
             else
             {
@@ -59,12 +84,17 @@ namespace AdvanceSteel.Nodes.Concrete
       }
     }
 
-    internal Walls(SteelGeometry.Matrix3d matrix, double dLength, double dHeight, double thickness, double side)
+    internal Walls(SteelGeometry.Matrix3d matrix, 
+                    double dLength, double dHeight, double thickness, 
+                    List<ASProperty> concreteProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
+          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+
           SteelGeometry.Point3d baseOrigin = new SteelGeometry.Point3d();
           SteelGeometry.Vector3d xAxis = new SteelGeometry.Vector3d();
           SteelGeometry.Vector3d yAxis = new SteelGeometry.Vector3d();
@@ -96,8 +126,18 @@ namespace AdvanceSteel.Nodes.Concrete
             IEnumerable<ObjectId> deletedFeaturesIds = null;
             IEnumerable<ObjectId> newFeaturesIds = null;
             wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
-            wallObject.Portioning = side;
+
+            if (defaultData != null)
+            {
+              Utils.SetParameters(wallObject, defaultData);
+            }
+
             wallObject.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(wallObject, postWriteDBData);
+            }
           }
           else
           {
@@ -110,8 +150,19 @@ namespace AdvanceSteel.Nodes.Concrete
               Polyline3d outerPoly = new Polyline3d(wallPoints, cornerRadii, true, yAxis, false, 0, true, true);
               IEnumerable<ObjectId> deletedFeaturesIds = null;
               IEnumerable<ObjectId> newFeaturesIds = null;
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(wallObject, defaultData);
+              }
+
               wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
-              wallObject.Portioning = side;
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(wallObject, postWriteDBData);
+              }
+
             }
             else
             {
@@ -125,7 +176,9 @@ namespace AdvanceSteel.Nodes.Concrete
       }
     }
 
-    internal Walls(Autodesk.DesignScript.Geometry.Polygon poly, double thickness, double side)
+    internal Walls(Autodesk.DesignScript.Geometry.Polygon poly, 
+                    double thickness, 
+                    List<ASProperty> concreteProperties)
     {
       if (poly.IsPlanar == false)
         throw new System.Exception("Polygon is not planar");
@@ -134,6 +187,9 @@ namespace AdvanceSteel.Nodes.Concrete
       {
         using (var ctx = new SteelServices.DocContext())
         {
+          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
           Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
@@ -151,8 +207,18 @@ namespace AdvanceSteel.Nodes.Concrete
             IEnumerable<ObjectId> deletedFeaturesIds = null;
             IEnumerable<ObjectId> newFeaturesIds = null;
             wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
-            wallObject.Portioning = side;
+
+            if (defaultData != null)
+            {
+              Utils.SetParameters(wallObject, defaultData);
+            }
+
             wallObject.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(wallObject, postWriteDBData);
+            }
           }
           else
           {
@@ -165,8 +231,19 @@ namespace AdvanceSteel.Nodes.Concrete
               Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
               IEnumerable<ObjectId> deletedFeaturesIds = null;
               IEnumerable<ObjectId> newFeaturesIds = null;
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(wallObject, defaultData);
+              }
+
               wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
-              wallObject.Portioning = side;
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(wallObject, postWriteDBData);
+              }
+
             }
             else
               throw new System.Exception("Not a Slab");
@@ -181,61 +258,84 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <summary>
     /// Create an Advance Steel Rectangular Wall by defining the extants of the face of the wall by Coordinate System
     /// </summary>
-    /// <param name="coordinateSystem"></param>
-    /// <param name="length"></param>
-    /// <param name="height"></param>
-    /// <param name="thickness"></param>
-    /// <param name="side">0, 1, 0.5 - Nearside, Farside or Center</param>
+    /// <param name="coordinateSystem"> Input Dynamo Coordinate System</param>
+    /// <param name="length"> Input Wall Length</param>
+    /// <param name="height"> Input Wall Height</param>
+    /// <param name="thickness"> Input Wall Thickness</param>
+    /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Walls FaceByLengthHeightByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, double length, double height, double thickness, double side)
+    public static Walls FaceByLengthHeightByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
+                                                double length, double height, double thickness,
+                                                [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
     {
+      additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new Walls(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(height, true),
-                                 Utils.ToInternalUnits(thickness, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), side);
+                                 Utils.ToInternalUnits(thickness, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), 
+                                 additionalConcParameters);
     }
 
     /// <summary>
     /// Create an Advance Steel Rectangular Wall by defining the extants of the face of the wall by Dynamo Plane
     /// </summary>
-    /// <param name="plane"></param>
-    /// <param name="length"></param>
-    /// <param name="height"></param>
-    /// <param name="thickness"></param>
-    /// <param name="side">0, 1, 0.5 - Nearside, Farside or Center</param>
+    /// <param name="plane"> Input Dynamo Plane to insert Wall</param>
+    /// <param name="length"> Input Wall Length</param>
+    /// <param name="height"> Input Wall Height</param>
+    /// <param name="thickness"> Input Wall Thickness</param>
+    /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Walls FaceByLengthHeightByPlane(Autodesk.DesignScript.Geometry.Plane plane, double length, double height, double thickness, double side)
+    public static Walls FaceByLengthHeightByPlane(Autodesk.DesignScript.Geometry.Plane plane, 
+                                                  double length, double height, double thickness,
+                                                  [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
     {
+      additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new Walls(Utils.ToAstPoint(plane.Origin, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(height, true),
-                                 Utils.ToInternalUnits(thickness, true), Utils.ToAstVector3d(plane.Normal, true), side);
+                                 Utils.ToInternalUnits(thickness, true), Utils.ToAstVector3d(plane.Normal, true), 
+                                 additionalConcParameters);
     }
 
     /// <summary>
-    /// Create an Advance Steel Wall by Polygon
+    /// Create an Advance Steel Wall by Polygon and Thickness
     /// </summary>
-    /// <param name="poly"></param>
-    /// <param name="thickness"></param>
-    /// <param name="side">0, 1, 0.5 - Nearside, Farside or Center</param>
+    /// <param name="poly"> Input Dynamo Polygon for Wall shape</param>
+    /// <param name="thickness"> Input Wall Thickness</param>
+    /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Walls FaceByPolygon(Autodesk.DesignScript.Geometry.Polygon poly, double thickness, double side)
+    public static Walls FaceByPolygon(Autodesk.DesignScript.Geometry.Polygon poly, 
+                                      double thickness,
+                                      [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
     {
-      return new Walls(poly, Utils.ToInternalUnits(thickness, true), side);
+      additionalConcParameters = PreSetDefaults(additionalConcParameters);
+      return new Walls(poly, Utils.ToInternalUnits(thickness, true), additionalConcParameters);
     }
 
     /// <summary>
     /// Creates aa Advance Steel Wall at CS by Length and by Height - Z axis is assumed Wall creation
     /// </summary>
-    /// <param name="coordinateSystem"></param>
-    /// <param name="length"></param>
-    /// <param name="height"></param>
-    /// <param name="thickness"></param>
-    /// <param name="side">0, 1, 0.5 - Nearside, Farside or Center</param>
+    /// <param name="coordinateSystem"> Input Dynamo Coordinate System</param>
+    /// <param name="length"> Input Wall Length</param>
+    /// <param name="height"> Input Wall Height</param>
+    /// <param name="thickness"> Input Wall Thickness</param>
+    /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Walls AtBaseByLengthHeightByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, double length, double height, double thickness, double side)
+    public static Walls AtBaseByLengthHeightByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
+                                                  double length, 
+                                                  double height, 
+                                                  double thickness,
+                                                  [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
     {
+      additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new Walls(Utils.ToAstMatrix3d(coordinateSystem, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(height, true),
-                                 Utils.ToInternalUnits(thickness, true), side);
+                                 Utils.ToInternalUnits(thickness, true), additionalConcParameters);
     }
 
-
+    private static List<ASProperty> PreSetDefaults(List<ASProperty> listOfProps)
+    {
+      if (listOfProps == null)
+      {
+        listOfProps = new List<ASProperty>() { };
+      }
+      return listOfProps;
+    }
 
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()

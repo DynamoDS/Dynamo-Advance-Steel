@@ -2,6 +2,7 @@
 using Autodesk.AdvanceSteel.ConstructionTypes;
 using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.AdvanceSteel.Modeler;
+using Autodesk.AdvanceSteel.Modelling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,9 @@ namespace AdvanceSteel.Nodes.Util
   public class Geometry
   {
 
+    internal Geometry()
+    {
+    }
     /// <summary>
     /// Get line segments of steel body that interected with plane
     /// </summary>
@@ -56,6 +60,48 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
+    /// Get intersection point of Steel object system line with Dynamo plane
+    /// </summary>
+    /// <param name="steelObject">Advance Steel element</param>
+    /// <param name="intersectionPlane"> Dynamo Plane to intersect with Steel body</param>
+    /// <returns></returns>
+    public static Autodesk.DesignScript.Geometry.Point CutSystemLineByPlane(AdvanceSteel.Nodes.SteelDbObject steelObject,
+                                                                          Autodesk.DesignScript.Geometry.Plane intersectionPlane)
+    {
+      Autodesk.DesignScript.Geometry.Point ret = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0,0,0);
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null || intersectionPlane != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          Plane cutPlane = Utils.ToAstPlane(intersectionPlane, true);
+          if (filerObj != null)
+          {
+            AtomicElement selectedObj = filerObj as AtomicElement;
+
+            if (selectedObj.IsKindOf(FilerObject.eObjectType.kBeam))
+            {
+              Beam passedBeam = selectedObj as Beam;
+              Line3d line = new Line3d(passedBeam.GetPointAtStart(), passedBeam.GetPointAtEnd());
+              Point3d[] intPts = new Point3d[] { };
+              cutPlane.IntersectWith(line, ref intPts, new Tol());
+
+              if (intPts.Length > 0)
+              {
+                ret = Utils.ToDynPoint(intPts[0], true);
+              }
+              else
+                throw new System.Exception("No Intersection point found on steel object with current plane");
+            }
+          }
+        }
+        else
+          throw new System.Exception("No Steel Object found or Plane is Null");
+      }
+      return ret;
+    }
+
+    /// <summary>
     /// Get points on the steel body that interected with line
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
@@ -80,13 +126,13 @@ namespace AdvanceSteel.Nodes.Util
             Point3d[] foundPoints = null;
 
             ModelerBody modelerTestBody = selectedObj.GetModeler((BodyContext.eBodyContext)bodyResolution);
-
-            modelerTestBody.IntersectWith(projectedLine, out foundPoints);
-            foundPoints = foundPoints.OrderByDescending(Ptx => Ptx.DistanceTo(originPoint)).ToArray();
-
-            for (int i = 0; i < foundPoints.Length; i++)
+            if (modelerTestBody.IntersectWith(projectedLine, out foundPoints))
             {
-              ret.Add(Utils.ToDynPoint(foundPoints[i], true));
+              foundPoints = foundPoints.OrderByDescending(Ptx => Ptx.DistanceTo(originPoint)).ToArray();
+              for (int i = 0; i < foundPoints.Length; i++)
+              {
+                ret.Add(Utils.ToDynPoint(foundPoints[i], true));
+              }
             }
           }
         }
@@ -96,5 +142,4 @@ namespace AdvanceSteel.Nodes.Util
       return ret;
     }
   }
-
 }

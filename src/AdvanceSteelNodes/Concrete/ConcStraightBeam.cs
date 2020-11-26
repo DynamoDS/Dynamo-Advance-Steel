@@ -3,12 +3,14 @@ using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.AdvanceSteel.Modelling;
 using Autodesk.AdvanceSteel.Profiles;
 using Autodesk.DesignScript.Runtime;
+using System.Collections.Generic;
+using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 
 namespace AdvanceSteel.Nodes.Concrete
 {
   /// <summary>
-  /// Advance Steel straight beam
+  /// Advance Steel Concrete Straight Beam
   /// </summary>
   [DynamoServices.RegisterForTrace]
   public class ConcStraightBeam : GraphicObject
@@ -17,12 +19,19 @@ namespace AdvanceSteel.Nodes.Concrete
     {
     }
 
-    internal ConcStraightBeam(string concName, Autodesk.DesignScript.Geometry.Point ptStart, Autodesk.DesignScript.Geometry.Point ptEnd, Autodesk.DesignScript.Geometry.Vector vOrientation)
+    internal ConcStraightBeam(string concName, 
+                              Autodesk.DesignScript.Geometry.Point ptStart, 
+                              Autodesk.DesignScript.Geometry.Point ptEnd, 
+                              Autodesk.DesignScript.Geometry.Vector vOrientation,
+                              List<ASProperty> concreteProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
+          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
           Point3d beamStart = Utils.ToAstPoint(ptStart, true);
@@ -33,7 +42,17 @@ namespace AdvanceSteel.Nodes.Concrete
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
             concBeam = new Autodesk.AdvanceSteel.Modelling.ConcreteBeam(concName, beamStart, beamEnd, refVect);
+            if (defaultData != null)
+            {
+              Utils.SetParameters(concBeam, defaultData);
+            }
+
             concBeam.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(concBeam, postWriteDBData);
+            }
           }
           else
           {
@@ -47,6 +66,16 @@ namespace AdvanceSteel.Nodes.Concrete
               concBeam.ProfName = concName;
 
               Utils.SetOrientation(concBeam, refVect);
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(concBeam, defaultData);
+              }
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(concBeam, postWriteDBData);
+              }
             }
             else
               throw new System.Exception("Not a Concrete Straight Beam");
@@ -58,47 +87,71 @@ namespace AdvanceSteel.Nodes.Concrete
     }
 
     /// <summary>
-    /// Create an Advance Steel Concrete Straight beam between two points
+    /// Create an Advance Steel Concrete Straight Beam/Column between two points
     /// </summary>
-    /// <param name="concName"></param>
-    /// <param name="start">Start point</param>
-    /// <param name="end">End point</param>
-    /// <param name="orientation">Section orientation</param>
+    /// <param name="concName"> Concrete Profile Name</param>
+    /// <param name="start"> Input Start point of Beam</param>
+    /// <param name="end"> Input End point of Beam</param>
+    /// <param name="orientation"> Section orientation</param>
+    /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcStraightBeam ByStartPointEndPoint(string concName, Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Point end, Autodesk.DesignScript.Geometry.Vector orientation)
+    public static ConcStraightBeam ByStartPointEndPoint(string concName, Autodesk.DesignScript.Geometry.Point start, 
+                                                        Autodesk.DesignScript.Geometry.Point end, 
+                                                        Autodesk.DesignScript.Geometry.Vector orientation,
+                                                        [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
     {
-      return new ConcStraightBeam(concName, start, end, orientation);
+      additionalConcParameters = PreSetDefaults(additionalConcParameters);
+      return new ConcStraightBeam(concName, start, end, orientation, additionalConcParameters);
     }
 
     /// <summary>
-    /// Create an Advance Steel Concrete Column
+    /// Create an Advance Steel Concrete Beam/Column by a point in a direction by length
     /// </summary>
-    /// <param name="concName"></param>
-    /// <param name="start"></param>
-    /// <param name="direction"></param>
-    /// <param name="orientation"></param>
-    /// <param name="length"></param>
+    /// <param name="concName"> Concrete Profile Name</param>
+    /// <param name="start"> Input Start point of Beam</param>
+    /// <param name="direction"> Dynamo Vector to define length direction</param>
+    /// <param name="orientation"> Section orientation</param>
+    /// <param name="length"> Length value in the direction from the start point</param>
+    /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcStraightBeam ByStartPointDirectionLength(string concName, Autodesk.DesignScript.Geometry.Point start, Autodesk.DesignScript.Geometry.Vector direction, Autodesk.DesignScript.Geometry.Vector orientation, double length)
+    public static ConcStraightBeam ByStartPointDirectionLength(string concName, Autodesk.DesignScript.Geometry.Point start, 
+                                                                Autodesk.DesignScript.Geometry.Vector direction, 
+                                                                Autodesk.DesignScript.Geometry.Vector orientation, 
+                                                                double length,
+                                                                [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
     {
       Vector3d columnDirection = Utils.ToAstVector3d(direction, true).Normalize();
       Point3d tempPoint = Utils.ToAstPoint(start, true);
       Point3d end = tempPoint.Add(columnDirection * length);
-      return new ConcStraightBeam(concName, start, Utils.ToDynPoint(end, true), orientation);
+      additionalConcParameters = PreSetDefaults(additionalConcParameters);
+      return new ConcStraightBeam(concName, start, Utils.ToDynPoint(end, true), orientation, additionalConcParameters);
     }
 
     /// <summary>
     /// Create an Advance Steel Concrete Beam/Column by Dynamo Line Geometry
     /// </summary>
-    /// <param name="concName"></param>
-    /// <param name="line"></param>
-    /// <param name="orientation"></param>
+    /// <param name="concName"> Concrete Profile Name</param>
+    /// <param name="line"> Input Dynamo Line</param>
+    /// <param name="orientation">Section orientation</param>
+    /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcStraightBeam ByLine(string concName, Autodesk.DesignScript.Geometry.Line line, Autodesk.DesignScript.Geometry.Vector orientation)
+    public static ConcStraightBeam ByLine(string concName, Autodesk.DesignScript.Geometry.Line line, 
+                                          Autodesk.DesignScript.Geometry.Vector orientation,
+                                          [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
     {
       Autodesk.DesignScript.Geometry.Point start = line.StartPoint;
       Autodesk.DesignScript.Geometry.Point end = line.EndPoint;
-      return new ConcStraightBeam(concName, start, end, orientation);
+      additionalConcParameters = PreSetDefaults(additionalConcParameters);
+      return new ConcStraightBeam(concName, start, end, orientation, additionalConcParameters);
+    }
+
+    private static List<ASProperty> PreSetDefaults(List<ASProperty> listOfProps)
+    {
+      if (listOfProps == null)
+      {
+        listOfProps = new List<ASProperty>() { };
+      }
+      return listOfProps;
     }
 
     [IsVisibleInDynamoLibrary(false)]
