@@ -28,6 +28,7 @@ namespace AdvanceSteel.Nodes
     private static Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>> avaliableSteelObjects = new Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>>()
     {
       { FilerObject.eObjectType.kStraightBeam, (string handle) => new StraightBeam() },
+      { FilerObject.eObjectType.kUnfoldedStraightBeam, (string handle) => new UnFoldedBeam() },
       { FilerObject.eObjectType.kCompoundStraightBeam, (string handle) => new CompoundBeam() },
       { FilerObject.eObjectType.kBeamTapered, (string handle) => new TaperedBeam() },
       { FilerObject.eObjectType.kBentBeam, (string handle) => new BentBeam() },
@@ -56,6 +57,7 @@ namespace AdvanceSteel.Nodes
     {
       { FilerObject.eObjectType.kUnknown , "Select As Object Type..." },
       { FilerObject.eObjectType.kStraightBeam, "Advance Steel Straight Beam" },
+      { FilerObject.eObjectType.kUnfoldedStraightBeam, "Advance Steel Unfolded Straight Beam" },
       { FilerObject.eObjectType.kCompoundStraightBeam, "Advance Steel Compound Beam" },
       { FilerObject.eObjectType.kBeamTapered, "Advance Steel Tapered Beam" },
       { FilerObject.eObjectType.kBentBeam, "Advance Steel Bent Beam" },
@@ -479,10 +481,12 @@ namespace AdvanceSteel.Nodes
     {
       return (point2 - point1).GetLength();
     }
+
     public static double GetRectangleAngle(Autodesk.AdvanceSteel.Geometry.Point3d point1, Autodesk.AdvanceSteel.Geometry.Point3d point2, Autodesk.AdvanceSteel.Geometry.Vector3d vx)
     {
       return (point2 - point1).GetAngleTo(vx);
     }
+
     public static double GetRectangleLength(Autodesk.AdvanceSteel.Geometry.Point3d point1, Autodesk.AdvanceSteel.Geometry.Point3d point2, Autodesk.AdvanceSteel.Geometry.Vector3d vx)
     {
       var diagLen = GetDiagonalLength(point1, point2);
@@ -490,6 +494,7 @@ namespace AdvanceSteel.Nodes
 
       return diagLen * Math.Cos(alpha);
     }
+
     public static double GetRectangleHeight(Autodesk.AdvanceSteel.Geometry.Point3d point1, Autodesk.AdvanceSteel.Geometry.Point3d point2, Autodesk.AdvanceSteel.Geometry.Vector3d vx)
     {
       var diagLen = GetDiagonalLength(point1, point2);
@@ -687,6 +692,7 @@ namespace AdvanceSteel.Nodes
       {
         if (obj is AdvanceSteel.Nodes.Beams.BentBeam ||
             obj is AdvanceSteel.Nodes.Beams.StraightBeam ||
+            obj is AdvanceSteel.Nodes.Beams.UnFoldedBeam ||
             obj is AdvanceSteel.Nodes.Plates.Plate)
         {
           handlesList.Add(obj.Handle);
@@ -715,7 +721,14 @@ namespace AdvanceSteel.Nodes
                                       BuildGenericBeamPropertyList(listFilter, "Concrete Straight ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
-    
+
+    public static Dictionary<string, ASProperty> GetUnfoldedStraightBeamProperties(int listFilter)
+    {
+      Dictionary<string, ASProperty> combinedData = BuildUnfoldedBeamPropertyList(listFilter, "Unfolded ").Union(
+                                      BuildGenericBeamPropertyList(listFilter, "Unfolded Straight ")).ToDictionary(s => s.Key, s => s.Value);
+      return combinedData;
+    }
+
     public static Dictionary<string, ASProperty> GetConcreteBentBeamProperties(int listFilter)
     {
       Dictionary<string, ASProperty> combinedData = BuildBentBeamPropertyList(listFilter, "Concrete ").Union(
@@ -1102,7 +1115,11 @@ namespace AdvanceSteel.Nodes
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kStraightBeam,
-                    eObjectType.kConcreteBeam});
+                    eObjectType.kConcreteBeam,
+                    eObjectType.kBeamTapered,
+                    eObjectType.kBentBeam,
+                    eObjectType.kPolyBeam,
+                    eObjectType.kUnfoldedStraightBeam});
 
       return filterDictionary(dictProps, listFilter);
     }
@@ -1309,6 +1326,19 @@ namespace AdvanceSteel.Nodes
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kUnknown });
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildUnfoldedBeamPropertyList(int listFilter, string prefix = "")
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add(prefix + "Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add(prefix + "Thickness", new ASProperty("Thickness", typeof(double)));
+      dictProps.Add(prefix + "Face Alignment", new ASProperty("Portioning", typeof(double)));
+
+      addElementTypes(dictProps, new List<eObjectType>() {
+                    eObjectType.kUnfoldedStraightBeam});
 
       return filterDictionary(dictProps, listFilter);
     }
