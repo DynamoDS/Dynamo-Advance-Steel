@@ -15,7 +15,7 @@ using System;
 namespace AdvanceSteel.Nodes.Util
 {
 	/// <summary>
-	/// Store Bolts properties in a Node to pass to Bolt Node
+	/// Store Camera properties in a Node
 	/// </summary>
 	public class Cameras
 	{
@@ -109,13 +109,13 @@ namespace AdvanceSteel.Nodes.Util
           camera.getXYExtents(out extentsType, out xLength, out yLength);
           if (yLength >= 0)
           {
-            ret["X_Length"] = xLength;
-            ret["Y_Length"] = yLength;
+            ret["X_Length"] = Utils.FromInternalUnits(xLength, true);
+            ret["Y_Length"] = Utils.FromInternalUnits(yLength, true);
           }
         }
         else
           throw new System.Exception("Failed to Get Camera Object");
-      }
+      } 
       return ret;
     }
 
@@ -146,8 +146,8 @@ namespace AdvanceSteel.Nodes.Util
           camera.getZClipping(out clipType, out nearSideClippingValue, out farSideClippingValue);
           if (nearSideClippingValue >= 0)
           {
-            ret["Nearside_Clipping"] = nearSideClippingValue;
-            ret["Farside_Clipping"] = farSideClippingValue;
+            ret["Nearside_Clipping"] = Utils.FromInternalUnits(nearSideClippingValue, true);
+            ret["Farside_Clipping"] = Utils.FromInternalUnits(farSideClippingValue, true);
           }
         }
         else
