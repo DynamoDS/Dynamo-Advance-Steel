@@ -28,6 +28,7 @@ namespace AdvanceSteel.Nodes
     private static Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>> avaliableSteelObjects = new Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>>()
     {
       { FilerObject.eObjectType.kStraightBeam, (string handle) => new StraightBeam() },
+      { FilerObject.eObjectType.kPolyBeam, (string handle) => new PolyBeam() },
       { FilerObject.eObjectType.kUnfoldedStraightBeam, (string handle) => new UnFoldedBeam() },
       { FilerObject.eObjectType.kCompoundStraightBeam, (string handle) => new CompoundBeam() },
       { FilerObject.eObjectType.kBeamTapered, (string handle) => new TaperedBeam() },
@@ -57,6 +58,7 @@ namespace AdvanceSteel.Nodes
     {
       { FilerObject.eObjectType.kUnknown , "Select As Object Type..." },
       { FilerObject.eObjectType.kStraightBeam, "Advance Steel Straight Beam" },
+      { FilerObject.eObjectType.kPolyBeam, "Advance Steel Poly Beam" },
       { FilerObject.eObjectType.kUnfoldedStraightBeam, "Advance Steel Unfolded Straight Beam" },
       { FilerObject.eObjectType.kCompoundStraightBeam, "Advance Steel Compound Beam" },
       { FilerObject.eObjectType.kBeamTapered, "Advance Steel Tapered Beam" },
@@ -161,6 +163,98 @@ namespace AdvanceSteel.Nodes
       {
         var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
         factor = units.UnitOfAngle.Factor;
+      }
+      return (value * (1 / factor));
+    }
+
+    static public Double ToInternalAreaUnits(double value, bool bConvert)
+    {
+      double factor = 1.0;
+      if (bConvert)
+      {
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfArea.Factor;
+      }
+
+      return (value * factor);
+    }
+
+    static public Double FromInternalAreaUnits(double value, bool bConvertFromAstUnits)
+    {
+      double factor = 1.0;
+      if (bConvertFromAstUnits)
+      {
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfArea.Factor;
+      }
+      return (value * (1 / factor));
+    }
+
+    static public Double ToInternalAreaPerDistanceUnits(double value, bool bConvert)
+    {
+      double factor = 1.0;
+      if (bConvert)
+      {
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfAreaPerDistance.Factor;
+      }
+
+      return (value * factor);
+    }
+
+    static public Double FromInternalAreaPerDistanceUnits(double value, bool bConvertFromAstUnits)
+    {
+      double factor = 1.0;
+      if (bConvertFromAstUnits)
+      {
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfAreaPerDistance.Factor;
+      }
+      return (value * (1 / factor));
+    }
+
+    static public Double ToInternalWeightUnits(double value, bool bConvert)
+    {
+      double factor = 1.0;
+      if (bConvert)
+      {
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfWeight.Factor;
+      }
+
+      return (value * factor);
+    }
+
+    static public Double FromInternalWeightUnits(double value, bool bConvertFromAstUnits)
+    {
+      double factor = 1.0;
+      if (bConvertFromAstUnits)
+      {
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfWeight.Factor;
+      }
+      return (value * (1 / factor));
+    }
+
+    static public Double ToInternalWeightPerDistanceUnits(double value, bool bConvert)
+    {
+      double factor = 1.0;
+      if (bConvert)
+      {
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfWeightPerDistance.Factor;
+      }
+
+      return (value * factor);
+    }
+
+    static public Double FromInternalWeightPerDistanceUnits(double value, bool bConvertFromAstUnits)
+    {
+      double factor = 1.0;
+      if (bConvertFromAstUnits)
+      {
+        var units = AppResolver.Resolve<IAppInteraction>().DbUnits;
+        factor = units.UnitOfWeightPerDistance.Factor;
       }
       return (value * (1 / factor));
     }
@@ -814,6 +908,13 @@ namespace AdvanceSteel.Nodes
       return combinedData;
     }
 
+    public static Dictionary<string, ASProperty> GetPolyBeamPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> combinedData = BuildPolyBeamPropertyList(listFilter).Union(
+                                            BuildGenericBeamPropertyList(listFilter, "Poly ")).ToDictionary(s => s.Key, s => s.Value);
+      return combinedData;
+    }
+
     public static Dictionary<string, ASProperty> GetTaperBeamPropertyList(int listFilter)
     {
       Dictionary<string, ASProperty> combinedData = BuildTaperedBeamPropertyList(listFilter).Union(
@@ -860,6 +961,7 @@ namespace AdvanceSteel.Nodes
                                                   GetGratingPropertyList(listFilter)).Union(
                                                   GetStraighBeamPropertyList(listFilter)).Union(
                                                   GetBentBeamPropertyList(listFilter)).Union(
+                                                  GetPolyBeamPropertyList(listFilter)).Union(
                                                   GetTaperBeamPropertyList(listFilter)).Union(
                                                   GetConcretePlanarProperties(listFilter)).Union(
                                                   GetConcreteStraightBeamProperties(listFilter)).Union(
@@ -1354,6 +1456,18 @@ namespace AdvanceSteel.Nodes
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kBentBeam,
                     eObjectType.kConcreteBentBeam});
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildPolyBeamPropertyList(int listFilter, string prefix = "")
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add(prefix + "Poly Beam Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add(prefix + "Poly Beam Reference Orientation", new ASProperty("VecRefOrientation", typeof(Vector3d), ".", ePropertyDataOperator.Get));
+
+      addElementTypes(dictProps, new List<eObjectType>() {
+                    eObjectType.kPolyBeam});
 
       return filterDictionary(dictProps, listFilter);
     }
