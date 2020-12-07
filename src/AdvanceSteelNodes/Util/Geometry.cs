@@ -22,7 +22,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <summary>
     /// Get line segments of steel body that interected with plane
     /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
+    /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="bodyResolution"> Set Steel body display resolution</param>
     /// <param name="intersectionPlane"> Dynamo Plane to intersect with Steel body</param>
     /// <returns></returns>
@@ -62,7 +62,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <summary>
     /// Get intersection point of Steel object system line with Dynamo plane
     /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
+    /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="intersectionPlane"> Dynamo Plane to intersect with Steel body</param>
     /// <returns></returns>
     public static Autodesk.DesignScript.Geometry.Point CutSystemLineByPlane(AdvanceSteel.Nodes.SteelDbObject steelObject,
@@ -104,7 +104,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <summary>
     /// Get points on the steel body that interected with line
     /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
+    /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="bodyResolution"> Set Steel body display resolution</param>
     /// <param name="line"> Dynamo Line to intersect with Steel body</param>
     /// <returns></returns>
@@ -134,6 +134,38 @@ namespace AdvanceSteel.Nodes.Util
                 ret.Add(Utils.ToDynPoint(foundPoints[i], true));
               }
             }
+          }
+        }
+        else
+          throw new System.Exception("No Steel Object found or Line Object is null");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Get Polycurve from Polybeam
+    /// </summary>
+    /// <param name="steelObject"> Advance Steel element</param>
+    /// <returns></returns>
+    public static Autodesk.DesignScript.Geometry.PolyCurve GetPolyCurve(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    {
+      List<Autodesk.DesignScript.Geometry.Curve> intRet = new List<Autodesk.DesignScript.Geometry.Curve>() { };
+      Autodesk.DesignScript.Geometry.PolyCurve ret = null; 
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kPolyBeam))
+            {
+              PolyBeam selectedObj = filerObj as PolyBeam;
+              Polyline3d poly = selectedObj.GetPolyline();
+              intRet = Utils.ToDynPolyCurves(poly, true);
+              ret = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(intRet);
+            }
+              throw new System.Exception("Wrong type of Steel Object found, must be a Polybeam");
           }
         }
         else
