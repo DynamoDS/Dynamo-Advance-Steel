@@ -41,6 +41,7 @@ namespace AdvanceSteel.Nodes
       { FilerObject.eObjectType.kPlate, (string handle) => new Plate() },
       { FilerObject.eObjectType.kGrating, (string handle) => GetDynGrating(handle) },
       { FilerObject.eObjectType.kCamera, (string handle) => new Camera() },
+      { FilerObject.eObjectType.kSpecialPart, (string handle) => new SpecialPart() },
       { FilerObject.eObjectType.kAnchorPattern, (string handle) => GetDynAnchor(handle) },
       { FilerObject.eObjectType.kCircleScrewBoltPattern, (string handle) => new CircularBoltPattern() },
       { FilerObject.eObjectType.kConnector, (string handle) => GetDynShearStud(handle) },
@@ -70,6 +71,7 @@ namespace AdvanceSteel.Nodes
       { FilerObject.eObjectType.kWall, "Advance Steel Wals" },
       { FilerObject.eObjectType.kPlate, "Advance Steel Plate" },
       { FilerObject.eObjectType.kGrating, "Advance Steel Grating" },
+      { FilerObject.eObjectType.kSpecialPart, "Advance Steel Special Part" },
       { FilerObject.eObjectType.kAnchorPattern, "Advance Steel Anchor Pattern" },
       { FilerObject.eObjectType.kCircleScrewBoltPattern, "Advance Steel Circular Bolt Pattern" },
       { FilerObject.eObjectType.kConnector, "Advance Steel Shear Studs" },
@@ -753,7 +755,8 @@ namespace AdvanceSteel.Nodes
         FilerObject obj = Utils.GetObject(objHandle);
         if (obj != null && (obj.IsKindOf(FilerObject.eObjectType.kBeam) ||
                             obj.IsKindOf(FilerObject.eObjectType.kBentBeam) ||
-                            obj.IsKindOf(FilerObject.eObjectType.kPlate)))
+                            obj.IsKindOf(FilerObject.eObjectType.kPlate) ||
+                            obj.IsKindOf(FilerObject.eObjectType.kSpecialPart)))
         {
           Objs = true;
           ret.Add(obj);
@@ -787,7 +790,11 @@ namespace AdvanceSteel.Nodes
         if (obj is AdvanceSteel.Nodes.Beams.BentBeam ||
             obj is AdvanceSteel.Nodes.Beams.StraightBeam ||
             obj is AdvanceSteel.Nodes.Beams.UnFoldedBeam ||
-            obj is AdvanceSteel.Nodes.Plates.Plate)
+            obj is AdvanceSteel.Nodes.Beams.PolyBeam ||
+            obj is AdvanceSteel.Nodes.Beams.TaperedBeam ||
+            obj is AdvanceSteel.Nodes.Beams.CompoundBeam ||
+            obj is AdvanceSteel.Nodes.Plates.Plate ||
+            obj is AdvanceSteel.Nodes.NonSteelItems.SpecialPart)
         {
           handlesList.Add(obj.Handle);
         }
@@ -915,6 +922,13 @@ namespace AdvanceSteel.Nodes
       return combinedData;
     }
 
+    public static Dictionary<string, ASProperty> GetSpecialPartPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> combinedData = BuildSpecialPartPropertyList(listFilter).Union(
+                                            BuildGenericSpecialPartPropertyList(listFilter, "Special Part ")).ToDictionary(s => s.Key, s => s.Value);
+      return combinedData;
+    }
+
     public static Dictionary<string, ASProperty> GetTaperBeamPropertyList(int listFilter)
     {
       Dictionary<string, ASProperty> combinedData = BuildTaperedBeamPropertyList(listFilter).Union(
@@ -962,6 +976,7 @@ namespace AdvanceSteel.Nodes
                                                   GetStraighBeamPropertyList(listFilter)).Union(
                                                   GetBentBeamPropertyList(listFilter)).Union(
                                                   GetPolyBeamPropertyList(listFilter)).Union(
+                                                  GetSpecialPartPropertyList(listFilter)).Union(
                                                   GetTaperBeamPropertyList(listFilter)).Union(
                                                   GetConcretePlanarProperties(listFilter)).Union(
                                                   GetConcreteStraightBeamProperties(listFilter)).Union(
@@ -1138,6 +1153,79 @@ namespace AdvanceSteel.Nodes
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kConnector });
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildSpecialPartPropertyList(int listFilter)
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add("Select Special Part Property...", new ASProperty("none", typeof(string)));
+      dictProps.Add("Special Part BlockName", new ASProperty("BlockName", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Special Part Depth", new ASProperty("Depth", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Special Part Width", new ASProperty("Width", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Special Part Length", new ASProperty("Length", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Special Part PaintArea", new ASProperty("PaintArea", typeof(double)));
+      dictProps.Add("Special Part Scale", new ASProperty("Scale", typeof(double)));
+      dictProps.Add("Special Part Weight", new ASProperty("Weight", typeof(double)));
+
+      addElementTypes(dictProps, new List<eObjectType>() {
+                    eObjectType.kSpecialPart });
+
+      return filterDictionary(dictProps, listFilter);
+    }
+
+    private static Dictionary<string, ASProperty> BuildGenericSpecialPartPropertyList(int listFilter, string prefix = "")
+    {
+      Dictionary<string, ASProperty> dictProps = new Dictionary<string, ASProperty>() { };
+      dictProps.Add(prefix + "Assembly", new ASProperty("Assembly", typeof(string)));
+      dictProps.Add(prefix + "Assembly Used For Numbering", new ASProperty("AssemblyUsedForNumbering", typeof(int)));
+      dictProps.Add(prefix + "Center Point", new ASProperty("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Coating", new ASProperty("Coating", typeof(string)));
+      dictProps.Add(prefix + "Coating Description", new ASProperty("CoatingDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Coating Used For Numbering", new ASProperty("CoatingUsedForNumbering", typeof(int)));
+      dictProps.Add(prefix + "Denotation Used For Numbering", new ASProperty("DennotationUsedForNumbering", typeof(int)));
+      dictProps.Add(prefix + "Denotation Role", new ASProperty("Denotation", typeof(string)));
+      dictProps.Add(prefix + "Explicit Quantity", new ASProperty("ExplicitQuantity", typeof(int)));
+      dictProps.Add(prefix + "Handle", new ASProperty("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Holes Used For Numbering", new ASProperty("HolesUsedForNumbering", typeof(int)));
+      dictProps.Add(prefix + "Set IsMainPart Flag", new ASProperty("IsMainPart", typeof(bool), "Z_PostWriteDB"));
+      dictProps.Add(prefix + "Get IsAttachedPart Flag", new ASProperty("IsAttachedPart", typeof(bool), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "ItemNumber", new ASProperty("ItemNumber", typeof(string)));
+      dictProps.Add(prefix + "ItemNumber Used For Numbering", new ASProperty("ItemNumberUsedForNumbering", typeof(int)));
+      dictProps.Add(prefix + "Layer", new ASProperty("Layer", typeof(string)));
+      dictProps.Add(prefix + "MainPart Number", new ASProperty("MainPartNumber", typeof(string)));
+      dictProps.Add(prefix + "MainPart Number Prefix", new ASProperty("MainPartPrefix", typeof(string)));
+      dictProps.Add(prefix + "MainPart Used For BOM", new ASProperty("MainPartUsedForBOM", typeof(int)));
+      dictProps.Add(prefix + "MainPart Used For Collision Check", new ASProperty("MainPartUsedForCollisionCheck", typeof(int)));
+      dictProps.Add(prefix + "MainPart Used For Numbering", new ASProperty("MainPartUsedForNumbering", typeof(int)));
+      dictProps.Add(prefix + "Material", new ASProperty("Material", typeof(string)));
+      dictProps.Add(prefix + "Material Description", new ASProperty("MaterialDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Material Used For Numbering", new ASProperty("MaterialUsedForNumbering", typeof(int)));
+      dictProps.Add(prefix + "Note", new ASProperty("Note", typeof(string)));
+      dictProps.Add(prefix + "Note Used For Numbering", new ASProperty("NoteUsedForNumbering", typeof(int)));
+      dictProps.Add(prefix + "Number Of Holes", new ASProperty("NumberOfHoles", typeof(int), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Preliminary Part Number", new ASProperty("PreliminaryPartNumber", typeof(string)));
+      dictProps.Add(prefix + "Preliminary Part Position Number", new ASProperty("PreliminaryPartPositionNumber", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Preliminary Part Prefix", new ASProperty("PreliminaryPartPrefix", typeof(string)));
+      dictProps.Add(prefix + "Model Role", new ASProperty("Role", typeof(string)));
+      dictProps.Add(prefix + "Model Role Description", new ASProperty("RoleDescription", typeof(string)));
+      dictProps.Add(prefix + "Role Used For Numbering", new ASProperty("RoleUsedForNumbering", typeof(int)));
+      dictProps.Add(prefix + "Runname", new ASProperty("Runname", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Single Part Number", new ASProperty("SinglePartNumber", typeof(string)));
+      dictProps.Add(prefix + "Single Part Prefix", new ASProperty("SinglePartPrefix", typeof(string)));
+      dictProps.Add(prefix + "Single Part Used For BOM", new ASProperty("SinglePartUsedForBOM", typeof(int)));
+      dictProps.Add(prefix + "Single Part Used For CollisionCheck", new ASProperty("SinglePartUsedForCollisionCheck", typeof(int)));
+      dictProps.Add(prefix + "Single Part Used For Numbering", new ASProperty("SinglePartUsedForNumbering", typeof(int)));
+      dictProps.Add(prefix + "Specific Gravity", new ASProperty("SpecificGravity", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Structural Member", new ASProperty("StructuralMember", typeof(int)));
+      dictProps.Add(prefix + "Unwind / Unfolder", new ASProperty("Unwind", typeof(bool)));
+      dictProps.Add(prefix + "UnwindStartFactor", new ASProperty("UnwindStartFactor", typeof(double)));
+      dictProps.Add(prefix + "Volume", new ASProperty("Volume", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Change Display Mode", new ASProperty("ReprMode", typeof(int), "Z_PostWriteDB"));
+
+      addElementTypes(dictProps, new List<eObjectType>() {
+                    eObjectType.kSpecialPart});
 
       return filterDictionary(dictProps, listFilter);
     }
