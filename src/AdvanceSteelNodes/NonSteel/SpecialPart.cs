@@ -81,7 +81,7 @@ namespace AdvanceSteel.Nodes.NonSteelItems
     /// <param name="coordinateSystem">Input Dynamo Coordinate System</param>
     /// <param name="blockName"> Input Blockname to be used by SpecialPart</param>
     /// <param name="scale"> Input Special Part Scale</param>
-    /// <param name="additionalSpecialPartsParameters"> Optional Input Camera Build Properties </param>
+    /// <param name="additionalSpecialPartsParameters"> Optional Input Special Part Build Properties </param>
     /// <returns></returns>
     public static SpecialPart ByCSAndBlockName(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                               string blockName,
