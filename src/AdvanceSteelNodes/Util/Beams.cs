@@ -71,7 +71,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="distance"> Distance from end point</param>
     /// <returns></returns>
     public static Autodesk.DesignScript.Geometry.Point GetPointFromEnd(AdvanceSteel.Nodes.SteelDbObject steelObject,
-                                                                        double distance)
+                                                                       [DefaultArgument("0")]double distance)
     {
       Autodesk.DesignScript.Geometry.Point ret = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0);
       using (var ctx = new SteelServices.DocContext())
@@ -111,7 +111,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="distance"> Distance from start point</param>
     /// <returns></returns>
     public static Autodesk.DesignScript.Geometry.Point GetPointFromStart(AdvanceSteel.Nodes.SteelDbObject steelObject,
-                                                                        double distance)
+                                                                        [DefaultArgument("0")]double distance)
     {
       Autodesk.DesignScript.Geometry.Point ret = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0);
       using (var ctx = new SteelServices.DocContext())
