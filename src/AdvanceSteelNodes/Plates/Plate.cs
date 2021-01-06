@@ -341,7 +341,6 @@ namespace AdvanceSteel.Nodes.Plates
       additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
       Point3d[] astPoints = new Point3d[] { cpt1, cpt1a, cpt2, cpt2a };
       return new Plate(astPoints, Utils.ToAstVector3d(cs.ZAxis, true), additionalPlateParameters);
-      //return new Plate(Utils.ToAstPoint(cs.Origin, true), Utils.ToAstVector3d(cs.ZAxis, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), 0, additionalPlateParameters);
     }
 
     /// <summary>
@@ -380,7 +379,6 @@ namespace AdvanceSteel.Nodes.Plates
       additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
       Point3d[] astPoints = new Point3d[] { cpOrigin, xDPoint, pt3, finalYPoint };
       return new Plate(astPoints, zAxis, additionalPlateParameters);
-      //return new Plate(cpOrigin, zAxis, Utils.ToInternalUnits(width, true), Utils.ToInternalUnits(length , true), 0, additionalPlateParameters);
     }
 
     private static List<ASProperty> PreSetDefaults(List<ASProperty> listPlateData)
