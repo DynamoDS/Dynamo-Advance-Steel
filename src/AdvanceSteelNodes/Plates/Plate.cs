@@ -17,10 +17,10 @@ namespace AdvanceSteel.Nodes.Plates
     {
     }
 
-    internal Plate(Autodesk.DesignScript.Geometry.Polygon poly, List<ASProperty> plateProperties)
+    internal Plate(Point3d[] astPoints, Vector3d normal, List<ASProperty> plateProperties)
     {
-      if (poly.IsPlanar == false)
-        throw new System.Exception("Polygon is not planar");
+      //if (poly.IsPlanar == false)
+      //  throw new System.Exception("Polygon is not planar");
 
       lock (access_obj)
       {
@@ -32,9 +32,13 @@ namespace AdvanceSteel.Nodes.Plates
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
-          Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
-          var astPoly = new Autodesk.AdvanceSteel.Geometry.Polyline3d(astPoints, null, poly.IsClosed, true);
-          var polyPlane = new Plane(astPoints[0], astPoly.Normal);
+          //Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
+          var astPoly = new Autodesk.AdvanceSteel.Geometry.Polyline3d(astPoints, null, true, true);
+
+          if (astPoly.IsPlanar == false)
+            throw new System.Exception("Polygon is not planar");
+
+          var polyPlane = new Plane(astPoints[0], normal); // astPoly.Normal);
 
           Autodesk.AdvanceSteel.Modelling.Plate plate = null;
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
@@ -192,7 +196,8 @@ namespace AdvanceSteel.Nodes.Plates
                                   [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
     {
       additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
-      return new Plate(poly, additionalPlateParameters);
+      Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
+      return new Plate(astPoints, Utils.ToAstVector3d(poly.Normal, true), additionalPlateParameters);
     }
 
     /// <summary>
@@ -261,31 +266,51 @@ namespace AdvanceSteel.Nodes.Plates
       if (width == 0)
         throw new System.Exception("Width Cant be Zero");
       additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
-      return new Plate(Utils.ToAstPoint(line.StartPoint, true), Utils.ToAstVector3d(normal, true), Utils.ToInternalUnits(line.Length, true), Utils.ToInternalUnits(width, true), 1, additionalPlateParameters);
+      Point3d[] astPoints = PrepForByEdgeLength(line.StartPoint, line.EndPoint, normal, width);
+      return new Plate(astPoints, Utils.ToAstVector3d(normal, true), additionalPlateParameters);
     }
 
     /// <summary>
     /// Create a rectangular Advance Steel Plate at 2 points for length with Width, including setting the side and thickness
     /// </summary>
     /// <param name="startPoint">Input Start Point of Length</param>
-    /// <param name="EndPoint">Input End Point of Length</param>
+    /// <param name="endPoint">Input End Point of Length</param>
     /// <param name="normal">Input Plate Normal</param>
     /// <param name="width">Input Plate Width</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
     public static Plate ByLengthEdge(Autodesk.DesignScript.Geometry.Point startPoint, 
-                                      Autodesk.DesignScript.Geometry.Point EndPoint, 
+                                      Autodesk.DesignScript.Geometry.Point endPoint, 
                                       Autodesk.DesignScript.Geometry.Vector normal, 
                                       double width,
                                       [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
     {
-      double length = Utils.ToAstPoint(startPoint, true).DistanceTo(Utils.ToAstPoint(EndPoint, true));
+      double length = Utils.ToAstPoint(startPoint, true).DistanceTo(Utils.ToAstPoint(endPoint, true));
       if (length == 0)
         throw new System.Exception("Distance between 2 points Cant be Zero");
       if (width == 0)
         throw new System.Exception("Width Cant be Zero");
       additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
-      return new Plate(Utils.ToAstPoint(startPoint, true), Utils.ToAstVector3d(normal, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), 1, additionalPlateParameters);
+      Point3d[] astPoints = PrepForByEdgeLength(startPoint, endPoint, normal, width);
+      return new Plate(astPoints, Utils.ToAstVector3d(normal, true), additionalPlateParameters);
+    }
+
+    private static Point3d[] PrepForByEdgeLength(Autodesk.DesignScript.Geometry.Point startPoint,
+                                                                              Autodesk.DesignScript.Geometry.Point endPoint,
+                                                                              Autodesk.DesignScript.Geometry.Vector normal,
+                                                                              double width)
+    {
+      Point3d originLine = Utils.ToAstPoint(startPoint, true);
+      Point3d secPoint = Utils.ToAstPoint(endPoint, true);
+      Vector3d linXvec = secPoint.Subtract(originLine);
+      Vector3d linNormVec = Utils.ToAstVector3d(normal, true);
+      Vector3d linYvec = linXvec.CrossProduct(linNormVec);
+      Point3d midPoint = Utils.GetMidPointBetween(originLine, secPoint);
+      double internWidth = (Utils.ToInternalUnits(width, true));
+      Point3d finalOrigin = new Point3d(midPoint).Add(linYvec.Normalize() * (internWidth / 2));
+      Point3d pt4 = new Point3d(originLine).Add(linYvec.Normalize() * internWidth);
+      Point3d pt3 = new Point3d(secPoint).Add(linYvec.Normalize() * internWidth);
+      return new Point3d[] { originLine, secPoint, pt3, pt4 };
     }
 
     /// <summary>
@@ -305,18 +330,22 @@ namespace AdvanceSteel.Nodes.Plates
       Point3d cpt2 = Utils.ToAstPoint(cornerPoint2, true);
       Plane ply1 = new Plane(cpt1, Utils.ToAstVector3d(cs.YAxis, true));
       Plane plx2 = new Plane(cpt2, Utils.ToAstVector3d(cs.XAxis, true));
-      double width = cpt1.OrthoProject(plx2).DistanceTo(cpt1);
+      Point3d cpt1a = cpt1.OrthoProject(plx2);
+      Point3d cpt2a = cpt2.OrthoProject(ply1);
+      double width = cpt1a.DistanceTo(cpt1);
       if (width == 0)
         throw new System.Exception("Width Cant be Zero");
-      double length = cpt2.OrthoProject(ply1).DistanceTo(cpt2);
+      double length = cpt2a.DistanceTo(cpt2);
       if (length == 0)
         throw new System.Exception("Length Cant be Zero");
       additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
-      return new Plate(Utils.ToAstPoint(cs.Origin, true), Utils.ToAstVector3d(cs.ZAxis, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), 0, additionalPlateParameters);
+      Point3d[] astPoints = new Point3d[] { cpt1, cpt1a, cpt2, cpt2a };
+      return new Plate(astPoints, Utils.ToAstVector3d(cs.ZAxis, true), additionalPlateParameters);
+      //return new Plate(Utils.ToAstPoint(cs.Origin, true), Utils.ToAstVector3d(cs.ZAxis, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), 0, additionalPlateParameters);
     }
 
     /// <summary>
-    /// Create an Advance Steel Plate by 3 Points - Orgin, X Direction and Y Direction
+    /// Create an Advance Steel Plate by 3 Points - Orgin, X Direction and Y Direction (Approx)
     /// </summary>
     /// <param name="orginPoint">Input the Origin of the Rectangular Plate</param>
     /// <param name="xDirectionPoint">Input Point in the X Direction - distance from orgin will determine the width</param>
@@ -338,6 +367,7 @@ namespace AdvanceSteel.Nodes.Plates
       Vector3d zAxis = xAxis.CrossProduct(yAxis);
       yAxis = xAxis.CrossProduct(zAxis);
       Plane yPlane = new Plane(yDPoint, yAxis);
+      Plane xPlane = new Plane(xDPoint, xAxis);
       Point3d finalYPoint = cpOrigin.OrthoProject(yPlane);
 
       double width = cpOrigin.DistanceTo(xDPoint);
@@ -346,9 +376,11 @@ namespace AdvanceSteel.Nodes.Plates
       double length = cpOrigin.DistanceTo(finalYPoint);
       if (length == 0)
         throw new System.Exception("Length Cant be Zero");
-
+      Point3d pt3 = finalYPoint.OrthoProject(xPlane);
       additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
-      return new Plate(cpOrigin, zAxis, Utils.ToInternalUnits(width, true), Utils.ToInternalUnits(length , true), 0, additionalPlateParameters);
+      Point3d[] astPoints = new Point3d[] { cpOrigin, xDPoint, pt3, finalYPoint };
+      return new Plate(astPoints, zAxis, additionalPlateParameters);
+      //return new Plate(cpOrigin, zAxis, Utils.ToInternalUnits(width, true), Utils.ToInternalUnits(length , true), 0, additionalPlateParameters);
     }
 
     private static List<ASProperty> PreSetDefaults(List<ASProperty> listPlateData)

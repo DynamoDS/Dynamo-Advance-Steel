@@ -23,8 +23,20 @@
     <DocumentationFile>$(OutputPath)\AdvanceSteelNodesUI.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASControls">
+      <HintPath>$(ADVANCESTEELAPI)\ASControls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="ASObjectsMgd">
       <HintPath>$(ADVANCESTEELAPI)\ASObjectsMgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASGeometryMgd">
+      <HintPath>$(ADVANCESTEELAPI)\ASGeometryMgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASSteelControls">
+      <HintPath>$(ADVANCESTEELAPI)\ASSteelControls.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CoreNodeModels">
@@ -116,6 +128,7 @@
       <HintPath>$(DYNAMOAPI)\VMDataBridge.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(SolutionDir)AssemblySharedInfoGenerator\AssemblySharedInfo.cs">
@@ -140,6 +153,7 @@
     <Compile Include="Modifications\ASPropertiesPlateVertexFeatures.cs" />
     <Compile Include="Modifications\ASPropertiesPlateFeatures.cs" />
     <Compile Include="Modifications\PlateFilletVertexTypeDropDown.cs" />
+    <Compile Include="NonSteelElements\ASPointSelection.cs" />
     <Compile Include="NonSteelElements\ASObjectSelection.cs" />
     <Compile Include="NonSteelElements\ASGetPropertiesCamera.cs" />
     <Compile Include="NonSteelElements\ASSelectObjectTypes.cs" />

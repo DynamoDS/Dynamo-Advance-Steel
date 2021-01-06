@@ -7,6 +7,7 @@ using Dynamo.Applications.AdvanceSteel.Services;
 using Autodesk.AdvanceSteel.DocumentManagement;
 using Autodesk.AdvanceSteel.CADAccess;
 using Autodesk.AdvanceSteel.CADLink.Database;
+using Autodesk.AdvanceSteel.Geometry;
 
 namespace Dynamo.Applications.AdvanceSteel
 {
@@ -28,7 +29,13 @@ namespace Dynamo.Applications.AdvanceSteel
     {
       throw new NotImplementedException();
     }
-    
+
+    public Point3d PickPoint()
+    {
+      return UserInteraction.GetPoint("Pick Point: ", 1);
+    }
+
+
     public IEnumerable<string> PickElements()
     {
       List<string> ret = new List<string>() { };

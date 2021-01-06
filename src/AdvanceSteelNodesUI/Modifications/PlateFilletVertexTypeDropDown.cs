@@ -39,9 +39,9 @@ namespace AdvanceSteel.Nodes
 			var newItems = new List<DynamoDropDownItem>()
 						{
 								new DynamoDropDownItem("Select Plate Corener Cut Type...", -1),
-								new DynamoDropDownItem("Convex", (short)0),
-								new DynamoDropDownItem("Concave", (short)1),
-                new DynamoDropDownItem("Striaght", (short)2)
+								new DynamoDropDownItem("Convex", (int)0),
+								new DynamoDropDownItem("Concave", (int)1),
+                new DynamoDropDownItem("Striaght", (int)2)
 						};
 
 			Items.AddRange(newItems);
