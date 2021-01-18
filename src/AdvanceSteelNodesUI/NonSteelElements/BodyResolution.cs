@@ -7,18 +7,18 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("SteelObjectResolution")]
-  [NodeDescription("Set Steel Object Resolution Type")]
+  [NodeName("Steel Body Resolution")]
+  [NodeDescription("Steel Body Resolution")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
-  [OutPortNames("Steel Object Resolution Type")]
+  [OutPortNames("bodyResolution")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
-  public class SteelObjectResolution : AstDropDownBase
+  public class BodyResolution : AstDropDownBase
   {
-    private const string outputName = "Steel Object Resolution Type";
+    private const string outputName = "bodyResolution";
 
-    public SteelObjectResolution()
+    public BodyResolution()
         : base(outputName)
     {
       InPorts.Clear();
@@ -27,7 +27,7 @@ namespace AdvanceSteel.Nodes
     }
 
     [JsonConstructor]
-    public SteelObjectResolution(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    public BodyResolution(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
     : base(outputName, inPorts, outPorts)
     {
     }
@@ -38,7 +38,7 @@ namespace AdvanceSteel.Nodes
 
       var newItems = new List<DynamoDropDownItem>()
             {
-                new DynamoDropDownItem("Select Steel Object Resolution...", -1),
+                new DynamoDropDownItem("Select Body Resolution...", -1),
                 new DynamoDropDownItem("Normal", (int)0),
                 new DynamoDropDownItem("Detailed", (int)1),
                 new DynamoDropDownItem("Hull", (int)2),
@@ -54,7 +54,7 @@ namespace AdvanceSteel.Nodes
     public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
     {
       if (Items.Count == 0 ||
-          Items[SelectedIndex].Name == "Select Steel Object Resolution..." ||
+          Items[SelectedIndex].Name == "Select Body Resolution..." ||
           SelectedIndex < 0)
       {
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
