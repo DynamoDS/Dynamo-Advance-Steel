@@ -46,7 +46,7 @@ namespace AdvanceSteel.Nodes.Beams
             ProfilesManager.GetProfTypeAsDefault("I", out profName);
             sectionName = profName.Name;
           }
-          
+
           Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
 
           Autodesk.AdvanceSteel.Modelling.PolyBeam beam = null;
@@ -104,7 +104,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <returns></returns>
     public static PolyBeam ByPolyCurve(Autodesk.DesignScript.Geometry.PolyCurve polyCurve,
                                         Autodesk.DesignScript.Geometry.Vector orientation,
-                                        [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                        [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       Polyline3d poly = Utils.ToAstPolyline3d(polyCurve, true);

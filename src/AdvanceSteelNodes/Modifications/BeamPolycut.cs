@@ -103,7 +103,7 @@ namespace AdvanceSteel.Nodes.Modifications
               {
                 Utils.SetParameters(beamFeat, postWriteDBData);
               }
-              
+
             }
             else
             {
@@ -217,7 +217,7 @@ namespace AdvanceSteel.Nodes.Modifications
                 bmObj.WriteToDb();
 
                 beamFeat = new BeamMultiContourNotch(bmObj, (Beam.eEnd)1, cutPolyline, normal, lengthVector);
-                
+
                 if (defaultData != null)
                 {
                   Utils.SetParameters(beamFeat, defaultData);
@@ -252,18 +252,18 @@ namespace AdvanceSteel.Nodes.Modifications
     /// <param name="lengthVec"> Input vector in the length direction of rectangular polycut</param>
     /// <param name="additionalBeamFeatureParameters"> Optional Input Beam Feature Build Properties </param>
     /// <returns></returns>
-    public static BeamPolycut FromListCurves(AdvanceSteel.Nodes.SteelDbObject element, 
+    public static BeamPolycut FromListCurves(AdvanceSteel.Nodes.SteelDbObject element,
                                             List<Autodesk.DesignScript.Geometry.Curve> curves,
                                             Autodesk.DesignScript.Geometry.Vector lengthVec,
-                                            [DefaultArgument("null")]List<ASProperty> additionalBeamFeatureParameters)
+                                            [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
     {
 
       Polyline3d curveCreatedPolyline = Utils.ToAstPolyline3d(curves, true);
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters);
-      return new BeamPolycut(element, 
-                        curveCreatedPolyline, 
-                        curveCreatedPolyline.Normal, 
-                        Utils.ToAstVector3d(lengthVec, true),  
+      return new BeamPolycut(element,
+                        curveCreatedPolyline,
+                        curveCreatedPolyline.Normal,
+                        Utils.ToAstVector3d(lengthVec, true),
                         additionalBeamFeatureParameters);//ToAstPolyline3d
     }
 
@@ -278,7 +278,7 @@ namespace AdvanceSteel.Nodes.Modifications
     public static BeamPolycut FromPolyCurve(AdvanceSteel.Nodes.SteelDbObject element,
                                         Autodesk.DesignScript.Geometry.PolyCurve polyCurve,
                                         Autodesk.DesignScript.Geometry.Vector lengthVec,
-                                        [DefaultArgument("null")]List<ASProperty> additionalBeamFeatureParameters)
+                                        [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
     {
 
       Polyline3d curveCreatedPolyline = Utils.ToAstPolyline3d(polyCurve, true);
@@ -307,13 +307,13 @@ namespace AdvanceSteel.Nodes.Modifications
                                     Autodesk.DesignScript.Geometry.Vector normal,
                                     Autodesk.DesignScript.Geometry.Vector lengthVec,
                                     double length, double width,
-                                    [DefaultArgument("-1")]int corner,
-                                    [DefaultArgument("null")]List<ASProperty> additionalBeamFeatureParameters)
+                                    [DefaultArgument("-1")] int corner,
+                                    [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true));
-      return new BeamPolycut(element, 0, Utils.ToAstPoint(rectangleInsertPoint, true), 
+      return new BeamPolycut(element, 0, Utils.ToAstPoint(rectangleInsertPoint, true),
                               Utils.ToAstVector3d(normal, true),
-                              Utils.ToAstVector3d(lengthVec, true), 
+                              Utils.ToAstVector3d(lengthVec, true),
                               corner,
                               additionalBeamFeatureParameters);
     }
@@ -330,8 +330,8 @@ namespace AdvanceSteel.Nodes.Modifications
     public static BeamPolycut ByRectangle(AdvanceSteel.Nodes.SteelDbObject element,
                         Autodesk.DesignScript.Geometry.Rectangle rectangle,
                         Autodesk.DesignScript.Geometry.Vector lengthVec,
-                        [DefaultArgument("-1")]int corner,
-                        [DefaultArgument("null")]List<ASProperty> additionalBeamFeatureParameters)
+                        [DefaultArgument("-1")] int corner,
+                        [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
     {
       Autodesk.DesignScript.Geometry.Point rectangleInsertPoint = rectangle.Center();
       Autodesk.DesignScript.Geometry.Vector normal = rectangle.Normal;
@@ -362,8 +362,8 @@ namespace AdvanceSteel.Nodes.Modifications
                                 Autodesk.DesignScript.Geometry.Vector normal,
                                 Autodesk.DesignScript.Geometry.Vector lengthVec,
                                 double radius,
-                                [DefaultArgument("-1")]int corner,
-                                [DefaultArgument("null")]List<ASProperty> additionalBeamFeatureParameters)
+                                [DefaultArgument("-1")] int corner,
+                                [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, 0, 0, Utils.ToInternalUnits(radius, true));
       return new BeamPolycut(element, 0, Utils.ToAstPoint(circularInsertPoint, true),
@@ -385,8 +385,8 @@ namespace AdvanceSteel.Nodes.Modifications
     public static BeamPolycut ByCircle(AdvanceSteel.Nodes.SteelDbObject element,
                             Autodesk.DesignScript.Geometry.Circle circle,
                             Autodesk.DesignScript.Geometry.Vector lengthVec,
-                            [DefaultArgument("-1")]int corner,
-                            [DefaultArgument("null")]List<ASProperty> additionalBeamFeatureParameters)
+                            [DefaultArgument("-1")] int corner,
+                            [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
     {
       Autodesk.DesignScript.Geometry.Point circularInsertPoint = circle.CenterPoint;
       Autodesk.DesignScript.Geometry.Vector normal = circle.Normal;
@@ -421,7 +421,7 @@ namespace AdvanceSteel.Nodes.Modifications
           var beamFeat = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.BeamMultiContourNotch;
 
           Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = beamFeat.CS;
-          var poly = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves( Utils.ToDynPolyCurves(beamFeat.GetPolygon(), true) );
+          var poly = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(beamFeat.GetPolygon(), true));
 
           return poly;
         }

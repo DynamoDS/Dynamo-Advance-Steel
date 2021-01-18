@@ -7,40 +7,40 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Anchor Orientation Type")]
-	[NodeDescription("Set Anchor Orientation")]
+  [NodeName("Anchor Orientation Type")]
+  [NodeDescription("Set Anchor Orientation")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
   [OutPortNames("Anchor Orientation Type")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
-	public class AnchorOrientationType : AstDropDownBase
-	{
-		private const string outputName = "Anchor Orientation Type";
+  public class AnchorOrientationType : AstDropDownBase
+  {
+    private const string outputName = "Anchor Orientation Type";
 
-		public AnchorOrientationType()
-				: base(outputName)
-		{
-			InPorts.Clear();
-			OutPorts.Clear();
-			RegisterAllPorts();
-		}
+    public AnchorOrientationType()
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
-		[JsonConstructor]
-		public AnchorOrientationType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-		: base(outputName, inPorts, outPorts)
-		{
-		}
+    [JsonConstructor]
+    public AnchorOrientationType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
+    {
+    }
 
-		protected override SelectionState PopulateItemsCore(string currentSelection)
-		{
-			Items.Clear();
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
 
-			var newItems = new List<DynamoDropDownItem>()
-						{
-								new DynamoDropDownItem("Select Anchor Orientation...", -1),
-								new DynamoDropDownItem("Normal Orientation", 0),
-								new DynamoDropDownItem("Diagonal Inside", 1),
+      var newItems = new List<DynamoDropDownItem>()
+            {
+                new DynamoDropDownItem("Select Anchor Orientation...", -1),
+                new DynamoDropDownItem("Normal Orientation", 0),
+                new DynamoDropDownItem("Diagonal Inside", 1),
                 new DynamoDropDownItem("Diagonal Outside", 2),
                 new DynamoDropDownItem("All Outside", 3),
                 new DynamoDropDownItem("All Inside", 4),
@@ -48,14 +48,14 @@ namespace AdvanceSteel.Nodes
                 new DynamoDropDownItem("Outside Rotated", 6)
             };
 
-			Items.AddRange(newItems);
+      Items.AddRange(newItems);
 
-			SelectedIndex = 0;
-			return SelectionState.Restore;
-		}
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
 
-		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-		{
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
       if (Items.Count == 0 ||
           Items[SelectedIndex].Name == "Select Anchor Orientation..." ||
           SelectedIndex < 0)
@@ -64,9 +64,9 @@ namespace AdvanceSteel.Nodes
       }
 
       var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
-			var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
+      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
       return new List<AssociativeNode> { assign };
 
     }
-	}
+  }
 }

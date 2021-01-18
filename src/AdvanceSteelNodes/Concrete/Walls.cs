@@ -20,9 +20,9 @@ namespace AdvanceSteel.Nodes.Concrete
     {
     }
 
-    internal Walls(SteelGeometry.Point3d ptCenter, 
-                    double dLength, double dHeight, double thickness, 
-                    SteelGeometry.Vector3d vNormal, 
+    internal Walls(SteelGeometry.Point3d ptCenter,
+                    double dLength, double dHeight, double thickness,
+                    SteelGeometry.Vector3d vNormal,
                     List<ASProperty> concreteProperties)
     {
       lock (access_obj)
@@ -84,8 +84,8 @@ namespace AdvanceSteel.Nodes.Concrete
       }
     }
 
-    internal Walls(SteelGeometry.Matrix3d matrix, 
-                    double dLength, double dHeight, double thickness, 
+    internal Walls(SteelGeometry.Matrix3d matrix,
+                    double dLength, double dHeight, double thickness,
                     List<ASProperty> concreteProperties)
     {
       lock (access_obj)
@@ -101,7 +101,7 @@ namespace AdvanceSteel.Nodes.Concrete
           SteelGeometry.Vector3d zAxis = new SteelGeometry.Vector3d();
           matrix.GetCoordSystem(out baseOrigin, out xAxis, out yAxis, out zAxis);
 
-          SteelGeometry.Vector3d lengthVec = xAxis * dLength; 
+          SteelGeometry.Vector3d lengthVec = xAxis * dLength;
           SteelGeometry.Vector3d heightVec = zAxis * dHeight;
 
           SteelGeometry.Point3d brPnt = new SteelGeometry.Point3d(baseOrigin).Add(lengthVec);
@@ -176,8 +176,8 @@ namespace AdvanceSteel.Nodes.Concrete
       }
     }
 
-    internal Walls(Autodesk.DesignScript.Geometry.Polygon poly, 
-                    double thickness, 
+    internal Walls(Autodesk.DesignScript.Geometry.Polygon poly,
+                    double thickness,
                     List<ASProperty> concreteProperties)
     {
       if (poly.IsPlanar == false)
@@ -264,13 +264,13 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="thickness"> Input Wall Thickness</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Walls FaceByLengthHeightByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
+    public static Walls FaceByLengthHeightByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                 double length, double height, double thickness,
-                                                [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
+                                                [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new Walls(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(height, true),
-                                 Utils.ToInternalUnits(thickness, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), 
+                                 Utils.ToInternalUnits(thickness, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true),
                                  additionalConcParameters);
     }
 
@@ -283,13 +283,13 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="thickness"> Input Wall Thickness</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Walls FaceByLengthHeightByPlane(Autodesk.DesignScript.Geometry.Plane plane, 
+    public static Walls FaceByLengthHeightByPlane(Autodesk.DesignScript.Geometry.Plane plane,
                                                   double length, double height, double thickness,
-                                                  [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
+                                                  [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new Walls(Utils.ToAstPoint(plane.Origin, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(height, true),
-                                 Utils.ToInternalUnits(thickness, true), Utils.ToAstVector3d(plane.Normal, true), 
+                                 Utils.ToInternalUnits(thickness, true), Utils.ToAstVector3d(plane.Normal, true),
                                  additionalConcParameters);
     }
 
@@ -300,9 +300,9 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="thickness"> Input Wall Thickness</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Walls FaceByPolygon(Autodesk.DesignScript.Geometry.Polygon poly, 
+    public static Walls FaceByPolygon(Autodesk.DesignScript.Geometry.Polygon poly,
                                       double thickness,
-                                      [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
+                                      [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new Walls(poly, Utils.ToInternalUnits(thickness, true), additionalConcParameters);
@@ -317,11 +317,11 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="thickness"> Input Wall Thickness</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Walls AtBaseByLengthHeightByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
-                                                  double length, 
-                                                  double height, 
+    public static Walls AtBaseByLengthHeightByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
+                                                  double length,
+                                                  double height,
                                                   double thickness,
-                                                  [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
+                                                  [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new Walls(Utils.ToAstMatrix3d(coordinateSystem, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(height, true),

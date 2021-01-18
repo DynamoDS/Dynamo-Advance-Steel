@@ -82,7 +82,7 @@ namespace AdvanceSteel.Nodes.NonSteelItems
     /// <param name="additionalCameraParameters"> Optional Input Camera Build Properties </param>
     /// <returns></returns>
     public static Camera ByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
-                                  [DefaultArgument("null")]List<ASProperty> additionalCameraParameters)
+                                  [DefaultArgument("null")] List<ASProperty> additionalCameraParameters)
     {
       Matrix3d cameraMat = Utils.ToAstMatrix3d(coordinateSystem, true);
       additionalCameraParameters = PreSetDefaults(additionalCameraParameters, cameraMat);

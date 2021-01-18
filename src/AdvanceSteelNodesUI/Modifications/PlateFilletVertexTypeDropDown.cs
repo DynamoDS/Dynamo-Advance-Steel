@@ -7,51 +7,51 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Plate Fillet Vertex Type")]
-	[NodeDescription("Set Plate Fillet Vertex type - Convex, Concave, Chamfer")]
+  [NodeName("Plate Fillet Vertex Type")]
+  [NodeDescription("Set Plate Fillet Vertex type - Convex, Concave, Chamfer")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
   [OutPortNames("Plate Fillet Vertex Type")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
-	public class PlateFilletVertexType : AstDropDownBase
-	{
-		private const string outputName = "Plate Fillet Vertex Type";
+  public class PlateFilletVertexType : AstDropDownBase
+  {
+    private const string outputName = "Plate Fillet Vertex Type";
 
-		public PlateFilletVertexType()
-				: base(outputName)
-		{
-			InPorts.Clear();
-			OutPorts.Clear();
-			RegisterAllPorts();
-		}
+    public PlateFilletVertexType()
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
-		[JsonConstructor]
-		public PlateFilletVertexType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-		: base(outputName, inPorts, outPorts)
-		{
-		}
+    [JsonConstructor]
+    public PlateFilletVertexType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
+    {
+    }
 
-		protected override SelectionState PopulateItemsCore(string currentSelection)
-		{
-			Items.Clear();
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
 
-			var newItems = new List<DynamoDropDownItem>()
-						{
-								new DynamoDropDownItem("Select Plate Corener Cut Type...", -1),
-								new DynamoDropDownItem("Convex", (int)0),
-								new DynamoDropDownItem("Concave", (int)1),
+      var newItems = new List<DynamoDropDownItem>()
+            {
+                new DynamoDropDownItem("Select Plate Corener Cut Type...", -1),
+                new DynamoDropDownItem("Convex", (int)0),
+                new DynamoDropDownItem("Concave", (int)1),
                 new DynamoDropDownItem("Striaght", (int)2)
-						};
+            };
 
-			Items.AddRange(newItems);
+      Items.AddRange(newItems);
 
-			SelectedIndex = 0;
-			return SelectionState.Restore;
-		}
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
 
-		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-		{
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
       if (Items.Count == 0 ||
           Items[SelectedIndex].Name == "Select Plate Corener Cut Type..." ||
           SelectedIndex < 0)
@@ -60,9 +60,9 @@ namespace AdvanceSteel.Nodes
       }
 
       var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
-			var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
+      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
       return new List<AssociativeNode> { assign };
 
     }
-	}
+  }
 }

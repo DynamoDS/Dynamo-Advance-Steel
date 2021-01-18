@@ -7,48 +7,48 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Plate Notch Contour Feature Properties - Get")]
-	[NodeDescription("Select Advance Steel Plate Notch Contour Feature Property Type to Get")]
+  [NodeName("Plate Notch Contour Feature Properties - Get")]
+  [NodeDescription("Select Advance Steel Plate Notch Contour Feature Property Type to Get")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Read")]
   [OutPortNames("Get Plate Notch Contour Feature Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class ASGetPropertiesPlatePolylineNotchFeatures : AstDropDownBase
-	{
-		private const string outputName = "Advance Steel Plate Notch Contour Feature Properties to Get";
+  public class ASGetPropertiesPlatePolylineNotchFeatures : AstDropDownBase
+  {
+    private const string outputName = "Advance Steel Plate Notch Contour Feature Properties to Get";
 
     public ASGetPropertiesPlatePolylineNotchFeatures()
-				: base(outputName)
-		{
-			InPorts.Clear();
-			OutPorts.Clear();
-			RegisterAllPorts();
-		}
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
-		[JsonConstructor]
-		public ASGetPropertiesPlatePolylineNotchFeatures(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-		: base(outputName, inPorts, outPorts)
-		{
-		}
+    [JsonConstructor]
+    public ASGetPropertiesPlatePolylineNotchFeatures(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
+    {
+    }
 
-		protected override SelectionState PopulateItemsCore(string currentSelection)
-		{
-			Items.Clear();
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
       foreach (var item in Utils.GetPlateNotchContourPropertyList(ePropertyDataOperator.Get))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }
-			Items.AddRange(newItems);
+      Items.AddRange(newItems);
 
-			SelectedIndex = 0;
-			return SelectionState.Restore;
-		}
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
 
-		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-		{
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
       if (Items.Count == 0 ||
           Items[SelectedIndex].Name == "None" ||
           SelectedIndex < 0)
@@ -62,5 +62,5 @@ namespace AdvanceSteel.Nodes
       return new List<AssociativeNode> { assign };
 
     }
-	}
+  }
 }

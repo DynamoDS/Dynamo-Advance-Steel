@@ -21,8 +21,8 @@ namespace AdvanceSteel.Nodes.Beams
     }
 
     internal UnFoldedBeam(Polyline3d poly,
-                          Autodesk.DesignScript.Geometry.Point ptStart, 
-                          Autodesk.DesignScript.Geometry.Point ptEnd, 
+                          Autodesk.DesignScript.Geometry.Point ptStart,
+                          Autodesk.DesignScript.Geometry.Point ptEnd,
                           Autodesk.DesignScript.Geometry.Vector vOrientation,
                           List<ASProperty> beamProperties)
     {
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes.Beams
           double thickness = (double)foundThickness.PropValue;
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-          
+
           Point3d beamStart = Utils.ToAstPoint(ptStart, true);
           Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
           Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
@@ -104,12 +104,12 @@ namespace AdvanceSteel.Nodes.Beams
     /// <returns></returns>
     public static UnFoldedBeam ByThreePointArc(Autodesk.DesignScript.Geometry.Point startPointCurve,
                                                     Autodesk.DesignScript.Geometry.Point pointOnCurve,
-                                                    Autodesk.DesignScript.Geometry.Point endPointCurve, 
+                                                    Autodesk.DesignScript.Geometry.Point endPointCurve,
                                                     Autodesk.DesignScript.Geometry.Vector orientation,
                                                     Autodesk.DesignScript.Geometry.Point startPoint,
                                                     Autodesk.DesignScript.Geometry.Point endPoint,
                                                     double thickness,
-                                                    [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                                    [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters, Utils.ToInternalUnits(thickness, true));
       CircArc3d cc = new CircArc3d(Utils.ToAstPoint(startPointCurve, true),
@@ -137,7 +137,7 @@ namespace AdvanceSteel.Nodes.Beams
                                                 Autodesk.DesignScript.Geometry.Point startPoint,
                                                 Autodesk.DesignScript.Geometry.Point endPoint,
                                                 double thickness,
-                                                [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                                [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters, Utils.ToInternalUnits(thickness, true));
       CircArc3d cc = new CircArc3d(Utils.ToAstPoint(arc.StartPoint, true),
@@ -165,7 +165,7 @@ namespace AdvanceSteel.Nodes.Beams
                                             Autodesk.DesignScript.Geometry.Point startPoint,
                                             Autodesk.DesignScript.Geometry.Point endPoint,
                                             double thickness,
-                                            [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                            [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters, Utils.ToInternalUnits(thickness, true));
       Polyline3d poly = Utils.ToAstPolyline3d(polyCurve, true);

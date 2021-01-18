@@ -34,7 +34,7 @@ namespace AdvanceSteel.Nodes.Util
       List<Autodesk.DesignScript.Geometry.Line> ret = new List<Autodesk.DesignScript.Geometry.Line>() { };
       using (var ctx = new SteelServices.DocContext())
       {
-        if (steelObject != null  || intersectionPlane != null)
+        if (steelObject != null || intersectionPlane != null)
         {
           FilerObject filerObj = Utils.GetObject(steelObject.Handle);
           Plane cutPlane = Utils.ToAstPlane(intersectionPlane, true);
@@ -71,7 +71,7 @@ namespace AdvanceSteel.Nodes.Util
     public static Autodesk.DesignScript.Geometry.Point CutSystemLineByPlane(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                           Autodesk.DesignScript.Geometry.Plane intersectionPlane)
     {
-      Autodesk.DesignScript.Geometry.Point ret = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0,0,0);
+      Autodesk.DesignScript.Geometry.Point ret = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0);
       using (var ctx = new SteelServices.DocContext())
       {
         if (steelObject != null || intersectionPlane != null)
@@ -157,7 +157,7 @@ namespace AdvanceSteel.Nodes.Util
     public static Autodesk.DesignScript.Geometry.PolyCurve GetPolyCurve(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       List<Autodesk.DesignScript.Geometry.Curve> intRet = new List<Autodesk.DesignScript.Geometry.Curve>() { };
-      Autodesk.DesignScript.Geometry.PolyCurve ret = null; 
+      Autodesk.DesignScript.Geometry.PolyCurve ret = null;
       using (var ctx = new SteelServices.DocContext())
       {
         if (steelObject != null)
@@ -249,7 +249,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="direction"> Input Dynamo Direction Vector</param>
     /// <param name="distance"> Input value to move point in direction vector</param>
     /// <returns></returns>
-    public static Autodesk.DesignScript.Geometry.Point GetPointInDirection(Autodesk.DesignScript.Geometry.Point point, 
+    public static Autodesk.DesignScript.Geometry.Point GetPointInDirection(Autodesk.DesignScript.Geometry.Point point,
                                                                             Autodesk.DesignScript.Geometry.Vector direction,
                                                                             double distance)
     {
@@ -365,7 +365,7 @@ namespace AdvanceSteel.Nodes.Util
           isOnLine = true;
         }
         ret["FoundPoint"] = Utils.ToDynPoint(calculatedPoint, true);
-        ret["IsOnline"] = isOnLine; 
+        ret["IsOnline"] = isOnLine;
       }
       return ret;
     }
@@ -384,7 +384,7 @@ namespace AdvanceSteel.Nodes.Util
       {
         Point3d sPoint = Utils.ToAstPoint(firstPoint, true);
         Point3d ePoint = Utils.ToAstPoint(secondPoint, true);
-        
+
         Point3d foundPoint = Utils.GetMidPointBetween(sPoint, ePoint);
 
         ret = Utils.ToDynPoint(foundPoint, true);

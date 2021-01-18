@@ -18,7 +18,7 @@ namespace AdvanceSteel.Nodes.Modifications
     {
     }
 
-    internal PlateVertexCut(AdvanceSteel.Nodes.SteelDbObject element, 
+    internal PlateVertexCut(AdvanceSteel.Nodes.SteelDbObject element,
                       int vertexFeatureType,
                       List<ASProperty> plateFeatureProperties)
     {
@@ -109,10 +109,10 @@ namespace AdvanceSteel.Nodes.Modifications
     /// <returns></returns>
     public static PlateVertexCut ByRadius(AdvanceSteel.Nodes.SteelDbObject element,
                                 double radius,
-                                [DefaultArgument("0")]int filletType,
-                                [DefaultArgument("0")]int plateFoldIndex,
-                                [DefaultArgument("0")]short cornerIndex,
-                                [DefaultArgument("null")]List<ASProperty> additionalPlateFeatureParameters)
+                                [DefaultArgument("0")] int filletType,
+                                [DefaultArgument("0")] int plateFoldIndex,
+                                [DefaultArgument("0")] short cornerIndex,
+                                [DefaultArgument("null")] List<ASProperty> additionalPlateFeatureParameters)
     {
       if (filletType != 0 && filletType != 1)
         throw new System.Exception("Fillet Type Can only be 0 or 1");
@@ -133,9 +133,9 @@ namespace AdvanceSteel.Nodes.Modifications
     public static PlateVertexCut ByChamfer(AdvanceSteel.Nodes.SteelDbObject element,
                             double length1,
                             double length2,
-                            [DefaultArgument("0")]int plateFoldIndex,
-                            [DefaultArgument("0")]short cornerIndex,
-                            [DefaultArgument("null")]List<ASProperty> additionalPlateFeatureParameters)
+                            [DefaultArgument("0")] int plateFoldIndex,
+                            [DefaultArgument("0")] short cornerIndex,
+                            [DefaultArgument("null")] List<ASProperty> additionalPlateFeatureParameters)
     {
       additionalPlateFeatureParameters = PreSetDefaults(additionalPlateFeatureParameters, plateFoldIndex, cornerIndex, Utils.ToInternalUnits(length1, true), Utils.ToInternalUnits(length2, true));
       return new PlateVertexCut(element, 2, additionalPlateFeatureParameters);

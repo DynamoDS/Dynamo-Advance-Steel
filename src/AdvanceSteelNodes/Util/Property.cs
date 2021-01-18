@@ -14,14 +14,14 @@ using System;
 
 namespace AdvanceSteel.Nodes.Util
 {
-	/// <summary>
-	/// Store Bolts properties in a Node to pass to Bolt Node
-	/// </summary>
-	public class Property
-	{
-		internal Property()
-		{
-		}
+  /// <summary>
+  /// Store Bolts properties in a Node to pass to Bolt Node
+  /// </summary>
+  public class Property
+  {
+    internal Property()
+    {
+    }
 
     /// <summary>
     /// Get Single Advance Steel Property from Advance Steel Object
@@ -56,7 +56,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="steelObject"> Selected Advance Steel Object</param>
     /// <param name="propertyTypes"> List of Property type per Object Type</param>
     /// <returns></returns>
-    public static List<ASProperty> GetPropertiesByElement(SteelDbObject steelObject, 
+    public static List<ASProperty> GetPropertiesByElement(SteelDbObject steelObject,
                                                 List<string> propertyTypes)
     {
       List<ASProperty> ret = new List<ASProperty>() { };
@@ -95,7 +95,7 @@ namespace AdvanceSteel.Nodes.Util
         Dictionary<string, ASProperty> allProperties = Utils.GetAllProperties(ePropertyDataOperator.Get);
         FilerObject fObj = Utils.GetObject(steelObject.Handle);
 
-        foreach ( KeyValuePair<string, ASProperty> prop in allProperties)
+        foreach (KeyValuePair<string, ASProperty> prop in allProperties)
         {
           if (prop.Value.ElementTypeList.Contains(fObj.Type()))
           {
@@ -139,7 +139,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <returns></returns>
     public static object GetPropertyValue(ASProperty property)
     {
-      object ret = null ;
+      object ret = null;
 
       if (property != null)
       {
@@ -179,7 +179,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="objectToModifiy"> Input Object to Modifiy</param>
     /// <param name="parameter"> Input modifcation Value</param>
     /// <returns></returns>
-    public static AtomicElement ModifyObjectParameter(AtomicElement objectToModifiy, 
+    public static AtomicElement ModifyObjectParameter(AtomicElement objectToModifiy,
                                                       ASProperty parameter)
     {
       if (parameter != null)

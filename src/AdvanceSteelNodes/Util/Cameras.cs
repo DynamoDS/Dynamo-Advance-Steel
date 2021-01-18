@@ -14,14 +14,14 @@ using System;
 
 namespace AdvanceSteel.Nodes.Util
 {
-	/// <summary>
-	/// Store Camera properties in a Node
-	/// </summary>
-	public class Cameras
-	{
-		internal Cameras()
-		{
-		}
+  /// <summary>
+  /// Store Camera properties in a Node
+  /// </summary>
+  public class Cameras
+  {
+    internal Cameras()
+    {
+    }
 
     /// <summary>
     /// Set Advance Steel Camera Clipping Values
@@ -32,9 +32,9 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="lowerClippingValue"> Set Lower Clipping Value</param>
     /// <returns></returns>
     public static void SetZClipping(SteelDbObject steelObject,
-                                    [DefaultArgument("3")]int clippingSide,
-                                    [DefaultArgument("0")]double upperClippingValue,
-                                    [DefaultArgument("0")]double lowerClippingValue)
+                                    [DefaultArgument("3")] int clippingSide,
+                                    [DefaultArgument("0")] double upperClippingValue,
+                                    [DefaultArgument("0")] double lowerClippingValue)
     {
       using (var ctx = new SteelServices.DocContext())
       {
@@ -61,9 +61,9 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="xCameraSize"> Set Camera Extents in X Direction</param>
     /// <param name="yCameraSize"> Set Camera Extents in Y Direction</param>
     public static void SetXYExtents(SteelDbObject steelObject,
-                                    [DefaultArgument("0")]int cameraExtents,
-                                    [DefaultArgument("0")]double xCameraSize,
-                                    [DefaultArgument("0")]double yCameraSize)
+                                    [DefaultArgument("0")] int cameraExtents,
+                                    [DefaultArgument("0")] double xCameraSize,
+                                    [DefaultArgument("0")] double yCameraSize)
     {
       using (var ctx = new SteelServices.DocContext())
       {
@@ -73,9 +73,9 @@ namespace AdvanceSteel.Nodes.Util
         if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kCamera))
         {
           Autodesk.AdvanceSteel.ConstructionHelper.Camera camera = obj as Autodesk.AdvanceSteel.ConstructionHelper.Camera;
-          camera.setXYExtents((Autodesk.AdvanceSteel.ConstructionHelper.Camera.eXYExtents)cameraExtents, 
+          camera.setXYExtents((Autodesk.AdvanceSteel.ConstructionHelper.Camera.eXYExtents)cameraExtents,
                               Utils.ToInternalUnits(xCameraSize, true),
-                              Utils.ToInternalUnits(yCameraSize, true)); 
+                              Utils.ToInternalUnits(yCameraSize, true));
         }
         else
           throw new System.Exception("Failed to Get Camera Object");
@@ -115,7 +115,7 @@ namespace AdvanceSteel.Nodes.Util
         }
         else
           throw new System.Exception("Failed to Get Camera Object");
-      } 
+      }
       return ret;
     }
 

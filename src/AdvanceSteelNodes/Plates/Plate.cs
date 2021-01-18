@@ -55,7 +55,7 @@ namespace AdvanceSteel.Nodes.Plates
             {
               Utils.SetParameters(plate, postWriteDBData);
             }
-            
+
           }
           else
           {
@@ -120,7 +120,7 @@ namespace AdvanceSteel.Nodes.Plates
                 offset = new Vector2d(-1, -1);
                 break;
               default: //Anything else ignore
-                offset = new Vector2d(0,0);
+                offset = new Vector2d(0, 0);
                 break;
             }
             plate.Offset = offset;
@@ -193,7 +193,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
     public static Plate ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly,
-                                  [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
+                                  [DefaultArgument("null")] List<ASProperty> additionalPlateParameters)
     {
       additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
       Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
@@ -209,11 +209,11 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="corner">0 - TL, 1 - TR, 2 - BR, 3 - BL, else center</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByRectanglarByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
-                                          double length, 
+    public static Plate ByRectanglarByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
+                                          double length,
                                           double width,
-                                          [DefaultArgument("-1")]int corner,
-                                          [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
+                                          [DefaultArgument("-1")] int corner,
+                                          [DefaultArgument("null")] List<ASProperty> additionalPlateParameters)
     {
       if (length == 0)
         throw new System.Exception("Length Cant be Zero");
@@ -233,12 +233,12 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="corner">0 - TL, 1 - TR, 2 - BR, 3 - BL, else center</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByRectanglarByPointandNormal(Autodesk.DesignScript.Geometry.Point origin, 
-                                                      Autodesk.DesignScript.Geometry.Vector normal, 
-                                                      double length, 
+    public static Plate ByRectanglarByPointandNormal(Autodesk.DesignScript.Geometry.Point origin,
+                                                      Autodesk.DesignScript.Geometry.Vector normal,
+                                                      double length,
                                                       double width,
-                                                      [DefaultArgument("-1")]int corner,
-                                                      [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
+                                                      [DefaultArgument("-1")] int corner,
+                                                      [DefaultArgument("null")] List<ASProperty> additionalPlateParameters)
     {
       if (length == 0)
         throw new System.Exception("Length Cant be Zero");
@@ -256,10 +256,10 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="width">Input Plate Width</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByLengthEdge(Autodesk.DesignScript.Geometry.Line line, 
-                                      Autodesk.DesignScript.Geometry.Vector normal, 
+    public static Plate ByLengthEdge(Autodesk.DesignScript.Geometry.Line line,
+                                      Autodesk.DesignScript.Geometry.Vector normal,
                                       double width,
-                                      [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
+                                      [DefaultArgument("null")] List<ASProperty> additionalPlateParameters)
     {
       if (line.Length == 0)
         throw new System.Exception("Line length Cant be Zero");
@@ -279,11 +279,11 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="width">Input Plate Width</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByLengthEdge(Autodesk.DesignScript.Geometry.Point startPoint, 
-                                      Autodesk.DesignScript.Geometry.Point endPoint, 
-                                      Autodesk.DesignScript.Geometry.Vector normal, 
+    public static Plate ByLengthEdge(Autodesk.DesignScript.Geometry.Point startPoint,
+                                      Autodesk.DesignScript.Geometry.Point endPoint,
+                                      Autodesk.DesignScript.Geometry.Vector normal,
                                       double width,
-                                      [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
+                                      [DefaultArgument("null")] List<ASProperty> additionalPlateParameters)
     {
       double length = Utils.ToAstPoint(startPoint, true).DistanceTo(Utils.ToAstPoint(endPoint, true));
       if (length == 0)
@@ -321,10 +321,10 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="cornerPoint2">Input Point of Upper right of plate</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByTwoDiagonalPointsByCS(Autodesk.DesignScript.Geometry.CoordinateSystem cs, 
-                                                Autodesk.DesignScript.Geometry.Point cornerPoint1, 
+    public static Plate ByTwoDiagonalPointsByCS(Autodesk.DesignScript.Geometry.CoordinateSystem cs,
+                                                Autodesk.DesignScript.Geometry.Point cornerPoint1,
                                                 Autodesk.DesignScript.Geometry.Point cornerPoint2,
-                                                [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
+                                                [DefaultArgument("null")] List<ASProperty> additionalPlateParameters)
     {
       Point3d cpt1 = Utils.ToAstPoint(cornerPoint1, true);
       Point3d cpt2 = Utils.ToAstPoint(cornerPoint2, true);
@@ -351,10 +351,10 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="yDirectionPoint">Input Point in approximate Y Direction - True Y Direction will get recalculated</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
     /// <returns></returns>
-    public static Plate ByThreePoints(Autodesk.DesignScript.Geometry.Point orginPoint, 
-                                      Autodesk.DesignScript.Geometry.Point xDirectionPoint, 
+    public static Plate ByThreePoints(Autodesk.DesignScript.Geometry.Point orginPoint,
+                                      Autodesk.DesignScript.Geometry.Point xDirectionPoint,
                                       Autodesk.DesignScript.Geometry.Point yDirectionPoint,
-                                      [DefaultArgument("null")]List<ASProperty> additionalPlateParameters)
+                                      [DefaultArgument("null")] List<ASProperty> additionalPlateParameters)
     {
       Point3d cpOrigin = Utils.ToAstPoint(orginPoint, true);
       Point3d xDPoint = Utils.ToAstPoint(xDirectionPoint, true);
@@ -362,7 +362,7 @@ namespace AdvanceSteel.Nodes.Plates
 
       Vector3d xAxis = xDPoint.Subtract(cpOrigin);
       Vector3d yAxis = yDPoint.Subtract(cpOrigin);
-      
+
       Vector3d zAxis = xAxis.CrossProduct(yAxis);
       yAxis = xAxis.CrossProduct(zAxis);
       Plane yPlane = new Plane(yDPoint, yAxis);

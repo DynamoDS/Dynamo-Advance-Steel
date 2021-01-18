@@ -7,48 +7,48 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Unfolded Beam Properties - Get")]
-	[NodeDescription("Select Advance Steel Unfolded Beam Property Type to Get")]
+  [NodeName("Unfolded Beam Properties - Get")]
+  [NodeDescription("Select Advance Steel Unfolded Beam Property Type to Get")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Read")]
   [OutPortNames("Get Unfolded Beam Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class ASGetPropertiesUnfoldedBeam : AstDropDownBase
-	{
-		private const string outputName = "Advance Steel Unfolded Beam Properties to Get";
+  public class ASGetPropertiesUnfoldedBeam : AstDropDownBase
+  {
+    private const string outputName = "Advance Steel Unfolded Beam Properties to Get";
 
     public ASGetPropertiesUnfoldedBeam()
-				: base(outputName)
-		{
-			InPorts.Clear();
-			OutPorts.Clear();
-			RegisterAllPorts();
-		}
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
-		[JsonConstructor]
-		public ASGetPropertiesUnfoldedBeam(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-		: base(outputName, inPorts, outPorts)
-		{
-		}
+    [JsonConstructor]
+    public ASGetPropertiesUnfoldedBeam(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
+    {
+    }
 
-		protected override SelectionState PopulateItemsCore(string currentSelection)
-		{
-			Items.Clear();
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
       foreach (var item in Utils.GetUnfoldedStraightBeamProperties(ePropertyDataOperator.Get))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }
-			Items.AddRange(newItems);
+      Items.AddRange(newItems);
 
-			SelectedIndex = 0;
-			return SelectionState.Restore;
-		}
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
 
-		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-		{
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
       if (Items.Count == 0 ||
           Items[SelectedIndex].Name == "None" ||
           SelectedIndex < 0)
@@ -62,5 +62,5 @@ namespace AdvanceSteel.Nodes
       return new List<AssociativeNode> { assign };
 
     }
-	}
+  }
 }

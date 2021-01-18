@@ -25,7 +25,7 @@ namespace Dynamo.Applications.AdvanceSteel
       additionalResolutionPaths = new List<string> { steelNodesDirectory };
 
       var steelNodesDll = Path.Combine(steelNodesDirectory, "AdvanceSteelNodes.dll");
-      
+
       preloadLibraryPaths = new List<string>
             {
                 "VMDataBridge.dll",

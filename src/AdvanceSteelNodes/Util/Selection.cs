@@ -14,11 +14,11 @@ using System;
 
 namespace AdvanceSteel.Nodes.Selection
 {
-	/// <summary>
-	/// Select Advance Steel Objects
-	/// </summary>
-	public static class ObjectSelection
-	{
+  /// <summary>
+  /// Select Advance Steel Objects
+  /// </summary>
+  public static class ObjectSelection
+  {
 
     /// <summary>
     /// Filter a Selection Set based on Object Types
@@ -55,7 +55,7 @@ namespace AdvanceSteel.Nodes.Selection
 
     private static ClassTypeFilter createFilterObject(List<int> objectFilters)
     {
-			ClassTypeFilter filter = new ClassTypeFilter();
+      ClassTypeFilter filter = new ClassTypeFilter();
       filter.RejectAllFirst();
       for (int i = 0; i < objectFilters.Count; i++)
       {

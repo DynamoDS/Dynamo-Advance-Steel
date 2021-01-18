@@ -17,7 +17,7 @@ namespace AdvanceSteel.Nodes.Concrete
     {
     }
 
-    internal Footings(Point3d ptCenter, Vector3d vNormal, 
+    internal Footings(Point3d ptCenter, Vector3d vNormal,
                       double depth, double radius,
                       List<ASProperty> concreteProperties)
     {
@@ -79,7 +79,7 @@ namespace AdvanceSteel.Nodes.Concrete
       }
     }
 
-    internal Footings(Point3d ptCenter, Vector3d vNormal, 
+    internal Footings(Point3d ptCenter, Vector3d vNormal,
                       double depth, double width, double length,
                       List<ASProperty> concreteProperties)
     {
@@ -153,13 +153,13 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="footingRadius"> Input Footing Radius</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Footings ByRadiusOnCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
+    public static Footings ByRadiusOnCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                         double footingDepth, double footingRadius,
-                                        [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
+                                        [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new Footings(Utils.ToAstPoint(coordinateSystem.Origin, true), 
-                          Utils.ToAstVector3d(coordinateSystem.ZAxis, true), 
+      return new Footings(Utils.ToAstPoint(coordinateSystem.Origin, true),
+                          Utils.ToAstVector3d(coordinateSystem.ZAxis, true),
                           footingDepth, footingRadius,
                           additionalConcParameters);
     }
@@ -173,13 +173,13 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="footingLength"> Input Length of Footing</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Footings ByLengthWidthOnCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
+    public static Footings ByLengthWidthOnCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                               double footingDepth, double footingWidth, double footingLength,
-                                              [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
+                                              [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new Footings(Utils.ToAstPoint(coordinateSystem.Origin, true), 
-                          Utils.ToAstVector3d(coordinateSystem.ZAxis, true), 
+      return new Footings(Utils.ToAstPoint(coordinateSystem.Origin, true),
+                          Utils.ToAstVector3d(coordinateSystem.ZAxis, true),
                           footingDepth, footingWidth, footingLength,
                           additionalConcParameters);
     }

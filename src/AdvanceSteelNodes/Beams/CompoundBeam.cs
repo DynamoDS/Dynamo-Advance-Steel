@@ -18,9 +18,9 @@ namespace AdvanceSteel.Nodes.Beams
     {
     }
 
-    internal CompoundBeam(Autodesk.DesignScript.Geometry.Point ptStart, 
-                          Autodesk.DesignScript.Geometry.Point ptEnd, 
-                          Autodesk.DesignScript.Geometry.Vector vOrientation, 
+    internal CompoundBeam(Autodesk.DesignScript.Geometry.Point ptStart,
+                          Autodesk.DesignScript.Geometry.Point ptEnd,
+                          Autodesk.DesignScript.Geometry.Vector vOrientation,
                           List<ASProperty> beamProperties)
     {
       lock (access_obj)
@@ -119,11 +119,11 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="sectionName"> Input Section name</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
     /// <returns></returns>
-    public static CompoundBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, 
-                                                    Autodesk.DesignScript.Geometry.Point end, 
-                                                    Autodesk.DesignScript.Geometry.Vector orientation, 
+    public static CompoundBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start,
+                                                    Autodesk.DesignScript.Geometry.Point end,
+                                                    Autodesk.DesignScript.Geometry.Vector orientation,
                                                     string sectionName,
-                                                    [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                                    [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters, sectionName);
       return new CompoundBeam(start, end, orientation, additionalBeamParameters);

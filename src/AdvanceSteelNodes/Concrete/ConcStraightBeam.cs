@@ -19,9 +19,9 @@ namespace AdvanceSteel.Nodes.Concrete
     {
     }
 
-    internal ConcStraightBeam(string concName, 
-                              Autodesk.DesignScript.Geometry.Point ptStart, 
-                              Autodesk.DesignScript.Geometry.Point ptEnd, 
+    internal ConcStraightBeam(string concName,
+                              Autodesk.DesignScript.Geometry.Point ptStart,
+                              Autodesk.DesignScript.Geometry.Point ptEnd,
                               Autodesk.DesignScript.Geometry.Vector vOrientation,
                               List<ASProperty> concreteProperties)
     {
@@ -95,10 +95,10 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="orientation"> Section orientation</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcStraightBeam ByStartPointEndPoint(string concName, Autodesk.DesignScript.Geometry.Point start, 
-                                                        Autodesk.DesignScript.Geometry.Point end, 
+    public static ConcStraightBeam ByStartPointEndPoint(string concName, Autodesk.DesignScript.Geometry.Point start,
+                                                        Autodesk.DesignScript.Geometry.Point end,
                                                         Autodesk.DesignScript.Geometry.Vector orientation,
-                                                        [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
+                                                        [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new ConcStraightBeam(concName, start, end, orientation, additionalConcParameters);
@@ -114,11 +114,11 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="length"> Length value in the direction from the start point</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcStraightBeam ByStartPointDirectionLength(string concName, Autodesk.DesignScript.Geometry.Point start, 
-                                                                Autodesk.DesignScript.Geometry.Vector direction, 
-                                                                Autodesk.DesignScript.Geometry.Vector orientation, 
+    public static ConcStraightBeam ByStartPointDirectionLength(string concName, Autodesk.DesignScript.Geometry.Point start,
+                                                                Autodesk.DesignScript.Geometry.Vector direction,
+                                                                Autodesk.DesignScript.Geometry.Vector orientation,
                                                                 double length,
-                                                                [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
+                                                                [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
       Vector3d columnDirection = Utils.ToAstVector3d(direction, true).Normalize();
       Point3d tempPoint = Utils.ToAstPoint(start, true);
@@ -135,9 +135,9 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="orientation">Section orientation</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcStraightBeam ByLine(string concName, Autodesk.DesignScript.Geometry.Line line, 
+    public static ConcStraightBeam ByLine(string concName, Autodesk.DesignScript.Geometry.Line line,
                                           Autodesk.DesignScript.Geometry.Vector orientation,
-                                          [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
+                                          [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
       Autodesk.DesignScript.Geometry.Point start = line.StartPoint;
       Autodesk.DesignScript.Geometry.Point end = line.EndPoint;

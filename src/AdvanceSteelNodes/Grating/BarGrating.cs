@@ -12,31 +12,31 @@ using System.Linq;
 
 namespace AdvanceSteel.Nodes.Gratings
 {
-	/// <summary>
-	/// Advance Steel Bar Grating Pattern
-	/// </summary>
-	[DynamoServices.RegisterForTrace]
-	public class BarGrating : GraphicObject
-	{
+  /// <summary>
+  /// Advance Steel Bar Grating Pattern
+  /// </summary>
+  [DynamoServices.RegisterForTrace]
+  public class BarGrating : GraphicObject
+  {
     internal BarGrating()
     {
     }
 
     internal BarGrating(Vector3d vNormal, Point3d ptCenter, double dLength, List<ASProperty> additionalGratingParameters)
-		{
-			lock (access_obj)
-			{
-				using (var ctx = new SteelServices.DocContext())
-				{
+    {
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
           List<ASProperty> defaultData = additionalGratingParameters.Where(x => x.PropLevel == ".").ToList<ASProperty>();
           List<ASProperty> postWriteDBData = additionalGratingParameters.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
 
           Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
-					Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
-					string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+          Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
-					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-					{
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
 
             gratings = new Autodesk.AdvanceSteel.Modelling.Grating("ADT", 11, 2, "3 / 16 inch", "10", "3/16", plane, ptCenter, dLength);
 
@@ -52,13 +52,13 @@ namespace AdvanceSteel.Nodes.Gratings
               Utils.SetParameters(gratings, postWriteDBData);
             }
           }
-					else
-					{
-						gratings = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Grating;
-						if (gratings != null && gratings.IsKindOf(FilerObject.eObjectType.kGrating))
-						{
-							gratings.DefinitionPlane = plane;
-							gratings.SetLength(dLength, true);
+          else
+          {
+            gratings = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Grating;
+            if (gratings != null && gratings.IsKindOf(FilerObject.eObjectType.kGrating))
+            {
+              gratings.DefinitionPlane = plane;
+              gratings.SetLength(dLength, true);
 
               if (defaultData != null)
               {
@@ -70,16 +70,16 @@ namespace AdvanceSteel.Nodes.Gratings
                 Utils.SetParameters(gratings, postWriteDBData);
               }
             }
-						else
-						{
-							throw new System.Exception("Not a Bar Grating pattern");
-						}
-					}
-					Handle = gratings.Handle;
-					SteelServices.ElementBinder.CleanupAndSetElementForTrace(gratings);
-				}
-			}
-		}
+            else
+            {
+              throw new System.Exception("Not a Bar Grating pattern");
+            }
+          }
+          Handle = gratings.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(gratings);
+        }
+      }
+    }
     /// <summary>
     /// Create an Advance Steel Bar Grating
     /// </summary>
@@ -87,23 +87,23 @@ namespace AdvanceSteel.Nodes.Gratings
     /// <param name="planeDirection"> Input Dynamo Vector to set Normal of Grating</param>
     /// <param name="additionalGratingParameters"> Optional Input Grating Build Properties </param>
     /// <returns></returns>
-    public static BarGrating ByLine(Autodesk.DesignScript.Geometry.Line line, 
+    public static BarGrating ByLine(Autodesk.DesignScript.Geometry.Line line,
                                     Autodesk.DesignScript.Geometry.Vector planeDirection,
-                                    [DefaultArgument("null")]List<ASProperty> additionalGratingParameters)
-		{
-			var start = Utils.ToAstPoint(line.StartPoint, true);
-			var end = Utils.ToAstPoint(line.EndPoint, true);
-			var refPoint = start + (end - start) * 0.5;
-			var planeNorm = Utils.ToAstVector3d(planeDirection, true);
+                                    [DefaultArgument("null")] List<ASProperty> additionalGratingParameters)
+    {
+      var start = Utils.ToAstPoint(line.StartPoint, true);
+      var end = Utils.ToAstPoint(line.EndPoint, true);
+      var refPoint = start + (end - start) * 0.5;
+      var planeNorm = Utils.ToAstVector3d(planeDirection, true);
 
-			if (!planeNorm.IsPerpendicularTo(Utils.ToAstVector3d(line.Direction, true)))
-			{
-				throw new System.Exception("Plan Direction must be perpendicular to line");
-			}
+      if (!planeNorm.IsPerpendicularTo(Utils.ToAstVector3d(line.Direction, true)))
+      {
+        throw new System.Exception("Plan Direction must be perpendicular to line");
+      }
 
       additionalGratingParameters = PreSetDefaults(additionalGratingParameters);
-			return new BarGrating(planeNorm, refPoint, Utils.ToInternalUnits(line.Length, true), additionalGratingParameters);
-		}
+      return new BarGrating(planeNorm, refPoint, Utils.ToInternalUnits(line.Length, true), additionalGratingParameters);
+    }
 
     private static List<ASProperty> PreSetDefaults(List<ASProperty> listGratingData)
     {
@@ -115,25 +115,25 @@ namespace AdvanceSteel.Nodes.Gratings
     }
 
     [IsVisibleInDynamoLibrary(false)]
-		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
-		{
-			lock (access_obj)
-			{
-				using (var ctx = new SteelServices.DocContext())
-				{
-					var grating = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.Grating;
+    public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
+    {
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var grating = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.Grating;
 
-					if (grating == null)
-					{
-						throw new Exception("Null Variable Grating pattern");
-					}
+          if (grating == null)
+          {
+            throw new Exception("Null Variable Grating pattern");
+          }
 
-					List<DynGeometry.Point> polyPoints = GratingDraw.GetPointsToDraw(grating);
+          List<DynGeometry.Point> polyPoints = GratingDraw.GetPointsToDraw(grating);
 
-					return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
-				}
-			}
-		}
-	}
+          return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
+        }
+      }
+    }
+  }
 }
 

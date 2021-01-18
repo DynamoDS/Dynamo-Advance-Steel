@@ -85,8 +85,8 @@ namespace AdvanceSteel.Nodes.NonSteelItems
     /// <returns></returns>
     public static SpecialPart ByCSAndBlockName(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                               string blockName,
-                              [DefaultArgument("1")]double scale,
-                              [DefaultArgument("null")]List<ASProperty> additionalSpecialPartsParameters)
+                              [DefaultArgument("1")] double scale,
+                              [DefaultArgument("null")] List<ASProperty> additionalSpecialPartsParameters)
     {
       Matrix3d spMatrix = Utils.ToAstMatrix3d(coordinateSystem, true);
       additionalSpecialPartsParameters = PreSetDefaults(additionalSpecialPartsParameters, scale);

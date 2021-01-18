@@ -28,7 +28,7 @@ namespace AdvanceSteel.Nodes.Util
     public static Autodesk.DesignScript.Geometry.PolyCurve GetPolyCurve(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       List<Autodesk.DesignScript.Geometry.Curve> intRet = new List<Autodesk.DesignScript.Geometry.Curve>() { };
-      Autodesk.DesignScript.Geometry.PolyCurve ret = null; 
+      Autodesk.DesignScript.Geometry.PolyCurve ret = null;
       using (var ctx = new SteelServices.DocContext())
       {
         if (steelObject != null)
@@ -38,13 +38,13 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kPolyBeam))
             {
-              
+
               PolyBeam selectedObj = filerObj as PolyBeam;
               Polyline3d poly = selectedObj.GetPolyline();
               intRet = Utils.ToDynPolyCurves(poly, true);
               ret = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(intRet);
             }
-              throw new System.Exception("Wrong type of Steel Object found, must be a Polybeam");
+            throw new System.Exception("Wrong type of Steel Object found, must be a Polybeam");
           }
         }
         else

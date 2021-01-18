@@ -2,18 +2,18 @@
 
 namespace Dynamo.Applications.AdvanceSteel
 {
-    public class SteelAppResolver : AppResolver
+  public class SteelAppResolver : AppResolver
+  {
+    public override T ResolveType<T>()
     {
-        public override T ResolveType<T>()
-        {
-            if (typeof(T) == typeof(IContextManager))
-                return new OneTransactionPerAllContexts() as T;
-            //return new OneTransactionPerContext() as T;
+      if (typeof(T) == typeof(IContextManager))
+        return new OneTransactionPerAllContexts() as T;
+      //return new OneTransactionPerContext() as T;
 
-            if (typeof(T) == typeof(IAppInteraction))
-                return new SteelAppInteraction() as T;
+      if (typeof(T) == typeof(IAppInteraction))
+        return new SteelAppInteraction() as T;
 
-            return null;
-        }
+      return null;
     }
+  }
 }

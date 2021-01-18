@@ -18,8 +18,8 @@ namespace AdvanceSteel.Nodes.Modifications
     {
     }
 
-    internal BeamCope(AdvanceSteel.Nodes.SteelDbObject element, 
-                      int end, int side, 
+    internal BeamCope(AdvanceSteel.Nodes.SteelDbObject element,
+                      int end, int side,
                       int cnrType, double radius,
                       List<ASProperty> beamFeatureProperties)
     {
@@ -62,7 +62,7 @@ namespace AdvanceSteel.Nodes.Modifications
               {
                 Utils.SetParameters(beamFeat, postWriteDBData);
               }
-              
+
             }
             else
             {
@@ -72,7 +72,7 @@ namespace AdvanceSteel.Nodes.Modifications
                 beamFeat.End = (Beam.eEnd)end;
                 beamFeat.Side = (Beam.eSide)side;
                 beamFeat.SetCorner((BeamNotch.eBeamNotchCornerType)cnrType, radius);
-                
+
                 if (defaultData != null)
                 {
                   Utils.SetParameters(beamFeat, defaultData);
@@ -195,10 +195,10 @@ namespace AdvanceSteel.Nodes.Modifications
     public static BeamCope ByRectangularRotatedCope(AdvanceSteel.Nodes.SteelDbObject element,
                                     int end, int side,
                                     double length, double depth,
-                                    [DefaultArgument("0")]double cornerRadius,
-                                    [DefaultArgument("0")]int cornerType,
-                                    [DefaultArgument("0")]int xRotationType,
-                                    [DefaultArgument("null")]List<ASProperty> additionalBeamFeatureParameters)
+                                    [DefaultArgument("0")] double cornerRadius,
+                                    [DefaultArgument("0")] int cornerType,
+                                    [DefaultArgument("0")] int xRotationType,
+                                    [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(depth, true));
       return new BeamCope(element, end, side, cornerType, Utils.ToInternalUnits(cornerRadius, true), xRotationType, additionalBeamFeatureParameters);
@@ -219,9 +219,9 @@ namespace AdvanceSteel.Nodes.Modifications
     public static BeamCope ByRectangularOrthoCope(AdvanceSteel.Nodes.SteelDbObject element,
                                     int end, int side,
                                     double length, double depth,
-                                    [DefaultArgument("0")]double cornerRadius,
-                                    [DefaultArgument("0")]int cornerType,
-                                    [DefaultArgument("null")]List<ASProperty> additionalBeamFeatureParameters)
+                                    [DefaultArgument("0")] double cornerRadius,
+                                    [DefaultArgument("0")] int cornerType,
+                                    [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(depth, true));
       return new BeamCope(element, end, side, cornerType, Utils.ToInternalUnits(cornerRadius, true), additionalBeamFeatureParameters);

@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Radius = radius;
       AnchorBoltLength = AnchorBoltlength;
       AnchorBoltConnectionType = anchorBoltConnectionType;
-      AnchorBoltInverted = anchorBoltInverted;   
+      AnchorBoltInverted = anchorBoltInverted;
       AnchorBoltOrientationType = anchorBoltOrientation;
     }
 
@@ -78,7 +78,7 @@ namespace AdvanceSteel.Nodes
 
     private bool foundData { get; set; }
 
-    public string Standard 
+    public string Standard
     {
       get { return _standard; }
       set

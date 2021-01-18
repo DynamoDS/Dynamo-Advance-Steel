@@ -7,48 +7,48 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Plate Vertex Feature Properties - Get")]
-	[NodeDescription("Select Advance Steel Plate Vertex Feature Property Type to Get")]
+  [NodeName("Plate Vertex Feature Properties - Get")]
+  [NodeDescription("Select Advance Steel Plate Vertex Feature Property Type to Get")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Read")]
   [OutPortNames("Get Plate Vertex Feature Property")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class ASGetPropertiesPlateVertexFeatures : AstDropDownBase
-	{
-		private const string outputName = "Advance Steel Plate Vertex Feature Properties to Get";
+  public class ASGetPropertiesPlateVertexFeatures : AstDropDownBase
+  {
+    private const string outputName = "Advance Steel Plate Vertex Feature Properties to Get";
 
     public ASGetPropertiesPlateVertexFeatures()
-				: base(outputName)
-		{
-			InPorts.Clear();
-			OutPorts.Clear();
-			RegisterAllPorts();
-		}
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
-		[JsonConstructor]
-		public ASGetPropertiesPlateVertexFeatures(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-		: base(outputName, inPorts, outPorts)
-		{
-		}
+    [JsonConstructor]
+    public ASGetPropertiesPlateVertexFeatures(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
+    {
+    }
 
-		protected override SelectionState PopulateItemsCore(string currentSelection)
-		{
-			Items.Clear();
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
       foreach (var item in Utils.GetPlateVertexPropertyList(ePropertyDataOperator.Get))
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }
-			Items.AddRange(newItems);
+      Items.AddRange(newItems);
 
-			SelectedIndex = 0;
-			return SelectionState.Restore;
-		}
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
 
-		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-		{
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
       if (Items.Count == 0 ||
           Items[SelectedIndex].Name == "None" ||
           SelectedIndex < 0)
@@ -62,5 +62,5 @@ namespace AdvanceSteel.Nodes
       return new List<AssociativeNode> { assign };
 
     }
-	}
+  }
 }

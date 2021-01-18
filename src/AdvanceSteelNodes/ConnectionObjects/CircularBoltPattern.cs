@@ -12,61 +12,61 @@ using System;
 
 namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 {
-	/// <summary>
-	/// Advance Steel Circular Bolt Pattern
-	/// </summary>
-	[DynamoServices.RegisterForTrace]
-	public class CircularBoltPattern : GraphicObject
-	{
+  /// <summary>
+  /// Advance Steel Circular Bolt Pattern
+  /// </summary>
+  [DynamoServices.RegisterForTrace]
+  public class CircularBoltPattern : GraphicObject
+  {
     internal CircularBoltPattern()
     {
     }
 
-    internal CircularBoltPattern(SteelGeometry.Point3d holeInsertPoint, IEnumerable<string> handlesToConnect, 
+    internal CircularBoltPattern(SteelGeometry.Point3d holeInsertPoint, IEnumerable<string> handlesToConnect,
                                   SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
                                   List<ASProperty> boltData,
                                   int boltCon)
-		{
-			lock (access_obj)
-			{
-				using (var ctx = new SteelServices.DocContext())
-				{
-					Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern bolts = null;
+    {
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern bolts = null;
 
-					string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-					{
-						bolts = new Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern(holeInsertPoint, vx, vy);
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
+            bolts = new Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern(holeInsertPoint, vx, vy);
 
             Utils.SetParameters(bolts, boltData);
 
             bolts.WriteToDb();
-					}
-					else
-					{
-						bolts = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern;
+          }
+          else
+          {
+            bolts = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern;
 
-						if (bolts != null && bolts.IsKindOf(FilerObject.eObjectType.kCircleScrewBoltPattern))
-						{
-							bolts.RefPoint = holeInsertPoint;
-							bolts.XDirection = vx;
-							bolts.YDirection = vy;
+            if (bolts != null && bolts.IsKindOf(FilerObject.eObjectType.kCircleScrewBoltPattern))
+            {
+              bolts.RefPoint = holeInsertPoint;
+              bolts.XDirection = vx;
+              bolts.YDirection = vy;
 
               Utils.SetParameters(bolts, boltData);
 
             }
             else
-							throw new System.Exception("Not a circular pattern");
-					}
+              throw new System.Exception("Not a circular pattern");
+          }
 
           FilerObject[] filerObjects = Utils.GetFilerObjects(handlesToConnect);
-					bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
+          bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
 
-					Handle = bolts.Handle;
-					SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolts);
-				}
-			}
-		}
+          Handle = bolts.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolts);
+        }
+      }
+    }
 
     /// <summary>
     /// Create an Advance Steel Circular Bolt Pattern By Circle
@@ -80,11 +80,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     public static CircularBoltPattern ByCircle(DynGeometry.Circle circle,
                                                 DynGeometry.Vector referenceVector,
                                                 IEnumerable<SteelDbObject> objectsToConnect,
-                                                [DefaultArgument("2;")]int boltConnectionType,
-                                                [DefaultArgument("null")]List<ASProperty> additionalBoltParameters)
-		{
+                                                [DefaultArgument("2;")] int boltConnectionType,
+                                                [DefaultArgument("null")] List<ASProperty> additionalBoltParameters)
+    {
       var norm = Utils.ToAstVector3d(circle.Normal, true);
-			var vx = Utils.ToAstVector3d(referenceVector, true);
+      var vx = Utils.ToAstVector3d(referenceVector, true);
       var vy = norm.CrossProduct(vx);
 
       vx = vx.Normalize();
@@ -93,8 +93,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       PreSetCircularValuesInListProps(additionalBoltParameters, Utils.ToInternalUnits(circle.Radius, true));
 
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
-			return new CircularBoltPattern(Utils.ToAstPoint(circle.CenterPoint, true), handlesList, vx, vy, additionalBoltParameters, boltConnectionType);
-		}
+      return new CircularBoltPattern(Utils.ToAstPoint(circle.CenterPoint, true), handlesList, vx, vy, additionalBoltParameters, boltConnectionType);
+    }
 
     /// <summary>
     /// Create an Advance Steel Circular Bolt Pattern By Center Point Radius Normal
@@ -108,9 +108,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     public static CircularBoltPattern AtCentrePoint(DynGeometry.Point point,
                                                     DynGeometry.CoordinateSystem boltCS,
                                                     IEnumerable<SteelDbObject> objectsToConnect,
-                                                    [DefaultArgument("2;")]int boltConnectionType,
-                                                    [DefaultArgument("null")]List<ASProperty> additionalBoltParameters)
-		{
+                                                    [DefaultArgument("2;")] int boltConnectionType,
+                                                    [DefaultArgument("null")] List<ASProperty> additionalBoltParameters)
+    {
       SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
 
       var vx = Utils.ToAstVector3d(boltCS.XAxis, true);
@@ -119,10 +119,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       vx = vx.Normalize();
       vy = vy.Normalize();
 
-      IEnumerable<string> handles = Utils.GetSteelDbObjectsToConnect(objectsToConnect); 
+      IEnumerable<string> handles = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
 
-			return new CircularBoltPattern(Utils.ToAstPoint(point, true), handles, vx, vy, additionalBoltParameters, boltConnectionType);
-		}
+      return new CircularBoltPattern(Utils.ToAstPoint(point, true), handles, vx, vy, additionalBoltParameters, boltConnectionType);
+    }
 
     private static void PreSetCircularValuesInListProps(List<ASProperty> listOfBoltParameters, double radius)
     {
@@ -135,25 +135,25 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     }
 
     [IsVisibleInDynamoLibrary(false)]
-		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
-		{
-			lock (access_obj)
-			{
-				using (var ctx = new SteelServices.DocContext())
-				{
-					var boltPattern = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern;
-					if (boltPattern == null)
-					{
-						throw new Exception("Null bolt pattern");
-					}
-						
-					using (var point = Utils.ToDynPoint(boltPattern.RefPoint, true))
-					using (var norm = Utils.ToDynVector(boltPattern.Normal, true))
-					{
-						return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadiusNormal(point, Utils.FromInternalUnits(boltPattern.Radius, true), norm);
-					}
-				}
-			}
-		}
-	}
+    public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
+    {
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var boltPattern = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern;
+          if (boltPattern == null)
+          {
+            throw new Exception("Null bolt pattern");
+          }
+
+          using (var point = Utils.ToDynPoint(boltPattern.RefPoint, true))
+          using (var norm = Utils.ToDynVector(boltPattern.Normal, true))
+          {
+            return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadiusNormal(point, Utils.FromInternalUnits(boltPattern.Radius, true), norm);
+          }
+        }
+      }
+    }
+  }
 }

@@ -19,7 +19,7 @@ namespace AdvanceSteel.Nodes.Modifications
     {
     }
 
-    internal PlatePolycut(AdvanceSteel.Nodes.SteelDbObject element, 
+    internal PlatePolycut(AdvanceSteel.Nodes.SteelDbObject element,
                       double xOffset, double yOffset, int corner,
                       int cutShapeRectCircle,
                       List<ASProperty> plateFeatureProperties)
@@ -49,7 +49,7 @@ namespace AdvanceSteel.Nodes.Modifications
           }
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
-          
+
           string elementHandle = element.Handle;
           FilerObject obj = Utils.GetObject(elementHandle);
           PlateFeatContour plateFeat = null;
@@ -68,7 +68,7 @@ namespace AdvanceSteel.Nodes.Modifications
                   plateFeat = new PlateFeatContour(m2d, length);
                   break;
               }
-              
+
               Vector2d offset;
               switch (corner)
               {
@@ -102,7 +102,7 @@ namespace AdvanceSteel.Nodes.Modifications
               {
                 Utils.SetParameters(plateFeat, postWriteDBData);
               }
-              
+
             }
             else
             {
@@ -242,10 +242,10 @@ namespace AdvanceSteel.Nodes.Modifications
     public static PlatePolycut ByLengthAndWidth(AdvanceSteel.Nodes.SteelDbObject element,
                                     double length,
                                     double width,
-                                    [DefaultArgument("0")]double xOffset,
-                                    [DefaultArgument("0")]double yOffset,
-                                    [DefaultArgument("-1")]int corner,
-                                    [DefaultArgument("null")]List<ASProperty> additionalPlateFeatureParameters)
+                                    [DefaultArgument("0")] double xOffset,
+                                    [DefaultArgument("0")] double yOffset,
+                                    [DefaultArgument("-1")] int corner,
+                                    [DefaultArgument("null")] List<ASProperty> additionalPlateFeatureParameters)
     {
       additionalPlateFeatureParameters = PreSetDefaults(additionalPlateFeatureParameters, Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true));
       return new PlatePolycut(element, Utils.ToInternalUnits(xOffset, true), Utils.ToInternalUnits(yOffset, true), corner, 0, additionalPlateFeatureParameters);
@@ -263,10 +263,10 @@ namespace AdvanceSteel.Nodes.Modifications
     /// <returns></returns>
     public static PlatePolycut ByRadius(AdvanceSteel.Nodes.SteelDbObject element,
                                 double radius,
-                                [DefaultArgument("0")]double xOffset,
-                                [DefaultArgument("0")]double yOffset,
-                                [DefaultArgument("-1")]int corner,
-                                [DefaultArgument("null")]List<ASProperty> additionalPlateFeatureParameters)
+                                [DefaultArgument("0")] double xOffset,
+                                [DefaultArgument("0")] double yOffset,
+                                [DefaultArgument("-1")] int corner,
+                                [DefaultArgument("null")] List<ASProperty> additionalPlateFeatureParameters)
     {
       additionalPlateFeatureParameters = PreSetDefaults(additionalPlateFeatureParameters, 0, 0, Utils.ToInternalUnits(radius, true));
       return new PlatePolycut(element, Utils.ToInternalUnits(xOffset, true), Utils.ToInternalUnits(yOffset, true), corner, 1, additionalPlateFeatureParameters);
@@ -283,7 +283,7 @@ namespace AdvanceSteel.Nodes.Modifications
     public static PlatePolycut FromListCurves(AdvanceSteel.Nodes.SteelDbObject element,
                                             List<Autodesk.DesignScript.Geometry.Curve> curves,
                                             Autodesk.DesignScript.Geometry.Vector lengthVec,
-                                            [DefaultArgument("null")]List<ASProperty> additionalPlateFeatureParameters)
+                                            [DefaultArgument("null")] List<ASProperty> additionalPlateFeatureParameters)
     {
 
       Polyline3d curveCreatedPolyline = Utils.ToAstPolyline3d(curves, true);
@@ -306,7 +306,7 @@ namespace AdvanceSteel.Nodes.Modifications
     public static PlatePolycut FromPolyCurve(AdvanceSteel.Nodes.SteelDbObject element,
                                     Autodesk.DesignScript.Geometry.PolyCurve polyCurve,
                                     Autodesk.DesignScript.Geometry.Vector lengthVec,
-                                    [DefaultArgument("null")]List<ASProperty> additionalPlateFeatureParameters)
+                                    [DefaultArgument("null")] List<ASProperty> additionalPlateFeatureParameters)
     {
 
       Polyline3d curveCreatedPolyline = Utils.ToAstPolyline3d(polyCurve, true);

@@ -7,52 +7,52 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("SteelObjectResolution")]
-	[NodeDescription("Set Steel Object Resolution Type")]
+  [NodeName("SteelObjectResolution")]
+  [NodeDescription("Set Steel Object Resolution Type")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
   [OutPortNames("Steel Object Resolution Type")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
-	public class SteelObjectResolution : AstDropDownBase
-	{
-		private const string outputName = "Steel Object Resolution Type";
+  public class SteelObjectResolution : AstDropDownBase
+  {
+    private const string outputName = "Steel Object Resolution Type";
 
-		public SteelObjectResolution()
-				: base(outputName)
-		{
-			InPorts.Clear();
-			OutPorts.Clear();
-			RegisterAllPorts();
-		}
+    public SteelObjectResolution()
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
-		[JsonConstructor]
-		public SteelObjectResolution(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-		: base(outputName, inPorts, outPorts)
-		{
-		}
+    [JsonConstructor]
+    public SteelObjectResolution(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
+    {
+    }
 
-		protected override SelectionState PopulateItemsCore(string currentSelection)
-		{
-			Items.Clear();
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
 
-			var newItems = new List<DynamoDropDownItem>()
-						{
-								new DynamoDropDownItem("Select Steel Object Resolution...", -1),
-								new DynamoDropDownItem("Normal", (int)0),
-								new DynamoDropDownItem("Detailed", (int)1),
+      var newItems = new List<DynamoDropDownItem>()
+            {
+                new DynamoDropDownItem("Select Steel Object Resolution...", -1),
+                new DynamoDropDownItem("Normal", (int)0),
+                new DynamoDropDownItem("Detailed", (int)1),
                 new DynamoDropDownItem("Hull", (int)2),
                 new DynamoDropDownItem("UnNotched", (int)3)
-						};
+            };
 
-			Items.AddRange(newItems);
+      Items.AddRange(newItems);
 
-			SelectedIndex = 0;
-			return SelectionState.Restore;
-		}
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
 
-		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-		{
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
       if (Items.Count == 0 ||
           Items[SelectedIndex].Name == "Select Steel Object Resolution..." ||
           SelectedIndex < 0)
@@ -61,9 +61,9 @@ namespace AdvanceSteel.Nodes
       }
 
       var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
-			var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
+      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
       return new List<AssociativeNode> { assign };
 
     }
-	}
+  }
 }

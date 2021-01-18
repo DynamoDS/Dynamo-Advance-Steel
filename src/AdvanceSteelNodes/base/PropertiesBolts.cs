@@ -74,7 +74,7 @@ namespace AdvanceSteel.Nodes
 
     private bool foundData { get; set; }
 
-    public string Standard 
+    public string Standard
     {
       get { return _standard; }
       set

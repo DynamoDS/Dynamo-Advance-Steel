@@ -10,7 +10,7 @@ namespace AdvanceSteel.Nodes
 {
   [IsVisibleInDynamoLibrary(false)]
   public interface IASProperty
-  {    
+  {
     object PropValue
     {
       get;
@@ -28,15 +28,15 @@ namespace AdvanceSteel.Nodes
       get;
       set;
     }
-    
-  //Mod 2 = 0 & Mod 3 = 0
-  //[IsVisibleInDynamoLibrary(false)]
-  //public enum eProperty_Data_Ops : int
-  //{
-  //  Set = 2,
-  //  Get = 3,
-  //  Set_Get = 6
-  //}
+
+    //Mod 2 = 0 & Mod 3 = 0
+    //[IsVisibleInDynamoLibrary(false)]
+    //public enum eProperty_Data_Ops : int
+    //{
+    //  Set = 2,
+    //  Get = 3,
+    //  Set_Get = 6
+    //}
     int PropertyDataOp
     {
       get;

@@ -20,10 +20,10 @@ namespace AdvanceSteel.Nodes.Beams
     {
     }
 
-    internal StraightBeam(Autodesk.DesignScript.Geometry.Point ptStart, 
-                          Autodesk.DesignScript.Geometry.Point ptEnd, 
+    internal StraightBeam(Autodesk.DesignScript.Geometry.Point ptStart,
+                          Autodesk.DesignScript.Geometry.Point ptEnd,
                           Autodesk.DesignScript.Geometry.Vector vOrientation,
-                          int refAxis, bool crossSectionMirror, 
+                          int refAxis, bool crossSectionMirror,
                           List<ASProperty> beamProperties)
     {
       lock (access_obj)
@@ -39,9 +39,9 @@ namespace AdvanceSteel.Nodes.Beams
           {
             sectionName = (string)foundProfName.PropValue;
           }
-          
+
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-          
+
           Point3d beamStart = Utils.ToAstPoint(ptStart, true);
           Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
           Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
@@ -122,10 +122,10 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="orientation">Section orientation</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
     /// <returns></returns>
-    public static StraightBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, 
-                                                    Autodesk.DesignScript.Geometry.Point end, 
+    public static StraightBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start,
+                                                    Autodesk.DesignScript.Geometry.Point end,
                                                     Autodesk.DesignScript.Geometry.Vector orientation,
-                                                    [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                                    [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
     {
       //Original Node
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
@@ -139,9 +139,9 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="orientation">Section orientation</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
     /// <returns></returns>
-    public static StraightBeam ByLine(Autodesk.DesignScript.Geometry.Line line, 
+    public static StraightBeam ByLine(Autodesk.DesignScript.Geometry.Line line,
                                       Autodesk.DesignScript.Geometry.Vector orientation,
-                                      [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                      [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       return new StraightBeam(line.StartPoint, line.EndPoint, orientation, -1, false, additionalBeamParameters);
@@ -156,11 +156,11 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="length">Input Beam Length relative to Start Point</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
     /// <returns></returns>
-    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start, 
-                                                            Autodesk.DesignScript.Geometry.Vector direction, 
+    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start,
+                                                            Autodesk.DesignScript.Geometry.Vector direction,
                                                             Autodesk.DesignScript.Geometry.Vector orientation,
-                                                            [DefaultArgument("1000;")]double length,
-                                                            [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                                            [DefaultArgument("1000;")] double length,
+                                                            [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
     {
       Vector3d columnDirection = Utils.ToAstVector3d(direction, true).Normalize();
       Point3d tempPoint = Utils.ToAstPoint(start, true);
@@ -179,12 +179,12 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="length">Input Beam Length relative to Start Point</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
     /// <returns></returns>
-    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start, 
-                                                          Autodesk.DesignScript.Geometry.Vector direction, 
-                                                          Autodesk.DesignScript.Geometry.Vector orientation, 
-                                                          [DefaultArgument("5;")]int refAxis, 
-                                                          [DefaultArgument("1000;")]double length,
-                                                          [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start,
+                                                          Autodesk.DesignScript.Geometry.Vector direction,
+                                                          Autodesk.DesignScript.Geometry.Vector orientation,
+                                                          [DefaultArgument("5;")] int refAxis,
+                                                          [DefaultArgument("1000;")] double length,
+                                                          [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
     {
       Vector3d columnDirection = Utils.ToAstVector3d(direction, true).Normalize();
       Point3d tempPoint = Utils.ToAstPoint(start, true);
@@ -203,12 +203,12 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
     /// <returns></returns>
-    public static StraightBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, 
-                                                    Autodesk.DesignScript.Geometry.Point end, 
+    public static StraightBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start,
+                                                    Autodesk.DesignScript.Geometry.Point end,
                                                     Autodesk.DesignScript.Geometry.Vector orientation,
-                                                    [DefaultArgument("5;")]int refAxis, 
-                                                    [DefaultArgument("false;")]bool crossSectionMirror,
-                                                    [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                                    [DefaultArgument("5;")] int refAxis,
+                                                    [DefaultArgument("false;")] bool crossSectionMirror,
+                                                    [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       return new StraightBeam(start, end, orientation, refAxis, crossSectionMirror, additionalBeamParameters);
@@ -223,11 +223,11 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
     /// <returns></returns>
-    public static StraightBeam ByLine(Autodesk.DesignScript.Geometry.Line line, 
-                                      [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ZAxis();")]Autodesk.DesignScript.Geometry.Vector orientation,
-                                      [DefaultArgument("5;")]int refAxis, 
-                                      [DefaultArgument("false;")]bool crossSectionMirror,
-                                      [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+    public static StraightBeam ByLine(Autodesk.DesignScript.Geometry.Line line,
+                                      [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ZAxis();")] Autodesk.DesignScript.Geometry.Vector orientation,
+                                      [DefaultArgument("5;")] int refAxis,
+                                      [DefaultArgument("false;")] bool crossSectionMirror,
+                                      [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       return new StraightBeam(line.StartPoint, line.EndPoint, orientation, refAxis, crossSectionMirror, additionalBeamParameters);
@@ -244,13 +244,13 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
     /// <returns></returns>
-    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start, 
-                                                            Autodesk.DesignScript.Geometry.Vector direction, 
-                                                            Autodesk.DesignScript.Geometry.Vector orientation, 
+    public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start,
+                                                            Autodesk.DesignScript.Geometry.Vector direction,
+                                                            Autodesk.DesignScript.Geometry.Vector orientation,
                                                             double length,
-                                                            [DefaultArgument("5;")]int refAxis, 
-                                                            [DefaultArgument("false;")]bool crossSectionMirror,
-                                                            [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                                            [DefaultArgument("5;")] int refAxis,
+                                                            [DefaultArgument("false;")] bool crossSectionMirror,
+                                                            [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
 

@@ -30,7 +30,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <returns></returns>
     public static Autodesk.DesignScript.Geometry.Point GetClosestPointToSystemline(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                                   Autodesk.DesignScript.Geometry.Point pointOnSystemLine,
-                                                                                  [DefaultArgument("False")]bool unBounded)
+                                                                                  [DefaultArgument("False")] bool unBounded)
     {
       Autodesk.DesignScript.Geometry.Point ret = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0);
       Point3d point = Utils.ToAstPoint(pointOnSystemLine, true);
@@ -71,7 +71,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="distance"> Distance from end point</param>
     /// <returns></returns>
     public static Autodesk.DesignScript.Geometry.Point GetPointFromEnd(AdvanceSteel.Nodes.SteelDbObject steelObject,
-                                                                       [DefaultArgument("0")]double distance)
+                                                                       [DefaultArgument("0")] double distance)
     {
       Autodesk.DesignScript.Geometry.Point ret = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0);
       using (var ctx = new SteelServices.DocContext())
@@ -111,7 +111,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="distance"> Distance from start point</param>
     /// <returns></returns>
     public static Autodesk.DesignScript.Geometry.Point GetPointFromStart(AdvanceSteel.Nodes.SteelDbObject steelObject,
-                                                                        [DefaultArgument("0")]double distance)
+                                                                        [DefaultArgument("0")] double distance)
     {
       Autodesk.DesignScript.Geometry.Point ret = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0);
       using (var ctx = new SteelServices.DocContext())
@@ -153,7 +153,7 @@ namespace AdvanceSteel.Nodes.Util
     public static Autodesk.DesignScript.Geometry.CoordinateSystem GetCoordinateSystemAtPoint(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                                               Autodesk.DesignScript.Geometry.Point pointOnSystemLine)
     {
-      Autodesk.DesignScript.Geometry.CoordinateSystem ret = Autodesk.DesignScript.Geometry.CoordinateSystem.ByOrigin(0,0,0);
+      Autodesk.DesignScript.Geometry.CoordinateSystem ret = Autodesk.DesignScript.Geometry.CoordinateSystem.ByOrigin(0, 0, 0);
       Point3d point = Utils.ToAstPoint(pointOnSystemLine, true);
       using (var ctx = new SteelServices.DocContext())
       {
@@ -216,10 +216,10 @@ namespace AdvanceSteel.Nodes.Util
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
               Beam selectedObj = filerObj as Beam;
-              int executed = selectedObj.GetSawInformation(out sawLength, 
-                                                          out flangeAngleAtStart, 
-                                                          out webAngleAtStart, 
-                                                          out flangeAngleAtEnd, 
+              int executed = selectedObj.GetSawInformation(out sawLength,
+                                                          out flangeAngleAtStart,
+                                                          out webAngleAtStart,
+                                                          out flangeAngleAtEnd,
                                                           out webAngleAtEnd);
               if (executed > 0)
               {
@@ -252,7 +252,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <returns></returns>
     [MultiReturn(new[] { "Length", "PaintArea", "ExactWeight", "WeightPerUnit", "ProfileType", "ProfileTypeCode" })]
     public static Dictionary<string, object> GetBeamData(AdvanceSteel.Nodes.SteelDbObject steelObject,
-                                                         [DefaultArgument("0")]int bodyResolutionForLength)
+                                                         [DefaultArgument("0")] int bodyResolutionForLength)
     {
       Dictionary<string, object> ret = new Dictionary<string, object>();
 
@@ -309,7 +309,7 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="refAxis"> Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
-    public static void SetBeamReferenceAxis(AdvanceSteel.Nodes.SteelDbObject steelObject, 
+    public static void SetBeamReferenceAxis(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                             int refAxis)
     {
       if (Enum.IsDefined(typeof(Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis), refAxis) == false)
