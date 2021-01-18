@@ -15,7 +15,7 @@ using System;
 namespace AdvanceSteel.Nodes.Util
 {
   /// <summary>
-  /// Store Bolts properties in a Node to pass to Bolt Node
+  /// Collection of methods to access steel data
   /// </summary>
   public class Property
   {
