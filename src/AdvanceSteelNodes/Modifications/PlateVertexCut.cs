@@ -26,24 +26,24 @@ namespace AdvanceSteel.Nodes.Modifications
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = plateFeatureProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = plateFeatureProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = plateFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = plateFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           double length1 = 0;
           double length2 = 0;
           double radius = 0;
 
-          if (defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "Length1") != null)
+          if (defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Length1") != null)
           {
-            length1 = (double)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "Length1").PropValue;
+            length1 = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Length1").Value;
           }
-          if (defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "Length2") != null)
+          if (defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Length2") != null)
           {
-            length2 = (double)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "Length2").PropValue;
+            length2 = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Length2").Value;
           }
-          if (defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "Radius") != null)
+          if (defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Radius") != null)
           {
-            radius = (double)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "Radius").PropValue;
+            radius = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Radius").Value;
           }
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();

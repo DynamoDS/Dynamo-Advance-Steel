@@ -124,7 +124,7 @@ namespace AdvanceSteel.Nodes.Util
 
       if (property != null)
       {
-        ret = property.PropName;
+        ret = property.Name;
       }
       else
         throw new System.Exception("No Property object found");
@@ -143,7 +143,7 @@ namespace AdvanceSteel.Nodes.Util
 
       if (property != null)
       {
-        ret = property.PropValue;
+        ret = property.Value;
       }
       else
         throw new System.Exception("No Property object found");
@@ -162,7 +162,7 @@ namespace AdvanceSteel.Nodes.Util
       ASProperty selectedProperty = Utils.GetProperty(propertyType, ePropertyDataOperator.Set_Get);
       if (selectedProperty != null)
       {
-        selectedProperty.PropValue = propertyValue;
+        selectedProperty.Value = propertyValue;
         if (!selectedProperty.hasValidValue())
         {
           throw new System.Exception("Property Value not Valid");

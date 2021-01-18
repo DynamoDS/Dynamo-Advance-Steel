@@ -32,16 +32,16 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultShearStudData = shearStudData.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> arrangerShearStudData = shearStudData.Where(x => x.PropLevel == "Arranger").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = shearStudData.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultShearStudData = shearStudData.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> arrangerShearStudData = shearStudData.Where(x => x.Level == "Arranger").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = shearStudData.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           Autodesk.AdvanceSteel.Modelling.Connector shearStuds = null;
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
-            var temp_radius = (double)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Radius").PropValue;
-            var temp_noss = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "NumberOfElements").PropValue;
+            var temp_radius = (double)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.Name == "Radius").Value;
+            var temp_noss = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.Name == "NumberOfElements").Value;
 
             shearStuds = new Autodesk.AdvanceSteel.Modelling.Connector();
             shearStuds.Arranger = new Autodesk.AdvanceSteel.Arrangement.CircleArranger(Matrix2d.kIdentity, temp_radius, temp_noss);

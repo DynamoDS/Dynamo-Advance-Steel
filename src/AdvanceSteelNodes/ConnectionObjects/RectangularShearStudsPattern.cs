@@ -29,12 +29,12 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
     {
       lock (access_obj)
       {
-        List<ASProperty> defaultShearStudData = shearStudData.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-        List<ASProperty> arrangerShearStudData = shearStudData.Where(x => x.PropLevel == "Arranger").ToList<ASProperty>();
-        List<ASProperty> postWriteDBData = shearStudData.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+        List<ASProperty> defaultShearStudData = shearStudData.Where(x => x.Level == ".").ToList<ASProperty>();
+        List<ASProperty> arrangerShearStudData = shearStudData.Where(x => x.Level == "Arranger").ToList<ASProperty>();
+        List<ASProperty> postWriteDBData = shearStudData.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
-        int temp_nx = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Nx").PropValue;
-        int temp_ny = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Ny").PropValue;
+        int temp_nx = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.Name == "Nx").Value;
+        int temp_ny = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.Name == "Ny").Value;
 
         var dx = Utils.GetRectangleLength(astPoint1, astPoint2, vx) / (temp_nx - 1);
         Utils.CheckListUpdateOrAddValue(arrangerShearStudData, "Dx", dx, "Arranger");
@@ -109,19 +109,19 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultShearStudData = shearStudData.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> arrangerShearStudData = shearStudData.Where(x => x.PropLevel == "Arranger").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = shearStudData.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultShearStudData = shearStudData.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> arrangerShearStudData = shearStudData.Where(x => x.Level == "Arranger").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = shearStudData.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           Autodesk.AdvanceSteel.Modelling.Connector shearStuds = null;
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
 
-            double temp_Dx = (double)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Dx").PropValue;
-            double temp_Dy = (double)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Dy").PropValue;
-            int temp_nx = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Nx").PropValue;
-            int temp_ny = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.PropName == "Ny").PropValue;
+            double temp_Dx = (double)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.Name == "Dx").Value;
+            double temp_Dy = (double)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.Name == "Dy").Value;
+            int temp_nx = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.Name == "Nx").Value;
+            int temp_ny = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.Name == "Ny").Value;
 
             shearStuds = new Autodesk.AdvanceSteel.Modelling.Connector();
             Autodesk.AdvanceSteel.Arrangement.Arranger arranger = new Autodesk.AdvanceSteel.Arrangement.RectangularArranger(Matrix2d.kIdentity, temp_Dx, temp_Dy, temp_nx, temp_ny);

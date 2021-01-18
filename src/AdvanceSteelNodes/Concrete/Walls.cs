@@ -29,8 +29,8 @@ namespace AdvanceSteel.Nodes.Concrete
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           SteelGeometry.Plane plane = new SteelGeometry.Plane(ptCenter, vNormal);
           Autodesk.AdvanceSteel.Modelling.Wall wallObject = null;
@@ -92,8 +92,8 @@ namespace AdvanceSteel.Nodes.Concrete
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           SteelGeometry.Point3d baseOrigin = new SteelGeometry.Point3d();
           SteelGeometry.Vector3d xAxis = new SteelGeometry.Vector3d();
@@ -187,8 +187,8 @@ namespace AdvanceSteel.Nodes.Concrete
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 

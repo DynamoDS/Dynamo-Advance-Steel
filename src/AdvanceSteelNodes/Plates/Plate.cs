@@ -27,8 +27,8 @@ namespace AdvanceSteel.Nodes.Plates
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultData = plateProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = plateProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = plateProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = plateProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -93,8 +93,8 @@ namespace AdvanceSteel.Nodes.Plates
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = plateProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = plateProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = plateProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = plateProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
           var polyPlane = new Plane(planePoint, normal);

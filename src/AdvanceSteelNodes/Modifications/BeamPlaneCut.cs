@@ -28,8 +28,8 @@ namespace AdvanceSteel.Nodes.Modifications
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -92,8 +92,8 @@ namespace AdvanceSteel.Nodes.Modifications
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
           string elementHandle = element.Handle;

@@ -24,10 +24,10 @@ namespace AdvanceSteel.Nodes.NonSteelItems
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultData = cameraProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = cameraProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = cameraProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = cameraProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
-          Matrix3d cameraMat = (Matrix3d)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "CameraCS").PropValue;
+          Matrix3d cameraMat = (Matrix3d)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "CameraCS").Value;
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 

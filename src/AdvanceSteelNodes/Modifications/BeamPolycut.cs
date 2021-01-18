@@ -31,24 +31,24 @@ namespace AdvanceSteel.Nodes.Modifications
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           double length = 0;
           double width = 0;
           double radius = 0;
 
-          if (defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "Length") != null)
+          if (defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Length") != null)
           {
-            length = (double)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "Length").PropValue;
+            length = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Length").Value;
           }
-          if (defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "Width") != null)
+          if (defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Width") != null)
           {
-            width = (double)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "Width").PropValue;
+            width = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Width").Value;
           }
-          if (defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "Radius") != null)
+          if (defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Radius") != null)
           {
-            radius = (double)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "Radius").PropValue;
+            radius = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Radius").Value;
           }
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
@@ -178,8 +178,8 @@ namespace AdvanceSteel.Nodes.Modifications
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
 

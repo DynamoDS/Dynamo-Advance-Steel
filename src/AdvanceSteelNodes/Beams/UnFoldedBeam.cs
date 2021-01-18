@@ -31,10 +31,10 @@ namespace AdvanceSteel.Nodes.Beams
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultData = beamProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
-          ASProperty foundThickness = beamProperties.FirstOrDefault<ASProperty>(x => x.PropName == "Thickness");
-          double thickness = (double)foundThickness.PropValue;
+          List<ASProperty> defaultData = beamProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          ASProperty foundThickness = beamProperties.FirstOrDefault<ASProperty>(x => x.Name == "Thickness");
+          double thickness = (double)foundThickness.Value;
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 

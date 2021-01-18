@@ -31,13 +31,13 @@ namespace AdvanceSteel.Nodes.Beams
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultData = beamProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
-          ASProperty foundProfName = beamProperties.FirstOrDefault<ASProperty>(x => x.PropName == "ProfName");
+          List<ASProperty> defaultData = beamProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          ASProperty foundProfName = beamProperties.FirstOrDefault<ASProperty>(x => x.Name == "ProfName");
           string sectionName = "";
           if (foundProfName != null)
           {
-            sectionName = (string)foundProfName.PropValue;
+            sectionName = (string)foundProfName.Value;
           }
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();

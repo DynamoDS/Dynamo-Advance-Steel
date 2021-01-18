@@ -27,14 +27,14 @@ namespace AdvanceSteel.Nodes.Modifications
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           double length = 0;
           double depth = 0;
 
-          length = (double)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "ReferenceLength").PropValue;
-          depth = (double)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "ReferenceDepth").PropValue;
+          length = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "ReferenceLength").Value;
+          depth = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "ReferenceDepth").Value;
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -107,14 +107,14 @@ namespace AdvanceSteel.Nodes.Modifications
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
+          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
 
           double length = 0;
           double depth = 0;
 
-          length = (double)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "ReferenceLength").PropValue;
-          depth = (double)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "ReferenceDepth").PropValue;
+          length = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "ReferenceLength").Value;
+          depth = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "ReferenceDepth").Value;
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
 

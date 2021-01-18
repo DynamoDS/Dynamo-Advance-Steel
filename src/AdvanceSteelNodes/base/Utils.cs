@@ -987,7 +987,7 @@ namespace AdvanceSteel.Nodes
 
     private static Dictionary<string, ASProperty> filterDictionary(Dictionary<string, ASProperty> dictProps, int listFilter)
     {
-      return (listFilter > 0 ? dictProps.Where(x => (x.Value.PropertyDataOp % listFilter) == 0).ToDictionary(x => x.Key, x => x.Value) : dictProps);
+      return (listFilter > 0 ? dictProps.Where(x => (x.Value.DataOperator % listFilter) == 0).ToDictionary(x => x.Key, x => x.Value) : dictProps);
     }
 
     private static Dictionary<string, ASProperty> addElementTypes(Dictionary<string, ASProperty> dictProps, List<eObjectType> elementTypes)
@@ -1776,10 +1776,10 @@ namespace AdvanceSteel.Nodes
                                                   string propLevel = "",
                                                   int propertyDataOp = 6)
     {
-      var foundItem = listOfPropertyData.FirstOrDefault<ASProperty>(props => props.PropName == propName);
+      var foundItem = listOfPropertyData.FirstOrDefault<ASProperty>(props => props.Name == propName);
       if (foundItem != null)
       {
-        foundItem.PropValue = propValue;
+        foundItem.Value = propValue;
       }
       else
       {

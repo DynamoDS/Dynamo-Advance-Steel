@@ -11,7 +11,7 @@ using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
 namespace AdvanceSteel.Nodes
 {
   [IsVisibleInDynamoLibrary(false)]
-  public class ASProperty : IASProperty
+  public class ASProperty
   {
     private string _propName;
     private string _propLevel = ".";
@@ -20,24 +20,24 @@ namespace AdvanceSteel.Nodes
     private int _propertyDataOp = ePropertyDataOperator.Set_Get;
     private List<eObjectType> _elementType;
 
-    public ASProperty(string propName, System.Type propType, string propLevel = ".", int propertyDataOp = 6)
+    public ASProperty(string name, System.Type propType, string level = ".", int dataOperator = 6)
     {
-      PropName = propName;
+      Name = name;
       _objectValueType = propType;
-      PropLevel = propLevel;
-      PropertyDataOp = propertyDataOp;
+      Level = level;
+      DataOperator = dataOperator;
     }
 
-    public ASProperty(string propName, object propValue, System.Type propType, string propLevel = ".", int propertyDataOp = 6)
+    public ASProperty(string propName, object propValue, System.Type propType, string propLevel = ".", int dataOperator = 6)
     {
-      PropName = propName;
+      Name = propName;
       _objectValueType = propType;
-      PropValue = propValue;
-      PropLevel = propLevel;
-      PropertyDataOp = propertyDataOp;
+      Value = propValue;
+      Level = propLevel;
+      DataOperator = dataOperator;
     }
 
-    public int PropertyDataOp
+    public int DataOperator
     {
       get
       {
@@ -63,11 +63,11 @@ namespace AdvanceSteel.Nodes
 
     public T GetFormatedValue<T>()
     {
-      if (PropValue == null) { return default(T); }
-      return (T)PropValue;
+      if (Value == null) { return default(T); }
+      return (T)Value;
     }
 
-    public object PropValue
+    public object Value
     {
       get
       {
@@ -79,7 +79,7 @@ namespace AdvanceSteel.Nodes
       }
     }
 
-    public string PropName
+    public string Name
     {
       get
       {
@@ -91,7 +91,7 @@ namespace AdvanceSteel.Nodes
       }
     }
 
-    public string PropLevel
+    public string Level
     {
       get
       {
@@ -105,7 +105,7 @@ namespace AdvanceSteel.Nodes
 
     public override string ToString()
     {
-      return PropName?.ToString() + " = " + PropValue?.ToString();
+      return Name?.ToString() + " = " + Value?.ToString();
     }
 
     public void UpdateASObject(object asObjectToUpdate)
@@ -114,7 +114,7 @@ namespace AdvanceSteel.Nodes
       {
         if (asObjectToUpdate != null)
         {
-          asObjectToUpdate.GetType().GetProperty(PropName).SetValue(asObjectToUpdate, PropValue);
+          asObjectToUpdate.GetType().GetProperty(Name).SetValue(asObjectToUpdate, Value);
         }
       }
     }
@@ -127,12 +127,12 @@ namespace AdvanceSteel.Nodes
         FilerObject fObj = Utils.GetObject(steelObject.Handle);
         try
         {
-          PropValue = fObj.GetType().GetProperty(PropName).GetValue(fObj, null);
+          Value = fObj.GetType().GetProperty(Name).GetValue(fObj, null);
           ret = true;
         }
         catch (Exception)
         {
-          throw new System.Exception("Object Has no Property - " + PropName);
+          throw new System.Exception("Object Has no Property - " + Name);
         }
       }
       else
@@ -145,26 +145,34 @@ namespace AdvanceSteel.Nodes
     public bool hasValidValue()
     {
       bool retValue = false;
-      if (PropValue != null)
+      if (Value != null)
       {
         if (_objectValueType == typeof(int))
         {
-          if (typeof(int).Equals(PropValue.GetType())) { retValue = true; }
-          if (typeof(Int32).Equals(PropValue.GetType())) { retValue = true; }
-          if (typeof(Int64).Equals(PropValue.GetType())) { retValue = true; }
+          if (typeof(int).Equals(Value.GetType())) { retValue = true; }
+          if (typeof(Int32).Equals(Value.GetType())) { retValue = true; }
+          if (typeof(Int64).Equals(Value.GetType())) { retValue = true; }
           if (retValue)
           {
-            PropValue = Convert.ToInt32(PropValue);
+            Value = Convert.ToInt32(Value);
           }
         }
         else
         {
-          retValue = _objectValueType.Equals(PropValue.GetType());
+          retValue = _objectValueType.Equals(Value.GetType());
         }
       }
 
       return retValue;
     }
 
+  }
+
+  [IsVisibleInDynamoLibrary(false)]
+  public static class ePropertyDataOperator
+  {
+    public static readonly int Set = 2;
+    public static readonly int Get = 3;
+    public static readonly int Set_Get = 6;
   }
 }
