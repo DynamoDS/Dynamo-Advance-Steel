@@ -13,13 +13,13 @@ namespace AdvanceSteel.Nodes.Concrete
   /// Advance Steel Concrete Bent Beam
   /// </summary>
   [DynamoServices.RegisterForTrace]
-  public class ConcBentBeam : GraphicObject
+  public class ConcreteBentBeam : GraphicObject
   {
-    internal ConcBentBeam()
+    internal ConcreteBentBeam()
     {
     }
 
-    internal ConcBentBeam(string concName,
+    internal ConcreteBentBeam(string concName,
                           Autodesk.DesignScript.Geometry.Point ptStart,
                           Autodesk.DesignScript.Geometry.Point ptEnd,
                           Autodesk.DesignScript.Geometry.Point ptOnArc,
@@ -98,14 +98,14 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="orientation">Section orientation</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcBentBeam ByStartPointEndPointOnArc(string concName, Autodesk.DesignScript.Geometry.Point start,
+    public static ConcreteBentBeam ByStartPointEndPointOnArc(string concName, Autodesk.DesignScript.Geometry.Point start,
                                                           Autodesk.DesignScript.Geometry.Point end,
                                                           Autodesk.DesignScript.Geometry.Point ptOnArc,
                                                           Autodesk.DesignScript.Geometry.Vector orientation,
                                                           [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new ConcBentBeam(concName, start, end, ptOnArc, orientation, additionalConcParameters);
+      return new ConcreteBentBeam(concName, start, end, ptOnArc, orientation, additionalConcParameters);
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="arc"> Dynamo Arc to define beam</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcBentBeam ByArc(string concName,
+    public static ConcreteBentBeam ByArc(string concName,
                                       Autodesk.DesignScript.Geometry.Arc arc,
                                       [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
@@ -123,7 +123,7 @@ namespace AdvanceSteel.Nodes.Concrete
       Autodesk.DesignScript.Geometry.Point end = arc.EndPoint;
       Autodesk.DesignScript.Geometry.Point ptOnArc = arc.PointAtChordLength();
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new ConcBentBeam(concName, start, end, ptOnArc, arc.Normal, additionalConcParameters);
+      return new ConcreteBentBeam(concName, start, end, ptOnArc, arc.Normal, additionalConcParameters);
     }
 
     private static List<ASProperty> PreSetDefaults(List<ASProperty> listOfProps)

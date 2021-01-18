@@ -13,13 +13,13 @@ namespace AdvanceSteel.Nodes.Concrete
   /// Advance Steel Concrete Straight Beam
   /// </summary>
   [DynamoServices.RegisterForTrace]
-  public class ConcStraightBeam : GraphicObject
+  public class ConcreteStraightBeam : GraphicObject
   {
-    internal ConcStraightBeam()
+    internal ConcreteStraightBeam()
     {
     }
 
-    internal ConcStraightBeam(string concName,
+    internal ConcreteStraightBeam(string concName,
                               Autodesk.DesignScript.Geometry.Point ptStart,
                               Autodesk.DesignScript.Geometry.Point ptEnd,
                               Autodesk.DesignScript.Geometry.Vector vOrientation,
@@ -95,13 +95,13 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="orientation"> Section orientation</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcStraightBeam ByStartPointEndPoint(string concName, Autodesk.DesignScript.Geometry.Point start,
+    public static ConcreteStraightBeam ByStartPointEndPoint(string concName, Autodesk.DesignScript.Geometry.Point start,
                                                         Autodesk.DesignScript.Geometry.Point end,
                                                         Autodesk.DesignScript.Geometry.Vector orientation,
                                                         [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new ConcStraightBeam(concName, start, end, orientation, additionalConcParameters);
+      return new ConcreteStraightBeam(concName, start, end, orientation, additionalConcParameters);
     }
 
     /// <summary>
@@ -114,7 +114,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="length"> Length value in the direction from the start point</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcStraightBeam ByStartPointDirectionLength(string concName, Autodesk.DesignScript.Geometry.Point start,
+    public static ConcreteStraightBeam ByStartPointDirectionLength(string concName, Autodesk.DesignScript.Geometry.Point start,
                                                                 Autodesk.DesignScript.Geometry.Vector direction,
                                                                 Autodesk.DesignScript.Geometry.Vector orientation,
                                                                 double length,
@@ -124,7 +124,7 @@ namespace AdvanceSteel.Nodes.Concrete
       Point3d tempPoint = Utils.ToAstPoint(start, true);
       Point3d end = tempPoint.Add(columnDirection * length);
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new ConcStraightBeam(concName, start, Utils.ToDynPoint(end, true), orientation, additionalConcParameters);
+      return new ConcreteStraightBeam(concName, start, Utils.ToDynPoint(end, true), orientation, additionalConcParameters);
     }
 
     /// <summary>
@@ -135,14 +135,14 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="orientation">Section orientation</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static ConcStraightBeam ByLine(string concName, Autodesk.DesignScript.Geometry.Line line,
+    public static ConcreteStraightBeam ByLine(string concName, Autodesk.DesignScript.Geometry.Line line,
                                           Autodesk.DesignScript.Geometry.Vector orientation,
                                           [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
     {
       Autodesk.DesignScript.Geometry.Point start = line.StartPoint;
       Autodesk.DesignScript.Geometry.Point end = line.EndPoint;
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new ConcStraightBeam(concName, start, end, orientation, additionalConcParameters);
+      return new ConcreteStraightBeam(concName, start, end, orientation, additionalConcParameters);
     }
 
     private static List<ASProperty> PreSetDefaults(List<ASProperty> listOfProps)
