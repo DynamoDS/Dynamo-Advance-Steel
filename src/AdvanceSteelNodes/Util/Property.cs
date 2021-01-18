@@ -116,7 +116,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <summary>
     /// Get the AS Property Name from ASProperty Object
     /// </summary>
-    /// <param name="property"> AS Property object to extrcat information from</param>
+    /// <param name="property"> AS Property object to extract information from</param>
     /// <returns></returns>
     public static string GetPropertyName(ASProperty property)
     {
@@ -133,9 +133,24 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
+    /// Check if the property is readonly
+    /// </summary>
+    /// <param name="property"> AS Property object to extract information from</param>
+    /// <returns></returns>
+    public static bool IsReadOnly(ASProperty property)
+    {
+      if (property != null)
+      {
+        return property.DataOperator == ePropertyDataOperator.Get;
+      }
+      else
+        throw new System.Exception("No Property object found");
+    }
+
+    /// <summary>
     /// Get the AS Property Value from ASProperty Object
     /// </summary>
-    /// <param name="property"> AS Property object to extrcat information from</param>
+    /// <param name="property"> AS Property object to extract information from</param>
     /// <returns></returns>
     public static object GetPropertyValue(ASProperty property)
     {
