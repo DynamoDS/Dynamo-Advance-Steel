@@ -27,14 +27,14 @@ namespace AdvanceSteel.Nodes.Util
     /// Get Single Advance Steel Property from Advance Steel Object
     /// </summary>
     /// <param name="steelObject"> Selected Advance Steel Object</param>
-    /// <param name="propertyType"> Advance Steel Property</param>
+    /// <param name="propertyName"> Advance Steel Property name</param>
     /// <returns></returns>
-    public static ASProperty GetPropertyByElement(SteelDbObject steelObject, string propertyType)
+    public static ASProperty GetPropertyByElement(SteelDbObject steelObject, string propertyName)
     {
       ASProperty ret = null;
       using (var ctx = new SteelServices.DocContext())
       {
-        ASProperty extractionProperty = Utils.GetProperty(propertyType, ePropertyDataOperator.Get);
+        ASProperty extractionProperty = Utils.GetProperty(propertyName, ePropertyDataOperator.Get);
         if (extractionProperty != null)
         {
           if (extractionProperty.EvaluateValueFromSteelDBObject(steelObject))
@@ -51,21 +51,21 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
-    /// Generate a List of Advance Steel Object Properties based on Property Types
+    /// Get a list of Advance Steel Properties from Advance Steel Object
     /// </summary>
     /// <param name="steelObject"> Selected Advance Steel Object</param>
-    /// <param name="propertyTypes"> List of Property type per Object Type</param>
+    /// <param name="propertyNames"> List of Property names</param>
     /// <returns></returns>
     public static List<ASProperty> GetPropertiesByElement(SteelDbObject steelObject,
-                                                List<string> propertyTypes)
+                                                List<string> propertyNames)
     {
       List<ASProperty> ret = new List<ASProperty>() { };
       using (var ctx = new SteelServices.DocContext())
       {
-        for (int i = 0; i < propertyTypes.Count; i++)
+        for (int i = 0; i < propertyNames.Count; i++)
         {
-          string propertyType = propertyTypes[i];
-          ASProperty extractionProperty = Utils.GetProperty(propertyType, ePropertyDataOperator.Get);
+          string propertyName = propertyNames[i];
+          ASProperty extractionProperty = Utils.GetProperty(propertyName, ePropertyDataOperator.Get);
           if (extractionProperty != null)
           {
             if (extractionProperty.EvaluateValueFromSteelDBObject(steelObject))
@@ -83,9 +83,9 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
-    /// Generate a List of Advance Steel Object Property Data based on Get Type Properties
+    /// Get all Advance Steel Properties from Advance Steel Object
     /// </summary>
-    /// <param name="steelObject"> Selected Advance Steel Object</param>
+    /// <param name="steelObject"> Advance Steel Object</param>
     /// <returns></returns>
     public static List<ASProperty> GetElementProperties(SteelDbObject steelObject)
     {
@@ -114,9 +114,9 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
-    /// Get the AS Property Name from ASProperty Object
+    /// Get the property name
     /// </summary>
-    /// <param name="property"> AS Property object to extract information from</param>
+    /// <param name="property"> property object to extract information from</param>
     /// <returns></returns>
     public static string GetPropertyName(ASProperty property)
     {
@@ -135,7 +135,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <summary>
     /// Check if the property is readonly
     /// </summary>
-    /// <param name="property"> AS Property object to extract information from</param>
+    /// <param name="property"> property object to extract information from</param>
     /// <returns></returns>
     public static bool IsReadOnly(ASProperty property)
     {
@@ -148,9 +148,9 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
-    /// Get the AS Property Value from ASProperty Object
+    /// Get the property value
     /// </summary>
-    /// <param name="property"> AS Property object to extract information from</param>
+    /// <param name="property"> property object to extract information from</param>
     /// <returns></returns>
     public static object GetPropertyValue(ASProperty property)
     {
@@ -169,12 +169,12 @@ namespace AdvanceSteel.Nodes.Util
     /// <summary>
     /// Build AS Property - Writeable or Readable
     /// </summary>
-    /// <param name="propertyType"> Input Property from Property Node for particular Object Type</param>
+    /// <param name="propertyName"> Input Property name from Property Node for particular Object Type</param>
     /// <param name="propertyValue"> Input Property value for Property Type</param>
     /// <returns></returns>
-    public static ASProperty ByNameAndValue(string propertyType, object propertyValue)
+    public static ASProperty ByNameAndValue(string propertyName, object propertyValue)
     {
-      ASProperty selectedProperty = Utils.GetProperty(propertyType, ePropertyDataOperator.Set_Get);
+      ASProperty selectedProperty = Utils.GetProperty(propertyName, ePropertyDataOperator.Set_Get);
       if (selectedProperty != null)
       {
         selectedProperty.Value = propertyValue;
