@@ -22,7 +22,6 @@ namespace AdvanceSteel.Nodes
     private bool _isReadOnly;
 
     internal List<eObjectType> ElementTypeList { get; set; }
-    internal int DataOperator { get; }
     internal string Level { get; }
 
     internal Property(string name, System.Type propType, string level = ".", bool isReadOnly = false)
