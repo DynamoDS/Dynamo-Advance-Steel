@@ -198,6 +198,9 @@ namespace AdvanceSteel.Nodes
 
     internal bool SetToObject(object objectToUpdate)
     {
+      if (IsReadOnly)
+        throw new System.Exception("Cannot set readonly property: " + Name?.ToString());
+
       if (objectToUpdate != null && !IsReadOnly)
       {
         objectToUpdate.GetType().GetProperty(Name).SetValue(objectToUpdate, Value);
