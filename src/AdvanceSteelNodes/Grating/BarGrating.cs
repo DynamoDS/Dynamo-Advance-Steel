@@ -22,14 +22,14 @@ namespace AdvanceSteel.Nodes.Gratings
     {
     }
 
-    internal BarGrating(Vector3d vNormal, Point3d ptCenter, double dLength, List<ASProperty> additionalGratingParameters)
+    internal BarGrating(Vector3d vNormal, Point3d ptCenter, double dLength, List<Property> additionalGratingParameters)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = additionalGratingParameters.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = additionalGratingParameters.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
           Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
@@ -89,7 +89,7 @@ namespace AdvanceSteel.Nodes.Gratings
     /// <returns></returns>
     public static BarGrating ByLine(Autodesk.DesignScript.Geometry.Line line,
                                     Autodesk.DesignScript.Geometry.Vector planeDirection,
-                                    [DefaultArgument("null")] List<ASProperty> additionalGratingParameters)
+                                    [DefaultArgument("null")] List<Property> additionalGratingParameters)
     {
       var start = Utils.ToAstPoint(line.StartPoint, true);
       var end = Utils.ToAstPoint(line.EndPoint, true);
@@ -105,11 +105,11 @@ namespace AdvanceSteel.Nodes.Gratings
       return new BarGrating(planeNorm, refPoint, Utils.ToInternalUnits(line.Length, true), additionalGratingParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listGratingData)
+    private static List<Property> PreSetDefaults(List<Property> listGratingData)
     {
       if (listGratingData == null)
       {
-        listGratingData = new List<ASProperty>() { };
+        listGratingData = new List<Property>() { };
       }
       return listGratingData;
     }

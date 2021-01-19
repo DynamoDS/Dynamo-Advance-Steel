@@ -24,7 +24,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 
     internal RectangularAnchorPattern(SteelGeometry.Point3d anchorBoltPatternInsertPoint, IEnumerable<string> handlesToConnect,
                                       SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
-                                      List<ASProperty> anchorBoltData, int boltCon)
+                                      List<Property> anchorBoltData, int boltCon)
     {
       lock (access_obj)
       {
@@ -65,7 +65,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 
     internal RectangularAnchorPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2, IEnumerable<string> handlesToConnect,
                                       SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
-                                      List<ASProperty> anchorBoltData, int boltCon)
+                                      List<Property> anchorBoltData, int boltCon)
     {
       lock (access_obj)
       {
@@ -132,7 +132,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
                                                       [DefaultArgument("2;")] int noOfBoltsY,
                                                       IEnumerable<SteelDbObject> objectsToConnect,
                                                       [DefaultArgument("2;")] int boltConnectionType,
-                                                      [DefaultArgument("null")] List<ASProperty> additionalAnchorBoltParameters)
+                                                      [DefaultArgument("null")] List<Property> additionalAnchorBoltParameters)
     {
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
 
@@ -163,7 +163,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
                                                   [DefaultArgument("2;")] int noOfBoltsY,
                                                   IEnumerable<SteelDbObject> objectsToConnect,
                                                   [DefaultArgument("2;")] int boltConnectionType,
-                                                  [DefaultArgument("null")] List<ASProperty> additionalAnchorBoltParameters)
+                                                  [DefaultArgument("null")] List<Property> additionalAnchorBoltParameters)
     {
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
 
@@ -175,11 +175,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       return new RectangularAnchorPattern(Utils.ToAstPoint(connectionPoint, true), handlesList, vx, vy, additionalAnchorBoltParameters, boltConnectionType);
     }
 
-    private static void PreSetValuesInListProps(List<ASProperty> listOfAnchorBoltParameters, int nx, int ny)
+    private static void PreSetValuesInListProps(List<Property> listOfAnchorBoltParameters, int nx, int ny)
     {
       if (listOfAnchorBoltParameters == null)
       {
-        listOfAnchorBoltParameters = new List<ASProperty>() { };
+        listOfAnchorBoltParameters = new List<Property>() { };
       }
 
       Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Nx", nx);

@@ -21,16 +21,16 @@ namespace AdvanceSteel.Nodes.Beams
     internal CompoundBeam(Autodesk.DesignScript.Geometry.Point ptStart,
                           Autodesk.DesignScript.Geometry.Point ptEnd,
                           Autodesk.DesignScript.Geometry.Vector vOrientation,
-                          List<ASProperty> beamProperties)
+                          List<Property> beamProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultData = beamProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
-          ASProperty foundProfName = beamProperties.FirstOrDefault<ASProperty>(x => x.Name == "ProfName");
+          List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+          Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
           string sectionProfileName = "";
           if (foundProfName != null)
           {
@@ -123,17 +123,17 @@ namespace AdvanceSteel.Nodes.Beams
                                                     Autodesk.DesignScript.Geometry.Point end,
                                                     Autodesk.DesignScript.Geometry.Vector orientation,
                                                     string sectionName,
-                                                    [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
+                                                    [DefaultArgument("null")] List<Property> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters, sectionName);
       return new CompoundBeam(start, end, orientation, additionalBeamParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listBeamData, string sectionName)
+    private static List<Property> PreSetDefaults(List<Property> listBeamData, string sectionName)
     {
       if (listBeamData == null)
       {
-        listBeamData = new List<ASProperty>() { };
+        listBeamData = new List<Property>() { };
       }
       Utils.CheckListUpdateOrAddValue(listBeamData, "ProfName", sectionName, ".");
 

@@ -24,7 +24,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 
     internal CircularBoltPattern(SteelGeometry.Point3d holeInsertPoint, IEnumerable<string> handlesToConnect,
                                   SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
-                                  List<ASProperty> boltData,
+                                  List<Property> boltData,
                                   int boltCon)
     {
       lock (access_obj)
@@ -81,7 +81,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
                                                 DynGeometry.Vector referenceVector,
                                                 IEnumerable<SteelDbObject> objectsToConnect,
                                                 [DefaultArgument("2;")] int boltConnectionType,
-                                                [DefaultArgument("null")] List<ASProperty> additionalBoltParameters)
+                                                [DefaultArgument("null")] List<Property> additionalBoltParameters)
     {
       var norm = Utils.ToAstVector3d(circle.Normal, true);
       var vx = Utils.ToAstVector3d(referenceVector, true);
@@ -109,7 +109,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
                                                     DynGeometry.CoordinateSystem boltCS,
                                                     IEnumerable<SteelDbObject> objectsToConnect,
                                                     [DefaultArgument("2;")] int boltConnectionType,
-                                                    [DefaultArgument("null")] List<ASProperty> additionalBoltParameters)
+                                                    [DefaultArgument("null")] List<Property> additionalBoltParameters)
     {
       SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
 
@@ -124,11 +124,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       return new CircularBoltPattern(Utils.ToAstPoint(point, true), handles, vx, vy, additionalBoltParameters, boltConnectionType);
     }
 
-    private static void PreSetCircularValuesInListProps(List<ASProperty> listOfBoltParameters, double radius)
+    private static void PreSetCircularValuesInListProps(List<Property> listOfBoltParameters, double radius)
     {
       if (listOfBoltParameters == null)
       {
-        listOfBoltParameters = new List<ASProperty>() { };
+        listOfBoltParameters = new List<Property>() { };
       }
 
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Radius", radius);

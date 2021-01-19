@@ -24,7 +24,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 
     internal CircularAnchorPattern(SteelGeometry.Point3d astPointRef, IEnumerable<string> handlesToConnect,
                                    SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
-                                   List<ASProperty> anchorBoltData, int boltCon)
+                                   List<Property> anchorBoltData, int boltCon)
     {
       lock (access_obj)
       {
@@ -77,7 +77,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
                                                   DynGeometry.Vector referenceVector,
                                                   IEnumerable<SteelDbObject> objectsToConnect,
                                                   [DefaultArgument("2;")] int anchorBoltConnectionType,
-                                                  [DefaultArgument("null")] List<ASProperty> additionalAnchorBoltParameters)
+                                                  [DefaultArgument("null")] List<Property> additionalAnchorBoltParameters)
     {
       var norm = Utils.ToAstVector3d(circle.Normal, true);
       var vx = Utils.ToAstVector3d(referenceVector, true);
@@ -104,7 +104,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
                                                       DynGeometry.CoordinateSystem anchorCS,
                                                       IEnumerable<SteelDbObject> objectsToConnect,
                                                       [DefaultArgument("2;")] int anchorBoltConnectionType,
-                                                      [DefaultArgument("null")] List<ASProperty> additionalAnchorBoltParameters)
+                                                      [DefaultArgument("null")] List<Property> additionalAnchorBoltParameters)
     {
       SteelGeometry.Point3d astPointRef = Utils.ToAstPoint(point, true);
 
@@ -117,11 +117,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       return new CircularAnchorPattern(astPointRef, handles, vx, vy, additionalAnchorBoltParameters, anchorBoltConnectionType);
     }
 
-    private static void PreSetValuesInListProps(List<ASProperty> listOfAnchorBoltParameters, double radius)
+    private static void PreSetValuesInListProps(List<Property> listOfAnchorBoltParameters, double radius)
     {
       if (listOfAnchorBoltParameters == null)
       {
-        listOfAnchorBoltParameters = new List<ASProperty>() { };
+        listOfAnchorBoltParameters = new List<Property>() { };
       }
 
       Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Radius", radius);

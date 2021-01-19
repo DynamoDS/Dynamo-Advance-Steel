@@ -24,16 +24,16 @@ namespace AdvanceSteel.Nodes.Beams
                           Autodesk.DesignScript.Geometry.Point ptStart,
                           Autodesk.DesignScript.Geometry.Point ptEnd,
                           Autodesk.DesignScript.Geometry.Vector vOrientation,
-                          List<ASProperty> beamProperties)
+                          List<Property> beamProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultData = beamProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
-          ASProperty foundThickness = beamProperties.FirstOrDefault<ASProperty>(x => x.Name == "Thickness");
+          List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+          Property foundThickness = beamProperties.FirstOrDefault<Property>(x => x.Name == "Thickness");
           double thickness = (double)foundThickness.Value;
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
@@ -109,7 +109,7 @@ namespace AdvanceSteel.Nodes.Beams
                                                     Autodesk.DesignScript.Geometry.Point startPoint,
                                                     Autodesk.DesignScript.Geometry.Point endPoint,
                                                     double thickness,
-                                                    [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
+                                                    [DefaultArgument("null")] List<Property> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters, Utils.ToInternalUnits(thickness, true));
       CircArc3d cc = new CircArc3d(Utils.ToAstPoint(startPointCurve, true),
@@ -137,7 +137,7 @@ namespace AdvanceSteel.Nodes.Beams
                                                 Autodesk.DesignScript.Geometry.Point startPoint,
                                                 Autodesk.DesignScript.Geometry.Point endPoint,
                                                 double thickness,
-                                                [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
+                                                [DefaultArgument("null")] List<Property> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters, Utils.ToInternalUnits(thickness, true));
       CircArc3d cc = new CircArc3d(Utils.ToAstPoint(arc.StartPoint, true),
@@ -165,7 +165,7 @@ namespace AdvanceSteel.Nodes.Beams
                                             Autodesk.DesignScript.Geometry.Point startPoint,
                                             Autodesk.DesignScript.Geometry.Point endPoint,
                                             double thickness,
-                                            [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
+                                            [DefaultArgument("null")] List<Property> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters, Utils.ToInternalUnits(thickness, true));
       Polyline3d poly = Utils.ToAstPolyline3d(polyCurve, true);
@@ -174,11 +174,11 @@ namespace AdvanceSteel.Nodes.Beams
       return new UnFoldedBeam(poly, startPoint, endPoint, orientation, additionalBeamParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listBeamData, double thickness)
+    private static List<Property> PreSetDefaults(List<Property> listBeamData, double thickness)
     {
       if (listBeamData == null)
       {
-        listBeamData = new List<ASProperty>() { };
+        listBeamData = new List<Property>() { };
       }
       Utils.CheckListUpdateOrAddValue(listBeamData, "Thickness", thickness);
       return listBeamData;

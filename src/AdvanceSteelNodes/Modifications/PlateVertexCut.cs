@@ -20,30 +20,30 @@ namespace AdvanceSteel.Nodes.Modifications
 
     internal PlateVertexCut(AdvanceSteel.Nodes.SteelDbObject element,
                       int vertexFeatureType,
-                      List<ASProperty> plateFeatureProperties)
+                      List<Property> plateFeatureProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = plateFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = plateFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = plateFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = plateFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           double length1 = 0;
           double length2 = 0;
           double radius = 0;
 
-          if (defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Length1") != null)
+          if (defaultData.FirstOrDefault<Property>(x => x.Name == "Length1") != null)
           {
-            length1 = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Length1").Value;
+            length1 = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Length1").Value;
           }
-          if (defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Length2") != null)
+          if (defaultData.FirstOrDefault<Property>(x => x.Name == "Length2") != null)
           {
-            length2 = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Length2").Value;
+            length2 = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Length2").Value;
           }
-          if (defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Radius") != null)
+          if (defaultData.FirstOrDefault<Property>(x => x.Name == "Radius") != null)
           {
-            radius = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Radius").Value;
+            radius = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Radius").Value;
           }
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
@@ -112,7 +112,7 @@ namespace AdvanceSteel.Nodes.Modifications
                                 [DefaultArgument("0")] int filletType,
                                 [DefaultArgument("0")] int plateFoldIndex,
                                 [DefaultArgument("0")] short cornerIndex,
-                                [DefaultArgument("null")] List<ASProperty> additionalPlateFeatureParameters)
+                                [DefaultArgument("null")] List<Property> additionalPlateFeatureParameters)
     {
       if (filletType != 0 && filletType != 1)
         throw new System.Exception("Fillet Type Can only be 0 or 1");
@@ -135,17 +135,17 @@ namespace AdvanceSteel.Nodes.Modifications
                             double length2,
                             [DefaultArgument("0")] int plateFoldIndex,
                             [DefaultArgument("0")] short cornerIndex,
-                            [DefaultArgument("null")] List<ASProperty> additionalPlateFeatureParameters)
+                            [DefaultArgument("null")] List<Property> additionalPlateFeatureParameters)
     {
       additionalPlateFeatureParameters = PreSetDefaults(additionalPlateFeatureParameters, plateFoldIndex, cornerIndex, Utils.ToInternalUnits(length1, true), Utils.ToInternalUnits(length2, true));
       return new PlateVertexCut(element, 2, additionalPlateFeatureParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listPlateFeatureData, int conIndex = -1, short vertIndex = -1, double length1 = 0, double length2 = 0, double radius = 0)
+    private static List<Property> PreSetDefaults(List<Property> listPlateFeatureData, int conIndex = -1, short vertIndex = -1, double length1 = 0, double length2 = 0, double radius = 0)
     {
       if (listPlateFeatureData == null)
       {
-        listPlateFeatureData = new List<ASProperty>() { };
+        listPlateFeatureData = new List<Property>() { };
       }
       if (conIndex > -1) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "ContourIndex", conIndex, ".");
       if (vertIndex > -1) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "VertexIndex", vertIndex, ".");

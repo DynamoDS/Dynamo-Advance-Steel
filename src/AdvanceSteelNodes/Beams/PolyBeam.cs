@@ -22,16 +22,16 @@ namespace AdvanceSteel.Nodes.Beams
 
     internal PolyBeam(Polyline3d poly,
                       Autodesk.DesignScript.Geometry.Vector vOrientation,
-                      List<ASProperty> beamProperties)
+                      List<Property> beamProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultData = beamProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
-          ASProperty foundProfName = beamProperties.FirstOrDefault<ASProperty>(x => x.Name == "ProfName");
+          List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+          Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
           string sectionName = "";
           if (foundProfName != null)
           {
@@ -104,7 +104,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <returns></returns>
     public static PolyBeam ByPolyCurve(Autodesk.DesignScript.Geometry.PolyCurve polyCurve,
                                         Autodesk.DesignScript.Geometry.Vector orientation,
-                                        [DefaultArgument("null")] List<ASProperty> additionalBeamParameters)
+                                        [DefaultArgument("null")] List<Property> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       Polyline3d poly = Utils.ToAstPolyline3d(polyCurve, true);
@@ -113,11 +113,11 @@ namespace AdvanceSteel.Nodes.Beams
       return new PolyBeam(poly, orientation, additionalBeamParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listBeamData)
+    private static List<Property> PreSetDefaults(List<Property> listBeamData)
     {
       if (listBeamData == null)
       {
-        listBeamData = new List<ASProperty>() { };
+        listBeamData = new List<Property>() { };
       }
       return listBeamData;
     }

@@ -17,17 +17,17 @@ namespace AdvanceSteel.Nodes.NonSteelItems
     {
     }
 
-    internal SpecialPart(Matrix3d insertMatrix, string blockName, List<ASProperty> cameraProperties)
+    internal SpecialPart(Matrix3d insertMatrix, string blockName, List<Property> cameraProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultData = cameraProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = cameraProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = cameraProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-          double scale = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Scale").Value;
+          double scale = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Scale").Value;
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -86,7 +86,7 @@ namespace AdvanceSteel.Nodes.NonSteelItems
     public static SpecialPart ByCSAndBlockName(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                               string blockName,
                               [DefaultArgument("1")] double scale,
-                              [DefaultArgument("null")] List<ASProperty> additionalSpecialPartsParameters)
+                              [DefaultArgument("null")] List<Property> additionalSpecialPartsParameters)
     {
       Matrix3d spMatrix = Utils.ToAstMatrix3d(coordinateSystem, true);
       additionalSpecialPartsParameters = PreSetDefaults(additionalSpecialPartsParameters, scale);
@@ -94,11 +94,11 @@ namespace AdvanceSteel.Nodes.NonSteelItems
       return new SpecialPart(spMatrix, blockName, additionalSpecialPartsParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listSpecialPartData, double scale)
+    private static List<Property> PreSetDefaults(List<Property> listSpecialPartData, double scale)
     {
       if (listSpecialPartData == null)
       {
-        listSpecialPartData = new List<ASProperty>() { };
+        listSpecialPartData = new List<Property>() { };
         Utils.CheckListUpdateOrAddValue(listSpecialPartData, "Scale", scale, ".");
       }
       return listSpecialPartData;

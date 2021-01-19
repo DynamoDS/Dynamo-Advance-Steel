@@ -17,17 +17,17 @@ namespace AdvanceSteel.Nodes.NonSteelItems
     {
     }
 
-    internal Camera(List<ASProperty> cameraProperties)
+    internal Camera(List<Property> cameraProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultData = cameraProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = cameraProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = cameraProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-          Matrix3d cameraMat = (Matrix3d)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "CameraCS").Value;
+          Matrix3d cameraMat = (Matrix3d)defaultData.FirstOrDefault<Property>(x => x.Name == "CameraCS").Value;
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -82,7 +82,7 @@ namespace AdvanceSteel.Nodes.NonSteelItems
     /// <param name="additionalCameraParameters"> Optional Input Camera Build Properties </param>
     /// <returns></returns>
     public static Camera ByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
-                                  [DefaultArgument("null")] List<ASProperty> additionalCameraParameters)
+                                  [DefaultArgument("null")] List<Property> additionalCameraParameters)
     {
       Matrix3d cameraMat = Utils.ToAstMatrix3d(coordinateSystem, true);
       additionalCameraParameters = PreSetDefaults(additionalCameraParameters, cameraMat);
@@ -90,11 +90,11 @@ namespace AdvanceSteel.Nodes.NonSteelItems
       return new Camera(additionalCameraParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listCameraData, Matrix3d cameraCS)
+    private static List<Property> PreSetDefaults(List<Property> listCameraData, Matrix3d cameraCS)
     {
       if (listCameraData == null)
       {
-        listCameraData = new List<ASProperty>() { };
+        listCameraData = new List<Property>() { };
       }
       Utils.CheckListUpdateOrAddValue(listCameraData, "CameraCS", cameraCS, ".");
       return listCameraData;

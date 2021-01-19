@@ -22,14 +22,14 @@ namespace AdvanceSteel.Nodes.Modifications
     internal BeamPlaneCut(AdvanceSteel.Nodes.SteelDbObject element,
                       Point3d cutPoint,
                       Vector3d normal,
-                      List<ASProperty> beamFeatureProperties)
+                      List<Property> beamFeatureProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -86,14 +86,14 @@ namespace AdvanceSteel.Nodes.Modifications
     internal BeamPlaneCut(AdvanceSteel.Nodes.SteelDbObject element,
                   int end,
                   double shorteningLength,
-                  List<ASProperty> beamFeatureProperties)
+                  List<Property> beamFeatureProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
           string elementHandle = element.Handle;
@@ -193,7 +193,7 @@ namespace AdvanceSteel.Nodes.Modifications
     /// <returns></returns>
     public static BeamPlaneCut ByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                     Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
-                                    [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
+                                    [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters);
       return new BeamPlaneCut(element, Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), additionalBeamFeatureParameters);
@@ -210,7 +210,7 @@ namespace AdvanceSteel.Nodes.Modifications
     public static BeamPlaneCut ByPointAndNormal(AdvanceSteel.Nodes.SteelDbObject element,
                                                 Autodesk.DesignScript.Geometry.Point origin,
                                                 Autodesk.DesignScript.Geometry.Vector normal,
-                                                [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
+                                                [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters);
       return new BeamPlaneCut(element, Utils.ToAstPoint(origin, true), Utils.ToAstVector3d(normal, true), additionalBeamFeatureParameters);
@@ -225,7 +225,7 @@ namespace AdvanceSteel.Nodes.Modifications
     /// <returns></returns>
     public static BeamPlaneCut ByStartValue(AdvanceSteel.Nodes.SteelDbObject element,
                         double shorteningLength,
-                        [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
+                        [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters);
       return new BeamPlaneCut(element, 0, Utils.ToInternalUnits(shorteningLength, true), additionalBeamFeatureParameters);
@@ -240,17 +240,17 @@ namespace AdvanceSteel.Nodes.Modifications
     /// <returns></returns>
     public static BeamPlaneCut ByEndValue(AdvanceSteel.Nodes.SteelDbObject element,
                         double shorteningLength,
-                        [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
+                        [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters);
       return new BeamPlaneCut(element, 1, Utils.ToInternalUnits(shorteningLength, true), additionalBeamFeatureParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listBeamFeatureData)
+    private static List<Property> PreSetDefaults(List<Property> listBeamFeatureData)
     {
       if (listBeamFeatureData == null)
       {
-        listBeamFeatureData = new List<ASProperty>() { };
+        listBeamFeatureData = new List<Property>() { };
       }
       return listBeamFeatureData;
     }

@@ -25,30 +25,30 @@ namespace AdvanceSteel.Nodes.Modifications
                       Autodesk.AdvanceSteel.Geometry.Vector3d normal,
                       Autodesk.AdvanceSteel.Geometry.Vector3d lengthVector,
                       int corner,
-                      List<ASProperty> beamFeatureProperties)
+                      List<Property> beamFeatureProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           double length = 0;
           double width = 0;
           double radius = 0;
 
-          if (defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Length") != null)
+          if (defaultData.FirstOrDefault<Property>(x => x.Name == "Length") != null)
           {
-            length = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Length").Value;
+            length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Length").Value;
           }
-          if (defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Width") != null)
+          if (defaultData.FirstOrDefault<Property>(x => x.Name == "Width") != null)
           {
-            width = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Width").Value;
+            width = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Width").Value;
           }
-          if (defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Radius") != null)
+          if (defaultData.FirstOrDefault<Property>(x => x.Name == "Radius") != null)
           {
-            radius = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "Radius").Value;
+            radius = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Radius").Value;
           }
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
@@ -172,14 +172,14 @@ namespace AdvanceSteel.Nodes.Modifications
                         Polyline3d cutPolyline,
                         Autodesk.AdvanceSteel.Geometry.Vector3d normal,
                         Autodesk.AdvanceSteel.Geometry.Vector3d lengthVector,
-                        List<ASProperty> beamFeatureProperties)
+                        List<Property> beamFeatureProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -255,7 +255,7 @@ namespace AdvanceSteel.Nodes.Modifications
     public static BeamPolycut FromListCurves(AdvanceSteel.Nodes.SteelDbObject element,
                                             List<Autodesk.DesignScript.Geometry.Curve> curves,
                                             Autodesk.DesignScript.Geometry.Vector lengthVec,
-                                            [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
+                                            [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
 
       Polyline3d curveCreatedPolyline = Utils.ToAstPolyline3d(curves, true);
@@ -278,7 +278,7 @@ namespace AdvanceSteel.Nodes.Modifications
     public static BeamPolycut FromPolyCurve(AdvanceSteel.Nodes.SteelDbObject element,
                                         Autodesk.DesignScript.Geometry.PolyCurve polyCurve,
                                         Autodesk.DesignScript.Geometry.Vector lengthVec,
-                                        [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
+                                        [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
 
       Polyline3d curveCreatedPolyline = Utils.ToAstPolyline3d(polyCurve, true);
@@ -308,7 +308,7 @@ namespace AdvanceSteel.Nodes.Modifications
                                     Autodesk.DesignScript.Geometry.Vector lengthVec,
                                     double length, double width,
                                     [DefaultArgument("-1")] int corner,
-                                    [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
+                                    [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true));
       return new BeamPolycut(element, 0, Utils.ToAstPoint(rectangleInsertPoint, true),
@@ -331,7 +331,7 @@ namespace AdvanceSteel.Nodes.Modifications
                         Autodesk.DesignScript.Geometry.Rectangle rectangle,
                         Autodesk.DesignScript.Geometry.Vector lengthVec,
                         [DefaultArgument("-1")] int corner,
-                        [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
+                        [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
       Autodesk.DesignScript.Geometry.Point rectangleInsertPoint = rectangle.Center();
       Autodesk.DesignScript.Geometry.Vector normal = rectangle.Normal;
@@ -363,7 +363,7 @@ namespace AdvanceSteel.Nodes.Modifications
                                 Autodesk.DesignScript.Geometry.Vector lengthVec,
                                 double radius,
                                 [DefaultArgument("-1")] int corner,
-                                [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
+                                [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, 0, 0, Utils.ToInternalUnits(radius, true));
       return new BeamPolycut(element, 0, Utils.ToAstPoint(circularInsertPoint, true),
@@ -386,7 +386,7 @@ namespace AdvanceSteel.Nodes.Modifications
                             Autodesk.DesignScript.Geometry.Circle circle,
                             Autodesk.DesignScript.Geometry.Vector lengthVec,
                             [DefaultArgument("-1")] int corner,
-                            [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
+                            [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
       Autodesk.DesignScript.Geometry.Point circularInsertPoint = circle.CenterPoint;
       Autodesk.DesignScript.Geometry.Vector normal = circle.Normal;
@@ -400,11 +400,11 @@ namespace AdvanceSteel.Nodes.Modifications
     }
 
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listBeamFeatureData, double length = 0, double width = 0, double radius = 0)
+    private static List<Property> PreSetDefaults(List<Property> listBeamFeatureData, double length = 0, double width = 0, double radius = 0)
     {
       if (listBeamFeatureData == null)
       {
-        listBeamFeatureData = new List<ASProperty>() { };
+        listBeamFeatureData = new List<Property>() { };
       }
       if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Length", length, ".");
       if (width > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Width", width, ".");

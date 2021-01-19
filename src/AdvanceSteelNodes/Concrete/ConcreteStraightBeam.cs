@@ -23,14 +23,14 @@ namespace AdvanceSteel.Nodes.Concrete
                               Autodesk.DesignScript.Geometry.Point ptStart,
                               Autodesk.DesignScript.Geometry.Point ptEnd,
                               Autodesk.DesignScript.Geometry.Vector vOrientation,
-                              List<ASProperty> concreteProperties)
+                              List<Property> concreteProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -98,7 +98,7 @@ namespace AdvanceSteel.Nodes.Concrete
     public static ConcreteStraightBeam ByStartPointEndPoint(string concName, Autodesk.DesignScript.Geometry.Point start,
                                                         Autodesk.DesignScript.Geometry.Point end,
                                                         Autodesk.DesignScript.Geometry.Vector orientation,
-                                                        [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
+                                                        [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new ConcreteStraightBeam(concName, start, end, orientation, additionalConcParameters);
@@ -118,7 +118,7 @@ namespace AdvanceSteel.Nodes.Concrete
                                                                 Autodesk.DesignScript.Geometry.Vector direction,
                                                                 Autodesk.DesignScript.Geometry.Vector orientation,
                                                                 double length,
-                                                                [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
+                                                                [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       Vector3d columnDirection = Utils.ToAstVector3d(direction, true).Normalize();
       Point3d tempPoint = Utils.ToAstPoint(start, true);
@@ -137,7 +137,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <returns></returns>
     public static ConcreteStraightBeam ByLine(string concName, Autodesk.DesignScript.Geometry.Line line,
                                           Autodesk.DesignScript.Geometry.Vector orientation,
-                                          [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
+                                          [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       Autodesk.DesignScript.Geometry.Point start = line.StartPoint;
       Autodesk.DesignScript.Geometry.Point end = line.EndPoint;
@@ -145,11 +145,11 @@ namespace AdvanceSteel.Nodes.Concrete
       return new ConcreteStraightBeam(concName, start, end, orientation, additionalConcParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listOfProps)
+    private static List<Property> PreSetDefaults(List<Property> listOfProps)
     {
       if (listOfProps == null)
       {
-        listOfProps = new List<ASProperty>() { };
+        listOfProps = new List<Property>() { };
       }
       return listOfProps;
     }

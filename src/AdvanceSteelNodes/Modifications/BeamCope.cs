@@ -21,20 +21,20 @@ namespace AdvanceSteel.Nodes.Modifications
     internal BeamCope(AdvanceSteel.Nodes.SteelDbObject element,
                       int end, int side,
                       int cnrType, double radius,
-                      List<ASProperty> beamFeatureProperties)
+                      List<Property> beamFeatureProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           double length = 0;
           double depth = 0;
 
-          length = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "ReferenceLength").Value;
-          depth = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "ReferenceDepth").Value;
+          length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceLength").Value;
+          depth = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceDepth").Value;
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -101,20 +101,20 @@ namespace AdvanceSteel.Nodes.Modifications
                   int end, int side,
                   int cnrType, double radius,
                   int rotationType,
-                  List<ASProperty> beamFeatureProperties)
+                  List<Property> beamFeatureProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           double length = 0;
           double depth = 0;
 
-          length = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "ReferenceLength").Value;
-          depth = (double)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "ReferenceDepth").Value;
+          length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceLength").Value;
+          depth = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceDepth").Value;
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -198,7 +198,7 @@ namespace AdvanceSteel.Nodes.Modifications
                                     [DefaultArgument("0")] double cornerRadius,
                                     [DefaultArgument("0")] int cornerType,
                                     [DefaultArgument("0")] int xRotationType,
-                                    [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
+                                    [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(depth, true));
       return new BeamCope(element, end, side, cornerType, Utils.ToInternalUnits(cornerRadius, true), xRotationType, additionalBeamFeatureParameters);
@@ -221,18 +221,18 @@ namespace AdvanceSteel.Nodes.Modifications
                                     double length, double depth,
                                     [DefaultArgument("0")] double cornerRadius,
                                     [DefaultArgument("0")] int cornerType,
-                                    [DefaultArgument("null")] List<ASProperty> additionalBeamFeatureParameters)
+                                    [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(depth, true));
       return new BeamCope(element, end, side, cornerType, Utils.ToInternalUnits(cornerRadius, true), additionalBeamFeatureParameters);
     }
 
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listBeamFeatureData, double length = 0, double depth = 0)
+    private static List<Property> PreSetDefaults(List<Property> listBeamFeatureData, double length = 0, double depth = 0)
     {
       if (listBeamFeatureData == null)
       {
-        listBeamFeatureData = new List<ASProperty>() { };
+        listBeamFeatureData = new List<Property>() { };
       }
       if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "ReferenceLength", length, ".");
       if (depth > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "ReferenceDepth", depth, ".");

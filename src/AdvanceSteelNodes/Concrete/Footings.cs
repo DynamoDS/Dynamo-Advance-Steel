@@ -19,14 +19,14 @@ namespace AdvanceSteel.Nodes.Concrete
 
     internal Footings(Point3d ptCenter, Vector3d vNormal,
                       double depth, double radius,
-                      List<ASProperty> concreteProperties)
+                      List<Property> concreteProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -81,14 +81,14 @@ namespace AdvanceSteel.Nodes.Concrete
 
     internal Footings(Point3d ptCenter, Vector3d vNormal,
                       double depth, double width, double length,
-                      List<ASProperty> concreteProperties)
+                      List<Property> concreteProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -155,7 +155,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <returns></returns>
     public static Footings ByRadiusOnCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                         double footingDepth, double footingRadius,
-                                        [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
+                                        [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new Footings(Utils.ToAstPoint(coordinateSystem.Origin, true),
@@ -175,7 +175,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <returns></returns>
     public static Footings ByLengthWidthOnCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                               double footingDepth, double footingWidth, double footingLength,
-                                              [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
+                                              [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new Footings(Utils.ToAstPoint(coordinateSystem.Origin, true),
@@ -184,11 +184,11 @@ namespace AdvanceSteel.Nodes.Concrete
                           additionalConcParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listOfProps)
+    private static List<Property> PreSetDefaults(List<Property> listOfProps)
     {
       if (listOfProps == null)
       {
-        listOfProps = new List<ASProperty>() { };
+        listOfProps = new List<Property>() { };
       }
       return listOfProps;
     }

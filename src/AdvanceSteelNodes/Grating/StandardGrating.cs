@@ -22,18 +22,18 @@ namespace AdvanceSteel.Nodes.Gratings
     {
     }
 
-    internal StandardGrating(Point3d ptCenter, Vector3d vNormal, List<ASProperty> additionalGratingParameters)
+    internal StandardGrating(Point3d ptCenter, Vector3d vNormal, List<Property> additionalGratingParameters)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultData = additionalGratingParameters.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = additionalGratingParameters.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-          string strClass = (string)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "GratingClass").Value;
-          string strName = (string)defaultData.FirstOrDefault<ASProperty>(x => x.Name == "GratingSize").Value;
+          string strClass = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingClass").Value;
+          string strName = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingSize").Value;
 
           Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
           Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
@@ -97,7 +97,7 @@ namespace AdvanceSteel.Nodes.Gratings
     public static StandardGrating ByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                         string gratingClass,
                                         string gratingName,
-                                        [DefaultArgument("null")] List<ASProperty> additionalGratingParameters)
+                                        [DefaultArgument("null")] List<Property> additionalGratingParameters)
     {
       additionalGratingParameters = PreSetDefaults(additionalGratingParameters, gratingClass, gratingName);
       return new StandardGrating(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), additionalGratingParameters);
@@ -118,7 +118,7 @@ namespace AdvanceSteel.Nodes.Gratings
                                     Autodesk.DesignScript.Geometry.Vector yVector,
                                     string gratingClass,
                                     string gratingName,
-                                    [DefaultArgument("null")] List<ASProperty> additionalGratingParameters)
+                                    [DefaultArgument("null")] List<Property> additionalGratingParameters)
     {
       Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem = Autodesk.DesignScript.Geometry.CoordinateSystem.ByOriginVectors(origin, xVector, yVector);
       additionalGratingParameters = PreSetDefaults(additionalGratingParameters, gratingClass, gratingName);
@@ -138,7 +138,7 @@ namespace AdvanceSteel.Nodes.Gratings
                                 Autodesk.DesignScript.Geometry.Vector normal,
                                 string gratingClass,
                                 string gratingName,
-                                [DefaultArgument("null")] List<ASProperty> additionalGratingParameters)
+                                [DefaultArgument("null")] List<Property> additionalGratingParameters)
     {
       Vector3d as_normal = Utils.ToAstVector3d(normal, true);
       Vector3d xWorldVec = Vector3d.kXAxis;
@@ -151,11 +151,11 @@ namespace AdvanceSteel.Nodes.Gratings
       return new StandardGrating(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), additionalGratingParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listGratingData, string gratingClass, string gratingName)
+    private static List<Property> PreSetDefaults(List<Property> listGratingData, string gratingClass, string gratingName)
     {
       if (listGratingData == null)
       {
-        listGratingData = new List<ASProperty>() { };
+        listGratingData = new List<Property>() { };
       }
       Utils.CheckListUpdateOrAddValue(listGratingData, "GratingClass", gratingClass, ".");
       Utils.CheckListUpdateOrAddValue(listGratingData, "GratingSize", gratingName, ".");

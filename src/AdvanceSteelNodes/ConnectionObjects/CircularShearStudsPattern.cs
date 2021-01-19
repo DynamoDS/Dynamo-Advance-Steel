@@ -24,7 +24,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
 
     internal CircularShearStudsPattern(string handleToConnect,
                                         SteelGeometry.Matrix3d coordSyst,
-                                        List<ASProperty> shearStudData,
+                                        List<Property> shearStudData,
                                         int boltCon)
     {
       lock (access_obj)
@@ -32,16 +32,16 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultShearStudData = shearStudData.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> arrangerShearStudData = shearStudData.Where(x => x.Level == "Arranger").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = shearStudData.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultShearStudData = shearStudData.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> arrangerShearStudData = shearStudData.Where(x => x.Level == "Arranger").ToList<Property>();
+          List<Property> postWriteDBData = shearStudData.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           Autodesk.AdvanceSteel.Modelling.Connector shearStuds = null;
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
-            var temp_radius = (double)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.Name == "Radius").Value;
-            var temp_noss = (int)arrangerShearStudData.FirstOrDefault<ASProperty>(x => x.Name == "NumberOfElements").Value;
+            var temp_radius = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Radius").Value;
+            var temp_noss = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "NumberOfElements").Value;
 
             shearStuds = new Autodesk.AdvanceSteel.Modelling.Connector();
             shearStuds.Arranger = new Autodesk.AdvanceSteel.Arrangement.CircleArranger(Matrix2d.kIdentity, temp_radius, temp_noss);
@@ -112,7 +112,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
                                                       double studDiameter,
                                                       [DefaultArgument("9;")] int noOfShearStudsInCircle,
                                                       [DefaultArgument("2;")] int shearStudConnectionType,
-                                                      [DefaultArgument("null")] List<ASProperty> additionalShearStudParameters)
+                                                      [DefaultArgument("null")] List<Property> additionalShearStudParameters)
     {
       var norm = Utils.ToAstVector3d(circle.Normal, true);
       var vx = Utils.ToAstVector3d(referenceVector, true);
@@ -155,7 +155,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
                                                         double studDiameter,
                                                         [DefaultArgument("9;")] int noOfShearStudsInCircle,
                                                         [DefaultArgument("2;")] int shearStudConnectionType,
-                                                        [DefaultArgument("null")] List<ASProperty> additionalShearStudParameters)
+                                                        [DefaultArgument("null")] List<Property> additionalShearStudParameters)
     {
       List<SteelDbObject> tempList = new List<SteelDbObject>() { objectToConnect };
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(tempList);
@@ -172,11 +172,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       return new CircularShearStudsPattern(handlesList[0], matrix3D, additionalShearStudParameters, shearStudConnectionType);
     }
 
-    private static void PreSetValuesInListProps(List<ASProperty> listOfBoltParameters, int noss, double radius, double studLength, double studDiameter)
+    private static void PreSetValuesInListProps(List<Property> listOfBoltParameters, int noss, double radius, double studLength, double studDiameter)
     {
       if (listOfBoltParameters == null)
       {
-        listOfBoltParameters = new List<ASProperty>() { };
+        listOfBoltParameters = new List<Property>() { };
       }
 
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "NumberOfElements", noss, "Arranger");

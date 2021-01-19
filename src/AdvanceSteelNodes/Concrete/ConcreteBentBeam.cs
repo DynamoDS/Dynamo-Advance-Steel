@@ -24,14 +24,14 @@ namespace AdvanceSteel.Nodes.Concrete
                           Autodesk.DesignScript.Geometry.Point ptEnd,
                           Autodesk.DesignScript.Geometry.Point ptOnArc,
                           Autodesk.DesignScript.Geometry.Vector vOrientation,
-                          List<ASProperty> concreteProperties)
+                          List<Property> concreteProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -102,7 +102,7 @@ namespace AdvanceSteel.Nodes.Concrete
                                                           Autodesk.DesignScript.Geometry.Point end,
                                                           Autodesk.DesignScript.Geometry.Point ptOnArc,
                                                           Autodesk.DesignScript.Geometry.Vector orientation,
-                                                          [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
+                                                          [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new ConcreteBentBeam(concName, start, end, ptOnArc, orientation, additionalConcParameters);
@@ -117,7 +117,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <returns></returns>
     public static ConcreteBentBeam ByArc(string concName,
                                       Autodesk.DesignScript.Geometry.Arc arc,
-                                      [DefaultArgument("null")] List<ASProperty> additionalConcParameters)
+                                      [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       Autodesk.DesignScript.Geometry.Point start = arc.StartPoint;
       Autodesk.DesignScript.Geometry.Point end = arc.EndPoint;
@@ -126,11 +126,11 @@ namespace AdvanceSteel.Nodes.Concrete
       return new ConcreteBentBeam(concName, start, end, ptOnArc, arc.Normal, additionalConcParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listOfProps)
+    private static List<Property> PreSetDefaults(List<Property> listOfProps)
     {
       if (listOfProps == null)
       {
-        listOfProps = new List<ASProperty>() { };
+        listOfProps = new List<Property>() { };
       }
       return listOfProps;
     }

@@ -26,7 +26,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     internal RectangularBoltPattern(SteelGeometry.Point3d boltPatternInsertPoint,
                                     SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
                                     IEnumerable<string> handlesToConnect,
-                                    List<ASProperty> boltData, int boltCon)
+                                    List<Property> boltData, int boltCon)
     {
       lock (access_obj)
       {
@@ -65,7 +65,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     internal RectangularBoltPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2,
                                             IEnumerable<string> handlesToConnect,
                                             SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
-                                            List<ASProperty> boltData, int boltCon)
+                                            List<Property> boltData, int boltCon)
     {
       lock (access_obj)
       {
@@ -129,7 +129,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
                                                       [DefaultArgument("2;")] int noOfBoltsY,
                                                       IEnumerable<SteelDbObject> objectsToConnect,
                                                       [DefaultArgument("2;")] int boltConnectionType,
-                                                      [DefaultArgument("null")] List<ASProperty> additionalBoltParameters)
+                                                      [DefaultArgument("null")] List<Property> additionalBoltParameters)
     {
       var norm = Utils.ToAstVector3d(rectangle.Normal, true);
 
@@ -163,7 +163,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
                                                   [DefaultArgument("2;")] int noOfBoltsY,
                                                   IEnumerable<SteelDbObject> objectsToConnect,
                                                   [DefaultArgument("2;")] int boltConnectionType,
-                                                  [DefaultArgument("null")] List<ASProperty> additionalBoltParameters)
+                                                  [DefaultArgument("null")] List<Property> additionalBoltParameters)
     {
       List<string> handlesList = new List<string>();
       handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
@@ -176,11 +176,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       return new RectangularBoltPattern(Utils.ToAstPoint(connectionPoint, true), vx, vy, handlesList, additionalBoltParameters, boltConnectionType);
     }
 
-    private static void PreSetValuesInListProps(List<ASProperty> listOfBoltParameters, int nx, int ny)
+    private static void PreSetValuesInListProps(List<Property> listOfBoltParameters, int nx, int ny)
     {
       if (listOfBoltParameters == null)
       {
-        listOfBoltParameters = new List<ASProperty>() { };
+        listOfBoltParameters = new List<Property>() { };
       }
 
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Nx", nx);
