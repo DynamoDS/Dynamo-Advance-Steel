@@ -6,8 +6,8 @@ using AdvanceSteel.Nodes.ConnectionObjects.Anchors;
 using AdvanceSteel.Nodes.ConnectionObjects.Bolts;
 using AdvanceSteel.Nodes.ConnectionObjects.ShearStuds;
 using AdvanceSteel.Nodes.ConnectionObjects.Welds;
-using AdvanceSteel.Nodes.Modifications;
-using AdvanceSteel.Nodes.NonSteelItems;
+using AdvanceSteel.Nodes.Features;
+using AdvanceSteel.Nodes.Miscellaneous;
 using Autodesk.AdvanceSteel.CADAccess;
 using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.DesignScript.Runtime;
@@ -794,7 +794,7 @@ namespace AdvanceSteel.Nodes
             obj is AdvanceSteel.Nodes.Beams.TaperedBeam ||
             obj is AdvanceSteel.Nodes.Beams.CompoundBeam ||
             obj is AdvanceSteel.Nodes.Plates.Plate ||
-            obj is AdvanceSteel.Nodes.NonSteelItems.SpecialPart)
+            obj is AdvanceSteel.Nodes.Miscellaneous.SpecialPart)
         {
           handlesList.Add(obj.Handle);
         }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 
-namespace AdvanceSteel.Nodes.NonSteelItems
+namespace AdvanceSteel.Nodes.Miscellaneous
 {
   /// <summary>
   /// Advance Steel Special Part
