@@ -27,7 +27,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
           List<Property> defaultData = cameraProperties.Where(x => x.Level == ".").ToList<Property>();
           List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-          Matrix3d cameraMat = (Matrix3d)defaultData.FirstOrDefault<Property>(x => x.Name == "CameraCS").Value;
+          Matrix3d cameraMat = (Matrix3d)defaultData.FirstOrDefault<Property>(x => x.Name == "CameraCS").InternalValue;
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 

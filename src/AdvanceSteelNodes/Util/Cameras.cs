@@ -45,8 +45,8 @@ namespace AdvanceSteel.Nodes.Util
         {
           Autodesk.AdvanceSteel.ConstructionHelper.Camera camera = obj as Autodesk.AdvanceSteel.ConstructionHelper.Camera;
           camera.setZClipping((Autodesk.AdvanceSteel.ConstructionHelper.eZClip)clippingSide,
-                              Utils.ToInternalUnits(upperClippingValue, true),
-                              Utils.ToInternalUnits(lowerClippingValue, true));
+                              Utils.ToInternalDistanceUnits(upperClippingValue, true),
+                              Utils.ToInternalDistanceUnits(lowerClippingValue, true));
         }
         else
           throw new System.Exception("Failed to Get Camera Object");
@@ -74,8 +74,8 @@ namespace AdvanceSteel.Nodes.Util
         {
           Autodesk.AdvanceSteel.ConstructionHelper.Camera camera = obj as Autodesk.AdvanceSteel.ConstructionHelper.Camera;
           camera.setXYExtents((Autodesk.AdvanceSteel.ConstructionHelper.Camera.eXYExtents)cameraExtents,
-                              Utils.ToInternalUnits(xCameraSize, true),
-                              Utils.ToInternalUnits(yCameraSize, true));
+                              Utils.ToInternalDistanceUnits(xCameraSize, true),
+                              Utils.ToInternalDistanceUnits(yCameraSize, true));
         }
         else
           throw new System.Exception("Failed to Get Camera Object");
@@ -109,8 +109,8 @@ namespace AdvanceSteel.Nodes.Util
           camera.getXYExtents(out extentsType, out xLength, out yLength);
           if (yLength >= 0)
           {
-            ret["X_Length"] = Utils.FromInternalUnits(xLength, true);
-            ret["Y_Length"] = Utils.FromInternalUnits(yLength, true);
+            ret["X_Length"] = Utils.FromInternalDistanceUnits(xLength, true);
+            ret["Y_Length"] = Utils.FromInternalDistanceUnits(yLength, true);
           }
         }
         else
@@ -146,8 +146,8 @@ namespace AdvanceSteel.Nodes.Util
           camera.getZClipping(out clipType, out nearSideClippingValue, out farSideClippingValue);
           if (nearSideClippingValue >= 0)
           {
-            ret["Nearside_Clipping"] = Utils.FromInternalUnits(nearSideClippingValue, true);
-            ret["Farside_Clipping"] = Utils.FromInternalUnits(farSideClippingValue, true);
+            ret["Nearside_Clipping"] = Utils.FromInternalDistanceUnits(nearSideClippingValue, true);
+            ret["Farside_Clipping"] = Utils.FromInternalDistanceUnits(farSideClippingValue, true);
           }
         }
         else

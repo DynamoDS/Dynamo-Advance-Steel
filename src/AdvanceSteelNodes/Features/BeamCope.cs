@@ -33,8 +33,8 @@ namespace AdvanceSteel.Nodes.Features
           double length = 0;
           double depth = 0;
 
-          length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceLength").Value;
-          depth = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceDepth").Value;
+          length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceLength").InternalValue;
+          depth = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceDepth").InternalValue;
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -113,8 +113,8 @@ namespace AdvanceSteel.Nodes.Features
           double length = 0;
           double depth = 0;
 
-          length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceLength").Value;
-          depth = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceDepth").Value;
+          length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceLength").InternalValue;
+          depth = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceDepth").InternalValue;
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -200,8 +200,8 @@ namespace AdvanceSteel.Nodes.Features
                                     [DefaultArgument("0")] int xRotationType,
                                     [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
-      additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(depth, true));
-      return new BeamCope(element, end, side, cornerType, Utils.ToInternalUnits(cornerRadius, true), xRotationType, additionalBeamFeatureParameters);
+      additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalDistanceUnits(length, true), Utils.ToInternalDistanceUnits(depth, true));
+      return new BeamCope(element, end, side, cornerType, Utils.ToInternalDistanceUnits(cornerRadius, true), xRotationType, additionalBeamFeatureParameters);
     }
 
     /// <summary>
@@ -223,8 +223,8 @@ namespace AdvanceSteel.Nodes.Features
                                     [DefaultArgument("0")] int cornerType,
                                     [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
-      additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(depth, true));
-      return new BeamCope(element, end, side, cornerType, Utils.ToInternalUnits(cornerRadius, true), additionalBeamFeatureParameters);
+      additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalDistanceUnits(length, true), Utils.ToInternalDistanceUnits(depth, true));
+      return new BeamCope(element, end, side, cornerType, Utils.ToInternalDistanceUnits(cornerRadius, true), additionalBeamFeatureParameters);
     }
 
 
@@ -250,8 +250,8 @@ namespace AdvanceSteel.Nodes.Features
 
           Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = beamFeat.CS;
           var poly = Autodesk.DesignScript.Geometry.Rectangle.ByWidthLength(Utils.ToDynCoordinateSys(matrix, true),
-                                                                  Utils.FromInternalUnits(beamFeat.ReferenceLength, true),
-                                                                  Utils.FromInternalUnits(beamFeat.ReferenceDepth, true));
+                                                                  Utils.FromInternalDistanceUnits(beamFeat.ReferenceLength, true),
+                                                                  Utils.FromInternalDistanceUnits(beamFeat.ReferenceDepth, true));
 
           return poly;
         }

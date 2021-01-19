@@ -87,7 +87,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       vy = vy.Normalize();
 
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
-      PreSetValuesInListProps(additionalAnchorBoltParameters, Utils.ToInternalUnits(circle.Radius, true));
+      PreSetValuesInListProps(additionalAnchorBoltParameters, Utils.ToInternalDistanceUnits(circle.Radius, true));
       return new CircularAnchorPattern(Utils.ToAstPoint(circle.CenterPoint, true), handlesList, vx, vy, additionalAnchorBoltParameters, anchorBoltConnectionType);
     }
 
@@ -152,7 +152,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
           using (var point = Utils.ToDynPoint(anchorPattern.RefPoint, true))
           using (var norm = Utils.ToDynVector(anchorPattern.Normal, true))
           {
-            return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadiusNormal(point, Utils.FromInternalUnits(anchorPattern.Radius, true), norm);
+            return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadiusNormal(point, Utils.FromInternalDistanceUnits(anchorPattern.Radius, true), norm);
           }
         }
       }

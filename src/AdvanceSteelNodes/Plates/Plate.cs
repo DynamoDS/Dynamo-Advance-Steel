@@ -220,7 +220,7 @@ namespace AdvanceSteel.Nodes.Plates
       if (width == 0)
         throw new System.Exception("Width Cant be Zero");
       additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
-      return new Plate(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), corner, additionalPlateParameters);
+      return new Plate(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true), Utils.ToInternalDistanceUnits(length, true), Utils.ToInternalDistanceUnits(width, true), corner, additionalPlateParameters);
     }
 
     /// <summary>
@@ -245,7 +245,7 @@ namespace AdvanceSteel.Nodes.Plates
       if (width == 0)
         throw new System.Exception("Width Cant be Zero");
       additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
-      return new Plate(Utils.ToAstPoint(origin, true), Utils.ToAstVector3d(normal, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true), corner, additionalPlateParameters);
+      return new Plate(Utils.ToAstPoint(origin, true), Utils.ToAstVector3d(normal, true), Utils.ToInternalDistanceUnits(length, true), Utils.ToInternalDistanceUnits(width, true), corner, additionalPlateParameters);
     }
 
     /// <summary>
@@ -306,7 +306,7 @@ namespace AdvanceSteel.Nodes.Plates
       Vector3d linNormVec = Utils.ToAstVector3d(normal, true);
       Vector3d linYvec = linXvec.CrossProduct(linNormVec);
       Point3d midPoint = Utils.GetMidPointBetween(originLine, secPoint);
-      double internWidth = (Utils.ToInternalUnits(width, true));
+      double internWidth = (Utils.ToInternalDistanceUnits(width, true));
       Point3d finalOrigin = new Point3d(midPoint).Add(linYvec.Normalize() * (internWidth / 2));
       Point3d pt4 = new Point3d(originLine).Add(linYvec.Normalize() * internWidth);
       Point3d pt3 = new Point3d(secPoint).Add(linYvec.Normalize() * internWidth);

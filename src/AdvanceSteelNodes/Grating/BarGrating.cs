@@ -102,7 +102,7 @@ namespace AdvanceSteel.Nodes.Gratings
       }
 
       additionalGratingParameters = PreSetDefaults(additionalGratingParameters);
-      return new BarGrating(planeNorm, refPoint, Utils.ToInternalUnits(line.Length, true), additionalGratingParameters);
+      return new BarGrating(planeNorm, refPoint, Utils.ToInternalDistanceUnits(line.Length, true), additionalGratingParameters);
     }
 
     private static List<Property> PreSetDefaults(List<Property> listGratingData)

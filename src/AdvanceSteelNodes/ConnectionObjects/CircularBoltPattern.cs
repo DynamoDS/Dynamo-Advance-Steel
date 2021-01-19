@@ -90,7 +90,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       vx = vx.Normalize();
       vy = vy.Normalize();
 
-      PreSetCircularValuesInListProps(additionalBoltParameters, Utils.ToInternalUnits(circle.Radius, true));
+      PreSetCircularValuesInListProps(additionalBoltParameters, Utils.ToInternalDistanceUnits(circle.Radius, true));
 
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
       return new CircularBoltPattern(Utils.ToAstPoint(circle.CenterPoint, true), handlesList, vx, vy, additionalBoltParameters, boltConnectionType);
@@ -150,7 +150,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
           using (var point = Utils.ToDynPoint(boltPattern.RefPoint, true))
           using (var norm = Utils.ToDynVector(boltPattern.Normal, true))
           {
-            return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadiusNormal(point, Utils.FromInternalUnits(boltPattern.Radius, true), norm);
+            return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadiusNormal(point, Utils.FromInternalDistanceUnits(boltPattern.Radius, true), norm);
           }
         }
       }

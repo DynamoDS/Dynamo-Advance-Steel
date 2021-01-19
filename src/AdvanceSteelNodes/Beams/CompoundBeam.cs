@@ -34,7 +34,7 @@ namespace AdvanceSteel.Nodes.Beams
           string sectionProfileName = "";
           if (foundProfName != null)
           {
-            sectionProfileName = (string)foundProfName.Value;
+            sectionProfileName = (string)foundProfName.InternalValue;
           }
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();

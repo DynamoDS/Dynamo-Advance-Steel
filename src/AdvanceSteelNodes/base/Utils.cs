@@ -123,7 +123,7 @@ namespace AdvanceSteel.Nodes
       return new Autodesk.AdvanceSteel.Geometry.Point3d(pt.X, pt.Y, pt.Z) * factor;
     }
 
-    static public Double ToInternalUnits(double value, bool bConvert)
+    static public Double ToInternalDistanceUnits(double value, bool bConvert)
     {
       double factor = 1.0;
       if (bConvert)
@@ -135,7 +135,7 @@ namespace AdvanceSteel.Nodes
       return (value * factor);
     }
 
-    static public Double FromInternalUnits(double value, bool bConvertFromAstUnits)
+    static public Double FromInternalDistanceUnits(double value, bool bConvertFromAstUnits)
     {
       double factor = 1.0;
       if (bConvertFromAstUnits)
@@ -336,7 +336,7 @@ namespace AdvanceSteel.Nodes
                                                                                                             nextCurve.EndPoint);
 
               PolyPoint[i] = Utils.ToAstPoint(tempArc.StartPoint, bConvertToAstUnits);
-              PolyVertexs[i] = new VertexInfo(Utils.FromInternalUnits(tempArc.Radius, bConvertToAstUnits),
+              PolyVertexs[i] = new VertexInfo(Utils.FromInternalDistanceUnits(tempArc.Radius, bConvertToAstUnits),
                                     Utils.ToAstPoint(tempArc.CenterPoint, bConvertToAstUnits),
                                     Utils.ToAstVector3d(tempArc.Normal, bConvertToAstUnits));
             }
@@ -374,7 +374,7 @@ namespace AdvanceSteel.Nodes
         if (arc != null)
         {
           PolyPoint[i] = Utils.ToAstPoint(arc.StartPoint, bConvertToAstUnits);
-          PolyVertexs[i] = new VertexInfo(Utils.FromInternalUnits(arc.Radius, bConvertToAstUnits),
+          PolyVertexs[i] = new VertexInfo(Utils.FromInternalDistanceUnits(arc.Radius, bConvertToAstUnits),
                                 Utils.ToAstPoint(arc.CenterPoint, bConvertToAstUnits),
                                 Utils.ToAstVector3d(arc.Normal, bConvertToAstUnits));
         }
@@ -1773,7 +1773,7 @@ namespace AdvanceSteel.Nodes
       var foundItem = listOfPropertyData.FirstOrDefault<Property>(props => props.Name == propName);
       if (foundItem != null)
       {
-        foundItem.Value = propValue;
+        foundItem.InternalValue = propValue;
       }
       else
       {

@@ -27,19 +27,21 @@ namespace AdvanceSteel.Nodes
 
     internal Property(string name, System.Type propType, string level = ".", bool isReadOnly = false)
     {
-      Name = name;
-      _valueType = propType;
-      Level = level;
       _isReadOnly = isReadOnly;
+      _name = name;
+      _valueType = propType;
+      
+      Level = level;
     }
 
     internal Property(string name, object value, System.Type propType, string level = ".", bool isReadOnly = false)
     {
-      Name = name;
-      _valueType = propType;
-      Value = value;
-      Level = level;
       _isReadOnly = isReadOnly;
+      _name = name;
+      _valueType = propType;
+      
+      InternalValue = value;
+      Level = level;
     }
 
     /// <summary>
@@ -49,18 +51,7 @@ namespace AdvanceSteel.Nodes
     {
       get
       {
-        return _value;
-      }
-      internal set
-      {
-        if (_valueType == typeof(int) && IsInteger(value))
-          _value = Convert.ToInt32(value);
-        else if (_valueType == typeof(double) && IsInteger(value))
-          _value = Convert.ToDouble(Value);
-        else if (_valueType.Equals(value.GetType()))
-          _value = value;
-        else
-          throw new System.Exception("invalid value");          
+        return ConvertValueFromASToDyn(InternalValue);
       }
     }
 
@@ -72,10 +63,6 @@ namespace AdvanceSteel.Nodes
       get
       {
         return _name;
-      }
-      internal set
-      {
-        _name = value;
       }
     }
 
@@ -101,7 +88,7 @@ namespace AdvanceSteel.Nodes
       Property selectedProperty = Utils.GetProperty(name);
       if (selectedProperty != null)
       {
-         selectedProperty.Value = value;
+         selectedProperty.InternalValue = ConvertValueFromDynToAS(value);
       }
       else
         throw new System.Exception("No property found for the given name");
@@ -196,6 +183,31 @@ namespace AdvanceSteel.Nodes
       return Name?.ToString() + " = " + Value?.ToString();
     }
 
+    #region internal stuff
+
+    /// <summary>
+    /// This property keeps the property value in the internal units and uses AS API classes: like Matrix3d, Point3d, Vector3d
+    /// </summary>
+    internal object InternalValue
+    {
+      get
+      {
+        return _value;
+      }
+      set
+      {
+        object valueToSet = value;
+        if (_valueType == typeof(int) && IsInteger(valueToSet))
+          _value = Convert.ToInt32(valueToSet);
+        else if (_valueType == typeof(double) && IsInteger(valueToSet))
+          _value = Convert.ToDouble(valueToSet);
+        else if (_valueType.Equals(valueToSet.GetType()))
+          _value = valueToSet;
+        else
+          throw new System.Exception("invalid value");
+      }
+    }
+
     internal bool SetToObject(object objectToUpdate)
     {
       if (IsReadOnly)
@@ -203,7 +215,7 @@ namespace AdvanceSteel.Nodes
 
       if (objectToUpdate != null && !IsReadOnly)
       {
-        objectToUpdate.GetType().GetProperty(Name).SetValue(objectToUpdate, Value);
+        objectToUpdate.GetType().GetProperty(Name).SetValue(objectToUpdate, InternalValue);
         return true;
       }
 
@@ -216,7 +228,7 @@ namespace AdvanceSteel.Nodes
       {
         try
         {
-          Value = objectToUpdateFrom.GetType().GetProperty(Name).GetValue(objectToUpdateFrom, null);
+          InternalValue = objectToUpdateFrom.GetType().GetProperty(Name).GetValue(objectToUpdateFrom, null);
           return true;
         }
         catch (Exception)
@@ -227,6 +239,50 @@ namespace AdvanceSteel.Nodes
       else
       {
         throw new System.Exception("Null object");
+      }
+    }
+    internal static object ConvertValueFromDynToAS(object val)
+    {
+      if (val == null)
+        return null;
+
+      if (val.GetType() == typeof(Autodesk.DesignScript.Geometry.Point))
+      {
+        return Utils.ToAstPoint(val as Autodesk.DesignScript.Geometry.Point, true);
+      }
+      else if (val.GetType() == typeof(Autodesk.DesignScript.Geometry.Vector))
+      {
+        return Utils.ToAstVector3d(val as Autodesk.DesignScript.Geometry.Vector, true);
+      }
+      else if (val.GetType() == typeof(Autodesk.DesignScript.Geometry.CoordinateSystem))
+      {
+        return Utils.ToAstMatrix3d(val as Autodesk.DesignScript.Geometry.CoordinateSystem, true);
+      }
+      else
+      {
+        return val;
+      }
+    }
+    internal static object ConvertValueFromASToDyn(object val)
+    {
+      if (val == null)
+        return null;
+
+      if (val.GetType() == typeof(Point3d))
+      {
+        return Utils.ToDynPoint(val as Point3d, true);
+      }
+      else if (val.GetType() == typeof(Vector3d))
+      {
+        return Utils.ToDynVector(val as Vector3d, true);
+      }
+      else if (val.GetType() == typeof(Matrix3d))
+      {
+        return Utils.ToDynCoordinateSys(val as Matrix3d, true);
+      }
+      else
+      {
+        return val;
       }
     }
 
@@ -246,5 +302,6 @@ namespace AdvanceSteel.Nodes
 
       return false;
     }
+    #endregion
   }
 }

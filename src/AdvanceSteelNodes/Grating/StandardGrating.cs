@@ -32,8 +32,8 @@ namespace AdvanceSteel.Nodes.Gratings
           List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == ".").ToList<Property>();
           List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-          string strClass = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingClass").Value;
-          string strName = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingSize").Value;
+          string strClass = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingClass").InternalValue;
+          string strName = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingSize").InternalValue;
 
           Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
           Autodesk.AdvanceSteel.Modelling.Grating gratings = null;

@@ -269,8 +269,8 @@ namespace AdvanceSteel.Nodes.Concrete
                                                 [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new Walls(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(height, true),
-                                 Utils.ToInternalUnits(thickness, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true),
+      return new Walls(Utils.ToAstPoint(coordinateSystem.Origin, true), Utils.ToInternalDistanceUnits(length, true), Utils.ToInternalDistanceUnits(height, true),
+                                 Utils.ToInternalDistanceUnits(thickness, true), Utils.ToAstVector3d(coordinateSystem.ZAxis, true),
                                  additionalConcParameters);
     }
 
@@ -288,8 +288,8 @@ namespace AdvanceSteel.Nodes.Concrete
                                                   [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new Walls(Utils.ToAstPoint(plane.Origin, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(height, true),
-                                 Utils.ToInternalUnits(thickness, true), Utils.ToAstVector3d(plane.Normal, true),
+      return new Walls(Utils.ToAstPoint(plane.Origin, true), Utils.ToInternalDistanceUnits(length, true), Utils.ToInternalDistanceUnits(height, true),
+                                 Utils.ToInternalDistanceUnits(thickness, true), Utils.ToAstVector3d(plane.Normal, true),
                                  additionalConcParameters);
     }
 
@@ -305,7 +305,7 @@ namespace AdvanceSteel.Nodes.Concrete
                                       [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new Walls(poly, Utils.ToInternalUnits(thickness, true), additionalConcParameters);
+      return new Walls(poly, Utils.ToInternalDistanceUnits(thickness, true), additionalConcParameters);
     }
 
     /// <summary>
@@ -324,8 +324,8 @@ namespace AdvanceSteel.Nodes.Concrete
                                                   [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new Walls(Utils.ToAstMatrix3d(coordinateSystem, true), Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(height, true),
-                                 Utils.ToInternalUnits(thickness, true), additionalConcParameters);
+      return new Walls(Utils.ToAstMatrix3d(coordinateSystem, true), Utils.ToInternalDistanceUnits(length, true), Utils.ToInternalDistanceUnits(height, true),
+                                 Utils.ToInternalDistanceUnits(thickness, true), additionalConcParameters);
     }
 
     private static List<Property> PreSetDefaults(List<Property> listOfProps)

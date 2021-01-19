@@ -40,8 +40,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
-            var temp_radius = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Radius").Value;
-            var temp_noss = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "NumberOfElements").Value;
+            var temp_radius = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Radius").InternalValue;
+            var temp_noss = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "NumberOfElements").InternalValue;
 
             shearStuds = new Autodesk.AdvanceSteel.Modelling.Connector();
             shearStuds.Arranger = new Autodesk.AdvanceSteel.Arrangement.CircleArranger(Matrix2d.kIdentity, temp_radius, temp_noss);
@@ -129,7 +129,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       Matrix3d matrix3D = new Matrix3d();
       matrix3D.SetCoordSystem(Utils.ToAstPoint(circle.CenterPoint, true), vx, vy, vz);
 
-      PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsInCircle, Utils.ToInternalUnits(circle.Radius, true), Utils.ToInternalUnits(studLength, true), Utils.ToInternalUnits(studDiameter, true));
+      PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsInCircle, Utils.ToInternalDistanceUnits(circle.Radius, true), Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
 
       return new CircularShearStudsPattern(handlesList[0], matrix3D, additionalShearStudParameters, shearStudConnectionType);
     }
@@ -167,7 +167,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       Matrix3d matrix3D = new Matrix3d();
       matrix3D.SetCoordSystem(Utils.ToAstPoint(connectionPoint, true), vx, vy, vz);
 
-      PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsInCircle, Utils.ToInternalUnits(patternRadius, true), Utils.ToInternalUnits(studLength, true), Utils.ToInternalUnits(studDiameter, true));
+      PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsInCircle, Utils.ToInternalDistanceUnits(patternRadius, true), Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
 
       return new CircularShearStudsPattern(handlesList[0], matrix3D, additionalShearStudParameters, shearStudConnectionType);
     }
@@ -200,7 +200,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
           using (var point = Utils.ToDynPoint(shearStud.CenterPoint, true))
           using (var norm = Utils.ToDynVector(shearStud.Normal, true))
           {
-            return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadiusNormal(point, Utils.FromInternalUnits(shearStud.Arranger.Radius, true), norm);
+            return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadiusNormal(point, Utils.FromInternalDistanceUnits(shearStud.Arranger.Radius, true), norm);
           }
         }
       }

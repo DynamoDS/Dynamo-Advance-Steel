@@ -40,15 +40,15 @@ namespace AdvanceSteel.Nodes.Features
 
           if (defaultData.FirstOrDefault<Property>(x => x.Name == "Length") != null)
           {
-            length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Length").Value;
+            length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Length").InternalValue;
           }
           if (defaultData.FirstOrDefault<Property>(x => x.Name == "Width") != null)
           {
-            width = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Width").Value;
+            width = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Width").InternalValue;
           }
           if (defaultData.FirstOrDefault<Property>(x => x.Name == "Radius") != null)
           {
-            radius = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Radius").Value;
+            radius = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Radius").InternalValue;
           }
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
@@ -310,7 +310,7 @@ namespace AdvanceSteel.Nodes.Features
                                     [DefaultArgument("-1")] int corner,
                                     [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
-      additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true));
+      additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalDistanceUnits(length, true), Utils.ToInternalDistanceUnits(width, true));
       return new BeamPolycut(element, 0, Utils.ToAstPoint(rectangleInsertPoint, true),
                               Utils.ToAstVector3d(normal, true),
                               Utils.ToAstVector3d(lengthVec, true),
@@ -338,7 +338,7 @@ namespace AdvanceSteel.Nodes.Features
       double length = rectangle.Width;
       double width = rectangle.Height;
 
-      additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true));
+      additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, Utils.ToInternalDistanceUnits(length, true), Utils.ToInternalDistanceUnits(width, true));
       return new BeamPolycut(element, 0, Utils.ToAstPoint(rectangleInsertPoint, true),
                               Utils.ToAstVector3d(normal, true),
                               Utils.ToAstVector3d(lengthVec, true),
@@ -365,7 +365,7 @@ namespace AdvanceSteel.Nodes.Features
                                 [DefaultArgument("-1")] int corner,
                                 [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
-      additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, 0, 0, Utils.ToInternalUnits(radius, true));
+      additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, 0, 0, Utils.ToInternalDistanceUnits(radius, true));
       return new BeamPolycut(element, 0, Utils.ToAstPoint(circularInsertPoint, true),
                               Utils.ToAstVector3d(normal, true),
                               Utils.ToAstVector3d(lengthVec, true),
@@ -391,7 +391,7 @@ namespace AdvanceSteel.Nodes.Features
       Autodesk.DesignScript.Geometry.Point circularInsertPoint = circle.CenterPoint;
       Autodesk.DesignScript.Geometry.Vector normal = circle.Normal;
 
-      additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, 0, 0, Utils.ToInternalUnits(circle.Radius, true));
+      additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters, 0, 0, Utils.ToInternalDistanceUnits(circle.Radius, true));
       return new BeamPolycut(element, 0, Utils.ToAstPoint(circularInsertPoint, true),
                               Utils.ToAstVector3d(normal, true),
                               Utils.ToAstVector3d(lengthVec, true),

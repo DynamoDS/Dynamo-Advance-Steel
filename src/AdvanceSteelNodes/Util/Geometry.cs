@@ -258,7 +258,7 @@ namespace AdvanceSteel.Nodes.Util
       {
         Point3d newPoint = Utils.ToAstPoint(point, true);
         Vector3d vector = Utils.ToAstVector3d(direction, true);
-        newPoint = newPoint.Add(vector * Utils.ToInternalUnits(distance, true));
+        newPoint = newPoint.Add(vector * Utils.ToInternalDistanceUnits(distance, true));
         ret = Utils.ToDynPoint(newPoint, true);
       }
       return ret;
@@ -280,7 +280,7 @@ namespace AdvanceSteel.Nodes.Util
       {
         Point3d newPoint = Utils.ToAstPoint(point, true);
         Vector3d vector = Utils.ToAstVector3d(planeNormal, true);
-        newPoint = newPoint.Add(vector * Utils.ToInternalUnits(distance, true));
+        newPoint = newPoint.Add(vector * Utils.ToInternalDistanceUnits(distance, true));
         ret = Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(Utils.ToDynPoint(newPoint, true), planeNormal);
       }
       return ret;
@@ -303,8 +303,8 @@ namespace AdvanceSteel.Nodes.Util
         Point3d orginPoint = Utils.ToAstPoint(centrePoint, true);
         Vector3d posVector = Utils.ToAstVector3d(planeNormal, true);
         Vector3d negVector = new Vector3d(posVector).Negate();
-        Point3d posPoint = new Point3d(orginPoint).Add(posVector * Utils.ToInternalUnits(distance, true));
-        Point3d negPoint = new Point3d(orginPoint).Add(negVector * Utils.ToInternalUnits(distance, true));
+        Point3d posPoint = new Point3d(orginPoint).Add(posVector * Utils.ToInternalDistanceUnits(distance, true));
+        Point3d negPoint = new Point3d(orginPoint).Add(negVector * Utils.ToInternalDistanceUnits(distance, true));
         ret.Add(Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(Utils.ToDynPoint(posPoint, true), planeNormal));
         ret.Add(Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(Utils.ToDynPoint(negPoint, true), planeNormal));
       }

@@ -34,7 +34,7 @@ namespace AdvanceSteel.Nodes.Beams
           List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
           List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
           Property foundThickness = beamProperties.FirstOrDefault<Property>(x => x.Name == "Thickness");
-          double thickness = (double)foundThickness.Value;
+          double thickness = (double)foundThickness.InternalValue;
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
@@ -111,7 +111,7 @@ namespace AdvanceSteel.Nodes.Beams
                                                     double thickness,
                                                     [DefaultArgument("null")] List<Property> additionalBeamParameters)
     {
-      additionalBeamParameters = PreSetDefaults(additionalBeamParameters, Utils.ToInternalUnits(thickness, true));
+      additionalBeamParameters = PreSetDefaults(additionalBeamParameters, Utils.ToInternalDistanceUnits(thickness, true));
       CircArc3d cc = new CircArc3d(Utils.ToAstPoint(startPointCurve, true),
                                     Utils.ToAstPoint(pointOnCurve, true),
                                     Utils.ToAstPoint(endPointCurve, true));
@@ -139,7 +139,7 @@ namespace AdvanceSteel.Nodes.Beams
                                                 double thickness,
                                                 [DefaultArgument("null")] List<Property> additionalBeamParameters)
     {
-      additionalBeamParameters = PreSetDefaults(additionalBeamParameters, Utils.ToInternalUnits(thickness, true));
+      additionalBeamParameters = PreSetDefaults(additionalBeamParameters, Utils.ToInternalDistanceUnits(thickness, true));
       CircArc3d cc = new CircArc3d(Utils.ToAstPoint(arc.StartPoint, true),
                                     Utils.ToAstPoint(arc.PointAtSegmentLength(arc.Length / 2), true),
                                     Utils.ToAstPoint(arc.EndPoint, true));
@@ -167,7 +167,7 @@ namespace AdvanceSteel.Nodes.Beams
                                             double thickness,
                                             [DefaultArgument("null")] List<Property> additionalBeamParameters)
     {
-      additionalBeamParameters = PreSetDefaults(additionalBeamParameters, Utils.ToInternalUnits(thickness, true));
+      additionalBeamParameters = PreSetDefaults(additionalBeamParameters, Utils.ToInternalDistanceUnits(thickness, true));
       Polyline3d poly = Utils.ToAstPolyline3d(polyCurve, true);
       if (poly == null)
         throw new System.Exception("No Valid Poly");

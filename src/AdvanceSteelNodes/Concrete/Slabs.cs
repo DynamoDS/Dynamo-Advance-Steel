@@ -257,9 +257,9 @@ namespace AdvanceSteel.Nodes.Concrete
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new Slabs(Utils.ToAstPoint(coordinateSystem.Origin, true),
-                                  Utils.ToInternalUnits(width, true),
-                                  Utils.ToInternalUnits(length, true),
-                                  Utils.ToInternalUnits(thickness, true),
+                                  Utils.ToInternalDistanceUnits(width, true),
+                                  Utils.ToInternalDistanceUnits(length, true),
+                                  Utils.ToInternalDistanceUnits(thickness, true),
                                   Utils.ToAstVector3d(coordinateSystem.ZAxis, true),
                                   additionalConcParameters);
     }
@@ -278,8 +278,8 @@ namespace AdvanceSteel.Nodes.Concrete
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new Slabs(Utils.ToAstPoint(coordinateSystem.Origin, true),
-                        Utils.ToInternalUnits(radius, true),
-                        Utils.ToInternalUnits(thickness, true),
+                        Utils.ToInternalDistanceUnits(radius, true),
+                        Utils.ToInternalDistanceUnits(thickness, true),
                         Utils.ToAstVector3d(coordinateSystem.ZAxis, true),
                         additionalConcParameters);
     }

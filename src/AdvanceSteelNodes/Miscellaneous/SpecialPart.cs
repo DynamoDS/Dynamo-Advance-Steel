@@ -27,7 +27,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
           List<Property> defaultData = cameraProperties.Where(x => x.Level == ".").ToList<Property>();
           List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-          double scale = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Scale").Value;
+          double scale = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Scale").InternalValue;
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 

@@ -33,8 +33,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
         List<Property> arrangerShearStudData = shearStudData.Where(x => x.Level == "Arranger").ToList<Property>();
         List<Property> postWriteDBData = shearStudData.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-        int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Nx").Value;
-        int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Ny").Value;
+        int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Nx").InternalValue;
+        int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Ny").InternalValue;
 
         var dx = Utils.GetRectangleLength(astPoint1, astPoint2, vx) / (temp_nx - 1);
         Utils.CheckListUpdateOrAddValue(arrangerShearStudData, "Dx", dx, "Arranger");
@@ -118,10 +118,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
 
-            double temp_Dx = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Dx").Value;
-            double temp_Dy = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Dy").Value;
-            int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Nx").Value;
-            int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Ny").Value;
+            double temp_Dx = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Dx").InternalValue;
+            double temp_Dy = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Dy").InternalValue;
+            int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Nx").InternalValue;
+            int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Ny").InternalValue;
 
             shearStuds = new Autodesk.AdvanceSteel.Modelling.Connector();
             Autodesk.AdvanceSteel.Arrangement.Arranger arranger = new Autodesk.AdvanceSteel.Arrangement.RectangularArranger(Matrix2d.kIdentity, temp_Dx, temp_Dy, temp_nx, temp_ny);
@@ -210,7 +210,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       Matrix3d matrix3D = new Matrix3d();
       matrix3D.SetCoordSystem(rectangleCenter, vx, vy, vz);
 
-      PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsX, noOfShearStudsY, Utils.ToInternalUnits(studLength, true), Utils.ToInternalUnits(studDiameter, true));
+      PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsX, noOfShearStudsY, Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
 
       return new RectangularShearStudsPattern(astCorners[0], astCorners[2], handlesList[0], vx, vy, matrix3D,
                                               additionalShearStudParameters, shearStudConnectionType);
@@ -255,10 +255,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
 
       PreSetValuesInListProps(additionalShearStudParameters,
                               noOfShearStudsX, noOfShearStudsY,
-                              Utils.ToInternalUnits(studLength, true), Utils.ToInternalUnits(studDiameter, true));
+                              Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
 
-      Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, "Dx", Utils.ToInternalUnits(studSpacingX, true), "Arranger");
-      Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, "Dy", Utils.ToInternalUnits(studSpacingY, true), "Arranger");
+      Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, "Dx", Utils.ToInternalDistanceUnits(studSpacingX, true), "Arranger");
+      Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, "Dy", Utils.ToInternalDistanceUnits(studSpacingY, true), "Arranger");
 
       return new RectangularShearStudsPattern(handlesList[0], matrix3D, additionalShearStudParameters, shearStudConnectionType);
     }

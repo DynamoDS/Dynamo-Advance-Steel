@@ -223,7 +223,7 @@ namespace AdvanceSteel.Nodes.Util
                                                           out webAngleAtEnd);
               if (executed > 0)
               {
-                ret["SawLength"] = Utils.FromInternalUnits(sawLength, true);
+                ret["SawLength"] = Utils.FromInternalDistanceUnits(sawLength, true);
                 ret["FlangeAngleAtStart"] = Utils.FromInternalAngleUnits(flangeAngleAtStart, true);
                 ret["WebAngleAtStart"] = Utils.FromInternalAngleUnits(webAngleAtStart, true);
                 ret["FlangeAngleAtEnd"] = Utils.FromInternalAngleUnits(flangeAngleAtEnd, true);
@@ -285,7 +285,7 @@ namespace AdvanceSteel.Nodes.Util
               weightPerUnit = selectedObj.GetWeightPerMeter();
               profileTypeCode = selectedObj.GetProfType().GetDSTVValues().GetProfileTypeString();
               profileType = (int)selectedObj.GetProfType().GetDSTVValues().DSTVType;
-              ret["Length"] = Utils.FromInternalUnits(length, true);
+              ret["Length"] = Utils.FromInternalDistanceUnits(length, true);
               ret["PaintArea"] = Utils.FromInternalAreaUnits(paintArea, true);
               ret["ExactWeight"] = Utils.FromInternalWeightUnits(weight, true);
               ret["WeightPerUnit"] = Utils.FromInternalWeightPerDistanceUnits(weightPerUnit, true);

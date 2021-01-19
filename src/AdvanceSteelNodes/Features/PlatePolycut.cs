@@ -37,15 +37,15 @@ namespace AdvanceSteel.Nodes.Features
 
           if (defaultData.FirstOrDefault<Property>(x => x.Name == "Length") != null)
           {
-            length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Length").Value;
+            length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Length").InternalValue;
           }
           if (defaultData.FirstOrDefault<Property>(x => x.Name == "Width") != null)
           {
-            width = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Width").Value;
+            width = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Width").InternalValue;
           }
           if (defaultData.FirstOrDefault<Property>(x => x.Name == "Radius") != null)
           {
-            radius = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Radius").Value;
+            radius = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Radius").InternalValue;
           }
 
           string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
@@ -247,8 +247,8 @@ namespace AdvanceSteel.Nodes.Features
                                     [DefaultArgument("-1")] int corner,
                                     [DefaultArgument("null")] List<Property> additionalPlateFeatureParameters)
     {
-      additionalPlateFeatureParameters = PreSetDefaults(additionalPlateFeatureParameters, Utils.ToInternalUnits(length, true), Utils.ToInternalUnits(width, true));
-      return new PlatePolycut(element, Utils.ToInternalUnits(xOffset, true), Utils.ToInternalUnits(yOffset, true), corner, 0, additionalPlateFeatureParameters);
+      additionalPlateFeatureParameters = PreSetDefaults(additionalPlateFeatureParameters, Utils.ToInternalDistanceUnits(length, true), Utils.ToInternalDistanceUnits(width, true));
+      return new PlatePolycut(element, Utils.ToInternalDistanceUnits(xOffset, true), Utils.ToInternalDistanceUnits(yOffset, true), corner, 0, additionalPlateFeatureParameters);
     }
 
     /// <summary>
@@ -268,8 +268,8 @@ namespace AdvanceSteel.Nodes.Features
                                 [DefaultArgument("-1")] int corner,
                                 [DefaultArgument("null")] List<Property> additionalPlateFeatureParameters)
     {
-      additionalPlateFeatureParameters = PreSetDefaults(additionalPlateFeatureParameters, 0, 0, Utils.ToInternalUnits(radius, true));
-      return new PlatePolycut(element, Utils.ToInternalUnits(xOffset, true), Utils.ToInternalUnits(yOffset, true), corner, 1, additionalPlateFeatureParameters);
+      additionalPlateFeatureParameters = PreSetDefaults(additionalPlateFeatureParameters, 0, 0, Utils.ToInternalDistanceUnits(radius, true));
+      return new PlatePolycut(element, Utils.ToInternalDistanceUnits(xOffset, true), Utils.ToInternalDistanceUnits(yOffset, true), corner, 1, additionalPlateFeatureParameters);
     }
 
     /// <summary>

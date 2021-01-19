@@ -129,9 +129,9 @@ namespace AdvanceSteel.Nodes.Beams
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       return new TaperedBeam(start, end, vOrientation,
-                              Utils.ToInternalUnits(startHeight, true),
-                              Utils.ToInternalUnits(endHeight, true),
-                              Utils.ToInternalUnits(webThickness, true), additionalBeamParameters);
+                              Utils.ToInternalDistanceUnits(startHeight, true),
+                              Utils.ToInternalDistanceUnits(endHeight, true),
+                              Utils.ToInternalDistanceUnits(webThickness, true), additionalBeamParameters);
     }
 
     private static List<Property> PreSetDefaults(List<Property> listBeamData)

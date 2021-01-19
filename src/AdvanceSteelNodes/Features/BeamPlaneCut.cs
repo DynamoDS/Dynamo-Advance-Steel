@@ -228,7 +228,7 @@ namespace AdvanceSteel.Nodes.Features
                         [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters);
-      return new BeamPlaneCut(element, 0, Utils.ToInternalUnits(shorteningLength, true), additionalBeamFeatureParameters);
+      return new BeamPlaneCut(element, 0, Utils.ToInternalDistanceUnits(shorteningLength, true), additionalBeamFeatureParameters);
     }
 
     /// <summary>
@@ -243,7 +243,7 @@ namespace AdvanceSteel.Nodes.Features
                         [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
     {
       additionalBeamFeatureParameters = PreSetDefaults(additionalBeamFeatureParameters);
-      return new BeamPlaneCut(element, 1, Utils.ToInternalUnits(shorteningLength, true), additionalBeamFeatureParameters);
+      return new BeamPlaneCut(element, 1, Utils.ToInternalDistanceUnits(shorteningLength, true), additionalBeamFeatureParameters);
     }
 
     private static List<Property> PreSetDefaults(List<Property> listBeamFeatureData)
@@ -265,8 +265,8 @@ namespace AdvanceSteel.Nodes.Features
           var beamFeat = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.BeamShortening;
           Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = beamFeat.CS;
           var poly = Autodesk.DesignScript.Geometry.Rectangle.ByWidthLength(Utils.ToDynCoordinateSys(matrix, true),
-                                                         Utils.FromInternalUnits(200, true),
-                                                         Utils.FromInternalUnits(100, true));
+                                                         Utils.FromInternalDistanceUnits(200, true),
+                                                         Utils.FromInternalDistanceUnits(100, true));
 
           return poly;
         }
