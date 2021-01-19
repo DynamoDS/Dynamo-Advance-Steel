@@ -7,7 +7,7 @@ using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 using Autodesk.AdvanceSteel.Modelling;
 
-namespace AdvanceSteel.Nodes.Modifications
+namespace AdvanceSteel.Nodes.Features
 {
   /// <summary>
   /// Advance Steel Polycut on object
