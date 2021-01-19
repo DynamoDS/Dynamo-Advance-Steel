@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Plate Properties")]
-  [NodeDescription("Select Advance Steel Plate Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
-  [OutPortNames("Writable Plate Property")]
+  [NodeDescription("Lists all the property names of an Advance Steel Plate")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
   public class ASPropertiesPlate : AstDropDownBase
   {
-    private const string outputName = "Advance Steel Plate Property";
+    private const string outputName = "propertyName";
 
     public ASPropertiesPlate()
         : base(outputName)
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetPlatePropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetPlatePropertyList())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

@@ -9,15 +9,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Weld Connection Type")]
-  [NodeDescription("Set Weld Connection type - InShop or OnSite")]
+  [NodeDescription("Lists the Advance Steel Weld connection type options")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
-  [OutPortNames("Weld Type")]
+  [OutPortNames("weldType")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
   public class WeldConnectionType : AstDropDownBase
   {
-    private const string outputName = "Weld Type";
+    private const string outputName = "weldType";
 
     public WeldConnectionType()
         : base(outputName)

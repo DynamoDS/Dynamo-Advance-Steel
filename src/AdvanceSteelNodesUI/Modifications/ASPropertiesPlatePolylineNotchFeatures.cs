@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Plate Notch Contour Feature Properties")]
-  [NodeDescription("Select Advance Steel Plate Notch Contour Feature Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
-  [OutPortNames("Writable Plate Notch Contour Feature Property")]
+  [NodeDescription("Lists all the property names of an Advance Steel Plate Notch Contour Feature")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
   public class ASPropertiesPlatePolylineNotchFeatures : AstDropDownBase
   {
-    private const string outputName = "Advance Steel Plate Notch Contour Feature Property";
+    private const string outputName = "propertyName";
 
     public ASPropertiesPlatePolylineNotchFeatures()
         : base(outputName)
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetPlateNotchContourPropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetPlateNotchContourPropertyList())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

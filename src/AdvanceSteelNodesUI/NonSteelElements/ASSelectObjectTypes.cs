@@ -12,12 +12,12 @@ namespace AdvanceSteel.Nodes
   [NodeDescription("Get All Advance Steel objects by Type")]
   [NodeCategory("AdvanceSteel.Nodes.Selection.ObjectSelection")]
   [OutPortDescriptions("SteelObject")]
-  [OutPortNames("SteelObject")]
+  [OutPortNames("steelObjects")]
   [OutPortTypes("AdvanceSteel.Nodes.SteelDbObject")]
   [IsDesignScriptCompatible]
   public class ASSelectObjecTypes : AstDropDownBase
   {
-    private const string outputName = "Get All Advance Steel Objects by Type";
+    private const string outputName = "steelObjects";
 
     public ASSelectObjecTypes()
         : base(outputName)
@@ -53,7 +53,7 @@ namespace AdvanceSteel.Nodes
     public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
     {
       if (Items.Count == 0 ||
-          Items[SelectedIndex].Name == "Select As Object Type..." ||
+          Items[SelectedIndex].Name == "Select Object Type..." ||
           SelectedIndex < 0)
       {
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };

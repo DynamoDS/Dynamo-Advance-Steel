@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Beam Cut Plane Feature Properties")]
-  [NodeDescription("Select Advance Steel Beam Cut Plane Feature Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
-  [OutPortNames("Writable Beam Cut Plane Feature Property")]
+  [NodeDescription("Lists all the property names of an Advance Steel Beam Cut Plane Feature")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
   public class ASPropertiesBeamCutPlaneFeatures : AstDropDownBase
   {
-    private const string outputName = "Advance Steel Beam Cut Plane  Feature Property";
+    private const string outputName = "propertyName";
 
     public ASPropertiesBeamCutPlaneFeatures()
         : base(outputName)
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetBeamCutPlanePropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetBeamCutPlanePropertyList())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

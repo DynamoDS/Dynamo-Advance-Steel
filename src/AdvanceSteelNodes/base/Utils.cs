@@ -57,33 +57,33 @@ namespace AdvanceSteel.Nodes
 
     private static readonly Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string> filterSteelObjects = new Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string>()
     {
-      { FilerObject.eObjectType.kUnknown , "Select As Object Type..." },
-      { FilerObject.eObjectType.kStraightBeam, "Advance Steel Straight Beam" },
-      { FilerObject.eObjectType.kPolyBeam, "Advance Steel Poly Beam" },
-      { FilerObject.eObjectType.kUnfoldedStraightBeam, "Advance Steel Unfolded Straight Beam" },
-      { FilerObject.eObjectType.kCompoundStraightBeam, "Advance Steel Compound Beam" },
-      { FilerObject.eObjectType.kBeamTapered, "Advance Steel Tapered Beam" },
-      { FilerObject.eObjectType.kBentBeam, "Advance Steel Bent Beam" },
-      { FilerObject.eObjectType.kConcreteBentBeam, "Advance Steel Concrete Bent Beam" },
-      { FilerObject.eObjectType.kConcreteBeam, "Advance Steel Concrete Striaght Beam" },
-      { FilerObject.eObjectType.kFootingIsolated, "Advance Steel Isolated Footings" },
-      { FilerObject.eObjectType.kSlab, "Advance Steel Slabs" },
-      { FilerObject.eObjectType.kWall, "Advance Steel Wals" },
-      { FilerObject.eObjectType.kPlate, "Advance Steel Plate" },
-      { FilerObject.eObjectType.kGrating, "Advance Steel Grating" },
-      { FilerObject.eObjectType.kSpecialPart, "Advance Steel Special Part" },
-      { FilerObject.eObjectType.kAnchorPattern, "Advance Steel Anchor Pattern" },
-      { FilerObject.eObjectType.kCircleScrewBoltPattern, "Advance Steel Circular Bolt Pattern" },
-      { FilerObject.eObjectType.kConnector, "Advance Steel Shear Studs" },
-      { FilerObject.eObjectType.kInfinitMidScrewBoltPattern, "Advance Steel Rectangular Bolt Pattern" },
-      { FilerObject.eObjectType.kWeldStraight, "Advance Steel Weld Line" },
-      { FilerObject.eObjectType.kWeldPattern, "Advance Steel Weld Point" },
-      { FilerObject.eObjectType.kBeamNotch2Ortho, "Advance Steel Beam Cope" },
-      { FilerObject.eObjectType.kBeamShortening, "Advance Steel Beam Shortening" },
-      { FilerObject.eObjectType.kBeamMultiContourNotch, "Advance Steel Beam Polycut" },
-      { FilerObject.eObjectType.kPlateFeatContour, "Advance Steel Plate Polycut" },
-      { FilerObject.eObjectType.kPlateFeatVertFillet, "Advance Steel Plate Corner Cut" },
-      { FilerObject.eObjectType.kCamera, "Advance Steel Camera" }
+      { FilerObject.eObjectType.kUnknown , "Select Object Type..." },
+      { FilerObject.eObjectType.kStraightBeam, "Straight Beam" },
+      { FilerObject.eObjectType.kPolyBeam, "Poly Beam" },
+      { FilerObject.eObjectType.kUnfoldedStraightBeam, "Unfolded Straight Beam" },
+      { FilerObject.eObjectType.kCompoundStraightBeam, "Compound Beam" },
+      { FilerObject.eObjectType.kBeamTapered, "Tapered Beam" },
+      { FilerObject.eObjectType.kBentBeam, "Bent Beam" },
+      { FilerObject.eObjectType.kConcreteBentBeam, "Concrete Bent Beam" },
+      { FilerObject.eObjectType.kConcreteBeam, "Concrete Striaght Beam" },
+      { FilerObject.eObjectType.kFootingIsolated, "Isolated Footings" },
+      { FilerObject.eObjectType.kSlab, "Slabs" },
+      { FilerObject.eObjectType.kWall, "Wals" },
+      { FilerObject.eObjectType.kPlate, "Plate" },
+      { FilerObject.eObjectType.kGrating, "Grating" },
+      { FilerObject.eObjectType.kSpecialPart, "Special Part" },
+      { FilerObject.eObjectType.kAnchorPattern, "Anchor Pattern" },
+      { FilerObject.eObjectType.kCircleScrewBoltPattern, "Circular Bolt Pattern" },
+      { FilerObject.eObjectType.kConnector, "Shear Studs" },
+      { FilerObject.eObjectType.kInfinitMidScrewBoltPattern, "Rectangular Bolt Pattern" },
+      { FilerObject.eObjectType.kWeldStraight, "Weld Line" },
+      { FilerObject.eObjectType.kWeldPattern, "Weld Point" },
+      { FilerObject.eObjectType.kBeamNotch2Ortho, "Beam Cope" },
+      { FilerObject.eObjectType.kBeamShortening, "Beam Shortening" },
+      { FilerObject.eObjectType.kBeamMultiContourNotch, "Beam Polycut" },
+      { FilerObject.eObjectType.kPlateFeatContour, "Plate Polycut" },
+      { FilerObject.eObjectType.kPlateFeatVertFillet, "Plate Corner Cut" },
+      { FilerObject.eObjectType.kCamera, "Camera" }
     };
 
     public static double RadToDegree(double rad)
@@ -806,188 +806,183 @@ namespace AdvanceSteel.Nodes
       return handlesList;
     }
 
-    public static Dictionary<string, Property> GetBoltProperties(int listFilter)
+    public static Dictionary<string, Property> GetBoltProperties()
     {
-      return BuildBoltPropertyList(listFilter);
+      return BuildBoltPropertyList();
     }
 
-    public static Dictionary<string, Property> GetConcretePlanarProperties(int listFilter)
+    public static Dictionary<string, Property> GetConcretePlanarProperties()
     {
-      return BuildGenericConcretePropertyList(listFilter, "Concrete ");
+      return BuildGenericConcretePropertyList("Concrete ");
     }
 
-    public static Dictionary<string, Property> GetConcreteStraightBeamProperties(int listFilter)
+    public static Dictionary<string, Property> GetConcreteStraightBeamProperties()
     {
-      Dictionary<string, Property> combinedData = BuildStriaghtBeamPropertyList(listFilter, "Concrete ").Union(
-                                      BuildGenericBeamPropertyList(listFilter, "Concrete Straight ")).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> combinedData = BuildStriaghtBeamPropertyList("Concrete ").Union(
+                                      BuildGenericBeamPropertyList("Concrete Straight ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
-    public static Dictionary<string, Property> GetUnfoldedStraightBeamProperties(int listFilter)
+    public static Dictionary<string, Property> GetUnfoldedStraightBeamProperties()
     {
-      Dictionary<string, Property> combinedData = BuildUnfoldedBeamPropertyList(listFilter, "Unfolded ").Union(
-                                      BuildGenericBeamPropertyList(listFilter, "Unfolded Straight ")).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> combinedData = BuildUnfoldedBeamPropertyList("Unfolded ").Union(
+                                      BuildGenericBeamPropertyList("Unfolded Straight ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
-    public static Dictionary<string, Property> GetConcreteBentBeamProperties(int listFilter)
+    public static Dictionary<string, Property> GetConcreteBentBeamProperties()
     {
-      Dictionary<string, Property> combinedData = BuildBentBeamPropertyList(listFilter, "Concrete ").Union(
-                                          BuildGenericBeamPropertyList(listFilter, "Concrete Bend ")).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> combinedData = BuildBentBeamPropertyList("Concrete ").Union(
+                                          BuildGenericBeamPropertyList("Concrete Bend ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
-    public static Dictionary<string, Property> GetAnchorBoltPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetAnchorBoltPropertyList()
     {
-      return BuildAnchorBoltPropertyList(listFilter);
+      return BuildAnchorBoltPropertyList();
     }
 
-    public static Dictionary<string, Property> GetShearStudPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetShearStudPropertyList()
     {
-      return BuildShearStudPropertyList(listFilter);
+      return BuildShearStudPropertyList();
     }
 
-    public static Dictionary<string, Property> GetPlatePropertyList(int listFilter)
+    public static Dictionary<string, Property> GetPlatePropertyList()
     {
-      return BuildGenericPlatePropertyList(listFilter);
+      return BuildGenericPlatePropertyList();
     }
 
-    public static Dictionary<string, Property> GetCameraPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetCameraPropertyList()
     {
-      return BuildCameraPropertyList(listFilter);
+      return BuildCameraPropertyList();
     }
 
-    public static Dictionary<string, Property> GetPlateFeaturePropertyList(int listFilter)
+    public static Dictionary<string, Property> GetPlateFeaturePropertyList()
     {
-      return BuildPlateFeaturePropertyList(listFilter);
+      return BuildPlateFeaturePropertyList();
     }
 
-    public static Dictionary<string, Property> GetBeamCutPlanePropertyList(int listFilter)
+    public static Dictionary<string, Property> GetBeamCutPlanePropertyList()
     {
-      return BuildBeamCutPlanePropertyList(listFilter);
+      return BuildBeamCutPlanePropertyList();
     }
 
-    public static Dictionary<string, Property> GetBeamMultiNotchPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetBeamMultiNotchPropertyList()
     {
-      return BuildBeamMultiNotchPropertyList(listFilter);
+      return BuildBeamMultiNotchPropertyList();
     }
 
-    public static Dictionary<string, Property> GetPlateNotchContourPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetPlateNotchContourPropertyList()
     {
-      return BuildPlateNotchContourPropertyList(listFilter);
+      return BuildPlateNotchContourPropertyList();
     }
 
-    public static Dictionary<string, Property> GetBeamNotchOrthoPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetBeamNotchOrthoPropertyList()
     {
-      Dictionary<string, Property> combinedData = BuildBeamNotchOrthoPropertyList(listFilter).Union(
-                                            BuildBaseBeamNotchPropertyList(listFilter, "Othro ")).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> combinedData = BuildBeamNotchOrthoPropertyList().Union(
+                                            BuildBaseBeamNotchPropertyList("Othro ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
-    public static Dictionary<string, Property> GetBeamNotchRotatedPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetBeamNotchRotatedPropertyList()
     {
-      Dictionary<string, Property> combinedData = BuildBeamNotchRotatedPropertyList(listFilter).Union(
-                                            BuildBaseBeamNotchPropertyList(listFilter, "Rotated ")).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> combinedData = BuildBeamNotchRotatedPropertyList().Union(
+                                            BuildBaseBeamNotchPropertyList("Rotated ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
-    public static Dictionary<string, Property> GetPlateVertexPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetPlateVertexPropertyList()
     {
-      return BuildPlateVertexFilletPropertyList(listFilter);
+      return BuildPlateVertexFilletPropertyList();
     }
 
-    public static Dictionary<string, Property> GetGratingPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetGratingPropertyList()
     {
-      return BuildGenericGratingPropertyList(listFilter);
+      return BuildGenericGratingPropertyList();
     }
 
-    public static Dictionary<string, Property> GetStraighBeamPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetStraighBeamPropertyList()
     {
-      Dictionary<string, Property> combinedData = BuildStriaghtBeamPropertyList(listFilter).Union(
-                                            BuildGenericBeamPropertyList(listFilter, "Straight ")).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> combinedData = BuildStriaghtBeamPropertyList().Union(
+                                            BuildGenericBeamPropertyList("Straight ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
-    public static Dictionary<string, Property> GetBentBeamPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetBentBeamPropertyList()
     {
-      Dictionary<string, Property> combinedData = BuildBentBeamPropertyList(listFilter).Union(
-                                            BuildGenericBeamPropertyList(listFilter, "Bend ")).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> combinedData = BuildBentBeamPropertyList().Union(
+                                            BuildGenericBeamPropertyList("Bend ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
-    public static Dictionary<string, Property> GetPolyBeamPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetPolyBeamPropertyList()
     {
-      Dictionary<string, Property> combinedData = BuildPolyBeamPropertyList(listFilter).Union(
-                                            BuildGenericBeamPropertyList(listFilter, "Poly ")).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> combinedData = BuildPolyBeamPropertyList().Union(
+                                            BuildGenericBeamPropertyList("Poly ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
-    public static Dictionary<string, Property> GetSpecialPartPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetSpecialPartPropertyList()
     {
-      Dictionary<string, Property> combinedData = BuildSpecialPartPropertyList(listFilter).Union(
-                                            BuildGenericSpecialPartPropertyList(listFilter, "Special Part ")).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> combinedData = BuildSpecialPartPropertyList().Union(
+                                            BuildGenericSpecialPartPropertyList("Special Part ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
-    public static Dictionary<string, Property> GetTaperBeamPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetTaperBeamPropertyList()
     {
-      Dictionary<string, Property> combinedData = BuildTaperedBeamPropertyList(listFilter).Union(
-                                                  BuildCompundBaseBeamPropertyList(listFilter, "Tapered ")).Union(
-                                                  BuildGenericBeamPropertyList(listFilter, "Tapered ")).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> combinedData = BuildTaperedBeamPropertyList().Union(
+                                                  BuildCompundBaseBeamPropertyList("Tapered ")).Union(
+                                                  BuildGenericBeamPropertyList("Tapered ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
-    public static Dictionary<string, Property> GetCompoundStraightBeamPropertyList(int listFilter)
+    public static Dictionary<string, Property> GetCompoundStraightBeamPropertyList()
     {
-      Dictionary<string, Property> combinedData = BuildCompoundStraightBeamPropertyList(listFilter).Union(
-                                                  BuildCompundBaseBeamPropertyList(listFilter, "Compound ")).Union(
-                                                  BuildGenericBeamPropertyList(listFilter, "Compound ")).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> combinedData = BuildCompoundStraightBeamPropertyList().Union(
+                                                  BuildCompundBaseBeamPropertyList("Compound ")).Union(
+                                                  BuildGenericBeamPropertyList("Compound ")).ToDictionary(s => s.Key, s => s.Value);
       return combinedData;
     }
 
-    public static Property GetProperty(string keyValue, int listFilter)
+    public static Property GetProperty(string keyValue)
     {
-      Dictionary<string, Property> searchData = CombineAllLists(listFilter);
+      Dictionary<string, Property> searchData = CombineAllLists();
       Property retValue = null;
       searchData.TryGetValue(keyValue, out retValue);
       return retValue;
     }
 
-    public static Dictionary<string, Property> GetAllProperties(int filter)
+    public static Dictionary<string, Property> GetAllProperties()
     {
-      return CombineAllLists(filter);
+      return CombineAllLists();
     }
 
-    private static Dictionary<string, Property> CombineAllLists(int listFilter)
+    private static Dictionary<string, Property> CombineAllLists()
     {
-      Dictionary<string, Property> searchData = GetBoltProperties(listFilter).Union(
-                                                  GetAnchorBoltPropertyList(listFilter)).Union(
-                                                  GetShearStudPropertyList(listFilter)).Union(
-                                                  GetPlatePropertyList(listFilter)).Union(
-                                                  GetCameraPropertyList(listFilter)).Union(
-                                                  GetPlateFeaturePropertyList(listFilter)).Union(
-                                                  GetBeamCutPlanePropertyList(listFilter)).Union(
-                                                  GetBeamMultiNotchPropertyList(listFilter)).Union(
-                                                  GetPlateNotchContourPropertyList(listFilter)).Union(
-                                                  GetBeamNotchOrthoPropertyList(listFilter)).Union(
-                                                  GetBeamNotchRotatedPropertyList(listFilter)).Union(
-                                                  GetPlateVertexPropertyList(listFilter)).Union(
-                                                  GetGratingPropertyList(listFilter)).Union(
-                                                  GetStraighBeamPropertyList(listFilter)).Union(
-                                                  GetBentBeamPropertyList(listFilter)).Union(
-                                                  GetPolyBeamPropertyList(listFilter)).Union(
-                                                  GetSpecialPartPropertyList(listFilter)).Union(
-                                                  GetTaperBeamPropertyList(listFilter)).Union(
-                                                  GetConcretePlanarProperties(listFilter)).Union(
-                                                  GetConcreteStraightBeamProperties(listFilter)).Union(
-                                                  GetConcreteBentBeamProperties(listFilter)).Union(
-                                                  GetCompoundStraightBeamPropertyList(listFilter)).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> searchData = GetBoltProperties().Union(
+                                                  GetAnchorBoltPropertyList()).Union(
+                                                  GetShearStudPropertyList()).Union(
+                                                  GetPlatePropertyList()).Union(
+                                                  GetCameraPropertyList()).Union(
+                                                  GetPlateFeaturePropertyList()).Union(
+                                                  GetBeamCutPlanePropertyList()).Union(
+                                                  GetBeamMultiNotchPropertyList()).Union(
+                                                  GetPlateNotchContourPropertyList()).Union(
+                                                  GetBeamNotchOrthoPropertyList()).Union(
+                                                  GetBeamNotchRotatedPropertyList()).Union(
+                                                  GetPlateVertexPropertyList()).Union(
+                                                  GetGratingPropertyList()).Union(
+                                                  GetStraighBeamPropertyList()).Union(
+                                                  GetBentBeamPropertyList()).Union(
+                                                  GetPolyBeamPropertyList()).Union(
+                                                  GetSpecialPartPropertyList()).Union(
+                                                  GetTaperBeamPropertyList()).Union(
+                                                  GetConcretePlanarProperties()).Union(
+                                                  GetConcreteStraightBeamProperties()).Union(
+                                                  GetConcreteBentBeamProperties()).Union(
+                                                  GetCompoundStraightBeamPropertyList()).ToDictionary(s => s.Key, s => s.Value);
       return searchData;
-    }
-
-    private static Dictionary<string, Property> filterDictionary(Dictionary<string, Property> dictProps, int listFilter)
-    {
-      return (listFilter > 0 ? dictProps.Where(x => (x.Value.DataOperator % listFilter) == 0).ToDictionary(x => x.Key, x => x.Value) : dictProps);
     }
 
     private static Dictionary<string, Property> addElementTypes(Dictionary<string, Property> dictProps, List<eObjectType> elementTypes)
@@ -1006,7 +1001,7 @@ namespace AdvanceSteel.Nodes
       return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildGenericConcretePropertyList(int listFilter, string prefix = "")
+    private static Dictionary<string, Property> BuildGenericConcretePropertyList(string prefix = "")
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select " + prefix + "Property...", new Property("none", typeof(string)));
@@ -1014,10 +1009,10 @@ namespace AdvanceSteel.Nodes
       dictProps.Add(prefix + "Approval Status Code", new Property("ApprovalStatusCode", typeof(string)));
       dictProps.Add(prefix + "Assembly", new Property("Assembly", typeof(string)));
       dictProps.Add(prefix + "Assembly Used For Numbering", new Property("AssemblyUsedForNumbering", typeof(int)));
-      dictProps.Add(prefix + "Center Point", new Property("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Center Point", new Property("CenterPoint", typeof(Point3d), ".", true));
       dictProps.Add(prefix + "Carrier", new Property("Carrier", typeof(string)));
       dictProps.Add(prefix + "Coating", new Property("Coating", typeof(string)));
-      dictProps.Add(prefix + "Coating Description", new Property("CoatingDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Coating Description", new Property("CoatingDescription", typeof(string), ".", true));
       dictProps.Add(prefix + "Coating Used For Numbering", new Property("CoatingUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Delivery Date", new Property("DeliveryDate", typeof(string)));
       dictProps.Add(prefix + "Denotation Used For Numbering", new Property("DennotationUsedForNumbering", typeof(int)));
@@ -1025,17 +1020,17 @@ namespace AdvanceSteel.Nodes
       dictProps.Add(prefix + "Explicit Quantity", new Property("ExplicitQuantity", typeof(int)));
       dictProps.Add(prefix + "Fabrication Station", new Property("FabricationStation", typeof(string)));
       dictProps.Add(prefix + "Fabrication Station UsedF or Numbering", new Property("FabricationStationUsedForNumbering", typeof(bool)));
-      dictProps.Add(prefix + "Handle", new Property("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Handle", new Property("Handle", typeof(string), ".", true));
       dictProps.Add(prefix + "Heat Number", new Property("HeatNumber", typeof(string)));
       dictProps.Add(prefix + "Heat Number Used For Numbering", new Property("HeatNumberUsedForNumbering", typeof(bool)));
-      dictProps.Add(prefix + "Height", new Property("Height", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Height", new Property("Height", typeof(double), ".", true));
       dictProps.Add(prefix + "Holes Used For Numbering", new Property("HolesUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Set IsAttached Flag", new Property("IsAttachedPart", typeof(bool), "Z_PostWriteDB"));
       dictProps.Add(prefix + "Set IsMainPart Flag", new Property("IsMainPart", typeof(bool), "Z_PostWriteDB"));
       dictProps.Add(prefix + "ItemNumber", new Property("ItemNumber", typeof(string)));
       dictProps.Add(prefix + "ItemNumber Used For Numbering", new Property("ItemNumberUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Layer", new Property("Layer", typeof(string)));
-      dictProps.Add(prefix + "Length", new Property("Length", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Length", new Property("Length", typeof(double), ".", true));
       dictProps.Add(prefix + "Load Number", new Property("LoadNumber", typeof(string)));
       dictProps.Add(prefix + "MainPart Number", new Property("MainPartNumber", typeof(string)));
       dictProps.Add(prefix + "MainPart Number Prefix", new Property("MainPartPrefix", typeof(string)));
@@ -1043,11 +1038,11 @@ namespace AdvanceSteel.Nodes
       dictProps.Add(prefix + "MainPart Used For Collision Check", new Property("MainPartUsedForCollisionCheck", typeof(int)));
       dictProps.Add(prefix + "MainPart Used For Numbering", new Property("MainPartUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Material", new Property("Material", typeof(string)));
-      dictProps.Add(prefix + "Material Description", new Property("MaterialDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Material Description", new Property("MaterialDescription", typeof(string), ".", true));
       dictProps.Add(prefix + "Material Used For Numbering", new Property("MaterialUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Note", new Property("Note", typeof(string)));
       dictProps.Add(prefix + "Note Used For Numbering", new Property("NoteUsedForNumbering", typeof(int)));
-      dictProps.Add(prefix + "Number Of Holes", new Property("NumberOfHoles", typeof(int), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Number Of Holes", new Property("NumberOfHoles", typeof(int), ".", true));
       dictProps.Add(prefix + "PONumber", new Property("PONumber", typeof(string)));
       dictProps.Add(prefix + "PONumber Used For Numbering", new Property("PONumberUsedForNumbering", typeof(bool)));
       dictProps.Add(prefix + "Face Alignment", new Property("Portioning", typeof(double)));
@@ -1058,7 +1053,7 @@ namespace AdvanceSteel.Nodes
       dictProps.Add(prefix + "Requisition Number", new Property("RequisitionNumber", typeof(string)));
       dictProps.Add(prefix + "Requisition Number Used For Numbering", new Property("RequisitionNumberUsedForNumbering", typeof(bool)));
       dictProps.Add(prefix + "Model Role", new Property("Role", typeof(string)));
-      dictProps.Add(prefix + "Model Role Description", new Property("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Model Role Description", new Property("RoleDescription", typeof(string), ".", true));
       dictProps.Add(prefix + "Role Used For Numbering", new Property("RoleUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Shipped Date", new Property("ShippedDate", typeof(string)));
       dictProps.Add(prefix + "Single Part Number", new Property("SinglePartNumber", typeof(string)));
@@ -1066,12 +1061,12 @@ namespace AdvanceSteel.Nodes
       dictProps.Add(prefix + "Single Part Used For BOM", new Property("SinglePartUsedForBOM", typeof(int)));
       dictProps.Add(prefix + "Single Part Used For CollisionCheck", new Property("SinglePartUsedForCollisionCheck", typeof(int)));
       dictProps.Add(prefix + "Single Part Used For Numbering", new Property("SinglePartUsedForNumbering", typeof(int)));
-      dictProps.Add(prefix + "SpecificGravity", new Property("SpecificGravity", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "SpecificGravity", new Property("SpecificGravity", typeof(double), ".", true));
       dictProps.Add(prefix + "Supplier", new Property("Supplier", typeof(string)));
       dictProps.Add(prefix + "SupplierUsedForNumbering", new Property("SupplierUsedForNumbering", typeof(bool)));
       dictProps.Add(prefix + "Thickness", new Property("Thickness", typeof(double)));
-      dictProps.Add(prefix + "Volume", new Property("Volume", typeof(double), ".", ePropertyDataOperator.Get));
-      dictProps.Add(prefix + "Width", new Property("Width", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Volume", new Property("Volume", typeof(double), ".", true));
+      dictProps.Add(prefix + "Width", new Property("Width", typeof(double), ".", true));
       dictProps.Add("Change " + prefix + "Display Mode", new Property("ReprMode", typeof(int), "Z_PostWriteDB"));
 
 
@@ -1082,10 +1077,10 @@ namespace AdvanceSteel.Nodes
                     eObjectType.kConcreteBentBeam,
                     eObjectType.kSlab});
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildBoltPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildBoltPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Bolt Property...", new Property("none", typeof(string)));
@@ -1107,10 +1102,10 @@ namespace AdvanceSteel.Nodes
                     eObjectType.kInfinitMidScrewBoltPattern,
                     eObjectType.kCircleScrewBoltPattern });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildAnchorBoltPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildAnchorBoltPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Anchor Property...", new Property("none", typeof(string)));
@@ -1131,10 +1126,10 @@ namespace AdvanceSteel.Nodes
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kAnchorPattern });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildShearStudPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildShearStudPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Stud Property...", new Property("none", typeof(string)));
@@ -1154,17 +1149,17 @@ namespace AdvanceSteel.Nodes
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kConnector });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildSpecialPartPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildSpecialPartPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Special Part Property...", new Property("none", typeof(string)));
-      dictProps.Add("Special Part BlockName", new Property("BlockName", typeof(string), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Special Part Depth", new Property("Depth", typeof(double), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Special Part Width", new Property("Width", typeof(double), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Special Part Length", new Property("Length", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Special Part BlockName", new Property("BlockName", typeof(string), ".", true));
+      dictProps.Add("Special Part Depth", new Property("Depth", typeof(double), ".", true));
+      dictProps.Add("Special Part Width", new Property("Width", typeof(double), ".", true));
+      dictProps.Add("Special Part Length", new Property("Length", typeof(double), ".", true));
       dictProps.Add("Special Part PaintArea", new Property("PaintArea", typeof(double)));
       dictProps.Add("Special Part Scale", new Property("Scale", typeof(double)));
       dictProps.Add("Special Part Weight", new Property("Weight", typeof(double)));
@@ -1172,25 +1167,25 @@ namespace AdvanceSteel.Nodes
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kSpecialPart });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildGenericSpecialPartPropertyList(int listFilter, string prefix = "")
+    private static Dictionary<string, Property> BuildGenericSpecialPartPropertyList(string prefix = "")
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add(prefix + "Assembly", new Property("Assembly", typeof(string)));
       dictProps.Add(prefix + "Assembly Used For Numbering", new Property("AssemblyUsedForNumbering", typeof(int)));
-      dictProps.Add(prefix + "Center Point", new Property("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Center Point", new Property("CenterPoint", typeof(Point3d), ".", true));
       dictProps.Add(prefix + "Coating", new Property("Coating", typeof(string)));
-      dictProps.Add(prefix + "Coating Description", new Property("CoatingDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Coating Description", new Property("CoatingDescription", typeof(string), ".", true));
       dictProps.Add(prefix + "Coating Used For Numbering", new Property("CoatingUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Denotation Used For Numbering", new Property("DennotationUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Denotation Role", new Property("Denotation", typeof(string)));
       dictProps.Add(prefix + "Explicit Quantity", new Property("ExplicitQuantity", typeof(int)));
-      dictProps.Add(prefix + "Handle", new Property("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Handle", new Property("Handle", typeof(string), ".", true));
       dictProps.Add(prefix + "Holes Used For Numbering", new Property("HolesUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Set IsMainPart Flag", new Property("IsMainPart", typeof(bool), "Z_PostWriteDB"));
-      dictProps.Add(prefix + "Get IsAttachedPart Flag", new Property("IsAttachedPart", typeof(bool), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Get IsAttachedPart Flag", new Property("IsAttachedPart", typeof(bool), ".", true));
       dictProps.Add(prefix + "ItemNumber", new Property("ItemNumber", typeof(string)));
       dictProps.Add(prefix + "ItemNumber Used For Numbering", new Property("ItemNumberUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Layer", new Property("Layer", typeof(string)));
@@ -1200,37 +1195,37 @@ namespace AdvanceSteel.Nodes
       dictProps.Add(prefix + "MainPart Used For Collision Check", new Property("MainPartUsedForCollisionCheck", typeof(int)));
       dictProps.Add(prefix + "MainPart Used For Numbering", new Property("MainPartUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Material", new Property("Material", typeof(string)));
-      dictProps.Add(prefix + "Material Description", new Property("MaterialDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Material Description", new Property("MaterialDescription", typeof(string), ".", true));
       dictProps.Add(prefix + "Material Used For Numbering", new Property("MaterialUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Note", new Property("Note", typeof(string)));
       dictProps.Add(prefix + "Note Used For Numbering", new Property("NoteUsedForNumbering", typeof(int)));
-      dictProps.Add(prefix + "Number Of Holes", new Property("NumberOfHoles", typeof(int), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Number Of Holes", new Property("NumberOfHoles", typeof(int), ".", true));
       dictProps.Add(prefix + "Preliminary Part Number", new Property("PreliminaryPartNumber", typeof(string)));
-      dictProps.Add(prefix + "Preliminary Part Position Number", new Property("PreliminaryPartPositionNumber", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Preliminary Part Position Number", new Property("PreliminaryPartPositionNumber", typeof(string), ".", true));
       dictProps.Add(prefix + "Preliminary Part Prefix", new Property("PreliminaryPartPrefix", typeof(string)));
       dictProps.Add(prefix + "Model Role", new Property("Role", typeof(string)));
       dictProps.Add(prefix + "Model Role Description", new Property("RoleDescription", typeof(string)));
       dictProps.Add(prefix + "Role Used For Numbering", new Property("RoleUsedForNumbering", typeof(int)));
-      dictProps.Add(prefix + "Runname", new Property("Runname", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Runname", new Property("Runname", typeof(string), ".", true));
       dictProps.Add(prefix + "Single Part Number", new Property("SinglePartNumber", typeof(string)));
       dictProps.Add(prefix + "Single Part Prefix", new Property("SinglePartPrefix", typeof(string)));
       dictProps.Add(prefix + "Single Part Used For BOM", new Property("SinglePartUsedForBOM", typeof(int)));
       dictProps.Add(prefix + "Single Part Used For CollisionCheck", new Property("SinglePartUsedForCollisionCheck", typeof(int)));
       dictProps.Add(prefix + "Single Part Used For Numbering", new Property("SinglePartUsedForNumbering", typeof(int)));
-      dictProps.Add(prefix + "Specific Gravity", new Property("SpecificGravity", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Specific Gravity", new Property("SpecificGravity", typeof(double), ".", true));
       dictProps.Add(prefix + "Structural Member", new Property("StructuralMember", typeof(int)));
       dictProps.Add(prefix + "Unwind / Unfolder", new Property("Unwind", typeof(bool)));
       dictProps.Add(prefix + "UnwindStartFactor", new Property("UnwindStartFactor", typeof(double)));
-      dictProps.Add(prefix + "Volume", new Property("Volume", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Volume", new Property("Volume", typeof(double), ".", true));
       dictProps.Add(prefix + "Change Display Mode", new Property("ReprMode", typeof(int), "Z_PostWriteDB"));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kSpecialPart});
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildGenericBeamPropertyList(int listFilter, string prefix = "")
+    private static Dictionary<string, Property> BuildGenericBeamPropertyList(string prefix = "")
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add(prefix + "Beam Angle", new Property("Angle", typeof(double)));
@@ -1238,10 +1233,10 @@ namespace AdvanceSteel.Nodes
       dictProps.Add(prefix + "Beam Approval Status Code", new Property("ApprovalStatusCode", typeof(string)));
       dictProps.Add(prefix + "Beam Assembly", new Property("Assembly", typeof(string)));
       dictProps.Add(prefix + "Beam Assembly Used For Numbering", new Property("AssemblyUsedForNumbering", typeof(int)));
-      dictProps.Add(prefix + "Beam Center Point", new Property("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Center Point", new Property("CenterPoint", typeof(Point3d), ".", true));
       dictProps.Add(prefix + "Beam Carrier", new Property("Carrier", typeof(string)));
       dictProps.Add(prefix + "Beam Coating", new Property("Coating", typeof(string)));
-      dictProps.Add(prefix + "Beam Coating Description", new Property("CoatingDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Coating Description", new Property("CoatingDescription", typeof(string), ".", true));
       dictProps.Add(prefix + "Beam Coating Used For Numbering", new Property("CoatingUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Beam Delivery Date", new Property("DeliveryDate", typeof(string)));
       dictProps.Add(prefix + "Beam Denotation Used For Numbering", new Property("DennotationUsedForNumbering", typeof(int)));
@@ -1250,13 +1245,13 @@ namespace AdvanceSteel.Nodes
       dictProps.Add(prefix + "Beam Explicit Quantity", new Property("ExplicitQuantity", typeof(int)));
       dictProps.Add(prefix + "Beam Fabrication Station", new Property("FabricationStation", typeof(string)));
       dictProps.Add(prefix + "Beam Fabrication Station UsedF or Numbering", new Property("FabricationStationUsedForNumbering", typeof(bool)));
-      dictProps.Add(prefix + "Beam Handle", new Property("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Handle", new Property("Handle", typeof(string), ".", true));
       dictProps.Add(prefix + "Beam Heat Number", new Property("HeatNumber", typeof(string)));
       dictProps.Add(prefix + "Beam Heat Number Used For Numbering", new Property("HeatNumberUsedForNumbering", typeof(bool)));
       dictProps.Add(prefix + "Beam Holes Used For Numbering", new Property("HolesUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Beam Set IsMainPart Flag", new Property("IsMainPart", typeof(bool), "Z_PostWriteDB"));
-      dictProps.Add(prefix + "Beam Get IsAttachedPart Flag", new Property("IsAttachedPart", typeof(bool), ".", ePropertyDataOperator.Get));
-      dictProps.Add(prefix + "Beam Get IsCrossSectionMirrored Flag", new Property("IsCrossSectionMirrored", typeof(bool), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Get IsAttachedPart Flag", new Property("IsAttachedPart", typeof(bool), ".", true));
+      dictProps.Add(prefix + "Beam Get IsCrossSectionMirrored Flag", new Property("IsCrossSectionMirrored", typeof(bool), ".", true));
       dictProps.Add(prefix + "Beam ItemNumber", new Property("ItemNumber", typeof(string)));
       dictProps.Add(prefix + "Beam ItemNumber Used For Numbering", new Property("ItemNumberUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Beam Layer", new Property("Layer", typeof(string)));
@@ -1267,40 +1262,40 @@ namespace AdvanceSteel.Nodes
       dictProps.Add(prefix + "Beam MainPart Used For Collision Check", new Property("MainPartUsedForCollisionCheck", typeof(int)));
       dictProps.Add(prefix + "Beam MainPart Used For Numbering", new Property("MainPartUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Beam Material", new Property("Material", typeof(string)));
-      dictProps.Add(prefix + "Beam Material Description", new Property("MaterialDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Material Description", new Property("MaterialDescription", typeof(string), ".", true));
       dictProps.Add(prefix + "Beam Material Used For Numbering", new Property("MaterialUsedForNumbering", typeof(int)));
       dictProps.Add(prefix + "Beam Note", new Property("Note", typeof(string)));
       dictProps.Add(prefix + "Beam Note Used For Numbering", new Property("NoteUsedForNumbering", typeof(int)));
-      dictProps.Add(prefix + "Beam Number Of Holes", new Property("NumberOfHoles", typeof(int), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Number Of Holes", new Property("NumberOfHoles", typeof(int), ".", true));
       dictProps.Add(prefix + "Beam PONumber", new Property("PONumber", typeof(string)));
       dictProps.Add(prefix + "Beam PONumber Used For Numbering", new Property("PONumberUsedForNumbering", typeof(bool)));
       dictProps.Add(prefix + "Beam Preliminary Part Number", new Property("PreliminaryPartNumber", typeof(string)));
-      dictProps.Add(prefix + "Beam Preliminary Part Position Number", new Property("PreliminaryPartPositionNumber", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Preliminary Part Position Number", new Property("PreliminaryPartPositionNumber", typeof(string), ".", true));
       dictProps.Add(prefix + "Beam Preliminary Part Prefix", new Property("PreliminaryPartPrefix", typeof(string)));
       dictProps.Add(prefix + "Beam Profile Name", new Property("ProfName", typeof(string)));
-      dictProps.Add(prefix + "Beam Profile Section Type", new Property("ProfSectionType", typeof(string), ".", ePropertyDataOperator.Get));
-      dictProps.Add(prefix + "Beam Profile Section name", new Property("ProfSectionName", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Profile Section Type", new Property("ProfSectionType", typeof(string), ".", true));
+      dictProps.Add(prefix + "Beam Profile Section name", new Property("ProfSectionName", typeof(string), ".", true));
       dictProps.Add(prefix + "Beam Requisition Number", new Property("RequisitionNumber", typeof(string)));
       dictProps.Add(prefix + "Beam Requisition Number Used For Numbering", new Property("RequisitionNumberUsedForNumbering", typeof(bool)));
       dictProps.Add(prefix + "Beam Model Role", new Property("Role", typeof(string)));
       dictProps.Add(prefix + "Beam Model Role Description", new Property("RoleDescription", typeof(string)));
       dictProps.Add(prefix + "Beam Role Used For Numbering", new Property("RoleUsedForNumbering", typeof(int)));
-      dictProps.Add(prefix + "Beam Runname", new Property("Runname", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Runname", new Property("Runname", typeof(string), ".", true));
       dictProps.Add(prefix + "Beam Shipped Date", new Property("ShippedDate", typeof(string)));
-      dictProps.Add(prefix + "Beam ShrinkValue", new Property("ShrinkValue", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam ShrinkValue", new Property("ShrinkValue", typeof(double), ".", true));
       dictProps.Add(prefix + "Beam Single Part Number", new Property("SinglePartNumber", typeof(string)));
       dictProps.Add(prefix + "Beam Single Part Prefix", new Property("SinglePartPrefix", typeof(string)));
       dictProps.Add(prefix + "Beam Single Part Used For BOM", new Property("SinglePartUsedForBOM", typeof(int)));
       dictProps.Add(prefix + "Beam Single Part Used For CollisionCheck", new Property("SinglePartUsedForCollisionCheck", typeof(int)));
       dictProps.Add(prefix + "Beam Single Part Used For Numbering", new Property("SinglePartUsedForNumbering", typeof(int)));
-      dictProps.Add(prefix + "Beam Specific Gravity", new Property("SpecificGravity", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Specific Gravity", new Property("SpecificGravity", typeof(double), ".", true));
       dictProps.Add(prefix + "Beam Structural Member", new Property("StructuralMember", typeof(int)));
-      dictProps.Add(prefix + "Beam System Line Length", new Property("SysLength", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam System Line Length", new Property("SysLength", typeof(double), ".", true));
       dictProps.Add(prefix + "Beam Supplier", new Property("Supplier", typeof(string)));
       dictProps.Add(prefix + "Beam SupplierUsedForNumbering", new Property("SupplierUsedForNumbering", typeof(bool)));
       dictProps.Add(prefix + "Beam Unwind / Unfolder", new Property("Unwind", typeof(bool)));
       dictProps.Add(prefix + "Beam UnwindStartFactor", new Property("UnwindStartFactor", typeof(double)));
-      dictProps.Add(prefix + "Beam Volume", new Property("Volume", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Volume", new Property("Volume", typeof(double), ".", true));
       dictProps.Add(prefix + "Change Beam Display Mode", new Property("ReprMode", typeof(int), "Z_PostWriteDB"));
 
       addElementTypes(dictProps, new List<eObjectType>() {
@@ -1311,10 +1306,10 @@ namespace AdvanceSteel.Nodes
                     eObjectType.kPolyBeam,
                     eObjectType.kUnfoldedStraightBeam});
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildGenericPlatePropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildGenericPlatePropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Plate Property...", new Property("none", typeof(string)));
@@ -1322,10 +1317,10 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Plate Approval Status Code", new Property("ApprovalStatusCode", typeof(string)));
       dictProps.Add("Plate Assembly", new Property("Assembly", typeof(string)));
       dictProps.Add("Plate Assembly Used For Numbering", new Property("AssemblyUsedForNumbering", typeof(int)));
-      dictProps.Add("Plate Center Point", new Property("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Center Point", new Property("CenterPoint", typeof(Point3d), ".", true));
       dictProps.Add("Plate Carrier", new Property("Carrier", typeof(string)));
       dictProps.Add("Plate Coating", new Property("Coating", typeof(string)));
-      dictProps.Add("Plate Coating Description", new Property("CoatingDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Coating Description", new Property("CoatingDescription", typeof(string), ".", true));
       dictProps.Add("Plate Coating Used For Numbering", new Property("CoatingUsedForNumbering", typeof(int)));
       dictProps.Add("Plate Delivery Date", new Property("DeliveryDate", typeof(string)));
       dictProps.Add("Plate Denotation Used For Numbering", new Property("DennotationUsedForNumbering", typeof(int)));
@@ -1333,7 +1328,7 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Plate Explicit Quantity", new Property("ExplicitQuantity", typeof(int)));
       dictProps.Add("Plate Fabrication Station", new Property("FabricationStation", typeof(string)));
       dictProps.Add("Plate Fabrication Station UsedF or Numbering", new Property("FabricationStationUsedForNumbering", typeof(bool)));
-      dictProps.Add("Plate Handle", new Property("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Handle", new Property("Handle", typeof(string), ".", true));
       dictProps.Add("Plate Heat Number", new Property("HeatNumber", typeof(string)));
       dictProps.Add("Plate Heat Number Used For Numbering", new Property("HeatNumberUsedForNumbering", typeof(bool)));
       dictProps.Add("Plate Holes Used For Numbering", new Property("HolesUsedForNumbering", typeof(int)));
@@ -1342,7 +1337,7 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Plate ItemNumber", new Property("ItemNumber", typeof(string)));
       dictProps.Add("Plate ItemNumber Used For Numbering", new Property("ItemNumberUsedForNumbering", typeof(int)));
       dictProps.Add("Plate Layer", new Property("Layer", typeof(string)));
-      dictProps.Add("Plate Length", new Property("Length", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Length", new Property("Length", typeof(double), ".", true));
       dictProps.Add("Plate Load Number", new Property("LoadNumber", typeof(string)));
       dictProps.Add("Plate MainPart Number", new Property("MainPartNumber", typeof(string)));
       dictProps.Add("Plate MainPart Number Prefix", new Property("MainPartPrefix", typeof(string)));
@@ -1350,11 +1345,11 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Plate MainPart Used For Collision Check", new Property("MainPartUsedForCollisionCheck", typeof(int)));
       dictProps.Add("Plate MainPart Used For Numbering", new Property("MainPartUsedForNumbering", typeof(int)));
       dictProps.Add("Plate Material", new Property("Material", typeof(string)));
-      dictProps.Add("Plate Material Description", new Property("MaterialDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Material Description", new Property("MaterialDescription", typeof(string), ".", true));
       dictProps.Add("Plate Material Used For Numbering", new Property("MaterialUsedForNumbering", typeof(int)));
       dictProps.Add("Plate Note", new Property("Note", typeof(string)));
       dictProps.Add("Plate Note Used For Numbering", new Property("NoteUsedForNumbering", typeof(int)));
-      dictProps.Add("Plate Number Of Holes", new Property("NumberOfHoles", typeof(int), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Number Of Holes", new Property("NumberOfHoles", typeof(int), ".", true));
       dictProps.Add("Plate PONumber", new Property("PONumber", typeof(string)));
       dictProps.Add("Plate PONumber Used For Numbering", new Property("PONumberUsedForNumbering", typeof(bool)));
       dictProps.Add("Plate Face Alignment", new Property("Portioning", typeof(double)));
@@ -1362,11 +1357,11 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Plate Preliminary Part Position Number", new Property("PreliminaryPartPositionNumber", typeof(string)));
       dictProps.Add("Plate Preliminary Part Prefix", new Property("PreliminaryPartPrefix", typeof(string)));
       dictProps.Add("Plate Radius Increment", new Property("RadIncrement", typeof(double)));
-      dictProps.Add("Plate Radius", new Property("Radius", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Radius", new Property("Radius", typeof(double), ".", true));
       dictProps.Add("Plate Requisition Number", new Property("RequisitionNumber", typeof(string)));
       dictProps.Add("Plate Requisition Number Used For Numbering", new Property("RequisitionNumberUsedForNumbering", typeof(bool)));
       dictProps.Add("Plate Model Role", new Property("Role", typeof(string)));
-      dictProps.Add("Plate Model Role Description", new Property("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Model Role Description", new Property("RoleDescription", typeof(string), ".", true));
       dictProps.Add("Plate Role Used For Numbering", new Property("RoleUsedForNumbering", typeof(int)));
       dictProps.Add("Plate Shipped Date", new Property("ShippedDate", typeof(string)));
       dictProps.Add("Plate Single Part Number", new Property("SinglePartNumber", typeof(string)));
@@ -1374,21 +1369,21 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Plate Single Part Used For BOM", new Property("SinglePartUsedForBOM", typeof(int)));
       dictProps.Add("Plate Single Part Used For CollisionCheck", new Property("SinglePartUsedForCollisionCheck", typeof(int)));
       dictProps.Add("Plate Single Part Used For Numbering", new Property("SinglePartUsedForNumbering", typeof(int)));
-      dictProps.Add("Plate SpecificGravity", new Property("SpecificGravity", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate SpecificGravity", new Property("SpecificGravity", typeof(double), ".", true));
       dictProps.Add("Plate Supplier", new Property("Supplier", typeof(string)));
       dictProps.Add("Plate SupplierUsedForNumbering", new Property("SupplierUsedForNumbering", typeof(bool)));
       dictProps.Add("Plate Thickness", new Property("Thickness", typeof(double)));
-      dictProps.Add("Plate Volume", new Property("Volume", typeof(double), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Plate Width", new Property("Width", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Volume", new Property("Volume", typeof(double), ".", true));
+      dictProps.Add("Plate Width", new Property("Width", typeof(double), ".", true));
       dictProps.Add("Change Plate Display Mode", new Property("ReprMode", typeof(int), "Z_PostWriteDB"));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kPlate });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildGenericGratingPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildGenericGratingPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Grating Property...", new Property("none", typeof(string)));
@@ -1396,21 +1391,21 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Grating Approval Status Code", new Property("ApprovalStatusCode", typeof(string)));
       dictProps.Add("Grating Assembly", new Property("Assembly", typeof(string)));
       dictProps.Add("Grating Assembly Used For Numbering", new Property("AssemblyUsedForNumbering", typeof(int)));
-      dictProps.Add("Grating Center Point", new Property("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Grating Bearing Bar Quantity", new Property("BearingBarQuantity", typeof(int), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Grating Bearing Bar Spacing", new Property("BearingBarSpacing", typeof(int), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Grating Bearing Bar Spacing Distance", new Property("BearingBarSpacingDistance", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Center Point", new Property("CenterPoint", typeof(Point3d), ".", true));
+      dictProps.Add("Grating Bearing Bar Quantity", new Property("BearingBarQuantity", typeof(int), ".", true));
+      dictProps.Add("Grating Bearing Bar Spacing", new Property("BearingBarSpacing", typeof(int), ".", true));
+      dictProps.Add("Grating Bearing Bar Spacing Distance", new Property("BearingBarSpacingDistance", typeof(double), ".", true));
       dictProps.Add("Grating Carrier", new Property("Carrier", typeof(string)));
       dictProps.Add("Grating Coating", new Property("Coating", typeof(string)));
-      dictProps.Add("Grating Coating Description", new Property("CoatingDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Coating Description", new Property("CoatingDescription", typeof(string), ".", true));
       dictProps.Add("Grating Coating Used For Numbering", new Property("CoatingUsedForNumbering", typeof(int)));
       dictProps.Add("Grating Connector Key", new Property("ConnectorKey", typeof(int)));
       dictProps.Add("Grating Connector Name", new Property("ConnectorName", typeof(string)));
       dictProps.Add("Grating Connector Quantity", new Property("ConnectorQuantity", typeof(int)));
       dictProps.Add("Grating Cross Bar", new Property("CrossBar", typeof(string)));
-      dictProps.Add("Grating Cross Bar Quantity", new Property("CrossBarQuantity", typeof(int), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Grating Cross Bar Spacing", new Property("CrossBarSpacing", typeof(int), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Grating Cross Bar Spacing Distance", new Property("CrossBarSpacingDistance", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Cross Bar Quantity", new Property("CrossBarQuantity", typeof(int), ".", true));
+      dictProps.Add("Grating Cross Bar Spacing", new Property("CrossBarSpacing", typeof(int), ".", true));
+      dictProps.Add("Grating Cross Bar Spacing Distance", new Property("CrossBarSpacingDistance", typeof(double), ".", true));
       dictProps.Add("Grating Custom Hatch", new Property("CustomHatch", typeof(string)));
       dictProps.Add("Grating EDValue", new Property("EDValue", typeof(double)));
       dictProps.Add("Grating Direction", new Property("Direction", typeof(Vector3d)));
@@ -1422,7 +1417,7 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Grating Fabrication Station UsedF or Numbering", new Property("FabricationStationUsedForNumbering", typeof(bool)));
       dictProps.Add("Grating Class", new Property("GratingClass", typeof(string)));
       dictProps.Add("Grating Size", new Property("GratingSize", typeof(string)));
-      dictProps.Add("Grating Handle", new Property("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Handle", new Property("Handle", typeof(string), ".", true));
       dictProps.Add("Grating Heat Number", new Property("HeatNumber", typeof(string)));
       dictProps.Add("Grating Heat Number Used For Numbering", new Property("HeatNumberUsedForNumbering", typeof(bool)));
       dictProps.Add("Grating Holes Used For Numbering", new Property("HolesUsedForNumbering", typeof(int)));
@@ -1434,7 +1429,7 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Grating ItemNumber", new Property("ItemNumber", typeof(string)));
       dictProps.Add("Grating ItemNumber Used For Numbering", new Property("ItemNumberUsedForNumbering", typeof(int)));
       dictProps.Add("Grating Layer", new Property("Layer", typeof(string)));
-      dictProps.Add("Grating Length", new Property("Length", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Length", new Property("Length", typeof(double), ".", true));
       dictProps.Add("Grating Length Increment", new Property("LengthIncrement", typeof(double)));
       dictProps.Add("Grating Load Number", new Property("LoadNumber", typeof(string)));
       dictProps.Add("Grating MainPart Number", new Property("MainPartNumber", typeof(string)));
@@ -1443,12 +1438,12 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Grating MainPart Used For Collision Check", new Property("MainPartUsedForCollisionCheck", typeof(int)));
       dictProps.Add("Grating MainPart Used For Numbering", new Property("MainPartUsedForNumbering", typeof(int)));
       dictProps.Add("Grating Material", new Property("Material", typeof(string)));
-      dictProps.Add("Grating Material Description", new Property("MaterialDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Material Description", new Property("MaterialDescription", typeof(string), ".", true));
       dictProps.Add("Grating Material Used For Numbering", new Property("MaterialUsedForNumbering", typeof(int)));
       dictProps.Add("Grating Note", new Property("Note", typeof(string)));
       dictProps.Add("Grating Note Used For Numbering", new Property("NoteUsedForNumbering", typeof(int)));
-      dictProps.Add("Grating Number Of Holes", new Property("NumberOfHoles", typeof(int), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Grating Normal", new Property("PlateNormal", typeof(Vector3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Number Of Holes", new Property("NumberOfHoles", typeof(int), ".", true));
+      dictProps.Add("Grating Normal", new Property("PlateNormal", typeof(Vector3d), ".", true));
       dictProps.Add("Grating OED Value", new Property("OEDValue", typeof(double)));
       dictProps.Add("Grating PONumber", new Property("PONumber", typeof(string)));
       dictProps.Add("Grating PONumber Used For Numbering", new Property("PONumberUsedForNumbering", typeof(bool)));
@@ -1457,11 +1452,11 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Grating Preliminary Part Position Number", new Property("PreliminaryPartPositionNumber", typeof(string)));
       dictProps.Add("Grating Preliminary Part Prefix", new Property("PreliminaryPartPrefix", typeof(string)));
       dictProps.Add("Grating Radius Increment", new Property("RadIncrement", typeof(double)));
-      dictProps.Add("Grating Radius", new Property("Radius", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Radius", new Property("Radius", typeof(double), ".", true));
       dictProps.Add("Grating Requisition Number", new Property("RequisitionNumber", typeof(string)));
       dictProps.Add("Grating Requisition Number Used For Numbering", new Property("RequisitionNumberUsedForNumbering", typeof(bool)));
       dictProps.Add("Grating Model Role", new Property("Role", typeof(string)));
-      dictProps.Add("Grating Model Role Description", new Property("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Model Role Description", new Property("RoleDescription", typeof(string), ".", true));
       dictProps.Add("Grating Role Used For Numbering", new Property("RoleUsedForNumbering", typeof(int)));
       dictProps.Add("Grating Shipped Date", new Property("ShippedDate", typeof(string)));
       dictProps.Add("Grating Single Part Number", new Property("SinglePartNumber", typeof(string)));
@@ -1469,25 +1464,25 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Grating Single Part Used For BOM", new Property("SinglePartUsedForBOM", typeof(int)));
       dictProps.Add("Grating Single Part Used For CollisionCheck", new Property("SinglePartUsedForCollisionCheck", typeof(int)));
       dictProps.Add("Grating Single Part Used For Numbering", new Property("SinglePartUsedForNumbering", typeof(int)));
-      dictProps.Add("Grating SpecificGravity", new Property("SpecificGravity", typeof(double), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Grating Standard Hatch", new Property("StandardHatch", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating SpecificGravity", new Property("SpecificGravity", typeof(double), ".", true));
+      dictProps.Add("Grating Standard Hatch", new Property("StandardHatch", typeof(string), ".", true));
       dictProps.Add("Grating Supplier", new Property("Supplier", typeof(string)));
       dictProps.Add("Grating SupplierUsedForNumbering", new Property("SupplierUsedForNumbering", typeof(bool)));
       dictProps.Add("Grating Thickness", new Property("Thickness", typeof(double)));
-      dictProps.Add("Grating Thickness Of A Bearing Bar", new Property("ThicknessOfABearingBar", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Thickness Of A Bearing Bar", new Property("ThicknessOfABearingBar", typeof(double), ".", true));
       dictProps.Add("Grating Width Extension Left", new Property("WidthExtensionLeft", typeof(double)));
       dictProps.Add("Grating Width Extension Right", new Property("WidthExtensionRight", typeof(double)));
-      dictProps.Add("Grating Volume", new Property("Volume", typeof(double), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Grating Width", new Property("Width", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Grating Volume", new Property("Volume", typeof(double), ".", true));
+      dictProps.Add("Grating Width", new Property("Width", typeof(double), ".", true));
       dictProps.Add("Change Grating Display Mode", new Property("ReprMode", typeof(int), "Z_PostWriteDB"));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kGrating });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildStriaghtBeamPropertyList(int listFilter, string prefix = "")
+    private static Dictionary<string, Property> BuildStriaghtBeamPropertyList(string prefix = "")
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select " + prefix + "Straight Beam Property...", new Property("none", typeof(string)));
@@ -1495,10 +1490,10 @@ namespace AdvanceSteel.Nodes
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kUnknown });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildCompoundStraightBeamPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildCompoundStraightBeamPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Compound Beam Property...", new Property("none", typeof(string)));
@@ -1506,10 +1501,10 @@ namespace AdvanceSteel.Nodes
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kUnknown });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildTaperedBeamPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildTaperedBeamPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Tapered Beam Property...", new Property("none", typeof(string)));
@@ -1517,10 +1512,10 @@ namespace AdvanceSteel.Nodes
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kUnknown });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildUnfoldedBeamPropertyList(int listFilter, string prefix = "")
+    private static Dictionary<string, Property> BuildUnfoldedBeamPropertyList(string prefix = "")
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add(prefix + "Property...", new Property("none", typeof(string)));
@@ -1530,37 +1525,37 @@ namespace AdvanceSteel.Nodes
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kUnfoldedStraightBeam});
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildBentBeamPropertyList(int listFilter, string prefix = "")
+    private static Dictionary<string, Property> BuildBentBeamPropertyList(string prefix = "")
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add(prefix + "Bend Beam Property...", new Property("none", typeof(string)));
       dictProps.Add(prefix + "Bend Beam Offset Curve Radius", new Property("OffsetCurveRadius", typeof(double)));
-      dictProps.Add(prefix + "Bend Beam Curve Offset", new Property("CurveOffset", typeof(double), ".", ePropertyDataOperator.Get));
-      dictProps.Add(prefix + "Bend Beam Systemline Radius", new Property("SystemlineRadius", typeof(double), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Bend Beam Curve Offset", new Property("CurveOffset", typeof(double), ".", true));
+      dictProps.Add(prefix + "Bend Beam Systemline Radius", new Property("SystemlineRadius", typeof(double), ".", true));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kBentBeam,
                     eObjectType.kConcreteBentBeam});
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildPolyBeamPropertyList(int listFilter, string prefix = "")
+    private static Dictionary<string, Property> BuildPolyBeamPropertyList(string prefix = "")
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add(prefix + "Poly Beam Property...", new Property("none", typeof(string)));
-      dictProps.Add(prefix + "Poly Beam Reference Orientation", new Property("VecRefOrientation", typeof(Vector3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Poly Beam Reference Orientation", new Property("VecRefOrientation", typeof(Vector3d), ".", true));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kPolyBeam});
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildCameraPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildCameraPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Camera Property...", new Property("none", typeof(string)));
@@ -1569,8 +1564,8 @@ namespace AdvanceSteel.Nodes
       dictProps.Add("Camera Type", new Property("CameraType", typeof(string)));
       dictProps.Add("Camera 3D Coordinate System", new Property("CameraCS", typeof(Matrix3d)));
       dictProps.Add("Camera SupplierUsedForNumbering", new Property("DetailingFilterEnabled", typeof(bool)));
-      dictProps.Add("Camera Type Description", new Property("TypeDescription", typeof(string), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Camera Supports Detailing Disable", new Property("SupportsDetailingDisable", typeof(bool), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Camera Type Description", new Property("TypeDescription", typeof(string), ".", true));
+      dictProps.Add("Camera Supports Detailing Disable", new Property("SupportsDetailingDisable", typeof(bool), ".", true));
       dictProps.Add("Camera Detail Style", new Property("DetailStyle", typeof(int)));
       dictProps.Add("Camera Detail Style Location", new Property("DetailStyleLocation", typeof(int)));
       dictProps.Add("Camera Disable Detailing", new Property("DisableDetailing", typeof(bool)));
@@ -1578,105 +1573,105 @@ namespace AdvanceSteel.Nodes
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kCamera });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildPlateFeaturePropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildPlateFeaturePropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Plate Feature Property...", new Property("none", typeof(string)));
       dictProps.Add("Plate Feature Boring Out Switch", new Property("BoringOut", typeof(int)));
-      dictProps.Add("Plate Feature Center Point", new Property("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Feature Center Point", new Property("CenterPoint", typeof(Point3d), ".", true));
       dictProps.Add("Plate Feature Gap", new Property("Gap", typeof(double)));
-      dictProps.Add("Plate Feature Handle", new Property("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Feature Handle", new Property("Handle", typeof(string), ".", true));
       dictProps.Add("Plate Feature Layer", new Property("Layer", typeof(string)));
       dictProps.Add("Plate Feature Length", new Property("Length", typeof(double)));
       dictProps.Add("Plate Feature LengthIncrement", new Property("LengthIncrement", typeof(double)));
-      dictProps.Add("Plate Feature PureRole", new Property("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Feature PureRole", new Property("PureRole", typeof(string), ".", true));
       dictProps.Add("Plate Feature RadIncrement", new Property("RadIncrement", typeof(double)));
       dictProps.Add("Plate Feature Radius", new Property("Radius", typeof(double)));
       dictProps.Add("Plate Feature Display Mode", new Property("ReprMode", typeof(int)));
       dictProps.Add("Plate Feature Role", new Property("Role", typeof(string)));
-      dictProps.Add("Plate Feature Role Description", new Property("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Feature Role Description", new Property("RoleDescription", typeof(string), ".", true));
       dictProps.Add("Plate Feature Use Gap Switch", new Property("UseGap", typeof(double)));
       dictProps.Add("Plate Feature Width", new Property("Width", typeof(bool)));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kPlateFeatContour });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildPlateVertexFilletPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildPlateVertexFilletPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Plate Vertex Property...", new Property("none", typeof(string)));
-      dictProps.Add("Plate Vertex Center Point", new Property("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Vertex Center Point", new Property("CenterPoint", typeof(Point3d), ".", true));
       dictProps.Add("Plate Vertex Contour Index", new Property("ContourIndex", typeof(int)));
-      dictProps.Add("Plate Vertex Handle", new Property("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Vertex Handle", new Property("Handle", typeof(string), ".", true));
       dictProps.Add("Plate Vertex Layer", new Property("Layer", typeof(string)));
       dictProps.Add("Plate Vertex Length 1", new Property("Length1", typeof(double)));
       dictProps.Add("Plate Vertex Length 2", new Property("Length2", typeof(double)));
       dictProps.Add("Plate Vertex Object Index", new Property("ObjectIndex", typeof(int)));
-      dictProps.Add("Plate Vertex PureRole", new Property("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Vertex PureRole", new Property("PureRole", typeof(string), ".", true));
       dictProps.Add("Plate Vertex Radius", new Property("Radius", typeof(double)));
       dictProps.Add("Plate Vertex RadIncrement", new Property("RadIncrement", typeof(double)));
       dictProps.Add("Plate Vertex Display Mode", new Property("ReprMode", typeof(int)));
       dictProps.Add("Plate Vertex Role", new Property("Role", typeof(string)));
-      dictProps.Add("Plate Vertex Role Description", new Property("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Plate Vertex Role Description", new Property("RoleDescription", typeof(string), ".", true));
       dictProps.Add("Plate Vertex Use Gap", new Property("UseGap", typeof(bool)));
       dictProps.Add("Plate Vertex Vertex Index", new Property("VertexIndex", typeof(short)));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kPlateFeatVertex });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildBeamCutPlanePropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildBeamCutPlanePropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Beam Cut Plane Property...", new Property("none", typeof(string)));
       dictProps.Add("Beam Cut Plane AngleOnY", new Property("AngleOnY", typeof(double)));
       dictProps.Add("Beam Cut Plane AngleOnZ", new Property("AngleOnZ", typeof(double)));
-      dictProps.Add("Beam Cut Plane Center Point", new Property("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Beam Cut Plane Handle", new Property("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Cut Plane Center Point", new Property("CenterPoint", typeof(Point3d), ".", true));
+      dictProps.Add("Beam Cut Plane Handle", new Property("Handle", typeof(string), ".", true));
       dictProps.Add("Beam Cut Plane Cut Length", new Property("InsLength", typeof(double)));
       dictProps.Add("Beam Cut Plane Layer", new Property("Layer", typeof(string)));
-      dictProps.Add("Beam Cut Plane PureRole", new Property("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Cut Plane PureRole", new Property("PureRole", typeof(string), ".", true));
       dictProps.Add("Beam Cut Plane Display Mode", new Property("ReprMode", typeof(int)));
       dictProps.Add("Beam Cut Plane Role", new Property("Role", typeof(string)));
-      dictProps.Add("Beam Cut Plane Role Description", new Property("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Cut Plane Role Description", new Property("RoleDescription", typeof(string), ".", true));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kBeamShortening });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildBaseBeamNotchPropertyList(int listFilter, string prefix = "")
+    private static Dictionary<string, Property> BuildBaseBeamNotchPropertyList(string prefix = "")
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
-      dictProps.Add(prefix + "Beam Notch Corner Radius", new Property("CornerRadius", typeof(double), ".", ePropertyDataOperator.Get));
-      dictProps.Add(prefix + "Beam Notch Plane Center Point", new Property("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
-      dictProps.Add(prefix + "Beam Notch Plane Handle", new Property("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Notch Corner Radius", new Property("CornerRadius", typeof(double), ".", true));
+      dictProps.Add(prefix + "Beam Notch Plane Center Point", new Property("CenterPoint", typeof(Point3d), ".", true));
+      dictProps.Add(prefix + "Beam Notch Plane Handle", new Property("Handle", typeof(string), ".", true));
       dictProps.Add(prefix + "Beam Notch Plane Cut Depth", new Property("ReferenceDepth", typeof(double)));
       dictProps.Add(prefix + "Beam Notch Plane Cut Length", new Property("ReferenceLength", typeof(double)));
       dictProps.Add(prefix + "Beam Notch Plane Layer", new Property("Layer", typeof(string)));
-      dictProps.Add(prefix + "Beam Notch Plane PureRole", new Property("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Notch Plane PureRole", new Property("PureRole", typeof(string), ".", true));
       dictProps.Add(prefix + "Beam Notch Plane Display Mode", new Property("ReprMode", typeof(int)));
       dictProps.Add(prefix + "Beam Notch Plane Role", new Property("Role", typeof(string)));
-      dictProps.Add(prefix + "Beam Notch Plane Role Description", new Property("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam Notch Plane Role Description", new Property("RoleDescription", typeof(string), ".", true));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kBeamNotch2Ortho,
                     eObjectType.kBeamNotchEx,
                     eObjectType.kBeamMultiContourNotch});
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildBeamNotchOrthoPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildBeamNotchOrthoPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Beam Notch Ortho Property...", new Property("none", typeof(string)));
@@ -1684,66 +1679,66 @@ namespace AdvanceSteel.Nodes
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kUnknown });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildBeamMultiNotchPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildBeamMultiNotchPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Beam Multi Notch Property...", new Property("none", typeof(string)));
       dictProps.Add("Beam Beam Multi Boring Out", new Property("BoringOut", typeof(int)));
-      dictProps.Add("Beam Beam Multi Center Point", new Property("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Beam Multi Center Point", new Property("CenterPoint", typeof(Point3d), ".", true));
       dictProps.Add("Beam Beam Multi Coordinate System", new Property("CS", typeof(Matrix3d)));
       dictProps.Add("Beam Beam Multi Gap", new Property("Gap", typeof(double)));
-      dictProps.Add("Beam Beam Multi Handle", new Property("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Beam Multi Handle", new Property("Handle", typeof(string), ".", true));
       dictProps.Add("Beam Beam Multi Layer", new Property("Layer", typeof(string)));
       dictProps.Add("Beam Beam Multi Length", new Property("Length", typeof(double)));
       dictProps.Add("Beam Beam Multi Length Increment", new Property("LengthIncrement", typeof(double)));
-      dictProps.Add("Beam Beam Multi Normal Vector", new Property("Normal", typeof(Vector3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Beam Multi Normal Vector", new Property("Normal", typeof(Vector3d), ".", true));
       dictProps.Add("Beam Beam Multi Radius Increment", new Property("RadIncrement", typeof(double)));
       dictProps.Add("Beam Beam Multi Radius", new Property("Radius", typeof(double)));
       dictProps.Add("Beam Beam Multi Display Mode", new Property("ReprMode", typeof(int)));
       dictProps.Add("Beam Beam Multi Role", new Property("Role", typeof(string)));
-      dictProps.Add("Beam Beam Multi Role Description", new Property("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Beam Beam Multi PureRole", new Property("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Beam Multi Role Description", new Property("RoleDescription", typeof(string), ".", true));
+      dictProps.Add("Beam Beam Multi PureRole", new Property("PureRole", typeof(string), ".", true));
       dictProps.Add("Beam Beam Multi Use Gap", new Property("UseGap", typeof(bool)));
       dictProps.Add("Beam Beam Multi Width", new Property("Width", typeof(double)));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kBeamMultiContourNotch });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildPlateNotchContourPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildPlateNotchContourPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Plate Notch Contour Property...", new Property("none", typeof(string)));
       dictProps.Add("Beam Plate Notch Contour Boring Out", new Property("BoringOut", typeof(int)));
-      dictProps.Add("Beam Plate Notch Contour Center Point", new Property("CenterPoint", typeof(Point3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Plate Notch Contour Center Point", new Property("CenterPoint", typeof(Point3d), ".", true));
       dictProps.Add("Beam Plate Notch Contour Coordinate System", new Property("CS", typeof(Matrix3d)));
       dictProps.Add("Beam Plate Notch Contour Gap", new Property("Gap", typeof(double)));
-      dictProps.Add("Beam Plate Notch Contour Handle", new Property("Handle", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Plate Notch Contour Handle", new Property("Handle", typeof(string), ".", true));
       dictProps.Add("Beam Plate Notch Contour Layer", new Property("Layer", typeof(string)));
       dictProps.Add("Beam Plate Notch Contour Length", new Property("Length", typeof(double)));
       dictProps.Add("Beam Plate Notch Contour Length Increment", new Property("LengthIncrement", typeof(double)));
-      dictProps.Add("Beam Plate Notch Contour Normal Vector", new Property("Normal", typeof(Vector3d), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Plate Notch Contour Normal Vector", new Property("Normal", typeof(Vector3d), ".", true));
       dictProps.Add("Beam Plate Notch Contour Radius Increment", new Property("RadIncrement", typeof(double)));
       dictProps.Add("Beam Plate Notch Contour Radius", new Property("Radius", typeof(double)));
       dictProps.Add("Beam Plate Notch Contour Display Mode", new Property("ReprMode", typeof(int)));
       dictProps.Add("Beam Plate Notch Contour Role", new Property("Role", typeof(string)));
-      dictProps.Add("Beam Plate Notch Contour Role Description", new Property("RoleDescription", typeof(string), ".", ePropertyDataOperator.Get));
-      dictProps.Add("Beam Plate Notch Contour PureRole", new Property("PureRole", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add("Beam Plate Notch Contour Role Description", new Property("RoleDescription", typeof(string), ".", true));
+      dictProps.Add("Beam Plate Notch Contour PureRole", new Property("PureRole", typeof(string), ".", true));
       dictProps.Add("Beam Plate Notch Contour Use Gap", new Property("UseGap", typeof(bool)));
       dictProps.Add("Beam Plate Notch Contour Width", new Property("Width", typeof(double)));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kPlateFeatContour });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildBeamNotchRotatedPropertyList(int listFilter)
+    private static Dictionary<string, Property> BuildBeamNotchRotatedPropertyList()
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Select Beam Notch Rotated Property...", new Property("none", typeof(string)));
@@ -1754,27 +1749,26 @@ namespace AdvanceSteel.Nodes
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kBeamNotchEx });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
-    private static Dictionary<string, Property> BuildCompundBaseBeamPropertyList(int listFilter, string prefix = "")
+    private static Dictionary<string, Property> BuildCompundBaseBeamPropertyList(string prefix = "")
     {
       Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
       dictProps.Add("Use " + prefix + "Beam As One Beam", new Property("UseCompoundAsOneBeam", typeof(bool)));
-      dictProps.Add(prefix + "Beam ClassName", new Property("CompoundClassName", typeof(string), ".", ePropertyDataOperator.Get));
-      dictProps.Add(prefix + "Beam TypeName", new Property("CompoundTypeName", typeof(string), ".", ePropertyDataOperator.Get));
+      dictProps.Add(prefix + "Beam ClassName", new Property("CompoundClassName", typeof(string), ".", true));
+      dictProps.Add(prefix + "Beam TypeName", new Property("CompoundTypeName", typeof(string), ".", true));
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kCompoundStraightBeam });
 
-      return filterDictionary(dictProps, listFilter);
+      return dictProps;
     }
 
     public static void CheckListUpdateOrAddValue(List<Property> listOfPropertyData,
                                                   string propName,
                                                   object propValue,
-                                                  string propLevel = "",
-                                                  int propertyDataOp = 6)
+                                                  string propLevel = "")
     {
       var foundItem = listOfPropertyData.FirstOrDefault<Property>(props => props.Name == propName);
       if (foundItem != null)
@@ -1783,7 +1777,7 @@ namespace AdvanceSteel.Nodes
       }
       else
       {
-        listOfPropertyData.Add(new Property(propName, propValue, propValue.GetType(), propLevel, propertyDataOp));
+        listOfPropertyData.Add(new Property(propName, propValue, propValue.GetType(), propLevel));
       }
     }
 

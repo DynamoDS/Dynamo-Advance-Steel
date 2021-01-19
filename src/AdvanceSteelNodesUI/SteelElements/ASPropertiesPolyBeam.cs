@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Poly Beam Properties")]
-  [NodeDescription("Select Advance Steel Poly Beam Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
-  [OutPortNames("Writable Poly Beam Property")]
+  [NodeDescription("Lists all the property names of an Advance Steel Poly Beam")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
   public class ASPropertiesPolyBeam : AstDropDownBase
   {
-    private const string outputName = "Advance Steel Poly Beam Property";
+    private const string outputName = "propertyName";
 
     public ASPropertiesPolyBeam()
         : base(outputName)
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetPolyBeamPropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetPolyBeamPropertyList())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

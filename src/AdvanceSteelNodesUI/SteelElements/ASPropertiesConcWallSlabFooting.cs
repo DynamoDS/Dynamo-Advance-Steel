@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Concrete Wall / Slabs / Isolated Footing Properties")]
-  [NodeDescription("Select Advance Steel Concrete Wall / Slabs / Isolated Footing Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
-  [OutPortNames("Writable Concrete Wall / Slabs / Isolated Footing Property")]
+  [NodeDescription("Lists all the property names of an Advance Steel Concrete Wall / Slabs / Isolated Footing")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
   public class ASPropertiesConcWallSlabFooting : AstDropDownBase
   {
-    private const string outputName = "Advance Steel Concrete Wall / Slabs / Isolated Footing Property";
+    private const string outputName = "propertyName";
 
     public ASPropertiesConcWallSlabFooting()
         : base(outputName)
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetConcretePlanarProperties(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetConcretePlanarProperties())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

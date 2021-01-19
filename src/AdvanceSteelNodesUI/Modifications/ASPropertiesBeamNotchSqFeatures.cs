@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Beam Ortho Notch Feature Properties")]
-  [NodeDescription("Select Advance Steel Beam Ortho Notch Feature Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
-  [OutPortNames("Writable Beam Ortho Notch Feature Property")]
+  [NodeDescription("Lists all the property names of an Advance Steel Beam Ortho Notch Feature")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
   public class ASPropertiesBeamNotchSqFeatures : AstDropDownBase
   {
-    private const string outputName = "Advance Steel Beam Ortho Notch Feature Property";
+    private const string outputName = "propertyName";
 
     public ASPropertiesBeamNotchSqFeatures()
         : base(outputName)
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetBeamNotchOrthoPropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetBeamNotchOrthoPropertyList())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

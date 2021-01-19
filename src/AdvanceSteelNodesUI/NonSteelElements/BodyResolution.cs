@@ -7,8 +7,8 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Steel Body Resolution")]
-  [NodeDescription("Steel Body Resolution")]
+  [NodeName("Body Resolution")]
+  [NodeDescription("Body Resolution")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
   [OutPortNames("bodyResolution")]
   [OutPortTypes("int")]

@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Grating Properties")]
-  [NodeDescription("Select Advance Steel Grating Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
-  [OutPortNames("Writable Grating Property")]
+  [NodeDescription("Lists all the property names of an Advance Steel Grating")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
   public class ASPropertiesGrating : AstDropDownBase
   {
-    private const string outputName = "Advance Steel Grating Property";
+    private const string outputName = "propertyName";
 
     public ASPropertiesGrating()
         : base(outputName)
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetGratingPropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetGratingPropertyList())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

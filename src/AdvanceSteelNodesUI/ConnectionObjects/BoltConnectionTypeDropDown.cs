@@ -11,15 +11,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Bolt Connection Type")]
-  [NodeDescription("Set Bolt Connection type - InShop or OnSite or SiteDrill")]
+  [NodeDescription("Lists the Advance Steel Bolt Connection type options")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
-  [OutPortNames("Bolt Type")]
+  [OutPortNames("boltType")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
   public class BoltConnectionType : AstDropDownBase
   {
-    private const string outputName = "Bolt Type";
+    private const string outputName = "boltType";
 
     public BoltConnectionType()
         : base(outputName)

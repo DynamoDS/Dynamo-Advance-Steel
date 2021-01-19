@@ -21,9 +21,9 @@ namespace AdvanceSteel.Nodes
   [IsDesignScriptCompatible]
   [IsVisibleInDynamoLibrary(true)]
   [NodeCategory("AdvanceSteel.Nodes.Selection.ObjectSelection")]
-  [NodeName("SelectPoint")]
-  [NodeDescription("Select Point in Model Space")]
-  [OutPortNames("Point")]
+  [NodeName("Select Point")]
+  [NodeDescription("Select a point in Model Space")]
+  [OutPortNames("point")]
   [OutPortTypes("Autodesk.DesignScript.Geometry.Point")]
   public class ASPointSelection : SteelSelection<string, Autodesk.DesignScript.Geometry.Point>
   {

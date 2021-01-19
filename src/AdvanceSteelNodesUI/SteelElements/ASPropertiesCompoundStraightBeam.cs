@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Compound Straight Beam Properties")]
-  [NodeDescription("Select Advance Steel Compound Straight Beam Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
-  [OutPortNames("Writable Compound Straight Beam Property")]
+  [NodeDescription("Lists all the property names of an Advance Steel Compound Straight Beam")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
   public class ASPropertiesCompoundStraightBeam : AstDropDownBase
   {
-    private const string outputName = "Advance Steel Compound Straight Beam Property";
+    private const string outputName = "propertyName";
 
     public ASPropertiesCompoundStraightBeam()
         : base(outputName)
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetCompoundStraightBeamPropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetCompoundStraightBeamPropertyList())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

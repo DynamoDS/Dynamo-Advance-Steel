@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Anchor Orientation Type")]
-  [NodeDescription("Set Anchor Orientation")]
+  [NodeDescription("Lists the Advance Steel Anchor orientation type options")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
-  [OutPortNames("Anchor Orientation Type")]
+  [OutPortNames("orientationType")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
   public class AnchorOrientationType : AstDropDownBase
   {
-    private const string outputName = "Anchor Orientation Type";
+    private const string outputName = "orientationType";
 
     public AnchorOrientationType()
         : base(outputName)

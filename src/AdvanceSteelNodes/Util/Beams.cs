@@ -56,10 +56,10 @@ namespace AdvanceSteel.Nodes.Util
               throw new System.Exception("Not a BEAM Object");
           }
           else
-            throw new System.Exception("No AS Steel Object is null");
+            throw new System.Exception("AS Object is null");
         }
         else
-          throw new System.Exception("No Steel Object or Point is null");
+          throw new System.Exception("Steel Object is null");
       }
       return ret;
     }
@@ -96,10 +96,10 @@ namespace AdvanceSteel.Nodes.Util
               throw new System.Exception("Not a BEAM Object");
           }
           else
-            throw new System.Exception("No AS Steel Object is null");
+            throw new System.Exception("AS Object is null");
         }
         else
-          throw new System.Exception("No Steel Object or Point is null");
+          throw new System.Exception("Steel Object is null");
       }
       return ret;
     }
@@ -136,10 +136,10 @@ namespace AdvanceSteel.Nodes.Util
               throw new System.Exception("Not a BEAM Object");
           }
           else
-            throw new System.Exception("No AS Steel Object is null");
+            throw new System.Exception("AS Object is null");
         }
         else
-          throw new System.Exception("No Steel Object or Point is null");
+          throw new System.Exception("Steel Object is null");
       }
       return ret;
     }
@@ -177,10 +177,10 @@ namespace AdvanceSteel.Nodes.Util
               throw new System.Exception("Not a BEAM Object");
           }
           else
-            throw new System.Exception("No AS Steel Object is null");
+            throw new System.Exception("AS Object is null");
         }
         else
-          throw new System.Exception("No Steel Object or Point is null");
+          throw new System.Exception("Steel Object or Point is null");
       }
       return ret;
     }
@@ -236,10 +236,10 @@ namespace AdvanceSteel.Nodes.Util
               throw new System.Exception("Not a BEAM Object");
           }
           else
-            throw new System.Exception("No AS Steel Object is null");
+            throw new System.Exception("AS Object is null");
         }
         else
-          throw new System.Exception("No Steel Object or Point is null");
+          throw new System.Exception("Steel Object is null");
       }
       return ret;
     }
@@ -331,10 +331,41 @@ namespace AdvanceSteel.Nodes.Util
               throw new System.Exception("Not a BEAM Object");
           }
           else
-            throw new System.Exception("No AS Steel Object is null");
+            throw new System.Exception("AS Object is null");
         }
         else
-          throw new System.Exception("No Steel Object or Point is null");
+          throw new System.Exception("Steel Object is null");
+      }
+    }
+
+    /// <summary>
+    /// Set Beam Cross Section to be Mirrored - i.e. Channels with toe pointing in the opposite direction
+    /// </summary>
+    /// <param name="steelObject"> Advance Steel element</param>
+    /// <param name="crossSectionMirrored"> Input True or False Value</param>
+    public static void SetBeamCrossSectionMirrored(AdvanceSteel.Nodes.SteelDbObject steelObject,
+                                        [DefaultArgument("true")] bool crossSectionMirrored)
+    {
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
+            {
+              Beam selectedObj = filerObj as Beam;
+              selectedObj.SetCrossSectionMirrored(crossSectionMirrored);
+            }
+            else
+              throw new System.Exception("Not a BEAM Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object is null");
       }
     }
 
@@ -362,10 +393,10 @@ namespace AdvanceSteel.Nodes.Util
               throw new System.Exception("Not a BEAM Object");
           }
           else
-            throw new System.Exception("No AS Steel Object is null");
+            throw new System.Exception("AS Object is null");
         }
         else
-          throw new System.Exception("No Steel Object or Point is null");
+          throw new System.Exception("Steel Object or Point is null");
       }
       return ret;
     }

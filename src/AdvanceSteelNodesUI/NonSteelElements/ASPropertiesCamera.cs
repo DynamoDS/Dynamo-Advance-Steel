@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Camera Properties")]
-  [NodeDescription("Select Advance Steel Camera Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
-  [OutPortNames("Writable Camera Property")]
+  [NodeDescription("Lists all the property names of an Advance Steel Camera")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
   public class ASPropertiesCamera : AstDropDownBase
   {
-    private const string outputName = "Advance Steel Camera Property";
+    private const string outputName = "propertyName";
 
     public ASPropertiesCamera()
         : base(outputName)
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetCameraPropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetCameraPropertyList())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

@@ -19,31 +19,32 @@ namespace AdvanceSteel.Nodes
     private string _name;
     private System.Type _valueType;
     private object _value;
+    private bool _isReadOnly;
+
     internal List<eObjectType> ElementTypeList { get; set; }
     internal int DataOperator { get; }
     internal string Level { get; }
 
-    internal Property(string name, System.Type propType, string level = ".", int dataOperator = 6)
+    internal Property(string name, System.Type propType, string level = ".", bool isReadOnly = false)
     {
       Name = name;
       _valueType = propType;
       Level = level;
-      DataOperator = dataOperator;
+      _isReadOnly = isReadOnly;
     }
 
-    internal Property(string name, object value, System.Type propType, string level = ".", int dataOperator = 6)
+    internal Property(string name, object value, System.Type propType, string level = ".", bool isReadOnly = false)
     {
       Name = name;
       _valueType = propType;
       Value = value;
       Level = level;
-      DataOperator = dataOperator;
+      _isReadOnly = isReadOnly;
     }
 
     /// <summary>
     /// Get the value from the property
     /// </summary>
-    /// <param name="property"> steel property object to extract information from</param>
     public object Value
     {
       get
@@ -66,7 +67,6 @@ namespace AdvanceSteel.Nodes
     /// <summary>
     /// Get the name of the property
     /// </summary>
-    /// <param name="property"> steel property object to extract information from</param>
     public string Name
     {
       get
@@ -82,13 +82,11 @@ namespace AdvanceSteel.Nodes
     /// <summary>
     /// Check if this property is readonly
     /// </summary>
-    /// <param name="property"> steel property object to extract information from</param>
-    /// <returns></returns>
     public bool IsReadOnly
     {
       get
       {
-        return DataOperator == ePropertyDataOperator.Get;
+        return _isReadOnly;
       }
     }
 
@@ -100,7 +98,7 @@ namespace AdvanceSteel.Nodes
     /// <returns></returns>
     public static Property ByNameAndValue(string name, object value)
     {
-      Property selectedProperty = Utils.GetProperty(name, ePropertyDataOperator.Set_Get);
+      Property selectedProperty = Utils.GetProperty(name);
       if (selectedProperty != null)
       {
          selectedProperty.Value = value;
@@ -123,7 +121,7 @@ namespace AdvanceSteel.Nodes
       {
         FilerObject filerObj = Utils.GetObject(steelObject.Handle);
 
-        Property extractionProperty = Utils.GetProperty(propertyName, ePropertyDataOperator.Get);
+        Property extractionProperty = Utils.GetProperty(propertyName);
         if (extractionProperty != null)
         {
           if (extractionProperty.EvaluateFromObject(filerObj))
@@ -146,6 +144,9 @@ namespace AdvanceSteel.Nodes
     /// <returns></returns>
     public static SteelDbObject SetObjectProperty(SteelDbObject steelObject, Property property)
     {
+      if (property.IsReadOnly)
+        throw new System.Exception("property is readonly");
+
       using (var ctx = new SteelServices.DocContext())
       {
         FilerObject fo = Utils.GetObject(steelObject.Handle);
@@ -169,7 +170,7 @@ namespace AdvanceSteel.Nodes
       List<Property> ret = new List<Property>() { };
       using (var ctx = new SteelServices.DocContext())
       {
-        Dictionary<string, Property> allProperties = Utils.GetAllProperties(ePropertyDataOperator.Get);
+        Dictionary<string, Property> allProperties = Utils.GetAllProperties();
         FilerObject filerObj = Utils.GetObject(steelObject.Handle);
 
         foreach (KeyValuePair<string, Property> prop in allProperties)
@@ -197,7 +198,7 @@ namespace AdvanceSteel.Nodes
 
     internal bool SetToObject(object objectToUpdate)
     {
-      if (objectToUpdate != null)
+      if (objectToUpdate != null && !IsReadOnly)
       {
         objectToUpdate.GetType().GetProperty(Name).SetValue(objectToUpdate, Value);
         return true;
@@ -242,13 +243,5 @@ namespace AdvanceSteel.Nodes
 
       return false;
     }
-  }
-
-  [IsVisibleInDynamoLibrary(false)]
-  public static class ePropertyDataOperator
-  {
-    public static readonly int Set = 2;
-    public static readonly int Get = 3;
-    public static readonly int Set_Get = 6;
   }
 }

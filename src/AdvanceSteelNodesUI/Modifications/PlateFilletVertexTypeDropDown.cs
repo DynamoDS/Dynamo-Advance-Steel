@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Plate Fillet Vertex Type")]
-  [NodeDescription("Set Plate Fillet Vertex type - Convex, Concave, Chamfer")]
+  [NodeDescription("Lists the Advance Steel Plate Fillet Vertex type options")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
-  [OutPortNames("Plate Fillet Vertex Type")]
+  [OutPortNames("vertexType")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
   public class PlateFilletVertexType : AstDropDownBase
   {
-    private const string outputName = "Plate Fillet Vertex Type";
+    private const string outputName = "vertexType";
 
     public PlateFilletVertexType()
         : base(outputName)

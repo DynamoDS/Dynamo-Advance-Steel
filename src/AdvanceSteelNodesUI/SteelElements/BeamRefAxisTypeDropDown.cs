@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Beam Reference Axis")]
-  [NodeDescription("Set Beam Reference Axis - e.g. Top Left, Middle Middle, Countour Center")]
+  [NodeDescription("Lists the Advance Steel Beam Reference Axis options - e.g. Top Left, Middle Middle, Countour Center")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
-  [OutPortNames("Beam Reference Axis")]
+  [OutPortNames("referenceAxis")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
   public class BeamRefAxisType : AstDropDownBase
   {
-    private const string outputName = "Beam Reference Axis Type";
+    private const string outputName = "referenceAxis";
 
     public BeamRefAxisType()
         : base(outputName)

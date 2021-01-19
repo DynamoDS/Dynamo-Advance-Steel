@@ -8,15 +8,15 @@ using Newtonsoft.Json;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("Concrete Bent Beam Properties")]
-  [NodeDescription("Select Advance Steel Concrete Bent Beam Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
-  [OutPortNames("Writable Concrete Bent Beam Property")]
+  [NodeDescription("Lists all the property names of an Advance Steel Concrete Bent Beam")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
   public class ASPropertiesConcBentBeam : AstDropDownBase
   {
-    private const string outputName = "Advance Steel Concrete Bent Beam Property";
+    private const string outputName = "propertyName";
 
     public ASPropertiesConcBentBeam()
         : base(outputName)
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetConcreteBentBeamProperties(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetConcreteBentBeamProperties())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }
