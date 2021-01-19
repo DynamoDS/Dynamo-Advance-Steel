@@ -17,16 +17,16 @@ namespace AdvanceSteel.Nodes.Selection
   /// <summary>
   /// Select Advance Steel Objects
   /// </summary>
-  public static class ObjectSelection
+  public static class SelectionFilter
   {
 
     /// <summary>
-    /// Filter a Selection Set based on Object Types
+    /// Filter a collection of steel objects by a list of object types
     /// </summary>
-    /// <param name="currentSelectionSet"> Current Selection set</param>
-    /// <param name="objectTypeFilters"> List of AS Object Types</param>
+    /// <param name="steelObjects">List of steel objects</param>
+    /// <param name="objectTypeFilters"> List of accepted Steel Object Types</param>
     /// <returns></returns>
-    public static List<SteelDbObject> FilterSelectionByType(List<SteelDbObject> currentSelectionSet,
+    public static List<SteelDbObject> FilterSelectionByType(List<SteelDbObject> steelObjects,
                                                   List<int> objectTypeFilters)
     {
       List<SteelDbObject> retListOfFilteredSteelObjects = new List<SteelDbObject>();
@@ -34,14 +34,14 @@ namespace AdvanceSteel.Nodes.Selection
 
       if (objectTypeFilters.Count > 0)
       {
-        for (int i = 0; i < currentSelectionSet.Count; i++)
+        for (int i = 0; i < steelObjects.Count; i++)
         {
-          FilerObject objX = Utils.GetObject(currentSelectionSet[i].Handle);
+          FilerObject objX = Utils.GetObject(steelObjects[i].Handle);
           if (objX != null)
           {
             if (filter.Filter(objX.Type()) != FilerObject.eObjectType.kUnknown)
             {
-              retListOfFilteredSteelObjects.Add(currentSelectionSet[i]);
+              retListOfFilteredSteelObjects.Add(steelObjects[i]);
             }
           }
           else

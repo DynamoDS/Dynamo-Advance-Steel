@@ -137,5 +137,67 @@ namespace AdvanceSteel.Nodes.Beams
         }
       }
     }
+
+    /// <summary>
+    /// Get Polycurve from Polybeam
+    /// </summary>
+    /// <param name="polyBeam"> Advance Steel polybeam</param>
+    /// <returns></returns>
+    public static Autodesk.DesignScript.Geometry.PolyCurve GetPolyCurve(PolyBeam polyBeam)
+    {
+      List<Autodesk.DesignScript.Geometry.Curve> intRet = new List<Autodesk.DesignScript.Geometry.Curve>() { };
+      Autodesk.DesignScript.Geometry.PolyCurve ret = null;
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (polyBeam != null)
+        {
+          FilerObject filerObj = Utils.GetObject(polyBeam.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kPolyBeam))
+            {
+
+              Autodesk.AdvanceSteel.Modelling.PolyBeam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PolyBeam;
+              Polyline3d poly = selectedObj.GetPolyline();
+              intRet = Utils.ToDynPolyCurves(poly, true);
+              ret = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(intRet);
+            }
+            throw new System.Exception("Wrong type of Steel Object found, must be a Polybeam");
+          }
+        }
+        else
+          throw new System.Exception("No Steel Object found or Line Object is null");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Sets the Polycurve in an Advance Steel Polybeam
+    /// </summary>
+    /// <param name="polyBeam"> Advance Steel polyBeam</param>
+    /// <param name="polyCurve"> Input Dynamo Polycurve</param>
+    /// <returns></returns>
+    public static void SetPolyCurve(PolyBeam polyBeam,
+                                        Autodesk.DesignScript.Geometry.PolyCurve polyCurve)
+    {
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (polyBeam != null)
+        {
+          FilerObject filerObj = Utils.GetObject(polyBeam.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kPolyBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.PolyBeam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PolyBeam;
+              selectedObj.SetPolyline(Utils.ToAstPolyline3d(polyCurve, true));
+            }
+            throw new System.Exception("Wrong type of Steel Object found, must be a Polybeam");
+          }
+        }
+        else
+          throw new System.Exception("No Steel Object found or Line Object is null");
+      }
+    }
   }
 }
