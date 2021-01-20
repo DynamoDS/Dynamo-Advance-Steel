@@ -8,6 +8,7 @@ using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.AdvanceSteel.ConstructionTypes;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
+using Autodesk.AdvanceSteel.DotNetRoots.Units;
 
 namespace AdvanceSteel.Nodes
 {
@@ -23,26 +24,36 @@ namespace AdvanceSteel.Nodes
 
     internal List<eObjectType> ElementTypeList { get; set; }
     internal string Level { get; }
+    internal Unit.eUnitType? UnitType { get; }
 
-    internal Property(string name, System.Type propType, string level = ".", bool isReadOnly = false)
+    internal Property(string name, System.Type valueType, string level = ".", bool isReadOnly = false)
     {
       _isReadOnly = isReadOnly;
       _name = name;
-      _valueType = propType;
+      _valueType = valueType;
       
       Level = level;
     }
 
-    internal Property(string name, object value, System.Type propType, string level = ".", bool isReadOnly = false)
+    internal Property(string name, System.Type valueType, Unit.eUnitType unitType, string level = ".", bool isReadOnly = false)
     {
       _isReadOnly = isReadOnly;
       _name = name;
-      _valueType = propType;
+      _valueType = valueType;
+
+      Level = level;
+      UnitType = unitType;
+    }
+    internal Property(string name, object internalValue, System.Type valueType, string level = ".", bool isReadOnly = false)
+    {
+      _isReadOnly = isReadOnly;
+      _name = name;
+      _valueType = valueType;
       
-      InternalValue = value;
+      InternalValue = internalValue;
       Level = level;
     }
-
+  
     /// <summary>
     /// Get the value from the property
     /// </summary>
@@ -87,7 +98,7 @@ namespace AdvanceSteel.Nodes
       Property selectedProperty = Utils.GetProperty(name);
       if (selectedProperty != null)
       {
-         selectedProperty.InternalValue = ConvertValueFromDynToAS(value);
+         selectedProperty.InternalValue = selectedProperty.ConvertValueFromDynToAS(value);
       }
       else
         throw new System.Exception("No property found for the given name");
@@ -240,7 +251,7 @@ namespace AdvanceSteel.Nodes
         throw new System.Exception("Null object");
       }
     }
-    internal static object ConvertValueFromDynToAS(object val)
+    internal object ConvertValueFromDynToAS(object val)
     {
       if (val == null)
         return null;
@@ -257,12 +268,16 @@ namespace AdvanceSteel.Nodes
       {
         return Utils.ToAstMatrix3d(val as Autodesk.DesignScript.Geometry.CoordinateSystem, true);
       }
+      else if ((IsDouble(val) || IsInteger(val)) && this.UnitType.HasValue)
+      {
+        return Utils.ToInternalUnits(Convert.ToDouble(val), this.UnitType.Value, true);
+      }
       else
       {
         return val;
       }
     }
-    internal static object ConvertValueFromASToDyn(object val)
+    internal object ConvertValueFromASToDyn(object val)
     {
       if (val == null)
         return null;
@@ -278,6 +293,10 @@ namespace AdvanceSteel.Nodes
       else if (val.GetType() == typeof(Matrix3d))
       {
         return Utils.ToDynCoordinateSys(val as Matrix3d, true);
+      }
+      else if ((IsDouble(val) || IsInteger(val)) && this.UnitType.HasValue)
+      {
+        return Utils.FromInternalUnits(Convert.ToDouble(val), this.UnitType.Value, true);
       }
       else
       {
@@ -297,6 +316,15 @@ namespace AdvanceSteel.Nodes
         {
           return true;
         }
+      }
+
+      return false;
+    }
+    internal static bool IsDouble(object value)
+    {
+      if (value != null)
+      {
+        return value.GetType() == typeof(double);
       }
 
       return false;
