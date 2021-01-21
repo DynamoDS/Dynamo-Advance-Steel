@@ -12,40 +12,40 @@ using System.Linq;
 
 namespace AdvanceSteel.Nodes.Gratings
 {
-	/// <summary>
-	/// Advance Steel Variable Grating Pattern
-	/// </summary>
-	[DynamoServices.RegisterForTrace]
-	public class VariableGrating : GraphicObject
-	{
+  /// <summary>
+  /// Advance Steel Variable Grating Pattern
+  /// </summary>
+  [DynamoServices.RegisterForTrace]
+  public class VariableGrating : GraphicObject
+  {
     internal VariableGrating()
     {
     }
 
-    internal VariableGrating(Point3d ptCenter, 
+    internal VariableGrating(Point3d ptCenter,
                       Vector3d vNormal,
                       double dWidth,
                       double dLength,
-                      List<ASProperty> additionalGratingParameters)
-		{
-			lock (access_obj)
-			{
-				using (var ctx = new SteelServices.DocContext())
-				{
+                      List<Property> additionalGratingParameters)
+    {
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
 
-          List<ASProperty> defaultData = additionalGratingParameters.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = additionalGratingParameters.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-          string strClass = (string)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "GratingClass").PropValue;
-          string strName = (string)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "GratingSize").PropValue;
+          string strClass = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingClass").InternalValue;
+          string strName = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingSize").InternalValue;
 
           Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
-					Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
-					string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+          Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
-					if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-					{
-						gratings = new Autodesk.AdvanceSteel.Modelling.Grating(strClass, strName, plane, ptCenter, dWidth, dLength);
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
+            gratings = new Autodesk.AdvanceSteel.Modelling.Grating(strClass, strName, plane, ptCenter, dWidth, dLength);
 
             if (defaultData != null)
             {
@@ -60,16 +60,16 @@ namespace AdvanceSteel.Nodes.Gratings
             }
 
           }
-					else
-					{
-						gratings = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Grating;
-						if (gratings != null && gratings.IsKindOf(FilerObject.eObjectType.kGrating))
-						{
-							gratings.GratingClass = strClass;
-							gratings.GratingSize = strName;
-							gratings.DefinitionPlane = plane;
-							gratings.SetLength(dWidth, true);
-							gratings.SetWidth(dLength, true);
+          else
+          {
+            gratings = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Grating;
+            if (gratings != null && gratings.IsKindOf(FilerObject.eObjectType.kGrating))
+            {
+              gratings.GratingClass = strClass;
+              gratings.GratingSize = strName;
+              gratings.DefinitionPlane = plane;
+              gratings.SetLength(dWidth, true);
+              gratings.SetWidth(dLength, true);
 
               if (defaultData != null)
               {
@@ -81,32 +81,32 @@ namespace AdvanceSteel.Nodes.Gratings
                 Utils.SetParameters(gratings, postWriteDBData);
               }
             }
-						else
-						{
-							throw new System.Exception("Not a Variable Grating pattern");
-						}
-					}
+            else
+            {
+              throw new System.Exception("Not a Variable Grating pattern");
+            }
+          }
 
-					Handle = gratings.Handle;
-					SteelServices.ElementBinder.CleanupAndSetElementForTrace(gratings);
-				}
-			}
-		}
+          Handle = gratings.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(gratings);
+        }
+      }
+    }
 
     internal VariableGrating(Autodesk.DesignScript.Geometry.Polygon poly,
                               Vector3d vNormal,
-                              List<ASProperty> additionalGratingParameters)
+                              List<Property> additionalGratingParameters)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultData = additionalGratingParameters.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = additionalGratingParameters.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-          string strClass = (string)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "GratingClass").PropValue;
-          string strName = (string)defaultData.FirstOrDefault<ASProperty>(x => x.PropName == "GratingSize").PropValue;
+          string strClass = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingClass").InternalValue;
+          string strName = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingSize").InternalValue;
 
           Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(Utils.ToAstPoint(poly.Center(), true), vNormal);
           Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
@@ -171,21 +171,21 @@ namespace AdvanceSteel.Nodes.Gratings
     /// <param name="length"> Input Grating Length</param>
     /// <param name="additionalGratingParameters"> Optional Input Grating Build Properties </param>
     /// <returns></returns>
-    public static VariableGrating ByRectangularByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
-                                                    string gratingClass, 
-                                                    string gratingName, 
-                                                    double width, 
+    public static VariableGrating ByRectangularByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
+                                                    string gratingClass,
+                                                    string gratingName,
+                                                    double width,
                                                     double length,
-                                                    [DefaultArgument("null")]List<ASProperty> additionalGratingParameters)
-		{
+                                                    [DefaultArgument("null")] List<Property> additionalGratingParameters)
+    {
       additionalGratingParameters = PreSetDefaults(additionalGratingParameters, gratingClass, gratingName);
 
-      return new VariableGrating(Utils.ToAstPoint(coordinateSystem.Origin, true), 
+      return new VariableGrating(Utils.ToAstPoint(coordinateSystem.Origin, true),
                                  Utils.ToAstVector3d(coordinateSystem.ZAxis, true),
-                                 width,
-                                 length,
+                                 Utils.ToInternalDistanceUnits(width, true),
+                                 Utils.ToInternalDistanceUnits(length, true),
                                  additionalGratingParameters);
-		}
+    }
 
     /// <summary>
     /// Create Advance Steel Variable Grating by Dynamo Rectangle and Point and Vectors
@@ -206,16 +206,16 @@ namespace AdvanceSteel.Nodes.Gratings
                                                 string gratingName,
                                                 double width,
                                                 double length,
-                                                [DefaultArgument("null")]List<ASProperty> additionalGratingParameters)
+                                                [DefaultArgument("null")] List<Property> additionalGratingParameters)
     {
       Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem = Autodesk.DesignScript.Geometry.CoordinateSystem.ByOriginVectors(origin, xVector, yVector);
-      
+
       additionalGratingParameters = PreSetDefaults(additionalGratingParameters, gratingClass, gratingName);
 
       return new VariableGrating(Utils.ToAstPoint(coordinateSystem.Origin, true),
                                  Utils.ToAstVector3d(coordinateSystem.ZAxis, true),
-                                 width,
-                                 length,
+                                 Utils.ToInternalDistanceUnits(width, true),
+                                 Utils.ToInternalDistanceUnits(length, true),
                                  additionalGratingParameters);
     }
 
@@ -236,7 +236,7 @@ namespace AdvanceSteel.Nodes.Gratings
                                             string gratingName,
                                             double width,
                                             double length,
-                                            [DefaultArgument("null")]List<ASProperty> additionalGratingParameters)
+                                            [DefaultArgument("null")] List<Property> additionalGratingParameters)
     {
       Vector3d as_normal = Utils.ToAstVector3d(normal, true);
       Vector3d xWorldVec = Vector3d.kXAxis;
@@ -250,8 +250,8 @@ namespace AdvanceSteel.Nodes.Gratings
 
       return new VariableGrating(Utils.ToAstPoint(coordinateSystem.Origin, true),
                                  Utils.ToAstVector3d(coordinateSystem.ZAxis, true),
-                                 width,
-                                 length,
+                                 Utils.ToInternalDistanceUnits(width, true),
+                                 Utils.ToInternalDistanceUnits(length, true),
                                  additionalGratingParameters);
     }
 
@@ -266,17 +266,17 @@ namespace AdvanceSteel.Nodes.Gratings
 		public static VariableGrating ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly,
                                             string gratingClass,
                                             string gratingName,
-                                            [DefaultArgument("null")]List<ASProperty> additionalGratingParameters)
+                                            [DefaultArgument("null")] List<Property> additionalGratingParameters)
     {
       additionalGratingParameters = PreSetDefaults(additionalGratingParameters, gratingClass, gratingName);
       return new VariableGrating(poly, Utils.ToAstVector3d(poly.Normal, true), additionalGratingParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listGratingData, string gratingClass, string gratingName)
+    private static List<Property> PreSetDefaults(List<Property> listGratingData, string gratingClass, string gratingName)
     {
       if (listGratingData == null)
       {
-        listGratingData = new List<ASProperty>() { };
+        listGratingData = new List<Property>() { };
       }
       Utils.CheckListUpdateOrAddValue(listGratingData, "GratingClass", gratingClass, ".");
       Utils.CheckListUpdateOrAddValue(listGratingData, "GratingSize", gratingName, ".");
@@ -284,25 +284,25 @@ namespace AdvanceSteel.Nodes.Gratings
     }
 
     [IsVisibleInDynamoLibrary(false)]
-		public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
-		{
-			lock (access_obj)
-			{
-				using (var ctx = new SteelServices.DocContext())
-				{
-					var grating = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.Grating;
+    public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
+    {
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var grating = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.Grating;
 
-					if (grating == null)
-					{
-						throw new Exception("Null Variable Grating pattern");
-					}
+          if (grating == null)
+          {
+            throw new Exception("Null Variable Grating pattern");
+          }
 
-					List<DynGeometry.Point> polyPoints = GratingDraw.GetPointsToDraw(grating);
+          List<DynGeometry.Point> polyPoints = GratingDraw.GetPointsToDraw(grating);
 
-					return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
-				}
-			}
-		}
-	}
+          return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
+        }
+      }
+    }
+  }
 }
 

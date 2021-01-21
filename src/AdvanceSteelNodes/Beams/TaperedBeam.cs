@@ -19,33 +19,33 @@ namespace AdvanceSteel.Nodes.Beams
     {
     }
 
-    internal TaperedBeam(Autodesk.DesignScript.Geometry.Point ptStart, 
-                          Autodesk.DesignScript.Geometry.Point ptEnd, 
-                          Autodesk.DesignScript.Geometry.Vector vOrientation, 
-                          double startHeight, 
-                          double endHeight, 
+    internal TaperedBeam(Autodesk.DesignScript.Geometry.Point ptStart,
+                          Autodesk.DesignScript.Geometry.Point ptEnd,
+                          Autodesk.DesignScript.Geometry.Vector vOrientation,
+                          double startHeight,
+                          double endHeight,
                           double webThickness,
-                          List<ASProperty> beamProperties)
+                          List<Property> beamProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = beamProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
           Point3d beamStart = Utils.ToAstPoint(ptStart, true);
           Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
           Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
-          
+
           Autodesk.AdvanceSteel.Modelling.BeamTapered beam = null;
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
             beam = new Autodesk.AdvanceSteel.Modelling.BeamTapered(beamStart, beamEnd, refVect, startHeight, endHeight, webThickness);
             beam.CreateComponents();
-            
+
             if (defaultData != null)
             {
               Utils.SetParameters(beam, defaultData);
@@ -99,10 +99,10 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="vOrientation">Section orientation</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
     /// <returns></returns>
-    public static TaperedBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start, 
-                                                    Autodesk.DesignScript.Geometry.Point end, 
+    public static TaperedBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start,
+                                                    Autodesk.DesignScript.Geometry.Point end,
                                                     Autodesk.DesignScript.Geometry.Vector vOrientation,
-                                                    [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                                    [DefaultArgument("null")] List<Property> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       return new TaperedBeam(start, end, vOrientation, 100, 100, 100, additionalBeamParameters);
@@ -122,23 +122,23 @@ namespace AdvanceSteel.Nodes.Beams
     public static TaperedBeam ByStartPointEndPointHeights(Autodesk.DesignScript.Geometry.Point start,
                                                           Autodesk.DesignScript.Geometry.Point end,
                                                           Autodesk.DesignScript.Geometry.Vector vOrientation,
-                                                          [DefaultArgument("100")]double startHeight,
-                                                          [DefaultArgument("100")]double endHeight,
-                                                          [DefaultArgument("100")]double webThickness,
-                                                          [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                                          [DefaultArgument("100")] double startHeight,
+                                                          [DefaultArgument("100")] double endHeight,
+                                                          [DefaultArgument("100")] double webThickness,
+                                                          [DefaultArgument("null")] List<Property> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
-      return new TaperedBeam(start, end, vOrientation, 
-                              Utils.ToInternalUnits(startHeight, true), 
-                              Utils.ToInternalUnits(endHeight, true), 
-                              Utils.ToInternalUnits(webThickness, true), additionalBeamParameters);
+      return new TaperedBeam(start, end, vOrientation,
+                              Utils.ToInternalDistanceUnits(startHeight, true),
+                              Utils.ToInternalDistanceUnits(endHeight, true),
+                              Utils.ToInternalDistanceUnits(webThickness, true), additionalBeamParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listBeamData)
+    private static List<Property> PreSetDefaults(List<Property> listBeamData)
     {
       if (listBeamData == null)
       {
-        listBeamData = new List<ASProperty>() { };
+        listBeamData = new List<Property>() { };
       }
       return listBeamData;
     }

@@ -22,20 +22,20 @@ namespace AdvanceSteel.Nodes.Beams
 
     internal PolyBeam(Polyline3d poly,
                       Autodesk.DesignScript.Geometry.Vector vOrientation,
-                      List<ASProperty> beamProperties)
+                      List<Property> beamProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
 
-          List<ASProperty> defaultData = beamProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = beamProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
-          ASProperty foundProfName = beamProperties.FirstOrDefault<ASProperty>(x => x.PropName == "ProfName");
+          List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+          Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
           string sectionName = "";
           if (foundProfName != null)
           {
-            sectionName = (string)foundProfName.PropValue;
+            sectionName = (string)foundProfName.InternalValue;
           }
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
@@ -46,7 +46,7 @@ namespace AdvanceSteel.Nodes.Beams
             ProfilesManager.GetProfTypeAsDefault("I", out profName);
             sectionName = profName.Name;
           }
-          
+
           Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
 
           Autodesk.AdvanceSteel.Modelling.PolyBeam beam = null;
@@ -104,7 +104,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <returns></returns>
     public static PolyBeam ByPolyCurve(Autodesk.DesignScript.Geometry.PolyCurve polyCurve,
                                         Autodesk.DesignScript.Geometry.Vector orientation,
-                                        [DefaultArgument("null")]List<ASProperty> additionalBeamParameters)
+                                        [DefaultArgument("null")] List<Property> additionalBeamParameters)
     {
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       Polyline3d poly = Utils.ToAstPolyline3d(polyCurve, true);
@@ -113,11 +113,11 @@ namespace AdvanceSteel.Nodes.Beams
       return new PolyBeam(poly, orientation, additionalBeamParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listBeamData)
+    private static List<Property> PreSetDefaults(List<Property> listBeamData)
     {
       if (listBeamData == null)
       {
-        listBeamData = new List<ASProperty>() { };
+        listBeamData = new List<Property>() { };
       }
       return listBeamData;
     }
@@ -135,6 +135,68 @@ namespace AdvanceSteel.Nodes.Beams
           Autodesk.DesignScript.Geometry.PolyCurve pCurve = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(poly, true));
           return pCurve;
         }
+      }
+    }
+
+    /// <summary>
+    /// Get Polycurve from Polybeam
+    /// </summary>
+    /// <param name="polyBeam"> Advance Steel polybeam</param>
+    /// <returns></returns>
+    public static Autodesk.DesignScript.Geometry.PolyCurve GetPolyCurve(PolyBeam polyBeam)
+    {
+      List<Autodesk.DesignScript.Geometry.Curve> intRet = new List<Autodesk.DesignScript.Geometry.Curve>() { };
+      Autodesk.DesignScript.Geometry.PolyCurve ret = null;
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (polyBeam != null)
+        {
+          FilerObject filerObj = Utils.GetObject(polyBeam.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kPolyBeam))
+            {
+
+              Autodesk.AdvanceSteel.Modelling.PolyBeam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PolyBeam;
+              Polyline3d poly = selectedObj.GetPolyline();
+              intRet = Utils.ToDynPolyCurves(poly, true);
+              ret = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(intRet);
+            }
+            throw new System.Exception("Wrong type of Steel Object found, must be a Polybeam");
+          }
+        }
+        else
+          throw new System.Exception("No Steel Object found or Line Object is null");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Sets the Polycurve in an Advance Steel Polybeam
+    /// </summary>
+    /// <param name="polyBeam"> Advance Steel polyBeam</param>
+    /// <param name="polyCurve"> Input Dynamo Polycurve</param>
+    /// <returns></returns>
+    public static void SetPolyCurve(PolyBeam polyBeam,
+                                        Autodesk.DesignScript.Geometry.PolyCurve polyCurve)
+    {
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (polyBeam != null)
+        {
+          FilerObject filerObj = Utils.GetObject(polyBeam.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kPolyBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.PolyBeam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PolyBeam;
+              selectedObj.SetPolyline(Utils.ToAstPolyline3d(polyCurve, true));
+            }
+            throw new System.Exception("Wrong type of Steel Object found, must be a Polybeam");
+          }
+        }
+        else
+          throw new System.Exception("No Steel Object found or Line Object is null");
       }
     }
   }

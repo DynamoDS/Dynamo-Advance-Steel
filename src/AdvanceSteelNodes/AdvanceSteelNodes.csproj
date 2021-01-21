@@ -32,7 +32,8 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="ASModelerMgd">
-      <HintPath>..\..\..\..\Program Files\Autodesk\AutoCAD 2021\ADVS\ASModelerMgd.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\ASModelerMgd.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ASProfilesMgd">
       <HintPath>$(ADVANCESTEELAPI)\ASProfilesMgd.dll</HintPath>
@@ -42,12 +43,6 @@
       <HintPath>$(ADVANCESTEELAPI)\ASObjectsMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <!--
-    <Reference Include="ASObjectsMgd">
-      <HintPath>$(ADVANCESTEELAPI)\ASObjectsMgd.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    -->
     <Reference Include="DotNetRoots">
       <HintPath>$(ADVANCESTEELAPI)\DotNetRoots.dll</HintPath>
       <Private>False</Private>
@@ -74,11 +69,7 @@
     <Compile Include="$(SolutionDir)AssemblySharedInfoGenerator\AssemblySharedInfo.cs">
       <Link>Properties\AssemblySharedInfo.cs</Link>
     </Compile>
-    <Compile Include="Base\ASProperty.cs" />
-    <Compile Include="Base\IASProperty.cs" />
-    <Compile Include="Base\PropertiesShearStuds.cs" />
-    <Compile Include="Base\PropertiesAnchorBolts.cs" />
-    <Compile Include="Base\PropertiesBolts.cs" />
+    <Compile Include="Base\Property.cs" />
     <Compile Include="Base\SteelDynObject.cs" />
     <Compile Include="Beams\BentBeam.cs" />
     <Compile Include="Beams\CompoundBeam.cs" />
@@ -89,8 +80,8 @@
     <Compile Include="Base\SteelDbObject.cs" />
     <Compile Include="Base\Utils.cs" />
     <Compile Include="Beams\TaperedBeam.cs" />
-    <Compile Include="Concrete\ConcBentBeam.cs" />
-    <Compile Include="Concrete\ConcStraightBeam.cs" />
+    <Compile Include="Concrete\ConcreteBentBeam.cs" />
+    <Compile Include="Concrete\ConcreteStraightBeam.cs" />
     <Compile Include="Concrete\Footings.cs" />
     <Compile Include="Concrete\Slabs.cs" />
     <Compile Include="Concrete\Walls.cs" />
@@ -107,22 +98,21 @@
     <Compile Include="Grating\GratingDraw.cs" />
     <Compile Include="Grating\StandardGrating.cs" />
     <Compile Include="Grating\VariableGrating.cs" />
-    <Compile Include="Modifications\BeamPolycut.cs" />
-    <Compile Include="Modifications\BeamPlaneCut.cs" />
-    <Compile Include="Modifications\BeamCope.cs" />
-    <Compile Include="Modifications\PlateVertexCut.cs" />
-    <Compile Include="Modifications\PlatePolycut.cs" />
-    <Compile Include="NonSteel\SpecialPart.cs" />
-    <Compile Include="NonSteel\Camera.cs" />
+    <Compile Include="Features\BeamPolycut.cs" />
+    <Compile Include="Features\BeamPlaneCut.cs" />
+    <Compile Include="Features\BeamCope.cs" />
+    <Compile Include="Features\PlateVertexCut.cs" />
+    <Compile Include="Features\PlatePolycut.cs" />
+    <Compile Include="Miscellaneous\SpecialPart.cs" />
+    <Compile Include="Miscellaneous\Camera.cs" />
     <Compile Include="Plates\Plate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\BeamSection.cs" />
     <Compile Include="Util\Cameras.cs" />
     <Compile Include="Util\Beams.cs" />
-    <Compile Include="Util\Polybeams.cs" />
+    <Compile Include="Util\ConnectionObjects.cs" />
     <Compile Include="Util\Material.cs" />
-    <Compile Include="Util\Selection.cs" />
-    <Compile Include="Util\Property.cs" />
+    <Compile Include="Util\SelectionFilter.cs" />
     <Compile Include="Util\Geometry.cs" />
     <Compile Include="Util\UserAttribute.cs" />
   </ItemGroup>

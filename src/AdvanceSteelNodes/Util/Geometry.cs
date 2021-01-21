@@ -34,7 +34,7 @@ namespace AdvanceSteel.Nodes.Util
       List<Autodesk.DesignScript.Geometry.Line> ret = new List<Autodesk.DesignScript.Geometry.Line>() { };
       using (var ctx = new SteelServices.DocContext())
       {
-        if (steelObject != null  || intersectionPlane != null)
+        if (steelObject != null || intersectionPlane != null)
         {
           FilerObject filerObj = Utils.GetObject(steelObject.Handle);
           Plane cutPlane = Utils.ToAstPlane(intersectionPlane, true);
@@ -71,7 +71,7 @@ namespace AdvanceSteel.Nodes.Util
     public static Autodesk.DesignScript.Geometry.Point CutSystemLineByPlane(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                           Autodesk.DesignScript.Geometry.Plane intersectionPlane)
     {
-      Autodesk.DesignScript.Geometry.Point ret = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0,0,0);
+      Autodesk.DesignScript.Geometry.Point ret = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0);
       using (var ctx = new SteelServices.DocContext())
       {
         if (steelObject != null || intersectionPlane != null)
@@ -157,7 +157,7 @@ namespace AdvanceSteel.Nodes.Util
     public static Autodesk.DesignScript.Geometry.PolyCurve GetPolyCurve(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       List<Autodesk.DesignScript.Geometry.Curve> intRet = new List<Autodesk.DesignScript.Geometry.Curve>() { };
-      Autodesk.DesignScript.Geometry.PolyCurve ret = null; 
+      Autodesk.DesignScript.Geometry.PolyCurve ret = null;
       using (var ctx = new SteelServices.DocContext())
       {
         if (steelObject != null)
@@ -249,7 +249,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="direction"> Input Dynamo Direction Vector</param>
     /// <param name="distance"> Input value to move point in direction vector</param>
     /// <returns></returns>
-    public static Autodesk.DesignScript.Geometry.Point GetPointInDirection(Autodesk.DesignScript.Geometry.Point point, 
+    public static Autodesk.DesignScript.Geometry.Point GetPointInDirection(Autodesk.DesignScript.Geometry.Point point,
                                                                             Autodesk.DesignScript.Geometry.Vector direction,
                                                                             double distance)
     {
@@ -258,7 +258,7 @@ namespace AdvanceSteel.Nodes.Util
       {
         Point3d newPoint = Utils.ToAstPoint(point, true);
         Vector3d vector = Utils.ToAstVector3d(direction, true);
-        newPoint = newPoint.Add(vector * Utils.ToInternalUnits(distance, true));
+        newPoint = newPoint.Add(vector * Utils.ToInternalDistanceUnits(distance, true));
         ret = Utils.ToDynPoint(newPoint, true);
       }
       return ret;
@@ -280,7 +280,7 @@ namespace AdvanceSteel.Nodes.Util
       {
         Point3d newPoint = Utils.ToAstPoint(point, true);
         Vector3d vector = Utils.ToAstVector3d(planeNormal, true);
-        newPoint = newPoint.Add(vector * Utils.ToInternalUnits(distance, true));
+        newPoint = newPoint.Add(vector * Utils.ToInternalDistanceUnits(distance, true));
         ret = Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(Utils.ToDynPoint(newPoint, true), planeNormal);
       }
       return ret;
@@ -303,8 +303,8 @@ namespace AdvanceSteel.Nodes.Util
         Point3d orginPoint = Utils.ToAstPoint(centrePoint, true);
         Vector3d posVector = Utils.ToAstVector3d(planeNormal, true);
         Vector3d negVector = new Vector3d(posVector).Negate();
-        Point3d posPoint = new Point3d(orginPoint).Add(posVector * Utils.ToInternalUnits(distance, true));
-        Point3d negPoint = new Point3d(orginPoint).Add(negVector * Utils.ToInternalUnits(distance, true));
+        Point3d posPoint = new Point3d(orginPoint).Add(posVector * Utils.ToInternalDistanceUnits(distance, true));
+        Point3d negPoint = new Point3d(orginPoint).Add(negVector * Utils.ToInternalDistanceUnits(distance, true));
         ret.Add(Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(Utils.ToDynPoint(posPoint, true), planeNormal));
         ret.Add(Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(Utils.ToDynPoint(negPoint, true), planeNormal));
       }
@@ -365,7 +365,7 @@ namespace AdvanceSteel.Nodes.Util
           isOnLine = true;
         }
         ret["FoundPoint"] = Utils.ToDynPoint(calculatedPoint, true);
-        ret["IsOnline"] = isOnLine; 
+        ret["IsOnline"] = isOnLine;
       }
       return ret;
     }
@@ -384,7 +384,7 @@ namespace AdvanceSteel.Nodes.Util
       {
         Point3d sPoint = Utils.ToAstPoint(firstPoint, true);
         Point3d ePoint = Utils.ToAstPoint(secondPoint, true);
-        
+
         Point3d foundPoint = Utils.GetMidPointBetween(sPoint, ePoint);
 
         ret = Utils.ToDynPoint(foundPoint, true);

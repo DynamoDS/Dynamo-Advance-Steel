@@ -18,9 +18,9 @@ namespace AdvanceSteel.Nodes.Concrete
     {
     }
 
-    internal Slabs(Autodesk.DesignScript.Geometry.Polygon poly, 
-                    double thickness, 
-                    List<ASProperty> concreteProperties)
+    internal Slabs(Autodesk.DesignScript.Geometry.Polygon poly,
+                    double thickness,
+                    List<Property> concreteProperties)
     {
       if (poly.IsPlanar == false)
         throw new System.Exception("Polygon is not planar");
@@ -29,11 +29,11 @@ namespace AdvanceSteel.Nodes.Concrete
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-          
+
           Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
           double[] cornerRadii = (double[])System.Collections.ArrayList.Repeat(0.0, poly.Points.Length).ToArray(typeof(double));
 
@@ -95,17 +95,17 @@ namespace AdvanceSteel.Nodes.Concrete
       }
     }
 
-    internal Slabs(Point3d ptCenter, 
-                    double dWidth, double dLength, double thickness, 
-                    Vector3d vNormal, 
-                    List<ASProperty> concreteProperties)
+    internal Slabs(Point3d ptCenter,
+                    double dWidth, double dLength, double thickness,
+                    Vector3d vNormal,
+                    List<Property> concreteProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
           Autodesk.AdvanceSteel.Modelling.Slab floorSlab = null;
@@ -162,17 +162,17 @@ namespace AdvanceSteel.Nodes.Concrete
       }
     }
 
-    internal Slabs(Point3d ptCenter, 
-                    double dRadius, double thickness, 
-                    Vector3d vNormal, 
-                    List<ASProperty> concreteProperties)
+    internal Slabs(Point3d ptCenter,
+                    double dRadius, double thickness,
+                    Vector3d vNormal,
+                    List<Property> concreteProperties)
     {
       lock (access_obj)
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          List<ASProperty> defaultData = concreteProperties.Where(x => x.PropLevel == ".").ToList<ASProperty>();
-          List<ASProperty> postWriteDBData = concreteProperties.Where(x => x.PropLevel == "Z_PostWriteDB").ToList<ASProperty>();
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
           Autodesk.AdvanceSteel.Modelling.Slab floorSlab = null;
@@ -234,9 +234,9 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="thickness"> Slab Thickness in Current Model Length Unit Settings</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Slabs ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly, 
+    public static Slabs ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly,
                                   double thickness,
-                                  [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
+                                  [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
       return new Slabs(poly, thickness, additionalConcParameters);
@@ -251,16 +251,16 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="thickness"> Slab Thickness in Current Model Length Unit Settings</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Slabs ByRectangularByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
+    public static Slabs ByRectangularByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                           double width, double length, double thickness,
-                                          [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
+                                          [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new Slabs(Utils.ToAstPoint(coordinateSystem.Origin, true), 
-                                  Utils.ToInternalUnits(width, true), 
-                                  Utils.ToInternalUnits(length, true),
-                                  Utils.ToInternalUnits(thickness, true), 
-                                  Utils.ToAstVector3d(coordinateSystem.ZAxis, true), 
+      return new Slabs(Utils.ToAstPoint(coordinateSystem.Origin, true),
+                                  Utils.ToInternalDistanceUnits(width, true),
+                                  Utils.ToInternalDistanceUnits(length, true),
+                                  Utils.ToInternalDistanceUnits(thickness, true),
+                                  Utils.ToAstVector3d(coordinateSystem.ZAxis, true),
                                   additionalConcParameters);
     }
 
@@ -272,23 +272,23 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="thickness"> Slab Thickness in Current Model Length Unit Settings</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
     /// <returns></returns>
-    public static Slabs ByCircularByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem, 
+    public static Slabs ByCircularByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                         double radius, double thickness,
-                                        [DefaultArgument("null")]List<ASProperty> additionalConcParameters)
+                                        [DefaultArgument("null")] List<Property> additionalConcParameters)
     {
       additionalConcParameters = PreSetDefaults(additionalConcParameters);
-      return new Slabs(Utils.ToAstPoint(coordinateSystem.Origin, true), 
-                        Utils.ToInternalUnits(radius, true), 
-                        Utils.ToInternalUnits(thickness, true), 
+      return new Slabs(Utils.ToAstPoint(coordinateSystem.Origin, true),
+                        Utils.ToInternalDistanceUnits(radius, true),
+                        Utils.ToInternalDistanceUnits(thickness, true),
                         Utils.ToAstVector3d(coordinateSystem.ZAxis, true),
                         additionalConcParameters);
     }
 
-    private static List<ASProperty> PreSetDefaults(List<ASProperty> listOfProps)
+    private static List<Property> PreSetDefaults(List<Property> listOfProps)
     {
       if (listOfProps == null)
       {
-        listOfProps = new List<ASProperty>() { };
+        listOfProps = new List<Property>() { };
       }
       return listOfProps;
     }

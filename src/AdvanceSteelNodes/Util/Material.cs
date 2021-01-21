@@ -1,5 +1,6 @@
 ﻿using Autodesk.AdvanceSteel.CADAccess;
 using Autodesk.AdvanceSteel.ConstructionTypes;
+using System;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 
 namespace AdvanceSteel.Nodes.Util
@@ -18,6 +19,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="element">Advance Steel element</param>
     /// <param name="materialName">Material</param>
     /// <returns></returns>
+    [Obsolete]
     public static void SetMaterial(AdvanceSteel.Nodes.SteelDbObject element, string materialName)
     {
       //lock the document and start transaction

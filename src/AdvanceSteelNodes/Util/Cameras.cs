@@ -14,14 +14,14 @@ using System;
 
 namespace AdvanceSteel.Nodes.Util
 {
-	/// <summary>
-	/// Store Camera properties in a Node
-	/// </summary>
-	public class Cameras
-	{
-		internal Cameras()
-		{
-		}
+  /// <summary>
+  /// Store Camera properties in a Node
+  /// </summary>
+  public class Cameras
+  {
+    internal Cameras()
+    {
+    }
 
     /// <summary>
     /// Set Advance Steel Camera Clipping Values
@@ -32,9 +32,9 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="lowerClippingValue"> Set Lower Clipping Value</param>
     /// <returns></returns>
     public static void SetZClipping(SteelDbObject steelObject,
-                                    [DefaultArgument("3")]int clippingSide,
-                                    [DefaultArgument("0")]double upperClippingValue,
-                                    [DefaultArgument("0")]double lowerClippingValue)
+                                    [DefaultArgument("3")] int clippingSide,
+                                    [DefaultArgument("0")] double upperClippingValue,
+                                    [DefaultArgument("0")] double lowerClippingValue)
     {
       using (var ctx = new SteelServices.DocContext())
       {
@@ -45,8 +45,8 @@ namespace AdvanceSteel.Nodes.Util
         {
           Autodesk.AdvanceSteel.ConstructionHelper.Camera camera = obj as Autodesk.AdvanceSteel.ConstructionHelper.Camera;
           camera.setZClipping((Autodesk.AdvanceSteel.ConstructionHelper.eZClip)clippingSide,
-                              Utils.ToInternalUnits(upperClippingValue, true),
-                              Utils.ToInternalUnits(lowerClippingValue, true));
+                              Utils.ToInternalDistanceUnits(upperClippingValue, true),
+                              Utils.ToInternalDistanceUnits(lowerClippingValue, true));
         }
         else
           throw new System.Exception("Failed to Get Camera Object");
@@ -61,9 +61,9 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="xCameraSize"> Set Camera Extents in X Direction</param>
     /// <param name="yCameraSize"> Set Camera Extents in Y Direction</param>
     public static void SetXYExtents(SteelDbObject steelObject,
-                                    [DefaultArgument("0")]int cameraExtents,
-                                    [DefaultArgument("0")]double xCameraSize,
-                                    [DefaultArgument("0")]double yCameraSize)
+                                    [DefaultArgument("0")] int cameraExtents,
+                                    [DefaultArgument("0")] double xCameraSize,
+                                    [DefaultArgument("0")] double yCameraSize)
     {
       using (var ctx = new SteelServices.DocContext())
       {
@@ -73,9 +73,9 @@ namespace AdvanceSteel.Nodes.Util
         if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kCamera))
         {
           Autodesk.AdvanceSteel.ConstructionHelper.Camera camera = obj as Autodesk.AdvanceSteel.ConstructionHelper.Camera;
-          camera.setXYExtents((Autodesk.AdvanceSteel.ConstructionHelper.Camera.eXYExtents)cameraExtents, 
-                              Utils.ToInternalUnits(xCameraSize, true),
-                              Utils.ToInternalUnits(yCameraSize, true)); 
+          camera.setXYExtents((Autodesk.AdvanceSteel.ConstructionHelper.Camera.eXYExtents)cameraExtents,
+                              Utils.ToInternalDistanceUnits(xCameraSize, true),
+                              Utils.ToInternalDistanceUnits(yCameraSize, true));
         }
         else
           throw new System.Exception("Failed to Get Camera Object");
@@ -109,13 +109,13 @@ namespace AdvanceSteel.Nodes.Util
           camera.getXYExtents(out extentsType, out xLength, out yLength);
           if (yLength >= 0)
           {
-            ret["X_Length"] = Utils.FromInternalUnits(xLength, true);
-            ret["Y_Length"] = Utils.FromInternalUnits(yLength, true);
+            ret["X_Length"] = Utils.FromInternalDistanceUnits(xLength, true);
+            ret["Y_Length"] = Utils.FromInternalDistanceUnits(yLength, true);
           }
         }
         else
           throw new System.Exception("Failed to Get Camera Object");
-      } 
+      }
       return ret;
     }
 
@@ -146,8 +146,8 @@ namespace AdvanceSteel.Nodes.Util
           camera.getZClipping(out clipType, out nearSideClippingValue, out farSideClippingValue);
           if (nearSideClippingValue >= 0)
           {
-            ret["Nearside_Clipping"] = Utils.FromInternalUnits(nearSideClippingValue, true);
-            ret["Farside_Clipping"] = Utils.FromInternalUnits(farSideClippingValue, true);
+            ret["Nearside_Clipping"] = Utils.FromInternalDistanceUnits(nearSideClippingValue, true);
+            ret["Farside_Clipping"] = Utils.FromInternalDistanceUnits(farSideClippingValue, true);
           }
         }
         else

@@ -8,33 +8,33 @@ using System;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Advance Steel Object Types")]
-	[NodeDescription("Select Advance Steel object to select filter")]
+  [NodeName("Advance Steel Object Types")]
+  [NodeDescription("Lists all the Advance Steel object types")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
-  [OutPortNames("Advance Steel Object Types")]
+  [OutPortNames("objectType")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
-	public class ASObjecTypes : AstDropDownBase
-	{
-		private const string outputName = "Advance Steel Object Types";
+  public class ASObjecTypes : AstDropDownBase
+  {
+    private const string outputName = "objectType";
 
     public ASObjecTypes()
-				: base(outputName)
-		{
-			InPorts.Clear();
-			OutPorts.Clear();
-			RegisterAllPorts();
-		}
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
-		[JsonConstructor]
-		public ASObjecTypes(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-		: base(outputName, inPorts, outPorts)
-		{
-		}
+    [JsonConstructor]
+    public ASObjecTypes(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
+    {
+    }
 
-		protected override SelectionState PopulateItemsCore(string currentSelection)
-		{
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>();
@@ -50,10 +50,10 @@ namespace AdvanceSteel.Nodes
       return SelectionState.Restore;
     }
 
-		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-		{
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
       if (Items.Count == 0 ||
-          Items[SelectedIndex].Name == "Select As Object Type..." ||
+          Items[SelectedIndex].Name == "Select Object Type..." ||
           SelectedIndex < 0)
       {
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
@@ -64,5 +64,5 @@ namespace AdvanceSteel.Nodes
       return new List<AssociativeNode> { assign };
 
     }
-	}
+  }
 }

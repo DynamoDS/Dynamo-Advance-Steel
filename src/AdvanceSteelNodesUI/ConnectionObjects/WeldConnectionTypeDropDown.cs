@@ -8,50 +8,50 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Weld Connection Type")]
-	[NodeDescription("Set Weld Connection type - InShop or OnSite")]
+  [NodeName("Weld Connection Type")]
+  [NodeDescription("Lists the Advance Steel Weld connection type options")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
-  [OutPortNames("Weld Type")]
+  [OutPortNames("weldType")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
-	public class WeldConnectionType : AstDropDownBase
-	{
-		private const string outputName = "Weld Type";
+  public class WeldConnectionType : AstDropDownBase
+  {
+    private const string outputName = "weldType";
 
-		public WeldConnectionType()
-				: base(outputName)
-		{
-			InPorts.Clear();
-			OutPorts.Clear();
-			RegisterAllPorts();
-		}
+    public WeldConnectionType()
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
-		[JsonConstructor]
-		public WeldConnectionType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-		: base(outputName, inPorts, outPorts)
-		{
-		}
+    [JsonConstructor]
+    public WeldConnectionType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
+    {
+    }
 
-		protected override SelectionState PopulateItemsCore(string currentSelection)
-		{
-			Items.Clear();
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
 
-			var newItems = new List<DynamoDropDownItem>()
-						{
-								new DynamoDropDownItem("Select Weld Type...", -1),
-								new DynamoDropDownItem("OnSite", 0),
-								new DynamoDropDownItem("InShop", 2)
-						};
+      var newItems = new List<DynamoDropDownItem>()
+            {
+                new DynamoDropDownItem("Select Weld Type...", -1),
+                new DynamoDropDownItem("OnSite", 0),
+                new DynamoDropDownItem("InShop", 2)
+            };
 
-			Items.AddRange(newItems);
+      Items.AddRange(newItems);
 
-			SelectedIndex = 0;
-			return SelectionState.Restore;
-		}
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
 
-		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-		{
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
       if (Items.Count == 0 ||
           Items[SelectedIndex].Name == "Select Weld Type..." ||
           SelectedIndex < 0)
@@ -60,9 +60,9 @@ namespace AdvanceSteel.Nodes
       }
 
       var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
-			var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
+      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
       return new List<AssociativeNode> { assign };
 
     }
-	}
+  }
 }

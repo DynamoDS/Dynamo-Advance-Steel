@@ -7,40 +7,40 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Beam Reference Axis")]
-	[NodeDescription("Set Beam Reference Axis - e.g. Top Left, Middle Middle, Countour Center")]
+  [NodeName("Beam Reference Axis")]
+  [NodeDescription("Lists the Advance Steel Beam Reference Axis options - e.g. Top Left, Middle Middle, Countour Center")]
   [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
-  [OutPortNames("Beam Reference Axis")]
+  [OutPortNames("referenceAxis")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]
   [IsDesignScriptCompatible]
-	public class BeamRefAxisType : AstDropDownBase
-	{
-		private const string outputName = "Beam Reference Axis Type";
+  public class BeamRefAxisType : AstDropDownBase
+  {
+    private const string outputName = "referenceAxis";
 
-		public BeamRefAxisType()
-				: base(outputName)
-		{
-			InPorts.Clear();
-			OutPorts.Clear();
-			RegisterAllPorts();
-		}
+    public BeamRefAxisType()
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
-		[JsonConstructor]
-		public BeamRefAxisType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-		: base(outputName, inPorts, outPorts)
-		{
-		}
+    [JsonConstructor]
+    public BeamRefAxisType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
+    {
+    }
 
-		protected override SelectionState PopulateItemsCore(string currentSelection)
-		{
-			Items.Clear();
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
 
-			var newItems = new List<DynamoDropDownItem>()
-						{
-								new DynamoDropDownItem("Select Beam Ref Axis...", -1),
-								new DynamoDropDownItem("Upper Left", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperLeft),
-								new DynamoDropDownItem("Upper Middle", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperSys),
+      var newItems = new List<DynamoDropDownItem>()
+            {
+                new DynamoDropDownItem("Select Beam Ref Axis...", -1),
+                new DynamoDropDownItem("Upper Left", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperLeft),
+                new DynamoDropDownItem("Upper Middle", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperSys),
                 new DynamoDropDownItem("Upper Right", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperRight),
                 new DynamoDropDownItem("Middle Left", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kMidLeft),
                 new DynamoDropDownItem("Middle Middle", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kSysSys),
@@ -51,14 +51,14 @@ namespace AdvanceSteel.Nodes
                 new DynamoDropDownItem("Contour Center", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kContourCenter)
             };
 
-			Items.AddRange(newItems);
+      Items.AddRange(newItems);
 
-			SelectedIndex = 0;
-			return SelectionState.Restore;
-		}
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
 
-		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-		{
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
       if (Items.Count == 0 ||
           Items[SelectedIndex].Name == "Select Beam Ref Axis..." ||
           SelectedIndex < 0)
@@ -67,9 +67,9 @@ namespace AdvanceSteel.Nodes
       }
 
       var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
-			var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
+      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
       return new List<AssociativeNode> { assign };
 
     }
-	}
+  }
 }

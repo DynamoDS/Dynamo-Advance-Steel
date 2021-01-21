@@ -7,48 +7,48 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-	[NodeName("Compound Straight Beam Properties")]
-	[NodeDescription("Select Advance Steel Compound Straight Beam Property Type to Set")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Write")]
-  [OutPortNames("Writable Compound Straight Beam Property")]
+  [NodeName("Compound Straight Beam Properties")]
+  [NodeDescription("Lists all the property names of an Advance Steel Compound Straight Beam")]
+  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-	public class ASPropertiesCompoundStraightBeam : AstDropDownBase
-	{
-		private const string outputName = "Advance Steel Compound Straight Beam Property";
+  public class ASPropertiesCompoundStraightBeam : AstDropDownBase
+  {
+    private const string outputName = "propertyName";
 
     public ASPropertiesCompoundStraightBeam()
-				: base(outputName)
-		{
-			InPorts.Clear();
-			OutPorts.Clear();
-			RegisterAllPorts();
-		}
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
-		[JsonConstructor]
-		public ASPropertiesCompoundStraightBeam(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-		: base(outputName, inPorts, outPorts)
-		{
-		}
+    [JsonConstructor]
+    public ASPropertiesCompoundStraightBeam(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
+    {
+    }
 
-		protected override SelectionState PopulateItemsCore(string currentSelection)
-		{
-			Items.Clear();
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetCompoundStraightBeamPropertyList(ePropertyDataOperator.Set))
+      foreach (var item in Utils.GetCompoundStraightBeamPropertyList())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }
-			Items.AddRange(newItems);
+      Items.AddRange(newItems);
 
-			SelectedIndex = 0;
-			return SelectionState.Restore;
-		}
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
 
-		public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-		{
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
       if (Items.Count == 0 ||
           Items[SelectedIndex].Name == "None" ||
           SelectedIndex < 0)
@@ -62,5 +62,5 @@ namespace AdvanceSteel.Nodes
       return new List<AssociativeNode> { assign };
 
     }
-	}
+  }
 }

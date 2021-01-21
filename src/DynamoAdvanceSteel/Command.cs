@@ -63,7 +63,7 @@ namespace Dynamo.Applications.AdvanceSteel
         AuthProvider = new SteelAuthProvider(),
         ProcessMode = Scheduler.TaskProcessMode.Asynchronous
       };
-      
+
       return DynamoSteelModel.Start(startConfiguration);
     }
 
