@@ -12,7 +12,7 @@ namespace ContentBuilder
 {
   class MDGenerator
   {
-    public static bool Generate(Doc doc, IEnumerable<string> whichMethods, string strFullDocName)
+    public static bool Generate(Doc doc, IEnumerable<Member> whichMethods, string strFullDocName)
     {
       bool bOk = false;
       using (FileStream fileStream = new FileStream(strFullDocName, FileMode.Create, FileAccess.Write))
@@ -28,7 +28,7 @@ namespace ContentBuilder
       return bOk;
     }
 
-    public static void GenerateFromAssembly(string strFullAssemblyDocDir, IEnumerable<string> methods, string strFullDocName)
+    public static void GenerateFromAssembly(string strFullAssemblyDocDir, IEnumerable<Member> methods, string strFullDocName)
     {
       // try to read the doc content
       //
@@ -153,6 +153,7 @@ namespace ContentBuilder
       //
       string textInParamsTemplate = "**InParamName**<BR> InParamDesc<BR>";
       string textInParams = "";
+
       foreach (Param param in member.parameters)
       {
         string strTemp = textInParamsTemplate;
@@ -199,7 +200,7 @@ namespace ContentBuilder
       return true;
     }
 
-    private static bool WriteFile(Doc doc, IEnumerable<string> whichMethods, StreamWriter writer)
+    private static bool WriteFile(Doc doc, IEnumerable<Member> whichMethods, StreamWriter writer)
     {
       bool bOk = true;
 
@@ -208,14 +209,12 @@ namespace ContentBuilder
       writer.WriteLine(" | Dynamo Node | Inputs | Outputs | ", writer);
       writer.WriteLine(" | --- | --- | --- | ", writer);
 
-      foreach (string currMethod in whichMethods)
+      foreach (Member currMethod in whichMethods)
       {
-        Member foundDocMethod = findMethod(doc, currMethod);
-        if (null == foundDocMethod)
-        {
-          bOk = false;
-          continue;
-        }
+        Member foundDocMethod = findMethod(doc, currMethod.name);
+        if (null == foundDocMethod) // if the method is not in the xml file, use the information from the attributes
+          foundDocMethod = currMethod;
+
 
         WriteMethod(foundDocMethod, writer);
       }

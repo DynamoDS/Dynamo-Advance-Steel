@@ -20,7 +20,8 @@ namespace ContentBuilder
       string strFullAssemblyDocDir = args[0];              // full path to assembly documentation file ( xml)
       string strFullDocName = args[1];                     // full path to .md that will be created
 
-      var nodes = NodeParser.GetNodesFromAssembly(Path.Combine(strFullAssemblyDocDir, "AdvanceSteelNodes.dll"));
+      
+      var nodes = NodeParser.GetNodesFromAssemblies(new string[] { "AdvanceSteelNodes.dll", "AdvanceSteelNodesUI.dll" });
       MDGenerator.GenerateFromAssembly(strFullAssemblyDocDir, nodes, strFullDocName);
 
 
