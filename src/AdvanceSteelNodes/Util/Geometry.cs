@@ -150,41 +150,6 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
-    /// Get Polycurve from Polybeam
-    /// </summary>
-    /// <param name="steelObject"> Advance Steel element</param>
-    /// <returns></returns>
-    public static Autodesk.DesignScript.Geometry.PolyCurve GetPolyCurve(AdvanceSteel.Nodes.SteelDbObject steelObject)
-    {
-      List<Autodesk.DesignScript.Geometry.Curve> intRet = new List<Autodesk.DesignScript.Geometry.Curve>() { };
-      Autodesk.DesignScript.Geometry.PolyCurve ret = null;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (steelObject != null)
-        {
-          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
-          if (filerObj != null)
-          {
-            if (filerObj.IsKindOf(FilerObject.eObjectType.kPolyBeam))
-            {
-              PolyBeam selectedObj = filerObj as PolyBeam;
-              Polyline3d poly = selectedObj.GetPolyline();
-              intRet = Utils.ToDynPolyCurves(poly, true);
-              ret = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(intRet);
-            }
-            else
-              throw new System.Exception("Wrong type of Steel Object found, must be a Polybeam");
-          }
-          else
-            throw new System.Exception("No Object found via registered handle");
-        }
-        else
-          throw new System.Exception("No Steel Object found");
-      }
-      return ret;
-    }
-
-    /// <summary>
     /// Get Plane from planar objects like - plate, grating, slab or isolated footing
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
@@ -221,83 +186,18 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
-    /// Set the origin of a plane to a new point
-    /// </summary>
-    /// <param name="plane"> Input Orginal Dynamo Plane</param>
-    /// <param name="point"> Input Dynamo Point to set origin of plane</param>
-    /// <returns></returns>
-    public static Autodesk.DesignScript.Geometry.Plane SetPlaneOrigin(Autodesk.DesignScript.Geometry.Plane plane,
-                                                                      Autodesk.DesignScript.Geometry.Point point)
-    {
-      Autodesk.DesignScript.Geometry.Plane ret = null;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (point != null && plane != null)
-        {
-          ret = Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(point, plane.Normal);
-        }
-        else
-          throw new System.Exception("No Input objects found");
-      }
-      return ret;
-    }
-
-    /// <summary>
-    /// Project point by a value in a direction (Vector)
-    /// </summary>
-    /// <param name="point"> Input Orginal Dynamo Point</param>
-    /// <param name="direction"> Input Dynamo Direction Vector</param>
-    /// <param name="distance"> Input value to move point in direction vector</param>
-    /// <returns></returns>
-    public static Autodesk.DesignScript.Geometry.Point GetPointInDirection(Autodesk.DesignScript.Geometry.Point point,
-                                                                            Autodesk.DesignScript.Geometry.Vector direction,
-                                                                            double distance)
-    {
-      Autodesk.DesignScript.Geometry.Point ret = null;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        Point3d newPoint = Utils.ToAstPoint(point, true);
-        Vector3d vector = Utils.ToAstVector3d(direction, true);
-        newPoint = newPoint.Add(vector * Utils.ToInternalDistanceUnits(distance, true));
-        ret = Utils.ToDynPoint(newPoint, true);
-      }
-      return ret;
-    }
-
-    /// <summary>
-    /// Project point by value in directional vector to get a new plane
-    /// </summary>
-    /// <param name="point"> Input Orginal Dynamo Point</param>
-    /// <param name="planeNormal"> Input Dynamo Direction Vector and Plane Normal</param>
-    /// <param name="distance"> Input value to move point in direction vector</param>
-    /// <returns></returns>
-    public static Autodesk.DesignScript.Geometry.Plane GetPlaneInDirection(Autodesk.DesignScript.Geometry.Point point,
-                                                                          Autodesk.DesignScript.Geometry.Vector planeNormal,
-                                                                          double distance)
-    {
-      Autodesk.DesignScript.Geometry.Plane ret = null;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        Point3d newPoint = Utils.ToAstPoint(point, true);
-        Vector3d vector = Utils.ToAstVector3d(planeNormal, true);
-        newPoint = newPoint.Add(vector * Utils.ToInternalDistanceUnits(distance, true));
-        ret = Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(Utils.ToDynPoint(newPoint, true), planeNormal);
-      }
-      return ret;
-    }
-
-    /// <summary>
     /// Creates one plane either side of the centre point in relation to the normal
     /// </summary>
     /// <param name="centrePoint"> Input Dynamo Centre Point between created planes</param>
     /// <param name="planeNormal"> Input Dynamo Direction Vector and Plane Normal</param>
     /// <param name="distance"> Input value to move point in direction vector</param>
     /// <returns></returns>
-    public static List<Autodesk.DesignScript.Geometry.Plane> GetPlaneOffsetByCentre(Autodesk.DesignScript.Geometry.Point centrePoint,
+    [MultiReturn(new[] { "PlaneNegative", "PlanePositive" })]
+    public static Dictionary<string, Autodesk.DesignScript.Geometry.Plane> GetPlaneOffsetByCentre(Autodesk.DesignScript.Geometry.Point centrePoint,
                                                                                     Autodesk.DesignScript.Geometry.Vector planeNormal,
                                                                                     double distance)
     {
-      List<Autodesk.DesignScript.Geometry.Plane> ret = new List<Autodesk.DesignScript.Geometry.Plane>() { };
+      Dictionary<string, Autodesk.DesignScript.Geometry.Plane> ret = new Dictionary<string, Autodesk.DesignScript.Geometry.Plane>();
       using (var ctx = new SteelServices.DocContext())
       {
         Point3d orginPoint = Utils.ToAstPoint(centrePoint, true);
@@ -305,28 +205,8 @@ namespace AdvanceSteel.Nodes.Util
         Vector3d negVector = new Vector3d(posVector).Negate();
         Point3d posPoint = new Point3d(orginPoint).Add(posVector * Utils.ToInternalDistanceUnits(distance, true));
         Point3d negPoint = new Point3d(orginPoint).Add(negVector * Utils.ToInternalDistanceUnits(distance, true));
-        ret.Add(Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(Utils.ToDynPoint(posPoint, true), planeNormal));
-        ret.Add(Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(Utils.ToDynPoint(negPoint, true), planeNormal));
-      }
-      return ret;
-    }
-
-    /// <summary>
-    /// Ortho Project point to Plane
-    /// </summary>
-    /// <param name="point"> Input Orginal Dynamo Point</param>
-    /// <param name="projectionPlane"> Input Dynamo Plane to project point onto</param>
-    /// <returns></returns>
-    public static Autodesk.DesignScript.Geometry.Point OrthoProjectPointToPlane(Autodesk.DesignScript.Geometry.Point point,
-                                                                                Autodesk.DesignScript.Geometry.Plane projectionPlane)
-    {
-      Autodesk.DesignScript.Geometry.Point ret = null;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        Point3d newPoint = Utils.ToAstPoint(point, true);
-        Plane plane = Utils.ToAstPlane(projectionPlane, true);
-        newPoint = newPoint.OrthoProject(plane);
-        ret = Utils.ToDynPoint(newPoint, true);
+        ret["PlanePositive"] = (Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(Utils.ToDynPoint(posPoint, true), planeNormal));
+        ret["PlaneNegative"] = (Autodesk.DesignScript.Geometry.Plane.ByOriginNormal(Utils.ToDynPoint(negPoint, true), planeNormal));
       }
       return ret;
     }

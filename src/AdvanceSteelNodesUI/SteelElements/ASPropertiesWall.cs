@@ -7,18 +7,18 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Concrete Wall / Slabs / Isolated Footing Properties")]
-  [NodeDescription("Lists all the property names of an Advance Steel Concrete Wall / Slabs / Isolated Footing")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [NodeName("Concrete Wall Properties")]
+  [NodeDescription("Lists all the property names of an Advance Steel Concrete Wall")]
+  [NodeCategory("AdvanceSteel.Nodes.Concrete.Walls")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-  public class ASPropertiesConcWallSlabFooting : AstDropDownBase
+  public class ASPropertiesWall: AstDropDownBase
   {
     private const string outputName = "propertyName";
 
-    public ASPropertiesConcWallSlabFooting()
+    public ASPropertiesWall()
         : base(outputName)
     {
       InPorts.Clear();
@@ -27,7 +27,7 @@ namespace AdvanceSteel.Nodes
     }
 
     [JsonConstructor]
-    public ASPropertiesConcWallSlabFooting(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    public ASPropertiesWall(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
     : base(outputName, inPorts, outPorts)
     {
     }
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetConcretePlanarProperties())
+      foreach (var item in Utils.GetConcreteWallProperties())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

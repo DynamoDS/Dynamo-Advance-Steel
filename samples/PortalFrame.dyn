@@ -4418,13 +4418,13 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "a0654d76494b4c8d99b01c60f5c65a57",
       "Inputs": [
         {
           "Id": "6f72308b094946aebd9a208c68f97e5b",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4433,7 +4433,7 @@
         {
           "Id": "7695f4d4ce984033b381763c4073c0e9",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4441,9 +4441,18 @@
         },
         {
           "Id": "80f55506a2cb4e2d941aae16b6b088c8",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d863833414ed4eb88b74c220fed89666",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -4461,18 +4470,18 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "1da76822bf6e4f2f817d7b6b3b154f39",
       "Inputs": [
         {
           "Id": "69b98c9f2ae142a3940574d44e036ee3",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4481,7 +4490,7 @@
         {
           "Id": "c98e076c44f0490b8ef617b99c4b3908",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4489,9 +4498,18 @@
         },
         {
           "Id": "2ff6f400ef544b989bffa3b4c550779c",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "901f9ce9e2d142458c63c047ca6cd623",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -4509,7 +4527,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -4519,7 +4537,7 @@
       "Inputs": [
         {
           "Id": "426241a93e194ca1a09f4915bcc48d8d",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -4557,7 +4575,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -4625,7 +4643,7 @@
       "Inputs": [
         {
           "Id": "da31668e3171401cb8d544383ccb991d",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -4663,18 +4681,18 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "7c5c911ab1614ffb9e1c7abf0f5bcad6",
       "Inputs": [
         {
           "Id": "e3e605b5174f4c26abd3766bf76bda66",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4683,7 +4701,7 @@
         {
           "Id": "eaaaf6392a5747b08da2a41a25e744aa",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4691,9 +4709,18 @@
         },
         {
           "Id": "1aaa2ea92a4b4ffc8aa8bfecc2793e0f",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "983dd4e7930e4d2b8376acc78beee0bf",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -4711,7 +4738,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -4745,13 +4772,13 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "7d3487c80a6a49a38944410c8beb67fa",
       "Inputs": [
         {
           "Id": "4a4d5fe1ef8749d99d720b02702d4cd7",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4760,7 +4787,7 @@
         {
           "Id": "151daea2863949a8bd4f4e860bcbde2c",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4768,9 +4795,18 @@
         },
         {
           "Id": "82a496619c77416d9577241864adc569",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9da73b05585e4bc190c4a949da19e689",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -4788,7 +4824,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -4798,7 +4834,7 @@
       "Inputs": [
         {
           "Id": "7712b2f7777e49889933f5022a9c1b78",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -4836,7 +4872,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -4846,7 +4882,7 @@
       "Inputs": [
         {
           "Id": "232fe168157c4ad793c632e73912c4e1",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -4884,7 +4920,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -4918,13 +4954,13 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "7b7175f722734739863dd5845701fd57",
       "Inputs": [
         {
           "Id": "3434134da1f847c2b8981f537b6d9926",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4933,7 +4969,7 @@
         {
           "Id": "a554093a7f8d42058a901bed34391fd1",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4941,9 +4977,18 @@
         },
         {
           "Id": "336d8963eec241ab94565237e3088e09",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5aee791e4a024373804b288e993514b4",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -4961,7 +5006,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -5000,7 +5045,7 @@
       "Inputs": [
         {
           "Id": "0e1feeab97e74a5ca70d08d822086d2c",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -5038,18 +5083,18 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "2939314c0e3b40eebd67b2abe7215a05",
       "Inputs": [
         {
           "Id": "3e698c66c6004078ad1bfd4fcce90f93",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5058,7 +5103,7 @@
         {
           "Id": "0d1726bc43ed43019df732afa8edb341",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5066,9 +5111,18 @@
         },
         {
           "Id": "378226936dcc47a3a722c9939b743010",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4d2fbbec86aa4579b83c3eb5777f77c0",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -5086,7 +5140,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -5125,7 +5179,7 @@
       "Inputs": [
         {
           "Id": "b16970dfd161496bb5bb2c96fb459eee",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -5163,18 +5217,18 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "d1b26d2d0abd4ee28b475336f59ba61b",
       "Inputs": [
         {
           "Id": "05ea440538eb4aed87f3bc6dbee61b43",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5183,7 +5237,7 @@
         {
           "Id": "a18b858f205445cda331bddbe8be894c",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5191,9 +5245,18 @@
         },
         {
           "Id": "03e60670f90f4bddaa3c2a23f019761e",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "67c61e7f41294f7fbb3de64056f8e4b3",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -5211,18 +5274,18 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "b1b55b019beb409991d487d8dd66b23a",
       "Inputs": [
         {
           "Id": "9a220db9ac0f4e6a878f59f568159aa2",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5231,7 +5294,7 @@
         {
           "Id": "1ad1887d1e11407fae7a74ecc4959d27",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5239,9 +5302,18 @@
         },
         {
           "Id": "3b9bbec10b12402898c37702412f05a9",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "859616180cb64bf98ffe751fc27700ad",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -5259,18 +5331,18 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "7a16aaf567ee430db41772831d3900a9",
       "Inputs": [
         {
           "Id": "46be38c9e1e1499d9a63414f844d85ae",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5279,7 +5351,7 @@
         {
           "Id": "02c2eced38dd467799603d9155763b76",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5287,9 +5359,18 @@
         },
         {
           "Id": "e4e8a7b31c324580a2bd4e73de773bd5",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b3a12cb62d254e1888545ef36e6b09f4",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -5307,18 +5388,18 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "3fdf0ac2ff424684a8cbc7980dbfe986",
       "Inputs": [
         {
           "Id": "ee98cc2f42504176a7c13bf74150dcab",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5327,7 +5408,7 @@
         {
           "Id": "31e4dae0432a48bdb2183c21fd91b109",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5335,9 +5416,18 @@
         },
         {
           "Id": "629c67f178174432b55ab38318ba75e9",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a4dff70d41bc4f50932b527df5f2dd2b",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -5355,7 +5445,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -5394,7 +5484,7 @@
       "Inputs": [
         {
           "Id": "3fe86147563e47e08c626a3e20c069d3",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -5432,7 +5522,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -5442,7 +5532,7 @@
       "Inputs": [
         {
           "Id": "376eb01fc6984fe7b9f2801ba36de753",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -5480,7 +5570,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -5519,7 +5609,7 @@
       "Inputs": [
         {
           "Id": "bce0375b5f6049f69d2a38755f0f9ef0",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -5557,7 +5647,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -5596,7 +5686,7 @@
       "Inputs": [
         {
           "Id": "42e5607a906947d5865c9e2acc8c3466",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -5634,7 +5724,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -5668,13 +5758,13 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "32e3e653a6b142eb95c097950f7032de",
       "Inputs": [
         {
           "Id": "6e1367f46b1d4051bee4ffc7e7503485",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5683,7 +5773,7 @@
         {
           "Id": "b9a784fa82744767bc5e2d3463e5e53f",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5691,9 +5781,18 @@
         },
         {
           "Id": "eb30454dacd7437384883d8e5167695e",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "02512d59a23c463c9289b4a6ddc15a3a",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -5711,7 +5810,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -5750,7 +5849,7 @@
       "Inputs": [
         {
           "Id": "2096332938714228a09fbc2f5fe34891",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -5788,18 +5887,18 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "261e94f9b1b248c4ad659148643961e0",
       "Inputs": [
         {
           "Id": "9f28bf98c0ff4e078e69f326e58e52bf",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5808,7 +5907,7 @@
         {
           "Id": "11b03e91dd8d4fa4b3d4a42c6cb03d42",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5816,9 +5915,18 @@
         },
         {
           "Id": "c33ea2322e9e410aae0d8ea7d34dc31e",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e01648674f6e4fc2841fb62b0ec0e29a",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -5836,7 +5944,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -5875,7 +5983,7 @@
       "Inputs": [
         {
           "Id": "1bb7f8b1e4784e37a9534a631a153d83",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -5913,18 +6021,18 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "ace0638ef25c4bcab5e1a3b13f1f9fd7",
       "Inputs": [
         {
           "Id": "21e7612eff254b94b31832e4fcd7f091",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5933,7 +6041,7 @@
         {
           "Id": "3a59ee40802548bda66292544903dd0c",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5941,9 +6049,18 @@
         },
         {
           "Id": "b936b11d732845b38fd900d62ec9dc3a",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "322761af4c9c4b2f9ac8b81f3a43dbdd",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -5961,7 +6078,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -6000,7 +6117,7 @@
       "Inputs": [
         {
           "Id": "5793c38331a54903ba4ec7060c219e42",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -6038,18 +6155,18 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "878f4533c9724cee92cd0b5d211547d3",
       "Inputs": [
         {
           "Id": "154847c5cf7f4ffd9eec02db0ea1a87c",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -6058,7 +6175,7 @@
         {
           "Id": "da3f7aa0d31449b7ba7f35401ab92a44",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -6066,9 +6183,18 @@
         },
         {
           "Id": "739ec0be095f446eb51db792b12838cb",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d6d8b62a6edf41a69c893f0799f7c756",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -6086,7 +6212,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -6125,7 +6251,7 @@
       "Inputs": [
         {
           "Id": "0980a4e9a2aa4a0c92870d2cd57f1293",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -6163,7 +6289,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -7597,7 +7723,7 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.5.0.7186",
+      "Version": "2.5.2.7915",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -9462,7 +9588,7 @@
         ],
         "Left": 1005.5251387183,
         "Top": -707.239691422162,
-        "Width": 768.05328176354988,
+        "Width": 776.05328176354988,
         "Height": 345.998204215598,
         "FontSize": 14.0,
         "InitialTop": -677.239691422162,
@@ -9484,7 +9610,7 @@
         ],
         "Left": 1008.97915736214,
         "Top": -338.467630824177,
-        "Width": 755.93797196104,
+        "Width": 763.93797196104,
         "Height": 345.99820421559747,
         "FontSize": 14.0,
         "InitialTop": -308.467630824177,
@@ -9519,7 +9645,7 @@
         ],
         "Left": 1012.89481419472,
         "Top": 30.6266958447913,
-        "Width": 1439.1267032359,
+        "Width": 1447.1267032359,
         "Height": 858.14907608469275,
         "FontSize": 14.0,
         "InitialTop": 60.6266958447913,
@@ -9619,7 +9745,7 @@
         ],
         "Left": 1016.38744868669,
         "Top": 905.595941580465,
-        "Width": 4323.0549596459405,
+        "Width": 4331.0549596459405,
         "Height": 1798.2016916273551,
         "FontSize": 14.0,
         "InitialTop": 935.595941580465,
@@ -9669,17 +9795,317 @@
         ],
         "Left": 1016.72579159927,
         "Top": 2726.72469618284,
-        "Width": 1744.6323249124098,
+        "Width": 1752.6323249124098,
         "Height": 1685.0235716925604,
         "FontSize": 14.0,
         "InitialTop": 2756.72469618284,
         "InitialHeight": 1707.0235716925604,
         "TextblockHeight": 0.0,
         "Background": "#FFD8D8D8"
+      },
+      {
+        "Id": "a4b530cf42bf4db7a94f07899d8b4786",
+        "Title": "GRAPH INFO",
+        "Nodes": [
+          "ad4fc8d59e7c4397932fbc66f8979ec6"
+        ],
+        "Left": 1506.9758894866713,
+        "Top": -1283.948353726699,
+        "Width": 319.0,
+        "Height": 377.0,
+        "FontSize": 36.0,
+        "InitialTop": -1253.948353726699,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "6c615510c91d4c63a1ad57507796bea5",
+        "Title": "TEMP",
+        "Nodes": [
+          "4850f0ceaec244a497e5232273e579b3"
+        ],
+        "Left": 1053.6942129759332,
+        "Top": -999.049475354461,
+        "Width": 232.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -969.049475354461,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFD8D8D8"
+      },
+      {
+        "Id": "d168e63ced894045b80934eb24bcbbd1",
+        "Title": "SET",
+        "Nodes": [
+          "0b6060195c74473cb5d4d768aa7f3077"
+        ],
+        "Left": 1055.5311772928485,
+        "Top": -1101.3368338274427,
+        "Width": 234.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -1071.3368338274427,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "bc49454d269c47da98c2be9552832b0b",
+        "Title": "PROCESS",
+        "Nodes": [
+          "eb6f5b9f8c7d4024a133390477ad26db"
+        ],
+        "Left": 805.06496742409445,
+        "Top": -1101.0097883124358,
+        "Width": 243.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -1071.0097883124358,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFFFAA45"
+      },
+      {
+        "Id": "a9e9d14560024a32a9bbe49be70a908d",
+        "Title": "GEOM",
+        "Nodes": [
+          "85747f77e2194c6d9dc9cf9687d239a5"
+        ],
+        "Left": 804.22431182796163,
+        "Top": -999.08103953489444,
+        "Width": 244.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -969.08103953489444,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFFFC999"
+      },
+      {
+        "Id": "c43198bb6fd84ffabd7768a7bfaeee6c",
+        "Title": "DATA IN",
+        "Nodes": [
+          "7aa3270747b6409b84d814b6c1768052"
+        ],
+        "Left": 804.54727236267036,
+        "Top": -1201.4666745067429,
+        "Width": 244.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -1171.4666745067429,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "ff261a4302004128a84a64a333e3946a",
+        "Title": "DATA OUT",
+        "Nodes": [
+          "995595a5b05b44af8f2d025478eba7a9"
+        ],
+        "Left": 1052.7066494790201,
+        "Top": -1201.5447041243058,
+        "Width": 235.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -1171.5447041243058,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "53b6b365c720482197fe123bc7839cf9",
+        "Title": "NOTES - D4C3D",
+        "Nodes": [
+          "4241cc607afe4ae7bff1d5ec819bc749"
+        ],
+        "Left": 470.82531345200687,
+        "Top": -1302.3035185704223,
+        "Width": 326.0,
+        "Height": 391.0,
+        "FontSize": 36.0,
+        "InitialTop": -1272.3035185704223,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "1632db5d5ab3495f99abe7080f8a111f",
+        "Title": "GET",
+        "Nodes": [
+          "f818f6e88cde46a98d6e4237d020f4e1"
+        ],
+        "Left": 804.09066579824184,
+        "Top": -1302.9754850814631,
+        "Width": 243.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -1272.9754850814631,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFBB87C6"
+      },
+      {
+        "Id": "7826d590262044a29d6ebac549bbd825",
+        "Title": "CREATE",
+        "Nodes": [
+          "abaed75dddb5465891cdea504da79443"
+        ],
+        "Left": 1052.093510755532,
+        "Top": -1303.3198955173225,
+        "Width": 236.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -1273.3198955173225,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "ad4fc8d59e7c4397932fbc66f8979ec6",
+        "Title": "________________________________________________________\r\n\r\nDynamo Core Ver: \t2.4.1.6394 \r\nDynamo Civil 3D Ver: \t2.4.1.2161\r\n________________________________________________________\r\n\r\nPackage Used: \t\tCivil 3D Toolkit\r\nCustom Nodes Used: \tNone\r\n________________________________________________________\r\n\r\nGraph Function:\r\n1. ???\r\n2. ???\r\n3. ???\r\n________________________________________________________\r\n\r\nCreated By: \t\tJowenn S. Lua\r\nDate Created: \t\tSeptember 2020\r\n\r\nUpdated By:\r\nDate Modified:\r\n ",
+        "Nodes": [],
+        "Left": 1516.9758894866713,
+        "Top": -1253.948353726699,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "4850f0ceaec244a497e5232273e579b3",
+        "Title": "Work in progress / To delete             ",
+        "Nodes": [],
+        "Left": 1063.6942129759332,
+        "Top": -969.049475354461,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "0b6060195c74473cb5d4d768aa7f3077",
+        "Title": "Set or Override Parameter in Civil 3D",
+        "Nodes": [],
+        "Left": 1065.5311772928485,
+        "Top": -1071.3368338274427,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "eb6f5b9f8c7d4024a133390477ad26db",
+        "Title": "Dynamo data manipulation                  ",
+        "Nodes": [],
+        "Left": 815.06496742409445,
+        "Top": -1071.0097883124358,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "85747f77e2194c6d9dc9cf9687d239a5",
+        "Title": "Dynamo geometry creation                  ",
+        "Nodes": [],
+        "Left": 814.22431182796163,
+        "Top": -969.08103953489444,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "7aa3270747b6409b84d814b6c1768052",
+        "Title": "Import information / data from others ",
+        "Nodes": [],
+        "Left": 814.54727236267036,
+        "Top": -1171.4666745067429,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "995595a5b05b44af8f2d025478eba7a9",
+        "Title": "Export information / data to others   ",
+        "Nodes": [],
+        "Left": 1062.7066494790201,
+        "Top": -1171.5447041243058,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "4241cc607afe4ae7bff1d5ec819bc749",
+        "Title": "DESIGN GRAPH STANDARDS\r\n                                                                                       \r\nAuthor:\t\tJowenn S. Lua\r\nDate Created:\t10 August 2019\r\nDate Updated:\t4 September 2020\r\nVersion:\t\t004\r\n________________________________________________________\r\n\r\nDESIGN GRAPH GUIDELINES\r\n\r\n1. Color code your blocks according to this guide.\r\n\r\n2. Add grouping with name and description.\r\n\r\n3. Add notes to explain each critical node process.\r\n\r\n4. Rename Input / Output / Code Blocks nodes and add suffix to data they carry.\r\n\r\n5. Align nodes to make it neat.\r\n\r\n6. Save the graph as Manual instead of Automatic.\r\n________________________________________________________",
+        "Nodes": [],
+        "Left": 480.82531345200687,
+        "Top": -1272.3035185704223,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "f818f6e88cde46a98d6e4237d020f4e1",
+        "Title": "Get information / data from Civil 3D    ",
+        "Nodes": [],
+        "Left": 814.09066579824184,
+        "Top": -1272.9754850814631,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "abaed75dddb5465891cdea504da79443",
+        "Title": "Create object in Civil 3D                     ",
+        "Nodes": [],
+        "Left": 1062.093510755532,
+        "Top": -1273.3198955173225,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
       }
     ],
-    "X": 465.08228320521766,
-    "Y": 170.35967972861874,
+    "X": 283.08228320521766,
+    "Y": 189.35967972861874,
     "Zoom": 0.099989443551707108
   }
 }

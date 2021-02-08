@@ -37,7 +37,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "73bb0c709e3542659f0a6b01d372bd76",
       "Inputs": [
         {
@@ -70,7 +70,7 @@
         {
           "Id": "33dc092ef897452db2cc5b8193c75f80",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -89,7 +89,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: ASProperty[] = null): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -216,66 +216,6 @@
       "Description": "Allows for DesignScript code to be authored directly"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.ByNameAndValue@string,var",
-      "Id": "c8eefd25b9e641088d495d38cc550abf",
-      "Inputs": [
-        {
-          "Id": "2d8bc0250d6e46978338390751dcfc3b",
-          "Name": "propertyType",
-          "Description": "Input Property from Property Node for particular Object Type\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "349bbb641eb04a639533181adcbad5f7",
-          "Name": "propertyValue",
-          "Description": "Input Property value for Property Type\n\nvar",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "20ad611498594dc1acc4079e5457b7e4",
-          "Name": "ASProperty",
-          "Description": "ASProperty",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Build AS Property - Writeable or Readable\n\nProperty.ByNameAndValue (propertyType: string, propertyValue: var): ASProperty"
-    },
-    {
-      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesStraightBeam, AdvanceSteelNodesUI",
-      "SelectedIndex": 29,
-      "SelectedString": "Straight Beam Material",
-      "NodeType": "ExtensionNode",
-      "Id": "0a02d53d0a004632a89871c94944cdc0",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "ce09246c473e4160a2814c7abef47953",
-          "Name": "Writable Straight Beam Property",
-          "Description": "string",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Select Advance Steel Straight Beam Property Type to Set"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
       "Code": "\"250\";",
@@ -324,45 +264,6 @@
       ],
       "Replication": "Disabled",
       "Description": "Makes a new list out of the given inputs"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.GetPropertyByElement@AdvanceSteel.Nodes.SteelDbObject,string",
-      "Id": "28ac0367aaa64c3fbe6f7df40fd2fb3d",
-      "Inputs": [
-        {
-          "Id": "c6ea3d7673434143a616cd4cf242ce9b",
-          "Name": "steelObject",
-          "Description": "Selected Advance Steel Object\n\nSteelDbObject",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "c170f05232cc4a918fd74f1b4ac6d0f3",
-          "Name": "propertyType",
-          "Description": "Advance Steel Property\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "2d1f42619de04179ba6b66bbd50320f1",
-          "Name": "ASProperty",
-          "Description": "ASProperty",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Get Single Advance Steel Property from Advance Steel Object\n\nProperty.GetPropertyByElement (steelObject: SteelDbObject, propertyType: string): ASProperty"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -479,48 +380,6 @@
       ],
       "Replication": "Auto",
       "Description": "Get points on the steel body that interected with line\n\nGeometry.IntersectElementByLine (steelObject: SteelDbObject, bodyResolution: int, line: Line): Point[]"
-    },
-    {
-      "ConcreteType": "AdvanceSteel.Nodes.SteelObjectResolution, AdvanceSteelNodesUI",
-      "SelectedIndex": 2,
-      "SelectedString": "Detailed",
-      "NodeType": "ExtensionNode",
-      "Id": "879136e38d00444d98a1ef373b332ad4",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "748094e5baa94d83aae8edd972bfd5c3",
-          "Name": "Steel Object Resolution Type",
-          "Description": "integer",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Set Steel Object Resolution Type"
-    },
-    {
-      "ConcreteType": "AdvanceSteel.Nodes.SteelObjectResolution, AdvanceSteelNodesUI",
-      "SelectedIndex": 1,
-      "SelectedString": "Normal",
-      "NodeType": "ExtensionNode",
-      "Id": "1d19e1380be6418a9dff6a38b8438c09",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "32dc10df8c6d45aa94fb13df560582d3",
-          "Name": "Steel Object Resolution Type",
-          "Description": "integer",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Set Steel Object Resolution Type"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -723,8 +582,17 @@
       "Outputs": [
         {
           "Id": "ace05ea38f594a33aaa90453e05d107a",
-          "Name": "Plane[]",
-          "Description": "Plane[]",
+          "Name": "PlaneNegative",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3e6f954ebac1430285395519e4d445d4",
+          "Name": "PlanePositive",
+          "Description": "var",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -732,7 +600,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Creates one plane either side of the centre point in relation to the normal\n\nGeometry.GetPlaneOffsetByCentre (centrePoint: Point, planeNormal: Vector, distance: double): Plane[]"
+      "Description": "Creates one plane either side of the centre point in relation to the normal\n\nGeometry.GetPlaneOffsetByCentre (centrePoint: Point, planeNormal: Vector, distance: double): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -925,6 +793,177 @@
       ],
       "Replication": "Disabled",
       "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.BodyResolution, AdvanceSteelNodesUI",
+      "SelectedIndex": 1,
+      "SelectedString": "Normal",
+      "NodeType": "ExtensionNode",
+      "Id": "5e739a67964849b9b033fd268d860854",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "75c7e6ba5e1349799a3d42211a877449",
+          "Name": "bodyResolution",
+          "Description": "integer",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Body Resolution"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.BodyResolution, AdvanceSteelNodesUI",
+      "SelectedIndex": 1,
+      "SelectedString": "Normal",
+      "NodeType": "ExtensionNode",
+      "Id": "4ac489c723a34349913050d9965d2e45",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "fb39c09ac5d645549d580c214734fcdb",
+          "Name": "bodyResolution",
+          "Description": "integer",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Body Resolution"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.GetObjectProperties@AdvanceSteel.Nodes.SteelDbObject",
+      "Id": "23b92880c73845749977dd777bb8ff20",
+      "Inputs": [
+        {
+          "Id": "9415a054dc754bae9c6a8c10184188b9",
+          "Name": "steelObject",
+          "Description": "Steel object\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "51b65ead7ab84e548963170c1cab014b",
+          "Name": "Property[]",
+          "Description": "Property[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get all properties from a steel object\n\nProperty.GetObjectProperties (steelObject: SteelDbObject): Property[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "68bfd059657f48eb9a150f9af3cca53e",
+      "Inputs": [
+        {
+          "Id": "70b9aa7bfd0c4933940a443656637b6c",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8d0489eadea4432cbf6e2d85490fd226",
+          "Name": "value",
+          "Description": "native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1ddde122bd1d4f66b6002513de0a18dd",
+          "Name": "Property",
+          "Description": "Property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "adeae752f93a4ecdb845645f8156a5b7",
+      "Inputs": [
+        {
+          "Id": "ad4531b6c9004b9fbb54c60b0bca5b36",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "493e356303e84f05a35ef0be46225dfb",
+          "Name": "value",
+          "Description": "native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "27baeeaa7b31413cbb29fe51cf253516",
+          "Name": "Property",
+          "Description": "Property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesStraightBeam, AdvanceSteelNodesUI",
+      "SelectedIndex": 46,
+      "SelectedString": "Material",
+      "NodeType": "ExtensionNode",
+      "Id": "81857b2f07264c718eb358591fd87aad",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "bdefb510dec54faabb69897cd1df3090",
+          "Name": "propertyName",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Straight Beam"
     }
   ],
   "Connectors": [
@@ -935,11 +974,6 @@
     },
     {
       "Start": "5d34e4d78a334424b327f54e0771927b",
-      "End": "c6ea3d7673434143a616cd4cf242ce9b",
-      "Id": "7fa1100716db4b8da2cbcd9a123ffff8"
-    },
-    {
-      "Start": "5d34e4d78a334424b327f54e0771927b",
       "End": "66d224a7615e46ec8d03893e6e04e085",
       "Id": "a8ef5e37ac8c4d22aa078640280506a6"
     },
@@ -947,6 +981,11 @@
       "Start": "5d34e4d78a334424b327f54e0771927b",
       "End": "79417e59485747918a570da7fa8c578d",
       "Id": "e734c1b7748043a28d933da73810973c"
+    },
+    {
+      "Start": "5d34e4d78a334424b327f54e0771927b",
+      "End": "9415a054dc754bae9c6a8c10184188b9",
+      "Id": "8101ee1db0be4fbd8004ae233dbdebfd"
     },
     {
       "Start": "ace136cb19f549c49ae4163aaf3ca311",
@@ -974,24 +1013,14 @@
       "Id": "a6b82a545bee49b79869968a8d85c874"
     },
     {
-      "Start": "20ad611498594dc1acc4079e5457b7e4",
-      "End": "84aa721854ed458e97bea9e84704583b",
-      "Id": "c9369299daa74b38ad21c7c9598cec14"
-    },
-    {
-      "Start": "ce09246c473e4160a2814c7abef47953",
-      "End": "2d8bc0250d6e46978338390751dcfc3b",
-      "Id": "bf7278e3092342d1a0ead2a92c903223"
-    },
-    {
-      "Start": "ce09246c473e4160a2814c7abef47953",
-      "End": "c170f05232cc4a918fd74f1b4ac6d0f3",
-      "Id": "7911492b1f9340a38a74de83f9dbc4d7"
+      "Start": "6031d85ae5aa4c71800f67d6ddaa3fc1",
+      "End": "8d0489eadea4432cbf6e2d85490fd226",
+      "Id": "542e5742b3a54d71b548debc865eac15"
     },
     {
       "Start": "6031d85ae5aa4c71800f67d6ddaa3fc1",
-      "End": "349bbb641eb04a639533181adcbad5f7",
-      "Id": "da206f8e639d4d1cb40e2c0367ed804a"
+      "End": "493e356303e84f05a35ef0be46225dfb",
+      "Id": "30b7b8af0e174b0197beeaf9e899b2dc"
     },
     {
       "Start": "bf01d8ba5d8c40dc9bbc2be6297bb734",
@@ -1012,16 +1041,6 @@
       "Start": "41f41b368eb741ec80814d568ff82a00",
       "End": "9316d5afc6034d7ebfd276db477b468e",
       "Id": "192c1793942a4d36a3efb927a2adf982"
-    },
-    {
-      "Start": "748094e5baa94d83aae8edd972bfd5c3",
-      "End": "a7705bf8024149bea4bc00c9bf3e1ff0",
-      "Id": "58f2bdcdf66647a6b30594d3f6f4fb93"
-    },
-    {
-      "Start": "32dc10df8c6d45aa94fb13df560582d3",
-      "End": "4b3080d382a04006919529dd124d9002",
-      "Id": "a6958cac5a834a06956f4eaff53b98a7"
     },
     {
       "Start": "ac66f1ba85164c5bba7aaae88a421758",
@@ -1092,18 +1111,36 @@
       "Start": "dc388bb252fa406199794abe59f54adb",
       "End": "a91793f1ef894250a455f042dacd211c",
       "Id": "398d62a5e87b425fb6309667ecb97a0c"
+    },
+    {
+      "Start": "75c7e6ba5e1349799a3d42211a877449",
+      "End": "a7705bf8024149bea4bc00c9bf3e1ff0",
+      "Id": "773bc428252f406da2843380cf096d7b"
+    },
+    {
+      "Start": "fb39c09ac5d645549d580c214734fcdb",
+      "End": "4b3080d382a04006919529dd124d9002",
+      "Id": "be762520ff0c4d9dbae3c65ad00b5288"
+    },
+    {
+      "Start": "27baeeaa7b31413cbb29fe51cf253516",
+      "End": "84aa721854ed458e97bea9e84704583b",
+      "Id": "3c7ebb8b497e499b8c26ae8009d398c9"
+    },
+    {
+      "Start": "bdefb510dec54faabb69897cd1df3090",
+      "End": "ad4531b6c9004b9fbb54c60b0bca5b36",
+      "Id": "3dc2c73b800e4b059700159dc6398eea"
+    },
+    {
+      "Start": "bdefb510dec54faabb69897cd1df3090",
+      "End": "70b9aa7bfd0c4933940a443656637b6c",
+      "Id": "4c8f611f3c184f0bb4d7f00a78e527f9"
     }
   ],
   "Dependencies": [],
   "NodeLibraryDependencies": [],
-  "Bindings": [
-    {
-      "NodeId": "73bb0c70-9e35-4265-9f0a-6b01d372bd76",
-      "Binding": {
-        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_73bb0c70-9e35-4265-9f0a-6b01d372bd76": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDNNamN5SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJek9Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    }
-  ],
+  "Bindings": [],
   "View": {
     "Dynamo": {
       "ScaleFactor": 1.0,
@@ -1168,26 +1205,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "Property.ByNameAndValue",
-        "Id": "c8eefd25b9e641088d495d38cc550abf",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -92.457121255591176,
-        "Y": 249.37722378905826
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Straight Beam Properties",
-        "Id": "0a02d53d0a004632a89871c94944cdc0",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -604.282899703429,
-        "Y": 142.29262874901295
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Code Block",
         "Id": "ded4d2a226e14cb3a3a198056edcf2b4",
         "IsSetAsInput": false,
@@ -1205,16 +1222,6 @@
         "Excluded": false,
         "X": 295.70874024704597,
         "Y": 198.31864347273427
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Property.GetPropertyByElement",
-        "Id": "28ac0367aaa64c3fbe6f7df40fd2fb3d",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1159.3206175628407,
-        "Y": -46.511084524849821
       },
       {
         "ShowGeometry": true,
@@ -1245,26 +1252,6 @@
         "Excluded": false,
         "X": 1830.3696059303297,
         "Y": 75.9301504095202
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "SteelObjectResolution",
-        "Id": "879136e38d00444d98a1ef373b332ad4",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 600.57757460961466,
-        "Y": 364.80789395499636
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "SteelObjectResolution",
-        "Id": "1d19e1380be6418a9dff6a38b8438c09",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1110.9555922542486,
-        "Y": 702.21028486033981
       },
       {
         "ShowGeometry": true,
@@ -1365,11 +1352,372 @@
         "Excluded": false,
         "X": 1092.2473004715557,
         "Y": -674.335658087118
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Body Resolution",
+        "Id": "5e739a67964849b9b033fd268d860854",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 525.05288655435834,
+        "Y": 487.30937376838324
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Body Resolution",
+        "Id": "4ac489c723a34349913050d9965d2e45",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1139.6543922479946,
+        "Y": 768.45932441303182
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.GetObjectProperties",
+        "Id": "23b92880c73845749977dd777bb8ff20",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1133.9834042848104,
+        "Y": -164.20380985327745
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "68bfd059657f48eb9a150f9af3cca53e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -74.2802977006533,
+        "Y": 382.02479694719386
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "adeae752f93a4ecdb845645f8156a5b7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -78.1321349303982,
+        "Y": 218.5625433697615
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Straight Beam Properties",
+        "Id": "81857b2f07264c718eb358591fd87aad",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -486.24894761932808,
+        "Y": 133.29774372409111
       }
     ],
-    "Annotations": [],
-    "X": 16.204467946163277,
-    "Y": 779.02644404563648,
-    "Zoom": 0.82964109310160472
+    "Annotations": [
+      {
+        "Id": "4022c166478f49839e84140158610d7d",
+        "Title": "GET",
+        "Nodes": [
+          "7c725aa102254089921395be16532dba"
+        ],
+        "Left": 248.04715463325647,
+        "Top": -1480.4462756013563,
+        "Width": 243.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -1427.4462756013563,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFBB87C6"
+      },
+      {
+        "Id": "a6a9c7e5564a452d909ea352f5f39427",
+        "Title": "DATA IN",
+        "Nodes": [
+          "be28e514bf4e407489eb9d79929f7ab0"
+        ],
+        "Left": 248.50376119768498,
+        "Top": -1378.9374650266361,
+        "Width": 244.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -1325.9374650266361,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "3aa6742c7f7947319adcdb5991be5487",
+        "Title": "PROCESS",
+        "Nodes": [
+          "bc550f899e6448b98fca604ed4e499c8"
+        ],
+        "Left": 249.02145625910907,
+        "Top": -1278.480578832329,
+        "Width": 243.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -1225.480578832329,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFAA45"
+      },
+      {
+        "Id": "83c628aa2f914ab1affe44a9570c8be3",
+        "Title": "DATA OUT",
+        "Nodes": [
+          "c7b9f8e43538470981d9caada77519ff"
+        ],
+        "Left": 496.66313831403477,
+        "Top": -1379.015494644199,
+        "Width": 235.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -1326.015494644199,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "5155e455b1954d5587bb32d8afda6ad5",
+        "Title": "CREATE",
+        "Nodes": [
+          "836577da6eac4cfaab3cc1960042ef79"
+        ],
+        "Left": 496.04999959054658,
+        "Top": -1480.7906860372157,
+        "Width": 236.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -1427.7906860372157,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "82346b68be084a20a9f1f472c9c7bba7",
+        "Title": "SET",
+        "Nodes": [
+          "1b4c67729d6343c1ac7598b3d64f9c57"
+        ],
+        "Left": 499.48766612786312,
+        "Top": -1278.8076243473356,
+        "Width": 234.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -1225.8076243473356,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "7566bb61740543068ebfabb3cd970524",
+        "Title": "TEMP",
+        "Nodes": [
+          "bf63783b0eec48049a6967cbdd355eae"
+        ],
+        "Left": 497.65070181094779,
+        "Top": -1176.5202658743542,
+        "Width": 232.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -1123.5202658743542,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFD8D8D8"
+      },
+      {
+        "Id": "66e15dd900c34004a527a9325703381e",
+        "Title": "GEOM",
+        "Nodes": [
+          "394541b44d70488ab47b0c150aca9844"
+        ],
+        "Left": 248.18080066297625,
+        "Top": -1176.5518300547876,
+        "Width": 244.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -1123.5518300547876,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFC999"
+      },
+      {
+        "Id": "164477d7f0a2463384c1505a1d17f2b4",
+        "Title": "GRAPH INFO",
+        "Nodes": [
+          "61cbb0efcbe845e7b11ed29449ccdaf7"
+        ],
+        "Left": 737.43612264823514,
+        "Top": -1481.8602751089438,
+        "Width": 319.0,
+        "Height": 400.0,
+        "FontSize": 36.0,
+        "InitialTop": -1428.8602751089438,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "a75fda084c924b95869d907560ba6fc1",
+        "Title": "NOTES - D4C3D",
+        "Nodes": [
+          "7e635fbbd19c4fcb80209bc398eeef1c"
+        ],
+        "Left": -85.218197712978508,
+        "Top": -1479.7743090903155,
+        "Width": 326.0,
+        "Height": 414.0,
+        "FontSize": 36.0,
+        "InitialTop": -1426.7743090903155,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "7c725aa102254089921395be16532dba",
+        "Title": "Get information / data from Civil 3D    ",
+        "Nodes": [],
+        "Left": 258.04715463325647,
+        "Top": -1427.4462756013563,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "be28e514bf4e407489eb9d79929f7ab0",
+        "Title": "Import information / data from others ",
+        "Nodes": [],
+        "Left": 258.503761197685,
+        "Top": -1325.9374650266361,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "bc550f899e6448b98fca604ed4e499c8",
+        "Title": "Dynamo data manipulation                  ",
+        "Nodes": [],
+        "Left": 259.02145625910907,
+        "Top": -1225.480578832329,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "c7b9f8e43538470981d9caada77519ff",
+        "Title": "Export information / data to others   ",
+        "Nodes": [],
+        "Left": 506.66313831403477,
+        "Top": -1326.015494644199,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "836577da6eac4cfaab3cc1960042ef79",
+        "Title": "Create object in Civil 3D                     ",
+        "Nodes": [],
+        "Left": 506.04999959054658,
+        "Top": -1427.7906860372157,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "1b4c67729d6343c1ac7598b3d64f9c57",
+        "Title": "Set or Override Parameter in Civil 3D",
+        "Nodes": [],
+        "Left": 509.48766612786312,
+        "Top": -1225.8076243473356,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "bf63783b0eec48049a6967cbdd355eae",
+        "Title": "Work in progress / To delete             ",
+        "Nodes": [],
+        "Left": 507.65070181094779,
+        "Top": -1123.5202658743542,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "394541b44d70488ab47b0c150aca9844",
+        "Title": "Dynamo geometry creation                  ",
+        "Nodes": [],
+        "Left": 258.18080066297625,
+        "Top": -1123.5518300547876,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "61cbb0efcbe845e7b11ed29449ccdaf7",
+        "Title": "________________________________________________________\r\n\r\nDynamo Core Ver: \t2.4.1.6394 \r\nDynamo Civil 3D Ver: \t2.4.1.2161\r\n________________________________________________________\r\n\r\nPackage Used: \t\tCivil 3D Toolkit\r\nCustom Nodes Used: \tNone\r\n________________________________________________________\r\n\r\nGraph Function:\r\n1. ???\r\n2. ???\r\n3. ???\r\n________________________________________________________\r\n\r\nCreated By: \t\tJowenn S. Lua\r\nDate Created: \t\tSeptember 2020\r\n\r\nUpdated By:\r\nDate Modified:\r\n ",
+        "Nodes": [],
+        "Left": 747.43612264823514,
+        "Top": -1428.8602751089438,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "7e635fbbd19c4fcb80209bc398eeef1c",
+        "Title": "DESIGN GRAPH STANDARDS\r\n                                                                                       \r\nAuthor:\t\tJowenn S. Lua\r\nDate Created:\t10 August 2019\r\nDate Updated:\t4 September 2020\r\nVersion:\t\t004\r\n________________________________________________________\r\n\r\nDESIGN GRAPH GUIDELINES\r\n\r\n1. Color code your blocks according to this guide.\r\n\r\n2. Add grouping with name and description.\r\n\r\n3. Add notes to explain each critical node process.\r\n\r\n4. Rename Input / Output / Code Blocks nodes and add suffix to data they carry.\r\n\r\n5. Align nodes to make it neat.\r\n\r\n6. Save the graph as Manual instead of Automatic.\r\n________________________________________________________",
+        "Nodes": [],
+        "Left": -75.218197712978508,
+        "Top": -1426.7743090903155,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 549.86557322714316,
+    "Y": 510.67348308151179,
+    "Zoom": 0.25846808178992386
   }
 }

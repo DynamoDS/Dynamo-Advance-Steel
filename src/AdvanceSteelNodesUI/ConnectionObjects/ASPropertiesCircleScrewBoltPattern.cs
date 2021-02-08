@@ -7,19 +7,19 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Bolt Properties")]
-  [NodeDescription("Lists all the property names of an Advance Steel Bolt")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [NodeName("Bolt Properties - Circular")]
+  [NodeDescription("Lists all the property names of an Advance Steel Circular Bolt Pattern")]
+  [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects.CircularBoltPattern")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-  public class ASPropertiesBolts : AstDropDownBase
+  public class CircleScrewBoltPattern : AstDropDownBase
   {
     private const string outputName = "propertyName";
 
     //AdvanceSteel.Nodes.Properties
-    public ASPropertiesBolts()
+    public CircleScrewBoltPattern()
         : base(outputName)
     {
       InPorts.Clear();
@@ -28,7 +28,7 @@ namespace AdvanceSteel.Nodes
     }
 
     [JsonConstructor]
-    public ASPropertiesBolts(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    public CircleScrewBoltPattern(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
     : base(outputName, inPorts, outPorts)
     {
     }
@@ -38,7 +38,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetBoltProperties())
+      foreach (var item in Utils.GetCircleScrewBoltPattern())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

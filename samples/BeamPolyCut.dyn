@@ -158,7 +158,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByArc@Autodesk.DesignScript.Geometry.Arc,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByArc@Autodesk.DesignScript.Geometry.Arc,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
       "Id": "8478e324a10247059314a826842e6254",
       "Inputs": [
         {
@@ -200,7 +200,7 @@
         {
           "Id": "029046d97d914a7fa706bbfc155c303a",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -219,12 +219,12 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel bent beam on a Dynamo Arc- inc ModelRole and Section Size\n\nBentBeam.ByArc (arc: Arc, orientation: Vector = Autodesk.DesignScript.Geometry.Vector.ZAxis(), refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: ASProperty[] = null): BentBeam"
+      "Description": "Create an Advance Steel bent beam on a Dynamo Arc- inc ModelRole and Section Size\n\nBentBeam.ByArc (arc: Arc, orientation: Vector = Autodesk.DesignScript.Geometry.Vector.ZAxis(), refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): BentBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
       "Id": "9d84acd3b9a44e5ba50417c5d72ce251",
       "Inputs": [
         {
@@ -275,7 +275,7 @@
         {
           "Id": "23bb293d2032425692169c4cdb9c274c",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -294,7 +294,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: ASProperty[] = null): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -315,54 +315,6 @@
       ],
       "Replication": "Disabled",
       "Description": "Allows for DesignScript code to be authored directly"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Modifications.BeamPlaneCut.ByCS@AdvanceSteel.Nodes.SteelDbObject,Autodesk.DesignScript.Geometry.CoordinateSystem,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "88f43d67ac5c4c7185486943c18b3c03",
-      "Inputs": [
-        {
-          "Id": "fefb5de902704df68208602f96ae65bc",
-          "Name": "element",
-          "Description": "Input Beam\n\nSteelDbObject",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "9f78442912524bcfbf6b8573e4624c37",
-          "Name": "coordinateSystem",
-          "Description": "Input Dynamo CoordinateSytem\n\nCoordinateSystem",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "eab504478476460fb2ab0702f24643dc",
-          "Name": "additionalBeamFeatureParameters",
-          "Description": "Optional Input Beam Cut Build Properties\n\nASProperty[]\nDefault value : null",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "5f1b4a15a05944e48d7a13ca562b26f5",
-          "Name": "BeamPlaneCut",
-          "Description": "BeamPlaneCut",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Create an Advance Steel Beam Plane Cut by Coordinate System\n\nBeamPlaneCut.ByCS (element: SteelDbObject, coordinateSystem: CoordinateSystem, additionalBeamFeatureParameters: ASProperty[] = null): BeamPlaneCut"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -405,102 +357,6 @@
       "Description": "Allows for DesignScript code to be authored directly"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Modifications.BeamPlaneCut.ByCS@AdvanceSteel.Nodes.SteelDbObject,Autodesk.DesignScript.Geometry.CoordinateSystem,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "e979a419f5d241fe97cee545f560ce7b",
-      "Inputs": [
-        {
-          "Id": "a7b1de8b04d748fbbd63a1fc4843feea",
-          "Name": "element",
-          "Description": "Input Beam\n\nSteelDbObject",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "63624b575f694cbf8811f3845fb0ed27",
-          "Name": "coordinateSystem",
-          "Description": "Input Dynamo CoordinateSytem\n\nCoordinateSystem",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "0e40bad4bb2c448aae37235d2c0db91f",
-          "Name": "additionalBeamFeatureParameters",
-          "Description": "Optional Input Beam Cut Build Properties\n\nASProperty[]\nDefault value : null",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "0aeffa024148458c9ceabb7e0407a54e",
-          "Name": "BeamPlaneCut",
-          "Description": "BeamPlaneCut",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Create an Advance Steel Beam Plane Cut by Coordinate System\n\nBeamPlaneCut.ByCS (element: SteelDbObject, coordinateSystem: CoordinateSystem, additionalBeamFeatureParameters: ASProperty[] = null): BeamPlaneCut"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Modifications.BeamPlaneCut.ByStartValue@AdvanceSteel.Nodes.SteelDbObject,double,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "a8b67c5635f440c198c46da638bedb7e",
-      "Inputs": [
-        {
-          "Id": "2bfa7d9be93d45a3aef926ac2a1ab9e5",
-          "Name": "element",
-          "Description": "Input Beam\n\nSteelDbObject",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "3d4f5d64fbb74e28a88eaabe2e24225f",
-          "Name": "shorteningLength",
-          "Description": "Input shortening Value\n\ndouble",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "616dabda2ea844e986260334e3cb20b1",
-          "Name": "additionalBeamFeatureParameters",
-          "Description": "Optional Input Beam Cut Build Properties\n\nASProperty[]\nDefault value : null",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "77b0dbf5c3584b5b96081bc9655a99d9",
-          "Name": "BeamPlaneCut",
-          "Description": "BeamPlaneCut",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Create an Advance Steel Beam Shorting from the Start of the Beam by a Value\n\nBeamPlaneCut.ByStartValue (element: SteelDbObject, shorteningLength: double, additionalBeamFeatureParameters: ASProperty[] = null): BeamPlaneCut"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
       "Code": "100;",
@@ -519,54 +375,6 @@
       ],
       "Replication": "Disabled",
       "Description": "Allows for DesignScript code to be authored directly"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Modifications.BeamPlaneCut.ByStartValue@AdvanceSteel.Nodes.SteelDbObject,double,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "11cd8b0dc5374835b6af1999e8abfc4d",
-      "Inputs": [
-        {
-          "Id": "0aeac8ac1c7747c293c98ffdb508e7ff",
-          "Name": "element",
-          "Description": "Input Beam\n\nSteelDbObject",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "214a847bf5af4702b3e8d5d79294ed0d",
-          "Name": "shorteningLength",
-          "Description": "Input shortening Value\n\ndouble",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "9ca3ee8e50014de48918e74e3a300721",
-          "Name": "additionalBeamFeatureParameters",
-          "Description": "Optional Input Beam Cut Build Properties\n\nASProperty[]\nDefault value : null",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "2ea3fe43466d496795a692119cdfe57c",
-          "Name": "BeamPlaneCut",
-          "Description": "BeamPlaneCut",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Create an Advance Steel Beam Shorting from the Start of the Beam by a Value\n\nBeamPlaneCut.ByStartValue (element: SteelDbObject, shorteningLength: double, additionalBeamFeatureParameters: ASProperty[] = null): BeamPlaneCut"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -658,7 +466,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
       "Id": "72e5789e1e0c4778bc8686044559bede",
       "Inputs": [
         {
@@ -709,7 +517,7 @@
         {
           "Id": "a7101749276e4095b1a5a0e00c58facd",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -728,7 +536,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: ASProperty[] = null): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -854,7 +662,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
       "Id": "aad0bc6e3e1142b29a031d03dc399fe2",
       "Inputs": [
         {
@@ -905,7 +713,7 @@
         {
           "Id": "9d3336dc5c5c42c9b9aea360875d5284",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -924,81 +732,36 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: ASProperty[] = null): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Modifications.BeamPolycut.ByLengthWidth@AdvanceSteel.Nodes.SteelDbObject,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Vector,double,double,int,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "c1990dff6fac4a0fb9d1d0fdaa7dbf28",
+      "FunctionSignature": "AdvanceSteel.Nodes.Features.BeamPlaneCut.ByCS@AdvanceSteel.Nodes.SteelDbObject,Autodesk.DesignScript.Geometry.CoordinateSystem,AdvanceSteel.Nodes.Property[]",
+      "Id": "a04ea8f962e148aca78d3f4a3b89ca4e",
       "Inputs": [
         {
-          "Id": "08f48c3ee833466e894b949207735c33",
+          "Id": "b70bde55957d463abc9b008fc99a9e7d",
           "Name": "element",
-          "Description": "Input Plate\n\nSteelDbObject",
+          "Description": "Input Beam\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
         },
         {
-          "Id": "9d5462b58a654260b71506b5eb172a42",
-          "Name": "rectangleInsertPoint",
-          "Description": "Input Insert Point for Rectangular polycut on Beam\n\nPoint",
+          "Id": "30c6585b9d0543089fd8b42d307fbbbe",
+          "Name": "coordinateSystem",
+          "Description": "Input Dynamo CoordinateSytem\n\nCoordinateSystem",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
         },
         {
-          "Id": "1f860aeac76145808610f05a9b815591",
-          "Name": "normal",
-          "Description": "Input normal vector to rectangular polycut\n\nVector",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "a448b5a5d53a43799692e8c74c323f91",
-          "Name": "lengthVec",
-          "Description": "Input vector in the length direction of rectangular polycut\n\nVector",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "c6987e0c896a4690a665e81f1dd7f65a",
-          "Name": "length",
-          "Description": "Input Length of Cut\n\ndouble",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "47198b7cf35d49a3aa118d474dd9a558",
-          "Name": "width",
-          "Description": "Input depth of Cut\n\ndouble",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "4dccff79c98d46e9a2aed787585a99cb",
-          "Name": "corner",
-          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint\nDefault value : -1",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "184b5139379c4b15a19e5e6afe25be0b",
+          "Id": "b3b24b84600c49b39e4e7e03725341e4",
           "Name": "additionalBeamFeatureParameters",
-          "Description": "Optional Input Beam Feature Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Cut Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1007,7 +770,244 @@
       ],
       "Outputs": [
         {
-          "Id": "50f8771b169f4e66ad2d7f3d3fa890fd",
+          "Id": "2ba93c91a8514acba0d7adbaefe77633",
+          "Name": "BeamPlaneCut",
+          "Description": "BeamPlaneCut",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Beam Plane Cut by Coordinate System\n\nBeamPlaneCut.ByCS (element: SteelDbObject, coordinateSystem: CoordinateSystem, additionalBeamFeatureParameters: Property[] = null): BeamPlaneCut"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Features.BeamPlaneCut.ByStartValue@AdvanceSteel.Nodes.SteelDbObject,double,AdvanceSteel.Nodes.Property[]",
+      "Id": "d5de7f8e8a68491f8d75b669b423e075",
+      "Inputs": [
+        {
+          "Id": "65ec7cf931094db88580a6885bd1cb07",
+          "Name": "element",
+          "Description": "Input Beam\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1e967471437e41d9af02c278d7f47a79",
+          "Name": "shorteningLength",
+          "Description": "Input shortening Value\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "90cfafc269f64d689cb60a134bffb6e0",
+          "Name": "additionalBeamFeatureParameters",
+          "Description": "Optional Input Beam Cut Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "61e93c27188e4f9da27ce53b8e769552",
+          "Name": "BeamPlaneCut",
+          "Description": "BeamPlaneCut",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Beam Shorting from the Start of the Beam by a Value\n\nBeamPlaneCut.ByStartValue (element: SteelDbObject, shorteningLength: double, additionalBeamFeatureParameters: Property[] = null): BeamPlaneCut"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Features.BeamPlaneCut.ByStartValue@AdvanceSteel.Nodes.SteelDbObject,double,AdvanceSteel.Nodes.Property[]",
+      "Id": "4e60517f366a4e5abebf09a461d66797",
+      "Inputs": [
+        {
+          "Id": "6002a3443cb549c0bb32fae02c5d72c9",
+          "Name": "element",
+          "Description": "Input Beam\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "896849c347244d8fb4c0720d37526bdf",
+          "Name": "shorteningLength",
+          "Description": "Input shortening Value\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b864a821ffa3468d89fd5a2e00877ebf",
+          "Name": "additionalBeamFeatureParameters",
+          "Description": "Optional Input Beam Cut Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3d99d081ddc543549bf4bfd4644b7c83",
+          "Name": "BeamPlaneCut",
+          "Description": "BeamPlaneCut",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Beam Shorting from the Start of the Beam by a Value\n\nBeamPlaneCut.ByStartValue (element: SteelDbObject, shorteningLength: double, additionalBeamFeatureParameters: Property[] = null): BeamPlaneCut"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Features.BeamPlaneCut.ByCS@AdvanceSteel.Nodes.SteelDbObject,Autodesk.DesignScript.Geometry.CoordinateSystem,AdvanceSteel.Nodes.Property[]",
+      "Id": "697bb095e47d436e889a184d9e81f00b",
+      "Inputs": [
+        {
+          "Id": "7a5b1825a7d847ee9db52ccaa9920734",
+          "Name": "element",
+          "Description": "Input Beam\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6d2b25df168b4bad9cc592a7fd903b1e",
+          "Name": "coordinateSystem",
+          "Description": "Input Dynamo CoordinateSytem\n\nCoordinateSystem",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "586d8894d39144fa827fb840eb4da7c2",
+          "Name": "additionalBeamFeatureParameters",
+          "Description": "Optional Input Beam Cut Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c6a1ba34aad548aeb646bc7b4d23e6cf",
+          "Name": "BeamPlaneCut",
+          "Description": "BeamPlaneCut",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Beam Plane Cut by Coordinate System\n\nBeamPlaneCut.ByCS (element: SteelDbObject, coordinateSystem: CoordinateSystem, additionalBeamFeatureParameters: Property[] = null): BeamPlaneCut"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Features.BeamPolycut.ByLengthWidth@AdvanceSteel.Nodes.SteelDbObject,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Vector,double,double,int,AdvanceSteel.Nodes.Property[]",
+      "Id": "0d03dbd0293a4313b0a7d34c3161f856",
+      "Inputs": [
+        {
+          "Id": "dd2dbbdaf74241b6a7b3a79513c0fcf4",
+          "Name": "element",
+          "Description": "Input Beam\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "fbac1e5bddd64a3680b729dc31052f0b",
+          "Name": "rectangleInsertPoint",
+          "Description": "Input Insert Point for Rectangular polycut on Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "271f26a5e60a4d4cbc2c98739f824d56",
+          "Name": "normal",
+          "Description": "Input normal vector to rectangular polycut\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "81c8f848bae6416f87b2f9c575ec75e8",
+          "Name": "lengthVec",
+          "Description": "Input vector in the length direction of rectangular polycut\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "505a88154fb44d59adc34177b09e1437",
+          "Name": "length",
+          "Description": "Input Length of Cut\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "325c35450e454ab6a70c995811c524c3",
+          "Name": "width",
+          "Description": "Input depth of Cut\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a73f53dbdb3b49e2bb79adc54d93ab0b",
+          "Name": "corner",
+          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint\nDefault value : -1",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2c1bbeed9c0e4b4cbcc061e1dd35d21e",
+          "Name": "additionalBeamFeatureParameters",
+          "Description": "Optional Input Beam Feature Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "6be3e44edccf4eea827d02c073afa0a5",
           "Name": "BeamPolycut",
           "Description": "BeamPolycut",
           "UsingDefaultValue": false,
@@ -1017,25 +1017,25 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Rectangular Polycut feature by Length and Width\n\nBeamPolycut.ByLengthWidth (element: SteelDbObject, rectangleInsertPoint: Point, normal: Vector, lengthVec: Vector, length: double, width: double, corner: int = -1, additionalBeamFeatureParameters: ASProperty[] = null): BeamPolycut"
+      "Description": "Create an Advance Steel Rectangular Polycut feature by Length and Width\n\nBeamPolycut.ByLengthWidth (element: SteelDbObject, rectangleInsertPoint: Point, normal: Vector, lengthVec: Vector, length: double, width: double, corner: int = -1, additionalBeamFeatureParameters: Property[] = null): BeamPolycut"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Modifications.BeamPolycut.ByLengthWidth@AdvanceSteel.Nodes.SteelDbObject,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Vector,double,double,int,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "d068b992e1b448dc9307d235c797e5f2",
+      "FunctionSignature": "AdvanceSteel.Nodes.Features.BeamPolycut.ByLengthWidth@AdvanceSteel.Nodes.SteelDbObject,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Vector,double,double,int,AdvanceSteel.Nodes.Property[]",
+      "Id": "7f43dbbe104c443ea29acd2dc980e7a8",
       "Inputs": [
         {
-          "Id": "a7a84279336e433fbd53cda49baeb53d",
+          "Id": "827e570bcd054e19bb3ec33a14dbcadd",
           "Name": "element",
-          "Description": "Input Plate\n\nSteelDbObject",
+          "Description": "Input Beam\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
         },
         {
-          "Id": "9cf490763bae41b68484054eede1f058",
+          "Id": "3441e51e12954309809fad22c07f9ad7",
           "Name": "rectangleInsertPoint",
           "Description": "Input Insert Point for Rectangular polycut on Beam\n\nPoint",
           "UsingDefaultValue": false,
@@ -1044,7 +1044,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "431b40480c5942cbb54ff8b75843ff9a",
+          "Id": "4922085619a147dfac093b6515015572",
           "Name": "normal",
           "Description": "Input normal vector to rectangular polycut\n\nVector",
           "UsingDefaultValue": false,
@@ -1053,7 +1053,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "8132e836c5f14290a52d60c1de2353f4",
+          "Id": "f1d78a279c964644bb4cb9ebb35eba88",
           "Name": "lengthVec",
           "Description": "Input vector in the length direction of rectangular polycut\n\nVector",
           "UsingDefaultValue": false,
@@ -1062,7 +1062,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "f558687a73294aaeb97a0574b847aa9b",
+          "Id": "841435df8d6e4514af37c1a68ce5918e",
           "Name": "length",
           "Description": "Input Length of Cut\n\ndouble",
           "UsingDefaultValue": false,
@@ -1071,7 +1071,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "2c7853c8c1124bf189bfad4f5a485903",
+          "Id": "c88044c295364d1dab9469860fcd1290",
           "Name": "width",
           "Description": "Input depth of Cut\n\ndouble",
           "UsingDefaultValue": false,
@@ -1080,7 +1080,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "8924c193e8b448bd91519fbae061971a",
+          "Id": "39d54274c1c84c84bddf1e517be6d136",
           "Name": "corner",
           "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint\nDefault value : -1",
           "UsingDefaultValue": true,
@@ -1089,9 +1089,9 @@
           "KeepListStructure": false
         },
         {
-          "Id": "525a6f0c97e74a7699f91aae8e9f5f7a",
+          "Id": "a55893b9ef8e4db48157bb1a168f7b3a",
           "Name": "additionalBeamFeatureParameters",
-          "Description": "Optional Input Beam Feature Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Feature Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1100,7 +1100,7 @@
       ],
       "Outputs": [
         {
-          "Id": "b87d1e62b11944e490f1b6bc32714dd9",
+          "Id": "d71c6fa0caab4ae7a9be12c81ed69288",
           "Name": "BeamPolycut",
           "Description": "BeamPolycut",
           "UsingDefaultValue": false,
@@ -1110,7 +1110,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Rectangular Polycut feature by Length and Width\n\nBeamPolycut.ByLengthWidth (element: SteelDbObject, rectangleInsertPoint: Point, normal: Vector, lengthVec: Vector, length: double, width: double, corner: int = -1, additionalBeamFeatureParameters: ASProperty[] = null): BeamPolycut"
+      "Description": "Create an Advance Steel Rectangular Polycut feature by Length and Width\n\nBeamPolycut.ByLengthWidth (element: SteelDbObject, rectangleInsertPoint: Point, normal: Vector, lengthVec: Vector, length: double, width: double, corner: int = -1, additionalBeamFeatureParameters: Property[] = null): BeamPolycut"
     }
   ],
   "Connectors": [
@@ -1146,23 +1146,23 @@
     },
     {
       "Start": "05fd9c6ff4124503867582e87bf0e578",
-      "End": "a7b1de8b04d748fbbd63a1fc4843feea",
-      "Id": "1b6deefea82d4850a4a5e21faca09297"
+      "End": "65ec7cf931094db88580a6885bd1cb07",
+      "Id": "19ac4d6664634faf8a8aa217e8af85b9"
     },
     {
       "Start": "05fd9c6ff4124503867582e87bf0e578",
-      "End": "0aeac8ac1c7747c293c98ffdb508e7ff",
-      "Id": "2ac13ad8c1824d3f8f429ac5a87c71b4"
+      "End": "b70bde55957d463abc9b008fc99a9e7d",
+      "Id": "33b344cb062942e4ab79b10b4ee7809c"
     },
     {
       "Start": "7ec4244781a94481a88374cbb51075b9",
-      "End": "fefb5de902704df68208602f96ae65bc",
-      "Id": "07221e268d864bf89a5d6f25819177f4"
+      "End": "7a5b1825a7d847ee9db52ccaa9920734",
+      "Id": "e13e9ce6c5ea49c09bf86307c69dc837"
     },
     {
       "Start": "7ec4244781a94481a88374cbb51075b9",
-      "End": "2bfa7d9be93d45a3aef926ac2a1ab9e5",
-      "Id": "bcbf3b7281c948c5b7cd80d7466be628"
+      "End": "6002a3443cb549c0bb32fae02c5d72c9",
+      "Id": "769def0baf94463aa8c769549ea302f0"
     },
     {
       "Start": "a5b5c312c2b94893a288db354fe1657c",
@@ -1171,23 +1171,23 @@
     },
     {
       "Start": "e120405fc56c436ba5979a72f7644cc2",
-      "End": "9f78442912524bcfbf6b8573e4624c37",
-      "Id": "3f1719779f194821bff531b049c78272"
+      "End": "6d2b25df168b4bad9cc592a7fd903b1e",
+      "Id": "2d810f29c44146a38e0ee8eb4fa3dc98"
     },
     {
       "Start": "fe544ccc577945c3bf5ed7997f486e70",
-      "End": "63624b575f694cbf8811f3845fb0ed27",
-      "Id": "ed2b9ff1c2ff4df8a535f68d2b7d12a7"
+      "End": "30c6585b9d0543089fd8b42d307fbbbe",
+      "Id": "034022fd20bb486fb24a5c3ec798b45e"
     },
     {
       "Start": "1fdf33061c1f4fb8b1955ce4af970299",
-      "End": "3d4f5d64fbb74e28a88eaabe2e24225f",
-      "Id": "0f6c9cb65dce4c768e4efbcb360b2069"
+      "End": "896849c347244d8fb4c0720d37526bdf",
+      "Id": "8ec9d5aabc21421cafa9e2ced9265262"
     },
     {
       "Start": "284e9c1814244ef583ca71a8d8218311",
-      "End": "214a847bf5af4702b3e8d5d79294ed0d",
-      "Id": "245a8d97c9004cf88d0739b91161ba53"
+      "End": "1e967471437e41d9af02c278d7f47a79",
+      "Id": "e64c4c29dff74bbb8a896bb556debbfc"
     },
     {
       "Start": "52769b394b474d3b9fb2afc26a286a4e",
@@ -1206,13 +1206,13 @@
     },
     {
       "Start": "f99f8617fe744eddbd43f5c9b1cd6325",
-      "End": "1f860aeac76145808610f05a9b815591",
-      "Id": "b9f56aec581640a39fa3ab3060b54e96"
+      "End": "271f26a5e60a4d4cbc2c98739f824d56",
+      "Id": "a5f25c2d1d8b4a7c9cf40dfcb2595823"
     },
     {
       "Start": "0a1ae22b8f4949a2a1e9fbd3ecd183e2",
-      "End": "9d5462b58a654260b71506b5eb172a42",
-      "Id": "936de808b85b45379b49f48547d768af"
+      "End": "fbac1e5bddd64a3680b729dc31052f0b",
+      "Id": "68d79e5c306c44b29ba0216cf64bfd5f"
     },
     {
       "Start": "cc5e23a18638401e9051534f9d3b75b0",
@@ -1226,28 +1226,28 @@
     },
     {
       "Start": "e1d6461ab96a4c36ab0b8f164144a2ef",
-      "End": "08f48c3ee833466e894b949207735c33",
-      "Id": "398ccb50b20642ca88d811a5c68597e4"
+      "End": "dd2dbbdaf74241b6a7b3a79513c0fcf4",
+      "Id": "eb79400fc6e6479b81cb22a1e5686f2e"
     },
     {
       "Start": "067b163c533b45899ced19fb3dc7bc4b",
-      "End": "c6987e0c896a4690a665e81f1dd7f65a",
-      "Id": "85fdb14607e4439ca4ce6b5cde58b38d"
+      "End": "505a88154fb44d59adc34177b09e1437",
+      "Id": "4d284da3519d49b08ade879675fa8419"
     },
     {
       "Start": "067b163c533b45899ced19fb3dc7bc4b",
-      "End": "f558687a73294aaeb97a0574b847aa9b",
-      "Id": "554ec1dec09e4a9ab451baf9e3c2e12d"
+      "End": "841435df8d6e4514af37c1a68ce5918e",
+      "Id": "8f364e1d47c04b978983bbe1327fa1c2"
     },
     {
       "Start": "5ab19bfca5b145c18051d083c165be30",
-      "End": "47198b7cf35d49a3aa118d474dd9a558",
-      "Id": "90c49bf183774bfaad56d2c5b741f24c"
+      "End": "325c35450e454ab6a70c995811c524c3",
+      "Id": "5ae62156030f4466b826fa07ed790469"
     },
     {
       "Start": "5ab19bfca5b145c18051d083c165be30",
-      "End": "2c7853c8c1124bf189bfad4f5a485903",
-      "Id": "61f404e7103b4db8a8662fab05af35cd"
+      "End": "c88044c295364d1dab9469860fcd1290",
+      "Id": "66d048dacd22410480655f17ba0f0703"
     },
     {
       "Start": "5a14c6133ca8400d84c9edb66b30ea52",
@@ -1266,82 +1266,33 @@
     },
     {
       "Start": "f6eecd8c817b4427bc8dc7b926761d66",
-      "End": "431b40480c5942cbb54ff8b75843ff9a",
-      "Id": "2ec129a2261f4c45b75161ab34cc3b80"
+      "End": "4922085619a147dfac093b6515015572",
+      "Id": "5cae91496f154cafb2bd07a44fca5c3e"
     },
     {
       "Start": "5758e34fd34543aca9f6eb09d625b955",
-      "End": "9cf490763bae41b68484054eede1f058",
-      "Id": "33406593c0bd411296e12642f8ffe270"
+      "End": "3441e51e12954309809fad22c07f9ad7",
+      "Id": "95f2351afeb84e17b26be0c41862f198"
     },
     {
       "Start": "cd694fd3c5a94f36a46dc8ec02f9f204",
-      "End": "a448b5a5d53a43799692e8c74c323f91",
-      "Id": "d62032a1b6ca43a0bd4b3681a918c844"
+      "End": "81c8f848bae6416f87b2f9c575ec75e8",
+      "Id": "5b0213658ccc4bc199b8d7160d184d7c"
     },
     {
       "Start": "f40e268a992445c6aaaea9986e65983f",
-      "End": "8132e836c5f14290a52d60c1de2353f4",
-      "Id": "46a55a463375433a928e0311f59c2eac"
+      "End": "f1d78a279c964644bb4cb9ebb35eba88",
+      "Id": "ed676fa78b594d789d592a4e6fd5f556"
     },
     {
       "Start": "d192c69ae8714d5d829d137809d33ba7",
-      "End": "a7a84279336e433fbd53cda49baeb53d",
-      "Id": "09e1ea56c7b54380b6b88a775bcff6ab"
+      "End": "827e570bcd054e19bb3ec33a14dbcadd",
+      "Id": "f8d9f50b7fc24eb0b6974ad857f604cf"
     }
   ],
   "Dependencies": [],
   "NodeLibraryDependencies": [],
-  "Bindings": [
-    {
-      "NodeId": "88f43d67-ac5c-4c71-8548-6943c18b3c03",
-      "Binding": {
-        "ByCS_InClassDecl-1_InFunctionScope-1_Instance0_88f43d67-ac5c-4c71-8548-6943c18b3c03": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJOVGswSlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJME1Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    },
-    {
-      "NodeId": "e979a419-f5d2-41fe-97ce-e545f560ce7b",
-      "Binding": {
-        "ByCS_InClassDecl-1_InFunctionScope-1_Instance0_e979a419-f5d2-41fe-97ce-e545f560ce7b": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJOVGswSlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJME56d3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    },
-    {
-      "NodeId": "a8b67c56-35f4-40c1-98c4-6da638bedb7e",
-      "Binding": {
-        "ByStartValue_InClassDecl-1_InFunctionScope-1_Instance0_a8b67c56-35f4-40c1-98c4-6da638bedb7e": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJOVGswSlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelJqd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    },
-    {
-      "NodeId": "11cd8b0d-c537-4835-b6af-1999e8abfc4d",
-      "Binding": {
-        "ByStartValue_InClassDecl-1_InFunctionScope-1_Instance0_11cd8b0d-c537-4835-b6af-1999e8abfc4d": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJOVGswSlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJME5Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    },
-    {
-      "NodeId": "72e5789e-1e0c-4778-bc86-86044559bede",
-      "Binding": {
-        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_72e5789e-1e0c-4778-bc86-86044559bede": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJOVGswSlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelJEd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    },
-    {
-      "NodeId": "aad0bc6e-3e11-42b2-9a03-1d03dc399fe2",
-      "Binding": {
-        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_aad0bc6e-3e11-42b2-9a03-1d03dc399fe2": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJOVGswSlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJek9Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    },
-    {
-      "NodeId": "c1990dff-6fac-4a0f-b9d1-d0fdaa7dbf28",
-      "Binding": {
-        "ByLengthWidth_InClassDecl-1_InFunctionScope-1_Instance0_c1990dff-6fac-4a0f-b9d1-d0fdaa7dbf28": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJOVGswSlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelJqd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    },
-    {
-      "NodeId": "d068b992-e1b4-48dc-9307-d235c797e5f2",
-      "Binding": {
-        "ByLengthWidth_InClassDecl-1_InFunctionScope-1_Instance0_d068b992-e1b4-48dc-9307-d235c797e5f2": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJOVGswSlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelFqd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    }
-  ],
+  "Bindings": [],
   "View": {
     "Dynamo": {
       "ScaleFactor": 100.0,
@@ -1426,16 +1377,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "BeamPlaneCut.ByCS",
-        "Id": "88f43d67ac5c4c7185486943c18b3c03",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 2171.0399581287429,
-        "Y": 1030.2962694519008
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Code Block",
         "Id": "88680ee8886d4b249cf25885c2e16ac5",
         "IsSetAsInput": false,
@@ -1456,26 +1397,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "BeamPlaneCut.ByCS",
-        "Id": "e979a419f5d241fe97cee545f560ce7b",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1917.6352542389895,
-        "Y": 261.70800614198481
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "BeamPlaneCut.ByStartValue",
-        "Id": "a8b67c5635f440c198c46da638bedb7e",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 2085.5905933879349,
-        "Y": 749.83893334548543
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Code Block",
         "Id": "5551985c74ea49c09d12a073601c5a3e",
         "IsSetAsInput": false,
@@ -1483,16 +1404,6 @@
         "Excluded": false,
         "X": 1540.0743990819235,
         "Y": 739.0
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "BeamPlaneCut.ByStartValue",
-        "Id": "11cd8b0dc5374835b6af1999e8abfc4d",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 2065.8973146135254,
-        "Y": 450.16409039817864
       },
       {
         "ShowGeometry": true,
@@ -1566,23 +1477,63 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "BeamPolycut.ByLengthWidth",
-        "Id": "c1990dff6fac4a0fb9d1d0fdaa7dbf28",
+        "Name": "BeamPlaneCut.ByCS",
+        "Id": "a04ea8f962e148aca78d3f4a3b89ca4e",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1833.2224472276398,
-        "Y": 1887.76286777957
+        "X": 2178.8798321857244,
+        "Y": 217.88116406176715
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "BeamPlaneCut.ByStartValue",
+        "Id": "d5de7f8e8a68491f8d75b669b423e075",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2347.344479429988,
+        "Y": 444.98856825814846
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "BeamPlaneCut.ByStartValue",
+        "Id": "4e60517f366a4e5abebf09a461d66797",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2337.7483919287324,
+        "Y": 748.864672464574
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "BeamPlaneCut.ByCS",
+        "Id": "697bb095e47d436e889a184d9e81f00b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2265.9524057527369,
+        "Y": 1151.5487312042412
       },
       {
         "ShowGeometry": true,
         "Name": "BeamPolycut.ByLengthWidth",
-        "Id": "d068b992e1b448dc9307d235c797e5f2",
+        "Id": "0d03dbd0293a4313b0a7d34c3161f856",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2061.7471176412769,
-        "Y": 2318.9370097925557
+        "X": 2074.7164996187748,
+        "Y": 1887.3676023114795
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "BeamPolycut.ByLengthWidth",
+        "Id": "7f43dbbe104c443ea29acd2dc980e7a8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2293.9355674110161,
+        "Y": 2318.43689405158
       }
     ],
     "Annotations": [
@@ -1887,8 +1838,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 76.980032533662836,
-    "Y": 158.98607234285242,
-    "Zoom": 0.22373460784829902
+    "X": 249.43434097381464,
+    "Y": -51.191444671106126,
+    "Zoom": 0.2632910828866461
   }
 }

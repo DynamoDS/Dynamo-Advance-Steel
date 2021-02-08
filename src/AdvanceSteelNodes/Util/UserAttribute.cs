@@ -1,4 +1,5 @@
-﻿using Autodesk.AdvanceSteel.CADAccess;
+﻿using System;
+using Autodesk.AdvanceSteel.CADAccess;
 using Autodesk.AdvanceSteel.ConstructionTypes;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 
@@ -19,6 +20,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="AttIdx">The index of the User attribute. Is a number between 1 and 10</param>
     /// <param name="value">Attribute value</param>
     /// <returns></returns>
+    [Obsolete]
     public static void SetUserAttribute(AdvanceSteel.Nodes.SteelDbObject steelObject, int AttIdx, string value)
     {
       if (AttIdx < 1 || AttIdx > 10)
@@ -49,6 +51,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="steelObject">Advance Steel element</param>
     /// <param name="AttIdx">The index of the User attribute. Is a number between 1 and 10</param>
     /// <returns></returns>
+    [Obsolete]
     public static string GetUserAttribute(AdvanceSteel.Nodes.SteelDbObject steelObject, int AttIdx)
     {
       string ret = string.Empty;

@@ -136,7 +136,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
       "Id": "b2be85a2d6df4231820e48f14d080808",
       "Inputs": [
         {
@@ -196,7 +196,7 @@
         {
           "Id": "1ee3b3cd0864434db77f00b411d7036a",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -215,7 +215,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel bent beam between two points and a point on arc\n\nBentBeam.ByStartPointEndPoint (start: Point, end: Point, ptOnArc: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: ASProperty[] = null): BentBeam"
+      "Description": "Create an Advance Steel bent beam between two points and a point on arc\n\nBentBeam.ByStartPointEndPoint (start: Point, end: Point, ptOnArc: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): BentBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -280,7 +280,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByArc@Autodesk.DesignScript.Geometry.Arc,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByArc@Autodesk.DesignScript.Geometry.Arc,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
       "Id": "388189163f194529a8d3260a2991ab15",
       "Inputs": [
         {
@@ -313,8 +313,8 @@
         {
           "Id": "23926ca3c75347808a40b43cc6ce6f0f",
           "Name": "crossSectionMirror",
-          "Description": "Input Beam Mirror Option\n\nbool\nDefault value : false (disabled)",
-          "UsingDefaultValue": false,
+          "Description": "Input Beam Mirror Option\n\nbool\nDefault value : false",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -322,7 +322,7 @@
         {
           "Id": "25141ba303894a158c3ca3af784acee1",
           "Name": "additionalBeamParameters",
-          "Description": "Optional Input Beam Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -341,7 +341,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel bent beam on a Dynamo Arc- inc ModelRole and Section Size\n\nBentBeam.ByArc (arc: Arc, orientation: Vector = Autodesk.DesignScript.Geometry.Vector.ZAxis(), refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: ASProperty[] = null): BentBeam"
+      "Description": "Create an Advance Steel bent beam on a Dynamo Arc- inc ModelRole and Section Size\n\nBentBeam.ByArc (arc: Arc, orientation: Vector = Autodesk.DesignScript.Geometry.Vector.ZAxis(), refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): BentBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -525,7 +525,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Set Beam Reference Axis - e.g. Top Left, Middle Middle, Countour Center"
+      "Description": "Lists the Advance Steel Beam Reference Axis options - e.g. Top Left, Middle Middle, Countour Center"
     },
     {
       "ConcreteType": "AdvanceSteel.Nodes.BeamRefAxisType, AdvanceSteelNodesUI",
@@ -546,7 +546,97 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Set Beam Reference Axis - e.g. Top Left, Middle Middle, Countour Center"
+      "Description": "Lists the Advance Steel Beam Reference Axis options - e.g. Top Left, Middle Middle, Countour Center"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesBentBeam, AdvanceSteelNodesUI",
+      "SelectedIndex": 0,
+      "SelectedString": "Select Bent Beam Property...",
+      "NodeType": "ExtensionNode",
+      "Id": "acfef4763256471eb00ec8cac4293829",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "5b4aa98a2abc4e6481d3dd7dd41f4d2f",
+          "Name": "propertyName",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Bent Beam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "3689aefe3ccb4e63984d563c83545983",
+      "Inputs": [
+        {
+          "Id": "aaf56dec062e4bbca6d8845204bbe326",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bdf467ff3de54a1ea86ebb8eb3d7619a",
+          "Name": "value",
+          "Description": "native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "bc81b4191f234147af5f3372b0e6d239",
+          "Name": "Property",
+          "Description": "Property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "ec786efe592242bc89d92224e785527f",
+      "Inputs": [
+        {
+          "Id": "319c1bf73bc94fbf9bcea2765fc66b61",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "766fad98625f418ab0feff2ac77bbcee",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
     }
   ],
   "Connectors": [
@@ -621,6 +711,11 @@
       "Id": "3e185e109d3e4ea2a8d584a8f1910c3c"
     },
     {
+      "Start": "526ec45792084d99aa08a2fdb62c0e0d",
+      "End": "bdf467ff3de54a1ea86ebb8eb3d7619a",
+      "Id": "6e1d6a9cf1524ef9931b50d5f0b44dd4"
+    },
+    {
       "Start": "ddb93076eba44513a2a90fcf357b4b31",
       "End": "87228b688cb648aab54bb3fd55dda0bb",
       "Id": "a7f2938e0b5f46b6bd11a725ea67b3a7"
@@ -629,6 +724,21 @@
       "Start": "8d63b786817b4e3a9ee562e9be343d29",
       "End": "617caa00e0f5445682e9d2a4bf196557",
       "Id": "22b9fc2874e04f39b8ed83686631dd35"
+    },
+    {
+      "Start": "5b4aa98a2abc4e6481d3dd7dd41f4d2f",
+      "End": "aaf56dec062e4bbca6d8845204bbe326",
+      "Id": "be9232a92f554067a5958a615ef96b83"
+    },
+    {
+      "Start": "bc81b4191f234147af5f3372b0e6d239",
+      "End": "319c1bf73bc94fbf9bcea2765fc66b61",
+      "Id": "d43ca1b254f34b8bb57008bdee96a7fd"
+    },
+    {
+      "Start": "766fad98625f418ab0feff2ac77bbcee",
+      "End": "25141ba303894a158c3ca3af784acee1",
+      "Id": "dc18547f0da0469baac4039a2e6ade51"
     }
   ],
   "Dependencies": [],
@@ -763,8 +873,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -303.2419398310484,
-        "Y": -301.70507946392564
+        "X": -422.68375866780525,
+        "Y": -270.44927640383963
       },
       {
         "ShowGeometry": true,
@@ -773,8 +883,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 13.136748810162317,
-        "Y": -303.47517446461518
+        "X": -182.21202031537496,
+        "Y": -301.24261710318046
       },
       {
         "ShowGeometry": true,
@@ -783,8 +893,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -192.5998212826143,
-        "Y": -474.28549453868413
+        "X": -213.80911621624404,
+        "Y": -492.14595343016185
       },
       {
         "ShowGeometry": true,
@@ -795,6 +905,36 @@
         "Excluded": false,
         "X": 108.34143118289586,
         "Y": -16.267786733349567
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Bent Beam Properties",
+        "Id": "acfef4763256471eb00ec8cac4293829",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -203.3393013172751,
+        "Y": -397.30704262544225
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "3689aefe3ccb4e63984d563c83545983",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 151.63731915084406,
+        "Y": -366.05123956535624
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "ec786efe592242bc89d92224e785527f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 455.0325796736837,
+        "Y": -333.35355911647525
       }
     ],
     "Annotations": [
@@ -1099,8 +1239,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 477.75199107035962,
-    "Y": 749.50838513072233,
-    "Zoom": 0.3588583601664308
+    "X": 588.2116601820303,
+    "Y": 620.93599829633956,
+    "Zoom": 0.30209693553693323
   }
 }

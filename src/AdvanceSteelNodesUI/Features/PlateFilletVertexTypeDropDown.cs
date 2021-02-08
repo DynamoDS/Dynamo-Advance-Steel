@@ -9,7 +9,7 @@ namespace AdvanceSteel.Nodes
 {
   [NodeName("Plate Fillet Vertex Type")]
   [NodeDescription("Lists the Advance Steel Plate Fillet Vertex type options")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
+  [NodeCategory("AdvanceSteel.Nodes.Features.PlateVertexCut")]
   [OutPortNames("vertexType")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]

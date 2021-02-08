@@ -182,7 +182,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByRectanglarByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,double,double,int",
+      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByRectanglarByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,int,AdvanceSteel.Nodes.Property[]",
       "Id": "866e46f5ab434bd2b3ae45f002fb0d7e",
       "Inputs": [
         {
@@ -214,8 +214,8 @@
         },
         {
           "Id": "01fb0e410c6e46e889bae779bebffef8",
-          "Name": "thickness",
-          "Description": "Input Plate Thickness - 0 will use system defaults\n\ndouble",
+          "Name": "corner",
+          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint\nDefault value : -1 (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -223,17 +223,8 @@
         },
         {
           "Id": "79c9a4c8970340b39a9112aee57e2c7d",
-          "Name": "side",
-          "Description": "Input Plate Side - 0, 0.5, 1\n\ndouble",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "4fbf8d69e31a4a3299a4750ef7f20dce",
-          "Name": "corner",
-          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint",
+          "Name": "additionalPlateParameters",
+          "Description": "Optional Input Plate Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -252,12 +243,12 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create a rectangular Advance Steel Plate at CS by length and width, including setting the side and thickness\n\nPlate.ByRectanglarByCS (coordinateSystem: CoordinateSystem, length: double, width: double, thickness: double, side: double, corner: int): Plate"
+      "Description": "Create a rectangular Advance Steel Plate at CS by length and width, including setting the side and thickness\n\nPlate.ByRectanglarByCS (coordinateSystem: CoordinateSystem, length: double, width: double, corner: int = -1, additionalPlateParameters: Property[] = null): Plate"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByRectanglarByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,double,double,int",
+      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByRectanglarByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,int,AdvanceSteel.Nodes.Property[]",
       "Id": "16a51b2204fa43c1ae448eed1f943289",
       "Inputs": [
         {
@@ -289,8 +280,8 @@
         },
         {
           "Id": "eaf892a925854c9f898085f22b271ac2",
-          "Name": "thickness",
-          "Description": "Input Plate Thickness - 0 will use system defaults\n\ndouble",
+          "Name": "corner",
+          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint\nDefault value : -1 (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -298,17 +289,8 @@
         },
         {
           "Id": "679c2aaab1984d1ebda8498650a31b85",
-          "Name": "side",
-          "Description": "Input Plate Side - 0, 0.5, 1\n\ndouble",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "7853750ee7b54d499b02df18d4aa6134",
-          "Name": "corner",
-          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint",
+          "Name": "additionalPlateParameters",
+          "Description": "Optional Input Plate Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -327,7 +309,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create a rectangular Advance Steel Plate at CS by length and width, including setting the side and thickness\n\nPlate.ByRectanglarByCS (coordinateSystem: CoordinateSystem, length: double, width: double, thickness: double, side: double, corner: int): Plate"
+      "Description": "Create a rectangular Advance Steel Plate at CS by length and width, including setting the side and thickness\n\nPlate.ByRectanglarByCS (coordinateSystem: CoordinateSystem, length: double, width: double, corner: int = -1, additionalPlateParameters: Property[] = null): Plate"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -672,7 +654,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.RectangularBoltPattern.AtCentrePoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.CoordinateSystem,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.RectangularBoltPattern.AtCentrePoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.CoordinateSystem,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.Property[]",
       "Id": "7b81bd6ba8864b39a23be13d9564c0ba",
       "Inputs": [
         {
@@ -732,7 +714,7 @@
         {
           "Id": "bde8830ce020419982afa7175e3b181f",
           "Name": "additionalBoltParameters",
-          "Description": "Optional Bolt Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Bolt Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -751,7 +733,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Rectangular Pattern By Rectangle\n\nRectangularBoltPattern.AtCentrePoint (connectionPoint: Point, boltCS: CoordinateSystem, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalBoltParameters: ASProperty[] = null): RectangularBoltPattern"
+      "Description": "Create an Advance Steel Rectangular Pattern By Rectangle\n\nRectangularBoltPattern.AtCentrePoint (connectionPoint: Point, boltCS: CoordinateSystem, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalBoltParameters: Property[] = null): RectangularBoltPattern"
     },
     {
       "ConcreteType": "AdvanceSteel.Nodes.BoltConnectionType, AdvanceSteelNodesUI",
@@ -772,7 +754,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Set Bolt Connection type - InShop or OnSite or SiteDrill"
+      "Description": "Lists the Advance Steel Bolt Connection type options"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -806,7 +788,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.CircularBoltPattern.ByCircle@Autodesk.DesignScript.Geometry.Circle,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.CircularBoltPattern.ByCircle@Autodesk.DesignScript.Geometry.Circle,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.Property[]",
       "Id": "edb7a89e03364f609276b71eff73e1ae",
       "Inputs": [
         {
@@ -848,7 +830,7 @@
         {
           "Id": "2087aef01eb843c79927f6245b42216a",
           "Name": "additionalBoltParameters",
-          "Description": "Optional Input Bolt Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Input Bolt Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -867,7 +849,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Circular Bolt Pattern By Circle\n\nCircularBoltPattern.ByCircle (circle: Circle, referenceVector: Vector, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalBoltParameters: ASProperty[] = null): CircularBoltPattern"
+      "Description": "Create an Advance Steel Circular Bolt Pattern By Circle\n\nCircularBoltPattern.ByCircle (circle: Circle, referenceVector: Vector, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalBoltParameters: Property[] = null): CircularBoltPattern"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -1003,7 +985,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByRectanglarByPointandNormal@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,double,double,double,double,int",
+      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByRectanglarByPointandNormal@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,double,double,int,AdvanceSteel.Nodes.Property[]",
       "Id": "13065c9c6d35464bbea36afb2ca75367",
       "Inputs": [
         {
@@ -1044,8 +1026,8 @@
         },
         {
           "Id": "f32096ea44e14903a500858d983be696",
-          "Name": "thickness",
-          "Description": "Input Plate Thickness - 0 will use system defaults\n\ndouble",
+          "Name": "corner",
+          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint\nDefault value : -1 (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1053,17 +1035,8 @@
         },
         {
           "Id": "8cdc72c28a2640029ed63f524222d2e5",
-          "Name": "side",
-          "Description": "Input Plate Side - 0, 0.5, 1\n\ndouble",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "6e438a55e3b94d169abca64abd1f6f73",
-          "Name": "corner",
-          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint",
+          "Name": "additionalPlateParameters",
+          "Description": "Optional Input Plate Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1082,12 +1055,12 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create Advance Steel plate by Length, Width and Normal - Include thickness, side and corner\n\nPlate.ByRectanglarByPointandNormal (origin: Point, normal: Vector, length: double, width: double, thickness: double, side: double, corner: int): Plate"
+      "Description": "Create Advance Steel plate by Length, Width and Normal - Include thickness, side and corner\n\nPlate.ByRectanglarByPointandNormal (origin: Point, normal: Vector, length: double, width: double, corner: int = -1, additionalPlateParameters: Property[] = null): Plate"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByRectanglarByPointandNormal@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,double,double,double,double,int",
+      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByRectanglarByPointandNormal@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,double,double,int,AdvanceSteel.Nodes.Property[]",
       "Id": "8cedb24ab0dc4f569c0e1445bb5b0afa",
       "Inputs": [
         {
@@ -1128,8 +1101,8 @@
         },
         {
           "Id": "1d7ee3429dc74966b011b32cc7fdb22d",
-          "Name": "thickness",
-          "Description": "Input Plate Thickness - 0 will use system defaults\n\ndouble",
+          "Name": "corner",
+          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint\nDefault value : -1 (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1137,17 +1110,8 @@
         },
         {
           "Id": "f32758a966234b5eb920eb891271716e",
-          "Name": "side",
-          "Description": "Input Plate Side - 0, 0.5, 1\n\ndouble",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "8c8a5867606e4042b4f2c42963e020d6",
-          "Name": "corner",
-          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint",
+          "Name": "additionalPlateParameters",
+          "Description": "Optional Input Plate Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1166,7 +1130,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create Advance Steel plate by Length, Width and Normal - Include thickness, side and corner\n\nPlate.ByRectanglarByPointandNormal (origin: Point, normal: Vector, length: double, width: double, thickness: double, side: double, corner: int): Plate"
+      "Description": "Create Advance Steel plate by Length, Width and Normal - Include thickness, side and corner\n\nPlate.ByRectanglarByPointandNormal (origin: Point, normal: Vector, length: double, width: double, corner: int = -1, additionalPlateParameters: Property[] = null): Plate"
     },
     {
       "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
@@ -1293,7 +1257,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Set Bolt Connection type - InShop or OnSite or SiteDrill"
+      "Description": "Lists the Advance Steel Bolt Connection type options"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -1501,7 +1465,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Set Bolt Connection type - InShop or OnSite or SiteDrill"
+      "Description": "Lists the Advance Steel Bolt Connection type options"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -1737,7 +1701,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.RectangularBoltPattern.ByRectangle@Autodesk.DesignScript.Geometry.Rectangle,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.RectangularBoltPattern.ByRectangle@Autodesk.DesignScript.Geometry.Rectangle,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.Property[]",
       "Id": "24f728ee8c0c4841ae4c5fac19a80498",
       "Inputs": [
         {
@@ -1788,7 +1752,7 @@
         {
           "Id": "32698d5075f84661a273b7a55b565245",
           "Name": "additionalBoltParameters",
-          "Description": "Optional Bolt Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Bolt Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1807,12 +1771,12 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Rectangular Pattern By Rectangle\n\nRectangularBoltPattern.ByRectangle (rectangle: Rectangle, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalBoltParameters: ASProperty[] = null): RectangularBoltPattern"
+      "Description": "Create an Advance Steel Rectangular Pattern By Rectangle\n\nRectangularBoltPattern.ByRectangle (rectangle: Rectangle, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalBoltParameters: Property[] = null): RectangularBoltPattern"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByRectanglarByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,double,double,int",
+      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByRectanglarByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,int,AdvanceSteel.Nodes.Property[]",
       "Id": "d2f1aa92c34d4974949723f4ad0a53f0",
       "Inputs": [
         {
@@ -1844,8 +1808,8 @@
         },
         {
           "Id": "d7d8437a1b8246539c63294875ce68da",
-          "Name": "thickness",
-          "Description": "Input Plate Thickness - 0 will use system defaults\n\ndouble",
+          "Name": "corner",
+          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint\nDefault value : -1 (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1853,17 +1817,8 @@
         },
         {
           "Id": "1356c3a9c6da46f4b23c79377b2510b6",
-          "Name": "side",
-          "Description": "Input Plate Side - 0, 0.5, 1\n\ndouble",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "ce74c20b580f4d2b88759d4d909d2197",
-          "Name": "corner",
-          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint",
+          "Name": "additionalPlateParameters",
+          "Description": "Optional Input Plate Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1882,7 +1837,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create a rectangular Advance Steel Plate at CS by length and width, including setting the side and thickness\n\nPlate.ByRectanglarByCS (coordinateSystem: CoordinateSystem, length: double, width: double, thickness: double, side: double, corner: int): Plate"
+      "Description": "Create a rectangular Advance Steel Plate at CS by length and width, including setting the side and thickness\n\nPlate.ByRectanglarByCS (coordinateSystem: CoordinateSystem, length: double, width: double, corner: int = -1, additionalPlateParameters: Property[] = null): Plate"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -1990,7 +1945,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByRectanglarByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,double,double,int",
+      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByRectanglarByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,int,AdvanceSteel.Nodes.Property[]",
       "Id": "5e0af219a88c4f2484f28320cab64fa0",
       "Inputs": [
         {
@@ -2022,8 +1977,8 @@
         },
         {
           "Id": "f6827b30c30a4e749e38780629f36cbc",
-          "Name": "thickness",
-          "Description": "Input Plate Thickness - 0 will use system defaults\n\ndouble",
+          "Name": "corner",
+          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint\nDefault value : -1 (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -2031,17 +1986,8 @@
         },
         {
           "Id": "40d38a4acf3f4d8988321972f929b1f5",
-          "Name": "side",
-          "Description": "Input Plate Side - 0, 0.5, 1\n\ndouble",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "c099293275614ee799e495bd3a3b92a1",
-          "Name": "corner",
-          "Description": "0 - TL, 1 - TR, 2 - BR, 3 - BL, else center\n\nint",
+          "Name": "additionalPlateParameters",
+          "Description": "Optional Input Plate Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -2060,7 +2006,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create a rectangular Advance Steel Plate at CS by length and width, including setting the side and thickness\n\nPlate.ByRectanglarByCS (coordinateSystem: CoordinateSystem, length: double, width: double, thickness: double, side: double, corner: int): Plate"
+      "Description": "Create a rectangular Advance Steel Plate at CS by length and width, including setting the side and thickness\n\nPlate.ByRectanglarByCS (coordinateSystem: CoordinateSystem, length: double, width: double, corner: int = -1, additionalPlateParameters: Property[] = null): Plate"
     }
   ],
   "Connectors": [
@@ -2098,16 +2044,6 @@
       "Start": "6ee5bcfae1d64b689f79662aa6d43c58",
       "End": "79c9a4c8970340b39a9112aee57e2c7d",
       "Id": "a8accf2f5cf646f68edaae44cae017f6"
-    },
-    {
-      "Start": "8fa9dba4d1d346d48528c5655f93ffec",
-      "End": "4fbf8d69e31a4a3299a4750ef7f20dce",
-      "Id": "b233e9c206a14afea5d9433365594aaa"
-    },
-    {
-      "Start": "8fa9dba4d1d346d48528c5655f93ffec",
-      "End": "7853750ee7b54d499b02df18d4aa6134",
-      "Id": "5b43730bffc945caa7230f3eee9b2b82"
     },
     {
       "Start": "81d2d2a90be24fa0857177bc4f7b5d5a",
@@ -2270,16 +2206,6 @@
       "Id": "a3000f120ee24af5bdddd329f777141d"
     },
     {
-      "Start": "5dc4e6dc768942c59d99451fc63fb449",
-      "End": "6e438a55e3b94d169abca64abd1f6f73",
-      "Id": "3ebd988d861948aca6a59d2cd321fc88"
-    },
-    {
-      "Start": "5dc4e6dc768942c59d99451fc63fb449",
-      "End": "8c8a5867606e4042b4f2c42963e020d6",
-      "Id": "46e0b7d327354b8984b55054a143bcb3"
-    },
-    {
       "Start": "43b0b405121e4a1588a707c958601474",
       "End": "13cebb79c7374990a7b7c1dc51f41791",
       "Id": "1709244e7a784c55bfedf4b5aa127efc"
@@ -2413,16 +2339,6 @@
       "Start": "037501462c8f486481b791b07ce0a9f8",
       "End": "40d38a4acf3f4d8988321972f929b1f5",
       "Id": "7186d03e737448ccae3d48dccdb90ef3"
-    },
-    {
-      "Start": "1fa80cbd162f4cd58cf2482665440f18",
-      "End": "ce74c20b580f4d2b88759d4d909d2197",
-      "Id": "076e4073d0bb49fbba6fed846dfd9699"
-    },
-    {
-      "Start": "1fa80cbd162f4cd58cf2482665440f18",
-      "End": "c099293275614ee799e495bd3a3b92a1",
-      "Id": "aa74bb0dc7c14d06afa51b5b0cfe88cd"
     },
     {
       "Start": "143a143b42864bce98a2fe5e34e06e88",
@@ -2946,139 +2862,171 @@
         "Background": "#FFC1D676"
       },
       {
-        "Id": "696a060a0671454cb44530c088b3d152",
-        "Title": "GET",
+        "Id": "f78551fdfe0f4c97af8501c09c4d116e",
+        "Title": "GRAPH INFO",
         "Nodes": [
-          "7d28ce05208b447d95e71a71e4224256"
+          "7bb1f886ebdb4aa5b694bcf8da4887e9"
         ],
-        "Left": 557.49763846396286,
-        "Top": -459.76739402575129,
-        "Width": 243.0,
-        "Height": 97.0,
+        "Left": 1352.8503435882426,
+        "Top": -404.21301346446603,
+        "Width": 319.0,
+        "Height": 400.0,
         "FontSize": 36.0,
-        "InitialTop": -406.76739402575129,
+        "InitialTop": -351.21301346446603,
         "InitialHeight": 140.0,
         "TextblockHeight": 43.0,
-        "Background": "#FFBB87C6"
+        "Background": "#FF848484"
       },
       {
-        "Id": "51e6c89dda6047e59ff3e9cf0aa68649",
-        "Title": "DATA IN",
-        "Nodes": [
-          "759d74dac9b041df97f177e73fd75792"
-        ],
-        "Left": 557.95424502839137,
-        "Top": -358.25858345103109,
-        "Width": 244.0,
-        "Height": 97.0,
-        "FontSize": 36.0,
-        "InitialTop": -305.25858345103109,
-        "InitialHeight": 140.0,
-        "TextblockHeight": 43.0,
-        "Background": "#FFFF7BAC"
-      },
-      {
-        "Id": "916e59fff37f4c62bb72bed61aaae1a4",
-        "Title": "PROCESS",
-        "Nodes": [
-          "23c0d9e6a67c4cb0b74f90f37c354143"
-        ],
-        "Left": 558.47194008981546,
-        "Top": -257.80169725672397,
-        "Width": 243.0,
-        "Height": 97.0,
-        "FontSize": 36.0,
-        "InitialTop": -204.80169725672397,
-        "InitialHeight": 140.0,
-        "TextblockHeight": 43.0,
-        "Background": "#FFFFAA45"
-      },
-      {
-        "Id": "6c56745c35154f5fa46f1d48a9c952cb",
-        "Title": "GEOM",
-        "Nodes": [
-          "051757e799b54f4988b651f792cb6d50"
-        ],
-        "Left": 557.63128449368264,
-        "Top": -155.87294847918258,
-        "Width": 244.0,
-        "Height": 97.0,
-        "FontSize": 36.0,
-        "InitialTop": -102.87294847918258,
-        "InitialHeight": 140.0,
-        "TextblockHeight": 43.0,
-        "Background": "#FFFFC999"
-      },
-      {
-        "Id": "d298565c6ecf41d180ced24180e43ba6",
+        "Id": "981df965e38345bb8e0ad01bbe5ce50f",
         "Title": "TEMP",
         "Nodes": [
-          "dce3ab9e764a43dda9a280ade8cc73a8"
+          "fa40bd58c2ea43f79d439f76319d48f6"
         ],
-        "Left": 807.10118564165418,
-        "Top": -155.84138429874918,
+        "Left": 899.56866707750441,
+        "Top": -119.31413509222807,
         "Width": 232.0,
         "Height": 97.0,
         "FontSize": 36.0,
-        "InitialTop": -102.84138429874918,
+        "InitialTop": -66.314135092228071,
         "InitialHeight": 140.0,
         "TextblockHeight": 43.0,
         "Background": "#FFD8D8D8"
       },
       {
-        "Id": "1140ac53dc56406ebe85bb57a17d47b4",
+        "Id": "9be08cb9737e463f953fa69f7d9ff7d1",
         "Title": "SET",
         "Nodes": [
-          "ee50c304b4d84996b25897e4286ebb7b"
+          "fdc972a8b1ec4023a9d02903af5899ad"
         ],
-        "Left": 806.0272831499658,
-        "Top": -258.12874277173057,
+        "Left": 901.40563139441974,
+        "Top": -221.60149356520969,
         "Width": 234.0,
         "Height": 97.0,
         "FontSize": 36.0,
-        "InitialTop": -205.12874277173057,
+        "InitialTop": -168.60149356520969,
         "InitialHeight": 140.0,
         "TextblockHeight": 43.0,
         "Background": "#FF71C6A8"
       },
       {
-        "Id": "c5c2862f9ac44f358898702198172f9f",
+        "Id": "e8c1794916b3423d800a3638ffe9c372",
+        "Title": "PROCESS",
+        "Nodes": [
+          "5aa5fbe5ad7f4a76a182c832e74cdd18"
+        ],
+        "Left": 650.93942152566569,
+        "Top": -221.27444805020286,
+        "Width": 243.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -168.27444805020286,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFAA45"
+      },
+      {
+        "Id": "94dfd4bd92cd4322953352e15f38b02e",
+        "Title": "GEOM",
+        "Nodes": [
+          "e288ac6b2eb84b0fa03e9dfadb87e45e"
+        ],
+        "Left": 650.09876592953287,
+        "Top": -119.34569927266148,
+        "Width": 244.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -66.345699272661477,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFC999"
+      },
+      {
+        "Id": "24e9b34ce2324968889a713192cc6b98",
+        "Title": "DATA IN",
+        "Nodes": [
+          "1906ac08383842e9bf66ad02d25075ce"
+        ],
+        "Left": 650.4217264642416,
+        "Top": -321.73133424451,
+        "Width": 244.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -268.73133424451,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "c2815c70dbcc4de1a6ef07054cd81fa7",
         "Title": "DATA OUT",
         "Nodes": [
-          "8e890eb5f2914fd6aca78b0ddcd6e887"
+          "2ba11962b8ac4a53adb9694269498561"
         ],
-        "Left": 806.11362214474116,
-        "Top": -358.33661306859392,
+        "Left": 898.58110358059139,
+        "Top": -321.80936386207281,
         "Width": 235.0,
         "Height": 97.0,
         "FontSize": 36.0,
-        "InitialTop": -305.33661306859392,
+        "InitialTop": -268.80936386207281,
         "InitialHeight": 140.0,
         "TextblockHeight": 43.0,
         "Background": "#FF48B9FF"
       },
       {
-        "Id": "ad088e501cd347649f2be8cb638c648d",
+        "Id": "43e5bb5a02bd43f78fb96550f278214c",
+        "Title": "NOTES - D4C3D",
+        "Nodes": [
+          "eb075fc9ab074dd681cc65fe52c10aa2"
+        ],
+        "Left": 316.69976755357811,
+        "Top": -422.56817830818932,
+        "Width": 326.0,
+        "Height": 414.0,
+        "FontSize": 36.0,
+        "InitialTop": -369.56817830818932,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "1a68106b183f4cc4b6a86c64a7804f06",
+        "Title": "GET",
+        "Nodes": [
+          "8d6e14952cb14b179ca5fc16c7f3b79f"
+        ],
+        "Left": 649.96511989981309,
+        "Top": -423.24014481923018,
+        "Width": 243.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -370.24014481923018,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFBB87C6"
+      },
+      {
+        "Id": "41685ebddead42479c1f3e3427fa7767",
         "Title": "CREATE",
         "Nodes": [
-          "107d7439528a424e833d1dbbbde1f463"
+          "b90ec197a38840489ecbbefe8fda2e99"
         ],
-        "Left": 807.22892969006875,
-        "Top": -460.11180446161063,
+        "Left": 897.9679648571032,
+        "Top": -423.58455525508953,
         "Width": 236.0,
         "Height": 97.0,
         "FontSize": 36.0,
-        "InitialTop": -407.11180446161063,
+        "InitialTop": -370.58455525508953,
         "InitialHeight": 140.0,
         "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
       },
       {
-        "Id": "7d28ce05208b447d95e71a71e4224256",
-        "Title": "Get information / data from Civil 3D    ",
+        "Id": "7bb1f886ebdb4aa5b694bcf8da4887e9",
+        "Title": "________________________________________________________\r\n\r\nDynamo Core Ver: \t2.4.1.6394 \r\nDynamo Civil 3D Ver: \t2.4.1.2161\r\n________________________________________________________\r\n\r\nPackage Used: \t\tCivil 3D Toolkit\r\nCustom Nodes Used: \tNone\r\n________________________________________________________\r\n\r\nGraph Function:\r\n1. ???\r\n2. ???\r\n3. ???\r\n________________________________________________________\r\n\r\nCreated By: \t\tJowenn S. Lua\r\nDate Created: \t\tSeptember 2020\r\n\r\nUpdated By:\r\nDate Modified:\r\n ",
         "Nodes": [],
-        "Left": 567.49763846396286,
-        "Top": -406.76739402575129,
+        "Left": 1362.8503435882426,
+        "Top": -351.21301346446603,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -3088,53 +3036,11 @@
         "Background": "#FFC1D676"
       },
       {
-        "Id": "759d74dac9b041df97f177e73fd75792",
-        "Title": "Import information / data from others ",
-        "Nodes": [],
-        "Left": 567.95424502839137,
-        "Top": -305.25858345103109,
-        "Width": 0.0,
-        "Height": 0.0,
-        "FontSize": 36.0,
-        "InitialTop": 0.0,
-        "InitialHeight": 0.0,
-        "TextblockHeight": 0.0,
-        "Background": "#FFC1D676"
-      },
-      {
-        "Id": "23c0d9e6a67c4cb0b74f90f37c354143",
-        "Title": "Dynamo data manipulation                  ",
-        "Nodes": [],
-        "Left": 568.47194008981546,
-        "Top": -204.80169725672397,
-        "Width": 0.0,
-        "Height": 0.0,
-        "FontSize": 36.0,
-        "InitialTop": 0.0,
-        "InitialHeight": 0.0,
-        "TextblockHeight": 0.0,
-        "Background": "#FFC1D676"
-      },
-      {
-        "Id": "051757e799b54f4988b651f792cb6d50",
-        "Title": "Dynamo geometry creation                  ",
-        "Nodes": [],
-        "Left": 567.63128449368264,
-        "Top": -102.87294847918258,
-        "Width": 0.0,
-        "Height": 0.0,
-        "FontSize": 36.0,
-        "InitialTop": 0.0,
-        "InitialHeight": 0.0,
-        "TextblockHeight": 0.0,
-        "Background": "#FFC1D676"
-      },
-      {
-        "Id": "dce3ab9e764a43dda9a280ade8cc73a8",
+        "Id": "fa40bd58c2ea43f79d439f76319d48f6",
         "Title": "Work in progress / To delete             ",
         "Nodes": [],
-        "Left": 817.10118564165418,
-        "Top": -102.84138429874918,
+        "Left": 909.56866707750441,
+        "Top": -66.314135092228071,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -3144,11 +3050,11 @@
         "Background": "#FFC1D676"
       },
       {
-        "Id": "ee50c304b4d84996b25897e4286ebb7b",
+        "Id": "fdc972a8b1ec4023a9d02903af5899ad",
         "Title": "Set or Override Parameter in Civil 3D",
         "Nodes": [],
-        "Left": 816.0272831499658,
-        "Top": -205.12874277173057,
+        "Left": 911.40563139441974,
+        "Top": -168.60149356520969,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -3158,11 +3064,53 @@
         "Background": "#FFC1D676"
       },
       {
-        "Id": "8e890eb5f2914fd6aca78b0ddcd6e887",
+        "Id": "5aa5fbe5ad7f4a76a182c832e74cdd18",
+        "Title": "Dynamo data manipulation                  ",
+        "Nodes": [],
+        "Left": 660.93942152566569,
+        "Top": -168.27444805020286,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "e288ac6b2eb84b0fa03e9dfadb87e45e",
+        "Title": "Dynamo geometry creation                  ",
+        "Nodes": [],
+        "Left": 660.09876592953287,
+        "Top": -66.345699272661477,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "1906ac08383842e9bf66ad02d25075ce",
+        "Title": "Import information / data from others ",
+        "Nodes": [],
+        "Left": 660.4217264642416,
+        "Top": -268.73133424451,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "2ba11962b8ac4a53adb9694269498561",
         "Title": "Export information / data to others   ",
         "Nodes": [],
-        "Left": 816.11362214474116,
-        "Top": -305.33661306859392,
+        "Left": 908.58110358059139,
+        "Top": -268.80936386207281,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -3172,11 +3120,39 @@
         "Background": "#FFC1D676"
       },
       {
-        "Id": "107d7439528a424e833d1dbbbde1f463",
+        "Id": "eb075fc9ab074dd681cc65fe52c10aa2",
+        "Title": "DESIGN GRAPH STANDARDS\r\n                                                                                       \r\nAuthor:\t\tJowenn S. Lua\r\nDate Created:\t10 August 2019\r\nDate Updated:\t4 September 2020\r\nVersion:\t\t004\r\n________________________________________________________\r\n\r\nDESIGN GRAPH GUIDELINES\r\n\r\n1. Color code your blocks according to this guide.\r\n\r\n2. Add grouping with name and description.\r\n\r\n3. Add notes to explain each critical node process.\r\n\r\n4. Rename Input / Output / Code Blocks nodes and add suffix to data they carry.\r\n\r\n5. Align nodes to make it neat.\r\n\r\n6. Save the graph as Manual instead of Automatic.\r\n________________________________________________________",
+        "Nodes": [],
+        "Left": 326.69976755357811,
+        "Top": -369.56817830818932,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "8d6e14952cb14b179ca5fc16c7f3b79f",
+        "Title": "Get information / data from Civil 3D    ",
+        "Nodes": [],
+        "Left": 659.96511989981309,
+        "Top": -370.24014481923018,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "b90ec197a38840489ecbbefe8fda2e99",
         "Title": "Create object in Civil 3D                     ",
         "Nodes": [],
-        "Left": 817.22892969006875,
-        "Top": -407.11180446161063,
+        "Left": 907.9679648571032,
+        "Top": -370.58455525508953,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -3186,8 +3162,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 269.9629703972646,
-    "Y": -142.8744924047943,
-    "Zoom": 0.23254277619489727
+    "X": 190.36048399907554,
+    "Y": -51.81640020485105,
+    "Zoom": 0.18408064045385902
   }
 }

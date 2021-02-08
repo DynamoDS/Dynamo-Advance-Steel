@@ -334,7 +334,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByPolygon@Autodesk.DesignScript.Geometry.Polygon",
+      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByPolygon@Autodesk.DesignScript.Geometry.Polygon,AdvanceSteel.Nodes.Property[]",
       "Id": "f73c9c53eab74bbf98ea0048bc33aad4",
       "Inputs": [
         {
@@ -342,6 +342,15 @@
           "Name": "poly",
           "Description": "Input Dynamo Closed Polygon\n\nPolygon",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5045e9bad09b43dbae85c7735ba830d6",
+          "Name": "additionalPlateParameters",
+          "Description": "Optional Input Plate Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -359,7 +368,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel plate (Position default to 0, with system thickness as default)\n\nPlate.ByPolygon (poly: Polygon): Plate"
+      "Description": "Create an Advance Steel plate (Position default to 0, with system thickness as default)\n\nPlate.ByPolygon (poly: Polygon, additionalPlateParameters: Property[] = null): Plate"
     }
   ],
   "Connectors": [
@@ -443,7 +452,7 @@
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
       "Version": "2.5.2.7915",
-      "RunType": "Automatic",
+      "RunType": "Manual",
       "RunPeriod": "1000"
     },
     "Camera": {
@@ -540,9 +549,310 @@
         "Y": 510.9488396173096
       }
     ],
-    "Annotations": [],
-    "X": -994.33795350569994,
-    "Y": -130.43491124457239,
-    "Zoom": 1.0921896591619435
+    "Annotations": [
+      {
+        "Id": "a788326745154e0b9fd21ad69bcc8bf8",
+        "Title": "GRAPH INFO",
+        "Nodes": [
+          "9821dcb2fab84a1fa762216624344571"
+        ],
+        "Left": 1189.8807902437711,
+        "Top": -459.70846051391914,
+        "Width": 319.0,
+        "Height": 400.0,
+        "FontSize": 36.0,
+        "InitialTop": -406.70846051391914,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "b232f9f21f7348eda87dcd6c3451c820",
+        "Title": "TEMP",
+        "Nodes": [
+          "9c6ca513e0f24f47993af6159b881ffc"
+        ],
+        "Left": 736.59911373303294,
+        "Top": -174.80958214168118,
+        "Width": 232.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -121.80958214168118,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFD8D8D8"
+      },
+      {
+        "Id": "a29aee3fbd4a4d9ab6894270b04ae5f2",
+        "Title": "SET",
+        "Nodes": [
+          "a5bf41c482ab4274a096edf106579a34"
+        ],
+        "Left": 738.43607804994826,
+        "Top": -277.0969406146628,
+        "Width": 234.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -224.0969406146628,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "4068aaa2480c4f3380f5d8abec07db49",
+        "Title": "PROCESS",
+        "Nodes": [
+          "fc0f86acdf5541ac9d23f4b5bc0c3f7b"
+        ],
+        "Left": 487.96986818119422,
+        "Top": -276.76989509965597,
+        "Width": 243.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -223.76989509965597,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFAA45"
+      },
+      {
+        "Id": "07cf91c936ad460ab6a85343a819109d",
+        "Title": "GEOM",
+        "Nodes": [
+          "3fff4d2325414d868fa667ccb993a36f"
+        ],
+        "Left": 487.1292125850614,
+        "Top": -174.84114632211458,
+        "Width": 244.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -121.84114632211458,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFC999"
+      },
+      {
+        "Id": "0acc2c655c9c448886ec37530ea0a679",
+        "Title": "DATA IN",
+        "Nodes": [
+          "f131bf05ccc64f6583f022d1e69376ca"
+        ],
+        "Left": 487.45217311977012,
+        "Top": -377.22678129396309,
+        "Width": 244.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -324.22678129396309,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "1cd2d541b11b4c358a262e71ef3a2971",
+        "Title": "DATA OUT",
+        "Nodes": [
+          "5e6d7b7d93494acab46f3620a6f0ad3c"
+        ],
+        "Left": 735.61155023611991,
+        "Top": -377.30481091152592,
+        "Width": 235.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -324.30481091152592,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "d0f283d8b852491d8c8d387623879cec",
+        "Title": "NOTES - D4C3D",
+        "Nodes": [
+          "f41b002f3c6c4d8b8036d66c353161bf"
+        ],
+        "Left": 153.73021420910618,
+        "Top": -478.06362535764197,
+        "Width": 326.0,
+        "Height": 414.0,
+        "FontSize": 36.0,
+        "InitialTop": -425.06362535764242,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "11f3a240ca824a8d81b9abcc184276c2",
+        "Title": "GET",
+        "Nodes": [
+          "46ae988c813b4865b482888aef52d4bd"
+        ],
+        "Left": 486.99556655534161,
+        "Top": -478.73559186868329,
+        "Width": 243.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -425.73559186868329,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFBB87C6"
+      },
+      {
+        "Id": "6a6efc55a1584c4bb1d88702eba9e6f0",
+        "Title": "CREATE",
+        "Nodes": [
+          "411cb91a1dce4e9d898fa6962a9a34df"
+        ],
+        "Left": 734.99841151263172,
+        "Top": -479.08000230454263,
+        "Width": 236.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -426.08000230454263,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "9821dcb2fab84a1fa762216624344571",
+        "Title": "________________________________________________________\r\n\r\nDynamo Core Ver: \t2.4.1.6394 \r\nDynamo Civil 3D Ver: \t2.4.1.2161\r\n________________________________________________________\r\n\r\nPackage Used: \t\tCivil 3D Toolkit\r\nCustom Nodes Used: \tNone\r\n________________________________________________________\r\n\r\nGraph Function:\r\n1. ???\r\n2. ???\r\n3. ???\r\n________________________________________________________\r\n\r\nCreated By: \t\tJowenn S. Lua\r\nDate Created: \t\tSeptember 2020\r\n\r\nUpdated By:\r\nDate Modified:\r\n ",
+        "Nodes": [],
+        "Left": 1199.8807902437711,
+        "Top": -406.70846051391914,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "9c6ca513e0f24f47993af6159b881ffc",
+        "Title": "Work in progress / To delete             ",
+        "Nodes": [],
+        "Left": 746.59911373303294,
+        "Top": -121.80958214168118,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "a5bf41c482ab4274a096edf106579a34",
+        "Title": "Set or Override Parameter in Civil 3D",
+        "Nodes": [],
+        "Left": 748.43607804994826,
+        "Top": -224.0969406146628,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "fc0f86acdf5541ac9d23f4b5bc0c3f7b",
+        "Title": "Dynamo data manipulation                  ",
+        "Nodes": [],
+        "Left": 497.96986818119422,
+        "Top": -223.76989509965597,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "3fff4d2325414d868fa667ccb993a36f",
+        "Title": "Dynamo geometry creation                  ",
+        "Nodes": [],
+        "Left": 497.1292125850614,
+        "Top": -121.84114632211458,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "f131bf05ccc64f6583f022d1e69376ca",
+        "Title": "Import information / data from others ",
+        "Nodes": [],
+        "Left": 497.45217311977012,
+        "Top": -324.22678129396309,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "5e6d7b7d93494acab46f3620a6f0ad3c",
+        "Title": "Export information / data to others   ",
+        "Nodes": [],
+        "Left": 745.61155023611991,
+        "Top": -324.30481091152592,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "f41b002f3c6c4d8b8036d66c353161bf",
+        "Title": "DESIGN GRAPH STANDARDS\r\n                                                                                       \r\nAuthor:\t\tJowenn S. Lua\r\nDate Created:\t10 August 2019\r\nDate Updated:\t4 September 2020\r\nVersion:\t\t004\r\n________________________________________________________\r\n\r\nDESIGN GRAPH GUIDELINES\r\n\r\n1. Color code your blocks according to this guide.\r\n\r\n2. Add grouping with name and description.\r\n\r\n3. Add notes to explain each critical node process.\r\n\r\n4. Rename Input / Output / Code Blocks nodes and add suffix to data they carry.\r\n\r\n5. Align nodes to make it neat.\r\n\r\n6. Save the graph as Manual instead of Automatic.\r\n________________________________________________________",
+        "Nodes": [],
+        "Left": 163.73021420910618,
+        "Top": -425.06362535764242,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "46ae988c813b4865b482888aef52d4bd",
+        "Title": "Get information / data from Civil 3D    ",
+        "Nodes": [],
+        "Left": 496.99556655534161,
+        "Top": -425.73559186868329,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "411cb91a1dce4e9d898fa6962a9a34df",
+        "Title": "Create object in Civil 3D                     ",
+        "Nodes": [],
+        "Left": 744.99841151263172,
+        "Top": -426.08000230454263,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 143.11732488192206,
+    "Y": 310.99253016330863,
+    "Zoom": 0.2558029702727182
   }
 }

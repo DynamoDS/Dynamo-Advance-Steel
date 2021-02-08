@@ -7,18 +7,19 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Body Resolution")]
-  [NodeDescription("Body Resolution")]
-  [NodeCategory("AdvanceSteel.Nodes.Util.Geometry")]
-  [OutPortNames("bodyResolution")]
-  [OutPortTypes("int")]
-  [OutPortDescriptions("integer")]
+  [NodeName("Bolt Properties - Rectangular")]
+  [NodeDescription("Lists all the property names of an Advance Steel Rectangular Bolt")]
+  [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects.RectangularBoltPattern")]
+  [OutPortNames("propertyName")]
+  [OutPortTypes("string")]
+  [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-  public class BodyResolution : AstDropDownBase
+  public class ASPropertiesBolts : AstDropDownBase
   {
-    private const string outputName = "bodyResolution";
+    private const string outputName = "propertyName";
 
-    public BodyResolution()
+    //AdvanceSteel.Nodes.Properties
+    public ASPropertiesBolts()
         : base(outputName)
     {
       InPorts.Clear();
@@ -27,7 +28,7 @@ namespace AdvanceSteel.Nodes
     }
 
     [JsonConstructor]
-    public BodyResolution(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    public ASPropertiesBolts(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
     : base(outputName, inPorts, outPorts)
     {
     }
@@ -36,15 +37,11 @@ namespace AdvanceSteel.Nodes
     {
       Items.Clear();
 
-      var newItems = new List<DynamoDropDownItem>()
-            {
-                new DynamoDropDownItem("Select Body Resolution...", -1),
-                new DynamoDropDownItem("Normal", (int)0),
-                new DynamoDropDownItem("Detailed", (int)1),
-                new DynamoDropDownItem("Hull", (int)2),
-                new DynamoDropDownItem("UnNotched", (int)3)
-            };
-
+      var newItems = new List<DynamoDropDownItem>() { };
+      foreach (var item in Utils.GetMidScrewBoltPattern())
+      {
+        newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
+      }
       Items.AddRange(newItems);
 
       SelectedIndex = 0;
@@ -54,14 +51,15 @@ namespace AdvanceSteel.Nodes
     public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
     {
       if (Items.Count == 0 ||
-          Items[SelectedIndex].Name == "Select Body Resolution..." ||
+          Items[SelectedIndex].Name == "None" ||
           SelectedIndex < 0)
       {
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }
 
-      var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+      var intNode = AstFactory.BuildPrimitiveNodeFromObject((string)Items[SelectedIndex].Name);
       var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
+
       return new List<AssociativeNode> { assign };
 
     }

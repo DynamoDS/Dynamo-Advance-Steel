@@ -12,7 +12,7 @@ namespace AdvanceSteel.Nodes
 {
   [NodeName("Bolt Connection Type")]
   [NodeDescription("Lists the Advance Steel Bolt Connection type options")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
+  [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   [OutPortNames("boltType")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]

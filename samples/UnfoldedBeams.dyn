@@ -21,13 +21,13 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.UnFoldedBeam.ByThreePointArc@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,double,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.UnFoldedBeam.ByThreePointArc@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,double,AdvanceSteel.Nodes.Property[]",
       "Id": "a890ca347a0f4146a654a0a63af5d071",
       "Inputs": [
         {
           "Id": "5150c70d81ad41c9b78bb2a92ba3c8af",
           "Name": "startPointCurve",
-          "Description": "Point",
+          "Description": "Input Start Point of Arc\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -36,7 +36,7 @@
         {
           "Id": "49b2d24ebe334ee38b8bc4f44f8cbc54",
           "Name": "pointOnCurve",
-          "Description": "Point",
+          "Description": "Input Point along Arc\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -45,7 +45,7 @@
         {
           "Id": "1ba95d3e75cd4738b73d7002056b3465",
           "Name": "endPointCurve",
-          "Description": "Point",
+          "Description": "Input End Point of Arc\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -54,7 +54,7 @@
         {
           "Id": "f023125e800d4c82a5c9205191ee507b",
           "Name": "orientation",
-          "Description": "Vector",
+          "Description": "Input reference vector of arc\n\nVector",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -63,7 +63,7 @@
         {
           "Id": "2c5e038399444cf695389e2a20fc43a5",
           "Name": "startPoint",
-          "Description": "Point",
+          "Description": "Input Start Point of Unfolded Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -72,7 +72,7 @@
         {
           "Id": "81283f2ffa3544be8f046d0d3e1b6766",
           "Name": "endPoint",
-          "Description": "Point",
+          "Description": "Input End Point of Unfolded Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -81,7 +81,7 @@
         {
           "Id": "bccbc30b2ef24e7cb96e4a2088324412",
           "Name": "thickness",
-          "Description": "double",
+          "Description": "Input thickness of Unfolded Beam\n\ndouble",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -90,7 +90,7 @@
         {
           "Id": "9f5baf4e4de24e02934b51a90147edf7",
           "Name": "additionalBeamParameters",
-          "Description": "ASProperty[]\nDefault value : null",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -109,82 +109,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "UnFoldedBeam.ByThreePointArc (startPointCurve: Point, pointOnCurve: Point, endPointCurve: Point, orientation: Vector, startPoint: Point, endPoint: Point, thickness: double, additionalBeamParameters: ASProperty[] = null): UnFoldedBeam"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.UnFoldedBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Arc,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,double,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "a914c0707de04489928d19985edc4c42",
-      "Inputs": [
-        {
-          "Id": "83d401f234284a299b487a24a71f8274",
-          "Name": "arc",
-          "Description": "Arc",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "4866257a0f8f462993d0c133690d951f",
-          "Name": "orientation",
-          "Description": "Vector",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "4be1a8e3cd9f4abaab46910485feda88",
-          "Name": "startPoint",
-          "Description": "Point",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "ef256dcf025d4eeab23c18b696470150",
-          "Name": "endPoint",
-          "Description": "Point",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "224068c6155c4f07b00fc9704c51035c",
-          "Name": "thickness",
-          "Description": "double",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "8d8ff5f01b7f414f9e027a25b607f3eb",
-          "Name": "additionalBeamParameters",
-          "Description": "ASProperty[]\nDefault value : null",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "cb1f3e19b15a488ca8b3c270c5c1aae8",
-          "Name": "UnFoldedBeam",
-          "Description": "UnFoldedBeam",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "UnFoldedBeam.ByStartPointEndPoint (arc: Arc, orientation: Vector, startPoint: Point, endPoint: Point, thickness: double, additionalBeamParameters: ASProperty[] = null): UnFoldedBeam"
+      "Description": "Create an Advance Steel Unfolded Beam between two points from three points to make an arc\n\nUnFoldedBeam.ByThreePointArc (startPointCurve: Point, pointOnCurve: Point, endPointCurve: Point, orientation: Vector, startPoint: Point, endPoint: Point, thickness: double, additionalBeamParameters: Property[] = null): UnFoldedBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -237,12 +162,12 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
-      "Code": "Point.ByCoordinates(-1500,0,0);\nPoint.ByCoordinates(0,200,0);\nPoint.ByCoordinates(1500,0,0);\nPoint.ByCoordinates(0,0,2000);\nPoint.ByCoordinates(0,0,0);\nPoint.ByCoordinates(-1500,500,0);\nPoint.ByCoordinates(0,700,0);\nPoint.ByCoordinates(1500,500,0);",
+      "Code": "Point.ByCoordinates(-1500,0,0);\nPoint.ByCoordinates(0,200,0);\nPoint.ByCoordinates(1500,0,0);\nPoint.ByCoordinates(0,0,2001);\nPoint.ByCoordinates(0,0,0);\nPoint.ByCoordinates(-1500,500,0);\nPoint.ByCoordinates(0,700,0);\nPoint.ByCoordinates(1500,500,0);",
       "Id": "7b332dcd52404b22993c70d2b6ba579b",
       "Inputs": [],
       "Outputs": [
         {
-          "Id": "ef4bb6337dcd4865a68a848ff6535a0b",
+          "Id": "5b19ac88816e4123a04cda23deb41fb4",
           "Name": "",
           "Description": "Value of expression at line 1",
           "UsingDefaultValue": false,
@@ -251,7 +176,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "9c72d716e058417690a83864fd66693e",
+          "Id": "4a1cb1dd213044ecac9b0f2ded746de9",
           "Name": "",
           "Description": "Value of expression at line 2",
           "UsingDefaultValue": false,
@@ -260,7 +185,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "b8799e90f92740eb89d72c12b16c945a",
+          "Id": "68ab08117738452dad77c0d191e76bde",
           "Name": "",
           "Description": "Value of expression at line 3",
           "UsingDefaultValue": false,
@@ -269,7 +194,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "12101bbb275a4556a11ecb36df2d4485",
+          "Id": "a1a1b825a34c4f57a6ee4fa8d34fe8ac",
           "Name": "",
           "Description": "Value of expression at line 4",
           "UsingDefaultValue": false,
@@ -278,7 +203,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "a65c7860b60040b09a0748fd93532250",
+          "Id": "e8befe6400dc437986a987e85617d048",
           "Name": "",
           "Description": "Value of expression at line 5",
           "UsingDefaultValue": false,
@@ -287,7 +212,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "1b662b9b2b5349cea9c39d313d9c830a",
+          "Id": "20c9f4694e554d239a221cf2f0ce6666",
           "Name": "",
           "Description": "Value of expression at line 6",
           "UsingDefaultValue": false,
@@ -296,7 +221,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "430f0bc94d4948e799a6de4060b46975",
+          "Id": "c0a6a644a04c424a8ea0221cb72c9e1f",
           "Name": "",
           "Description": "Value of expression at line 7",
           "UsingDefaultValue": false,
@@ -305,7 +230,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "d0fa8c0055be4c71bb970aaeaadddc4e",
+          "Id": "c6a6543524e043429b65f426c0a50e64",
           "Name": "",
           "Description": "Value of expression at line 8",
           "UsingDefaultValue": false,
@@ -345,63 +270,138 @@
       ],
       "Replication": "Disabled",
       "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.UnFoldedBeam.ByArc@Autodesk.DesignScript.Geometry.Arc,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,double,AdvanceSteel.Nodes.Property[]",
+      "Id": "a405fcc959cd4412980493954b5d15d7",
+      "Inputs": [
+        {
+          "Id": "747b07eeeb4c4b32bdc06bd0138a3a1f",
+          "Name": "arc",
+          "Description": "Arc",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b13b1eb86b5949fa927913427b8027fc",
+          "Name": "orientation",
+          "Description": "Input reference vector of arc\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c0265ace5adf4eb28e1ad74fd9990c28",
+          "Name": "startPoint",
+          "Description": "Input Start Point of Unfolded Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a8d06984df1a446895f36893edb10249",
+          "Name": "endPoint",
+          "Description": "Input End Point of Unfolded Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "899d7d2b8ca447f2924064c746e463a0",
+          "Name": "thickness",
+          "Description": "Input thickness of Unfolded Beam\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e0706895401c4f22a9fb76599f20350b",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "138ad34e82c64f53a56248925ad94aac",
+          "Name": "UnFoldedBeam",
+          "Description": "UnFoldedBeam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Unfolded Beam between two points from an arc\n\nUnFoldedBeam.ByArc (arc: Arc, orientation: Vector, startPoint: Point, endPoint: Point, thickness: double, additionalBeamParameters: Property[] = null): UnFoldedBeam"
     }
   ],
   "Connectors": [
     {
       "Start": "2d2d8054a7754e4b8d10407c4eded9c3",
-      "End": "83d401f234284a299b487a24a71f8274",
-      "Id": "a8818b42ffde44189a50594f7a11a3d7"
+      "End": "747b07eeeb4c4b32bdc06bd0138a3a1f",
+      "Id": "14511ea8115b4e05b40ff3c84c1d3af9"
     },
     {
-      "Start": "ef4bb6337dcd4865a68a848ff6535a0b",
+      "Start": "5b19ac88816e4123a04cda23deb41fb4",
       "End": "3e0a631d68ac4963944bca98c02dddba",
-      "Id": "6f8ee66f1e0941158f064bae58cb133f"
+      "Id": "35311731140f4c389302ed8f6261e905"
     },
     {
-      "Start": "9c72d716e058417690a83864fd66693e",
+      "Start": "4a1cb1dd213044ecac9b0f2ded746de9",
       "End": "81a429a8d47d419cbc9a44e1f5064fb8",
-      "Id": "7b0641b2a85a44f2ade104ee1d28b425"
+      "Id": "520debdfba8f43babb91c87f8190c20d"
     },
     {
-      "Start": "b8799e90f92740eb89d72c12b16c945a",
+      "Start": "68ab08117738452dad77c0d191e76bde",
       "End": "2714418739b4489584b9800b7aa91f0e",
-      "Id": "d05a28f1ad584111b642384d0d16b027"
+      "Id": "ff83aad566ae427a86812692fd47a15b"
     },
     {
-      "Start": "12101bbb275a4556a11ecb36df2d4485",
+      "Start": "a1a1b825a34c4f57a6ee4fa8d34fe8ac",
       "End": "81283f2ffa3544be8f046d0d3e1b6766",
-      "Id": "f6e6fb93c7474633a04fec22579689ab"
+      "Id": "7a6a4b2da91f45fd86f38523aac47cac"
     },
     {
-      "Start": "12101bbb275a4556a11ecb36df2d4485",
-      "End": "ef256dcf025d4eeab23c18b696470150",
-      "Id": "1d1355654060477e906e60e4e91dbe50"
+      "Start": "a1a1b825a34c4f57a6ee4fa8d34fe8ac",
+      "End": "a8d06984df1a446895f36893edb10249",
+      "Id": "5870662835cc477b80066cc5f87b8910"
     },
     {
-      "Start": "a65c7860b60040b09a0748fd93532250",
+      "Start": "e8befe6400dc437986a987e85617d048",
       "End": "2c5e038399444cf695389e2a20fc43a5",
-      "Id": "18f434c2b8684a8595ab1bdd6a184c21"
+      "Id": "7ff56f8d0bba4a7f9ddaa14e62e2caaf"
     },
     {
-      "Start": "a65c7860b60040b09a0748fd93532250",
-      "End": "4be1a8e3cd9f4abaab46910485feda88",
-      "Id": "a35406c1c62e453caafda51235b0a28b"
+      "Start": "e8befe6400dc437986a987e85617d048",
+      "End": "c0265ace5adf4eb28e1ad74fd9990c28",
+      "Id": "f4a5aeeeec3f4710996d5d83726a25d2"
     },
     {
-      "Start": "1b662b9b2b5349cea9c39d313d9c830a",
+      "Start": "20c9f4694e554d239a221cf2f0ce6666",
       "End": "5150c70d81ad41c9b78bb2a92ba3c8af",
-      "Id": "7e510299b2374f40927ea516e6e78e78"
+      "Id": "96084005758045e6bed2d1f7cd4ff054"
     },
     {
-      "Start": "430f0bc94d4948e799a6de4060b46975",
+      "Start": "c0a6a644a04c424a8ea0221cb72c9e1f",
       "End": "49b2d24ebe334ee38b8bc4f44f8cbc54",
-      "Id": "0fbe271dd27e482bb79feeaf23fa92e7"
+      "Id": "a9c5c8d81aab414a8bdf070b02509a57"
     },
     {
-      "Start": "d0fa8c0055be4c71bb970aaeaadddc4e",
+      "Start": "c6a6543524e043429b65f426c0a50e64",
       "End": "1ba95d3e75cd4738b73d7002056b3465",
-      "Id": "c8a109cbf4684f5db1f98fa1c28cb175"
+      "Id": "60c47f47878a41d2bca5642efc0a61cc"
     },
     {
       "Start": "8eec3989efdd4152ad9b6bcb8e1a128d",
@@ -410,18 +410,18 @@
     },
     {
       "Start": "8eec3989efdd4152ad9b6bcb8e1a128d",
-      "End": "4866257a0f8f462993d0c133690d951f",
-      "Id": "81d5fab3d013488f96f7e235351eb597"
-    },
-    {
-      "Start": "a4275ff01c4f4e9284c61f71833384c1",
-      "End": "224068c6155c4f07b00fc9704c51035c",
-      "Id": "66ab3094e7ac488b8516acdbbd371c37"
+      "End": "b13b1eb86b5949fa927913427b8027fc",
+      "Id": "dc90db97f54e48549a2776237a35c4c2"
     },
     {
       "Start": "a4275ff01c4f4e9284c61f71833384c1",
       "End": "bccbc30b2ef24e7cb96e4a2088324412",
       "Id": "c4fd1f1748a04068a451785f7fcfcabd"
+    },
+    {
+      "Start": "a4275ff01c4f4e9284c61f71833384c1",
+      "End": "899d7d2b8ca447f2924064c746e463a0",
+      "Id": "a2ce38719fe44ef193b069107aec8e2a"
     }
   ],
   "Dependencies": [],
@@ -456,18 +456,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 555.5,
-        "Y": 355.0
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "UnFoldedBeam.ByStartPointEndPoint",
-        "Id": "a914c0707de04489928d19985edc4c42",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 566.5,
-        "Y": 71.0
+        "X": 615.7586522339675,
+        "Y": 329.35802032597132
       },
       {
         "ShowGeometry": true,
@@ -476,8 +466,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 166.07073850066581,
-        "Y": 12.031357433087749
+        "X": 177.60962935397879,
+        "Y": -27.713711061656852
       },
       {
         "ShowGeometry": true,
@@ -498,6 +488,16 @@
         "Excluded": false,
         "X": -165.96864256691219,
         "Y": 432.80546912316845
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "UnFoldedBeam.ByArc",
+        "Id": "a405fcc959cd4412980493954b5d15d7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 690.94333511215382,
+        "Y": -20.769296922327385
       }
     ],
     "Annotations": [
@@ -802,8 +802,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 338.65157363323181,
-    "Y": 439.03905349744127,
-    "Zoom": 0.47799973494454162
+    "X": 532.94154261332642,
+    "Y": 235.35356085172853,
+    "Zoom": 0.49037965435992725
   }
 }
