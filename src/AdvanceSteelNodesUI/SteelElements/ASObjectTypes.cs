@@ -10,7 +10,7 @@ namespace AdvanceSteel.Nodes
 {
   [NodeName("Advance Steel Object Types")]
   [NodeDescription("Lists all the Advance Steel object types")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
+  [NodeCategory("AdvanceSteel.Nodes.Selection")]
   [OutPortNames("objectType")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 
 namespace AdvanceSteel.Nodes
 {
-  [IsVisibleInDynamoLibrary(false)]
   public abstract class AstDropDownBase : DSDropDownBase
   {
     protected AstDropDownBase(string value) : base(value)

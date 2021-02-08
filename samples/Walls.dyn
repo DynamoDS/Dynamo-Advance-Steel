@@ -21,13 +21,13 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Walls.FaceByLengthHeightByPlane@Autodesk.DesignScript.Geometry.Plane,double,double,double,double",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Walls.FaceByLengthHeightByPlane@Autodesk.DesignScript.Geometry.Plane,double,double,double,AdvanceSteel.Nodes.Property[]",
       "Id": "c83bafab31d0440683f8bbd10f7c487d",
       "Inputs": [
         {
           "Id": "c15cd67117b74ea9b6c87b9fc59d4e3c",
           "Name": "plane",
-          "Description": "Plane",
+          "Description": "Input Dynamo Plane to insert Wall\n\nPlane",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -36,7 +36,7 @@
         {
           "Id": "3b50f5ef61df431895048393ad720550",
           "Name": "length",
-          "Description": "double",
+          "Description": "Input Wall Length\n\ndouble",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -45,7 +45,7 @@
         {
           "Id": "ee1fced01ab541b4b14a34b2e8a9fccd",
           "Name": "height",
-          "Description": "double",
+          "Description": "Input Wall Height\n\ndouble",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -54,7 +54,7 @@
         {
           "Id": "45968f2c7a2f46a98615b37ef8cc75c5",
           "Name": "thickness",
-          "Description": "double",
+          "Description": "Input Wall Thickness\n\ndouble",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -62,8 +62,8 @@
         },
         {
           "Id": "56d3b00c89db427ebfcad82bfd87449f",
-          "Name": "side",
-          "Description": "0, 1, 0.5 - Nearside, Farside or Center\n\ndouble",
+          "Name": "additionalConcParameters",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -82,7 +82,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Rectangular Wall by defining the extants of the face of the wall by Dynamo Plane\n\nWalls.FaceByLengthHeightByPlane (plane: Plane, length: double, height: double, thickness: double, side: double): Walls"
+      "Description": "Create an Advance Steel Rectangular Wall by defining the extants of the face of the wall by Dynamo Plane\n\nWalls.FaceByLengthHeightByPlane (plane: Plane, length: double, height: double, thickness: double, additionalConcParameters: Property[] = null): Walls"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -332,13 +332,13 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Walls.FaceByLengthHeightByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,double,double",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Walls.FaceByLengthHeightByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,double,AdvanceSteel.Nodes.Property[]",
       "Id": "5a187c17e3b64499bdbf1887a25e352a",
       "Inputs": [
         {
           "Id": "a79ea6693d3748ec8aaaae9dd2185890",
           "Name": "coordinateSystem",
-          "Description": "CoordinateSystem",
+          "Description": "Input Dynamo Coordinate System\n\nCoordinateSystem",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -347,7 +347,7 @@
         {
           "Id": "f73ade96646047398142a00d0ea6f9de",
           "Name": "length",
-          "Description": "double",
+          "Description": "Input Wall Length\n\ndouble",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -356,7 +356,7 @@
         {
           "Id": "2219017f3b1140f5b54640e57ca9eeac",
           "Name": "height",
-          "Description": "double",
+          "Description": "Input Wall Height\n\ndouble",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -365,7 +365,7 @@
         {
           "Id": "0a3cabee38924cee927b3e8de1be58b4",
           "Name": "thickness",
-          "Description": "double",
+          "Description": "Input Wall Thickness\n\ndouble",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -373,8 +373,8 @@
         },
         {
           "Id": "74675b0c98d4496c94ae5a93eefb481e",
-          "Name": "side",
-          "Description": "0, 1, 0.5 - Nearside, Farside or Center\n\ndouble",
+          "Name": "additionalConcParameters",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -393,7 +393,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Rectangular Wall by defining the extants of the face of the wall by Coordinate System\n\nWalls.FaceByLengthHeightByCS (coordinateSystem: CoordinateSystem, length: double, height: double, thickness: double, side: double): Walls"
+      "Description": "Create an Advance Steel Rectangular Wall by defining the extants of the face of the wall by Coordinate System\n\nWalls.FaceByLengthHeightByCS (coordinateSystem: CoordinateSystem, length: double, height: double, thickness: double, additionalConcParameters: Property[] = null): Walls"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -534,13 +534,13 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Walls.AtBaseByLengthHeightByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,double,double",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Walls.AtBaseByLengthHeightByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,double,AdvanceSteel.Nodes.Property[]",
       "Id": "f79f1f497fd84c64aced8b6b7c68f64d",
       "Inputs": [
         {
           "Id": "8e30280677dd4ce0b0ba450358faf571",
           "Name": "coordinateSystem",
-          "Description": "CoordinateSystem",
+          "Description": "Input Dynamo Coordinate System\n\nCoordinateSystem",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -549,7 +549,7 @@
         {
           "Id": "5f43fc7e24cc43e1b3b29ca68654a6fa",
           "Name": "length",
-          "Description": "double",
+          "Description": "Input Wall Length\n\ndouble",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -558,7 +558,7 @@
         {
           "Id": "033c01245acd4e6bb27cf5bad124bbff",
           "Name": "height",
-          "Description": "double",
+          "Description": "Input Wall Height\n\ndouble",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -567,7 +567,7 @@
         {
           "Id": "6edfb85406eb4208b41a6d358d63686d",
           "Name": "thickness",
-          "Description": "double",
+          "Description": "Input Wall Thickness\n\ndouble",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -575,8 +575,8 @@
         },
         {
           "Id": "b34ae9d219c442bfb297cf2f50aa5ff4",
-          "Name": "side",
-          "Description": "0, 1, 0.5 - Nearside, Farside or Center\n\ndouble",
+          "Name": "additionalConcParameters",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -595,7 +595,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Creates aa Advance Steel Wall at CS by Length and by Height - Z axis is assumed Wall creation\n\nWalls.AtBaseByLengthHeightByCS (coordinateSystem: CoordinateSystem, length: double, height: double, thickness: double, side: double): Walls"
+      "Description": "Creates aa Advance Steel Wall at CS by Length and by Height - Z axis is assumed Wall creation\n\nWalls.AtBaseByLengthHeightByCS (coordinateSystem: CoordinateSystem, length: double, height: double, thickness: double, additionalConcParameters: Property[] = null): Walls"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -668,13 +668,13 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Walls.FaceByPolygon@Autodesk.DesignScript.Geometry.Polygon,double,double",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Walls.FaceByPolygon@Autodesk.DesignScript.Geometry.Polygon,double,AdvanceSteel.Nodes.Property[]",
       "Id": "0189e267390945b6927b8e3784faef4e",
       "Inputs": [
         {
           "Id": "e43a0a0977aa476d83fc5c254fcef650",
           "Name": "poly",
-          "Description": "Polygon",
+          "Description": "Input Dynamo Polygon for Wall shape\n\nPolygon",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -683,7 +683,7 @@
         {
           "Id": "d09ab3bdba4141d5b65836dbf994c61c",
           "Name": "thickness",
-          "Description": "double",
+          "Description": "Input Wall Thickness\n\ndouble",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -691,8 +691,8 @@
         },
         {
           "Id": "4968ead97431426d95c26a3650a1a5d0",
-          "Name": "side",
-          "Description": "0, 1, 0.5 - Nearside, Farside or Center\n\ndouble",
+          "Name": "additionalConcParameters",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -711,7 +711,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Wall by Polygon\n\nWalls.FaceByPolygon (poly: Polygon, thickness: double, side: double): Walls"
+      "Description": "Create an Advance Steel Wall by Polygon and Thickness\n\nWalls.FaceByPolygon (poly: Polygon, thickness: double, additionalConcParameters: Property[] = null): Walls"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -1123,32 +1123,7 @@
   ],
   "Dependencies": [],
   "NodeLibraryDependencies": [],
-  "Bindings": [
-    {
-      "NodeId": "c83bafab-31d0-4406-83f8-bbd10f7c487d",
-      "Binding": {
-        "FaceByLengthHeightByPlane_InClassDecl-1_InFunctionScope-1_Instance0_c83bafab-31d0-4406-83f8-bbd10f7c487d": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJNRFV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelFqd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    },
-    {
-      "NodeId": "5a187c17-e3b6-4499-bdbf-1887a25e352a",
-      "Binding": {
-        "FaceByLengthHeightByCS_InClassDecl-1_InFunctionScope-1_Instance0_5a187c17-e3b6-4499-bdbf-1887a25e352a": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJNRFV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJek9Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    },
-    {
-      "NodeId": "f79f1f49-7fd8-4c64-aced-8b6b7c68f64d",
-      "Binding": {
-        "AtBaseByLengthHeightByCS_InClassDecl-1_InFunctionScope-1_Instance0_f79f1f49-7fd8-4c64-aced-8b6b7c68f64d": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJNRFV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelFqd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    },
-    {
-      "NodeId": "0189e267-3909-45b6-927b-8e3784faef4e",
-      "Binding": {
-        "FaceByPolygon_InClassDecl-1_InFunctionScope-1_Instance0_0189e267-3909-45b6-927b-8e3784faef4e": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJNRFV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJek9Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    }
-  ],
+  "Bindings": [],
   "View": {
     "Dynamo": {
       "ScaleFactor": 100.0,
@@ -1358,8 +1333,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -3625.5512599443605,
-        "Y": -715.09275609800238
+        "X": -3639.0832955434344,
+        "Y": 56.233273049224863
       },
       {
         "ShowGeometry": true,
@@ -1368,8 +1343,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -3950.4650175272113,
-        "Y": -675.09032636768586
+        "X": -3963.9970531262852,
+        "Y": 96.235702779541384
       },
       {
         "ShowGeometry": true,
@@ -1378,8 +1353,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -4661.4704763369073,
-        "Y": -728.57166705039049
+        "X": -4675.0025119359816,
+        "Y": 42.754362096836758
       },
       {
         "ShowGeometry": true,
@@ -1388,8 +1363,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -3999.119411180543,
-        "Y": -787.160657688428
+        "X": -4012.6514467796169,
+        "Y": -15.8346285412008
       },
       {
         "ShowGeometry": true,
@@ -1398,8 +1373,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -4219.3298972465709,
-        "Y": -767.81420271891147
+        "X": -4232.8619328456443,
+        "Y": 3.5118264283157714
       },
       {
         "ShowGeometry": true,
@@ -1423,7 +1398,7 @@
         ],
         "Left": -3054.1479522621125,
         "Top": 391.66587765338795,
-        "Width": 744.82006949637389,
+        "Width": 796.82006949637389,
         "Height": 408.69138726836718,
         "FontSize": 36.0,
         "InitialTop": 444.66587765338795,
@@ -1447,7 +1422,7 @@
         ],
         "Left": -4380.1479522621121,
         "Top": 350.66587765338795,
-        "Width": 1226.0,
+        "Width": 1278.0,
         "Height": 591.0,
         "FontSize": 36.0,
         "InitialTop": 403.66587765338795,
@@ -1469,7 +1444,7 @@
         ],
         "Left": -5522.7307462313174,
         "Top": 346.7979819053906,
-        "Width": 1013.0,
+        "Width": 1099.0,
         "Height": 509.57333333333355,
         "FontSize": 36.0,
         "InitialTop": 399.7979819053906,
@@ -1487,19 +1462,319 @@
           "f45af8b7e0c94370926cc50b2b2a0ecd",
           "4ecef2acf98e484fb8c2d47740d47282"
         ],
-        "Left": -4671.4704763369073,
-        "Top": -840.160657688428,
-        "Width": 1263.9192163925468,
+        "Left": -4685.0025119359816,
+        "Top": -68.8346285412008,
+        "Width": 1367.9192163925472,
         "Height": 286.58899063803756,
         "FontSize": 36.0,
-        "InitialTop": -787.160657688428,
-        "InitialHeight": 368.02516061789311,
+        "InitialTop": -15.8346285412008,
+        "InitialHeight": 257.07033132074218,
         "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "05a6827ad2d34587a258c13f11424aef",
+        "Title": "GET",
+        "Nodes": [
+          "a8261d9e156c454dbc636f0200ea3658"
+        ],
+        "Left": -4318.004724314349,
+        "Top": -571.53777132557479,
+        "Width": 243.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -541.53777132557479,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFBB87C6"
+      },
+      {
+        "Id": "6ff25625a39a47c1b9948e51caff2e73",
+        "Title": "DATA IN",
+        "Nodes": [
+          "b0e0ee8e2d9a427799e1ece047eaf8ec"
+        ],
+        "Left": -4317.5481177499205,
+        "Top": -470.02896075085459,
+        "Width": 244.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -440.02896075085459,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "8aed906a583c4fe098673ed66c818857",
+        "Title": "PROCESS",
+        "Nodes": [
+          "d1c2418bb6c5496db717c6aaa44816d6"
+        ],
+        "Left": -4317.0304226884964,
+        "Top": -369.57207455654748,
+        "Width": 243.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -339.57207455654748,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFFFAA45"
+      },
+      {
+        "Id": "614573e856214273a2d1495db65402b1",
+        "Title": "DATA OUT",
+        "Nodes": [
+          "c17315eabc7343488b6a7618538bd077"
+        ],
+        "Left": -4069.3887406335707,
+        "Top": -470.10699036841743,
+        "Width": 235.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -440.10699036841743,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "bbed87f5ad1b42cdb94f6953662e9f9c",
+        "Title": "CREATE",
+        "Nodes": [
+          "21a22beb658044b69ba1841f8a2bd918"
+        ],
+        "Left": -4070.0018793570589,
+        "Top": -571.88218176143414,
+        "Width": 236.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -541.88218176143414,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "010c2718bd2d4948a659fdd53cee0b55",
+        "Title": "SET",
+        "Nodes": [
+          "75be149ab94440379a6437aed2db5986"
+        ],
+        "Left": -4066.5642128197424,
+        "Top": -369.89912007155419,
+        "Width": 234.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -339.89912007155419,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "dc9628b9019e47e3b1221fd0e3e07659",
+        "Title": "TEMP",
+        "Nodes": [
+          "9cb62ff2771445278b7d962a4e83df32"
+        ],
+        "Left": -4068.4011771366577,
+        "Top": -267.61176159857268,
+        "Width": 232.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -237.61176159857268,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFD8D8D8"
+      },
+      {
+        "Id": "9109262482d9416b904dc1e17a667bd6",
+        "Title": "GEOM",
+        "Nodes": [
+          "1a77411a99234930b5c7d85ca24a2eab"
+        ],
+        "Left": -4317.8710782846292,
+        "Top": -267.64332577900609,
+        "Width": 244.0,
+        "Height": 74.0,
+        "FontSize": 36.0,
+        "InitialTop": -237.64332577900609,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFFFC999"
+      },
+      {
+        "Id": "068ab7e668fe44eb916c941ea14f3925",
+        "Title": "GRAPH INFO",
+        "Nodes": [
+          "c823315d940145d4857fd11c5f98a1f5"
+        ],
+        "Left": -3828.6157562993703,
+        "Top": -572.9517708331623,
+        "Width": 319.0,
+        "Height": 377.0,
+        "FontSize": 36.0,
+        "InitialTop": -542.9517708331623,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "15b341da98fc49d39555830fc7e166b7",
+        "Title": "NOTES - D4C3D",
+        "Nodes": [
+          "923ae14901304907b082b9a8971d6036"
+        ],
+        "Left": -4651.270076660584,
+        "Top": -570.86580481453393,
+        "Width": 326.0,
+        "Height": 391.0,
+        "FontSize": 36.0,
+        "InitialTop": -540.86580481453393,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "a8261d9e156c454dbc636f0200ea3658",
+        "Title": "Get information / data from Civil 3D    ",
+        "Nodes": [],
+        "Left": -4308.004724314349,
+        "Top": -541.53777132557479,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "b0e0ee8e2d9a427799e1ece047eaf8ec",
+        "Title": "Import information / data from others ",
+        "Nodes": [],
+        "Left": -4307.5481177499205,
+        "Top": -440.02896075085459,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "d1c2418bb6c5496db717c6aaa44816d6",
+        "Title": "Dynamo data manipulation                  ",
+        "Nodes": [],
+        "Left": -4307.0304226884964,
+        "Top": -339.57207455654748,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "c17315eabc7343488b6a7618538bd077",
+        "Title": "Export information / data to others   ",
+        "Nodes": [],
+        "Left": -4059.3887406335707,
+        "Top": -440.10699036841743,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "21a22beb658044b69ba1841f8a2bd918",
+        "Title": "Create object in Civil 3D                     ",
+        "Nodes": [],
+        "Left": -4060.0018793570589,
+        "Top": -541.88218176143414,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "75be149ab94440379a6437aed2db5986",
+        "Title": "Set or Override Parameter in Civil 3D",
+        "Nodes": [],
+        "Left": -4056.5642128197424,
+        "Top": -339.89912007155419,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "9cb62ff2771445278b7d962a4e83df32",
+        "Title": "Work in progress / To delete             ",
+        "Nodes": [],
+        "Left": -4058.4011771366577,
+        "Top": -237.61176159857268,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "1a77411a99234930b5c7d85ca24a2eab",
+        "Title": "Dynamo geometry creation                  ",
+        "Nodes": [],
+        "Left": -4307.8710782846292,
+        "Top": -237.64332577900609,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "c823315d940145d4857fd11c5f98a1f5",
+        "Title": "________________________________________________________\r\n\r\nDynamo Core Ver: \t2.4.1.6394 \r\nDynamo Civil 3D Ver: \t2.4.1.2161\r\n________________________________________________________\r\n\r\nPackage Used: \t\tCivil 3D Toolkit\r\nCustom Nodes Used: \tNone\r\n________________________________________________________\r\n\r\nGraph Function:\r\n1. ???\r\n2. ???\r\n3. ???\r\n________________________________________________________\r\n\r\nCreated By: \t\tJowenn S. Lua\r\nDate Created: \t\tSeptember 2020\r\n\r\nUpdated By:\r\nDate Modified:\r\n ",
+        "Nodes": [],
+        "Left": -3818.6157562993703,
+        "Top": -542.9517708331623,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "923ae14901304907b082b9a8971d6036",
+        "Title": "DESIGN GRAPH STANDARDS\r\n                                                                                       \r\nAuthor:\t\tJowenn S. Lua\r\nDate Created:\t10 August 2019\r\nDate Updated:\t4 September 2020\r\nVersion:\t\t004\r\n________________________________________________________\r\n\r\nDESIGN GRAPH GUIDELINES\r\n\r\n1. Color code your blocks according to this guide.\r\n\r\n2. Add grouping with name and description.\r\n\r\n3. Add notes to explain each critical node process.\r\n\r\n4. Rename Input / Output / Code Blocks nodes and add suffix to data they carry.\r\n\r\n5. Align nodes to make it neat.\r\n\r\n6. Save the graph as Manual instead of Automatic.\r\n________________________________________________________",
+        "Nodes": [],
+        "Left": -4641.270076660584,
+        "Top": -540.86580481453393,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
         "Background": "#FFC1D676"
       }
     ],
-    "X": 9624.5886506476727,
-    "Y": 1629.6712170493824,
-    "Zoom": 2.0890826665362452
+    "X": 1308.8218813639328,
+    "Y": 537.969721823385,
+    "Zoom": 0.17491373437764746
   }
 }

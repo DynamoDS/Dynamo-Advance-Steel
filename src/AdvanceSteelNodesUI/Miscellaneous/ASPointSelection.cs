@@ -20,7 +20,7 @@ namespace AdvanceSteel.Nodes
   /// </summary>
   [IsDesignScriptCompatible]
   [IsVisibleInDynamoLibrary(true)]
-  [NodeCategory("AdvanceSteel.Nodes.Selection.ObjectSelection")]
+  [NodeCategory("AdvanceSteel.Nodes.Selection")]
   [NodeName("Select Point")]
   [NodeDescription("Select a point in Model Space")]
   [OutPortNames("point")]

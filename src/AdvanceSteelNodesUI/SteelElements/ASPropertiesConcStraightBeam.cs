@@ -9,7 +9,7 @@ namespace AdvanceSteel.Nodes
 {
   [NodeName("Concrete Straight Beam Properties")]
   [NodeDescription("Lists all the property names of an Advance Steel Concrete Straight Beam")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [NodeCategory("AdvanceSteel.Nodes.Concrete.ConcreteStraightBeam")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]

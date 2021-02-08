@@ -9,7 +9,7 @@ namespace AdvanceSteel.Nodes
 {
   [NodeName("Unfolded Beam Properties")]
   [NodeDescription("Lists all the property names of an Advance Steel Unfolded Beam")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [NodeCategory("AdvanceSteel.Nodes.Beams.UnFoldedBeam")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]

@@ -9,7 +9,7 @@ namespace AdvanceSteel.Nodes
 {
   [NodeName("Shear Stud Properties")]
   [NodeDescription("Lists all the property names of an Advance Steel Shear Stud")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]

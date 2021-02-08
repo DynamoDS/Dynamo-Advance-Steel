@@ -19,7 +19,7 @@ namespace AdvanceSteel.Nodes
   /// </summary>
   [IsDesignScriptCompatible]
   [IsVisibleInDynamoLibrary(true)]
-  [NodeCategory("AdvanceSteel.Nodes.Selection.ObjectSelection")]
+  [NodeCategory("AdvanceSteel.Nodes.Selection")]
   [NodeName("Select Advance Steel Objects")]
   [NodeDescription("Select the Steel Objects")]
   [OutPortNames("steelObjects")]

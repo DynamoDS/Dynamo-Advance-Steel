@@ -9,7 +9,7 @@ namespace AdvanceSteel.Nodes
 {
   [NodeName("Anchor Bolt Properties")]
   [NodeDescription("Lists all the property names of an Advance Steel Anchor Bolt")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]

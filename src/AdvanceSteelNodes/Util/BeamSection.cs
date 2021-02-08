@@ -1,5 +1,6 @@
 ﻿using Autodesk.AdvanceSteel.CADAccess;
 using Autodesk.AdvanceSteel.Modelling;
+using System;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 
 namespace AdvanceSteel.Nodes.Util
@@ -12,6 +13,7 @@ namespace AdvanceSteel.Nodes.Util
     internal BeamSection()
     {
     }
+
     /// <summary>
     /// This node can set the Section for Advance Steel beams from Dynamo.
     /// For the Section use the following format: "HEA  DIN18800-1#@§@#HEA100"
@@ -19,6 +21,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="beamElement">Advance Steel beam</param>
     /// <param name="sectionName">Section</param>
     /// <returns></returns>
+    [Obsolete]
     public static void SetSection(AdvanceSteel.Nodes.SteelDbObject beamElement, string sectionName)
     {
       using (var ctx = new SteelServices.DocContext())
@@ -44,12 +47,14 @@ namespace AdvanceSteel.Nodes.Util
           throw new System.Exception("Failed to change section");
       }
     }
+
     /// <summary>
     /// Returns a concatenated string containing the SectionType, a fixed string separator "#@§@#" and the SectionSize.
     /// </summary>
     /// <param name="sectionType">SectionType for a beam section</param>
     /// <param name="sectionSize">SectionSize for a beam section</param>
     /// <returns name="sectionName">Beam section name</returns>
+    [Obsolete]
     public static string CreateSectionString(string sectionType, string sectionSize)
     {
       return sectionType + Utils.Separator + sectionSize;

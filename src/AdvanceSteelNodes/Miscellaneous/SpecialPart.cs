@@ -94,6 +94,31 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       return new SpecialPart(spMatrix, blockName, additionalSpecialPartsParameters);
     }
 
+    /// <summary>
+    /// Set BlockName and Scale of Special Part
+    /// </summary>
+    /// <param name="steelObject">Input Dynamo Coordinate System</param>
+    /// <param name="scale"> Input Special Part Scale</param>
+    /// <param name="blockName"> Input Blockname to be used by SpecialPart</param>
+    public static void SetBlock(SteelDbObject steelObject,
+                                string blockName,
+                                [DefaultArgument("1")] double scale)
+    {
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string handle = steelObject.Handle;
+        FilerObject obj = Utils.GetObject(handle);
+
+        if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kSpecialPart))
+        {
+          Autodesk.AdvanceSteel.Modelling.SpecialPart specialPart = obj as Autodesk.AdvanceSteel.Modelling.SpecialPart;
+          specialPart.SetBlock(blockName, scale);
+        }
+        else
+          throw new System.Exception("Failed to Get Special Part Object");
+      }
+    }
+
     private static List<Property> PreSetDefaults(List<Property> listSpecialPartData, double scale)
     {
       if (listSpecialPartData == null)
@@ -103,6 +128,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       }
       return listSpecialPartData;
     }
+
 
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()

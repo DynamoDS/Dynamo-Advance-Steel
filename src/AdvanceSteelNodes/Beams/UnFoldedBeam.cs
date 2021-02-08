@@ -174,6 +174,39 @@ namespace AdvanceSteel.Nodes.Beams
       return new UnFoldedBeam(poly, startPoint, endPoint, orientation, additionalBeamParameters);
     }
 
+
+    /// <summary>
+    /// Return True or False depending if the UnfoldedBeam is Closed or not.
+    /// </summary>
+    /// <param name="steelObject">Advance Steel element</param>
+    /// <returns></returns>
+    public static bool IsClosed(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    {
+      bool ret;
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kUnfoldedStraightBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.UnfoldedStraightBeam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.UnfoldedStraightBeam;
+              ret = (bool)selectedObj.IsClosed();
+            }
+            else
+              throw new System.Exception("Not an Unfolded Beam Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object or Point is null");
+      }
+      return ret;
+    }
+
     private static List<Property> PreSetDefaults(List<Property> listBeamData, double thickness)
     {
       if (listBeamData == null)

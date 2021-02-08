@@ -10,7 +10,7 @@ namespace AdvanceSteel.Nodes
 {
   [NodeName("Weld Connection Type")]
   [NodeDescription("Lists the Advance Steel Weld connection type options")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
+  [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   [OutPortNames("weldType")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]

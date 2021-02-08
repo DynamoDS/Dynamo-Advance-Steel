@@ -9,7 +9,7 @@ namespace AdvanceSteel.Nodes
 {
   [NodeName("Beam Multi Notch Feature Properties")]
   [NodeDescription("Lists all the property names of an Advance Steel Beam Multi Notch Feature")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [NodeCategory("AdvanceSteel.Nodes.Features.BeamPolycut")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]

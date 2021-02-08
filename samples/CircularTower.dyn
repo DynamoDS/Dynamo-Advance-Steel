@@ -808,7 +808,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "3653594b2a684f14b70518b0a5f1e9b4",
       "Inputs": [
         {
@@ -840,9 +840,18 @@
         },
         {
           "Id": "2709346222654568b7b51f2c791dc732",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ffdfae1fc5ac4455a262e6082c91732d",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -860,18 +869,18 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel bent beam between two points and a point on arc\n\nBentBeam.ByStartPointEndPoint (start: Point, end: Point, ptOnArc: Point, vOrientation: Vector): BentBeam"
+      "Description": "Create an Advance Steel bent beam between two points and a point on arc\n\nBentBeam.ByStartPointEndPoint (start: Point, end: Point, ptOnArc: Point, orientation: Vector, additionalBeamParameters: Property[] = null): BentBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "326b1dec0470433092dbc8b37d59311f",
       "Inputs": [
         {
           "Id": "4769ba65544c4195b68dba3209bf7615",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -880,7 +889,7 @@
         {
           "Id": "fb0031120ffa49c1aadf80b8c7d7d75b",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -888,9 +897,18 @@
         },
         {
           "Id": "ef6829401ed64333998edb816650fd0c",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6059755ac15644adbd88680b0b2a0208",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -908,7 +926,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -1184,7 +1202,7 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.5.0.7186",
+      "Version": "2.5.2.7915",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -1515,7 +1533,7 @@
         ],
         "Left": 1518.66470241263,
         "Top": -354.27578297271,
-        "Width": 644.91136966949989,
+        "Width": 734.91136966949989,
         "Height": 430.8197332766108,
         "FontSize": 14.0,
         "InitialTop": -324.27578297271,
@@ -1542,17 +1560,317 @@
         ],
         "Left": 1508.67154452063,
         "Top": 164.40033110965987,
-        "Width": 2459.9688808981145,
+        "Width": 2549.9688808981145,
         "Height": 477.51066630160858,
         "FontSize": 14.0,
         "InitialTop": 194.40033110965987,
         "InitialHeight": 499.51066630160858,
         "TextblockHeight": 0.0,
         "Background": "#FFC1D676"
+      },
+      {
+        "Id": "c3f24e0871f748d3a4079df5176acaa8",
+        "Title": "GRAPH INFO",
+        "Nodes": [
+          "8bfbf0b11eaf4da6a24168644b8ebb18"
+        ],
+        "Left": 2442.8635282392579,
+        "Top": -861.30897948712982,
+        "Width": 319.0,
+        "Height": 400.0,
+        "FontSize": 36.0,
+        "InitialTop": -808.30897948712982,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "56c8471ff5de41b2971f240b3be22854",
+        "Title": "TEMP",
+        "Nodes": [
+          "8179a239d0db4884867e9afa69539dff"
+        ],
+        "Left": 1989.5818517285197,
+        "Top": -576.41010111489209,
+        "Width": 232.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -523.41010111489209,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFD8D8D8"
+      },
+      {
+        "Id": "0d30e7bbe81448d9b21a0b3f9f02dfb8",
+        "Title": "SET",
+        "Nodes": [
+          "50a1329aae0149be965295aed1755388"
+        ],
+        "Left": 1991.4188160454351,
+        "Top": -678.69745958787371,
+        "Width": 234.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -625.69745958787371,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "21fea95d673e4ce0b5a9b7367d3a5477",
+        "Title": "PROCESS",
+        "Nodes": [
+          "7b591d73676f42b687741f547d3f226d"
+        ],
+        "Left": 1740.952606176681,
+        "Top": -678.37041407286688,
+        "Width": 243.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -625.37041407286688,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFAA45"
+      },
+      {
+        "Id": "d4921091617e451b832a89ae63e61bc6",
+        "Title": "GEOM",
+        "Nodes": [
+          "869ea28dc04242ddaebd6dc193a5f8f9"
+        ],
+        "Left": 1740.1119505805482,
+        "Top": -576.44166529532549,
+        "Width": 244.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -523.44166529532549,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFC999"
+      },
+      {
+        "Id": "17e153dfb41d4a06b3d3d239043a604e",
+        "Title": "DATA IN",
+        "Nodes": [
+          "26612eeb215d4162a20de35063be0fef"
+        ],
+        "Left": 1740.4349111152569,
+        "Top": -778.827300267174,
+        "Width": 244.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -725.827300267174,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "cd957e803f574dfba456166331b10ebf",
+        "Title": "DATA OUT",
+        "Nodes": [
+          "3d56863c8ef44ef1b20ba6fb1b6d9b80"
+        ],
+        "Left": 1988.5942882316067,
+        "Top": -778.90532988473683,
+        "Width": 235.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -725.90532988473683,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "8c7201fbe0d04c178062d1ac01bee226",
+        "Title": "NOTES - D4C3D",
+        "Nodes": [
+          "603892d49cdb4f5aa1334752036cd218"
+        ],
+        "Left": 1406.7129522045889,
+        "Top": -879.66414433084947,
+        "Width": 326.0,
+        "Height": 414.0,
+        "FontSize": 36.0,
+        "InitialTop": -826.66414433084947,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "bdba3461a7f1426790a048452724832f",
+        "Title": "GET",
+        "Nodes": [
+          "15f2a50576944e8abfbb123f65015561"
+        ],
+        "Left": 1739.9783045508284,
+        "Top": -880.33611084189442,
+        "Width": 243.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -827.33611084189442,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFBB87C6"
+      },
+      {
+        "Id": "b75a74a9525648e6ab02cc408ad8108c",
+        "Title": "CREATE",
+        "Nodes": [
+          "9d8ffe8d75ac4900aebbb29f8077dbf1"
+        ],
+        "Left": 1987.9811495081185,
+        "Top": -880.68052127775354,
+        "Width": 236.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -827.68052127775354,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "8bfbf0b11eaf4da6a24168644b8ebb18",
+        "Title": "________________________________________________________\r\n\r\nDynamo Core Ver: \t2.4.1.6394 \r\nDynamo Civil 3D Ver: \t2.4.1.2161\r\n________________________________________________________\r\n\r\nPackage Used: \t\tCivil 3D Toolkit\r\nCustom Nodes Used: \tNone\r\n________________________________________________________\r\n\r\nGraph Function:\r\n1. ???\r\n2. ???\r\n3. ???\r\n________________________________________________________\r\n\r\nCreated By: \t\tJowenn S. Lua\r\nDate Created: \t\tSeptember 2020\r\n\r\nUpdated By:\r\nDate Modified:\r\n ",
+        "Nodes": [],
+        "Left": 2452.8635282392579,
+        "Top": -808.30897948712982,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "8179a239d0db4884867e9afa69539dff",
+        "Title": "Work in progress / To delete             ",
+        "Nodes": [],
+        "Left": 1999.5818517285197,
+        "Top": -523.41010111489209,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "50a1329aae0149be965295aed1755388",
+        "Title": "Set or Override Parameter in Civil 3D",
+        "Nodes": [],
+        "Left": 2001.4188160454351,
+        "Top": -625.69745958787371,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "7b591d73676f42b687741f547d3f226d",
+        "Title": "Dynamo data manipulation                  ",
+        "Nodes": [],
+        "Left": 1750.952606176681,
+        "Top": -625.37041407286688,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "869ea28dc04242ddaebd6dc193a5f8f9",
+        "Title": "Dynamo geometry creation                  ",
+        "Nodes": [],
+        "Left": 1750.1119505805482,
+        "Top": -523.44166529532549,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "26612eeb215d4162a20de35063be0fef",
+        "Title": "Import information / data from others ",
+        "Nodes": [],
+        "Left": 1750.4349111152569,
+        "Top": -725.827300267174,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "3d56863c8ef44ef1b20ba6fb1b6d9b80",
+        "Title": "Export information / data to others   ",
+        "Nodes": [],
+        "Left": 1998.5942882316067,
+        "Top": -725.90532988473683,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "603892d49cdb4f5aa1334752036cd218",
+        "Title": "DESIGN GRAPH STANDARDS\r\n                                                                                       \r\nAuthor:\t\tJowenn S. Lua\r\nDate Created:\t10 August 2019\r\nDate Updated:\t4 September 2020\r\nVersion:\t\t004\r\n________________________________________________________\r\n\r\nDESIGN GRAPH GUIDELINES\r\n\r\n1. Color code your blocks according to this guide.\r\n\r\n2. Add grouping with name and description.\r\n\r\n3. Add notes to explain each critical node process.\r\n\r\n4. Rename Input / Output / Code Blocks nodes and add suffix to data they carry.\r\n\r\n5. Align nodes to make it neat.\r\n\r\n6. Save the graph as Manual instead of Automatic.\r\n________________________________________________________",
+        "Nodes": [],
+        "Left": 1416.7129522045889,
+        "Top": -826.66414433084947,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "15f2a50576944e8abfbb123f65015561",
+        "Title": "Get information / data from Civil 3D    ",
+        "Nodes": [],
+        "Left": 1749.9783045508284,
+        "Top": -827.33611084189442,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "9d8ffe8d75ac4900aebbb29f8077dbf1",
+        "Title": "Create object in Civil 3D                     ",
+        "Nodes": [],
+        "Left": 1997.9811495081185,
+        "Top": -827.68052127775354,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
       }
     ],
-    "X": 43.446272685135469,
-    "Y": 292.29761849387239,
-    "Zoom": 0.29184144930334177
+    "X": 24.60999681702782,
+    "Y": 590.60063671773332,
+    "Zoom": 0.19504226892427251
   }
 }

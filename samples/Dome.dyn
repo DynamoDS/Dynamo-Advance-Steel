@@ -287,84 +287,6 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.Dynamo.MeshToolkit.Mesh.Triangles",
-      "Id": "8f13274e21b747b8896d9fbb576e2323",
-      "Inputs": [
-        {
-          "Id": "b2e89c98079247f6a7b4a067abf1eb3f",
-          "Name": "mesh",
-          "Description": "Autodesk.Dynamo.MeshToolkit.Mesh",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "c82b2fa53d7346c69e439d99fffc3ba1",
-          "Name": "Surface[]",
-          "Description": "Surface[]",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Converts the Mesh faces to Surface patches, and returns them. Note: this method can generate A LOT of heavy Surfaces, and may slow down Dynamo with large meshes.\n\nMesh.Triangles ( ): Surface[]"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.Dynamo.MeshToolkit.Mesh.ByGeometry@Autodesk.DesignScript.Geometry.Geometry,double,int",
-      "Id": "6f29fc8b30ff45a481b6f1bf359eb33b",
-      "Inputs": [
-        {
-          "Id": "66070aacd141475fad370d6383322db0",
-          "Name": "inputGeometry",
-          "Description": "Geometry",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "5c5edb1a06a44ef486205c67ebaec8d5",
-          "Name": "tolerance",
-          "Description": "double\nDefault value : -1",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "dd6b9c5efac44aaca46fc3dcbc2af665",
-          "Name": "maxGridLines",
-          "Description": "int\nDefault value : 512",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "04519e44094c4208aed6b9491fcafe6a",
-          "Name": "Mesh",
-          "Description": "Mesh",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Convert a Geometry object such as a Solid or Surface into a Mesh. The resolution of the mesh is determined by the Dynamo render precision\n\nMesh.ByGeometry (inputGeometry: Geometry, tolerance: double = -1, maxGridLines: int = 512): Mesh"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
       "FunctionSignature": "Autodesk.DesignScript.Geometry.Surface.PerimeterCurves",
       "Id": "1b23c589c2664f7691ffc300fc429590",
       "Inputs": [
@@ -455,14 +377,23 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByPolygon@Autodesk.DesignScript.Geometry.Polygon",
+      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByPolygon@Autodesk.DesignScript.Geometry.Polygon,AdvanceSteel.Nodes.Property[]",
       "Id": "7f956ec54d9646819bf9b29d605f425b",
       "Inputs": [
         {
           "Id": "2f49281d7f8846d2a661a3f4327c0c76",
           "Name": "poly",
-          "Description": "Input polygon\n\nPolygon",
+          "Description": "Input Dynamo Closed Polygon\n\nPolygon",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "da991fdbc30e4925bfc3f2b9b7c266a8",
+          "Name": "additionalPlateParameters",
+          "Description": "Optional Input Plate Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -480,37 +411,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel plate\n\nPlate.ByPolygon (poly: Polygon): Plate"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.Dynamo.MeshToolkit.Mesh.Edges",
-      "Id": "953d3ec71ef54825930fc6705d11f8f9",
-      "Inputs": [
-        {
-          "Id": "7a024283090a4e85892b70d095073dc0",
-          "Name": "mesh",
-          "Description": "Autodesk.Dynamo.MeshToolkit.Mesh",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "4eafd0755d114cc3ad4b41bb67de13b4",
-          "Name": "Line[]",
-          "Description": "Line[]",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Converts the Mesh edges to Lines, and returns them\n\nMesh.Edges ( ): Line[]"
+      "Description": "Create an Advance Steel plate (Position default to 0, with system thickness as default)\n\nPlate.ByPolygon (poly: Polygon, additionalPlateParameters: Property[] = null): Plate"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -575,13 +476,13 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
       "Id": "644f3572e7554cf58b48de4d7758b636",
       "Inputs": [
         {
           "Id": "f848831b4b8c438ab12732f1d94c2f88",
           "Name": "start",
-          "Description": "Start point\n\nPoint",
+          "Description": "Input Start point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -590,7 +491,7 @@
         {
           "Id": "1ad7e640a4e348a4b106b4a423ecc098",
           "Name": "end",
-          "Description": "End point\n\nPoint",
+          "Description": "Input End point of Beam\n\nPoint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -598,9 +499,18 @@
         },
         {
           "Id": "fdf3211e952e4a0c954e769f27397469",
-          "Name": "vOrientation",
+          "Name": "orientation",
           "Description": "Section orientation\n\nVector",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f9358c2b7b304d5e80a2cd5ad4bc931f",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -618,7 +528,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, vOrientation: Vector): StraightBeam"
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, additionalBeamParameters: Property[] = null): StraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -785,7 +695,7 @@
       "Inputs": [
         {
           "Id": "db81a4b1659f4d95bc90b35628a88dfb",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -823,7 +733,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -833,7 +743,7 @@
       "Inputs": [
         {
           "Id": "6899634d7797447d80faa270fb9d2953",
-          "Name": "element",
+          "Name": "steelObject",
           "Description": "Advance Steel element\n\nSteelDbObject",
           "UsingDefaultValue": false,
           "Level": 2,
@@ -871,7 +781,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (element: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -910,6 +820,114 @@
       ],
       "Replication": "Disabled",
       "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.Dynamo.MeshToolkit.Mesh.Triangles",
+      "Id": "8f13274e21b747b8896d9fbb576e2323",
+      "Inputs": [
+        {
+          "Id": "b2e89c98079247f6a7b4a067abf1eb3f",
+          "Name": "mesh",
+          "Description": "Autodesk.Dynamo.MeshToolkit.Mesh",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c82b2fa53d7346c69e439d99fffc3ba1",
+          "Name": "Surface[]",
+          "Description": "Surface[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Converts the Mesh faces to Surface patches, and returns them. Note: this method can generate A LOT of heavy Surfaces, and may slow down Dynamo with large meshes.\n\nMesh.Triangles ( ): Surface[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.Dynamo.MeshToolkit.Mesh.ByGeometry@Autodesk.DesignScript.Geometry.Geometry,double,int",
+      "Id": "6f29fc8b30ff45a481b6f1bf359eb33b",
+      "Inputs": [
+        {
+          "Id": "66070aacd141475fad370d6383322db0",
+          "Name": "inputGeometry",
+          "Description": "Geometry",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5c5edb1a06a44ef486205c67ebaec8d5",
+          "Name": "tolerance",
+          "Description": "double\nDefault value : -1",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "dd6b9c5efac44aaca46fc3dcbc2af665",
+          "Name": "maxGridLines",
+          "Description": "int\nDefault value : 512",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "04519e44094c4208aed6b9491fcafe6a",
+          "Name": "Mesh",
+          "Description": "Mesh",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Convert a Geometry object such as a Solid or Surface into a Mesh. The resolution of the mesh is determined by the Dynamo render precision\n\nMesh.ByGeometry (inputGeometry: Geometry, tolerance: double = -1, maxGridLines: int = 512): Mesh"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.Dynamo.MeshToolkit.Mesh.Edges",
+      "Id": "953d3ec71ef54825930fc6705d11f8f9",
+      "Inputs": [
+        {
+          "Id": "7a024283090a4e85892b70d095073dc0",
+          "Name": "mesh",
+          "Description": "Autodesk.Dynamo.MeshToolkit.Mesh",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4eafd0755d114cc3ad4b41bb67de13b4",
+          "Name": "Line[]",
+          "Description": "Line[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Converts the Mesh edges to Lines, and returns them\n\nMesh.Edges ( ): Line[]"
     }
   ],
   "Connectors": [
@@ -959,21 +977,6 @@
       "Id": "21e93397bb634dedab34fb3f1b2a5011"
     },
     {
-      "Start": "c82b2fa53d7346c69e439d99fffc3ba1",
-      "End": "c66974fcc0024eefa19f08d581ba534e",
-      "Id": "2757a8febc2b427c9b3062d80c122c9c"
-    },
-    {
-      "Start": "04519e44094c4208aed6b9491fcafe6a",
-      "End": "b2e89c98079247f6a7b4a067abf1eb3f",
-      "Id": "f0c503acf3e24c4f91675eef3ee1c267"
-    },
-    {
-      "Start": "04519e44094c4208aed6b9491fcafe6a",
-      "End": "7a024283090a4e85892b70d095073dc0",
-      "Id": "a9bd29d02db64353983f0fa427629e62"
-    },
-    {
       "Start": "df75933f4a0647a8b9f91f21c5dfe169",
       "End": "3a2384a8cbf84b70bde209b90dbcb02f",
       "Id": "0f8c68293b2647309708c745c9710e61"
@@ -992,21 +995,6 @@
       "Start": "05fe67f834ff410b98bb086c76ee9d98",
       "End": "db81a4b1659f4d95bc90b35628a88dfb",
       "Id": "fffadbb382f64e3f95e958177ee4287e"
-    },
-    {
-      "Start": "4eafd0755d114cc3ad4b41bb67de13b4",
-      "End": "3c313e0af08747faa642e3cd602dfd41",
-      "Id": "693881ef77764fa8806e0662eee975c0"
-    },
-    {
-      "Start": "4eafd0755d114cc3ad4b41bb67de13b4",
-      "End": "62f4c377656f421c90cc9b0f94a910b7",
-      "Id": "690e6df95b5b40dfb01030f89dcc302c"
-    },
-    {
-      "Start": "4eafd0755d114cc3ad4b41bb67de13b4",
-      "End": "e416588e92954da9946f3d9366215167",
-      "Id": "8e90656839df4e8a8cdd77ba11c9bda3"
     },
     {
       "Start": "8b0d7f0ce4604d28838b487166841371",
@@ -1050,13 +1038,13 @@
     },
     {
       "Start": "624c0832190a4585b554a247a9a32603",
-      "End": "66070aacd141475fad370d6383322db0",
-      "Id": "80d4c2f10e5041918258960d4fff158d"
+      "End": "61ce4c1656904e2f99e8c4d6e2ae12b6",
+      "Id": "bf977c86761e49708fdfae4339856840"
     },
     {
       "Start": "624c0832190a4585b554a247a9a32603",
-      "End": "61ce4c1656904e2f99e8c4d6e2ae12b6",
-      "Id": "bf977c86761e49708fdfae4339856840"
+      "End": "66070aacd141475fad370d6383322db0",
+      "Id": "80d4c2f10e5041918258960d4fff158d"
     },
     {
       "Start": "528cc3dd81dc4cc4838f66b0efa61725",
@@ -1077,6 +1065,36 @@
       "Start": "a54d831ee74245e19c25ef1c709a4e12",
       "End": "bfaaba21b3dc4ae3ad6652dd023ac6a2",
       "Id": "5e0f9b5ab50b4caca0b64744847f44b9"
+    },
+    {
+      "Start": "c82b2fa53d7346c69e439d99fffc3ba1",
+      "End": "c66974fcc0024eefa19f08d581ba534e",
+      "Id": "2757a8febc2b427c9b3062d80c122c9c"
+    },
+    {
+      "Start": "04519e44094c4208aed6b9491fcafe6a",
+      "End": "b2e89c98079247f6a7b4a067abf1eb3f",
+      "Id": "f0c503acf3e24c4f91675eef3ee1c267"
+    },
+    {
+      "Start": "04519e44094c4208aed6b9491fcafe6a",
+      "End": "7a024283090a4e85892b70d095073dc0",
+      "Id": "a9bd29d02db64353983f0fa427629e62"
+    },
+    {
+      "Start": "4eafd0755d114cc3ad4b41bb67de13b4",
+      "End": "3c313e0af08747faa642e3cd602dfd41",
+      "Id": "693881ef77764fa8806e0662eee975c0"
+    },
+    {
+      "Start": "4eafd0755d114cc3ad4b41bb67de13b4",
+      "End": "62f4c377656f421c90cc9b0f94a910b7",
+      "Id": "690e6df95b5b40dfb01030f89dcc302c"
+    },
+    {
+      "Start": "4eafd0755d114cc3ad4b41bb67de13b4",
+      "End": "e416588e92954da9946f3d9366215167",
+      "Id": "8e90656839df4e8a8cdd77ba11c9bda3"
     }
   ],
   "Dependencies": [],
@@ -1098,7 +1116,7 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.5.0.7186",
+      "Version": "2.5.2.7915",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -1187,26 +1205,6 @@
       },
       {
         "ShowGeometry": false,
-        "Name": "Mesh.Triangles",
-        "Id": "8f13274e21b747b8896d9fbb576e2323",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 2301.51940640331,
-        "Y": 2176.11186346479
-      },
-      {
-        "ShowGeometry": false,
-        "Name": "Mesh.ByGeometry",
-        "Id": "6f29fc8b30ff45a481b6f1bf359eb33b",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 2020.51940640331,
-        "Y": 2284.61186346479
-      },
-      {
-        "ShowGeometry": false,
         "Name": "Surface.PerimeterCurves",
         "Id": "1b23c589c2664f7691ffc300fc429590",
         "IsSetAsInput": false,
@@ -1244,16 +1242,6 @@
         "Excluded": false,
         "X": 3299.51940640331,
         "Y": 2238.11186346479
-      },
-      {
-        "ShowGeometry": false,
-        "Name": "Mesh.Edges",
-        "Id": "953d3ec71ef54825930fc6705d11f8f9",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 2546.51940640331,
-        "Y": 2393.11186346479
       },
       {
         "ShowGeometry": false,
@@ -1342,8 +1330,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3865.4278903740683,
-        "Y": 2188.7720771254153
+        "X": 3974.96951081634,
+        "Y": 2197.6538301342484
       },
       {
         "ShowGeometry": false,
@@ -1352,8 +1340,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3872.4309532894081,
-        "Y": 2385.9434292771039
+        "X": 3981.97257373168,
+        "Y": 2394.825182285937
       },
       {
         "ShowGeometry": false,
@@ -1362,8 +1350,38 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3660.6656218625326,
-        "Y": 2420.2395470791639
+        "X": 3770.2072423048044,
+        "Y": 2429.121300087997
+      },
+      {
+        "ShowGeometry": false,
+        "Name": "Mesh.Triangles",
+        "Id": "8f13274e21b747b8896d9fbb576e2323",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2301.51940640331,
+        "Y": 2176.11186346479
+      },
+      {
+        "ShowGeometry": false,
+        "Name": "Mesh.ByGeometry",
+        "Id": "6f29fc8b30ff45a481b6f1bf359eb33b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2020.51940640331,
+        "Y": 2284.61186346479
+      },
+      {
+        "ShowGeometry": false,
+        "Name": "Mesh.Edges",
+        "Id": "953d3ec71ef54825930fc6705d11f8f9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2546.51940640331,
+        "Y": 2393.11186346479
       }
     ],
     "Annotations": [
@@ -1386,20 +1404,17 @@
         "FontSize": 14.0,
         "InitialTop": 2166.1334134902627,
         "InitialHeight": 451.0013644238702,
-        "TextblockHeight": 0.0,
+        "TextblockHeight": 20.0,
         "Background": "#FFC1D676"
       },
       {
         "Id": "3c91322572d349feb2eedede6f7ef706",
         "Title": "Triangulate surface with Advance Steel Plates and Beams",
         "Nodes": [
-          "8f13274e21b747b8896d9fbb576e2323",
-          "6f29fc8b30ff45a481b6f1bf359eb33b",
           "1b23c589c2664f7691ffc300fc429590",
           "ab096436c8034bebb0f43c70a24175e1",
           "c52f4fbe4a044547a8b935ae065a8b56",
           "7f956ec54d9646819bf9b29d605f425b",
-          "953d3ec71ef54825930fc6705d11f8f9",
           "9a3b2712070d4836beecb5eb80ab81d2",
           "e05577f9f4cf4c2580a68074cba2c3ed",
           "644f3572e7554cf58b48de4d7758b636",
@@ -1411,12 +1426,12 @@
         ],
         "Left": 1754.51940640331,
         "Top": 2146.11186346479,
-        "Width": 1831.9999999999998,
+        "Width": 1921.9999999999998,
         "Height": 505.61357720449405,
         "FontSize": 14.0,
         "InitialTop": 2176.11186346479,
         "InitialHeight": 527.613577204494,
-        "TextblockHeight": 0.0,
+        "TextblockHeight": 20.0,
         "Background": "#FF71C6A8"
       },
       {
@@ -1427,14 +1442,174 @@
           "a7fdb379ac8b49f2afb915b07f8f4e28",
           "89348154df5a4c3ba08c5bb0227460bf"
         ],
-        "Left": 3650.6656218625326,
-        "Top": 2158.7720771254153,
-        "Width": 436.76533142687549,
+        "Left": 3760.2072423048044,
+        "Top": 2167.6538301342484,
+        "Width": 444.76533142687549,
         "Height": 382.4674699537486,
         "FontSize": 14.0,
-        "InitialTop": 2188.7720771254153,
+        "InitialTop": 2197.6538301342484,
         "InitialHeight": 376.4674699537486,
-        "TextblockHeight": 0.0,
+        "TextblockHeight": 20.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "bb7b3b27377548e2b8ee3e7eb8247342",
+        "Title": "GRAPH INFO",
+        "Nodes": [
+          "f6f56b47169b47dfb8b7f065f4d54c7e"
+        ],
+        "Left": 2847.8919192625121,
+        "Top": 1244.4815250183667,
+        "Width": 319.0,
+        "Height": 400.0,
+        "FontSize": 36.0,
+        "InitialTop": 1297.4815250183667,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "922129f61b5b4c1f9b890d1186ae0b08",
+        "Title": "TEMP",
+        "Nodes": [
+          "f2982b81f4ff40bd88d74b3e124325bf"
+        ],
+        "Left": 2394.610242751774,
+        "Top": 1529.3804033906047,
+        "Width": 232.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": 1582.3804033906047,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFD8D8D8"
+      },
+      {
+        "Id": "c842ee919c33453fa33b53ea701356e9",
+        "Title": "SET",
+        "Nodes": [
+          "39cc5de7007c4865b292e2a150926cbf"
+        ],
+        "Left": 2396.4472070686893,
+        "Top": 1427.093044917623,
+        "Width": 234.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": 1480.093044917623,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "3002a849b845459180852a8afdbb8a39",
+        "Title": "PROCESS",
+        "Nodes": [
+          "d265b26a6012486a8e57ee93ad587192"
+        ],
+        "Left": 2145.9809971999352,
+        "Top": 1427.4200904326299,
+        "Width": 243.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": 1480.4200904326299,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFAA45"
+      },
+      {
+        "Id": "b4f35f919c524007beca4e4b9ee40408",
+        "Title": "GEOM",
+        "Nodes": [
+          "1b4594861c904c20aadf994ceb85b88b"
+        ],
+        "Left": 2145.1403416038024,
+        "Top": 1529.3488392101713,
+        "Width": 244.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": 1582.3488392101713,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFC999"
+      },
+      {
+        "Id": "dd98b8e8b59c4d6791b720750c989b2b",
+        "Title": "DATA IN",
+        "Nodes": [
+          "bfac71e378274fc2ae214522bc79a6b9"
+        ],
+        "Left": 2145.4633021385112,
+        "Top": 1326.9632042383228,
+        "Width": 244.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": 1379.9632042383228,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "8e62c438d46447f8839c45ce88f07bc9",
+        "Title": "DATA OUT",
+        "Nodes": [
+          "e81cf93986454871a360139500572520"
+        ],
+        "Left": 2393.6226792548609,
+        "Top": 1326.88517462076,
+        "Width": 235.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": 1379.88517462076,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "7d08a0b992b64551affe7551a6efb2e1",
+        "Title": "NOTES - D4C3D",
+        "Nodes": [
+          "6668a1f171294563890bd69daddc9073"
+        ],
+        "Left": 1811.7413432278477,
+        "Top": 1226.1263601746434,
+        "Width": 326.0,
+        "Height": 414.0,
+        "FontSize": 36.0,
+        "InitialTop": 1279.1263601746434,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "abea80479dec4877a775fea7db7eeb04",
+        "Title": "GET",
+        "Nodes": [
+          "108d00bd1c7342c2a69900da27cc1b75"
+        ],
+        "Left": 2145.0066955740826,
+        "Top": 1225.4543936636026,
+        "Width": 243.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": 1278.4543936636026,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFBB87C6"
+      },
+      {
+        "Id": "2f9cc4a914704b1a98c31a2d1afa4a01",
+        "Title": "CREATE",
+        "Nodes": [
+          "96c7f3997de44556874a2e5d0ed60325"
+        ],
+        "Left": 2393.0095405313727,
+        "Top": 1225.1099832277432,
+        "Width": 236.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": 1278.1099832277432,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
       },
       {
@@ -1450,10 +1625,150 @@
         "InitialHeight": 0.0,
         "TextblockHeight": 0.0,
         "Background": "#FFC1D676"
+      },
+      {
+        "Id": "f6f56b47169b47dfb8b7f065f4d54c7e",
+        "Title": "________________________________________________________\r\n\r\nDynamo Core Ver: \t2.4.1.6394 \r\nDynamo Civil 3D Ver: \t2.4.1.2161\r\n________________________________________________________\r\n\r\nPackage Used: \t\tCivil 3D Toolkit\r\nCustom Nodes Used: \tNone\r\n________________________________________________________\r\n\r\nGraph Function:\r\n1. ???\r\n2. ???\r\n3. ???\r\n________________________________________________________\r\n\r\nCreated By: \t\tJowenn S. Lua\r\nDate Created: \t\tSeptember 2020\r\n\r\nUpdated By:\r\nDate Modified:\r\n ",
+        "Nodes": [],
+        "Left": 2857.8919192625121,
+        "Top": 1297.4815250183667,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "f2982b81f4ff40bd88d74b3e124325bf",
+        "Title": "Work in progress / To delete             ",
+        "Nodes": [],
+        "Left": 2404.610242751774,
+        "Top": 1582.3804033906047,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "39cc5de7007c4865b292e2a150926cbf",
+        "Title": "Set or Override Parameter in Civil 3D",
+        "Nodes": [],
+        "Left": 2406.4472070686893,
+        "Top": 1480.093044917623,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "d265b26a6012486a8e57ee93ad587192",
+        "Title": "Dynamo data manipulation                  ",
+        "Nodes": [],
+        "Left": 2155.9809971999352,
+        "Top": 1480.4200904326299,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "1b4594861c904c20aadf994ceb85b88b",
+        "Title": "Dynamo geometry creation                  ",
+        "Nodes": [],
+        "Left": 2155.1403416038024,
+        "Top": 1582.3488392101713,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "bfac71e378274fc2ae214522bc79a6b9",
+        "Title": "Import information / data from others ",
+        "Nodes": [],
+        "Left": 2155.4633021385112,
+        "Top": 1379.9632042383228,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "e81cf93986454871a360139500572520",
+        "Title": "Export information / data to others   ",
+        "Nodes": [],
+        "Left": 2403.6226792548609,
+        "Top": 1379.88517462076,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "6668a1f171294563890bd69daddc9073",
+        "Title": "DESIGN GRAPH STANDARDS\r\n                                                                                       \r\nAuthor:\t\tJowenn S. Lua\r\nDate Created:\t10 August 2019\r\nDate Updated:\t4 September 2020\r\nVersion:\t\t004\r\n________________________________________________________\r\n\r\nDESIGN GRAPH GUIDELINES\r\n\r\n1. Color code your blocks according to this guide.\r\n\r\n2. Add grouping with name and description.\r\n\r\n3. Add notes to explain each critical node process.\r\n\r\n4. Rename Input / Output / Code Blocks nodes and add suffix to data they carry.\r\n\r\n5. Align nodes to make it neat.\r\n\r\n6. Save the graph as Manual instead of Automatic.\r\n________________________________________________________",
+        "Nodes": [],
+        "Left": 1821.7413432278477,
+        "Top": 1279.1263601746434,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "108d00bd1c7342c2a69900da27cc1b75",
+        "Title": "Get information / data from Civil 3D    ",
+        "Nodes": [],
+        "Left": 2155.0066955740826,
+        "Top": 1278.4543936636026,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "96c7f3997de44556874a2e5d0ed60325",
+        "Title": "Create object in Civil 3D                     ",
+        "Nodes": [],
+        "Left": 2403.0095405313727,
+        "Top": 1278.1099832277432,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
       }
     ],
-    "X": 7.7832104275317988,
-    "Y": -374.88094347160984,
-    "Zoom": 0.3332483491216221
+    "X": -606.29492743782566,
+    "Y": -276.94342504529016,
+    "Zoom": 0.33777115812796421
   }
 }

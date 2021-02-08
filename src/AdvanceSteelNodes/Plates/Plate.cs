@@ -295,23 +295,6 @@ namespace AdvanceSteel.Nodes.Plates
       return new Plate(astPoints, Utils.ToAstVector3d(normal, true), additionalPlateParameters);
     }
 
-    private static Point3d[] PrepForByEdgeLength(Autodesk.DesignScript.Geometry.Point startPoint,
-                                                                              Autodesk.DesignScript.Geometry.Point endPoint,
-                                                                              Autodesk.DesignScript.Geometry.Vector normal,
-                                                                              double width)
-    {
-      Point3d originLine = Utils.ToAstPoint(startPoint, true);
-      Point3d secPoint = Utils.ToAstPoint(endPoint, true);
-      Vector3d linXvec = secPoint.Subtract(originLine);
-      Vector3d linNormVec = Utils.ToAstVector3d(normal, true);
-      Vector3d linYvec = linXvec.CrossProduct(linNormVec);
-      Point3d midPoint = Utils.GetMidPointBetween(originLine, secPoint);
-      double internWidth = (Utils.ToInternalDistanceUnits(width, true));
-      Point3d finalOrigin = new Point3d(midPoint).Add(linYvec.Normalize() * (internWidth / 2));
-      Point3d pt4 = new Point3d(originLine).Add(linYvec.Normalize() * internWidth);
-      Point3d pt3 = new Point3d(secPoint).Add(linYvec.Normalize() * internWidth);
-      return new Point3d[] { originLine, secPoint, pt3, pt4 };
-    }
 
     /// <summary>
     /// Create a rectangular Advance Steel Plate by using 2 points at opposite corners for extents, including setting the side and thickness
@@ -381,6 +364,107 @@ namespace AdvanceSteel.Nodes.Plates
       return new Plate(astPoints, zAxis, additionalPlateParameters);
     }
 
+    /// <summary>
+    /// Get Plate Physical Length and Width
+    /// </summary>
+    /// <param name="steelObject">Advance Steel element</param>
+    /// <returns></returns>
+    [MultiReturn(new[] { "Length", "Width" })]
+    public static Dictionary<string, double> GetPhysicalLengthAndWidth(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    {
+      Dictionary<string, double> ret = new Dictionary<string, double>();
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+            {
+              Autodesk.AdvanceSteel.Modelling.PlateBase selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PlateBase;
+              double length = 0;
+              double width = 0;
+              selectedObj.GetPhysLengthAndWidth(out length, out width);
+              ret.Add("Length", Utils.FromInternalDistanceUnits(length, true));
+              ret.Add("Width", Utils.FromInternalDistanceUnits(width, true));
+            }
+            else
+              throw new System.Exception("Not a Plate Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object or Point is null");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Get Plate Circumference
+    /// </summary>
+    /// <param name="steelObject">Advance Steel element</param>
+    /// <returns></returns>
+    public static double GetCircumference(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    {
+      double ret = 0;
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+            {
+              Autodesk.AdvanceSteel.Modelling.PlateBase selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PlateBase;
+              ret = (double)selectedObj.GetCircumference();
+            }
+            else
+              throw new System.Exception("Not a Plate Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object or Point is null");
+      }
+      return Utils.FromInternalDistanceUnits(ret, true);
+    }
+
+    /// <summary>
+    /// Is Plate Rectangular
+    /// </summary>
+    /// <param name="steelObject">Advance Steel element</param>
+    /// <returns></returns>
+    public static bool IsRectangular(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    {
+      bool ret = false;
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+            {
+              Autodesk.AdvanceSteel.Modelling.PlateBase selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PlateBase;
+              ret = (bool)selectedObj.IsRectangular();
+            }
+            else
+              throw new System.Exception("Not a Plate Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object or Point is null");
+      }
+      return ret;
+    }
+
     private static List<Property> PreSetDefaults(List<Property> listPlateData)
     {
       if (listPlateData == null)
@@ -388,6 +472,24 @@ namespace AdvanceSteel.Nodes.Plates
         listPlateData = new List<Property>() { };
       }
       return listPlateData;
+    }
+
+    private static Point3d[] PrepForByEdgeLength(Autodesk.DesignScript.Geometry.Point startPoint,
+                                                                              Autodesk.DesignScript.Geometry.Point endPoint,
+                                                                              Autodesk.DesignScript.Geometry.Vector normal,
+                                                                              double width)
+    {
+      Point3d originLine = Utils.ToAstPoint(startPoint, true);
+      Point3d secPoint = Utils.ToAstPoint(endPoint, true);
+      Vector3d linXvec = secPoint.Subtract(originLine);
+      Vector3d linNormVec = Utils.ToAstVector3d(normal, true);
+      Vector3d linYvec = linXvec.CrossProduct(linNormVec);
+      Point3d midPoint = Utils.GetMidPointBetween(originLine, secPoint);
+      double internWidth = (Utils.ToInternalDistanceUnits(width, true));
+      Point3d finalOrigin = new Point3d(midPoint).Add(linYvec.Normalize() * (internWidth / 2));
+      Point3d pt4 = new Point3d(originLine).Add(linYvec.Normalize() * internWidth);
+      Point3d pt3 = new Point3d(secPoint).Add(linYvec.Normalize() * internWidth);
+      return new Point3d[] { originLine, secPoint, pt3, pt4 };
     }
 
     [IsVisibleInDynamoLibrary(false)]

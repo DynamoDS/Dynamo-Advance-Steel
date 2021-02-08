@@ -11,7 +11,6 @@ using System.ComponentModel;
 
 namespace AdvanceSteel.Nodes
 {
-  [IsVisibleInDynamoLibrary(false)]
   public abstract class SteelSelection<TSelection, TResult> : SelectionBase<TSelection, TResult>
   {
     private DynamoModel dynamoModel;

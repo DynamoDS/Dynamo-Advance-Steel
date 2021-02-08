@@ -273,7 +273,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Footings.ByRadiusOnCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Footings.ByRadiusOnCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,AdvanceSteel.Nodes.Property[]",
       "Id": "6c45974da36e4e6fb7ad4f9b61d243c5",
       "Inputs": [
         {
@@ -306,7 +306,7 @@
         {
           "Id": "208b53d0b78a4ca9af7fbf584229b25a",
           "Name": "additionalConcParameters",
-          "Description": "Optional Input Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -325,7 +325,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Isolated Footing - Circular\n\nFootings.ByRadiusOnCS (coordinateSystem: CoordinateSystem, footingDepth: double, footingRadius: double, additionalConcParameters: ASProperty[] = null): Footings"
+      "Description": "Create an Advance Steel Isolated Footing - Circular\n\nFootings.ByRadiusOnCS (coordinateSystem: CoordinateSystem, footingDepth: double, footingRadius: double, additionalConcParameters: Property[] = null): Footings"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -622,7 +622,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Footings.ByLengthWidthOnCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,double,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Footings.ByLengthWidthOnCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,double,AdvanceSteel.Nodes.Property[]",
       "Id": "48777331a43848d2835e5b3f1dc84cea",
       "Inputs": [
         {
@@ -664,7 +664,7 @@
         {
           "Id": "012ceef9ed8c423da2f60425d7ba3e72",
           "Name": "additionalConcParameters",
-          "Description": "Optional Input Build Properties\n\nASProperty[]\nDefault value : null",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -683,7 +683,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Isolated Footing - Rectangular\n\nFootings.ByLengthWidthOnCS (coordinateSystem: CoordinateSystem, footingDepth: double, footingWidth: double, footingLength: double, additionalConcParameters: ASProperty[] = null): Footings"
+      "Description": "Create an Advance Steel Isolated Footing - Rectangular\n\nFootings.ByLengthWidthOnCS (coordinateSystem: CoordinateSystem, footingDepth: double, footingWidth: double, footingLength: double, additionalConcParameters: Property[] = null): Footings"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -784,72 +784,6 @@
       "Description": "Allows for DesignScript code to be authored directly"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.ConcStraightBeam.ByStartPointEndPoint@string,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "b69fd4cd034948248102b03aa509f4b1",
-      "Inputs": [
-        {
-          "Id": "dd624bb6fba0426f8e0b3285a13f3e76",
-          "Name": "concName",
-          "Description": "Concrete Profile Name\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "801c99a23d454c39b7248fe64d2b1100",
-          "Name": "start",
-          "Description": "Input Start point of Beam\n\nPoint",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "ddc4dd25a7584899930c66ecfa85d46d",
-          "Name": "end",
-          "Description": "Input End point of Beam\n\nPoint",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "5d643a83b86a42cf8b7f14178ad485da",
-          "Name": "orientation",
-          "Description": "Section orientation\n\nVector",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "79052afc8a8b4a909a2f5a78eaf62bd3",
-          "Name": "additionalConcParameters",
-          "Description": "Optional Input Build Properties\n\nASProperty[]\nDefault value : null",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "558735ad7377414c924c3d789c160b43",
-          "Name": "ConcStraightBeam",
-          "Description": "ConcStraightBeam",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Create an Advance Steel Concrete Straight Beam/Column between two points\n\nConcStraightBeam.ByStartPointEndPoint (concName: string, start: Point, end: Point, orientation: Vector, additionalConcParameters: ASProperty[] = null): ConcStraightBeam"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
       "Code": "\"R500x500\";",
@@ -919,82 +853,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.ConcStraightBeam.ByStartPointDirectionLength@string,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Vector,double,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "0f701edf4e2e44e2811b6a886810bbba",
-      "Inputs": [
-        {
-          "Id": "2b77f39b8fb647da919f459eb03742cc",
-          "Name": "concName",
-          "Description": "Concrete Profile Name\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "70857bef55164f898b414b5c38041f39",
-          "Name": "start",
-          "Description": "Input Start point of Beam\n\nPoint",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "f6edfc79b3494e6282b37bcbc033d12a",
-          "Name": "direction",
-          "Description": "Dynamo Vector to define length direction\n\nVector",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "0bc4897b26b1413bae864c87f3911425",
-          "Name": "orientation",
-          "Description": "Section orientation\n\nVector",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "2fc5b971621f4dae8945b6082a6b18b7",
-          "Name": "length",
-          "Description": "Length value in the direction from the start point\n\ndouble",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "1e085587a4954d9985f9bd12447e9d4d",
-          "Name": "additionalConcParameters",
-          "Description": "Optional Input Build Properties\n\nASProperty[]\nDefault value : null",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "0d632c957a5a415892852474ed839dc4",
-          "Name": "ConcStraightBeam",
-          "Description": "ConcStraightBeam",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Create an Advance Steel Concrete Beam/Column by a point in a direction by length\n\nConcStraightBeam.ByStartPointDirectionLength (concName: string, start: Point, direction: Vector, orientation: Vector, length: double, additionalConcParameters: ASProperty[] = null): ConcStraightBeam"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Slabs.ByRectangularByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,double,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Slabs.ByRectangularByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,double,AdvanceSteel.Nodes.Property[]",
       "Id": "73c17a5f36844db1a9afb7ba84c0a66d",
       "Inputs": [
         {
@@ -1036,7 +895,7 @@
         {
           "Id": "b195afc5d5db42bda9ed441ad602770e",
           "Name": "additionalConcParameters",
-          "Description": "Optional Input Build Properties\n\nASProperty[]\nDefault value : null (disabled)",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1055,7 +914,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Rectangular Slab By Thickness\n\nSlabs.ByRectangularByCS (coordinateSystem: CoordinateSystem, width: double, length: double, thickness: double, additionalConcParameters: ASProperty[] = null): Slabs"
+      "Description": "Create an Advance Steel Rectangular Slab By Thickness\n\nSlabs.ByRectangularByCS (coordinateSystem: CoordinateSystem, width: double, length: double, thickness: double, additionalConcParameters: Property[] = null): Slabs"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -1372,7 +1231,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Slabs.ByPolygon@Autodesk.DesignScript.Geometry.Polygon,double,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Slabs.ByPolygon@Autodesk.DesignScript.Geometry.Polygon,double,AdvanceSteel.Nodes.Property[]",
       "Id": "151f974315184bca84abeedeeac12546",
       "Inputs": [
         {
@@ -1396,7 +1255,7 @@
         {
           "Id": "37c99a6edef2471892924beec310aa4a",
           "Name": "additionalConcParameters",
-          "Description": "Optional Input Build Properties\n\nASProperty[]\nDefault value : null (disabled)",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1415,7 +1274,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Slab By Polygon and Thickness\n\nSlabs.ByPolygon (poly: Polygon, thickness: double, additionalConcParameters: ASProperty[] = null): Slabs"
+      "Description": "Create an Advance Steel Slab By Polygon and Thickness\n\nSlabs.ByPolygon (poly: Polygon, thickness: double, additionalConcParameters: Property[] = null): Slabs"
     },
     {
       "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
@@ -1866,7 +1725,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Slabs.ByCircularByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,AdvanceSteel.Nodes.ASProperty[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.Slabs.ByCircularByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,double,double,AdvanceSteel.Nodes.Property[]",
       "Id": "af292d443ade4ac59b4f839f52870680",
       "Inputs": [
         {
@@ -1899,7 +1758,7 @@
         {
           "Id": "fefb7cfb612a4566a63e68d9d99c9f88",
           "Name": "additionalConcParameters",
-          "Description": "Optional Input Build Properties\n\nASProperty[]\nDefault value : null (disabled)",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null (disabled)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1918,7 +1777,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Create an Advance Steel Radial Slab By Thickness and Radius\n\nSlabs.ByCircularByCS (coordinateSystem: CoordinateSystem, radius: double, thickness: double, additionalConcParameters: ASProperty[] = null): Slabs"
+      "Description": "Create an Advance Steel Radial Slab By Thickness and Radius\n\nSlabs.ByCircularByCS (coordinateSystem: CoordinateSystem, radius: double, thickness: double, additionalConcParameters: Property[] = null): Slabs"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -1966,81 +1825,6 @@
       ],
       "Replication": "Disabled",
       "Description": "Allows for DesignScript code to be authored directly"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.ConcBentBeam.ByStartPointEndPointOnArc@string,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "98dada87bc2d476290c1018df68a41cd",
-      "Inputs": [
-        {
-          "Id": "7e25168c63c241f881f9d180f9569970",
-          "Name": "concName",
-          "Description": "Concrete Profile Name\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "57f724230f6743f1902beccfc3b27c99",
-          "Name": "start",
-          "Description": "Start point\n\nPoint",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "dac4bcd208584af893ff9a59c7e0e1a9",
-          "Name": "end",
-          "Description": "End point\n\nPoint",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "27fc7118e1dc4510942b1a89bacc9303",
-          "Name": "ptOnArc",
-          "Description": "Point on arc\n\nPoint",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "99c117fb9f9041489681cc5fa3c49b69",
-          "Name": "orientation",
-          "Description": "Section orientation\n\nVector",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "ea64d46a2cbd4a598836b330aa88503a",
-          "Name": "additionalConcParameters",
-          "Description": "Optional Input Build Properties\n\nASProperty[]\nDefault value : null",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "559e1d1326ee4183a48f96427573d2e5",
-          "Name": "ConcBentBeam",
-          "Description": "ConcBentBeam",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Create an Advance Steel Concrete Bent Beam between two points and a point on an arc\n\nConcBentBeam.ByStartPointEndPointOnArc (concName: string, start: Point, end: Point, ptOnArc: Point, orientation: Vector, additionalConcParameters: ASProperty[] = null): ConcBentBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -2111,54 +1895,6 @@
       "Description": "Create an arc by providing three sequential points along its circumference.\n\nArc.ByThreePoints (firstPoint: Point, secondPoint: Point, thirdPoint: Point): Arc"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.ConcBentBeam.ByArc@string,Autodesk.DesignScript.Geometry.Arc,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "cf080a803c7e47cfbfe7c2513afd41b9",
-      "Inputs": [
-        {
-          "Id": "8baf1ff69b224f3fb83e4fd9f729737d",
-          "Name": "concName",
-          "Description": "Concrete Profile Name\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "7e8ecd33949f4a768f365b10dcce478a",
-          "Name": "arc",
-          "Description": "Dynamo Arc to define beam\n\nArc",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "85da3351a3524d7cb6903e51f326c818",
-          "Name": "additionalConcParameters",
-          "Description": "Optional Input Build Properties\n\nASProperty[]\nDefault value : null",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "2f0377e426034857b2e821ba38066fed",
-          "Name": "ConcBentBeam",
-          "Description": "ConcBentBeam",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Create an Advance Steel Concrete Bent Beam from a Dynamo Arc\n\nConcBentBeam.ByArc (concName: string, arc: Arc, additionalConcParameters: ASProperty[] = null): ConcBentBeam"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
       "Code": "Point.ByCoordinates(0,15000,0);\nPoint.ByCoordinates(5000,15000,0);\nPoint.ByCoordinates(5000,10000,0);",
@@ -2166,7 +1902,7 @@
       "Inputs": [],
       "Outputs": [
         {
-          "Id": "4bdbf6b5b26f4225bee1784682b756ab",
+          "Id": "35fe0842cd444f76ba765776bb8566c2",
           "Name": "",
           "Description": "Value of expression at line 1",
           "UsingDefaultValue": false,
@@ -2175,7 +1911,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "eb955a0596254e5489b3cf53602cadbc",
+          "Id": "d61eb785c1c54a0593f3b1ba10ef4224",
           "Name": "",
           "Description": "Value of expression at line 2",
           "UsingDefaultValue": false,
@@ -2184,7 +1920,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "b0b4b1e075b64240b0c3da247d9f42dc",
+          "Id": "d44f94c65002482bb8d400eb9be76a6f",
           "Name": "",
           "Description": "Value of expression at line 3",
           "UsingDefaultValue": false,
@@ -2204,7 +1940,7 @@
       "Inputs": [],
       "Outputs": [
         {
-          "Id": "8628c79e6bcf4aa1b9d7a3072517a0d9",
+          "Id": "7faf370ee5f3414390a0344eda589812",
           "Name": "",
           "Description": "Value of expression at line 1",
           "UsingDefaultValue": false,
@@ -2283,54 +2019,6 @@
       "Description": "Create an arc by providing it's center point, radius, angle sweep, and normal vector\n\nArc.ByCenterPointRadiusAngle (center: Point = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0), radius: double = 1, startAngle: double = 0, endAngle: double = 90, normal: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 1)): Arc"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.ConcBentBeam.ByArc@string,Autodesk.DesignScript.Geometry.Arc,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "ede85a858d74404c9bef635c253c1c0f",
-      "Inputs": [
-        {
-          "Id": "c60da7d0869d48728f84735090d7d963",
-          "Name": "concName",
-          "Description": "Concrete Profile Name\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "3856513e3c6b4892aa06424dd4d614ab",
-          "Name": "arc",
-          "Description": "Dynamo Arc to define beam\n\nArc",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "9d8d6ad3086244e7b22b9ef2d38e691b",
-          "Name": "additionalConcParameters",
-          "Description": "Optional Input Build Properties\n\nASProperty[]\nDefault value : null",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "7a5a782b42c841c3a8719126cbf096bf",
-          "Name": "ConcBentBeam",
-          "Description": "ConcBentBeam",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Create an Advance Steel Concrete Bent Beam from a Dynamo Arc\n\nConcBentBeam.ByArc (concName: string, arc: Arc, additionalConcParameters: ASProperty[] = null): ConcBentBeam"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
       "Code": "Point.ByCoordinates(0,0,0);\nPoint.ByCoordinates(1000,1200,0);\nPoint.ByCoordinates(2000,2000,0);\nVector.ZAxis();",
@@ -2338,7 +2026,7 @@
       "Inputs": [],
       "Outputs": [
         {
-          "Id": "11124a71e4a24cf9b7bee0a187bdaf0a",
+          "Id": "cfea88ea92e243238c8b5759a30a3012",
           "Name": "",
           "Description": "Value of expression at line 1",
           "UsingDefaultValue": false,
@@ -2347,7 +2035,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "fbd0c64073c8484ebd73ad388a133d96",
+          "Id": "12453effb0564c2388d12c9e2e9a02fd",
           "Name": "",
           "Description": "Value of expression at line 2",
           "UsingDefaultValue": false,
@@ -2356,7 +2044,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "27e7c00206934ad4a7207ebeae8bced7",
+          "Id": "4d0d6d1a9c564d54a4bff065ddd63744",
           "Name": "",
           "Description": "Value of expression at line 3",
           "UsingDefaultValue": false,
@@ -2365,7 +2053,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "398e638c184e468490c468d137dbf61a",
+          "Id": "8c626d6746334a86b02d9f5ac4ff807f",
           "Name": "",
           "Description": "Value of expression at line 4",
           "UsingDefaultValue": false,
@@ -2385,7 +2073,7 @@
       "Inputs": [],
       "Outputs": [
         {
-          "Id": "7eddd9f7521f4efda7e44459a6e90f60",
+          "Id": "5355d8b6c30b4185bdad4b2e2828b597",
           "Name": "",
           "Description": "Value of expression at line 1",
           "UsingDefaultValue": false,
@@ -2394,7 +2082,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "fb679cebb67f477d8d3dc78051f51721",
+          "Id": "2540ecf90601493eba3023e5f9e9b313",
           "Name": "",
           "Description": "Value of expression at line 2",
           "UsingDefaultValue": false,
@@ -2403,7 +2091,7 @@
           "KeepListStructure": false
         },
         {
-          "Id": "7be3d94e0e7749948d755f661066a843",
+          "Id": "b1e4dbdee1fc4f8ab75f8a0907cfe312",
           "Name": "",
           "Description": "Value of expression at line 3",
           "UsingDefaultValue": false,
@@ -2414,63 +2102,6 @@
       ],
       "Replication": "Disabled",
       "Description": "Allows for DesignScript code to be authored directly"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.ConcStraightBeam.ByLine@string,Autodesk.DesignScript.Geometry.Line,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "3c8081e21f024b9f8019b3eceb82a4bf",
-      "Inputs": [
-        {
-          "Id": "563b4a3e110b4ac3b62803a46a9b33bf",
-          "Name": "concName",
-          "Description": "Concrete Profile Name\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "ca25d6ae76b540c8880efc9ddfc1e53b",
-          "Name": "line",
-          "Description": "Input Dynamo Line\n\nLine",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "842a58cb95f542b5aaa23c191e4b8b94",
-          "Name": "orientation",
-          "Description": "Section orientation\n\nVector",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "020ac3762641409893a927d291c45cdd",
-          "Name": "additionalConcParameters",
-          "Description": "Optional Input Build Properties\n\nASProperty[]\nDefault value : null",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "1b4aae1c4d82450188d30d7fc8e77840",
-          "Name": "ConcStraightBeam",
-          "Description": "ConcStraightBeam",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Create an Advance Steel Concrete Beam/Column by Dynamo Line Geometry\n\nConcStraightBeam.ByLine (concName: string, line: Line, orientation: Vector, additionalConcParameters: ASProperty[] = null): ConcStraightBeam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -2570,66 +2201,6 @@
       "Description": "Creates a straight Line between two input Points.\n\nLine.ByStartPointEndPoint (startPoint: Point, endPoint: Point): Line"
     },
     {
-      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesConcStraightBeam, AdvanceSteelNodesUI",
-      "SelectedIndex": 13,
-      "SelectedString": "Concrete Straight Beam Explicit Quantity",
-      "NodeType": "ExtensionNode",
-      "Id": "3fa78f4e27124bf7ac9a3a238f3f27f6",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "49a36a7b08554caa9f6e0cf10c517306",
-          "Name": "Writable Concrete Straight Beam Property",
-          "Description": "string",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Select Advance Steel Concrete Straight Beam Property Type to Set"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.ByNameAndValue@string,var",
-      "Id": "056186b40c614ddb9a2dced5bde7726e",
-      "Inputs": [
-        {
-          "Id": "390f63d116714ef6895480f24e9a84ed",
-          "Name": "propertyType",
-          "Description": "Input Property from Property Node for particular Object Type\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "8ca3fea7a2eb4933984f6cc9ef000782",
-          "Name": "propertyValue",
-          "Description": "Input Property value for Property Type\n\nvar",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "f9dafa7bb8e04d1183d22bc8b63476c9",
-          "Name": "ASProperty",
-          "Description": "ASProperty",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Build AS Property - Writeable or Readable\n\nProperty.ByNameAndValue (propertyType: string, propertyValue: var): ASProperty"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
       "Code": "66;",
@@ -2678,6 +2249,474 @@
       ],
       "Replication": "Disabled",
       "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.ConcreteStraightBeam.ByStartPointDirectionLength@string,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,Autodesk.DesignScript.Geometry.Vector,double,AdvanceSteel.Nodes.Property[]",
+      "Id": "89c74b9df743462fbc6930292cca0b76",
+      "Inputs": [
+        {
+          "Id": "17520e0b2c2c4089b613de451fb638ac",
+          "Name": "concName",
+          "Description": "Concrete Profile Name\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "40df57f428594b6aa6d8830405d8a0d1",
+          "Name": "start",
+          "Description": "Input Start point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "30ece83b7be04d3d982a8ff39035a590",
+          "Name": "direction",
+          "Description": "Dynamo Vector to define length direction\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4cc2e5f093684866bad47b84468051d0",
+          "Name": "orientation",
+          "Description": "Section orientation\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a115118890d94bcb87748ba1c0fd13ae",
+          "Name": "length",
+          "Description": "Length value in the direction from the start point\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2907e9f3da114829b9bae3e39ef495b9",
+          "Name": "additionalConcParameters",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "2d6c05b59780487ca7eb50fc570ef312",
+          "Name": "ConcreteStraightBeam",
+          "Description": "ConcreteStraightBeam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Concrete Beam/Column by a point in a direction by length\n\nConcreteStraightBeam.ByStartPointDirectionLength (concName: string, start: Point, direction: Vector, orientation: Vector, length: double, additionalConcParameters: Property[] = null): ConcreteStraightBeam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.ConcreteStraightBeam.ByStartPointEndPoint@string,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
+      "Id": "ba3cf1c62af34a0ca7395d64968fd16a",
+      "Inputs": [
+        {
+          "Id": "1d0972a8f5804a59abc031b0efa7dd89",
+          "Name": "concName",
+          "Description": "Concrete Profile Name\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "50cd0be56cf9468c8c2662065000803f",
+          "Name": "start",
+          "Description": "Input Start point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ff3d926be36f4bfc9ba49719e77bb53b",
+          "Name": "end",
+          "Description": "Input End point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "230b3b022c614c20a09411e3c3ca78d2",
+          "Name": "orientation",
+          "Description": "Section orientation\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9a81c5efd6fb4197811914e46b03b596",
+          "Name": "additionalConcParameters",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9d72cb1443cc4ef58304a28edb983488",
+          "Name": "ConcreteStraightBeam",
+          "Description": "ConcreteStraightBeam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Concrete Straight Beam/Column between two points\n\nConcreteStraightBeam.ByStartPointEndPoint (concName: string, start: Point, end: Point, orientation: Vector, additionalConcParameters: Property[] = null): ConcreteStraightBeam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.ConcreteBentBeam.ByStartPointEndPointOnArc@string,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
+      "Id": "56e354100c0c44edaea41fe1c41d6aba",
+      "Inputs": [
+        {
+          "Id": "2ec64b98756d4a7ba9385112852e027e",
+          "Name": "concName",
+          "Description": "Concrete Profile Name\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d5b4bb9aef0d475e889f43fd9f38d266",
+          "Name": "start",
+          "Description": "Start point\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5755f3ccea894b568891b9c16d2a6b93",
+          "Name": "end",
+          "Description": "End point\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "38c8912b0a564945a1ac219ef8d6917b",
+          "Name": "ptOnArc",
+          "Description": "Point on arc\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "daffe19dfc1c4baa96691a70a1e8dce4",
+          "Name": "orientation",
+          "Description": "Section orientation\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "750502ab312944b790073879c3caa9c8",
+          "Name": "additionalConcParameters",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "88f76a80ebed4e10b6a8a97aa97a2195",
+          "Name": "ConcreteBentBeam",
+          "Description": "ConcreteBentBeam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Concrete Bent Beam between two points and a point on an arc\n\nConcreteBentBeam.ByStartPointEndPointOnArc (concName: string, start: Point, end: Point, ptOnArc: Point, orientation: Vector, additionalConcParameters: Property[] = null): ConcreteBentBeam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.ConcreteBentBeam.ByArc@string,Autodesk.DesignScript.Geometry.Arc,AdvanceSteel.Nodes.Property[]",
+      "Id": "ca47a16d88714be1b539509ef88c763e",
+      "Inputs": [
+        {
+          "Id": "482e30c977fa4253984945f48a2bc9db",
+          "Name": "concName",
+          "Description": "Concrete Profile Name\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0c65a891bafb42a69638d9deffe7e530",
+          "Name": "arc",
+          "Description": "Dynamo Arc to define beam\n\nArc",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b288c4bb668a4c398b6e13cad65f4bf1",
+          "Name": "additionalConcParameters",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4df2944a6f8a4a3fadec6a7f09c9fb72",
+          "Name": "ConcreteBentBeam",
+          "Description": "ConcreteBentBeam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Concrete Bent Beam from a Dynamo Arc\n\nConcreteBentBeam.ByArc (concName: string, arc: Arc, additionalConcParameters: Property[] = null): ConcreteBentBeam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.ConcreteBentBeam.ByArc@string,Autodesk.DesignScript.Geometry.Arc,AdvanceSteel.Nodes.Property[]",
+      "Id": "447d9720ddc947feb4ca025429c577c2",
+      "Inputs": [
+        {
+          "Id": "03b25805df624b0c87b1cd31f2adcad9",
+          "Name": "concName",
+          "Description": "Concrete Profile Name\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d27d511d06414ddc8a9f685cebd32d1a",
+          "Name": "arc",
+          "Description": "Dynamo Arc to define beam\n\nArc",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8d7b80230f554677a982d4731091265c",
+          "Name": "additionalConcParameters",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a02d5d362acc42dbb2524db7ba25fcce",
+          "Name": "ConcreteBentBeam",
+          "Description": "ConcreteBentBeam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Concrete Bent Beam from a Dynamo Arc\n\nConcreteBentBeam.ByArc (concName: string, arc: Arc, additionalConcParameters: Property[] = null): ConcreteBentBeam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Concrete.ConcreteStraightBeam.ByLine@string,Autodesk.DesignScript.Geometry.Line,Autodesk.DesignScript.Geometry.Vector,AdvanceSteel.Nodes.Property[]",
+      "Id": "b91494af14a749f6b4747861c4a2e001",
+      "Inputs": [
+        {
+          "Id": "8449c19384f84b89b701763fd0a9feb8",
+          "Name": "concName",
+          "Description": "Concrete Profile Name\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a719a6b9c1304f2fae9c729892c94675",
+          "Name": "line",
+          "Description": "Input Dynamo Line\n\nLine",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "23128c256c5a4ef294e87b228651e02b",
+          "Name": "orientation",
+          "Description": "Section orientation\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2377ede038c9486ba520867e950057b7",
+          "Name": "additionalConcParameters",
+          "Description": "Optional Input Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "44c34a347d8141b5a3ae5ee09f36c75c",
+          "Name": "ConcreteStraightBeam",
+          "Description": "ConcreteStraightBeam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Concrete Beam/Column by Dynamo Line Geometry\n\nConcreteStraightBeam.ByLine (concName: string, line: Line, orientation: Vector, additionalConcParameters: Property[] = null): ConcreteStraightBeam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "b04b9d673e7a4a59b7c8f36b3e1a17a5",
+      "Inputs": [
+        {
+          "Id": "93f0cceeff7f40a6aaca4e904b587c95",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5ff1a675487143e9be908b206df95ade",
+          "Name": "value",
+          "Description": "native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "765a83f9dc73468d934a236fde94a98c",
+          "Name": "Property",
+          "Description": "Property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "bfbcbf0ad8154cdfb668e20d5c16f3e2",
+      "Inputs": [
+        {
+          "Id": "61c92ea5755b44a7ad10d6749d75eaa0",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "acd00dc5adc64378a7dfd3167a38def5",
+          "Name": "value",
+          "Description": "native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "cc21d59960dd44c5b0f05f38bed645fc",
+          "Name": "Property",
+          "Description": "Property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesConcStraightBeam, AdvanceSteelNodesUI",
+      "SelectedIndex": 5,
+      "SelectedString": "CenterPoint",
+      "NodeType": "ExtensionNode",
+      "Id": "009f97d1547242888f566c0d935052d8",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "699818591484469fae9398448cdd5098",
+          "Name": "propertyName",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Concrete Straight Beam"
     }
   ],
   "Connectors": [
@@ -2838,48 +2877,48 @@
     },
     {
       "Start": "0b815b410e30407e8fbe81fee293dc0d",
-      "End": "dd624bb6fba0426f8e0b3285a13f3e76",
-      "Id": "1ae27128defc41d08c5aa432a36a4a0f"
+      "End": "1d0972a8f5804a59abc031b0efa7dd89",
+      "Id": "45e3e25358304b29b43b34e8748ad9c3"
     },
     {
       "Start": "0e168df355214fbbb7228558688520fa",
-      "End": "801c99a23d454c39b7248fe64d2b1100",
-      "Id": "44279d85476146f385ee7bfa0cc3ab43"
+      "End": "50cd0be56cf9468c8c2662065000803f",
+      "Id": "a3e700bd9137494ebc220e2cbca87eed"
     },
     {
       "Start": "f7c01384c7dd47c0a9fae085f10c6a04",
-      "End": "ddc4dd25a7584899930c66ecfa85d46d",
-      "Id": "c1a686ed49fe44ab9e55d21d10ff6283"
+      "End": "ff3d926be36f4bfc9ba49719e77bb53b",
+      "Id": "ba217f7c9d6f4b57b00cd24c74dee64e"
     },
     {
       "Start": "0c02c993dfae4afa977a97fe30d3a604",
-      "End": "5d643a83b86a42cf8b7f14178ad485da",
-      "Id": "b2852ae37beb487faf58c3020afd8a6c"
+      "End": "230b3b022c614c20a09411e3c3ca78d2",
+      "Id": "2151a95ab2d24994ae4bbfe905c5a5c1"
     },
     {
       "Start": "e786186e28294111b1436f661492a80a",
-      "End": "2b77f39b8fb647da919f459eb03742cc",
-      "Id": "ad4cd2be4d7d4b7086ef8103343d5972"
+      "End": "17520e0b2c2c4089b613de451fb638ac",
+      "Id": "27ce07e00b694e039a35a68f95cee6f5"
     },
     {
       "Start": "c03fa31f28c54c598e554cb445cf4b41",
-      "End": "70857bef55164f898b414b5c38041f39",
-      "Id": "b563048137a7446bb5e6a7f0a3e3c194"
+      "End": "40df57f428594b6aa6d8830405d8a0d1",
+      "Id": "163a4ca71e10424fa09211f2ff2ad462"
     },
     {
       "Start": "4136960d7992421e93fb34dd7fbaa1f9",
-      "End": "2fc5b971621f4dae8945b6082a6b18b7",
-      "Id": "9bd7202bd0b24e05aa73bb370bb690cc"
+      "End": "a115118890d94bcb87748ba1c0fd13ae",
+      "Id": "8710a975eb62437cb14b70b6cfd96290"
     },
     {
       "Start": "a2f5da2c35934b63babbb9eb2540c98e",
-      "End": "f6edfc79b3494e6282b37bcbc033d12a",
-      "Id": "3663bb81719f42569c3e6dfddcc87267"
+      "End": "30ece83b7be04d3d982a8ff39035a590",
+      "Id": "c7671db02b7f4a00b6816aa24b753795"
     },
     {
       "Start": "8ea92df8314c49b8b5b61d5ab34e0355",
-      "End": "0bc4897b26b1413bae864c87f3911425",
-      "Id": "2ee11218b36d49eb9b94c26330855125"
+      "End": "4cc2e5f093684866bad47b84468051d0",
+      "Id": "eebb0512a3694edb909e53e7fabd508e"
     },
     {
       "Start": "3c0a7479509b43a59513a7fab18b4725",
@@ -3073,93 +3112,93 @@
     },
     {
       "Start": "34a11e94224f4bcd8287d43e2fd585b9",
-      "End": "57f724230f6743f1902beccfc3b27c99",
-      "Id": "b14978766c794e24a0dd2f218e898160"
+      "End": "d5b4bb9aef0d475e889f43fd9f38d266",
+      "Id": "173dd3bcc19f44008d6f965a57a615ef"
     },
     {
       "Start": "74dcffdbfe434f318a74da3fc8ad19ab",
-      "End": "27fc7118e1dc4510942b1a89bacc9303",
-      "Id": "2c03e23e3de44fae80671a9d2bd35ed6"
+      "End": "38c8912b0a564945a1ac219ef8d6917b",
+      "Id": "e43e8544e50e4b7aa1108bf84bc5b139"
     },
     {
       "Start": "6755c61123c844ac8589aae40ae49217",
-      "End": "dac4bcd208584af893ff9a59c7e0e1a9",
-      "Id": "3cd2e53f729a4f328b6150d50c18218b"
+      "End": "5755f3ccea894b568891b9c16d2a6b93",
+      "Id": "15384b802d1a4110ba20ba61cc5373cc"
     },
     {
       "Start": "9c81106e95df49fc8e9872d739b8d100",
-      "End": "99c117fb9f9041489681cc5fa3c49b69",
-      "Id": "65e8341e46a046879eaa2b4d97ad2346"
+      "End": "daffe19dfc1c4baa96691a70a1e8dce4",
+      "Id": "2edbd512e98a447aa679225edf072c7e"
     },
     {
       "Start": "aa19544cadd748a4b7b44384076786a4",
-      "End": "7e25168c63c241f881f9d180f9569970",
-      "Id": "734406d056b745d492b019aefe5bf6da"
+      "End": "2ec64b98756d4a7ba9385112852e027e",
+      "Id": "074f73ba54a548de8a0da4c60301f61b"
     },
     {
       "Start": "5db6090ad95a4c3aab0d1d7613f72f21",
-      "End": "7e8ecd33949f4a768f365b10dcce478a",
-      "Id": "1ef09b77441d463caa4b81803b00e403"
+      "End": "0c65a891bafb42a69638d9deffe7e530",
+      "Id": "4c1b7eab957a47bd8e3adbd715a0acd7"
     },
     {
-      "Start": "4bdbf6b5b26f4225bee1784682b756ab",
+      "Start": "35fe0842cd444f76ba765776bb8566c2",
       "End": "993b29090784492f91bf75fd398d9fe5",
       "Id": "cef9e70ee5c442e1a7865e3885e070ed"
     },
     {
-      "Start": "eb955a0596254e5489b3cf53602cadbc",
+      "Start": "d61eb785c1c54a0593f3b1ba10ef4224",
       "End": "e1f56f5ce65b41c8b228536a1e648433",
       "Id": "929a1ca58aa048bca04c3ae62f179665"
     },
     {
-      "Start": "b0b4b1e075b64240b0c3da247d9f42dc",
+      "Start": "d44f94c65002482bb8d400eb9be76a6f",
       "End": "a9e2845d69e947599587e0fea57e1745",
       "Id": "fdfcd87152454b4fb3651fd1e6554456"
     },
     {
-      "Start": "8628c79e6bcf4aa1b9d7a3072517a0d9",
-      "End": "8baf1ff69b224f3fb83e4fd9f729737d",
-      "Id": "8f0f680fed884135b4f8e5be902f1dab"
+      "Start": "7faf370ee5f3414390a0344eda589812",
+      "End": "03b25805df624b0c87b1cd31f2adcad9",
+      "Id": "daaa2eff180e4e2a8df208c7aa5a52c1"
     },
     {
-      "Start": "8628c79e6bcf4aa1b9d7a3072517a0d9",
-      "End": "c60da7d0869d48728f84735090d7d963",
-      "Id": "1c64883b2a044fccbfed336cc6f60085"
+      "Start": "7faf370ee5f3414390a0344eda589812",
+      "End": "482e30c977fa4253984945f48a2bc9db",
+      "Id": "fb28056b4e284a9a9b9514d2dff4e440"
     },
     {
       "Start": "716eea5310264477ba7b86630a450873",
-      "End": "3856513e3c6b4892aa06424dd4d614ab",
-      "Id": "7cd7e70b41134ca8a1712038f65653d6"
+      "End": "d27d511d06414ddc8a9f685cebd32d1a",
+      "Id": "e0c586ece79744adacb4f47eedbdadc6"
     },
     {
-      "Start": "27e7c00206934ad4a7207ebeae8bced7",
+      "Start": "4d0d6d1a9c564d54a4bff065ddd63744",
       "End": "e7346c34e81548bb8d5d9701a0c6bc5c",
       "Id": "41604a68e4434080b76f5ea6df9d9d43"
     },
     {
-      "Start": "398e638c184e468490c468d137dbf61a",
+      "Start": "8c626d6746334a86b02d9f5ac4ff807f",
       "End": "ac02ea46aa044a8c90ba1fe80f5b110a",
       "Id": "bbae76d3450a45f3ad9d26966e57570b"
     },
     {
-      "Start": "7eddd9f7521f4efda7e44459a6e90f60",
+      "Start": "5355d8b6c30b4185bdad4b2e2828b597",
       "End": "b7b4b063423f4a5cbb4a22949668f84f",
       "Id": "66b733eb90d448c29a6e3abc90afb32f"
     },
     {
-      "Start": "fb679cebb67f477d8d3dc78051f51721",
+      "Start": "2540ecf90601493eba3023e5f9e9b313",
       "End": "e8df85f4a90e4184adc149d41273bae0",
       "Id": "91d46b7bf29044629c8addafd0382d5a"
     },
     {
-      "Start": "7be3d94e0e7749948d755f661066a843",
+      "Start": "b1e4dbdee1fc4f8ab75f8a0907cfe312",
       "End": "2b0a3be196eb497da0743d9f2cc15f54",
       "Id": "b987f3a7ab2c42fdbdd19d3efb4ec1ed"
     },
     {
       "Start": "06f99d90154e4db88db55a09e8e983f5",
-      "End": "563b4a3e110b4ac3b62803a46a9b33bf",
-      "Id": "c922f3d835054b7baed890eaa7aa3c00"
+      "End": "8449c19384f84b89b701763fd0a9feb8",
+      "Id": "724ee7d6b8f249a29eeca805d1c0d47b"
     },
     {
       "Start": "877f97961f9b4826b315ad81cc418959",
@@ -3173,33 +3212,38 @@
     },
     {
       "Start": "06f6412b4c414452b2f73b2f1948abfd",
-      "End": "842a58cb95f542b5aaa23c191e4b8b94",
-      "Id": "3de39fcffe19478ba521c10749905652"
+      "End": "23128c256c5a4ef294e87b228651e02b",
+      "Id": "255a4601a2a44cdc8712d7cec9e3508f"
     },
     {
       "Start": "1da7614a158e457686a3e3475a773546",
-      "End": "ca25d6ae76b540c8880efc9ddfc1e53b",
-      "Id": "ad48a3fbb22a40b8a573ea0ea893e6a0"
-    },
-    {
-      "Start": "49a36a7b08554caa9f6e0cf10c517306",
-      "End": "390f63d116714ef6895480f24e9a84ed",
-      "Id": "767a16613e044d35bea003a4f167cd4c"
-    },
-    {
-      "Start": "f9dafa7bb8e04d1183d22bc8b63476c9",
-      "End": "7c84a3c49f604da5851fcf2eb70b8f1f",
-      "Id": "b8871181a23d497fbda253fc954695a3"
+      "End": "a719a6b9c1304f2fae9c729892c94675",
+      "Id": "df5603bb68244bf890cf9595042fca1d"
     },
     {
       "Start": "99daf16ec63546feb3ed6490b5195aab",
-      "End": "8ca3fea7a2eb4933984f6cc9ef000782",
-      "Id": "b7d1b20fc4e94d2bb5a5f61c67f76c24"
+      "End": "5ff1a675487143e9be908b206df95ade",
+      "Id": "b4f03f3116874c42993f133bab04f734"
+    },
+    {
+      "Start": "99daf16ec63546feb3ed6490b5195aab",
+      "End": "acd00dc5adc64378a7dfd3167a38def5",
+      "Id": "438cd457c8a7494598724e206ff3a232"
     },
     {
       "Start": "db4636ebe82b42a98308716e75e4c3c8",
-      "End": "79052afc8a8b4a909a2f5a78eaf62bd3",
-      "Id": "7225f4c20abf4075b91c448ade82c2a3"
+      "End": "9a81c5efd6fb4197811914e46b03b596",
+      "Id": "730debb3ebe4444283f362dac631e53b"
+    },
+    {
+      "Start": "765a83f9dc73468d934a236fde94a98c",
+      "End": "7c84a3c49f604da5851fcf2eb70b8f1f",
+      "Id": "bae8efc1b2e24bf8a7c9e0062844a0da"
+    },
+    {
+      "Start": "699818591484469fae9398448cdd5098",
+      "End": "61c92ea5755b44a7ad10d6749d75eaa0",
+      "Id": "1e81ca70b8cc4ffab0ee6ae09a83eef3"
     }
   ],
   "Dependencies": [],
@@ -3208,49 +3252,43 @@
     {
       "NodeId": "6c45974d-a36e-4e6f-b7ad-4f9b61d243c5",
       "Binding": {
-        "ByRadiusOnCS_InClassDecl-1_InFunctionScope-1_Instance0_6c45974d-a36e-4e6f-b7ad-4f9b61d243c5": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJPVFV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJME56d3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+        "ByRadiusOnCS_InClassDecl-1_InFunctionScope-1_Instance0_6c45974d-a36e-4e6f-b7ad-4f9b61d243c5": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVNell5SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJME5Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
       }
     },
     {
       "NodeId": "48777331-a438-48d2-835e-5b3f1dc84cea",
       "Binding": {
-        "ByLengthWidthOnCS_InClassDecl-1_InFunctionScope-1_Instance0_48777331-a438-48d2-835e-5b3f1dc84cea": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJPVFV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJME5Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+        "ByLengthWidthOnCS_InClassDecl-1_InFunctionScope-1_Instance0_48777331-a438-48d2-835e-5b3f1dc84cea": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVNell5SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJME16d3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
       }
     },
     {
-      "NodeId": "b69fd4cd-0349-4824-8102-b03aa509f4b1",
+      "NodeId": "89c74b9d-f743-462f-bc69-30292cca0b76",
       "Binding": {
-        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_b69fd4cd-0349-4824-8102-b03aa509f4b1": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJPVFV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJME16d3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+        "ByStartPointDirectionLength_InClassDecl-1_InFunctionScope-1_Instance0_89c74b9d-f743-462f-bc69-30292cca0b76": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVNell5SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJME1Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
       }
     },
     {
-      "NodeId": "0f701edf-4e2e-44e2-811b-6a886810bbba",
+      "NodeId": "56e35410-0c0c-44ed-aea4-1fe1c41d6aba",
       "Binding": {
-        "ByStartPointDirectionLength_InClassDecl-1_InFunctionScope-1_Instance0_0f701edf-4e2e-44e2-811b-6a886810bbba": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJPVFV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJME1Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+        "ByStartPointEndPointOnArc_InClassDecl-1_InFunctionScope-1_Instance0_56e35410-0c0c-44ed-aea4-1fe1c41d6aba": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVNell5SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelJqd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
       }
     },
     {
-      "NodeId": "98dada87-bc2d-4762-90c1-018df68a41cd",
+      "NodeId": "ca47a16d-8871-4be1-b539-509ef88c763e",
       "Binding": {
-        "ByStartPointEndPointOnArc_InClassDecl-1_InFunctionScope-1_Instance0_98dada87-bc2d-4762-90c1-018df68a41cd": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJPVFV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelJqd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+        "ByArc_InClassDecl-1_InFunctionScope-1_Instance0_ca47a16d-8871-4be1-b539-509ef88c763e": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVNell5SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelJEd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
       }
     },
     {
-      "NodeId": "cf080a80-3c7e-47cf-bfe7-c2513afd41b9",
+      "NodeId": "447d9720-ddc9-47fe-b4ca-025429c577c2",
       "Binding": {
-        "ByArc_InClassDecl-1_InFunctionScope-1_Instance0_cf080a80-3c7e-47cf-bfe7-c2513afd41b9": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJPVFV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelJEd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+        "ByArc_InClassDecl-1_InFunctionScope-1_Instance0_447d9720-ddc9-47fe-b4ca-025429c577c2": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVNell5SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelFqd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
       }
     },
     {
-      "NodeId": "ede85a85-8d74-404c-9bef-635c253c1c0f",
+      "NodeId": "b91494af-14a7-49f6-b474-7861c4a2e001",
       "Binding": {
-        "ByArc_InClassDecl-1_InFunctionScope-1_Instance0_ede85a85-8d74-404c-9bef-635c253c1c0f": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJPVFV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelFqd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    },
-    {
-      "NodeId": "3c8081e2-1f02-4b9f-8019-b3eceb82a4bf",
-      "Binding": {
-        "ByLine_InClassDecl-1_InFunctionScope-1_Instance0_3c8081e2-1f02-4b9f-8019-b3eceb82a4bf": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDJPVFV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJek9Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+        "ByLine_InClassDecl-1_InFunctionScope-1_Instance0_b91494af-14a7-49f6-b474-7861c4a2e001": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVNell5SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJek9Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
       }
     }
   ],
@@ -3483,7 +3521,7 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -1890.4010109622516,
+        "X": -1889.386197989307,
         "Y": 1944.0041812267921
       },
       {
@@ -3493,18 +3531,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -2092.5378133658687,
+        "X": -2091.5230003929241,
         "Y": 2057.2120690234478
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "ConcStraightBeam.ByStartPointEndPoint",
-        "Id": "b69fd4cd034948248102b03aa509f4b1",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -1407.9467481660529,
-        "Y": 1959.9931445732511
       },
       {
         "ShowGeometry": true,
@@ -3525,16 +3553,6 @@
         "Excluded": false,
         "X": -2103.9635377378745,
         "Y": 2824.6596467024247
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "ConcStraightBeam.ByStartPointDirectionLength",
-        "Id": "0f701edf4e2e44e2811b6a886810bbba",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -1591.0512319928534,
-        "Y": 2663.9343441246237
       },
       {
         "ShowGeometry": true,
@@ -3808,16 +3826,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "ConcBentBeam.ByStartPointEndPointOnArc",
-        "Id": "98dada87bc2d476290c1018df68a41cd",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -1948.426865714523,
-        "Y": -2252.6291593543006
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Code Block",
         "Id": "c1b65306df8f4532bb5611eac5231373",
         "IsSetAsInput": false,
@@ -3833,18 +3841,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -2130.4237588363931,
-        "Y": -2651.1558926427815
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "ConcBentBeam.ByArc",
-        "Id": "cf080a803c7e47cfbfe7c2513afd41b9",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -1839.3282355037329,
-        "Y": -2744.6624865446115
+        "X": -2279.039821020232,
+        "Y": -2634.3807577000766
       },
       {
         "ShowGeometry": true,
@@ -3853,8 +3851,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -2515.590266418239,
-        "Y": -2658.4494523416979
+        "X": -2664.2063286020821,
+        "Y": -2641.6743173989967
       },
       {
         "ShowGeometry": true,
@@ -3863,8 +3861,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -2389.0055073432854,
-        "Y": -3122.8829410952981
+        "X": -2537.6215695271321,
+        "Y": -3106.1078061525964
       },
       {
         "ShowGeometry": true,
@@ -3873,18 +3871,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -2392.0600380665114,
-        "Y": -2967.9987093655936
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "ConcBentBeam.ByArc",
-        "Id": "ede85a858d74404c9bef635c253c1c0f",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -1852.520257410295,
-        "Y": -2898.8107362478268
+        "X": -2540.6761002503526,
+        "Y": -2951.2235744228865
       },
       {
         "ShowGeometry": true,
@@ -3893,8 +3881,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -2837.8232279253193,
-        "Y": -3022.2250444185665
+        "X": -2986.4392901091624,
+        "Y": -3005.4499094758667
       },
       {
         "ShowGeometry": true,
@@ -3903,18 +3891,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -2741.4464935898609,
-        "Y": -2896.278603364638
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "ConcStraightBeam.ByLine",
-        "Id": "3c8081e21f024b9f8019b3eceb82a4bf",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -2073.8627442733673,
-        "Y": -3562.6346614703457
+        "X": -2890.0625557737021,
+        "Y": -2879.5034684219363
       },
       {
         "ShowGeometry": true,
@@ -3948,32 +3926,12 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "Concrete Straight Beam Properties",
-        "Id": "3fa78f4e27124bf7ac9a3a238f3f27f6",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -2675.8703458207892,
-        "Y": 2232.2866231454473
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Property.ByNameAndValue",
-        "Id": "056186b40c614ddb9a2dced5bde7726e",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -2020.6211493640487,
-        "Y": 2271.301465015802
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Code Block",
         "Id": "df54c03d388d4763839249022b9c8a5f",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -2289.6239126975106,
+        "X": -2288.609099724566,
         "Y": 2344.9670364433146
       },
       {
@@ -3983,8 +3941,98 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -1693.5400045077463,
-        "Y": 2263.5141861348743
+        "X": -1561.4559399877298,
+        "Y": 2246.0382859285978
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "ConcreteStraightBeam.ByStartPointDirectionLength",
+        "Id": "89c74b9df743462fbc6930292cca0b76",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -1555.8456419321478,
+        "Y": 2767.5674654328122
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "ConcreteStraightBeam.ByStartPointEndPoint",
+        "Id": "ba3cf1c62af34a0ca7395d64968fd16a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -1391.7738609436774,
+        "Y": 2012.2267737038203
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "ConcreteBentBeam.ByStartPointEndPointOnArc",
+        "Id": "56e354100c0c44edaea41fe1c41d6aba",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -1910.4776228355067,
+        "Y": -2213.429884223719
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "ConcreteBentBeam.ByArc",
+        "Id": "ca47a16d88714be1b539509ef88c763e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -1977.8360471083122,
+        "Y": -2635.6373050913166
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "ConcreteBentBeam.ByArc",
+        "Id": "447d9720ddc947feb4ca025429c577c2",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -2000.503473977712,
+        "Y": -3027.0863306436663
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "ConcreteStraightBeam.ByLine",
+        "Id": "b91494af14a749f6b4747861c4a2e001",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -2047.6306632891608,
+        "Y": -3704.9054858787263
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "b04b9d673e7a4a59b7c8f36b3e1a17a5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -1913.3335195361503,
+        "Y": 2387.4651628722345
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "bfbcbf0ad8154cdfb668e20d5c16f3e2",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -1900.0157535148526,
+        "Y": 2242.3766624657942
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Concrete Straight Beam Properties",
+        "Id": "009f97d1547242888f566c0d935052d8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -2262.6366482598251,
+        "Y": 2197.0070913472587
       }
     ],
     "Annotations": [
@@ -4044,19 +4092,20 @@
         "Nodes": [
           "633ecd1787724170a5dee424f39eadf1",
           "5ee0b8006a4c458bbb9e808cb68c2595",
-          "b69fd4cd034948248102b03aa509f4b1",
           "bb79027ef0e9491cbc383da7d267a5ba",
-          "056186b40c614ddb9a2dced5bde7726e",
           "df54c03d388d4763839249022b9c8a5f",
-          "3fa78f4e27124bf7ac9a3a238f3f27f6"
+          "ba3cf1c62af34a0ca7395d64968fd16a",
+          "b04b9d673e7a4a59b7c8f36b3e1a17a5",
+          "bfbcbf0ad8154cdfb668e20d5c16f3e2",
+          "009f97d1547242888f566c0d935052d8"
         ],
-        "Left": -2685.8703458207892,
+        "Left": -2298.609099724566,
         "Top": 1891.0041812267921,
-        "Width": 1680.9235976547363,
-        "Height": 546.96285521652248,
+        "Width": 1333.8352387808886,
+        "Height": 615.46098164544242,
         "FontSize": 36.0,
         "InitialTop": 1944.0041812267921,
-        "InitialHeight": 258.20788779665577,
+        "InitialHeight": 599.69548892090575,
         "TextblockHeight": 43.0,
         "Background": "#FFFFAA45"
       },
@@ -4066,15 +4115,15 @@
         "Nodes": [
           "e8f30d2617b2434c9c5ef754159048e6",
           "a4dff0fa875e4ea193d3909eac3a3e86",
-          "0f701edf4e2e44e2811b6a886810bbba"
+          "89c74b9df743462fbc6930292cca0b76"
         ],
         "Left": -2113.9635377378745,
-        "Top": 2610.9343441246237,
-        "Width": 925.91230574502106,
-        "Height": 352.7253025778009,
+        "Top": 2683.899117728206,
+        "Width": 985.11789580572668,
+        "Height": 306.66834770460628,
         "FontSize": 36.0,
-        "InitialTop": 2663.9343441246237,
-        "InitialHeight": 305.7253025778009,
+        "InitialTop": 2736.899117728206,
+        "InitialHeight": 232.76052897421869,
         "TextblockHeight": 43.0,
         "Background": "#FFFFAA45"
       },
@@ -4154,12 +4203,12 @@
         "Title": "Arc Bent Beam - Start, End and Point on Curve",
         "Nodes": [
           "999aa1c8cd604dc5a48dc000f9e5e498",
-          "98dada87bc2d476290c1018df68a41cd",
-          "c1b65306df8f4532bb5611eac5231373"
+          "c1b65306df8f4532bb5611eac5231373",
+          "56e354100c0c44edaea41fe1c41d6aba"
         ],
         "Left": -2398.1457545948215,
         "Top": -2307.1799075624563,
-        "Width": 833.71888888029844,
+        "Width": 895.66813175931475,
         "Height": 329.5636064309565,
         "FontSize": 36.0,
         "InitialTop": -2254.1799075624563,
@@ -4172,21 +4221,21 @@
         "Title": "Arc Concrete Beams by Dynamo Geometry",
         "Nodes": [
           "8926c85a31424ae2ae2e3843cfc8d1b9",
-          "cf080a803c7e47cfbfe7c2513afd41b9",
           "c17b47c665524526bdb10f61165154b9",
           "e7b0b8393b2b4f2e8381c92a41f07979",
           "2840cfeb5d20479e9fde117e9022ede1",
-          "ede85a858d74404c9bef635c253c1c0f",
           "b70aa53461e147d2bb5bc69888031dff",
-          "3ff6350ea8b840ee8bbaeb871102447f"
+          "3ff6350ea8b840ee8bbaeb871102447f",
+          "ca47a16d88714be1b539509ef88c763e",
+          "447d9720ddc947feb4ca025429c577c2"
         ],
-        "Left": -2847.8232279253193,
-        "Top": -3175.8829410952981,
-        "Width": 1392.4949924215864,
-        "Height": 669.72704845251656,
+        "Left": -2996.4392901091624,
+        "Top": -3159.1078061525964,
+        "Width": 1426.6032430008502,
+        "Height": 669.72704845251974,
         "FontSize": 36.0,
-        "InitialTop": -3122.8829410952981,
-        "InitialHeight": 616.72704845251656,
+        "InitialTop": -3106.1078061525964,
+        "InitialHeight": 616.72704845251974,
         "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
       },
@@ -4194,24 +4243,324 @@
         "Id": "d237ba040d4a474fbe15fa5cb211ec0d",
         "Title": "Straight Concrete Beam By Dynamo Line",
         "Nodes": [
-          "3c8081e21f024b9f8019b3eceb82a4bf",
           "f40d2d6b1e3c4ed2ac7256195be23a2d",
           "27c755cc55c748279011acaa07961699",
-          "a41f325a359a4d37b2c0c58f4abe1c79"
+          "a41f325a359a4d37b2c0c58f4abe1c79",
+          "b91494af14a749f6b4747861c4a2e001"
         ],
         "Left": -2839.5872958877926,
-        "Top": -3716.8788716063641,
-        "Width": 1168.7245516144253,
-        "Height": 382.70113573731169,
+        "Top": -3757.9054858787263,
+        "Width": 1218.9566325986318,
+        "Height": 423.72775000967385,
         "FontSize": 36.0,
-        "InitialTop": -3663.8788716063641,
-        "InitialHeight": 353.70113573731169,
+        "InitialTop": -3704.9054858787263,
+        "InitialHeight": 394.72775000967385,
         "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "06f70e9d9e134bbb9297dfc5ba928ab1",
+        "Title": "GET",
+        "Nodes": [
+          "eae2e4bed4774d558f8c696595ff0e25"
+        ],
+        "Left": -3664.2698624414893,
+        "Top": -733.16150267949843,
+        "Width": 243.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -680.16150267949843,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFBB87C6"
+      },
+      {
+        "Id": "e1e038af352d417a9f5b57a26cab5c27",
+        "Title": "DATA IN",
+        "Nodes": [
+          "f8b044e5e01745a4ad7f78e9ecf55b9e"
+        ],
+        "Left": -3663.8132558770608,
+        "Top": -631.65269210477823,
+        "Width": 244.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -578.65269210477823,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "24f46a8357d449789e926efa9239e668",
+        "Title": "PROCESS",
+        "Nodes": [
+          "58d349090a3f4b7a90a5cb5180922ffc"
+        ],
+        "Left": -3663.2955608156367,
+        "Top": -531.19580591047111,
+        "Width": 243.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -478.19580591047111,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFAA45"
+      },
+      {
+        "Id": "f44d4dfce5204ad8a9753ae3a41cb0c2",
+        "Title": "DATA OUT",
+        "Nodes": [
+          "be6b7f5069214c12930fe919830c48e5"
+        ],
+        "Left": -3415.653878760711,
+        "Top": -631.73072172234106,
+        "Width": 235.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -578.73072172234106,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "a642a4669a2443b98e05cb7bf716823c",
+        "Title": "CREATE",
+        "Nodes": [
+          "05bbe39218ba472b81596acd49d1ca5f"
+        ],
+        "Left": -3416.2670174841992,
+        "Top": -733.50591311535777,
+        "Width": 236.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -680.50591311535777,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "6c6cdc37667e42dc861ae6f9a7bd212e",
+        "Title": "SET",
+        "Nodes": [
+          "8f46c50794fd4f0ebcfd59017f91dc31"
+        ],
+        "Left": -3412.8293509468826,
+        "Top": -531.52285142547782,
+        "Width": 234.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -478.52285142547782,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "74d6ff9dab8d4c4594262c3f0ffc3307",
+        "Title": "TEMP",
+        "Nodes": [
+          "bc6cc69aa1bc46efa670d2ea17ae0da5"
+        ],
+        "Left": -3414.666315263798,
+        "Top": -429.23549295249632,
+        "Width": 232.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -376.23549295249632,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFD8D8D8"
+      },
+      {
+        "Id": "0abd8b4fedd04bd48d6d83e419ad546b",
+        "Title": "GEOM",
+        "Nodes": [
+          "9fd188f256394ac3b91d36f55b1dcb87"
+        ],
+        "Left": -3664.1362164117695,
+        "Top": -429.26705713292972,
+        "Width": 244.0,
+        "Height": 97.0,
+        "FontSize": 36.0,
+        "InitialTop": -376.26705713292972,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFC999"
+      },
+      {
+        "Id": "739665db0ea54ed19c7d4317d4d8006a",
+        "Title": "GRAPH INFO",
+        "Nodes": [
+          "70d57ad6a885492d8c24d85cc15e2f76"
+        ],
+        "Left": -3174.8808944265106,
+        "Top": -734.57550218708593,
+        "Width": 319.0,
+        "Height": 400.0,
+        "FontSize": 36.0,
+        "InitialTop": -681.57550218708593,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "9fe0b3c56f8f4dcca1edd8775615507e",
+        "Title": "NOTES - D4C3D",
+        "Nodes": [
+          "aacb8d27440c4d1bb29bb159cc7fa044"
+        ],
+        "Left": -3997.5352147877243,
+        "Top": -732.48953616845756,
+        "Width": 326.0,
+        "Height": 414.0,
+        "FontSize": 36.0,
+        "InitialTop": -679.48953616845756,
+        "InitialHeight": 140.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF848484"
+      },
+      {
+        "Id": "eae2e4bed4774d558f8c696595ff0e25",
+        "Title": "Get information / data from Civil 3D    ",
+        "Nodes": [],
+        "Left": -3654.2698624414893,
+        "Top": -680.16150267949843,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "f8b044e5e01745a4ad7f78e9ecf55b9e",
+        "Title": "Import information / data from others ",
+        "Nodes": [],
+        "Left": -3653.8132558770608,
+        "Top": -578.65269210477823,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "58d349090a3f4b7a90a5cb5180922ffc",
+        "Title": "Dynamo data manipulation                  ",
+        "Nodes": [],
+        "Left": -3653.2955608156367,
+        "Top": -478.19580591047111,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "be6b7f5069214c12930fe919830c48e5",
+        "Title": "Export information / data to others   ",
+        "Nodes": [],
+        "Left": -3405.653878760711,
+        "Top": -578.73072172234106,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "05bbe39218ba472b81596acd49d1ca5f",
+        "Title": "Create object in Civil 3D                     ",
+        "Nodes": [],
+        "Left": -3406.2670174841992,
+        "Top": -680.50591311535777,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "8f46c50794fd4f0ebcfd59017f91dc31",
+        "Title": "Set or Override Parameter in Civil 3D",
+        "Nodes": [],
+        "Left": -3402.8293509468826,
+        "Top": -478.52285142547782,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "bc6cc69aa1bc46efa670d2ea17ae0da5",
+        "Title": "Work in progress / To delete             ",
+        "Nodes": [],
+        "Left": -3404.666315263798,
+        "Top": -376.23549295249632,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "9fd188f256394ac3b91d36f55b1dcb87",
+        "Title": "Dynamo geometry creation                  ",
+        "Nodes": [],
+        "Left": -3654.1362164117695,
+        "Top": -376.26705713292972,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "70d57ad6a885492d8c24d85cc15e2f76",
+        "Title": "________________________________________________________\r\n\r\nDynamo Core Ver: \t2.4.1.6394 \r\nDynamo Civil 3D Ver: \t2.4.1.2161\r\n________________________________________________________\r\n\r\nPackage Used: \t\tCivil 3D Toolkit\r\nCustom Nodes Used: \tNone\r\n________________________________________________________\r\n\r\nGraph Function:\r\n1. ???\r\n2. ???\r\n3. ???\r\n________________________________________________________\r\n\r\nCreated By: \t\tJowenn S. Lua\r\nDate Created: \t\tSeptember 2020\r\n\r\nUpdated By:\r\nDate Modified:\r\n ",
+        "Nodes": [],
+        "Left": -3164.8808944265106,
+        "Top": -681.57550218708593,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "aacb8d27440c4d1bb29bb159cc7fa044",
+        "Title": "DESIGN GRAPH STANDARDS\r\n                                                                                       \r\nAuthor:\t\tJowenn S. Lua\r\nDate Created:\t10 August 2019\r\nDate Updated:\t4 September 2020\r\nVersion:\t\t004\r\n________________________________________________________\r\n\r\nDESIGN GRAPH GUIDELINES\r\n\r\n1. Color code your blocks according to this guide.\r\n\r\n2. Add grouping with name and description.\r\n\r\n3. Add notes to explain each critical node process.\r\n\r\n4. Rename Input / Output / Code Blocks nodes and add suffix to data they carry.\r\n\r\n5. Align nodes to make it neat.\r\n\r\n6. Save the graph as Manual instead of Automatic.\r\n________________________________________________________",
+        "Nodes": [],
+        "Left": -3987.5352147877243,
+        "Top": -679.48953616845756,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
         "Background": "#FFC1D676"
       }
     ],
-    "X": 943.49155542962944,
-    "Y": -96.056535496559036,
-    "Zoom": 0.30003971295170734
+    "X": 639.645960961574,
+    "Y": 577.120225757297,
+    "Zoom": 0.087453267895170841
   }
 }

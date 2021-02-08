@@ -7,18 +7,18 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Plate Feature Properties")]
-  [NodeDescription("Lists all the property names of an Advance Steel Plate Feature")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties")]
+  [NodeName("Concrete Isolated Footing Properties")]
+  [NodeDescription("Lists all the property names of an Advance Steel Concrete Isolated Footing")]
+  [NodeCategory("AdvanceSteel.Nodes.Concrete.Footings")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("string")]
   [IsDesignScriptCompatible]
-  public class ASPropertiesPlateFeatures : AstDropDownBase
+  public class ASPropertiesIsolatedFooting : AstDropDownBase
   {
     private const string outputName = "propertyName";
 
-    public ASPropertiesPlateFeatures()
+    public ASPropertiesIsolatedFooting()
         : base(outputName)
     {
       InPorts.Clear();
@@ -27,7 +27,7 @@ namespace AdvanceSteel.Nodes
     }
 
     [JsonConstructor]
-    public ASPropertiesPlateFeatures(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    public ASPropertiesIsolatedFooting(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
     : base(outputName, inPorts, outPorts)
     {
     }
@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetPlateFeaturePropertyList())
+      foreach (var item in Utils.GetConcreteIsolatedFootingProperties())
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

@@ -9,7 +9,7 @@ namespace AdvanceSteel.Nodes
 {
   [NodeName("Beam Reference Axis")]
   [NodeDescription("Lists the Advance Steel Beam Reference Axis options - e.g. Top Left, Middle Middle, Countour Center")]
-  [NodeCategory("AdvanceSteel.Nodes.Properties.Properties-Type")]
+  [NodeCategory("AdvanceSteel.Nodes.Beams")]
   [OutPortNames("referenceAxis")]
   [OutPortTypes("int")]
   [OutPortDescriptions("integer")]

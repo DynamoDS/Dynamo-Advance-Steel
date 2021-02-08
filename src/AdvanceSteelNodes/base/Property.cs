@@ -22,7 +22,7 @@ namespace AdvanceSteel.Nodes
     private object _value;
     private bool _isReadOnly;
 
-    internal List<eObjectType> ElementTypeList { get; set; }
+    internal List<eObjectType> ElementTypeList { get; set; } = new List<eObjectType>() { };
     internal string Level { get; }
     internal Unit.eUnitType? UnitType { get; }
 
@@ -90,12 +90,12 @@ namespace AdvanceSteel.Nodes
     /// <summary>
     /// Create a Property object
     /// </summary>
-    /// <param name="name"> Name from property list node for a particular steel object type</param>
+    /// <param name="propertyName"> Name from property list node for a particular steel object type</param>
     /// <param name="value"> native data to store in the property object</param>
     /// <returns></returns>
-    public static Property ByNameAndValue(string name, object value)
+    public static Property ByNameAndValue(string propertyName, object value)
     {
-      Property selectedProperty = Utils.GetProperty(name);
+      Property selectedProperty = Utils.GetProperty(propertyName);
       if (selectedProperty != null)
       {
          selectedProperty.InternalValue = selectedProperty.ConvertValueFromDynToAS(value);
@@ -133,6 +133,7 @@ namespace AdvanceSteel.Nodes
       }
       return ret;
     }
+
     /// <summary>
     /// Set a property for a Steel Object
     /// </summary>
@@ -167,8 +168,8 @@ namespace AdvanceSteel.Nodes
       List<Property> ret = new List<Property>() { };
       using (var ctx = new SteelServices.DocContext())
       {
-        Dictionary<string, Property> allProperties = Utils.GetAllProperties();
         FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+        Dictionary<string, Property> allProperties = Utils.GetAllProperties(filerObj);
 
         foreach (KeyValuePair<string, Property> prop in allProperties)
         {
@@ -251,6 +252,7 @@ namespace AdvanceSteel.Nodes
         throw new System.Exception("Null object");
       }
     }
+
     internal object ConvertValueFromDynToAS(object val)
     {
       if (val == null)
@@ -277,6 +279,7 @@ namespace AdvanceSteel.Nodes
         return val;
       }
     }
+
     internal object ConvertValueFromASToDyn(object val)
     {
       if (val == null)
@@ -320,6 +323,7 @@ namespace AdvanceSteel.Nodes
 
       return false;
     }
+
     internal static bool IsDouble(object value)
     {
       if (value != null)

@@ -23,66 +23,6 @@
   "Outputs": [],
   "Nodes": [
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.NonSteelItems.Camera.ByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,AdvanceSteel.Nodes.ASProperty[]",
-      "Id": "c394c42cabc7412ab251ae032b43a481",
-      "Inputs": [
-        {
-          "Id": "13bb1ae9dde34bea8eac5a1ee3d6eb65",
-          "Name": "coordinateSystem",
-          "Description": "Input Dynamo Coordinate System\n\nCoordinateSystem",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "cf6e396383034ec1ad32d4eabcf58173",
-          "Name": "additionalCameraParameters",
-          "Description": "Optional Input Camera Build Properties\n\nASProperty[]\nDefault value : null",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "7ce850cfa6504d78a63287554653f266",
-          "Name": "Camera",
-          "Description": "Camera",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Create an Advance Steel Camera\n\nCamera.ByCS (coordinateSystem: CoordinateSystem, additionalCameraParameters: ASProperty[] = null): Camera"
-    },
-    {
-      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesCamera, AdvanceSteelNodesUI",
-      "SelectedIndex": 1,
-      "SelectedString": "Camera Description",
-      "NodeType": "ExtensionNode",
-      "Id": "e32bf08b63c54c6eb8f1c47b1c03d5ce",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "becd63f3c2bd465bb9070ef9946647ec",
-          "Name": "Writable Camera Property",
-          "Description": "string",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Select Advance Steel Camera Property Type to Set"
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
       "Code": "\"This is   Camera\";",
@@ -101,45 +41,6 @@
       ],
       "Replication": "Disabled",
       "Description": "Allows for DesignScript code to be authored directly"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Property.ByNameAndValue@string,var",
-      "Id": "5be59967febc416ab539e4b81e56528b",
-      "Inputs": [
-        {
-          "Id": "ca202de53e2b4776870b9dfa0c841ce0",
-          "Name": "propertyType",
-          "Description": "Input Property from Property Node for particular Object Type\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "0114e01738f242a68850306034dae3cd",
-          "Name": "propertyValue",
-          "Description": "Input Property value for Property Type\n\nvar",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "b474cc32a3d64fdea5feaf4f9bbfd0cb",
-          "Name": "ASProperty",
-          "Description": "ASProperty",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Build AS Property - Writeable or Readable\n\nProperty.ByNameAndValue (propertyType: string, propertyValue: var): ASProperty"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -190,198 +91,6 @@
       ],
       "Replication": "Disabled",
       "Description": "Makes a new list out of the given inputs"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Cameras.GetCameraClipping@AdvanceSteel.Nodes.SteelDbObject",
-      "Id": "17ca75f72a124119b55fdbc65c3037d3",
-      "Inputs": [
-        {
-          "Id": "fcc1ead99c5b4223be026b5cebdb1bea",
-          "Name": "steelObject",
-          "Description": "Selected Advance Steel Camera Object\n\nSteelDbObject",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "fc7058e129514e85a93e0c78abce13cd",
-          "Name": "Nearside_Clipping",
-          "Description": "var",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "57a82e4578e9416b80fb91b6d1e38e82",
-          "Name": "Farside_Clipping",
-          "Description": "var",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Get Camera Clipping Values\n\nCameras.GetCameraClipping (steelObject: SteelDbObject): var[]..[]"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Cameras.GetCameraExtents@AdvanceSteel.Nodes.SteelDbObject",
-      "Id": "c8083911b2bb4b1bbfb1ede2385c22ef",
-      "Inputs": [
-        {
-          "Id": "e7b6c65994fd4c8b86df9aa27ba6ef1a",
-          "Name": "steelObject",
-          "Description": "Selected Advance Steel Camera Object\n\nSteelDbObject",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "9fe7762332904c7d94790899b47059e4",
-          "Name": "X_Length",
-          "Description": "var",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "e12ccfb2f666497ab20a9c5f246f1bc6",
-          "Name": "Y_Length",
-          "Description": "var",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Get Camera Extents Values\n\nCameras.GetCameraExtents (steelObject: SteelDbObject): var[]..[]"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Cameras.SetXYExtents@AdvanceSteel.Nodes.SteelDbObject,int,double,double",
-      "Id": "e6204a597c774159b561de690a411d12",
-      "Inputs": [
-        {
-          "Id": "8bd5748af7f74eccacbe9b5a7f1d78d7",
-          "Name": "steelObject",
-          "Description": "Selected Advance Steel Camera Object\n\nSteelDbObject",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "3a2761536006466fa4cbe9372390f0f2",
-          "Name": "cameraExtents",
-          "Description": "Set Camera Extents 0 - Automatic, 3 - Fixed Size\n\nint\nDefault value : 0",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "0d140138cc254d02b05d291364d037e5",
-          "Name": "xCameraSize",
-          "Description": "Set Camera Extents in X Direction\n\ndouble\nDefault value : 0",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "58b5c3957b0f4583ab5c9d56f1b477a4",
-          "Name": "yCameraSize",
-          "Description": "Set Camera Extents in Y Direction\n\ndouble\nDefault value : 0",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "186be81bebea47ff8143b90aa87b8b5a",
-          "Name": "void",
-          "Description": "void",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Set Advance Steel Camera Extents / Size\n\nCameras.SetXYExtents (steelObject: SteelDbObject, cameraExtents: int = 0, xCameraSize: double = 0, yCameraSize: double = 0): void"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Cameras.SetZClipping@AdvanceSteel.Nodes.SteelDbObject,int,double,double",
-      "Id": "ae11a17157b3480b9afd528fb9dec4c3",
-      "Inputs": [
-        {
-          "Id": "a94ec86129e0435cb7de7a0066101e70",
-          "Name": "steelObject",
-          "Description": "Selected Advance Steel Camera Object\n\nSteelDbObject",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "ed41c6b922a94874aee83c020b0cafeb",
-          "Name": "clippingSide",
-          "Description": "Set Clipping Side of Camera 0 - None, 1 = Upper, 2 - Lower, 3 - Both\n\nint\nDefault value : 3",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "60c3779facb440ee934a9e5fcba97f90",
-          "Name": "upperClippingValue",
-          "Description": "Set Upper Clipping Value\n\ndouble\nDefault value : 0",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "c6913ceecf60495e886af7a0a3be6ceb",
-          "Name": "lowerClippingValue",
-          "Description": "Set Lower Clipping Value\n\ndouble\nDefault value : 0",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "c47f0510bf8e42c1b598bd13f2eb028e",
-          "Name": "void",
-          "Description": "void",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Set Advance Steel Camera Clipping Values\n\nCameras.SetZClipping (steelObject: SteelDbObject, clippingSide: int = 3, upperClippingValue: double = 0, lowerClippingValue: double = 0): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -447,95 +156,418 @@
       ],
       "Replication": "Disabled",
       "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.ByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,AdvanceSteel.Nodes.Property[]",
+      "Id": "ddcc0f6e2fcc480d9908008eac697f48",
+      "Inputs": [
+        {
+          "Id": "bfcfa86213c24b62ab98b454662118be",
+          "Name": "coordinateSystem",
+          "Description": "Input Dynamo Coordinate System\n\nCoordinateSystem",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7e8bddd392b743599831048d87c81ba3",
+          "Name": "additionalCameraParameters",
+          "Description": "Optional Input Camera Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "42115b7848bd409a895aa2c20ccbc2a1",
+          "Name": "Camera",
+          "Description": "Camera",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Camera\n\nCamera.ByCS (coordinateSystem: CoordinateSystem, additionalCameraParameters: Property[] = null): Camera"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.GetCameraExtents@AdvanceSteel.Nodes.SteelDbObject",
+      "Id": "e73d1e8dd49241d0af9ab49754fccba4",
+      "Inputs": [
+        {
+          "Id": "7cb9043cd61e4beeb8d9ed591bb7da0f",
+          "Name": "steelObject",
+          "Description": "Selected Advance Steel Camera Object\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "191fa2b453ad48d5876e56928269f46e",
+          "Name": "X_Length",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6bd8e97dc18e411b930ce4ddd90f9768",
+          "Name": "Y_Length",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get Camera Extents Values\n\nCamera.GetCameraExtents (steelObject: SteelDbObject): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.GetCameraClipping@AdvanceSteel.Nodes.SteelDbObject",
+      "Id": "4ae5cc0b25bc4e929dc7b1ec39112a5a",
+      "Inputs": [
+        {
+          "Id": "ac8dc577bae0488f84def6b5045a9145",
+          "Name": "steelObject",
+          "Description": "Selected Advance Steel Camera Object\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ed2e90d90d854cb69f60c4575e923498",
+          "Name": "Nearside_Clipping",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4ca9abaf6aed4735bf98c7f9cda4876a",
+          "Name": "Farside_Clipping",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get Camera Clipping Values\n\nCamera.GetCameraClipping (steelObject: SteelDbObject): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.SetZClipping@AdvanceSteel.Nodes.SteelDbObject,int,double,double",
+      "Id": "b36b4ac5e4f64c2fa6f9ac74f2125088",
+      "Inputs": [
+        {
+          "Id": "672d8139026f4f8ab85c70647d5eb54c",
+          "Name": "steelObject",
+          "Description": "Selected Advance Steel Camera Object\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e113c4ac036a4b14b5c90ab2e15d1015",
+          "Name": "clippingSide",
+          "Description": "Set Clipping Side of Camera 0 - None, 1 = Upper, 2 - Lower, 3 - Both\n\nint\nDefault value : 3",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f30dbb8ac15342e288ebf5992ce9dca8",
+          "Name": "upperClippingValue",
+          "Description": "Set Upper Clipping Value\n\ndouble\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1c8355573ff04dfaa634a2663d942d8f",
+          "Name": "lowerClippingValue",
+          "Description": "Set Lower Clipping Value\n\ndouble\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d35f6ca68d9446e9a637c4b666ac0396",
+          "Name": "void",
+          "Description": "void",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Set Advance Steel Camera Clipping Values\n\nCamera.SetZClipping (steelObject: SteelDbObject, clippingSide: int = 3, upperClippingValue: double = 0, lowerClippingValue: double = 0): void"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.SetXYExtents@AdvanceSteel.Nodes.SteelDbObject,int,double,double",
+      "Id": "b3a51533be7e4cfd8a6837f0d743acd1",
+      "Inputs": [
+        {
+          "Id": "49bebcb885ee486f83b9e43d5df86b0d",
+          "Name": "steelObject",
+          "Description": "Selected Advance Steel Camera Object\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1c25d11eb11246d8b2fd587142968de5",
+          "Name": "cameraExtents",
+          "Description": "Set Camera Extents 0 - Automatic, 3 - Fixed Size\n\nint\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ce57f32948d94021a2671fdec427cf60",
+          "Name": "xCameraSize",
+          "Description": "Set Camera Extents in X Direction\n\ndouble\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "76748eb30c604379bf6f45ea7fb796f4",
+          "Name": "yCameraSize",
+          "Description": "Set Camera Extents in Y Direction\n\ndouble\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3e6cc0e482cd468e8cc0ec6615820bc1",
+          "Name": "void",
+          "Description": "void",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Set Advance Steel Camera Extents / Size\n\nCamera.SetXYExtents (steelObject: SteelDbObject, cameraExtents: int = 0, xCameraSize: double = 0, yCameraSize: double = 0): void"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "d5616b79911b4cdba2ecaa3594de1d6f",
+      "Inputs": [
+        {
+          "Id": "d22b8d56f083479ca8e14c16d42be5f1",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e7be7cdda8f94d3fb0695c5ccd10b2bc",
+          "Name": "value",
+          "Description": "native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ea3198e0c4bb4f0c877afe137395a06b",
+          "Name": "Property",
+          "Description": "Property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "50c7ffe1d47144f991b5da1585254b6c",
+      "Inputs": [
+        {
+          "Id": "c3186387e686406da8d9ef93a2023fd9",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a094d5abab5e4acebc0fe7025a46fcee",
+          "Name": "value",
+          "Description": "native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "bc91ebec67b8486ea7c8feaab310d926",
+          "Name": "Property",
+          "Description": "Property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesCamera, AdvanceSteelNodesUI",
+      "SelectedIndex": 3,
+      "SelectedString": "Camera Description",
+      "NodeType": "ExtensionNode",
+      "Id": "1aed158422304e06a475e59419564e7e",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "125e5bd24cfd4f5e99342008fa6a1c25",
+          "Name": "propertyName",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Camera"
     }
   ],
   "Connectors": [
     {
-      "Start": "7ce850cfa6504d78a63287554653f266",
-      "End": "fcc1ead99c5b4223be026b5cebdb1bea",
-      "Id": "925a6808cfe6484e9fe417a3eff7fc55"
-    },
-    {
-      "Start": "7ce850cfa6504d78a63287554653f266",
-      "End": "e7b6c65994fd4c8b86df9aa27ba6ef1a",
-      "Id": "9fbf106895d841e9a186d8debbc60429"
-    },
-    {
-      "Start": "7ce850cfa6504d78a63287554653f266",
-      "End": "a94ec86129e0435cb7de7a0066101e70",
-      "Id": "3664b94629ca43febcf4fa3dd81a3335"
-    },
-    {
-      "Start": "7ce850cfa6504d78a63287554653f266",
-      "End": "8bd5748af7f74eccacbe9b5a7f1d78d7",
-      "Id": "effff24f109a4037b89cee6f2e55cce3"
-    },
-    {
-      "Start": "becd63f3c2bd465bb9070ef9946647ec",
-      "End": "ca202de53e2b4776870b9dfa0c841ce0",
-      "Id": "8b6db0eff6c642af91672b1d4a1ff167"
-    },
-    {
       "Start": "6593dcc605044e09a5bf1c2de3d7debf",
-      "End": "0114e01738f242a68850306034dae3cd",
-      "Id": "22d8974e145e4a7ca56aef1602dd27ab"
-    },
-    {
-      "Start": "b474cc32a3d64fdea5feaf4f9bbfd0cb",
-      "End": "f121160fec0c4b41b5a2aacdb3b33c65",
-      "Id": "5221d132290746fea13d53323ade4c53"
+      "End": "a094d5abab5e4acebc0fe7025a46fcee",
+      "Id": "e57028395d9942c3819f2fab7e88fd44"
     },
     {
       "Start": "7629275bc29044c38aed9aa429129b5c",
-      "End": "13bb1ae9dde34bea8eac5a1ee3d6eb65",
-      "Id": "4dd9ef8fc0dc41ba9655aa96e0913554"
+      "End": "bfcfa86213c24b62ab98b454662118be",
+      "Id": "9244246a7a7841aa939fa1e1bfadc4d1"
     },
     {
       "Start": "ff1fcdcc6cf74613a70c078a98dfd34f",
-      "End": "cf6e396383034ec1ad32d4eabcf58173",
-      "Id": "955967346fad4d00ba5705ab450d609a"
+      "End": "7e8bddd392b743599831048d87c81ba3",
+      "Id": "7d58eb7322a844adba0b8ce4da5822d0"
     },
     {
       "Start": "e2e34e16399e4c0b8a5954c04629f743",
-      "End": "60c3779facb440ee934a9e5fcba97f90",
-      "Id": "792b77f80d8d4407a0d640359817ce41"
+      "End": "f30dbb8ac15342e288ebf5992ce9dca8",
+      "Id": "c1f1edeb4dc644d4b32a00430e20e04a"
     },
     {
       "Start": "04e550419f0b4da88624e25e44cbde1b",
-      "End": "0d140138cc254d02b05d291364d037e5",
-      "Id": "0cde9a4a3ed244aea50379ceb5c6b10e"
+      "End": "ce57f32948d94021a2671fdec427cf60",
+      "Id": "e976b2d35042486a92d614c96d1920d7"
     },
     {
       "Start": "93f27c8041a34746bf1e1b270dc8eb44",
-      "End": "c6913ceecf60495e886af7a0a3be6ceb",
-      "Id": "7ae664fce7ae4181ac06ee3a2323efc7"
+      "End": "1c8355573ff04dfaa634a2663d942d8f",
+      "Id": "b8a0cfd9b18144a89a252495d9032c59"
     },
     {
       "Start": "da79429a27dd455f945e3810e04c48d9",
-      "End": "58b5c3957b0f4583ab5c9d56f1b477a4",
-      "Id": "8844203a599e4f27b7ef7ae283c97a1b"
+      "End": "76748eb30c604379bf6f45ea7fb796f4",
+      "Id": "b822f50b6e034af694acaffd29945e87"
     },
     {
       "Start": "885e3b95d35749d69f056feff272f214",
-      "End": "ed41c6b922a94874aee83c020b0cafeb",
-      "Id": "a25a98b3e42f4241b7de826eb7ed6ba5"
+      "End": "e113c4ac036a4b14b5c90ab2e15d1015",
+      "Id": "d2556cae47ca45e1920e2a242bb45935"
     },
     {
       "Start": "ebc70651e5844d9fa901ead05cd864bc",
-      "End": "3a2761536006466fa4cbe9372390f0f2",
-      "Id": "18e4f261e9c94ce3a72aad1ebf1580cd"
+      "End": "1c25d11eb11246d8b2fd587142968de5",
+      "Id": "0ffd29fac89d4b22a37d1289938828ae"
+    },
+    {
+      "Start": "42115b7848bd409a895aa2c20ccbc2a1",
+      "End": "7cb9043cd61e4beeb8d9ed591bb7da0f",
+      "Id": "b7a293b42c434f5389723cb974ddcac0"
+    },
+    {
+      "Start": "42115b7848bd409a895aa2c20ccbc2a1",
+      "End": "ac8dc577bae0488f84def6b5045a9145",
+      "Id": "f6c277e0743146498f8d6ce0765274a3"
+    },
+    {
+      "Start": "42115b7848bd409a895aa2c20ccbc2a1",
+      "End": "49bebcb885ee486f83b9e43d5df86b0d",
+      "Id": "37932ef644364fb6818af17c798f441a"
+    },
+    {
+      "Start": "42115b7848bd409a895aa2c20ccbc2a1",
+      "End": "672d8139026f4f8ab85c70647d5eb54c",
+      "Id": "f76bad2a5d1a4344b1ee6c83f7b80e18"
+    },
+    {
+      "Start": "bc91ebec67b8486ea7c8feaab310d926",
+      "End": "f121160fec0c4b41b5a2aacdb3b33c65",
+      "Id": "60eb51beed7144ca80ccf4e448685226"
+    },
+    {
+      "Start": "125e5bd24cfd4f5e99342008fa6a1c25",
+      "End": "c3186387e686406da8d9ef93a2023fd9",
+      "Id": "24da8de55e8d4b5e9c25d0b9f3ba265e"
     }
   ],
   "Dependencies": [],
   "NodeLibraryDependencies": [],
-  "Bindings": [
-    {
-      "NodeId": "c394c42c-abc7-412a-b251-ae032b43a481",
-      "Binding": {
-        "ByCS_InClassDecl-1_InFunctionScope-1_Instance0_c394c42c-abc7-412a-b251-ae032b43a481": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpVdU1DNDNNREV6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJek9Ud3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
-      }
-    }
-  ],
+  "Bindings": [],
   "View": {
     "Dynamo": {
       "ScaleFactor": 1.0,
@@ -560,43 +592,13 @@
     "NodeViews": [
       {
         "ShowGeometry": true,
-        "Name": "Camera.ByCS",
-        "Id": "c394c42cabc7412ab251ae032b43a481",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1258.7351682038573,
-        "Y": 699.68494097208156
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Writable Camera Properties",
-        "Id": "e32bf08b63c54c6eb8f1c47b1c03d5ce",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -271.82634432367234,
-        "Y": 783.7012650918183
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Code Block",
         "Id": "f558c798255e47d3a0144e1b0c5bc38d",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": -234.63938266729514,
-        "Y": 896.45675442733068
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Property.ByNameAndValue",
-        "Id": "5be59967febc416ab539e4b81e56528b",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 529.49566067514183,
-        "Y": 797.9322020290283
+        "Y": 897.52794320483224
       },
       {
         "ShowGeometry": true,
@@ -606,7 +608,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": -348.06074522091512,
-        "Y": 594.08258735789377
+        "Y": 595.15377613539533
       },
       {
         "ShowGeometry": true,
@@ -620,46 +622,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "Cameras.GetCameraClipping",
-        "Id": "17ca75f72a124119b55fdbc65c3037d3",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1713.8368352525633,
-        "Y": 916.70920103605238
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Cameras.GetCameraExtents",
-        "Id": "c8083911b2bb4b1bbfb1ede2385c22ef",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1714.6657488648118,
-        "Y": 355.70546343315044
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Cameras.SetXYExtents",
-        "Id": "e6204a597c774159b561de690a411d12",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 2214.3253214213046,
-        "Y": 384.09013300704822
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Cameras.SetZClipping",
-        "Id": "ae11a17157b3480b9afd528fb9dec4c3",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 2213.2846712250289,
-        "Y": 787.77060640409877
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Code Block",
         "Id": "8c10c69e8f2d4f5ebc4ac9bb6f6c6df5",
         "IsSetAsInput": false,
@@ -667,6 +629,86 @@
         "Excluded": false,
         "X": 1996.9683756734662,
         "Y": 586.16468627874394
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Camera.ByCS",
+        "Id": "ddcc0f6e2fcc480d9908008eac697f48",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1204.8718610013775,
+        "Y": 701.83308321969707
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Camera.GetCameraExtents",
+        "Id": "e73d1e8dd49241d0af9ab49754fccba4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1700.2096795251878,
+        "Y": 247.26813293699985
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Camera.GetCameraClipping",
+        "Id": "4ae5cc0b25bc4e929dc7b1ec39112a5a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1669.3171199996536,
+        "Y": 1051.5399412741781
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Camera.SetZClipping",
+        "Id": "b36b4ac5e4f64c2fa6f9ac74f2125088",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2217.9263667462055,
+        "Y": 951.40543798451608
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Camera.SetXYExtents",
+        "Id": "b3a51533be7e4cfd8a6837f0d743acd1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2258.4062723313882,
+        "Y": 361.25102497948734
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "d5616b79911b4cdba2ecaa3594de1d6f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 540.38803572651943,
+        "Y": 935.18171387642735
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "50c7ffe1d47144f991b5da1585254b6c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 529.17660624442624,
+        "Y": 687.32853252034658
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Camera Properties",
+        "Id": "1aed158422304e06a475e59419564e7e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -119.96379292149447,
+        "Y": 728.0337060654042
       }
     ],
     "Annotations": [
@@ -835,16 +877,16 @@
         "Title": "SET",
         "Nodes": [
           "c84b55f7e1a0420e92eb1bca133f0f61",
-          "e32bf08b63c54c6eb8f1c47b1c03d5ce",
           "f558c798255e47d3a0144e1b0c5bc38d",
-          "4d159fbfe5054cc1835d95c6f50b80c4"
+          "4d159fbfe5054cc1835d95c6f50b80c4",
+          "1aed158422304e06a475e59419564e7e"
         ],
         "Left": -517.73506252534071,
-        "Top": 533.92883356465,
+        "Top": 535.00002234215151,
         "Width": 877.67431730442559,
         "Height": 455.52792086268073,
         "FontSize": 36.0,
-        "InitialTop": 586.92883356465,
+        "InitialTop": 588.00002234215151,
         "InitialHeight": 454.52792086268073,
         "TextblockHeight": 43.0,
         "Background": "#FF71C6A8"
@@ -853,14 +895,13 @@
         "Id": "e1c19ff733504a90b9f9541b2b964d1c",
         "Title": "DATA IN",
         "Nodes": [
-          "5be59967febc416ab539e4b81e56528b",
           "66eb225873714790a174d130b09f76b7",
           "6e39da8ce7ea43cb925f91d1d08e0ef6"
         ],
         "Left": 512.1185141358369,
         "Top": 545.07309345793624,
         "Width": 520.487994703698,
-        "Height": 371.85910857109207,
+        "Height": 302.04407099947821,
         "FontSize": 36.0,
         "InitialTop": 598.07309345793624,
         "InitialHeight": 344.85910857109207,
@@ -871,16 +912,16 @@
         "Id": "2b3535e9c23a49eaaa6d46a0679d09c4",
         "Title": "SET",
         "Nodes": [
-          "c394c42cabc7412ab251ae032b43a481",
+          "ddcc0f6e2fcc480d9908008eac697f48",
           "2c9cd973629d4082a5f9f23a7b439bd6"
         ],
         "Left": 1151.1123040397349,
         "Top": 554.16531912809751,
-        "Width": 461.62286416412235,
-        "Height": 264.51962184398405,
+        "Width": 407.7595569616426,
+        "Height": 266.66776409159957,
         "FontSize": 36.0,
         "InitialTop": 607.16531912809751,
-        "InitialHeight": 237.51962184398405,
+        "InitialHeight": 239.66776409159957,
         "TextblockHeight": 43.0,
         "Background": "#FF71C6A8"
       },
@@ -1029,7 +1070,7 @@
         "Title": "Set or Override Parameter in Civil 3D",
         "Nodes": [],
         "Left": -507.73506252534071,
-        "Top": 586.92883356465,
+        "Top": 588.00002234215151,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -1067,8 +1108,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": -531.36289113616908,
-    "Y": -160.59519026389103,
-    "Zoom": 0.659618017037613
+    "X": 325.77908737179871,
+    "Y": 336.76351423286894,
+    "Zoom": 0.37574593455545652
   }
 }
