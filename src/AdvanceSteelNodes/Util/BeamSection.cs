@@ -36,7 +36,7 @@ namespace AdvanceSteel.Nodes.Util
           string sectionType = Utils.SplitSectionName(sectionName)[0];
           string sectionSize = Utils.SplitSectionName(sectionName)[1];
 
-          Beam beam = obj as Beam;
+          Autodesk.AdvanceSteel.Modelling.Beam beam = obj as Autodesk.AdvanceSteel.Modelling.Beam;
           if (obj.IsKindOf(FilerObject.eObjectType.kCompoundBeam) && !Utils.CompareCompoundSectionTypes(beam.ProfSectionType, sectionType))
           {
             throw new System.Exception("Failed to change section as compound section type is different");

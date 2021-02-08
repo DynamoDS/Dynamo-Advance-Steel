@@ -84,7 +84,7 @@ namespace AdvanceSteel.Nodes.Util
 
             if (selectedObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam passedBeam = selectedObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam passedBeam = selectedObj as Autodesk.AdvanceSteel.Modelling.Beam;
               Line3d line = new Line3d(passedBeam.GetPointAtStart(), passedBeam.GetPointAtEnd());
               Point3d[] intPts = new Point3d[] { };
               cutPlane.IntersectWith(line, ref intPts, new Tol());

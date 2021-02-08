@@ -14,10 +14,10 @@ namespace AdvanceSteel.Nodes.Util
   /// <summary>
   /// Geometric functions to work with Beams - Straight Beams, Bend Beams....
   /// </summary>
-  public class Beams
+  public class Beam
   {
 
-    internal Beams()
+    internal Beam()
     {
     }
 
@@ -41,7 +41,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               selectedObj.RefAxis = (Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis)refAxis;
             }
             else
@@ -72,7 +72,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               selectedObj.SetCrossSectionMirrored(crossSectionMirrored);
             }
             else
@@ -103,7 +103,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               selectedObj.SetSysStart(Utils.ToAstPoint(point, true));
             }
             else
@@ -134,7 +134,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               selectedObj.SetSysEnd(Utils.ToAstPoint(point, true));
             }
             else
@@ -170,7 +170,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               Point3d foundPoint = selectedObj.GetClosestPointToSystemline(point, unBounded);
               if (foundPoint != null)
               {
@@ -210,7 +210,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               Point3d foundPoint = selectedObj.GetPointAtEnd(distance);
               if (foundPoint != null)
               {
@@ -250,7 +250,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               Point3d foundPoint = selectedObj.GetPointAtStart(distance);
               if (foundPoint != null)
               {
@@ -291,7 +291,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               Matrix3d cs = selectedObj.GetCSAtPoint(point);
               if (cs != null)
               {
@@ -342,7 +342,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               int executed = selectedObj.GetSawInformation(out sawLength,
                                                           out flangeAngleAtStart,
                                                           out webAngleAtStart,
@@ -405,7 +405,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               length = selectedObj.GetLength((BodyContext.eBodyContext)bodyResolutionForLength);
               paintArea = selectedObj.GetPaintArea();
               weight = selectedObj.GetWeight(2);
@@ -448,7 +448,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               ret = (int)selectedObj.RefAxis;
             }
             else
@@ -480,7 +480,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               ret = (double)selectedObj.GetLength();
             }
             else
@@ -514,7 +514,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               ret = (double)selectedObj.GetLength((BodyContext.eBodyContext)bodyResolutionForLength);
             }
             else
@@ -546,7 +546,7 @@ namespace AdvanceSteel.Nodes.Util
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
             {
-              Beam selectedObj = filerObj as Beam;
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
               ret = (double)selectedObj.GetWeightPerMeter();
             }
             else
@@ -582,7 +582,7 @@ namespace AdvanceSteel.Nodes.Util
           string sectionType = Utils.SplitSectionName(sectionName)[0];
           string sectionSize = Utils.SplitSectionName(sectionName)[1];
 
-          Beam beam = obj as Beam;
+          Autodesk.AdvanceSteel.Modelling.Beam beam = obj as Autodesk.AdvanceSteel.Modelling.Beam;
           if (obj.IsKindOf(FilerObject.eObjectType.kCompoundBeam) && !Utils.CompareCompoundSectionTypes(beam.ProfSectionType, sectionType))
           {
             throw new System.Exception("Failed to change section as compound section type is different");

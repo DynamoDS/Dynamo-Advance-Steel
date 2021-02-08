@@ -74,7 +74,7 @@ namespace ContentBuilder
           }
         }
 
-        return ret.OrderBy( member => member.name);
+        return ret.OrderBy(member => member.name);
       }
       finally
       {
@@ -82,7 +82,7 @@ namespace ContentBuilder
       }
     }
     private static void SetDataFromAttributes(Member toOverride, MemberInfo from)
-    { 
+    {
       foreach (Attribute attribute in from.GetCustomAttributes(false))
       {
         if (attribute is NodeNameAttribute)
@@ -129,7 +129,11 @@ namespace ContentBuilder
       if (memberInfo is Type)
       {
         Type type = memberInfo as Type;
-        if (IsSubclassOf(type, typeof(CoreNodeModelsWpf.Nodes.SelectionBaseNodeViewCustomization<,>)))
+        if (
+          IsSubclassOf(type, typeof(CoreNodeModelsWpf.Nodes.SelectionBaseNodeViewCustomization<,>))
+          || type.Name.Contains("AstDropDownBase")
+          || type.Name.Contains("SteelSelection")
+          )
           return false;
       }
 
