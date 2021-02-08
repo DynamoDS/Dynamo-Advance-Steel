@@ -1,4 +1,5 @@
-﻿using CoreNodeModels;
+﻿using Autodesk.DesignScript.Runtime;
+using CoreNodeModels;
 using Dynamo.Applications.AdvanceSteel.Services;
 using Dynamo.Graph.Nodes;
 using Dynamo.Graph.Workspaces;
@@ -10,6 +11,7 @@ using System.ComponentModel;
 
 namespace AdvanceSteel.Nodes
 {
+  [IsVisibleInDynamoLibrary(false)]
   public abstract class SteelSelection<TSelection, TResult> : SelectionBase<TSelection, TResult>
   {
     private DynamoModel dynamoModel;

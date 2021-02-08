@@ -9,7 +9,7 @@ using System;
 namespace AdvanceSteel.Nodes
 {
   [NodeName("GetSteelObjectsByType")]
-  [NodeDescription("Get All Advance Steel objects by Type")]
+  [NodeDescription("Select all steel objects by type")]
   [NodeCategory("AdvanceSteel.Nodes.Selection.ObjectSelection")]
   [OutPortDescriptions("SteelObject")]
   [OutPortNames("steelObjects")]

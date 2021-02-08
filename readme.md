@@ -28,3 +28,7 @@ This repository contains the source files for the Dynamo Extension for Advance S
 2. Build DynamoAdvanceSteel.sln solution;
 
 3. Build DynamoAdvanceSteelInstall.sln solution;
+
+### List of available nodes:
+
+Click [here](nodes.md) to view the list of the available dynamo-advance steel nodes
