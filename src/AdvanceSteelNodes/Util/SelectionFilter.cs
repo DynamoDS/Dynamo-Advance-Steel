@@ -32,24 +32,29 @@ namespace AdvanceSteel.Nodes.Selection
       List<SteelDbObject> retListOfFilteredSteelObjects = new List<SteelDbObject>();
       ClassTypeFilter filter = createFilterObject(objectTypeFilters);
 
-      if (objectTypeFilters.Count > 0)
+      using (var ctx = new SteelServices.DocContext())
       {
-        for (int i = 0; i < steelObjects.Count; i++)
+
+        if (objectTypeFilters.Count > 0)
         {
-          FilerObject objX = Utils.GetObject(steelObjects[i].Handle);
-          if (objX != null)
+          for (int i = 0; i < steelObjects.Count; i++)
           {
-            if (filter.Filter(objX.Type()) != FilerObject.eObjectType.kUnknown)
+            FilerObject objX = Utils.GetObject(steelObjects[i].Handle);
+            if (objX != null)
             {
-              retListOfFilteredSteelObjects.Add(steelObjects[i]);
+              if (filter.Filter(objX.Type()) != FilerObject.eObjectType.kUnknown)
+              {
+                retListOfFilteredSteelObjects.Add(steelObjects[i]);
+              }
             }
+            else
+              throw new System.Exception("No Object return Null during Filtering");
           }
-          else
-            throw new System.Exception("No Object return Null during Filtering");
         }
+        else
+          throw new System.Exception("No Object Filter List Provided");
       }
-      else
-        throw new System.Exception("No Object Filter List Provided");
+
       return retListOfFilteredSteelObjects;
     }
 
