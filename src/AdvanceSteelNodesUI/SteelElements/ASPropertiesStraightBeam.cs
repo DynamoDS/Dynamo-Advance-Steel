@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Straight Beam Properties")]
+  [NodeName("StraightBeamProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Straight Beam")]
   [NodeCategory("AdvanceSteel.Nodes.Beams.StraightBeam")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesStraightBeam : AstDropDownBase
   {

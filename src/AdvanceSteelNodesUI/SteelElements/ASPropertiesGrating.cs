@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Grating Properties")]
+  [NodeName("GratingProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Grating")]
   [NodeCategory("AdvanceSteel.Nodes.Grating")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesGrating : AstDropDownBase
   {

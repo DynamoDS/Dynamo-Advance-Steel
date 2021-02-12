@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Concrete Wall Properties")]
+  [NodeName("ConcreteWallProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Concrete Wall")]
   [NodeCategory("AdvanceSteel.Nodes.Concrete.Walls")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesWall: AstDropDownBase
   {

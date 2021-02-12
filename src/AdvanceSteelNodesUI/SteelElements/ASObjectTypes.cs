@@ -8,12 +8,12 @@ using System;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Advance Steel Object Types")]
+  [NodeName("AdvanceSteelObjectTypes")]
   [NodeDescription("Lists all the Advance Steel object types")]
   [NodeCategory("AdvanceSteel.Nodes.Selection")]
   [OutPortNames("objectType")]
   [OutPortTypes("int")]
-  [OutPortDescriptions("integer")]
+  [OutPortDescriptions("advance steel object type")]
   [IsDesignScriptCompatible]
   public class ASObjecTypes : AstDropDownBase
   {

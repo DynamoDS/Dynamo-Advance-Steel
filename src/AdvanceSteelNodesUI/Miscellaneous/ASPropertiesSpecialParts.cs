@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Special Parts Properties")]
+  [NodeName("SpecialPartsProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Special Part")]
   [NodeCategory("AdvanceSteel.Nodes.Miscellaneous.SpecialPart")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesSpecialParts : AstDropDownBase
   {

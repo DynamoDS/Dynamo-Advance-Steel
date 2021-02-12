@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Anchor Bolt Properties")]
+  [NodeName("AnchorBoltProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Anchor Bolt")]
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesAnchorBolt : AstDropDownBase
   {

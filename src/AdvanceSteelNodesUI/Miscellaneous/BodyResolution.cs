@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Body Resolution")]
-  [NodeDescription("Body Resolution")]
+  [NodeName("BodyResolutions")]
+  [NodeDescription("Lists all options for body resolution")]
   [NodeCategory("AdvanceSteel.Nodes.Util.Geometry")]
   [OutPortNames("bodyResolution")]
   [OutPortTypes("int")]
-  [OutPortDescriptions("integer")]
+  [OutPortDescriptions("body resolution")]
   [IsDesignScriptCompatible]
   public class BodyResolution : AstDropDownBase
   {

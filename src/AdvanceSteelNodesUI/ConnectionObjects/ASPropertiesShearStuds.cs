@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Shear Stud Properties")]
+  [NodeName("ShearStudProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Shear Stud")]
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesShearStud : AstDropDownBase
   {

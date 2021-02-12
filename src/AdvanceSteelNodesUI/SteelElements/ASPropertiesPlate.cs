@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Plate Properties")]
+  [NodeName("PlateProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Plate")]
   [NodeCategory("AdvanceSteel.Nodes.Plates")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesPlate : AstDropDownBase
   {

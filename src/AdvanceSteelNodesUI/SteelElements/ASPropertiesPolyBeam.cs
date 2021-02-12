@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Poly Beam Properties")]
+  [NodeName("PolyBeamProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Poly Beam")]
   [NodeCategory("AdvanceSteel.Nodes.Beams.PolyBeam")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesPolyBeam : AstDropDownBase
   {
