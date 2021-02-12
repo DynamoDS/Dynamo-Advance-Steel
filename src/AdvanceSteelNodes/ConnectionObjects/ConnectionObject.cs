@@ -9,11 +9,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjectsFunctions
     internal ConnectionObject() { }
 
     /// <summary>
-    /// Set Assembly Location 
+    /// Set assembly location 
     /// </summary>
+    /// <param name="screwBolts">Input connection object </param>
     /// <param name="connectionType">Input assembly location</param>
-    /// <param name="screwBolts">Input aux </param>
-    /// <returns></returns>
+    /// <returns name="screwBolts">The updated screwBolts object</returns>
     public static SteelDbObject SetBoltAssemblyLocation(SteelDbObject screwBolts, int connectionType)
     {
       using (var ctx = new SteelServices.DocContext())
@@ -32,18 +32,18 @@ namespace AdvanceSteel.Nodes.ConnectionObjectsFunctions
     }
 
     /// <summary>
-    /// Get Assembly Location - Unkown = -1, 0 = On Site, 1 = Site Drilled, 2 = In Shop
+    /// Get assembly location: Unkown = -1, 0 = On Site, 1 = Site Drilled, 2 = In Shop
     /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
-    public static int GetBoltAssemblyLocation(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    /// <param name="screwBolts">Input connection object </param>
+    /// <returns name="assemblyLocation">An integer that represents the assembly location</returns>
+    public static int GetBoltAssemblyLocation(AdvanceSteel.Nodes.SteelDbObject screwBolts)
     {
       int ret = -1;
       using (var ctx = new SteelServices.DocContext())
       {
-        if (steelObject != null)
+        if (screwBolts != null)
         {
-          Autodesk.AdvanceSteel.Modelling.ScrewBoltPattern obj = Utils.GetObject(steelObject.Handle) as Autodesk.AdvanceSteel.Modelling.ScrewBoltPattern;
+          Autodesk.AdvanceSteel.Modelling.ScrewBoltPattern obj = Utils.GetObject(screwBolts.Handle) as Autodesk.AdvanceSteel.Modelling.ScrewBoltPattern;
           if (obj != null)
           {
             ret = (int)obj.AssemblyLocation;
@@ -60,11 +60,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjectsFunctions
     }
 
     /// <summary>
-    /// Set Anchor Bolt Orientation
+    /// Set orientation for anchol bolt object
     /// </summary>
+    /// <param name="anchorBolts">Input anchor bolts object </param>
     /// <param name="orientation">Input Anchor Bolt Orientation location</param>
-    /// <param name="anchorBolts">Input aux </param>
-    /// <returns></returns>
+    /// <returns name="anchorBolts">The updated object</returns>
     public static SteelDbObject SetAnchorBoltOrientation(SteelDbObject anchorBolts, int orientation)
     {
       using (var ctx = new SteelServices.DocContext())
@@ -83,18 +83,18 @@ namespace AdvanceSteel.Nodes.ConnectionObjectsFunctions
     }
 
     /// <summary>
-    /// Get Anchor Bolt Orientation Type - NormalOrientation = 0, 1 = DiagonalInside, 2 = DiagonalOutside, 3 = AllOutside, 4 = AllInside, 5 = InsideRotated, 6 = OutsideRotated
+    /// Get anchor bolt orientation type: NormalOrientation = 0, 1 = DiagonalInside, 2 = DiagonalOutside, 3 = AllOutside, 4 = AllInside, 5 = InsideRotated, 6 = OutsideRotated
     /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
-    public static int GetAnchorBoltOrientation(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    /// <param name="anchorBolts">Input anchor bolts object </param>
+    /// <returns name="orientation">An integer that represents the orientation</returns>
+    public static int GetAnchorBoltOrientation(AdvanceSteel.Nodes.SteelDbObject anchorBolts)
     {
       int ret = -1;
       using (var ctx = new SteelServices.DocContext())
       {
-        if (steelObject != null)
+        if (anchorBolts != null)
         {
-          Autodesk.AdvanceSteel.Modelling.AnchorPattern obj = Utils.GetObject(steelObject.Handle) as Autodesk.AdvanceSteel.Modelling.AnchorPattern;
+          Autodesk.AdvanceSteel.Modelling.AnchorPattern obj = Utils.GetObject(anchorBolts.Handle) as Autodesk.AdvanceSteel.Modelling.AnchorPattern;
           if (obj != null)
           {
             ret = (int)obj.OrientationType;
@@ -111,10 +111,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjectsFunctions
     }
 
     /// <summary>
-    /// Get Bolt Weight
+    /// Get weight from the steel object
     /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <param name="steelObject">Input steel object</param>
+    /// <returns name="weight">The weight from the steel object</returns>
     public static double GetWeight(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       double ret = 0;

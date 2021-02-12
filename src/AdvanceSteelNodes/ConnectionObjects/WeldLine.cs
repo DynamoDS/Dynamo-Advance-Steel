@@ -52,6 +52,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Welds
     /// <param name="polyCurve"> Input Weld PolyCurve</param>
     /// <param name="objectsToConnect"> Input Weld Connected Objects</param>
     /// <param name="connectionType"> Input Weld Type - 0-OnSite or 2-InShop</param>
+    /// <returns name="weldLine"> weldLine</returns>
     public static WeldLine ByPolyCurve(DynGeometry.PolyCurve polyCurve,
                                         IEnumerable<SteelDbObject> objectsToConnect,
                                         [DefaultArgument("2;")] int connectionType)

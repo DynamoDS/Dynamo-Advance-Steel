@@ -251,7 +251,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="curves"> Input Dynamo Curves referencing Clockwise in sequence to form a closed polyline</param>
     /// <param name="lengthVec"> Input vector in the length direction of rectangular polycut</param>
     /// <param name="additionalBeamFeatureParameters"> Optional Input Beam Feature Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="polyCut">polyCut</returns>
     public static BeamPolycut FromListCurves(AdvanceSteel.Nodes.SteelDbObject element,
                                             List<Autodesk.DesignScript.Geometry.Curve> curves,
                                             Autodesk.DesignScript.Geometry.Vector lengthVec,
@@ -274,7 +274,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="polyCurve"> Input Dynamo PolyCurve Object</param>
     /// <param name="lengthVec"> Input vector in the length direction of rectangular polycut</param>
     /// <param name="additionalBeamFeatureParameters"> Optional Input Beam Feature Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="polyCut">polyCut</returns>
     public static BeamPolycut FromPolyCurve(AdvanceSteel.Nodes.SteelDbObject element,
                                         Autodesk.DesignScript.Geometry.PolyCurve polyCurve,
                                         Autodesk.DesignScript.Geometry.Vector lengthVec,
@@ -301,7 +301,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="width"> Input depth of Cut</param>
     /// <param name="corner">0 - TL, 1 - TR, 2 - BR, 3 - BL, else center</param>
     /// <param name="additionalBeamFeatureParameters"> Optional Input Beam Feature Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="polyCut">polyCut</returns>
     public static BeamPolycut ByLengthWidth(AdvanceSteel.Nodes.SteelDbObject element,
                                     Autodesk.DesignScript.Geometry.Point rectangleInsertPoint,
                                     Autodesk.DesignScript.Geometry.Vector normal,
@@ -326,7 +326,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="lengthVec"> Input vector in the length direction of rectangular polycut</param>
     /// <param name="corner">0 - TL, 1 - TR, 2 - BR, 3 - BL, else center</param>
     /// <param name="additionalBeamFeatureParameters"> Optional Input Beam Feature Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="polyCut">polyCut</returns>
     public static BeamPolycut ByRectangle(AdvanceSteel.Nodes.SteelDbObject element,
                         Autodesk.DesignScript.Geometry.Rectangle rectangle,
                         Autodesk.DesignScript.Geometry.Vector lengthVec,
@@ -356,7 +356,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="radius"> Input Radius of Cut</param>
     /// <param name="corner">0 - TL, 1 - TR, 2 - BR, 3 - BL, else center</param>
     /// <param name="additionalBeamFeatureParameters"> Optional Input Beam Feature Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="polyCut">polyCut</returns>
     public static BeamPolycut ByRadius(AdvanceSteel.Nodes.SteelDbObject element,
                                 Autodesk.DesignScript.Geometry.Point circularInsertPoint,
                                 Autodesk.DesignScript.Geometry.Vector normal,
@@ -381,7 +381,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="lengthVec"> Input vector in the length direction of rectangular polycut</param>
     /// <param name="corner">0 - TL, 1 - TR, 2 - BR, 3 - BL, else center</param>
     /// <param name="additionalBeamFeatureParameters"> Optional Input Beam Feature Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="polyCut">polyCut</returns>
     public static BeamPolycut ByCircle(AdvanceSteel.Nodes.SteelDbObject element,
                             Autodesk.DesignScript.Geometry.Circle circle,
                             Autodesk.DesignScript.Geometry.Vector lengthVec,

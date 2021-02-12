@@ -190,7 +190,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="element"> Input Beam</param>
     /// <param name="coordinateSystem"> Input Dynamo CoordinateSytem</param>
     /// <param name="additionalBeamFeatureParameters"> Optional Input Beam Cut Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="planeCut">planeCut</returns>
     public static BeamPlaneCut ByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                     Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                     [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
@@ -206,7 +206,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="origin"></param>
     /// <param name="normal"></param>
     /// <param name="additionalBeamFeatureParameters"></param>
-    /// <returns></returns>
+    /// <returns name="planeCut">planeCut</returns>
     public static BeamPlaneCut ByPointAndNormal(AdvanceSteel.Nodes.SteelDbObject element,
                                                 Autodesk.DesignScript.Geometry.Point origin,
                                                 Autodesk.DesignScript.Geometry.Vector normal,
@@ -222,7 +222,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="element"> Input Beam</param>
     /// <param name="shorteningLength"> Input shortening Value</param>
     /// <param name="additionalBeamFeatureParameters"> Optional Input Beam Cut Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="planeCut">planeCut</returns>
     public static BeamPlaneCut ByStartValue(AdvanceSteel.Nodes.SteelDbObject element,
                         double shorteningLength,
                         [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)
@@ -237,7 +237,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="element"> Input Beam</param>
     /// <param name="shorteningLength"> Input shortening Value</param>
     /// <param name="additionalBeamFeatureParameters"> Optional Input Beam Cut Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="planeCut">planeCut</returns>
     public static BeamPlaneCut ByEndValue(AdvanceSteel.Nodes.SteelDbObject element,
                         double shorteningLength,
                         [DefaultArgument("null")] List<Property> additionalBeamFeatureParameters)

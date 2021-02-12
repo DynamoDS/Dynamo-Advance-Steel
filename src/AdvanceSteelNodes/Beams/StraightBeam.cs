@@ -121,7 +121,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="end">Input End point of Beam</param>
     /// <param name="orientation">Section orientation</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="straightBeam"> beam</returns>
     public static StraightBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start,
                                                     Autodesk.DesignScript.Geometry.Point end,
                                                     Autodesk.DesignScript.Geometry.Vector orientation,
@@ -138,7 +138,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="line">Inpu Dynamo Line to get start and end points from</param>
     /// <param name="orientation">Section orientation</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="straightBeam"> beam</returns>
     public static StraightBeam ByLine(Autodesk.DesignScript.Geometry.Line line,
                                       Autodesk.DesignScript.Geometry.Vector orientation,
                                       [DefaultArgument("null")] List<Property> additionalBeamParameters)
@@ -155,7 +155,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="orientation">Section orientation</param>
     /// <param name="length">Input Beam Length relative to Start Point</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="straightBeam"> beam</returns>
     public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start,
                                                             Autodesk.DesignScript.Geometry.Vector direction,
                                                             Autodesk.DesignScript.Geometry.Vector orientation,
@@ -178,7 +178,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="length">Input Beam Length relative to Start Point</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="straightBeam"> beam</returns>
     public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start,
                                                           Autodesk.DesignScript.Geometry.Vector direction,
                                                           Autodesk.DesignScript.Geometry.Vector orientation,
@@ -202,7 +202,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="straightBeam"> beam</returns>
     public static StraightBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start,
                                                     Autodesk.DesignScript.Geometry.Point end,
                                                     Autodesk.DesignScript.Geometry.Vector orientation,
@@ -222,7 +222,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="straightBeam"> beam</returns>
     public static StraightBeam ByLine(Autodesk.DesignScript.Geometry.Line line,
                                       [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ZAxis();")] Autodesk.DesignScript.Geometry.Vector orientation,
                                       [DefaultArgument("5;")] int refAxis,
@@ -243,7 +243,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="straightBeam"> beam</returns>
     public static StraightBeam ByStartPointDirectionLength(Autodesk.DesignScript.Geometry.Point start,
                                                             Autodesk.DesignScript.Geometry.Vector direction,
                                                             Autodesk.DesignScript.Geometry.Vector orientation,

@@ -94,7 +94,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="end"> Input End point of Beam</param>
     /// <param name="orientation"> Section orientation</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="beam"> beam</returns>
     public static ConcreteStraightBeam ByStartPointEndPoint(string concName, Autodesk.DesignScript.Geometry.Point start,
                                                         Autodesk.DesignScript.Geometry.Point end,
                                                         Autodesk.DesignScript.Geometry.Vector orientation,
@@ -113,7 +113,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="orientation"> Section orientation</param>
     /// <param name="length"> Length value in the direction from the start point</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="beam"> beam</returns>
     public static ConcreteStraightBeam ByStartPointDirectionLength(string concName, Autodesk.DesignScript.Geometry.Point start,
                                                                 Autodesk.DesignScript.Geometry.Vector direction,
                                                                 Autodesk.DesignScript.Geometry.Vector orientation,
@@ -134,7 +134,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="line"> Input Dynamo Line</param>
     /// <param name="orientation">Section orientation</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="beam"> beam</returns>
     public static ConcreteStraightBeam ByLine(string concName, Autodesk.DesignScript.Geometry.Line line,
                                           Autodesk.DesignScript.Geometry.Vector orientation,
                                           [DefaultArgument("null")] List<Property> additionalConcParameters)

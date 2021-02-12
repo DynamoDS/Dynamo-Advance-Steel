@@ -152,7 +152,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="footingDepth"> Input Depth of Footing</param>
     /// <param name="footingRadius"> Input Footing Radius</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="footings"> footings</returns>
     public static Footings ByRadiusOnCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                         double footingDepth, double footingRadius,
                                         [DefaultArgument("null")] List<Property> additionalConcParameters)
@@ -172,7 +172,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="footingWidth"> Input Width of Footing</param>
     /// <param name="footingLength"> Input Length of Footing</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="footings"> footings</returns>
     public static Footings ByLengthWidthOnCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                               double footingDepth, double footingWidth, double footingLength,
                                               [DefaultArgument("null")] List<Property> additionalConcParameters)

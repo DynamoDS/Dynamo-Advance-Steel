@@ -263,7 +263,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="height"> Input Wall Height</param>
     /// <param name="thickness"> Input Wall Thickness</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="walls"> walls</returns>
     public static Walls FaceByLengthHeightByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                 double length, double height, double thickness,
                                                 [DefaultArgument("null")] List<Property> additionalConcParameters)
@@ -282,7 +282,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="height"> Input Wall Height</param>
     /// <param name="thickness"> Input Wall Thickness</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="walls"> walls</returns>
     public static Walls FaceByLengthHeightByPlane(Autodesk.DesignScript.Geometry.Plane plane,
                                                   double length, double height, double thickness,
                                                   [DefaultArgument("null")] List<Property> additionalConcParameters)
@@ -299,7 +299,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="poly"> Input Dynamo Polygon for Wall shape</param>
     /// <param name="thickness"> Input Wall Thickness</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="walls"> walls</returns>
     public static Walls FaceByPolygon(Autodesk.DesignScript.Geometry.Polygon poly,
                                       double thickness,
                                       [DefaultArgument("null")] List<Property> additionalConcParameters)
@@ -316,7 +316,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="height"> Input Wall Height</param>
     /// <param name="thickness"> Input Wall Thickness</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="walls"> walls</returns>
     public static Walls AtBaseByLengthHeightByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                   double length,
                                                   double height,

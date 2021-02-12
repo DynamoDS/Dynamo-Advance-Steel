@@ -53,10 +53,12 @@ namespace AdvanceSteel.Nodes
       InternalValue = internalValue;
       Level = level;
     }
-  
+
     /// <summary>
     /// Get the value from the property
     /// </summary>
+    /// <param name="property">The input property</param>
+    /// <returns name="Value">The value of the property</returns>
     public object Value
     {
       get
@@ -68,6 +70,8 @@ namespace AdvanceSteel.Nodes
     /// <summary>
     /// Get the name of the property
     /// </summary>
+    /// <param name="property">The input property</param>
+    /// <returns name="Name">The name of the property</returns>
     public string Name
     {
       get
@@ -79,6 +83,8 @@ namespace AdvanceSteel.Nodes
     /// <summary>
     /// Check if this property is readonly
     /// </summary>
+    /// <param name="property">The input property</param>
+    /// <returns name="IsReadOnly">The read status of the property</returns>
     public bool IsReadOnly
     {
       get
@@ -91,8 +97,8 @@ namespace AdvanceSteel.Nodes
     /// Create a Property object
     /// </summary>
     /// <param name="propertyName"> Name from property list node for a particular steel object type</param>
-    /// <param name="value"> native data to store in the property object</param>
-    /// <returns></returns>
+    /// <param name="value"> Native data to store in the property object</param>
+    /// <returns name="property"> property</returns>
     public static Property ByNameAndValue(string propertyName, object value)
     {
       Property selectedProperty = Utils.GetProperty(propertyName);
@@ -110,7 +116,7 @@ namespace AdvanceSteel.Nodes
     /// </summary>
     /// <param name="steelObject"> Steel object</param>
     /// <param name="propertyName"> Name of the property</param>
-    /// <returns></returns>
+    /// <returns name="property">The desired property</returns>
     public static Property GetObjectProperty(SteelDbObject steelObject, string propertyName)
     {
       Property ret = null;
@@ -139,7 +145,7 @@ namespace AdvanceSteel.Nodes
     /// </summary>
     /// <param name="steelObject"> Steel Object</param>
     /// <param name="property"> Property object</param>
-    /// <returns></returns>
+    /// <returns name="steelObject"> The updated steel object</returns>
     public static SteelDbObject SetObjectProperty(SteelDbObject steelObject, Property property)
     {
       if (property.IsReadOnly)
@@ -162,7 +168,7 @@ namespace AdvanceSteel.Nodes
     /// Get all properties from a steel object
     /// </summary>
     /// <param name="steelObject"> Steel object</param>
-    /// <returns></returns>
+    /// <returns name="properties"> List with all properties extracted from the input object</returns>
     public static List<Property> GetObjectProperties(SteelDbObject steelObject)
     {
       List<Property> ret = new List<Property>() { };

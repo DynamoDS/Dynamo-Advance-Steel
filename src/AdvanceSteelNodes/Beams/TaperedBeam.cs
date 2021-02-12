@@ -98,7 +98,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="end">End point</param>
     /// <param name="vOrientation">Section orientation</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="taperedBeam"> beam</returns>
     public static TaperedBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start,
                                                     Autodesk.DesignScript.Geometry.Point end,
                                                     Autodesk.DesignScript.Geometry.Vector vOrientation,
@@ -118,7 +118,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="endHeight"> Input end Height</param>
     /// <param name="webThickness"> Input Web Thickness</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="taperedBeam"> beam</returns>
     public static TaperedBeam ByStartPointEndPointHeights(Autodesk.DesignScript.Geometry.Point start,
                                                           Autodesk.DesignScript.Geometry.Point end,
                                                           Autodesk.DesignScript.Geometry.Vector vOrientation,

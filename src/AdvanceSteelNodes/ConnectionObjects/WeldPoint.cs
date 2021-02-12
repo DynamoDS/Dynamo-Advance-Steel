@@ -64,6 +64,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Welds
     /// <param name="point"> Input Weld Point Location</param>
     /// <param name="objectsToConnect"> Input Connected Objects</param>
     /// <param name="connectionType"> Input Weld Type - 0-OnSite or 2-InShop</param>
+    /// <returns name="weldPoint"> weldPoint</returns>
     public static WeldPoint ByPoint(DynGeometry.Point point,
                                     IEnumerable<SteelDbObject> objectsToConnect,
                                     [DefaultArgument("2;")] int connectionType)

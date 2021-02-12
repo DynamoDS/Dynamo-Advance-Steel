@@ -238,7 +238,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="yOffset"> Input Y Offset from plate orgin</param>
     /// <param name="corner"> 0 - TL, 1 - TR, 2 - BR, 3 - BL, else center</param>
     /// <param name="additionalPlateFeatureParameters"> Optional Input Plate Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="polyCut">polyCut</returns>
     public static PlatePolycut ByLengthAndWidth(AdvanceSteel.Nodes.SteelDbObject element,
                                     double length,
                                     double width,
@@ -260,7 +260,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="yOffset"> Input Y Offset from plate orgin</param>
     /// <param name="corner"> 0 - TL, 1 - TR, 2 - BR, 3 - BL, else center</param>
     /// <param name="additionalPlateFeatureParameters"> Optional Input Plate Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="polyCut">polyCut</returns>
     public static PlatePolycut ByRadius(AdvanceSteel.Nodes.SteelDbObject element,
                                 double radius,
                                 [DefaultArgument("0")] double xOffset,
@@ -279,7 +279,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="curves"> Input Dynamo Curves referencing Clockwise in sequence to form a closed polyline</param>
     /// <param name="lengthVec"> Input vector in the length direction of rectangular polycut</param>
     /// <param name="additionalPlateFeatureParameters"> Optional Input Plate Notch Countour Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="polyCut">polyCut</returns>
     public static PlatePolycut FromListCurves(AdvanceSteel.Nodes.SteelDbObject element,
                                             List<Autodesk.DesignScript.Geometry.Curve> curves,
                                             Autodesk.DesignScript.Geometry.Vector lengthVec,
@@ -302,7 +302,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="polyCurve"> Input Dynamo PolyCurve Object</param>
     /// <param name="lengthVec"> Input vector in the length direction of rectangular polycut</param>
     /// <param name="additionalPlateFeatureParameters"> Optional Input Plate Notch Countour Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="polyCut">polyCut</returns>
     public static PlatePolycut FromPolyCurve(AdvanceSteel.Nodes.SteelDbObject element,
                                     Autodesk.DesignScript.Geometry.PolyCurve polyCurve,
                                     Autodesk.DesignScript.Geometry.Vector lengthVec,

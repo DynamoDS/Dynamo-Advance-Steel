@@ -233,7 +233,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="poly"> Input Dynamo Polygon</param>
     /// <param name="thickness"> Slab Thickness in Current Model Length Unit Settings</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="slabs"> slabs</returns>
     public static Slabs ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly,
                                   double thickness,
                                   [DefaultArgument("null")] List<Property> additionalConcParameters)
@@ -250,7 +250,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="length"> Slab Length in Current Model Advance Steel Length Unit Settings</param>
     /// <param name="thickness"> Slab Thickness in Current Model Length Unit Settings</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="slabs"> slabs</returns>
     public static Slabs ByRectangularByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                           double width, double length, double thickness,
                                           [DefaultArgument("null")] List<Property> additionalConcParameters)
@@ -271,7 +271,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="radius"> Slab Radius in Current Model Length Unit Settings</param>
     /// <param name="thickness"> Slab Thickness in Current Model Length Unit Settings</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="slabs"> slabs</returns>
     public static Slabs ByCircularByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                         double radius, double thickness,
                                         [DefaultArgument("null")] List<Property> additionalConcParameters)
