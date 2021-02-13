@@ -1934,7 +1934,7 @@ namespace AdvanceSteel.Nodes
 
     private static Dictionary<string, Property> Build_Master_BeamTapered()
     {
-      Dictionary<string, Property> dictProps = Build_Title("Tampered Straight Beam").Union(SortDict(Build_CompoundBeam())).ToDictionary(s => s.Key, s => s.Value);
+      Dictionary<string, Property> dictProps = Build_Title("Tapered Straight Beam").Union(SortDict(Build_CompoundBeam())).ToDictionary(s => s.Key, s => s.Value);
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kBeamTapered });
 
