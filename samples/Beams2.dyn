@@ -2097,6 +2097,171 @@
       ],
       "Replication": "Auto",
       "Description": "Returns a concatenated string containing the SectionType, a fixed string separator \"#@§@#\" and the SectionSize.\n\nBeam.CreateSectionString (sectionType: string, sectionSize: string): string"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.GetObjectProperty@AdvanceSteel.Nodes.SteelDbObject,string",
+      "Id": "ee39ffb783f44f289d4e1f5825a7cffd",
+      "Inputs": [
+        {
+          "Id": "bcd37e50172142c3a3bbefb83e571784",
+          "Name": "steelObject",
+          "Description": "Steel object\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c2e51f4346be4a4a9ab9e22aa1485cdf",
+          "Name": "propertyName",
+          "Description": "Name of the property\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "09e3ebf9b7b646179723c2839e36179c",
+          "Name": "Property",
+          "Description": "Property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get a property from a steel object\n\nProperty.GetObjectProperty (steelObject: SteelDbObject, propertyName: string): Property"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesBentBeam, AdvanceSteelNodesUI",
+      "SelectedIndex": 31,
+      "SelectedString": "Layer",
+      "NodeType": "ExtensionNode",
+      "Id": "b8a17a17dc7542729dfc9119e7b8762b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8f52b81272d143949b333db5b84eb431",
+          "Name": "propertyName",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Bent Beam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Beam.GetBeamData@AdvanceSteel.Nodes.SteelDbObject,int",
+      "Id": "011095442c1a4dc99749dd9e40bf6f24",
+      "Inputs": [
+        {
+          "Id": "1f0c478ef4dd4903be5b55d029269810",
+          "Name": "steelObject",
+          "Description": "Advance Steel element\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a0783b2205ff4715abb4264c33655fc6",
+          "Name": "bodyResolutionForLength",
+          "Description": "Set Steel body display resolution\n\nint\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "593b6333c7004f578f8316b9d84eb42a",
+          "Name": "Length",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "36b2a4008d204fe6ace9388f7d9c569e",
+          "Name": "PaintArea",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ea66c8a5181b46e6aa959ccb0869e0cd",
+          "Name": "ExactWeight",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "40c5ac5fbda9451db8972fbaf267d811",
+          "Name": "WeightPerUnit",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b8efd7cfb0e940a1876eb5b0e01c013c",
+          "Name": "ProfileType",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "75ad85fdf5b5457b9c7df4c9ae0e9510",
+          "Name": "ProfileTypeCode",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get BEAM data\n\nBeam.GetBeamData (steelObject: SteelDbObject, bodyResolutionForLength: int = 0): var[]..[]"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.BodyResolution, AdvanceSteelNodesUI",
+      "SelectedIndex": 1,
+      "SelectedString": "Normal",
+      "NodeType": "ExtensionNode",
+      "Id": "9e40c862750b46be93652caff3dae7be",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "25bd3dd400af41088945803186bde6e1",
+          "Name": "bodyResolution",
+          "Description": "integer",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Body Resolution"
     }
   ],
   "Connectors": [
@@ -2259,6 +2424,11 @@
       "Start": "af56e29c5f09426a9d1090f2122c8679",
       "End": "1b07848a7c4d42fcba3a9f7fe8d15e83",
       "Id": "094b1c614f054a149f70226777db37c1"
+    },
+    {
+      "Start": "c731c734036649d89bbaf32166b840e6",
+      "End": "1f0c478ef4dd4903be5b55d029269810",
+      "Id": "c7d32c34c51c4a34a8afe53e4b978ba0"
     },
     {
       "Start": "1ad262c477e6498c9e591595dfb52682",
@@ -2424,6 +2594,16 @@
       "Start": "90b9372e2f6946f682d636100a8c6afb",
       "End": "792749bf120947d4926d9674c8cc19e0",
       "Id": "5d6ac84afd9742fb8ac0b9b5b9e50aae"
+    },
+    {
+      "Start": "8f52b81272d143949b333db5b84eb431",
+      "End": "c2e51f4346be4a4a9ab9e22aa1485cdf",
+      "Id": "b41c21beed744f799cdc04745f58ac6a"
+    },
+    {
+      "Start": "25bd3dd400af41088945803186bde6e1",
+      "End": "a0783b2205ff4715abb4264c33655fc6",
+      "Id": "4b9a760e11344d1ca6cfc7f3d5e5bb1d"
     }
   ],
   "Dependencies": [],
@@ -2981,6 +3161,46 @@
         "Excluded": false,
         "X": -838.52343557590757,
         "Y": 4017.7979368697747
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.GetObjectProperty",
+        "Id": "ee39ffb783f44f289d4e1f5825a7cffd",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1385.4205496109648,
+        "Y": 3326.4012600306887
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Bent Beam Properties",
+        "Id": "b8a17a17dc7542729dfc9119e7b8762b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1080.6894714008813,
+        "Y": 3465.9505230209279
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Beam.GetBeamData",
+        "Id": "011095442c1a4dc99749dd9e40bf6f24",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 959.00924637076673,
+        "Y": 3798.9889865443211
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Body Resolution",
+        "Id": "9e40c862750b46be93652caff3dae7be",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 583.37416093045113,
+        "Y": 3900.7454267374851
       }
     ],
     "Annotations": [
@@ -3480,8 +3700,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 738.810903218654,
-    "Y": -1905.8711166089893,
-    "Zoom": 0.58562141590827443
+    "X": -253.14118329352675,
+    "Y": -3247.6141597522087,
+    "Zoom": 0.95858217897871434
   }
 }
