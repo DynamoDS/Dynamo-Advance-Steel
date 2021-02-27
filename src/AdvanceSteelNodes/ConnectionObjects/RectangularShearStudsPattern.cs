@@ -184,6 +184,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
     /// <param name="noOfShearStudsY"> Input Number of Shear Stud Y Direction</param>
     /// <param name="shearStudConnectionType"> Input Shear Bolt Connection type - Shop Bolt Default</param>
     /// <param name="additionalShearStudParameters"> Optional Input ShearStud Build Properties </param>
+    /// <returns name="rectangularShearStudsPattern"> rectangularShearStudsPattern</returns>
     public static RectangularShearStudsPattern ByRectangle(Autodesk.DesignScript.Geometry.Rectangle rectangle,
                                                             SteelDbObject objectToConnect,
                                                             double studLength,
@@ -230,7 +231,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
     /// <param name="studSpacingY"> Input Spacing of Shear Stud Y Direction</param>
     /// <param name="shearStudConnectionType"> Input Shear Bolt Connection type - Shop Bolt Default</param>
     /// <param name="additionalShearStudParameters"> Optional Input ShearStud Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="rectangularShearStudsPattern"> rectangularShearStudsPattern</returns>
     public static RectangularShearStudsPattern AtCentrePoint(Autodesk.DesignScript.Geometry.Point connectionPoint,
                                                             Autodesk.DesignScript.Geometry.CoordinateSystem shearStudCS,
                                                             SteelDbObject objectToConnect,

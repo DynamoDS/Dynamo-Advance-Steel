@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Plate Fillet Vertex Type")]
+  [NodeName("PlateFilletVertexTypes")]
   [NodeDescription("Lists the Advance Steel Plate Fillet Vertex type options")]
   [NodeCategory("AdvanceSteel.Nodes.Features.PlateVertexCut")]
   [OutPortNames("vertexType")]
   [OutPortTypes("int")]
-  [OutPortDescriptions("integer")]
+  [OutPortDescriptions("type of vertex")]
   [IsDesignScriptCompatible]
   public class PlateFilletVertexType : AstDropDownBase
   {

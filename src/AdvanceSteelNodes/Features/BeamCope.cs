@@ -191,7 +191,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="cornerType"> 0 - Straight, 1 - Round, 2 - Boring Hole</param>
     /// <param name="xRotationType"> 0 - Around Notch, 1 - Around Beam</param>
     /// <param name="additionalBeamFeatureParameters"> Optional Input Beam Feature Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="beamCope">beamCope</returns>
     public static BeamCope ByRectangularRotatedCope(AdvanceSteel.Nodes.SteelDbObject element,
                                     int end, int side,
                                     double length, double depth,
@@ -215,7 +215,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="cornerRadius"> Input Cope radius at Corner</param>
     /// <param name="cornerType"> 0 - Straight, 1 - Round, 2 - Boring Hole</param>
     /// <param name="additionalBeamFeatureParameters"> Optional Input Beam Feature Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="beamCope">beamCope</returns>
     public static BeamCope ByRectangularOrthoCope(AdvanceSteel.Nodes.SteelDbObject element,
                                     int end, int side,
                                     double length, double depth,

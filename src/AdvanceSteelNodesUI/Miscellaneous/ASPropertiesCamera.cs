@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Camera Properties")]
+  [NodeName("CameraProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Camera")]
   [NodeCategory("AdvanceSteel.Nodes.Miscellaneous.Camera")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesCamera : AstDropDownBase
   {

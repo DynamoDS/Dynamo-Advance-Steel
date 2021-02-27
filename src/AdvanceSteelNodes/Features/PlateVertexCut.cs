@@ -106,7 +106,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="plateFoldIndex"> Input plate fold number, 0 for normal plate, zero or greater for folded plate</param>
     /// <param name="cornerIndex"> Input corner number around the edge of the plate</param>
     /// <param name="additionalPlateFeatureParameters"> Optional Input Plate Cut Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="vertexCut">vertexCut</returns>
     public static PlateVertexCut ByRadius(AdvanceSteel.Nodes.SteelDbObject element,
                                 double radius,
                                 [DefaultArgument("0")] int filletType,
@@ -129,7 +129,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="plateFoldIndex"> Input plate fold number, 0 for normal plate, zero or greater for folded plate</param>
     /// <param name="cornerIndex"> Input corner number around the edge of the plate</param>
     /// <param name="additionalPlateFeatureParameters"> Optional Input Plate Cut Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="vertexCut">vertexCut</returns>
     public static PlateVertexCut ByChamfer(AdvanceSteel.Nodes.SteelDbObject element,
                             double length1,
                             double length2,

@@ -5,17 +5,14 @@ using Dynamo.Utilities;
 using ProtoCore.AST.AssociativeAST;
 using Newtonsoft.Json;
 
-//[OutPortNames("Object Type")]
-//[OutPortTypes("int")]
-//[OutPortDescriptions("integer")]
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Bolt Connection Type")]
+  [NodeName("BoltConnectionTypes")]
   [NodeDescription("Lists the Advance Steel Bolt Connection type options")]
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   [OutPortNames("boltType")]
   [OutPortTypes("int")]
-  [OutPortDescriptions("integer")]
+  [OutPortDescriptions("bolt connection type")]
   [IsDesignScriptCompatible]
   public class BoltConnectionType : AstDropDownBase
   {

@@ -72,7 +72,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
     /// <param name="anchorBoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
     /// <param name="additionalAnchorBoltParameters"> Optional Input Bolt Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="circularAnchorPattern"> anchor</returns>
     public static CircularAnchorPattern ByCircle(DynGeometry.Circle circle,
                                                   DynGeometry.Vector referenceVector,
                                                   IEnumerable<SteelDbObject> objectsToConnect,
@@ -99,7 +99,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
     /// <param name="anchorBoltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
     /// <param name="additionalAnchorBoltParameters"> Optional Input Bolt Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="circularAnchorPattern"> anchor</returns>
     public static CircularAnchorPattern AtCentrePoint(DynGeometry.Point point,
                                                       DynGeometry.CoordinateSystem anchorCS,
                                                       IEnumerable<SteelDbObject> objectsToConnect,

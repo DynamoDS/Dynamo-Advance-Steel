@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Beam Ortho Notch Feature Properties")]
+  [NodeName("BeamOrthoNotchFeatureProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Beam Ortho Notch Feature")]
   [NodeCategory("AdvanceSteel.Nodes.Features.BeamCope")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesBeamNotchSqFeatures : AstDropDownBase
   {

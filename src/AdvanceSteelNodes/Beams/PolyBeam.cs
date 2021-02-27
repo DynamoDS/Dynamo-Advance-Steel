@@ -101,7 +101,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="polyCurve"> Input Dynamo Polycurve</param>
     /// <param name="orientation">Section orientation</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// /// <returns name="polyBeam"> beam</returns>
     public static PolyBeam ByPolyCurve(Autodesk.DesignScript.Geometry.PolyCurve polyCurve,
                                         Autodesk.DesignScript.Geometry.Vector orientation,
                                         [DefaultArgument("null")] List<Property> additionalBeamParameters)
@@ -142,7 +142,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// Get Polycurve from Polybeam
     /// </summary>
     /// <param name="polyBeam"> Advance Steel polybeam</param>
-    /// <returns></returns>
+    /// <returns name="polyCurve">The PolyCurve from the beam</returns>
     public static Autodesk.DesignScript.Geometry.PolyCurve GetPolyCurve(PolyBeam polyBeam)
     {
       List<Autodesk.DesignScript.Geometry.Curve> intRet = new List<Autodesk.DesignScript.Geometry.Curve>() { };

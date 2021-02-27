@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Beam Multi Notch Feature Properties")]
+  [NodeName("BeamMultiNotchFeatureProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Beam Multi Notch Feature")]
   [NodeCategory("AdvanceSteel.Nodes.Features.BeamPolycut")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesBeamPolylineNotchFeatures : AstDropDownBase
   {

@@ -76,7 +76,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
     /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
     /// <param name="additionalBoltParameters"> Optional Input Bolt Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="circularBoltPattern"> bolts</returns>
     public static CircularBoltPattern ByCircle(DynGeometry.Circle circle,
                                                 DynGeometry.Vector referenceVector,
                                                 IEnumerable<SteelDbObject> objectsToConnect,
@@ -104,7 +104,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
     /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
     /// <param name="additionalBoltParameters"> Optional Input Bolt Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="circularBoltPattern"> bolts</returns>
     public static CircularBoltPattern AtCentrePoint(DynGeometry.Point point,
                                                     DynGeometry.CoordinateSystem boltCS,
                                                     IEnumerable<SteelDbObject> objectsToConnect,

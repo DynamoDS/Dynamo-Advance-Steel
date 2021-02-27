@@ -118,7 +118,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="orientation"> Input Section orientation</param>
     /// <param name="sectionName"> Input Section name</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="compoundBeam"> beam</returns>
     public static CompoundBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start,
                                                     Autodesk.DesignScript.Geometry.Point end,
                                                     Autodesk.DesignScript.Geometry.Vector orientation,

@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Concrete Isolated Footing Properties")]
+  [NodeName("ConcreteIsolatedFootingProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Concrete Isolated Footing")]
   [NodeCategory("AdvanceSteel.Nodes.Concrete.Footings")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesIsolatedFooting : AstDropDownBase
   {

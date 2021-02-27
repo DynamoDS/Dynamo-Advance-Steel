@@ -122,7 +122,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="ptOnArc">Point on arc</param>
     /// <param name="orientation">Section orientation</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="bentBeam"> beam</returns>
     public static BentBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start,
                                                 Autodesk.DesignScript.Geometry.Point end,
                                                 Autodesk.DesignScript.Geometry.Point ptOnArc,
@@ -143,7 +143,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="bentBeam"> beam</returns>
     public static BentBeam ByStartPointEndPoint(Autodesk.DesignScript.Geometry.Point start,
                                                 Autodesk.DesignScript.Geometry.Point end,
                                                 Autodesk.DesignScript.Geometry.Point ptOnArc,
@@ -156,8 +156,6 @@ namespace AdvanceSteel.Nodes.Beams
       Autodesk.DesignScript.Geometry.Point[] cvs = arc.PointsAtEqualSegmentLength(2);
       additionalBeamParameters = PreSetDefaults(additionalBeamParameters);
       return new BentBeam(arc.StartPoint, arc.EndPoint, cvs[0], orientation, refAxis, crossSectionMirror, additionalBeamParameters);
-
-      //return new BentBeam(start, end, ptOnArc, orientation, modelRole, sectionName, Utils.ToInternalAngleUnits(rotation, true), refAxis, crossSectionMirror);
     }
 
     /// <summary>
@@ -168,7 +166,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="refAxis">Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
     /// <param name="crossSectionMirror">Input Beam Mirror Option</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="bentBeam"> beam</returns>
     public static BentBeam ByArc(Autodesk.DesignScript.Geometry.Arc arc,
                                 [DefaultArgument("Autodesk.DesignScript.Geometry.Vector.ZAxis();")] Autodesk.DesignScript.Geometry.Vector orientation,
                                 [DefaultArgument("5;")] int refAxis,

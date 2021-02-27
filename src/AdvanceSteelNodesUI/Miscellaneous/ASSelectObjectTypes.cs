@@ -11,7 +11,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("GetSteelObjectsByType")]
   [NodeDescription("Select all steel objects by type")]
   [NodeCategory("AdvanceSteel.Nodes.Selection")]
-  [OutPortDescriptions("SteelObject")]
+  [OutPortDescriptions("list with the selected steel objects")]
   [OutPortNames("steelObjects")]
   [OutPortTypes("AdvanceSteel.Nodes.SteelDbObject")]
   [IsDesignScriptCompatible]

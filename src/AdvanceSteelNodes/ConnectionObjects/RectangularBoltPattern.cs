@@ -124,6 +124,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// <param name="objectsToConnect"> Objects to be bolted </param>
     /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
     /// <param name="additionalBoltParameters"> Optional Bolt Build Properties </param>
+    /// <returns name="rectangularBoltPattern"> rectangularBoltPattern</returns>
     public static RectangularBoltPattern ByRectangle(Autodesk.DesignScript.Geometry.Rectangle rectangle,
                                                       [DefaultArgument("2;")] int noOfBoltsX,
                                                       [DefaultArgument("2;")] int noOfBoltsY,
@@ -156,7 +157,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     /// <param name="objectsToConnect"> Objects to be bolted </param>
     /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
     /// <param name="additionalBoltParameters"> Optional Bolt Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="rectangularBoltPattern"> rectangularBoltPattern</returns>
     public static RectangularBoltPattern AtCentrePoint(Autodesk.DesignScript.Geometry.Point connectionPoint,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem boltCS,
                                                   [DefaultArgument("2;")] int noOfBoltsX,

@@ -104,7 +104,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
     /// <param name="noOfShearStudsInCircle"> Input Number of Shear Stud to be placed in the Circle Pattern</param>
     /// <param name="shearStudConnectionType"> Input Shear Bolt Connection type - Shop Bolt Default</param>
     /// <param name="additionalShearStudParameters"> Optional Input ShearStud Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="circularShearStudsPattern"> shear studs</returns>
     public static CircularShearStudsPattern ByCircle(Autodesk.DesignScript.Geometry.Circle circle,
                                                       Autodesk.DesignScript.Geometry.Vector referenceVector,
                                                       SteelDbObject objectToConnect,
@@ -146,7 +146,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
     /// <param name="noOfShearStudsInCircle"> Input Number of Shear Stud to be placed in the Circle Pattern</param>
     /// <param name="shearStudConnectionType"> Input Shear Bolt Connection type - Shop Bolt Default</param>
     /// <param name="additionalShearStudParameters"> Optional Input ShearStud Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="circularShearStudsPattern"> shear studs</returns>
     public static CircularShearStudsPattern AtCentrePoint(Autodesk.DesignScript.Geometry.Point connectionPoint,
                                                         Autodesk.DesignScript.Geometry.CoordinateSystem shearStudCS,
                                                         double patternRadius,

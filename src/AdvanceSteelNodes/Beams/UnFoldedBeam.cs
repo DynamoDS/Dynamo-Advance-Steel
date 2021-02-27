@@ -101,7 +101,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="endPoint"> Input End Point of Unfolded Beam</param>
     /// <param name="thickness">  Input thickness of Unfolded Beam</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="unFoldedBeam"> beam</returns>
     public static UnFoldedBeam ByThreePointArc(Autodesk.DesignScript.Geometry.Point startPointCurve,
                                                     Autodesk.DesignScript.Geometry.Point pointOnCurve,
                                                     Autodesk.DesignScript.Geometry.Point endPointCurve,
@@ -131,7 +131,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="endPoint"> Input End Point of Unfolded Beam</param>
     /// <param name="thickness">  Input thickness of Unfolded Beam</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="unFoldedBeam"> beam</returns>
     public static UnFoldedBeam ByArc(Autodesk.DesignScript.Geometry.Arc arc,
                                                 Autodesk.DesignScript.Geometry.Vector orientation,
                                                 Autodesk.DesignScript.Geometry.Point startPoint,
@@ -159,7 +159,7 @@ namespace AdvanceSteel.Nodes.Beams
     /// <param name="endPoint"> Input End Point of Unfolded Beam</param>
     /// <param name="thickness">  Input thickness of Unfolded Beam</param>
     /// <param name="additionalBeamParameters"> Optional Input Beam Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="unFoldedBeam"> beam</returns>
     public static UnFoldedBeam ByPolyCurve(Autodesk.DesignScript.Geometry.PolyCurve polyCurve,
                                             Autodesk.DesignScript.Geometry.Vector orientation,
                                             Autodesk.DesignScript.Geometry.Point startPoint,
@@ -178,16 +178,16 @@ namespace AdvanceSteel.Nodes.Beams
     /// <summary>
     /// Return True or False depending if the UnfoldedBeam is Closed or not.
     /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
-    public static bool IsClosed(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    /// <param name="unFoldedBeam">Input beam</param>
+    /// <returns name="isClosed">True or False depending if the UnfoldedBeam is Closed or not</returns>
+    public static bool IsClosed(UnFoldedBeam unFoldedBeam)
     {
       bool ret;
       using (var ctx = new SteelServices.DocContext())
       {
-        if (steelObject != null)
+        if (unFoldedBeam != null)
         {
-          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          FilerObject filerObj = Utils.GetObject(unFoldedBeam.Handle);
           if (filerObj != null)
           {
             if (filerObj.IsKindOf(FilerObject.eObjectType.kUnfoldedStraightBeam))

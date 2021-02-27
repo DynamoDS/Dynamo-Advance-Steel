@@ -8,12 +8,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Weld Connection Type")]
+  [NodeName("WeldConnectionTypes")]
   [NodeDescription("Lists the Advance Steel Weld connection type options")]
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   [OutPortNames("weldType")]
   [OutPortTypes("int")]
-  [OutPortDescriptions("integer")]
+  [OutPortDescriptions("weld connection type")]
   [IsDesignScriptCompatible]
   public class WeldConnectionType : AstDropDownBase
   {

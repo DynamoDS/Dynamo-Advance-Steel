@@ -97,7 +97,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="ptOnArc">Point on arc</param>
     /// <param name="orientation">Section orientation</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="beam"> beam</returns>
     public static ConcreteBentBeam ByStartPointEndPointOnArc(string concName, Autodesk.DesignScript.Geometry.Point start,
                                                           Autodesk.DesignScript.Geometry.Point end,
                                                           Autodesk.DesignScript.Geometry.Point ptOnArc,
@@ -114,7 +114,7 @@ namespace AdvanceSteel.Nodes.Concrete
     /// <param name="concName"> Concrete Profile Name</param>
     /// <param name="arc"> Dynamo Arc to define beam</param>
     /// <param name="additionalConcParameters"> Optional Input  Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="beam"> beam</returns>
     public static ConcreteBentBeam ByArc(string concName,
                                       Autodesk.DesignScript.Geometry.Arc arc,
                                       [DefaultArgument("null")] List<Property> additionalConcParameters)

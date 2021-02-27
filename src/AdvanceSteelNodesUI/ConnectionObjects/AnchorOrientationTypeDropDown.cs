@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Anchor Orientation Type")]
+  [NodeName("AnchorOrientationTypes")]
   [NodeDescription("Lists the Advance Steel Anchor orientation type options")]
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   [OutPortNames("orientationType")]
   [OutPortTypes("int")]
-  [OutPortDescriptions("integer")]
+  [OutPortDescriptions("anchor orientation type")]
   [IsDesignScriptCompatible]
   public class AnchorOrientationType : AstDropDownBase
   {

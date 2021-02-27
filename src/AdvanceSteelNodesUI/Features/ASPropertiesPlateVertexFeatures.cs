@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("Plate Vertex Feature Properties")]
+  [NodeName("PlateVertexFeatureProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Plate Vertex Feature")]
   [NodeCategory("AdvanceSteel.Nodes.Features.PlateVertexCut")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
-  [OutPortDescriptions("string")]
+  [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
   public class ASPropertiesPlateVertexFeatures : AstDropDownBase
   {

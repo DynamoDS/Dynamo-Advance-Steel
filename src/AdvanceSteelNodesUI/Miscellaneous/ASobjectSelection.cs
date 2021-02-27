@@ -20,8 +20,8 @@ namespace AdvanceSteel.Nodes
   [IsDesignScriptCompatible]
   [IsVisibleInDynamoLibrary(true)]
   [NodeCategory("AdvanceSteel.Nodes.Selection")]
-  [NodeName("Select Advance Steel Objects")]
-  [NodeDescription("Select the Steel Objects")]
+  [NodeName("SelectAdvanceSteelObjects")]
+  [NodeDescription("Asks the user to do a selection, only the Advance Steel objects are added to the selection set")]
   [OutPortNames("steelObjects")]
   [OutPortTypes("AdvanceSteel.Nodes.SteelDbObject")]
   public class ASObjectSelection : SteelSelection<string, string>

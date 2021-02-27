@@ -127,6 +127,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
     /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
     /// <param name="additionalAnchorBoltParameters"> Optional Input Anchor Bolt Build Properties </param>
+    /// <returns name="rectangularAnchorPattern"> rectangularAnchorPattern</returns>
     public static RectangularAnchorPattern ByRectangle(Autodesk.DesignScript.Geometry.Rectangle rectangle,
                                                       [DefaultArgument("2;")] int noOfBoltsX,
                                                       [DefaultArgument("2;")] int noOfBoltsY,
@@ -156,7 +157,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
     /// <param name="objectsToConnect"> Input Objects to be bolted </param>
     /// <param name="boltConnectionType"> Input Bolt Connection type - Shop Bolt Default</param>
     /// <param name="additionalAnchorBoltParameters"> Optional Input Anchor Bolt Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="rectangularAnchorPattern"> rectangularAnchorPattern</returns>
     public static RectangularAnchorPattern AtCentrePoint(Autodesk.DesignScript.Geometry.Point connectionPoint,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem boltCS,
                                                   [DefaultArgument("2;")] int noOfBoltsX,
