@@ -17,7 +17,7 @@ namespace AdvanceSteel.Nodes.Util
     /// Get Quantity in Model
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="objectQuantity"> steelobject total quantity in the current model - numbering needs to be completed</returns>
     public static int GetQuantityInModel(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       int ret = -1;
@@ -51,7 +51,6 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="steelObject">Advance Steel element</param>
     /// <param name="AttIdx">The index of the User attribute. Is a number between 1 and 10</param>
     /// <param name="value">Attribute value</param>
-    /// <returns></returns>
     public static void SetUserAttribute(AdvanceSteel.Nodes.SteelDbObject steelObject, int AttIdx, string value)
     {
       if (AttIdx < 1 || AttIdx > 10)
@@ -81,7 +80,7 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
     /// <param name="AttIdx">The index of the User attribute. Is a number between 1 and 10</param>
-    /// <returns></returns>
+    /// <returns name="userAttributeValue"> returns the user attribute value of a particular object.  User attribute 1 - 10</returns>
     public static string GetUserAttribute(AdvanceSteel.Nodes.SteelDbObject steelObject, int AttIdx)
     {
       string ret = string.Empty;
@@ -115,7 +114,7 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
     /// <param name="weightCode">1 = Standard, 2 = Exact, 3 = Fast</param>
-    /// <returns></returns>
+    /// <returns name="weight"> The weight of the steel object based on display mode / resolution</returns>
     public static double GetWeight(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                     int weightCode)
     {
@@ -136,7 +135,7 @@ namespace AdvanceSteel.Nodes.Util
     /// Get Beam Paint Area
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="paintArea"> The paint area of the selected object</returns>
     public static double GetPaintArea(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       double ret = 0;

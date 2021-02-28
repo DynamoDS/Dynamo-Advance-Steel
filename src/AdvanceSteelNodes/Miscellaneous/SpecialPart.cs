@@ -82,7 +82,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
     /// <param name="blockName"> Input Blockname to be used by SpecialPart</param>
     /// <param name="scale"> Input Special Part Scale</param>
     /// <param name="additionalSpecialPartsParameters"> Optional Input Special Part Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="specialPart"> specialPart</returns>
     public static SpecialPart ByCSAndBlockName(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                               string blockName,
                               [DefaultArgument("1")] double scale,

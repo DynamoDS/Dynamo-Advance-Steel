@@ -86,7 +86,7 @@ namespace AdvanceSteel.Nodes.Gratings
     /// <param name="line"> Input Dynamo Line</param>
     /// <param name="planeDirection"> Input Dynamo Vector to set Normal of Grating</param>
     /// <param name="additionalGratingParameters"> Optional Input Grating Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="barGrating"> grating</returns>
     public static BarGrating ByLine(Autodesk.DesignScript.Geometry.Line line,
                                     Autodesk.DesignScript.Geometry.Vector planeDirection,
                                     [DefaultArgument("null")] List<Property> additionalGratingParameters)

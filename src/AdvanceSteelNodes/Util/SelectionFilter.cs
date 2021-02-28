@@ -25,7 +25,7 @@ namespace AdvanceSteel.Nodes.Selection
     /// </summary>
     /// <param name="steelObjects">List of steel objects</param>
     /// <param name="objectTypeFilters"> List of accepted Steel Object Types</param>
-    /// <returns></returns>
+    /// <returns name="steelObjects"> gets a filtered list of steel objects that match the list of steel object types</returns>
     public static List<SteelDbObject> FilterSelectionByType(List<SteelDbObject> steelObjects,
                                                   List<int> objectTypeFilters)
     {

@@ -170,7 +170,7 @@ namespace AdvanceSteel.Nodes.Gratings
     /// <param name="width"> Input Grating Width</param>
     /// <param name="length"> Input Grating Length</param>
     /// <param name="additionalGratingParameters"> Optional Input Grating Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="variableGrating"> grating</returns>
     public static VariableGrating ByRectangularByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                     string gratingClass,
                                                     string gratingName,
@@ -198,7 +198,7 @@ namespace AdvanceSteel.Nodes.Gratings
     /// <param name="width"> Input Grating Width</param>
     /// <param name="length"> Input Grating Length</param>
     /// <param name="additionalGratingParameters"> Optional Input Grating Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="variableGrating"> grating</returns>
     public static VariableGrating ByRectangularByPointAndVectors(Autodesk.DesignScript.Geometry.Point origin,
                                                 Autodesk.DesignScript.Geometry.Vector xVector,
                                                 Autodesk.DesignScript.Geometry.Vector yVector,
@@ -229,7 +229,7 @@ namespace AdvanceSteel.Nodes.Gratings
     /// <param name="width"> Input Grating Width</param>
     /// <param name="length"> Input Grating Length</param>
     /// <param name="additionalGratingParameters"> Optional Input Grating Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="variableGrating"> grating</returns>
     public static VariableGrating ByRectangularByPointAndNormal(Autodesk.DesignScript.Geometry.Point origin,
                                             Autodesk.DesignScript.Geometry.Vector normal,
                                             string gratingClass,
@@ -262,7 +262,7 @@ namespace AdvanceSteel.Nodes.Gratings
     /// <param name="gratingName"> Input Grating Size</param>
     /// <param name="poly"> Input dynamo Polygon</param>
     /// <param name="additionalGratingParameters"> Optional Input Grating Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="variableGrating"> grating</returns>
 		public static VariableGrating ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly,
                                             string gratingClass,
                                             string gratingName,

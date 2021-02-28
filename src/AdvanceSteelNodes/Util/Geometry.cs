@@ -26,7 +26,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="bodyResolution"> Set Steel body display resolution</param>
     /// <param name="intersectionPlane"> Dynamo Plane to intersect with Steel body</param>
-    /// <returns></returns>
+    /// <returns name="lines"> list of lines that form the section created by passing the steel object through the plane</returns>
     public static List<Autodesk.DesignScript.Geometry.Line> CutElementByPlane(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                               int bodyResolution,
                                                                               Autodesk.DesignScript.Geometry.Plane intersectionPlane)
@@ -67,7 +67,7 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="intersectionPlane"> Dynamo Plane to intersect with Steel body</param>
-    /// <returns></returns>
+    /// <returns name="point"> point formed by cutting the system line through a plane</returns>
     public static Autodesk.DesignScript.Geometry.Point CutSystemLineByPlane(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                           Autodesk.DesignScript.Geometry.Plane intersectionPlane)
     {
@@ -112,7 +112,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="bodyResolution"> Set Steel body display resolution</param>
     /// <param name="line"> Dynamo Line to intersect with Steel body</param>
-    /// <returns></returns>
+    /// <returns name="points"> list of points that are returned by intersction a line through a steel object based on the object display mode / resolution</returns>
     public static List<Autodesk.DesignScript.Geometry.Point> IntersectElementByLine(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                                     int bodyResolution,
                                                                                     Autodesk.DesignScript.Geometry.Line line)
@@ -153,7 +153,7 @@ namespace AdvanceSteel.Nodes.Util
     /// Get Plane from planar objects like - plate, grating, slab or isolated footing
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="plane"> returns a plane from plannar objects - plate, slab, footing isolated or grating</returns>
     public static Autodesk.DesignScript.Geometry.Plane GetPlane(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       Autodesk.DesignScript.Geometry.Plane ret = null;
@@ -191,7 +191,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="centrePoint"> Input Dynamo Centre Point between created planes</param>
     /// <param name="planeNormal"> Input Dynamo Direction Vector and Plane Normal</param>
     /// <param name="distance"> Input value to move point in direction vector</param>
-    /// <returns></returns>
+    /// <returns name="planes"> returns 2 equal spaced planes, one plane plane either side of the centre point by the distance value</returns>
     [MultiReturn(new[] { "PlaneNegative", "PlanePositive" })]
     public static Dictionary<string, Autodesk.DesignScript.Geometry.Plane> GetPlaneOffsetByCentre(Autodesk.DesignScript.Geometry.Point centrePoint,
                                                                                     Autodesk.DesignScript.Geometry.Vector planeNormal,
@@ -216,7 +216,7 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="point"> Input Orginal Dynamo Point</param>
     /// <param name="line"></param>
-    /// <returns></returns>
+    /// <returns name="point"> orthographically project point to a line and returns found point and also if the point is on the extents of the line </returns>
     [MultiReturn(new[] { "FoundPoint", "IsOnline" })]
     public static Dictionary<string, object> OrthoProjectPointToLine(Autodesk.DesignScript.Geometry.Point point,
                                                                                 Autodesk.DesignScript.Geometry.Line line)
@@ -255,7 +255,7 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="firstPoint"> Input Dynamo First Point</param>
     /// <param name="secondPoint"> Input Dynamo Second Point</param>
-    /// <returns></returns>
+    /// <returns name="point"> get the point midway between two points</returns>
     public static Autodesk.DesignScript.Geometry.Point GetMidBetweenPoints(Autodesk.DesignScript.Geometry.Point firstPoint,
                                                                             Autodesk.DesignScript.Geometry.Point secondPoint)
     {
