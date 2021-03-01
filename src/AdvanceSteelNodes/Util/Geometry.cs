@@ -217,7 +217,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="point"> Input Orginal Dynamo Point</param>
     /// <param name="line"></param>
     /// <returns name="point"> orthographically project point to a line and returns found point and also if the point is on the extents of the line </returns>
-    [MultiReturn(new[] { "FoundPoint", "IsOnline" })]
+    [MultiReturn(new[] { "FoundPoint", "IsOnLine" })]
     public static Dictionary<string, object> OrthoProjectPointToLine(Autodesk.DesignScript.Geometry.Point point,
                                                                                 Autodesk.DesignScript.Geometry.Line line)
     {
@@ -245,7 +245,7 @@ namespace AdvanceSteel.Nodes.Util
           isOnLine = true;
         }
         ret["FoundPoint"] = Utils.ToDynPoint(calculatedPoint, true);
-        ret["IsOnline"] = isOnLine;
+        ret["IsOnLine"] = isOnLine;
       }
       return ret;
     }
