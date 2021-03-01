@@ -1,0 +1,702 @@
+{
+  "Uuid": "6c1923ef-44e5-4329-b202-c28e03354985",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "BeamData",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Beam.GetBeamData@AdvanceSteel.Nodes.SteelDbObject,int",
+      "Id": "3cc09a3f251142b09665091802120711",
+      "Inputs": [
+        {
+          "Id": "cb3f2f997829437cb0ac1b4be57627e8",
+          "Name": "steelObject",
+          "Description": "Advance Steel element\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f3d8f0f832ab4c2498fb09125df37692",
+          "Name": "bodyResolutionForLength",
+          "Description": "Set Steel body display resolution\n\nint\nDefault value : 0",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7b8746fd46c6451185d3fb005243e540",
+          "Name": "beamData",
+          "Description": "The beam Length, PaintArea, Exact Weight, Weight Per Unit, Profile Type and Profile Type Code",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "409a8d179d034611b5fe95030194fe6e",
+          "Name": "PaintArea",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "49a48a1bab194ae5a79db101df30443f",
+          "Name": "ExactWeight",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "403a404d54144dc2a10e5bafc342f8da",
+          "Name": "WeightPerUnit",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0905588e4f604441a839e482c27ca823",
+          "Name": "ProfileType",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1e075cc35cd0443fa798c6ffc750e439",
+          "Name": "ProfileTypeCode",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get BEAM data\n\nBeam.GetBeamData (steelObject: SteelDbObject, bodyResolutionForLength: int = 0): var[]..[]"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.BodyResolution, AdvanceSteelNodesUI",
+      "SelectedIndex": 2,
+      "SelectedString": "Detailed",
+      "NodeType": "ExtensionNode",
+      "Id": "ccf0323c8d79421f885ba8915f02039c",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "5f5599b7be8448ceae3252da0b4a92e5",
+          "Name": "bodyResolution",
+          "Description": "body resolution",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all options for body resolution"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "d832099482f449f9ae2cc96805c25df5",
+      "Inputs": [
+        {
+          "Id": "ef191b3553b2434f92bb695a22e85c95",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "70b3393cae7d4ca19de2bff8e43647a0",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "beadc0a43e714834b89710bd281f1f35",
+      "Inputs": [
+        {
+          "Id": "b2203f1ae9884d9380bbfa9f5bd486ea",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "86321fa826be41b89145bb4c92451229",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "c86e60c0c4bd43f0ad3786da5e3e4625",
+      "Inputs": [
+        {
+          "Id": "f5fb8ab368f348e985c61d398234e2fe",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8216148b12d54bfd8b73a4e04a2652f4",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "208c7fc88a004961905b5dd8f83b9b56",
+      "Inputs": [
+        {
+          "Id": "5c19603f15d64b70ae070e6c2b560eea",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4b6733346eaf4d2e866626a74d03bd96",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "44c126ab23b9416daffbc93f5e2fce8a",
+      "Inputs": [
+        {
+          "Id": "44a47a57729e42988dc338f744985cb5",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "bff838612af24089939aa61acc6a3cc5",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "774e2ee2f58d4aa09ab7605ec2520703",
+      "Inputs": [
+        {
+          "Id": "cb9b9cee3cf9437b979e541a3892fca2",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "092f0ff476e64aadaa6c35a1c8438630",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Beam.GetBeamSawInformation@AdvanceSteel.Nodes.SteelDbObject",
+      "Id": "56d41ecdd2d248a4b969219cb56e1168",
+      "Inputs": [
+        {
+          "Id": "9252501612054a0e9d1141a5dfd46fdf",
+          "Name": "steelObject",
+          "Description": "Advance Steel element\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "10df05b7f28e4412944d2434f2eaf672",
+          "Name": "beamSawCutInformation",
+          "Description": "The Saw Length, Flange Angle At Start, Web Angle At Start, Flange Angle At End and Web Angle At End",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "addb199a06db41ab9593f9f7bf89b109",
+          "Name": "FlangeAngleAtStart",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "46aad5f868e4420193673346de2e71f2",
+          "Name": "WebAngleAtStart",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b44f5d2095c54f818002b9dfb5f8ba77",
+          "Name": "FlangeAngleAtEnd",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ecf05f41998c4f6ab42c3a1116bdd2ad",
+          "Name": "WebAngleAtEnd",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get Saw Cut information from Beam Objects\n\nBeam.GetBeamSawInformation (steelObject: SteelDbObject): var[]..[]"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASSelectObjecTypes, AdvanceSteelNodesUI",
+      "SelectedIndex": 19,
+      "SelectedString": "Straight Beam",
+      "NodeType": "ExtensionNode",
+      "Id": "5650e05f9b5749b08c7ccc673aae83e1",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "1b6f3bfe59e34aeaa2b52e4e84d589ff",
+          "Name": "steelObjects",
+          "Description": "list with the selected steel objects",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Select all steel objects by type"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "46844c5c623a41e2986ab374199619b5",
+      "Inputs": [
+        {
+          "Id": "0f1ade4a70854067b4d7dad562c8465c",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9d84fa700410488797230ccc61497852",
+          "Name": "item1",
+          "Description": "Item Index #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "94bb4204c5144b4282472f600228f837",
+          "Name": "item2",
+          "Description": "Item Index #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f46048f8b5c04fa0b64743e27705f599",
+          "Name": "item3",
+          "Description": "Item Index #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f28301539e574a18ab5cee36f1f3963c",
+          "Name": "item4",
+          "Description": "Item Index #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "bfb6dee389354d948e6d03c223def106",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "9beb589b645342e29c81122e42313428",
+      "Inputs": [
+        {
+          "Id": "e2c5efd7fea6444da1b30152a30c6ef5",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "21f19072256b44fda7811005f8de27cf",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "7b8746fd46c6451185d3fb005243e540",
+      "End": "ef191b3553b2434f92bb695a22e85c95",
+      "Id": "7a1eb4fdb7cc4f70ae72caa6260d0361"
+    },
+    {
+      "Start": "409a8d179d034611b5fe95030194fe6e",
+      "End": "f5fb8ab368f348e985c61d398234e2fe",
+      "Id": "08319a854cf6443299d6718c6cd7355c"
+    },
+    {
+      "Start": "49a48a1bab194ae5a79db101df30443f",
+      "End": "b2203f1ae9884d9380bbfa9f5bd486ea",
+      "Id": "f42e706a440c4ee398f811143115d2e8"
+    },
+    {
+      "Start": "403a404d54144dc2a10e5bafc342f8da",
+      "End": "5c19603f15d64b70ae070e6c2b560eea",
+      "Id": "8756cddb2dd14366a1855cafcffdfad6"
+    },
+    {
+      "Start": "0905588e4f604441a839e482c27ca823",
+      "End": "44a47a57729e42988dc338f744985cb5",
+      "Id": "d6448f2d513c43e9b74bb3db1e808365"
+    },
+    {
+      "Start": "1e075cc35cd0443fa798c6ffc750e439",
+      "End": "cb9b9cee3cf9437b979e541a3892fca2",
+      "Id": "ac4ae8243e6642feaeb694b0db943abd"
+    },
+    {
+      "Start": "5f5599b7be8448ceae3252da0b4a92e5",
+      "End": "f3d8f0f832ab4c2498fb09125df37692",
+      "Id": "72cb025ee59a43b6943c049dad483b19"
+    },
+    {
+      "Start": "10df05b7f28e4412944d2434f2eaf672",
+      "End": "0f1ade4a70854067b4d7dad562c8465c",
+      "Id": "b27f22d2ce114cd7807b17041c86e458"
+    },
+    {
+      "Start": "addb199a06db41ab9593f9f7bf89b109",
+      "End": "9d84fa700410488797230ccc61497852",
+      "Id": "e53fc6b80c8c4dd9a83104bf1b41d447"
+    },
+    {
+      "Start": "46aad5f868e4420193673346de2e71f2",
+      "End": "94bb4204c5144b4282472f600228f837",
+      "Id": "d9bc67a7b510492cb98d0ef363e21be5"
+    },
+    {
+      "Start": "b44f5d2095c54f818002b9dfb5f8ba77",
+      "End": "f46048f8b5c04fa0b64743e27705f599",
+      "Id": "54d3d4d6c84b4f8cb305dca265b038eb"
+    },
+    {
+      "Start": "ecf05f41998c4f6ab42c3a1116bdd2ad",
+      "End": "f28301539e574a18ab5cee36f1f3963c",
+      "Id": "cd1ef4cc2f8d44ba96d64bba3c03da8e"
+    },
+    {
+      "Start": "1b6f3bfe59e34aeaa2b52e4e84d589ff",
+      "End": "9252501612054a0e9d1141a5dfd46fdf",
+      "Id": "d379c590ad9b4bc795d73a6da72cd9ed"
+    },
+    {
+      "Start": "1b6f3bfe59e34aeaa2b52e4e84d589ff",
+      "End": "cb3f2f997829437cb0ac1b4be57627e8",
+      "Id": "56013f32c33b4bf685856281c454ac6d"
+    },
+    {
+      "Start": "bfb6dee389354d948e6d03c223def106",
+      "End": "e2c5efd7fea6444da1b30152a30c6ef5",
+      "Id": "db18ac9a711f4bf4959bc59df4ec8082"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.5.2.7915",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Beam.GetBeamData",
+        "Id": "3cc09a3f251142b09665091802120711",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 688.0,
+        "Y": 205.5
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "BodyResolutions",
+        "Id": "ccf0323c8d79421f885ba8915f02039c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 277.52670474223419,
+        "Y": 110.71825675190382
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "d832099482f449f9ae2cc96805c25df5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1393.5881341343534,
+        "Y": -153.57182649642
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "beadc0a43e714834b89710bd281f1f35",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1397.8872781385912,
+        "Y": 149.50336505241705
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "c86e60c0c4bd43f0ad3786da5e3e4625",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1391.0701274429111,
+        "Y": -4.8452366639167508
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "208c7fc88a004961905b5dd8f83b9b56",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1410.0650301579699,
+        "Y": 298.12269993320257
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "44c126ab23b9416daffbc93f5e2fce8a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1425.0549298734602,
+        "Y": 452.49805353445709
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "774e2ee2f58d4aa09ab7605ec2520703",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1557.7679647382211,
+        "Y": 580.77572220034847
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Beam.GetBeamSawInformation",
+        "Id": "56d41ecdd2d248a4b969219cb56e1168",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 555.03748071932057,
+        "Y": 502.21964658476838
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "GetSteelObjectsByType",
+        "Id": "5650e05f9b5749b08c7ccc673aae83e1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 203.22348922717549,
+        "Y": 448.17333684373119
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "46844c5c623a41e2986ab374199619b5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1012.3040650163996,
+        "Y": 566.4947513083265
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "9beb589b645342e29c81122e42313428",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1189.3749299164408,
+        "Y": 588.77519126263621
+      }
+    ],
+    "Annotations": [],
+    "X": 238.04077074901943,
+    "Y": 107.54542699891078,
+    "Zoom": 0.85794222258784891
+  }
+}

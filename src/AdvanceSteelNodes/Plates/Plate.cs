@@ -191,7 +191,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// </summary>
     /// <param name="poly">Input Dynamo Closed Polygon</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="plate"> plate</returns>
     public static Plate ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly,
                                   [DefaultArgument("null")] List<Property> additionalPlateParameters)
     {
@@ -208,7 +208,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="width">Input Plate Width</param>
     /// <param name="corner">0 - TL, 1 - TR, 2 - BR, 3 - BL, else center</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="plate"> plate</returns>
     public static Plate ByRectanglarByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                           double length,
                                           double width,
@@ -232,7 +232,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="width">Input Plate Width</param>
     /// <param name="corner">0 - TL, 1 - TR, 2 - BR, 3 - BL, else center</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="plate"> plate</returns>
     public static Plate ByRectanglarByPointandNormal(Autodesk.DesignScript.Geometry.Point origin,
                                                       Autodesk.DesignScript.Geometry.Vector normal,
                                                       double length,
@@ -255,7 +255,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="normal">Input Plate Normal</param>
     /// <param name="width">Input Plate Width</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="plate"> plate</returns>
     public static Plate ByLengthEdge(Autodesk.DesignScript.Geometry.Line line,
                                       Autodesk.DesignScript.Geometry.Vector normal,
                                       double width,
@@ -278,7 +278,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="normal">Input Plate Normal</param>
     /// <param name="width">Input Plate Width</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="plate"> plate</returns>
     public static Plate ByLengthEdge(Autodesk.DesignScript.Geometry.Point startPoint,
                                       Autodesk.DesignScript.Geometry.Point endPoint,
                                       Autodesk.DesignScript.Geometry.Vector normal,
@@ -303,7 +303,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="cornerPoint1">Input Point of Lower Left of plate</param>
     /// <param name="cornerPoint2">Input Point of Upper right of plate</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="plate"> plate</returns>
     public static Plate ByTwoDiagonalPointsByCS(Autodesk.DesignScript.Geometry.CoordinateSystem cs,
                                                 Autodesk.DesignScript.Geometry.Point cornerPoint1,
                                                 Autodesk.DesignScript.Geometry.Point cornerPoint2,
@@ -333,7 +333,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// <param name="xDirectionPoint">Input Point in the X Direction - distance from orgin will determine the width</param>
     /// <param name="yDirectionPoint">Input Point in approximate Y Direction - True Y Direction will get recalculated</param>
     /// <param name="additionalPlateParameters"> Optional Input Plate Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="plate"> plate</returns>
     public static Plate ByThreePoints(Autodesk.DesignScript.Geometry.Point orginPoint,
                                       Autodesk.DesignScript.Geometry.Point xDirectionPoint,
                                       Autodesk.DesignScript.Geometry.Point yDirectionPoint,
@@ -368,7 +368,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// Get Plate Physical Length and Width
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="plateSize"> plate length and width values</returns>
     [MultiReturn(new[] { "Length", "Width" })]
     public static Dictionary<string, double> GetPhysicalLengthAndWidth(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
@@ -405,7 +405,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// Get Plate Circumference
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="plateCircumference"> plate circumference value</returns>
     public static double GetCircumference(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       double ret = 0;
@@ -437,7 +437,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// Is Plate Rectangular
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="IsRectangular"> reads if the plate is rectangular - true or false</returns>
     public static bool IsRectangular(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       bool ret = false;

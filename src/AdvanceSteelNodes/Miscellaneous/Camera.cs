@@ -80,7 +80,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
     /// </summary>
     /// <param name="coordinateSystem">Input Dynamo Coordinate System</param>
     /// <param name="additionalCameraParameters"> Optional Input Camera Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="camera"> camera</returns>
     public static Camera ByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                   [DefaultArgument("null")] List<Property> additionalCameraParameters)
     {
@@ -153,7 +153,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
     /// Get Camera Extents Values
     /// </summary>
     /// <param name="steelObject"> Selected Advance Steel Camera Object</param>
-    /// <returns></returns>
+    /// <returns name="cameraExtents"> camera extents with respect to width and length of fixed camera size</returns>
     [MultiReturn(new[] { "X_Length", "Y_Length" })]
     public static Dictionary<string, double> GetCameraExtents(SteelDbObject steelObject)
     {
@@ -190,7 +190,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
     /// Get Camera Clipping Values
     /// </summary>
     /// <param name="steelObject"> Selected Advance Steel Camera Object</param>
-    /// <returns></returns>
+    /// <returns name="cameraZClipping"> camera Z direction clipping values - Values for near side and farside of view plane</returns>
     [MultiReturn(new[] { "Nearside_Clipping", "Farside_Clipping" })]
     public static Dictionary<string, double> GetCameraClipping(SteelDbObject steelObject)
     {

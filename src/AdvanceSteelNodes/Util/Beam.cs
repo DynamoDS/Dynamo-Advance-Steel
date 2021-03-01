@@ -154,7 +154,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="pointOnSystemLine"> Dynamo point</param>
     /// <param name="unBounded">TRUE = Ignore ends of system line, FALSE = (Default) Use physical length of System line as limitation</param>
-    /// <returns></returns>
+    /// <returns name="point"> closest point of the system line either restricted or not the physical system line</returns>
     public static Autodesk.DesignScript.Geometry.Point GetClosestPointToSystemline(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                                   Autodesk.DesignScript.Geometry.Point pointOnSystemLine,
                                                                                   [DefaultArgument("False")] bool unBounded)
@@ -192,11 +192,53 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
+    /// Return Dynamo Line object from the Beam System Line. Supports Straight Beam, Tapered Beam, Unfolded Beam or Compound Beam
+    /// </summary>
+    /// <param name="steelObject"> Advance Steel element</param>
+    /// <returns name="line"> beam system line as line object</returns>
+    public static Autodesk.DesignScript.Geometry.Line GetBeamLine(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    {
+      Autodesk.DesignScript.Geometry.Line ret = null;
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kStraightBeam) ||
+                filerObj.IsKindOf(FilerObject.eObjectType.kBeamTapered) ||
+                filerObj.IsKindOf(FilerObject.eObjectType.kUnfoldedStraightBeam) ||
+                filerObj.IsKindOf(FilerObject.eObjectType.kCompoundStraightBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
+              Point3d foundStartPoint = selectedObj.GetPointAtStart();
+              Point3d foundEndPoint = selectedObj.GetPointAtEnd();
+              if (foundStartPoint != null || foundEndPoint != null)
+              {
+                ret = Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(Utils.ToDynPoint(foundStartPoint, true), Utils.ToDynPoint(foundEndPoint, true));
+              }
+              else
+                throw new System.Exception("No Points wer returned from the Object");
+            }
+            else
+              throw new System.Exception("Not a Straight Beam, Tapered Beam, Unfolded Beam or Compound Beam Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object is null");
+      }
+      return ret;
+    }
+
+    /// <summary>
     /// Get Point at a distance from the END of the Beam
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="distance"> Distance from end point</param>
-    /// <returns></returns>
+    /// <returns name="point"> from beam object end point return a point by the distance value</returns>
     public static Autodesk.DesignScript.Geometry.Point GetPointFromEnd(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                        [DefaultArgument("0")] double distance)
     {
@@ -236,7 +278,7 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
     /// <param name="distance"> Distance from start point</param>
-    /// <returns></returns>
+    /// <returns name="point"> from beam object start point return a point by the distance value</returns>
     public static Autodesk.DesignScript.Geometry.Point GetPointFromStart(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                         [DefaultArgument("0")] double distance)
     {
@@ -276,7 +318,7 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="pointOnSystemLine"> Dynamo Point on System line</param>
-    /// <returns></returns>
+    /// <returns name="coordinateSystem"> return coordinate system on beam at a specifc point</returns>
     public static Autodesk.DesignScript.Geometry.CoordinateSystem GetCoordinateSystemAtPoint(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                                                               Autodesk.DesignScript.Geometry.Point pointOnSystemLine)
     {
@@ -316,7 +358,7 @@ namespace AdvanceSteel.Nodes.Util
     /// Get Saw Cut information from Beam Objects
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="beamSawCutInformation"> The Saw Length, Flange Angle At Start, Web Angle At Start, Flange Angle At End and Web Angle At End </returns>
     [MultiReturn(new[] { "SawLength", "FlangeAngleAtStart", "WebAngleAtStart", "FlangeAngleAtEnd", "WebAngleAtEnd" })]
     public static Dictionary<string, double> GetBeamSawInformation(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
@@ -327,7 +369,7 @@ namespace AdvanceSteel.Nodes.Util
       double webAngleAtStart = 0;
       double flangeAngleAtEnd = 0;
       double webAngleAtEnd = 0;
-      ret.Add("SawLength", sawLength);
+      ret.Add("SawLength", Utils.FromInternalDistanceUnits(sawLength, true));
       ret.Add("FlangeAngleAtStart", flangeAngleAtStart);
       ret.Add("WebAngleAtStart", webAngleAtStart);
       ret.Add("FlangeAngleAtEnd", flangeAngleAtEnd);
@@ -376,7 +418,7 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="bodyResolutionForLength"> Set Steel body display resolution</param>
-    /// <returns></returns>
+    /// <returns name="beamData"> The beam Length, PaintArea, Exact Weight, Weight Per Unit, Profile Type and Profile Type Code</returns>
     [MultiReturn(new[] { "Length", "PaintArea", "ExactWeight", "WeightPerUnit", "ProfileType", "ProfileTypeCode" })]
     public static Dictionary<string, object> GetBeamData(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                          [DefaultArgument("0")] int bodyResolutionForLength)
@@ -435,7 +477,7 @@ namespace AdvanceSteel.Nodes.Util
     /// Get Beam Insert Reference Axis
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="beamReferenceAxis"> Integer value for beam reference axis</returns>
     public static int GetBeamReferenceAxis(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       int ret = -1;
@@ -467,7 +509,7 @@ namespace AdvanceSteel.Nodes.Util
     /// Get Beam Length
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="beamLenth"> The beam length value</returns>
     public static double GetLength(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       double ret = 0;
@@ -500,7 +542,7 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
     /// <param name="bodyResolutionForLength"> Set Steel body display resolution</param>
-    /// <returns></returns>
+    /// <returns name="beamLength"> The beam length value based on a particular beam display mode / resolution</returns>
     public static double GetLength(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                    [DefaultArgument("0")] int bodyResolutionForLength)
     {
@@ -533,7 +575,7 @@ namespace AdvanceSteel.Nodes.Util
     /// Get Beam Weight Per Meter
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="beamWeightPerMeter"> The beam weight per meter</returns>
     public static double GetWeightPerMeter(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       double ret = 0;
@@ -567,7 +609,6 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="beamElement">Advance Steel beam</param>
     /// <param name="sectionName">Section</param>
-    /// <returns></returns>
     public static void SetSection(AdvanceSteel.Nodes.SteelDbObject beamElement, string sectionName)
     {
       using (var ctx = new SteelServices.DocContext())

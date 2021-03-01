@@ -93,7 +93,7 @@ namespace AdvanceSteel.Nodes.Gratings
     /// <param name="gratingClass"> Input Grating Class</param>
     /// <param name="gratingName"> Input Grating Size</param>
     /// <param name="additionalGratingParameters"> Optional Input Grating Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="standardGrating"> grating</returns>
     public static StandardGrating ByCS(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                         string gratingClass,
                                         string gratingName,
@@ -112,7 +112,7 @@ namespace AdvanceSteel.Nodes.Gratings
     /// <param name="gratingClass"> Input Grating Class</param>
     /// <param name="gratingName"> Input Grating Size</param>
     /// <param name="additionalGratingParameters"> Optional Input Grating Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="standardGrating"> grating</returns>
     public static StandardGrating ByPointAndVectors(Autodesk.DesignScript.Geometry.Point origin,
                                     Autodesk.DesignScript.Geometry.Vector xVector,
                                     Autodesk.DesignScript.Geometry.Vector yVector,
@@ -133,7 +133,7 @@ namespace AdvanceSteel.Nodes.Gratings
     /// <param name="gratingClass"> Input Grating Class</param>
     /// <param name="gratingName"> Input Grating Size</param>
     /// <param name="additionalGratingParameters"> Optional Input Grating Build Properties </param>
-    /// <returns></returns>
+    /// <returns name="standardGrating"> grating</returns>
     public static StandardGrating ByPointAndNormal(Autodesk.DesignScript.Geometry.Point origin,
                                 Autodesk.DesignScript.Geometry.Vector normal,
                                 string gratingClass,

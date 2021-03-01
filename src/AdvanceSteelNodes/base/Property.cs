@@ -57,7 +57,6 @@ namespace AdvanceSteel.Nodes
     /// <summary>
     /// Get the value from the property
     /// </summary>
-    /// <param name="property">The input property</param>
     /// <returns name="Value">The value of the property</returns>
     public object Value
     {
@@ -70,7 +69,6 @@ namespace AdvanceSteel.Nodes
     /// <summary>
     /// Get the name of the property
     /// </summary>
-    /// <param name="property">The input property</param>
     /// <returns name="Name">The name of the property</returns>
     public string Name
     {
@@ -83,7 +81,6 @@ namespace AdvanceSteel.Nodes
     /// <summary>
     /// Check if this property is readonly
     /// </summary>
-    /// <param name="property">The input property</param>
     /// <returns name="IsReadOnly">The read status of the property</returns>
     public bool IsReadOnly
     {

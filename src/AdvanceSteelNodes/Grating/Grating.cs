@@ -16,7 +16,7 @@ namespace AdvanceSteel.Nodes.GratingFunctions
     /// Get Bar Grating Product Name
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="barGratingProductName"> product name as a string of the Bar Grating from Advance Steel Grating Database</returns>
     public static string GetBarGratingProductName(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       string ret = "";
@@ -42,7 +42,7 @@ namespace AdvanceSteel.Nodes.GratingFunctions
     /// Get Grating Centre Point on Top
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="point"> The centre point on top side of the grating</returns>
     public static Autodesk.DesignScript.Geometry.Point GetCenterOnTop(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       Autodesk.DesignScript.Geometry.Point ret;
@@ -69,7 +69,7 @@ namespace AdvanceSteel.Nodes.GratingFunctions
     /// Get Bar Grating Top Normal Vector
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="gratingNormal"> normal direction as a vector on the top side of the grating</returns>
     public static Autodesk.DesignScript.Geometry.Vector GetTopNormal(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       Autodesk.DesignScript.Geometry.Vector ret;
@@ -96,7 +96,7 @@ namespace AdvanceSteel.Nodes.GratingFunctions
     /// Get Plane on top of Grating Object
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="plane"> plane on the top side of the grating</returns>
     public static Autodesk.DesignScript.Geometry.Plane GetTopPlane(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       Autodesk.DesignScript.Geometry.Plane ret;
@@ -123,7 +123,7 @@ namespace AdvanceSteel.Nodes.GratingFunctions
     /// Get the Grating type. 0 - Standard, 1 - Variable, 2 - Bar Grating
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns></returns>
+    /// <returns name="gratingType"> grating type as integer either 0 - Standard, 1 - Variable, 2 - Bar Grating</returns>
     public static int GetGratingType(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
       int ret;

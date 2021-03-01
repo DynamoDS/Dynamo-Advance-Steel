@@ -25,31 +25,36 @@ namespace AdvanceSteel.Nodes.Selection
     /// </summary>
     /// <param name="steelObjects">List of steel objects</param>
     /// <param name="objectTypeFilters"> List of accepted Steel Object Types</param>
-    /// <returns></returns>
+    /// <returns name="steelObjects"> gets a filtered list of steel objects that match the list of steel object types</returns>
     public static List<SteelDbObject> FilterSelectionByType(List<SteelDbObject> steelObjects,
                                                   List<int> objectTypeFilters)
     {
       List<SteelDbObject> retListOfFilteredSteelObjects = new List<SteelDbObject>();
       ClassTypeFilter filter = createFilterObject(objectTypeFilters);
 
-      if (objectTypeFilters.Count > 0)
+      using (var ctx = new SteelServices.DocContext())
       {
-        for (int i = 0; i < steelObjects.Count; i++)
+
+        if (objectTypeFilters.Count > 0)
         {
-          FilerObject objX = Utils.GetObject(steelObjects[i].Handle);
-          if (objX != null)
+          for (int i = 0; i < steelObjects.Count; i++)
           {
-            if (filter.Filter(objX.Type()) != FilerObject.eObjectType.kUnknown)
+            FilerObject objX = Utils.GetObject(steelObjects[i].Handle);
+            if (objX != null)
             {
-              retListOfFilteredSteelObjects.Add(steelObjects[i]);
+              if (filter.Filter(objX.Type()) != FilerObject.eObjectType.kUnknown)
+              {
+                retListOfFilteredSteelObjects.Add(steelObjects[i]);
+              }
             }
+            else
+              throw new System.Exception("No Object return Null during Filtering");
           }
-          else
-            throw new System.Exception("No Object return Null during Filtering");
         }
+        else
+          throw new System.Exception("No Object Filter List Provided");
       }
-      else
-        throw new System.Exception("No Object Filter List Provided");
+
       return retListOfFilteredSteelObjects;
     }
 
