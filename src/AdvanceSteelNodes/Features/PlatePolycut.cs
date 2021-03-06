@@ -222,11 +222,14 @@ namespace AdvanceSteel.Nodes.Features
                 plate.WriteToDb();
 
                 plateFeat = new PlateContourNotch(plate, 0, cutPolyline, normal, lengthVector);
+                AtomicElement atomic = obj as AtomicElement;
 
                 if (defaultData != null)
                 {
                   Utils.SetParameters(plateFeat, defaultData);
                 }
+
+                atomic.AddFeature(plateFeat);
 
                 if (postWriteDBData != null)
                 {
