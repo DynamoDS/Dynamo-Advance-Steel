@@ -97,7 +97,6 @@ namespace AdvanceSteel.Nodes.Miscellaneous
     /// <param name="clippingSide"> Set Clipping Side of Camera 0 - None, 1 = Upper, 2 - Lower, 3 - Both</param>
     /// <param name="upperClippingValue"> Set Upper Clipping Value</param>
     /// <param name="lowerClippingValue"> Set Lower Clipping Value</param>
-    /// <returns></returns>
     public static void SetZClipping(SteelDbObject steelObject,
                                     [DefaultArgument("3")] int clippingSide,
                                     [DefaultArgument("0")] double upperClippingValue,
@@ -153,7 +152,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
     /// Get Camera Extents Values
     /// </summary>
     /// <param name="steelObject"> Selected Advance Steel Camera Object</param>
-    /// <returns name="cameraExtents"> camera extents with respect to width and length of fixed camera size</returns>
+    /// <returns name="X_Length"> camera extents with respect to width and length of fixed camera size</returns>
     [MultiReturn(new[] { "X_Length", "Y_Length" })]
     public static Dictionary<string, double> GetCameraExtents(SteelDbObject steelObject)
     {
@@ -190,7 +189,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
     /// Get Camera Clipping Values
     /// </summary>
     /// <param name="steelObject"> Selected Advance Steel Camera Object</param>
-    /// <returns name="cameraZClipping"> camera Z direction clipping values - Values for near side and farside of view plane</returns>
+    /// <returns name="Nearside_Clipping"> camera Z direction clipping values - Values for near side and farside of view plane</returns>
     [MultiReturn(new[] { "Nearside_Clipping", "Farside_Clipping" })]
     public static Dictionary<string, double> GetCameraClipping(SteelDbObject steelObject)
     {

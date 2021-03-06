@@ -1367,8 +1367,8 @@
       "Outputs": [
         {
           "Id": "b19c47a91eda480e8afb8a70e47dd55d",
-          "Name": "StraightBeam",
-          "Description": "StraightBeam",
+          "Name": "straightBeam",
+          "Description": "beam",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1543,54 +1543,6 @@
       ],
       "Replication": "Disabled",
       "Description": "Visualize the output of node."
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Geometry.GetPointInDirection@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,double",
-      "Id": "579a2dc2ab3b4f98b7f45613df192d87",
-      "Inputs": [
-        {
-          "Id": "3981e3f1522a4ffea06bec96dc7726d8",
-          "Name": "point",
-          "Description": "Input Orginal Dynamo Point\n\nPoint",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "9aa5c7d2441244ba85e173797edf2544",
-          "Name": "direction",
-          "Description": "Input Dynamo Direction Vector\n\nVector",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "7c4bea475b754c9e8fc93aa12ba78378",
-          "Name": "distance",
-          "Description": "Input value to move point in direction vector\n\ndouble",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "2d271306e7e54f14a10bbd36ec0dd3a0",
-          "Name": "Point",
-          "Description": "Point",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "CrossProduct",
-      "Description": "Project point by a value in a direction (Vector)\n\nGeometry.GetPointInDirection (point: Point, direction: Vector, distance: double): Point"
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
@@ -2018,8 +1970,8 @@
       "Outputs": [
         {
           "Id": "d1cc30828e394607a9d4087d28a9eb24",
-          "Name": "StraightBeam",
-          "Description": "StraightBeam",
+          "Name": "straightBeam",
+          "Description": "beam",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -2107,8 +2059,8 @@
       "Outputs": [
         {
           "Id": "e2e0c751645a451fb234a8f40f7885b7",
-          "Name": "Point",
-          "Description": "Point",
+          "Name": "point",
+          "Description": "get the point midway between two points",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -2262,8 +2214,8 @@
       "Outputs": [
         {
           "Id": "e1ce63e467f84482a95dbfb1b940cce3",
-          "Name": "PlaneNegative",
-          "Description": "var",
+          "Name": "planes",
+          "Description": "returns 2 equal spaced planes, one plane plane either side of the centre point by the distance value",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -2349,8 +2301,8 @@
       "Outputs": [
         {
           "Id": "3a489abf1a974c3a9199eb540398ce5b",
-          "Name": "PlaneNegative",
-          "Description": "var",
+          "Name": "planes",
+          "Description": "returns 2 equal spaced planes, one plane plane either side of the centre point by the distance value",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4291,8 +4243,8 @@
       "Outputs": [
         {
           "Id": "9d5eb0d4cd814bf4a47bae1da1ffff2c",
-          "Name": "PlaneNegative",
-          "Description": "var",
+          "Name": "planes",
+          "Description": "returns 2 equal spaced planes, one plane plane either side of the centre point by the distance value",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4699,8 +4651,8 @@
       "Outputs": [
         {
           "Id": "70e44df6211b435fb1be438dd7cc1419",
-          "Name": "StraightBeam",
-          "Description": "StraightBeam",
+          "Name": "straightBeam",
+          "Description": "beam",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4816,8 +4768,8 @@
       "Outputs": [
         {
           "Id": "da7862822b864907abc2cdc921f00a29",
-          "Name": "StraightBeam",
-          "Description": "StraightBeam",
+          "Name": "straightBeam",
+          "Description": "beam",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -4912,8 +4864,8 @@
       "Outputs": [
         {
           "Id": "e0aa2daa0d1643ebaeaedb5e7c0ead5b",
-          "Name": "StraightBeam",
-          "Description": "StraightBeam",
+          "Name": "straightBeam",
+          "Description": "beam",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5008,8 +4960,8 @@
       "Outputs": [
         {
           "Id": "c6416aa68a864e9eae6330412f15b2f6",
-          "Name": "StraightBeam",
-          "Description": "StraightBeam",
+          "Name": "straightBeam",
+          "Description": "beam",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5104,8 +5056,8 @@
       "Outputs": [
         {
           "Id": "4dd4b203e73a4e1dbb84a56d9de093ec",
-          "Name": "StraightBeam",
-          "Description": "StraightBeam",
+          "Name": "straightBeam",
+          "Description": "beam",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5200,8 +5152,8 @@
       "Outputs": [
         {
           "Id": "602727a48c1b46f1a6d8c694e4fe1849",
-          "Name": "StraightBeam",
-          "Description": "StraightBeam",
+          "Name": "straightBeam",
+          "Description": "beam",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5865,7 +5817,7 @@
         {
           "Id": "fc93b3414e2949f7a894d4569544afaf",
           "Name": "value",
-          "Description": "native data to store in the property object\n\nvar",
+          "Description": "Native data to store in the property object\n\nvar",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5875,8 +5827,8 @@
       "Outputs": [
         {
           "Id": "a0148162b4154b989374a3cd210f1388",
-          "Name": "Property",
-          "Description": "Property",
+          "Name": "property",
+          "Description": "property",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5904,7 +5856,7 @@
         {
           "Id": "d40231161b024c2086d63a968cd5f76e",
           "Name": "value",
-          "Description": "native data to store in the property object\n\nvar",
+          "Description": "Native data to store in the property object\n\nvar",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5914,8 +5866,8 @@
       "Outputs": [
         {
           "Id": "174ddd263eb347dcae35363b782cb08a",
-          "Name": "Property",
-          "Description": "Property",
+          "Name": "property",
+          "Description": "property",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5943,7 +5895,7 @@
         {
           "Id": "35ee215e8fcb4e04a33e023977666b2f",
           "Name": "value",
-          "Description": "native data to store in the property object\n\nvar",
+          "Description": "Native data to store in the property object\n\nvar",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5953,8 +5905,8 @@
       "Outputs": [
         {
           "Id": "f43fb4fde9624da7b4f6d11d32e661b5",
-          "Name": "Property",
-          "Description": "Property",
+          "Name": "property",
+          "Description": "property",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -5963,6 +5915,54 @@
       ],
       "Replication": "Auto",
       "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Geometry.Translate@Autodesk.DesignScript.Geometry.Vector,double",
+      "Id": "612b6802dae34b13997914609ae2a7b1",
+      "Inputs": [
+        {
+          "Id": "3e042b7c8c3f406a892affbefb13f3c5",
+          "Name": "geometry",
+          "Description": "Autodesk.DesignScript.Geometry.Geometry",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ec75185da74d432f8bf01c38dc94ac49",
+          "Name": "direction",
+          "Description": "Displacement direction.\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "918848345adb451c8fd439de617d8bc9",
+          "Name": "distance",
+          "Description": "Displacement distance along given direction.\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e8a1a6e5ce3a4f85845ac2f31b2e1252",
+          "Name": "Geometry",
+          "Description": "Transformed Geometry.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Translates any geometry type by the given distance in the given direction.\n\nGeometry.Translate (direction: Vector, distance: double): Geometry"
     }
   ],
   "Connectors": [
@@ -6158,11 +6158,6 @@
     },
     {
       "Start": "2307dd5c358c4d4fa3b8bb2e044614e5",
-      "End": "9aa5c7d2441244ba85e173797edf2544",
-      "Id": "dd8524ae1ea34851a24a55b505c882b0"
-    },
-    {
-      "Start": "2307dd5c358c4d4fa3b8bb2e044614e5",
       "End": "d8377e3e885646239fddcda8d15f379f",
       "Id": "98c0c557f98b46de900d7de8263938bb"
     },
@@ -6195,6 +6190,11 @@
       "Start": "2307dd5c358c4d4fa3b8bb2e044614e5",
       "End": "63541ce1c8d7478c95b619b483ecd6ab",
       "Id": "f8b115a7d7a34d7f95361daaace8b8af"
+    },
+    {
+      "Start": "2307dd5c358c4d4fa3b8bb2e044614e5",
+      "End": "ec75185da74d432f8bf01c38dc94ac49",
+      "Id": "d52744906c764b7da9d769e8447043a1"
     },
     {
       "Start": "a580c5ec72424c89889eef24d76e7b6b",
@@ -6348,18 +6348,13 @@
     },
     {
       "Start": "2b6a9184f95a44adaefbbfad305990a1",
-      "End": "7c4bea475b754c9e8fc93aa12ba78378",
-      "Id": "f96a027e9a2e4d7e976de58820f59fc7"
+      "End": "918848345adb451c8fd439de617d8bc9",
+      "Id": "752697999d714f5e83fbad064212e48a"
     },
     {
       "Start": "8bb71ac78bd245b08269b1375e698ae8",
       "End": "c4fad667b2e240efad604ea06f975f74",
       "Id": "52b8968daee4411c950316371b36864e"
-    },
-    {
-      "Start": "8bb71ac78bd245b08269b1375e698ae8",
-      "End": "3981e3f1522a4ffea06bec96dc7726d8",
-      "Id": "bffc876f0bc14e0ab01dabe2442e682d"
     },
     {
       "Start": "8bb71ac78bd245b08269b1375e698ae8",
@@ -6370,6 +6365,11 @@
       "Start": "8bb71ac78bd245b08269b1375e698ae8",
       "End": "9310bb93a9a34941b38ce6617370ae06",
       "Id": "8288b427bdd24d43b91c1d372956ec09"
+    },
+    {
+      "Start": "8bb71ac78bd245b08269b1375e698ae8",
+      "End": "3e042b7c8c3f406a892affbefb13f3c5",
+      "Id": "128e7c27ec0042068875ebf805031869"
     },
     {
       "Start": "ac5db1ed01d44a1fbe9da778ace607b4",
@@ -6385,11 +6385,6 @@
       "Start": "ac5db1ed01d44a1fbe9da778ace607b4",
       "End": "96e177523ff5473ab799911c0dc03f3f",
       "Id": "ebebd93c18234eb09b3a531a99e95079"
-    },
-    {
-      "Start": "2d271306e7e54f14a10bbd36ec0dd3a0",
-      "End": "ffb5b340e6eb45e686b256c70e509613",
-      "Id": "ae42f3d846e7414aaff9f9c8bf4ab2f5"
     },
     {
       "Start": "9055340910754cada8e3c95f547ca1a7",
@@ -7180,6 +7175,11 @@
       "Start": "174ddd263eb347dcae35363b782cb08a",
       "End": "24e8c07fdfef4ef6afe228960069425f",
       "Id": "b0cc98a1f6264255908db4667140b9ac"
+    },
+    {
+      "Start": "e8a1a6e5ce3a4f85845ac2f31b2e1252",
+      "End": "ffb5b340e6eb45e686b256c70e509613",
+      "Id": "f739183e470545dfa3d0e53cb519072b"
     }
   ],
   "Dependencies": [],
@@ -7596,16 +7596,6 @@
         "Excluded": false,
         "X": 2981.4903966248758,
         "Y": 1115.9385173531066
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Geometry.GetPointInDirection",
-        "Id": "579a2dc2ab3b4f98b7f45613df192d87",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 2373.7094342443875,
-        "Y": 1752.350136639044
       },
       {
         "ShowGeometry": true,
@@ -8776,6 +8766,16 @@
         "Excluded": false,
         "X": 7648.8535543626549,
         "Y": 2351.2571125238414
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Geometry.Translate",
+        "Id": "612b6802dae34b13997914609ae2a7b1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2360.8949633995553,
+        "Y": 1773.6477123596806
       }
     ],
     "Annotations": [
@@ -8979,7 +8979,7 @@
         ],
         "Left": 1491.0857464149308,
         "Top": 725.351469316608,
-        "Width": 1232.1122603123445,
+        "Width": 1242.1122603123445,
         "Height": 504.13861640327741,
         "FontSize": 36.0,
         "InitialTop": 778.351469316608,
@@ -8997,7 +8997,7 @@
         ],
         "Left": 4102.5871037415536,
         "Top": 1421.5721756069518,
-        "Width": 723.10266658353612,
+        "Width": 722.10266658353612,
         "Height": 359.01839791313728,
         "FontSize": 36.0,
         "InitialTop": 1474.5721756069518,
@@ -9024,7 +9024,7 @@
         ],
         "Left": 2868.5959996290835,
         "Top": 2194.3654441690951,
-        "Width": 2613.1970900407291,
+        "Width": 2612.1970900407291,
         "Height": 521.33303001188551,
         "FontSize": 36.0,
         "InitialTop": 2247.3654441690951,
@@ -9055,18 +9055,18 @@
         "Id": "5d15c45451b841f7a81d01b40809636e",
         "Title": "Geometry for the Floor Steel",
         "Nodes": [
-          "579a2dc2ab3b4f98b7f45613df192d87",
           "df1eeb5794df4b6a98e64f3b38919065",
           "114797d9c0684703b1f25e56e4dfe553",
           "192a32fdcf7440869f0e72ed49d83b39",
           "9c4a34a24a8343efb6c796762057ee77",
           "425019c7812f46e2910403304cfa3841",
-          "432d87e9d85644d39c0fc210bd112a52"
+          "432d87e9d85644d39c0fc210bd112a52",
+          "612b6802dae34b13997914609ae2a7b1"
         ],
         "Left": 1853.4157567471595,
         "Top": 1496.7157999685378,
         "Width": 1322.223595672707,
-        "Height": 400.63433667050617,
+        "Height": 421.93191239114276,
         "FontSize": 36.0,
         "InitialTop": 1549.7157999685378,
         "InitialHeight": 347.63433667050617,
@@ -9138,8 +9138,8 @@
         ],
         "Left": 5375.0356233897028,
         "Top": -976.82689181128114,
-        "Width": 880.55578650929237,
-        "Height": 542.27525223249393,
+        "Width": 879.55578650929237,
+        "Height": 554.27525223249393,
         "FontSize": 36.0,
         "InitialTop": -923.82689181128114,
         "InitialHeight": 515.27525223249393,
@@ -9157,7 +9157,7 @@
         ],
         "Left": 8207.40668313294,
         "Top": 632.15922778173262,
-        "Width": 1003.3894163593613,
+        "Width": 1002.3894163593613,
         "Height": 425.3441290311622,
         "FontSize": 36.0,
         "InitialTop": 685.15922778173262,
@@ -9175,7 +9175,7 @@
         ],
         "Left": 6302.1831456666432,
         "Top": 585.5304532398568,
-        "Width": 725.22673832122109,
+        "Width": 724.22673832122109,
         "Height": 343.490957770078,
         "FontSize": 36.0,
         "InitialTop": 638.5304532398568,
@@ -9194,7 +9194,7 @@
         ],
         "Left": 9455.5061308320874,
         "Top": 171.04879146936091,
-        "Width": 976.74307563375987,
+        "Width": 975.74307563375987,
         "Height": 427.85302543701982,
         "FontSize": 36.0,
         "InitialTop": 224.04879146936091,
@@ -9235,8 +9235,8 @@
         ],
         "Left": 6917.7366242053722,
         "Top": -814.01501461350881,
-        "Width": 801.7590610017478,
-        "Height": 359.81284366695479,
+        "Width": 800.7590610017478,
+        "Height": 371.81284366695479,
         "FontSize": 36.0,
         "InitialTop": -761.01501461350881,
         "InitialHeight": 332.81284366695479,
@@ -9253,7 +9253,7 @@
         ],
         "Left": 4632.44213890093,
         "Top": -538.08985417396,
-        "Width": 713.76073509464,
+        "Width": 712.76073509464,
         "Height": 367.15225982868003,
         "FontSize": 36.0,
         "InitialTop": -485.08985417396,
@@ -9416,8 +9416,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 288.7912364587371,
-    "Y": 339.10203086414879,
-    "Zoom": 0.10313898703400748
+    "X": -290.12966772012237,
+    "Y": -532.44438356875412,
+    "Zoom": 0.51908057062431068
   }
 }

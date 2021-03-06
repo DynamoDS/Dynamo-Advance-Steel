@@ -97,45 +97,6 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.BeamSection.CreateSectionString@string,string",
-      "Id": "64db9ba865ed49b7aa62c48cd2904897",
-      "Inputs": [
-        {
-          "Id": "6805721c28814c379be0cc72c6f5b542",
-          "Name": "sectionType",
-          "Description": "SectionType for a beam section\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "24870078cec6496583406b4981d5ead4",
-          "Name": "sectionSize",
-          "Description": "SectionSize for a beam section\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "a0c18c26f7e4467aaca2573f1f0b0fc7",
-          "Name": "sectionName",
-          "Description": "Beam section name",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Returns a concatenated string containing the SectionType, a fixed string separator \"#@§@#\" and the SectionSize.\n\nBeamSection.CreateSectionString (sectionType: string, sectionSize: string): string"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
       "FunctionSignature": "AdvanceSteel.Nodes.Beams.BentBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
       "Id": "b2be85a2d6df4231820e48f14d080808",
       "Inputs": [
@@ -206,8 +167,8 @@
       "Outputs": [
         {
           "Id": "90a16d0e9b4e4c03bec471acb330ca8e",
-          "Name": "BentBeam",
-          "Description": "BentBeam",
+          "Name": "bentBeam",
+          "Description": "beam",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -332,8 +293,8 @@
       "Outputs": [
         {
           "Id": "69c5be0aead94c40adb38185c61707f9",
-          "Name": "BentBeam",
-          "Description": "BentBeam",
+          "Name": "bentBeam",
+          "Description": "beam",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -468,45 +429,6 @@
       "Description": "Allows for DesignScript code to be authored directly"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.BeamSection.CreateSectionString@string,string",
-      "Id": "0d727b7065614f95a0367614eb11c258",
-      "Inputs": [
-        {
-          "Id": "0cb2ea9c3c524ba2be67d1b451585ba4",
-          "Name": "sectionType",
-          "Description": "SectionType for a beam section\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "82d3d2663cce40af81e4eef256bd9f12",
-          "Name": "sectionSize",
-          "Description": "SectionSize for a beam section\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "526ec45792084d99aa08a2fdb62c0e0d",
-          "Name": "sectionName",
-          "Description": "Beam section name",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Returns a concatenated string containing the SectionType, a fixed string separator \"#@§@#\" and the SectionSize.\n\nBeamSection.CreateSectionString (sectionType: string, sectionSize: string): string"
-    },
-    {
       "ConcreteType": "AdvanceSteel.Nodes.BeamRefAxisType, AdvanceSteelNodesUI",
       "SelectedIndex": 2,
       "SelectedString": "Upper Middle",
@@ -587,7 +509,7 @@
         {
           "Id": "bdf467ff3de54a1ea86ebb8eb3d7619a",
           "Name": "value",
-          "Description": "native data to store in the property object\n\nvar",
+          "Description": "Native data to store in the property object\n\nvar",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -597,8 +519,8 @@
       "Outputs": [
         {
           "Id": "bc81b4191f234147af5f3372b0e6d239",
-          "Name": "Property",
-          "Description": "Property",
+          "Name": "property",
+          "Description": "property",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -637,6 +559,84 @@
       ],
       "Replication": "Disabled",
       "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Beam.CreateSectionString@string,string",
+      "Id": "f280d1928bda40b3aa372da4c1a784b2",
+      "Inputs": [
+        {
+          "Id": "3fa02f17ecfb4730865c74421fd8ccf2",
+          "Name": "sectionType",
+          "Description": "SectionType for a beam section\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "06ca7f313fa24898a0bfda5c4209141e",
+          "Name": "sectionSize",
+          "Description": "SectionSize for a beam section\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ee5b8ab306214f1687c679d4de0be09e",
+          "Name": "sectionName",
+          "Description": "Beam section name",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns a concatenated string containing the SectionType, a fixed string separator \"#@§@#\" and the SectionSize.\n\nBeam.CreateSectionString (sectionType: string, sectionSize: string): string"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Beam.CreateSectionString@string,string",
+      "Id": "9dfe36d4f5f342189262460f28921ded",
+      "Inputs": [
+        {
+          "Id": "50c662071da64ce89e68fda8b0f82e8e",
+          "Name": "sectionType",
+          "Description": "SectionType for a beam section\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "59cb9a484f184086b4ab9681aa2c4749",
+          "Name": "sectionSize",
+          "Description": "SectionSize for a beam section\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "71a02d289f94444394a1a624500bd2f5",
+          "Name": "sectionName",
+          "Description": "Beam section name",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns a concatenated string containing the SectionType, a fixed string separator \"#@§@#\" and the SectionSize.\n\nBeam.CreateSectionString (sectionType: string, sectionSize: string): string"
     }
   ],
   "Connectors": [
@@ -662,13 +662,13 @@
     },
     {
       "Start": "dea24dbd7a864ac8b291770cac8f8be8",
-      "End": "6805721c28814c379be0cc72c6f5b542",
-      "Id": "27e51618289f4c008cc9cf26ad8bca9f"
+      "End": "50c662071da64ce89e68fda8b0f82e8e",
+      "Id": "d035a5058c5f453a8fa2f8ab8d3efd5f"
     },
     {
       "Start": "27a56a3d74e946a1ba199cfd9185a9a6",
-      "End": "24870078cec6496583406b4981d5ead4",
-      "Id": "696af0cb3ffd420fbd75ed20c64ebf17"
+      "End": "59cb9a484f184086b4ab9681aa2c4749",
+      "Id": "1356e66fa4984b7095632129d0e3cb9b"
     },
     {
       "Start": "3932d99d318f4298976bdc470d1f2413",
@@ -702,18 +702,13 @@
     },
     {
       "Start": "8e2e3e8ea5f3436180cf8b605ae5db43",
-      "End": "0cb2ea9c3c524ba2be67d1b451585ba4",
-      "Id": "0eca5f79d68c4d5ab875b523f7a5fe7c"
+      "End": "3fa02f17ecfb4730865c74421fd8ccf2",
+      "Id": "99fb88be62d7455f9baececbfdc91395"
     },
     {
       "Start": "c076e82581de44cb8cc9f31a7f82b523",
-      "End": "82d3d2663cce40af81e4eef256bd9f12",
-      "Id": "3e185e109d3e4ea2a8d584a8f1910c3c"
-    },
-    {
-      "Start": "526ec45792084d99aa08a2fdb62c0e0d",
-      "End": "bdf467ff3de54a1ea86ebb8eb3d7619a",
-      "Id": "6e1d6a9cf1524ef9931b50d5f0b44dd4"
+      "End": "06ca7f313fa24898a0bfda5c4209141e",
+      "Id": "fb68e06108eb4cfcae2749fe87bb0588"
     },
     {
       "Start": "ddb93076eba44513a2a90fcf357b4b31",
@@ -739,6 +734,11 @@
       "Start": "766fad98625f418ab0feff2ac77bbcee",
       "End": "25141ba303894a158c3ca3af784acee1",
       "Id": "dc18547f0da0469baac4039a2e6ade51"
+    },
+    {
+      "Start": "ee5b8ab306214f1687c679d4de0be09e",
+      "End": "bdf467ff3de54a1ea86ebb8eb3d7619a",
+      "Id": "9934a9bb500947c0a8554f4fafa97629"
     }
   ],
   "Dependencies": [],
@@ -785,16 +785,6 @@
         "Excluded": false,
         "X": -145.14177223723357,
         "Y": 272.19098824571097
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "BeamSection.CreateSectionString",
-        "Id": "64db9ba865ed49b7aa62c48cd2904897",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 150.881251857233,
-        "Y": 197.438127859877
       },
       {
         "ShowGeometry": true,
@@ -878,16 +868,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "BeamSection.CreateSectionString",
-        "Id": "0d727b7065614f95a0367614eb11c258",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": -182.21202031537496,
-        "Y": -301.24261710318046
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Beam Reference Axis",
         "Id": "16e7bdc42bc3463491821799272f0c11",
         "IsSetAsInput": false,
@@ -935,6 +915,26 @@
         "Excluded": false,
         "X": 455.0325796736837,
         "Y": -333.35355911647525
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Beam.CreateSectionString",
+        "Id": "f280d1928bda40b3aa372da4c1a784b2",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -177.22185219530422,
+        "Y": -294.46368256061714
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Beam.CreateSectionString",
+        "Id": "9dfe36d4f5f342189262460f28921ded",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 128.9485086206613,
+        "Y": 213.51625701960933
       }
     ],
     "Annotations": [
@@ -1239,8 +1239,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 588.2116601820303,
-    "Y": 620.93599829633956,
-    "Zoom": 0.30209693553693323
+    "X": 531.48813124191224,
+    "Y": 620.94846827382662,
+    "Zoom": 0.38580650203661548
   }
 }

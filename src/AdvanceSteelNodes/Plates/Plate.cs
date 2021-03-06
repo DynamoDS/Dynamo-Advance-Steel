@@ -368,7 +368,7 @@ namespace AdvanceSteel.Nodes.Plates
     /// Get Plate Physical Length and Width
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
-    /// <returns name="plateSize"> plate length and width values</returns>
+    /// <returns name="Length"> plate length and width values</returns>
     [MultiReturn(new[] { "Length", "Width" })]
     public static Dictionary<string, double> GetPhysicalLengthAndWidth(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {

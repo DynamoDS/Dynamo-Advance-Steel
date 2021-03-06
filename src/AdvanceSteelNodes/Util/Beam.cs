@@ -358,7 +358,7 @@ namespace AdvanceSteel.Nodes.Util
     /// Get Saw Cut information from Beam Objects
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
-    /// <returns name="beamSawCutInformation"> The Saw Length, Flange Angle At Start, Web Angle At Start, Flange Angle At End and Web Angle At End </returns>
+    /// <returns name="SawLength"> The Saw Length, Flange Angle At Start, Web Angle At Start, Flange Angle At End and Web Angle At End </returns>
     [MultiReturn(new[] { "SawLength", "FlangeAngleAtStart", "WebAngleAtStart", "FlangeAngleAtEnd", "WebAngleAtEnd" })]
     public static Dictionary<string, double> GetBeamSawInformation(AdvanceSteel.Nodes.SteelDbObject steelObject)
     {
@@ -393,10 +393,10 @@ namespace AdvanceSteel.Nodes.Util
               if (executed > 0)
               {
                 ret["SawLength"] = Utils.FromInternalDistanceUnits(sawLength, true);
-                ret["FlangeAngleAtStart"] = Utils.FromInternalAngleUnits(flangeAngleAtStart, true);
-                ret["WebAngleAtStart"] = Utils.FromInternalAngleUnits(webAngleAtStart, true);
-                ret["FlangeAngleAtEnd"] = Utils.FromInternalAngleUnits(flangeAngleAtEnd, true);
-                ret["WebAngleAtEnd"] = Utils.FromInternalAngleUnits(webAngleAtEnd, true);
+                ret["FlangeAngleAtStart"] = Utils.FromInternalAngleUnits(Utils.DegreeToRad(flangeAngleAtStart), true); 
+                ret["WebAngleAtStart"] = Utils.FromInternalAngleUnits(Utils.DegreeToRad(webAngleAtStart), true); 
+                ret["FlangeAngleAtEnd"] = Utils.FromInternalAngleUnits(Utils.DegreeToRad(flangeAngleAtEnd), true); 
+                ret["WebAngleAtEnd"] = Utils.FromInternalAngleUnits(Utils.DegreeToRad(webAngleAtEnd), true); 
               }
               else
                 throw new System.Exception("No Values were found for Steel Beam from Function");
@@ -418,7 +418,7 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="bodyResolutionForLength"> Set Steel body display resolution</param>
-    /// <returns name="beamData"> The beam Length, PaintArea, Exact Weight, Weight Per Unit, Profile Type and Profile Type Code</returns>
+    /// <returns name="Length"> The beam Length, PaintArea, Exact Weight, Weight Per Unit, Profile Type and Profile Type Code</returns>
     [MultiReturn(new[] { "Length", "PaintArea", "ExactWeight", "WeightPerUnit", "ProfileType", "ProfileTypeCode" })]
     public static Dictionary<string, object> GetBeamData(AdvanceSteel.Nodes.SteelDbObject steelObject,
                                                          [DefaultArgument("0")] int bodyResolutionForLength)
