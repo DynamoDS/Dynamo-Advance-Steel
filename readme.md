@@ -8,7 +8,7 @@ This repository contains the source files for the Dynamo Extension for Advance S
   - Visual Studio 2019;
   - AutoCAD 2022;
   - Advance Steel 2022;
-  - Dynamo Core 2.10.1 from http://www.github.com/DyanmoDS/Dynamo;
+  - Dynamo Core 2.10.1 from http://www.github.com/DynamoDS/Dynamo;
   - Make sure you have [.Net Framework 4.8 SDK](https://dotnet.microsoft.com/download/visual-studio-sdks) installed on your computer
 
 2. Update the paths from \src\Config\user_local.props with the ones from your machine
