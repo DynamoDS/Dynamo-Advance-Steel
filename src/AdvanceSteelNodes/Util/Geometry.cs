@@ -191,7 +191,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="centrePoint"> Input Dynamo Centre Point between created planes</param>
     /// <param name="planeNormal"> Input Dynamo Direction Vector and Plane Normal</param>
     /// <param name="distance"> Input value to move point in direction vector</param>
-    /// <returns name="planes"> returns 2 equal spaced planes, one plane plane either side of the centre point by the distance value</returns>
+    /// <returns name="PlaneNegative"> returns 2 equal spaced planes, one plane plane either side of the centre point by the distance value</returns>
     [MultiReturn(new[] { "PlaneNegative", "PlanePositive" })]
     public static Dictionary<string, Autodesk.DesignScript.Geometry.Plane> GetPlaneOffsetByCentre(Autodesk.DesignScript.Geometry.Point centrePoint,
                                                                                     Autodesk.DesignScript.Geometry.Vector planeNormal,
@@ -216,7 +216,7 @@ namespace AdvanceSteel.Nodes.Util
     /// </summary>
     /// <param name="point"> Input Orginal Dynamo Point</param>
     /// <param name="line"></param>
-    /// <returns name="point"> orthographically project point to a line and returns found point and also if the point is on the extents of the line </returns>
+    /// <returns name="FoundPoint"> orthographically project point to a line and returns found point and also if the point is on the extents of the line </returns>
     [MultiReturn(new[] { "FoundPoint", "IsOnLine" })]
     public static Dictionary<string, object> OrthoProjectPointToLine(Autodesk.DesignScript.Geometry.Point point,
                                                                                 Autodesk.DesignScript.Geometry.Line line)
@@ -271,5 +271,6 @@ namespace AdvanceSteel.Nodes.Util
       }
       return ret;
     }
+
   }
 }

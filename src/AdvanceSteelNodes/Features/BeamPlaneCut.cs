@@ -139,7 +139,7 @@ namespace AdvanceSteel.Nodes.Features
             Vector3d xZ = null;
             matrixAtPointOnBeam.GetCoordSystem(out orgin, out xV, out xY, out xZ);
             cutPoint = orgin;
-            normal = xV;
+            normal = (end == 0 ? xV : xV.Negate());
             if (string.IsNullOrEmpty(existingFeatureHandle) || Utils.GetObject(existingFeatureHandle) == null)
             {
               AtomicElement atomic = obj as AtomicElement;

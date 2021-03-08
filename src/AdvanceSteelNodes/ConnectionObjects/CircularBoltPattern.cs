@@ -90,7 +90,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       vx = vx.Normalize();
       vy = vy.Normalize();
 
-      PreSetCircularValuesInListProps(additionalBoltParameters, Utils.ToInternalDistanceUnits(circle.Radius, true));
+      additionalBoltParameters = PreSetCircularValuesInListProps(additionalBoltParameters, Utils.ToInternalDistanceUnits(circle.Radius, true));
 
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
       return new CircularBoltPattern(Utils.ToAstPoint(circle.CenterPoint, true), handlesList, vx, vy, additionalBoltParameters, boltConnectionType);
@@ -120,11 +120,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       vy = vy.Normalize();
 
       IEnumerable<string> handles = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
-
       return new CircularBoltPattern(Utils.ToAstPoint(point, true), handles, vx, vy, additionalBoltParameters, boltConnectionType);
     }
 
-    private static void PreSetCircularValuesInListProps(List<Property> listOfBoltParameters, double radius)
+    private static List<Property> PreSetCircularValuesInListProps(List<Property> listOfBoltParameters, double radius)
     {
       if (listOfBoltParameters == null)
       {
@@ -132,6 +131,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       }
 
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Radius", radius);
+
+      return listOfBoltParameters;
     }
 
     [IsVisibleInDynamoLibrary(false)]

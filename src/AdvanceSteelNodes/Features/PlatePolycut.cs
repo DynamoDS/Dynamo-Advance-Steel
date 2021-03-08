@@ -109,6 +109,22 @@ namespace AdvanceSteel.Nodes.Features
               plateFeat = Utils.GetObject(existingFeatureHandle) as PlateFeatContour;
               if (plateFeat != null && plateFeat.IsKindOf(FilerObject.eObjectType.kPlateFeatContour))
               {
+                Plate plate = obj as Plate;
+                plate.DelFeature(plateFeat);
+                plate.WriteToDb();
+
+                Matrix2d m2d = new Matrix2d();
+                m2d.SetCoordSystem(new Point2d(xOffset, yOffset), new Vector2d(1, 0), new Vector2d(0, 1));
+                switch (cutShapeRectCircle)
+                {
+                  case 0:
+                    plateFeat = new PlateFeatContour(m2d, length, width);
+                    break;
+                  case 1:
+                    plateFeat = new PlateFeatContour(m2d, length);
+                    break;
+                }
+
                 Vector2d offset;
                 switch (corner)
                 {
@@ -129,11 +145,14 @@ namespace AdvanceSteel.Nodes.Features
                     break;
                 }
                 plateFeat.Offset = offset;
+                AtomicElement atomic = obj as AtomicElement;
 
                 if (defaultData != null)
                 {
                   Utils.SetParameters(plateFeat, defaultData);
                 }
+
+                atomic.AddFeature(plateFeat);
 
                 if (postWriteDBData != null)
                 {
@@ -203,11 +222,14 @@ namespace AdvanceSteel.Nodes.Features
                 plate.WriteToDb();
 
                 plateFeat = new PlateContourNotch(plate, 0, cutPolyline, normal, lengthVector);
+                AtomicElement atomic = obj as AtomicElement;
 
                 if (defaultData != null)
                 {
                   Utils.SetParameters(plateFeat, defaultData);
                 }
+
+                atomic.AddFeature(plateFeat);
 
                 if (postWriteDBData != null)
                 {

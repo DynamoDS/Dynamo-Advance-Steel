@@ -142,7 +142,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       var vx = astCorners[1] - astCorners[0];
       var vy = astCorners[3] - astCorners[0];
 
-      PreSetValuesInListProps(additionalAnchorBoltParameters, noOfBoltsX, noOfBoltsY);
+      additionalAnchorBoltParameters = PreSetValuesInListProps(additionalAnchorBoltParameters, noOfBoltsX, noOfBoltsY);
 
       return new RectangularAnchorPattern(astCorners[0], astCorners[2], handlesList, vx, vy, additionalAnchorBoltParameters, boltConnectionType);
     }
@@ -171,12 +171,12 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       var vx = Utils.ToAstVector3d(boltCS.XAxis, true);
       var vy = Utils.ToAstVector3d(boltCS.YAxis, true);
 
-      PreSetValuesInListProps(additionalAnchorBoltParameters, noOfBoltsX, noOfBoltsY);
+      additionalAnchorBoltParameters = PreSetValuesInListProps(additionalAnchorBoltParameters, noOfBoltsX, noOfBoltsY);
 
       return new RectangularAnchorPattern(Utils.ToAstPoint(connectionPoint, true), handlesList, vx, vy, additionalAnchorBoltParameters, boltConnectionType);
     }
 
-    private static void PreSetValuesInListProps(List<Property> listOfAnchorBoltParameters, int nx, int ny)
+    private static List<Property> PreSetValuesInListProps(List<Property> listOfAnchorBoltParameters, int nx, int ny)
     {
       if (listOfAnchorBoltParameters == null)
       {
@@ -185,6 +185,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 
       Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Nx", nx);
       Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Ny", ny);
+
+      return listOfAnchorBoltParameters;
     }
 
     private void SetAnchorSetOutDetails(Autodesk.AdvanceSteel.Modelling.AnchorPattern anchors,

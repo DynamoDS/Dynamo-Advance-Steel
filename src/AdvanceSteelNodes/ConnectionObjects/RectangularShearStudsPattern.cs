@@ -211,7 +211,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       Matrix3d matrix3D = new Matrix3d();
       matrix3D.SetCoordSystem(rectangleCenter, vx, vy, vz);
 
-      PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsX, noOfShearStudsY, Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
+      additionalShearStudParameters = PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsX, noOfShearStudsY, Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
 
       return new RectangularShearStudsPattern(astCorners[0], astCorners[2], handlesList[0], vx, vy, matrix3D,
                                               additionalShearStudParameters, shearStudConnectionType);
@@ -254,9 +254,9 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       Matrix3d matrix3D = new Matrix3d();
       matrix3D.SetCoordSystem(Utils.ToAstPoint(connectionPoint, true), vx, vy, vz);
 
-      PreSetValuesInListProps(additionalShearStudParameters,
-                              noOfShearStudsX, noOfShearStudsY,
-                              Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
+      additionalShearStudParameters = PreSetValuesInListProps(additionalShearStudParameters,
+                                                              noOfShearStudsX, noOfShearStudsY,
+                                                              Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
 
       Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, "Dx", Utils.ToInternalDistanceUnits(studSpacingX, true), "Arranger");
       Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, "Dy", Utils.ToInternalDistanceUnits(studSpacingY, true), "Arranger");
@@ -264,7 +264,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       return new RectangularShearStudsPattern(handlesList[0], matrix3D, additionalShearStudParameters, shearStudConnectionType);
     }
 
-    private static void PreSetValuesInListProps(List<Property> listOfBoltParameters, int nx, int ny,
+    private static List<Property> PreSetValuesInListProps(List<Property> listOfBoltParameters, int nx, int ny,
                                                 double studLength, double studDiameter)
     {
       if (listOfBoltParameters == null)
@@ -276,6 +276,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Ny", ny, "Arranger");
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Length", studLength, ".");
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Diameter", studDiameter, ".");
+
+      return listOfBoltParameters;
     }
 
     [IsVisibleInDynamoLibrary(false)]

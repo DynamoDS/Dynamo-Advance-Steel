@@ -129,7 +129,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       Matrix3d matrix3D = new Matrix3d();
       matrix3D.SetCoordSystem(Utils.ToAstPoint(circle.CenterPoint, true), vx, vy, vz);
 
-      PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsInCircle, Utils.ToInternalDistanceUnits(circle.Radius, true), Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
+      additionalShearStudParameters = PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsInCircle, Utils.ToInternalDistanceUnits(circle.Radius, true), Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
 
       return new CircularShearStudsPattern(handlesList[0], matrix3D, additionalShearStudParameters, shearStudConnectionType);
     }
@@ -167,12 +167,12 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       Matrix3d matrix3D = new Matrix3d();
       matrix3D.SetCoordSystem(Utils.ToAstPoint(connectionPoint, true), vx, vy, vz);
 
-      PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsInCircle, Utils.ToInternalDistanceUnits(patternRadius, true), Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
+      additionalShearStudParameters = PreSetValuesInListProps(additionalShearStudParameters, noOfShearStudsInCircle, Utils.ToInternalDistanceUnits(patternRadius, true), Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
 
       return new CircularShearStudsPattern(handlesList[0], matrix3D, additionalShearStudParameters, shearStudConnectionType);
     }
 
-    private static void PreSetValuesInListProps(List<Property> listOfBoltParameters, int noss, double radius, double studLength, double studDiameter)
+    private static List<Property> PreSetValuesInListProps(List<Property> listOfBoltParameters, int noss, double radius, double studLength, double studDiameter)
     {
       if (listOfBoltParameters == null)
       {
@@ -183,6 +183,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Radius", radius, "Arranger");
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Length", studLength, ".");
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Diameter", studDiameter, ".");
+
+      return listOfBoltParameters;
     }
 
     [IsVisibleInDynamoLibrary(false)]

@@ -125,6 +125,11 @@ namespace AdvanceSteel.Nodes
       return 180.0 * rad / System.Math.PI;
     }
 
+    public static double DegreeToRad(double deg)
+    {
+      return (System.Math.PI / 180.0) * deg;
+    }
+
     static public Autodesk.AdvanceSteel.Geometry.Point3d GetMidPointBetween(this Point3d OriginPoint, Point3d SecondPoint)
     {
       Autodesk.AdvanceSteel.Geometry.Point3d returnPnt = new Autodesk.AdvanceSteel.Geometry.Point3d();
@@ -1070,12 +1075,17 @@ namespace AdvanceSteel.Nodes
           break;
         }
       }
-      return retValue;
+      return new Property(retValue);
     }
 
     public static Dictionary<string, Property> GetAllProperties(FilerObject steelFiler)
     {
-      return steelObjectPropertySets[steelFiler.Type()]; 
+      Dictionary<string, Property> ret = new Dictionary<string, Property>() { };
+      foreach (KeyValuePair<string, Property> item in steelObjectPropertySets[steelFiler.Type()])
+      {
+        ret.Add(item.Key, new Property(item.Value));
+      }
+      return ret; 
     }
 
     private static Dictionary<string, Property> addElementTypes(Dictionary<string, Property> dictProps, List<eObjectType> elementTypes)
@@ -1569,8 +1579,8 @@ namespace AdvanceSteel.Nodes
       Dictionary<string, Property> dictProps = Build_ScrewBoltPattern();
       dictProps.Add("Bolt Pattern Height", new Property("Height", typeof(double), ".", true));
       dictProps.Add("Bolt Pattern Length", new Property("Length", typeof(double), ".", true));
-      dictProps.Add("Bolt Pattern Spacing of holes in the X Direction", new Property("Dy", typeof(double)));
-      dictProps.Add("Bolt Pattern Spacing of holes in the Y Direction", new Property("Dx", typeof(double)));
+      dictProps.Add("Bolt Pattern Spacing of holes in the X Direction", new Property("Dx", typeof(double)));
+      dictProps.Add("Bolt Pattern Spacing of holes in the Y Direction", new Property("Dy", typeof(double)));
       dictProps.Add("Bolt Pattern No of Holes in the Y Direction", new Property("Ny", typeof(int)));
       dictProps.Add("Bolt Pattern No of Holes in the X Direction", new Property("Nx", typeof(int)));
 

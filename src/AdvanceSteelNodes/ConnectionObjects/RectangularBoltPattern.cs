@@ -142,7 +142,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       var vx = astCorners[1] - astCorners[0];
       var vy = astCorners[3] - astCorners[0];
 
-      PreSetValuesInListProps(additionalBoltParameters, noOfBoltsX, noOfBoltsY);
+      additionalBoltParameters = PreSetValuesInListProps(additionalBoltParameters, noOfBoltsX, noOfBoltsY);
 
       return new RectangularBoltPattern(astCorners[0], astCorners[2], handlesList, vx, vy, additionalBoltParameters, boltConnectionType);
     }
@@ -172,12 +172,12 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       var vx = Utils.ToAstVector3d(boltCS.XAxis, true);
       var vy = Utils.ToAstVector3d(boltCS.YAxis, true);
 
-      PreSetValuesInListProps(additionalBoltParameters, noOfBoltsX, noOfBoltsY);
+      additionalBoltParameters = PreSetValuesInListProps(additionalBoltParameters, noOfBoltsX, noOfBoltsY);
 
       return new RectangularBoltPattern(Utils.ToAstPoint(connectionPoint, true), vx, vy, handlesList, additionalBoltParameters, boltConnectionType);
     }
 
-    private static void PreSetValuesInListProps(List<Property> listOfBoltParameters, int nx, int ny)
+    private static List<Property> PreSetValuesInListProps(List<Property> listOfBoltParameters, int nx, int ny)
     {
       if (listOfBoltParameters == null)
       {
@@ -186,6 +186,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Nx", nx);
       Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Ny", ny);
+
+      return listOfBoltParameters;
     }
 
     [IsVisibleInDynamoLibrary(false)]
@@ -195,7 +197,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       {
         using (var ctx = new SteelServices.DocContext())
         {
-          var boltPattern = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.FinitRectScrewBoltPattern;
+          var boltPattern = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.CountableScrewBoltPattern;
 
           if (boltPattern == null)
           {

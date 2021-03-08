@@ -87,7 +87,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       vy = vy.Normalize();
 
       List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
-      PreSetValuesInListProps(additionalAnchorBoltParameters, Utils.ToInternalDistanceUnits(circle.Radius, true));
+      additionalAnchorBoltParameters = PreSetValuesInListProps(additionalAnchorBoltParameters, Utils.ToInternalDistanceUnits(circle.Radius, true));
       return new CircularAnchorPattern(Utils.ToAstPoint(circle.CenterPoint, true), handlesList, vx, vy, additionalAnchorBoltParameters, anchorBoltConnectionType);
     }
 
@@ -114,17 +114,23 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       vy = vy.Normalize();
 
       IEnumerable<string> handles = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
+      
       return new CircularAnchorPattern(astPointRef, handles, vx, vy, additionalAnchorBoltParameters, anchorBoltConnectionType);
     }
 
-    private static void PreSetValuesInListProps(List<Property> listOfAnchorBoltParameters, double radius)
+    private static List<Property> PreSetValuesInListProps(List<Property> listOfAnchorBoltParameters, double radius)
     {
       if (listOfAnchorBoltParameters == null)
       {
         listOfAnchorBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Radius", radius);
+      if (radius > 0 )
+      {
+        Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Radius", radius);
+      }
+
+      return listOfAnchorBoltParameters;
     }
 
     private void SetAnchorSetOutDetails(Autodesk.AdvanceSteel.Modelling.AnchorPattern anchors,

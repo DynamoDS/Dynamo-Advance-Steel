@@ -26,6 +26,15 @@ namespace AdvanceSteel.Nodes
     internal string Level { get; }
     internal Unit.eUnitType? UnitType { get; }
 
+    internal Property(Property existingProperty)
+    {
+      _isReadOnly = existingProperty.IsReadOnly;
+      _name = existingProperty.Name;
+      _valueType = existingProperty._valueType;
+      UnitType = existingProperty.UnitType;
+      Level = existingProperty.Level;
+    }
+
     internal Property(string name, System.Type valueType, string level = ".", bool isReadOnly = false)
     {
       _isReadOnly = isReadOnly;

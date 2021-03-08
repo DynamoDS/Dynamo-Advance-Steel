@@ -1,0 +1,762 @@
+{
+  "Uuid": "3e4acf69-ecc6-4f73-9da1-1ff8d502bf45",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "002-Selection",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "Vector": {
+        "Key": "Autodesk.DesignScript.Geometry.Vector",
+        "Value": "ProtoGeometry.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASObjectSelection, AdvanceSteelNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "245",
+        "243",
+        "241"
+      ],
+      "Id": "fb0a4c00b91c4fc69cede3cccd82bd16",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "4ee892fbee3d44c6a4e885a353877f80",
+          "Name": "Elements",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPointSelection, AdvanceSteelNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "-4261.22188227789;-2159.59752649442;0"
+      ],
+      "Id": "8d32ec3c77b74b55b58cccf23c483f0e",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e7bc23bffb8b4667ac5a466930358392",
+          "Name": "Point",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASObjecTypes, AdvanceSteelNodesUI",
+      "SelectedIndex": 19,
+      "SelectedString": "Straight Beam",
+      "NodeType": "ExtensionNode",
+      "Id": "1e7d70a09bcd48789b024d02e69be100",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "61c15360941d4335b56df5965039e8cd",
+          "Name": "objectType",
+          "Description": "advance steel object type",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the Advance Steel object types"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Selection.SelectionFilter.FilterSelectionByType@AdvanceSteel.Nodes.SteelDbObject[],int[]",
+      "Id": "eed24e4dd8ef45079b6fb75f7037fba1",
+      "Inputs": [
+        {
+          "Id": "6a8bd6a39d2344518864ce2dd2a1cd05",
+          "Name": "steelObjects",
+          "Description": "List of steel objects\n\nSteelDbObject[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "13b35a2f6209462a96e73e3a5f2720db",
+          "Name": "objectTypeFilters",
+          "Description": "List of accepted Steel Object Types\n\nint[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f379c25f59ea4c79b0b83be59acb7838",
+          "Name": "steelObjects",
+          "Description": "gets a filtered list of steel objects that match the list of steel object types",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Filter a collection of steel objects by a list of object types\n\nSelectionFilter.FilterSelectionByType (steelObjects: SteelDbObject[], objectTypeFilters: int[]): SteelDbObject[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Geometry.Translate@Autodesk.DesignScript.Geometry.Vector,double",
+      "Id": "0d169b734639411a984053342e9a5133",
+      "Inputs": [
+        {
+          "Id": "85e4ee412c1d4470b8067ebb5d6f5210",
+          "Name": "geometry",
+          "Description": "Autodesk.DesignScript.Geometry.Geometry",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8d551e9fe2a94633bdf982759e3c8f63",
+          "Name": "direction",
+          "Description": "Displacement direction.\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "879a5f02965a435eadbab4b65ced5b58",
+          "Name": "distance",
+          "Description": "Displacement distance along given direction.\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5358904876d841e0bb59c30cbfbaefb3",
+          "Name": "Geometry",
+          "Description": "Transformed Geometry.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Translates any geometry type by the given distance in the given direction.\n\nGeometry.Translate (direction: Vector, distance: double): Geometry"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "Vector.XAxis();\n100;",
+      "Id": "be7d85cc63724664ab7b43afa6de9a84",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "89eccea3100f4b23b746f227cf2c5aac",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "50dda3c8856440c79cf66bb34bceac45",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "5ebbda0298a342338f38ab72b6fac403",
+      "Inputs": [
+        {
+          "Id": "37e046798c0f463b8e3c5100d9999201",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "6196689806f24581bb8c39e824aaa4e7",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "4f9101f5f34a4a569d7849a29c794cb7",
+      "Inputs": [
+        {
+          "Id": "983a34879e264a1d877021a2267d6c67",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e5e2d7629eb7453fb9103af31ef3629b",
+          "Name": "item1",
+          "Description": "Item Index #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "61158e8978974bdeb8aaa9ed137a7740",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASObjecTypes, AdvanceSteelNodesUI",
+      "SelectedIndex": 12,
+      "SelectedString": "Grating",
+      "NodeType": "ExtensionNode",
+      "Id": "3e94a2e2043944008964f2e5fc11298a",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "45a6675185144e4cbc97018d26e50d10",
+          "Name": "objectType",
+          "Description": "advance steel object type",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the Advance Steel object types"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "c825d9ea12de480489ed88d1fd2a5516",
+      "Inputs": [
+        {
+          "Id": "f4830498283c4c2ebed21bc7996b7f65",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b5b283ff76df4fa59952731b94f1e0f3",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "088efac041d349beb6be58d37891e475",
+      "Inputs": [
+        {
+          "Id": "c07a564303e444debedf0f0d2409cda8",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d061b04e22404389b6126f17feaa06f5",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASSelectObjecTypes, AdvanceSteelNodesUI",
+      "SelectedIndex": 19,
+      "SelectedString": "Straight Beam",
+      "NodeType": "ExtensionNode",
+      "Id": "45ff0d8b08bf4bd3af71b26b7314a19b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "693ba9ef6f1542ee9482f7721131fd4e",
+          "Name": "steelObjects",
+          "Description": "list with the selected steel objects",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Select all steel objects by type"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "4ee892fbee3d44c6a4e885a353877f80",
+      "End": "6a8bd6a39d2344518864ce2dd2a1cd05",
+      "Id": "713057b6841c46e88cadcb427f3740d9"
+    },
+    {
+      "Start": "e7bc23bffb8b4667ac5a466930358392",
+      "End": "85e4ee412c1d4470b8067ebb5d6f5210",
+      "Id": "7f2b246010e8451eb8b4eb8d02386527"
+    },
+    {
+      "Start": "61c15360941d4335b56df5965039e8cd",
+      "End": "983a34879e264a1d877021a2267d6c67",
+      "Id": "e857facabaf244dcab63f5be6db529e5"
+    },
+    {
+      "Start": "f379c25f59ea4c79b0b83be59acb7838",
+      "End": "f4830498283c4c2ebed21bc7996b7f65",
+      "Id": "87266b946739436d86cbe62543b93d8c"
+    },
+    {
+      "Start": "5358904876d841e0bb59c30cbfbaefb3",
+      "End": "37e046798c0f463b8e3c5100d9999201",
+      "Id": "4256eab9622f475f8214b6c376b40c93"
+    },
+    {
+      "Start": "89eccea3100f4b23b746f227cf2c5aac",
+      "End": "8d551e9fe2a94633bdf982759e3c8f63",
+      "Id": "ed863d8dba55401f9ce6eb8cdfe0e400"
+    },
+    {
+      "Start": "50dda3c8856440c79cf66bb34bceac45",
+      "End": "879a5f02965a435eadbab4b65ced5b58",
+      "Id": "b8921cd4273342ba863c31aa64d63d56"
+    },
+    {
+      "Start": "61158e8978974bdeb8aaa9ed137a7740",
+      "End": "13b35a2f6209462a96e73e3a5f2720db",
+      "Id": "7dbe8244dda648ec96878b021107d496"
+    },
+    {
+      "Start": "45a6675185144e4cbc97018d26e50d10",
+      "End": "e5e2d7629eb7453fb9103af31ef3629b",
+      "Id": "bc47cce51a4e496a853efc16f7e6809f"
+    },
+    {
+      "Start": "693ba9ef6f1542ee9482f7721131fd4e",
+      "End": "c07a564303e444debedf0f0d2409cda8",
+      "Id": "27894df7792d402ead5e00b1cd8083f2"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 100.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.5.2.7915",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "SelectAdvanceSteelObjects",
+        "Id": "fb0a4c00b91c4fc69cede3cccd82bd16",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -228.81706267224808,
+        "Y": 412.56085126096008
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "SelectPoint",
+        "Id": "8d32ec3c77b74b55b58cccf23c483f0e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -167.92825850289069,
+        "Y": 1135.9223113737239
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "AdvanceSteelObjectTypes",
+        "Id": "1e7d70a09bcd48789b024d02e69be100",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -308.03607421205265,
+        "Y": 772.6550852563297
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "SelectionFilter.FilterSelectionByType",
+        "Id": "eed24e4dd8ef45079b6fb75f7037fba1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 222.39027022055996,
+        "Y": 380.44298595430683
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Geometry.Translate",
+        "Id": "0d169b734639411a984053342e9a5133",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 316.7993692170578,
+        "Y": 1319.8450857379044
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "be7d85cc63724664ab7b43afa6de9a84",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -94.100577090340039,
+        "Y": 1402.5899896992805
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "5ebbda0298a342338f38ab72b6fac403",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 676.65281952681744,
+        "Y": 1218.7975032490883
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "4f9101f5f34a4a569d7849a29c794cb7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -43.715729220119442,
+        "Y": 794.47090631625451
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "AdvanceSteelObjectTypes",
+        "Id": "3e94a2e2043944008964f2e5fc11298a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -307.47532271337309,
+        "Y": 887.22661594381623
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "c825d9ea12de480489ed88d1fd2a5516",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 671.53214319291828,
+        "Y": 403.59377808988353
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "088efac041d349beb6be58d37891e475",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 299.703343077333,
+        "Y": 1590.3829260993327
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "GetSteelObjectsByType",
+        "Id": "45ff0d8b08bf4bd3af71b26b7314a19b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -133.34013021706073,
+        "Y": 1649.227557118357
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "6900b6530a0e4c2b9597f65b0b7d61cd",
+        "Title": "GET",
+        "Nodes": [
+          "fb0a4c00b91c4fc69cede3cccd82bd16",
+          "eed24e4dd8ef45079b6fb75f7037fba1",
+          "c825d9ea12de480489ed88d1fd2a5516",
+          "15e568a120ca4fedb4b5343675b28b77"
+        ],
+        "Left": -313.54683165154438,
+        "Top": 277.90253409195992,
+        "Width": 1073.0789748444627,
+        "Height": 253.65831716900016,
+        "FontSize": 36.0,
+        "InitialTop": 330.90253409195992,
+        "InitialHeight": 226.65831716900016,
+        "TextblockHeight": 43.0,
+        "Background": "#FFBB87C6"
+      },
+      {
+        "Id": "19f34d62844841548305d0d88e4698bc",
+        "Title": "GET",
+        "Nodes": [
+          "8d32ec3c77b74b55b58cccf23c483f0e",
+          "4f27abf2b8744c2a902bf8878ca5f8aa"
+        ],
+        "Left": -236.31906926947408,
+        "Top": 1000.4434389222911,
+        "Width": 318.3908107665834,
+        "Height": 287.47887245143284,
+        "FontSize": 36.0,
+        "InitialTop": 1053.4434389222911,
+        "InitialHeight": 227.47887245143284,
+        "TextblockHeight": 43.0,
+        "Background": "#FFBB87C6"
+      },
+      {
+        "Id": "2d6d2d25073b4303a4fadfc58515bba5",
+        "Title": "SET",
+        "Nodes": [
+          "be7d85cc63724664ab7b43afa6de9a84",
+          "25cd57eeb255404388d1826c9ee8cbf5"
+        ],
+        "Left": -171.24129767041791,
+        "Top": 1302.4580264834931,
+        "Width": 241.14072058007787,
+        "Height": 203.13196321578744,
+        "FontSize": 36.0,
+        "InitialTop": 1355.4580264834931,
+        "InitialHeight": 192.13196321578744,
+        "TextblockHeight": 43.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "578d466361bd4fe49de166f62342fd8d",
+        "Title": "PROCESS",
+        "Nodes": [
+          "0d169b734639411a984053342e9a5133",
+          "5ebbda0298a342338f38ab72b6fac403",
+          "e0367694f2f947bcae7bd6d647e561d6"
+        ],
+        "Left": 244.71615431384339,
+        "Top": 1165.06695579937,
+        "Width": 519.936665212974,
+        "Height": 299.77812993853445,
+        "FontSize": 36.0,
+        "InitialTop": 1218.06695579937,
+        "InitialHeight": 246.77812993853445,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFFAA45"
+      },
+      {
+        "Id": "4ad71f82f0cd4ea29fe792d482d7b0e6",
+        "Title": "SET",
+        "Nodes": [
+          "45ff0d8b08bf4bd3af71b26b7314a19b",
+          "77969233f56e4c92b4bf4516b2607ef8"
+        ],
+        "Left": -188.37521491267648,
+        "Top": 1518.4177280434847,
+        "Width": 258.03508469561575,
+        "Height": 223.80982907487237,
+        "FontSize": 36.0,
+        "InitialTop": 1571.4177280434847,
+        "InitialHeight": 222.80982907487237,
+        "TextblockHeight": 43.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "14b812b3318e4016b1161f817a5a6429",
+        "Title": "SET",
+        "Nodes": [
+          "1e7d70a09bcd48789b024d02e69be100",
+          "4f9101f5f34a4a569d7849a29c794cb7",
+          "3e94a2e2043944008964f2e5fc11298a",
+          "43abbd46419248dca88fe1dd68f6d7b0"
+        ],
+        "Left": -374.30184846957422,
+        "Top": 628.45135923834584,
+        "Width": 460.58611924945478,
+        "Height": 351.77525670547038,
+        "FontSize": 36.0,
+        "InitialTop": 681.45135923834584,
+        "InitialHeight": 350.77525670547038,
+        "TextblockHeight": 43.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "15e568a120ca4fedb4b5343675b28b77",
+        "Title": "User interaction to select objects then filter by object Type of Straight Baem and Grating",
+        "Nodes": [],
+        "Left": -303.54683165154438,
+        "Top": 330.90253409195992,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "4f27abf2b8744c2a902bf8878ca5f8aa",
+        "Title": "Select Point In Model - User Interaction",
+        "Nodes": [],
+        "Left": -226.31906926947408,
+        "Top": 1053.4434389222911,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "25cd57eeb255404388d1826c9ee8cbf5",
+        "Title": "Set Vector and Distance Value",
+        "Nodes": [],
+        "Left": -161.24129767041791,
+        "Top": 1355.4580264834931,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "e0367694f2f947bcae7bd6d647e561d6",
+        "Title": "Dynamo data manipulation                  ",
+        "Nodes": [],
+        "Left": 254.71615431384339,
+        "Top": 1218.06695579937,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "77969233f56e4c92b4bf4516b2607ef8",
+        "Title": "Select All object in Model By Type\r\n",
+        "Nodes": [],
+        "Left": -178.37521491267648,
+        "Top": 1571.4177280434847,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "43abbd46419248dca88fe1dd68f6d7b0",
+        "Title": "Set or Override Selection Parameters",
+        "Nodes": [],
+        "Left": -364.30184846957422,
+        "Top": 681.45135923834584,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 263.7199008576676,
+    "Y": 21.494482159832671,
+    "Zoom": 0.45881073745781109
+  }
+}

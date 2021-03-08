@@ -1,0 +1,3689 @@
+{
+  "Uuid": "3e4acf69-ecc6-4f73-9da1-1ff8d502bf45",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "005-Connectors",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "Point": {
+        "Key": "Autodesk.DesignScript.Geometry.Point",
+        "Value": "ProtoGeometry.dll"
+      },
+      "Vector": {
+        "Key": "Autodesk.DesignScript.Geometry.Vector",
+        "Value": "ProtoGeometry.dll"
+      },
+      "CoordinateSystem": {
+        "Key": "Autodesk.DesignScript.Geometry.CoordinateSystem",
+        "Value": "ProtoGeometry.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "Point.ByCoordinates(0,0,0);\nPoint.ByCoordinates(1500,0,0);\nPoint.ByCoordinates(1500,3000,0);\nPoint.ByCoordinates(0,3000,0);\nVector.ZAxis();",
+      "Id": "7a95a083939e42b185e2e38d42e1c188",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "5a256c80d4274e7eacfa368fc2523ea9",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e081f09a209246b0b96ce0b9abef8751",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5a9a7350f4d14f338271d221b6d19884",
+          "Name": "",
+          "Description": "Value of expression at line 3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "472eaded90134efbbe2801b4fdc043a0",
+          "Name": "",
+          "Description": "Value of expression at line 4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "fcfc7bc98fa04e96ab9600f78a54d12b",
+          "Name": "",
+          "Description": "Value of expression at line 5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
+      "Id": "6588570ef3cc42e1978dcea49ac08896",
+      "Inputs": [
+        {
+          "Id": "0f2872da3f2042158746489a622f70ff",
+          "Name": "start",
+          "Description": "Input Start point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "37095eaf8cad48f3acec36ff8f2417eb",
+          "Name": "end",
+          "Description": "Input End point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0661a352332943198bfacf36290e8336",
+          "Name": "orientation",
+          "Description": "Section orientation\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a461f8442ca048ae8bc82350c0f292f3",
+          "Name": "refAxis",
+          "Description": "int\nDefault value : 5",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7ea9686dacaf4d5f863fc1bf3493402c",
+          "Name": "crossSectionMirror",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3940bf40f4d74b30b6039806774cc652",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "dfd761a9cc3546be90e5a1092e7d3487",
+          "Name": "straightBeam",
+          "Description": "beam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): StraightBeam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
+      "Id": "4e0deff3b8a14129b771c0f7ddb7c580",
+      "Inputs": [
+        {
+          "Id": "cb5b9c18f19c4340ac25958f1a8f1a84",
+          "Name": "start",
+          "Description": "Input Start point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "58b6f2b96b3448a4a50087faaddee07b",
+          "Name": "end",
+          "Description": "Input End point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "49f724da61994c1a83d9be6bf919d85c",
+          "Name": "orientation",
+          "Description": "Section orientation\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "517b6089771c4fdeab16531ae83acaf2",
+          "Name": "refAxis",
+          "Description": "int\nDefault value : 5",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "abf4b08a3a0d47409eb182de3c31d02a",
+          "Name": "crossSectionMirror",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "96b2d5501ebf41719fbaf688ced52bbf",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e116a51092dd43bcb9a0596e43c27faa",
+          "Name": "straightBeam",
+          "Description": "beam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): StraightBeam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
+      "Id": "ea436249840d4b96ae8bef0214103a44",
+      "Inputs": [
+        {
+          "Id": "210fc34bf5754e85aa85baeb1415bef7",
+          "Name": "start",
+          "Description": "Input Start point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5673250e64ce4705ae7061355b6ea771",
+          "Name": "end",
+          "Description": "Input End point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ad7c47f352d64ed58621376763feb6fc",
+          "Name": "orientation",
+          "Description": "Section orientation\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c965db45eb7b46dbb2a3e9275533f2b3",
+          "Name": "refAxis",
+          "Description": "int\nDefault value : 5",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "fde9fdc43caa494ea6135bcc6e9b7ba7",
+          "Name": "crossSectionMirror",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "59591046e44e47a68f078d78024dcd39",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "2e5f755e9788463ca8bb658d74df2fa6",
+          "Name": "straightBeam",
+          "Description": "beam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): StraightBeam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Beams.StraightBeam.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,int,bool,AdvanceSteel.Nodes.Property[]",
+      "Id": "019d508e21b046cb881206da6a4cc17a",
+      "Inputs": [
+        {
+          "Id": "11bb0c2703ad4cb7bf00f4ffa31e4cae",
+          "Name": "start",
+          "Description": "Input Start point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "66dd454e4b97407095f2a05e2872a047",
+          "Name": "end",
+          "Description": "Input End point of Beam\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e194bd7967514a42a508b506101c73f2",
+          "Name": "orientation",
+          "Description": "Section orientation\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f55e269f0b504192be59370e08cf8a73",
+          "Name": "refAxis",
+          "Description": "int\nDefault value : 5",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "28932bf61f4c46e4b97a3e9c52cbd983",
+          "Name": "crossSectionMirror",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0cee62ee587b4d298140496819cd2ac0",
+          "Name": "additionalBeamParameters",
+          "Description": "Optional Input Beam Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f9b24cb6d95b498b8ec07a8f49f1f1ee",
+          "Name": "straightBeam",
+          "Description": "beam",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel straight beam between two points\n\nStraightBeam.ByStartPointEndPoint (start: Point, end: Point, orientation: Vector, refAxis: int = 5, crossSectionMirror: bool = false, additionalBeamParameters: Property[] = null): StraightBeam"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.BeamRefAxisType, AdvanceSteelNodesUI",
+      "SelectedIndex": 2,
+      "SelectedString": "Upper Middle",
+      "NodeType": "ExtensionNode",
+      "Id": "425fd672f6ac4af4bd847ac11dfe5158",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a41400c0bc334c6ca10eb3d071cce6b6",
+          "Name": "referenceAxis",
+          "Description": "beam reference axis",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists the Advance Steel Beam Reference Axis options - e.g. Top Left, Middle Middle, Countour Center"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Welds.WeldPoint.ByPoint@Autodesk.DesignScript.Geometry.Point,AdvanceSteel.Nodes.SteelDbObject[],int",
+      "Id": "5c982ce7fd474afaaca9da3304d4c25d",
+      "Inputs": [
+        {
+          "Id": "6519f922f8c24d6a977412451d9c8905",
+          "Name": "point",
+          "Description": "Input Weld Point Location\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5a798434f5e14530a852486ae8685921",
+          "Name": "objectsToConnect",
+          "Description": "Input Connected Objects\n\nSteelDbObject[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "75de87fcf9b0493fb4e9e60a5533f04c",
+          "Name": "connectionType",
+          "Description": "Input Weld Type - 0-OnSite or 2-InShop\n\nint\nDefault value : 2",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4ed3c335b0d6416698f366135cc54961",
+          "Name": "weldPoint",
+          "Description": "weldPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Weld Pattern By Point\n\nWeldPoint.ByPoint (point: Point, objectsToConnect: SteelDbObject[], connectionType: int = 2): WeldPoint"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "cec7b2100fb944dcb8bfd2ff4441c167",
+      "Inputs": [
+        {
+          "Id": "4c22f320521243c9b21ffe68724bf77c",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "68c33d3ef52e4f3aa12eec78eeb7ffa1",
+          "Name": "item1",
+          "Description": "Item Index #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9888de0497be41c5a26b98e43efad4d8",
+          "Name": "item2",
+          "Description": "Item Index #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3dc6d11f5b4c480695957dce02acf926",
+          "Name": "item3",
+          "Description": "Item Index #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0ba1de6faf1f46b3a878fb5d480ce005",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.WeldConnectionType, AdvanceSteelNodesUI",
+      "SelectedIndex": 2,
+      "SelectedString": "InShop",
+      "NodeType": "ExtensionNode",
+      "Id": "e38e31af677d4388941b412867d5b713",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "26d3e1ffda92426baae4d04ccd917b8d",
+          "Name": "weldType",
+          "Description": "weld connection type",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists the Advance Steel Weld connection type options"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Plates.Plate.ByPolygon@Autodesk.DesignScript.Geometry.Polygon,AdvanceSteel.Nodes.Property[]",
+      "Id": "7600574d3f1848adaf7fd3d580d680b5",
+      "Inputs": [
+        {
+          "Id": "d3ae8c02de8c4a4cb959742e59bc68b3",
+          "Name": "poly",
+          "Description": "Input Dynamo Closed Polygon\n\nPolygon",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "11cac5b3f0764524ac28d8ae482bddd1",
+          "Name": "additionalPlateParameters",
+          "Description": "Optional Input Plate Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "18584fabadce46bf989b533244cdc203",
+          "Name": "plate",
+          "Description": "plate",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel plate (Position default to 0, with system thickness as default)\n\nPlate.ByPolygon (poly: Polygon, additionalPlateParameters: Property[] = null): Plate"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Polygon.ByPoints@Autodesk.DesignScript.Geometry.Point[]",
+      "Id": "b86b54f35cf244d2a2f2ba93fab995c8",
+      "Inputs": [
+        {
+          "Id": "5b91b1af9a064b54b2f5aeae8ba393e7",
+          "Name": "points",
+          "Description": "Point[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "6b394890e3444b869a220f5cf831b73d",
+          "Name": "Polygon",
+          "Description": "Polygon",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Construct a Polygon Curve by connecting Points.\n\nPolygon.ByPoints (points: Point[]): Polygon"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "5461974f7d9746beadb7d4af131ae90c",
+      "Inputs": [
+        {
+          "Id": "52130c8f108044129bf8944c0d331c69",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0c52e915e2cd474a9c62103f184bf8ec",
+          "Name": "item1",
+          "Description": "Item Index #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "001b5871d2b445a0895f365434064067",
+          "Name": "item2",
+          "Description": "Item Index #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4305441f35f94ea1b77cd7b7a9ec8362",
+          "Name": "item3",
+          "Description": "Item Index #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4831b8186cba45019ac37fade8e454b5",
+          "Name": "item4",
+          "Description": "Item Index #4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0b133b537cd24c08a5f1baf66a6b6aec",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "CP1=Point.ByCoordinates(-100,-100,0);\nCP2=Point.ByCoordinates(1600,-100,0);\nCP3=Point.ByCoordinates(1600,3100,0);\nCP4=Point.ByCoordinates(-100,3100,0);\nVector.ZAxis();\nEdgeDistance=200;",
+      "Id": "611664cdbe814b09a5408465d87299f8",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "76b801c58f714d74bc1f0fe0004dd62f",
+          "Name": "",
+          "Description": "CP1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1ff5f88f79ae4cd98966d8ba6c2bbe34",
+          "Name": "",
+          "Description": "CP2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bd5bad99eeef4bcfb94a3daddf3bd0af",
+          "Name": "",
+          "Description": "CP3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2c5a14f098914d4485d53b5ff63fd3d7",
+          "Name": "",
+          "Description": "CP4",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ec408b9b888d454ea05fc882693270a9",
+          "Name": "",
+          "Description": "Value of expression at line 5",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9beac07781dd4650aabd1a311c972a3b",
+          "Name": "",
+          "Description": "EdgeDistance",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "1;",
+      "Id": "052b30467bf744428b8cd8647c29b238",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d677f668463f4b13bbf042edd7e5b47d",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "e5e1e09136a64233957d87792f1cdd4f",
+      "Inputs": [
+        {
+          "Id": "68d8752c83b24efa9b24ee095608e896",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "aa0534959e2e406c99cd3505efa274ba",
+          "Name": "value",
+          "Description": "Native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ab7d32372d604210b50da6391e8e98b7",
+          "Name": "property",
+          "Description": "property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesPlate, AdvanceSteelNodesUI",
+      "SelectedIndex": 34,
+      "SelectedString": "Plate Portioning",
+      "NodeType": "ExtensionNode",
+      "Id": "f2d918351d754a6ea7ed02f89cc30218",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8e73f48139da41bc9f80cd85e86dc117",
+          "Name": "propertyName",
+          "Description": "name of the selected property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Plate"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesPlate, AdvanceSteelNodesUI",
+      "SelectedIndex": 51,
+      "SelectedString": "Thickness",
+      "NodeType": "ExtensionNode",
+      "Id": "c5e0062c97df487eae9ce2c2795a3d02",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "0fd21de54d3e4002be4032b2e1f5875b",
+          "Name": "propertyName",
+          "Description": "name of the selected property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Plate"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "25;",
+      "Id": "6a61fc3b9f0d49fdb7717fa9ef411282",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "6e67c008eae047da94c2172385a076c8",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "30cac3a0ada24db4aac48e0612441378",
+      "Inputs": [
+        {
+          "Id": "70080316f0b1413ea0294099f5596a90",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d0e66464152e408aaeed4dced78bc464",
+          "Name": "value",
+          "Description": "Native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ddcf00057c324867b3a02685f73824dd",
+          "Name": "property",
+          "Description": "property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "2d8a3fd2d9f0464cbf5d071431dde928",
+      "Inputs": [
+        {
+          "Id": "d09c379adbd44c57aacd48ab8e14ed8e",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "cf8d8d19f9f64cf784fab0a33a34b14a",
+          "Name": "item1",
+          "Description": "Item Index #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "727446a03d354b68baa6c7a2ee062010",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Geometry.Translate@Autodesk.DesignScript.Geometry.Vector,double",
+      "Id": "9b120ae894a447b9bcdd19372408cf60",
+      "Inputs": [
+        {
+          "Id": "d6c9f14a38794a89ad3fe09240d73075",
+          "Name": "geometry",
+          "Description": "Autodesk.DesignScript.Geometry.Geometry",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "572c913064a64140bb49f0749fe9c81f",
+          "Name": "direction",
+          "Description": "Displacement direction.\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6fc13dbdc7e045c7bcabd470c26f7935",
+          "Name": "distance",
+          "Description": "Displacement distance along given direction.\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8bc3249569244b69b05b60cac326ad28",
+          "Name": "Geometry",
+          "Description": "Transformed Geometry.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Translates any geometry type by the given distance in the given direction.\n\nGeometry.Translate (direction: Vector, distance: double): Geometry"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Geometry.Translate@Autodesk.DesignScript.Geometry.Vector,double",
+      "Id": "3bc9bffbdb6a4b24b2c37dbd293c4d32",
+      "Inputs": [
+        {
+          "Id": "ca5b66e2c7fe4876870b6d6c2c093b9d",
+          "Name": "geometry",
+          "Description": "Autodesk.DesignScript.Geometry.Geometry",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "38102def7aa541f7afa2912c2621d4e1",
+          "Name": "direction",
+          "Description": "Displacement direction.\n\nVector",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "321da9e0f36846aeb86476a2368b1858",
+          "Name": "distance",
+          "Description": "Displacement distance along given direction.\n\ndouble",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "fa2e76fdbee6407198abae7faa06bc63",
+          "Name": "Geometry",
+          "Description": "Transformed Geometry.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Translates any geometry type by the given distance in the given direction.\n\nGeometry.Translate (direction: Vector, distance: double): Geometry"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Geometry.GetMidBetweenPoints@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point",
+      "Id": "74e89af96ca04f69bd953f85c355957c",
+      "Inputs": [
+        {
+          "Id": "f06218ff96fd41cfb9b9c062d27a9489",
+          "Name": "firstPoint",
+          "Description": "Input Dynamo First Point\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ac54b899bf0549f4acb6c6e80dddb09b",
+          "Name": "secondPoint",
+          "Description": "Input Dynamo Second Point\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "dea104c880704dffb31a8743de25ebe9",
+          "Name": "point",
+          "Description": "get the point midway between two points",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get point in the middle of two other points\n\nGeometry.GetMidBetweenPoints (firstPoint: Point, secondPoint: Point): Point"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "Vector.XAxis();",
+      "Id": "5ddf2f74cf204b5dbd78c860bdd6ca8b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d38ac8f2dd8e4d51b45e940f57c92074",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "785;\n-785;",
+      "Id": "406accbf305342d4bac52deff57ebcb5",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "91af39d2f3db4752a6c56d0968359e0b",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0e628943f0d04cf5bb934a07666720ee",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.RectangularBoltPattern.AtCentrePoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.CoordinateSystem,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.Property[]",
+      "Id": "1f91ae1ce5d7491994f01cef1f44e4d8",
+      "Inputs": [
+        {
+          "Id": "d087139490354359847fd29b247ba2ff",
+          "Name": "connectionPoint",
+          "Description": "Input Insertion point of Bolt Pattern\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a76bb6547a8549f38b778db661f7c197",
+          "Name": "boltCS",
+          "Description": "Input Bolt Coordinate System\n\nCoordinateSystem",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f58a7d82819d48eab4cbaeff24973b66",
+          "Name": "noOfBoltsX",
+          "Description": "Input No of Bolts in the X direction\n\nint\nDefault value : 2",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "61eaeb0ef5c2416a90a89d08bd2d212b",
+          "Name": "noOfBoltsY",
+          "Description": "Input No of Bolts in the Y direction\n\nint\nDefault value : 2",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "45729dbd664f40539cbae235d67becf6",
+          "Name": "objectsToConnect",
+          "Description": "Objects to be bolted\n\nSteelDbObject[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d80d065bdd1d48329986789310bcc79b",
+          "Name": "boltConnectionType",
+          "Description": "Input Bolt Connection type - Shop Bolt Default\n\nint\nDefault value : 2",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4e9269ef58c24dce8bf487fa857953e8",
+          "Name": "additionalBoltParameters",
+          "Description": "Optional Bolt Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f0e992ac78384ee098de409bd29c25d5",
+          "Name": "rectangularBoltPattern",
+          "Description": "rectangularBoltPattern",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Rectangular Pattern By Rectangle\n\nRectangularBoltPattern.AtCentrePoint (connectionPoint: Point, boltCS: CoordinateSystem, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalBoltParameters: Property[] = null): RectangularBoltPattern"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "CoordinateSystem.Identity();",
+      "Id": "7604085912bc46dd99859ac05206020f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "05bb64ac3cb746adbaeb16d2d75339e5",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "e1f0ee61294c499aaa69bcc3b9018221",
+      "Inputs": [
+        {
+          "Id": "b7ad623f4d9c4aafa29de4ac4625bfd3",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ce17847be374408bbe524427a9847687",
+          "Name": "item1",
+          "Description": "Item Index #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a9103dda17864d879b138ef9acb86b52",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.BoltConnectionType, AdvanceSteelNodesUI",
+      "SelectedIndex": 3,
+      "SelectedString": "InShop",
+      "NodeType": "ExtensionNode",
+      "Id": "761899f8cc64450e8bbfaa30674de4a8",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "16742dd629ca4bf495b6ff6e03a0d81b",
+          "Name": "boltType",
+          "Description": "bolt connection type",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists the Advance Steel Bolt Connection type options"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "1;\n10;\n21;",
+      "Id": "f877067133874e57a872b8924a4133ba",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8d8d74eb69ea4d3d91ff0c9bed234f31",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5c251111170840cc80fe341a2bc1e12a",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "89351ce9d7ab45e5a223434b16a737b7",
+          "Name": "",
+          "Description": "Value of expression at line 3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.ConnectionObjects.Bolts.RectangularBoltPattern.AtCentrePoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.CoordinateSystem,int,int,AdvanceSteel.Nodes.SteelDbObject[],int,AdvanceSteel.Nodes.Property[]",
+      "Id": "898a6e8cccdb4ce099c52fa45023f69a",
+      "Inputs": [
+        {
+          "Id": "8c831a73faec42e8a14df25c0573bcd7",
+          "Name": "connectionPoint",
+          "Description": "Input Insertion point of Bolt Pattern\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9ac3fc1eb02b45fa8d3ac7cc6a03908b",
+          "Name": "boltCS",
+          "Description": "Input Bolt Coordinate System\n\nCoordinateSystem",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "58d55c6348264fcc9133137927df0f30",
+          "Name": "noOfBoltsX",
+          "Description": "Input No of Bolts in the X direction\n\nint\nDefault value : 2",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9fb555edb35548d89c1ca47c10cdbf25",
+          "Name": "noOfBoltsY",
+          "Description": "Input No of Bolts in the Y direction\n\nint\nDefault value : 2",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a2dae17467aa48d9bdad826a5fa3101a",
+          "Name": "objectsToConnect",
+          "Description": "Objects to be bolted\n\nSteelDbObject[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9c346f51b6cf46569c87c0dbfcbd2126",
+          "Name": "boltConnectionType",
+          "Description": "Input Bolt Connection type - Shop Bolt Default\n\nint\nDefault value : 2",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1998496f852a47a0ad2c395d492975eb",
+          "Name": "additionalBoltParameters",
+          "Description": "Optional Bolt Build Properties\n\nProperty[]\nDefault value : null",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ab741023bf794dbea5f6ab5fd7a7f473",
+          "Name": "rectangularBoltPattern",
+          "Description": "rectangularBoltPattern",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create an Advance Steel Rectangular Pattern By Rectangle\n\nRectangularBoltPattern.AtCentrePoint (connectionPoint: Point, boltCS: CoordinateSystem, noOfBoltsX: int = 2, noOfBoltsY: int = 2, objectsToConnect: SteelDbObject[], boltConnectionType: int = 2, additionalBoltParameters: Property[] = null): RectangularBoltPattern"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "7fa2642216f44285badc3319136b0678",
+      "Inputs": [
+        {
+          "Id": "e22f44fac2ef4de19a0b09cbbcfca01c",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9b47f830936949bd8370f1d107c37d2b",
+          "Name": "value",
+          "Description": "Native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "2e9cf72e00d042cbab83092734724c50",
+          "Name": "property",
+          "Description": "property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "ef60c957d95f44709aedfe84cb3050d9",
+      "Inputs": [
+        {
+          "Id": "100cdbd9a0e04dc68a639ca6e1966434",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b9b1e8b6d0974d99ae318c3108d1ea34",
+          "Name": "value",
+          "Description": "Native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a6cad6da0ba842c492cbb18c099122b8",
+          "Name": "property",
+          "Description": "property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesBolts, AdvanceSteelNodesUI",
+      "SelectedIndex": 22,
+      "SelectedString": "Bolt Pattern Spacing of holes in the Y Direction",
+      "NodeType": "ExtensionNode",
+      "Id": "23a8ab94a4e34edeaf942a977393707f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "4bcd3d4daf384965823070e579d1188a",
+          "Name": "propertyName",
+          "Description": "name of the selected property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Rectangular Bolt"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "d0a036adb20a4f00b36a01b1296eedad",
+      "Inputs": [
+        {
+          "Id": "1b4fe5e380934f5a9cbc8586b957e04a",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a27dc5242419479aa81470d2a3e35d06",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesBolts, AdvanceSteelNodesUI",
+      "SelectedIndex": 22,
+      "SelectedString": "Bolt Pattern Spacing of holes in the Y Direction",
+      "NodeType": "ExtensionNode",
+      "Id": "c4939582ce874c71bb0d8bcea1407cba",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a1bb16e7167145d69eb08ab0d77f82be",
+          "Name": "propertyName",
+          "Description": "name of the selected property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Rectangular Bolt"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "200;\ntrue;",
+      "Id": "56bf466617ea44799c071287c30d1761",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "7c96fa02aaab445487d51fb4b338589d",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a501a7d2889b479c90d55f6f0a2305f4",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "615a1fdb7d1f4e9b97aaec1109e51279",
+      "Inputs": [
+        {
+          "Id": "6096c070c1474b7eb7c53c7391a30c74",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8e4c5324eff84ce09b2698a8a545250e",
+          "Name": "value",
+          "Description": "Native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d12d1d5a02d84f6ba8fab8423040ee9f",
+          "Name": "property",
+          "Description": "property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesBolts, AdvanceSteelNodesUI",
+      "SelectedIndex": 44,
+      "SelectedString": "IsInverted",
+      "NodeType": "ExtensionNode",
+      "Id": "5748f45251da4a1d9efeb976ca6bbc0a",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "abc0b0c131714a57a574e0d854a5e9df",
+          "Name": "propertyName",
+          "Description": "name of the selected property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Rectangular Bolt"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "17da24c223d44ea6a2e1615b432af603",
+      "Inputs": [
+        {
+          "Id": "22dc15f3236d47fab45729971b8f0304",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5554146e0b2746909d8d13ac80731c23",
+          "Name": "item1",
+          "Description": "Item Index #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "59296786d4184bdaafbceb82ad8eb25f",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "551ae82e69704ccfa1b3efbbc614d5f4",
+      "Inputs": [
+        {
+          "Id": "740453032fd34442bc52a026a385ff47",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3ab10b85f0d84aa3a376bf9c8da98c65",
+          "Name": "item1",
+          "Description": "Item Index #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "bea71d850a934cbc95947333c8514f45",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point",
+      "Id": "149d911094974398b16228d12f2f2b1f",
+      "Inputs": [
+        {
+          "Id": "a17c8d482e7748799fed8221ce9b5500",
+          "Name": "startPoint",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a0a30a902b924a8aa3efb49765b64c7a",
+          "Name": "endPoint",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "58d0d0fd26424756a9b55a7d8ae10160",
+          "Name": "Line",
+          "Description": "Line",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Creates a straight Line between two input Points.\n\nLine.ByStartPointEndPoint (startPoint: Point, endPoint: Point): Line"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point",
+      "Id": "79665e13c98047dbb3bc8573e525094e",
+      "Inputs": [
+        {
+          "Id": "642000ee41bb4e2182456d32daf8566f",
+          "Name": "startPoint",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e8311d63cc3145ddb7140930ff4e7a1f",
+          "Name": "endPoint",
+          "Description": "Point",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7f143fb009404c209ff98512a1608e88",
+          "Name": "Line",
+          "Description": "Line",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Creates a straight Line between two input Points.\n\nLine.ByStartPointEndPoint (startPoint: Point, endPoint: Point): Line"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Curve.Length",
+      "Id": "7125bb1d721a4b1cad84f9ca07375bfe",
+      "Inputs": [
+        {
+          "Id": "48b419856b08486bbfa1d8e1b928dcd3",
+          "Name": "curve",
+          "Description": "Autodesk.DesignScript.Geometry.Curve",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d8bf8728587b477eae221fa6e5618ac1",
+          "Name": "double",
+          "Description": "double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "The total arc length of the curve\n\nCurve.Length: double"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Curve.Length",
+      "Id": "5f1f90fa1c4149da9d408e757e6c1f27",
+      "Inputs": [
+        {
+          "Id": "588fc594bcf44df293b46fc19b5e30bf",
+          "Name": "curve",
+          "Description": "Autodesk.DesignScript.Geometry.Curve",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "68a2564a9c6b4868857067c414e984af",
+          "Name": "double",
+          "Description": "double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "The total arc length of the curve\n\nCurve.Length: double"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "-@var[]..[],var[]..[]",
+      "Id": "ccecae7fadb141b8becbe4572d237384",
+      "Inputs": [
+        {
+          "Id": "1f76d408051548888cf35d065a5fc279",
+          "Name": "x",
+          "Description": "x value.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "42f3760603cd4a9285032aa8cd287d32",
+          "Name": "y",
+          "Description": "y value.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0457a6496496474ea0aa727fce38a6b1",
+          "Name": "var[]..[]",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "x subtract y.\n\n- (x: var[]..[], y: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "*@var[]..[],var[]..[]",
+      "Id": "bf58ea35b6a74d2fbfbfb573466ec11f",
+      "Inputs": [
+        {
+          "Id": "500ae0ab1f9b47f9871cc03d4c3bac2d",
+          "Name": "x",
+          "Description": "x value.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "2c454d945a4640e0ad06e50495d22d6b",
+          "Name": "y",
+          "Description": "y value.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e1883f603e6a4fad876dcf1ab3e756a7",
+          "Name": "var[]..[]",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Multiplies x by y.\n\n* (x: var[]..[], y: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "2;",
+      "Id": "6ade74b0708a455c921ed085e329aac1",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "57fdde11276b4e7ca2877578cfb26d78",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "/@var[]..[],var[]..[]",
+      "Id": "3fa40fb1cbdc486ba843b9850e222e60",
+      "Inputs": [
+        {
+          "Id": "ff32ff3a314f436c9be1e8eaa942c935",
+          "Name": "x",
+          "Description": "x value.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e732c20def5742d285ec798c0b402de1",
+          "Name": "y",
+          "Description": "y value.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "99e7505463b04132802a82416ad72606",
+          "Name": "var[]..[]",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Divides x by y.\n\n/ (x: var[]..[], y: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "-@var[]..[],var[]..[]",
+      "Id": "3f5c2b0b9a074986a191c1a992113289",
+      "Inputs": [
+        {
+          "Id": "63cc2262a0d7427eb46d0285389e69bc",
+          "Name": "x",
+          "Description": "x value.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "f9681f30946a46eb8756826966ec67ac",
+          "Name": "y",
+          "Description": "y value.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f1a226d79de145aa82cd9f382a41c3bc",
+          "Name": "var[]..[]",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "x subtract y.\n\n- (x: var[]..[], y: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "/@var[]..[],var[]..[]",
+      "Id": "c3d2e0b2ca6f4471910b42fa1db8f9d9",
+      "Inputs": [
+        {
+          "Id": "6a94cd3bcc4f43f6905d30b6962b50ae",
+          "Name": "x",
+          "Description": "x value.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "921de88edb9240f1bde1755ae7c8d3f2",
+          "Name": "y",
+          "Description": "y value.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b6ef51a5578647d8891d2d124944dcfa",
+          "Name": "var[]..[]",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Divides x by y.\n\n/ (x: var[]..[], y: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Geometry.GetDistance@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point",
+      "Id": "191f75e1bdb744c090c3c52ac3401fa8",
+      "Inputs": [
+        {
+          "Id": "dd28009e665e4d7fb7b4f7c9d10fdc16",
+          "Name": "firstPoint",
+          "Description": "Input Dynamo First Point\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ba982fe84dec4344bac2b1b13ebb0080",
+          "Name": "secondPoint",
+          "Description": "Input Dynamo Second Point\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "03fd8e9c62a74349923b0b2af0470906",
+          "Name": "distance",
+          "Description": "get the length / distance between two points",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get the distance between two points\n\nGeometry.GetDistance (firstPoint: Point, secondPoint: Point): double"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "a00a0dc461cc41f4b350e1d5fdb1e211",
+      "Inputs": [
+        {
+          "Id": "ed8476c089404428b5c502fd8fb5f7cb",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d81aa8c4f43f48ec805a3578d86a72fa",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "aa26a0a8bdcb49f7a99f92b8ec08b689",
+      "Inputs": [
+        {
+          "Id": "38ed57f035234a53b266494d7ca7a463",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ada69490e4e348779194714db932704c",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.Value",
+      "Id": "dff9f070dfd6498ead5b927ca0b164d9",
+      "Inputs": [
+        {
+          "Id": "4c24a97958c545a2a1ef3e52a171a41e",
+          "Name": "property",
+          "Description": "AdvanceSteel.Nodes.Property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b8a78a34e22846ee94775a2a4d289f06",
+          "Name": "Value",
+          "Description": "The value of the property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get the value from the property\n\nProperty.Value: var[]..[]"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "5a256c80d4274e7eacfa368fc2523ea9",
+      "End": "0f2872da3f2042158746489a622f70ff",
+      "Id": "d7bced851d30419089ea814219b72aec"
+    },
+    {
+      "Start": "5a256c80d4274e7eacfa368fc2523ea9",
+      "End": "66dd454e4b97407095f2a05e2872a047",
+      "Id": "74032e99548c43e79c02a5a1251618d6"
+    },
+    {
+      "Start": "5a256c80d4274e7eacfa368fc2523ea9",
+      "End": "6519f922f8c24d6a977412451d9c8905",
+      "Id": "4c32c59fb06849598a9ea4718465b971"
+    },
+    {
+      "Start": "e081f09a209246b0b96ce0b9abef8751",
+      "End": "37095eaf8cad48f3acec36ff8f2417eb",
+      "Id": "fb009b6448aa474fa2f2782152522762"
+    },
+    {
+      "Start": "e081f09a209246b0b96ce0b9abef8751",
+      "End": "cb5b9c18f19c4340ac25958f1a8f1a84",
+      "Id": "c46c2e6a6b23469f8722d26de8075a6a"
+    },
+    {
+      "Start": "5a9a7350f4d14f338271d221b6d19884",
+      "End": "58b6f2b96b3448a4a50087faaddee07b",
+      "Id": "543ebde0910441d4b2942d9b2d3a8423"
+    },
+    {
+      "Start": "5a9a7350f4d14f338271d221b6d19884",
+      "End": "210fc34bf5754e85aa85baeb1415bef7",
+      "Id": "270a8f27e00341308ea8ff721432aec4"
+    },
+    {
+      "Start": "472eaded90134efbbe2801b4fdc043a0",
+      "End": "5673250e64ce4705ae7061355b6ea771",
+      "Id": "923f8a2c57e545c18c403a14643a0692"
+    },
+    {
+      "Start": "472eaded90134efbbe2801b4fdc043a0",
+      "End": "11bb0c2703ad4cb7bf00f4ffa31e4cae",
+      "Id": "084dc59264fe47cab9bd3b54bdefbcf0"
+    },
+    {
+      "Start": "fcfc7bc98fa04e96ab9600f78a54d12b",
+      "End": "0661a352332943198bfacf36290e8336",
+      "Id": "59ff2b6fc9d748b4b0d139263a7a4049"
+    },
+    {
+      "Start": "fcfc7bc98fa04e96ab9600f78a54d12b",
+      "End": "49f724da61994c1a83d9be6bf919d85c",
+      "Id": "3e1958a43746484c86057809baa3eb67"
+    },
+    {
+      "Start": "fcfc7bc98fa04e96ab9600f78a54d12b",
+      "End": "ad7c47f352d64ed58621376763feb6fc",
+      "Id": "d1f9df31007e4b89aa6ba76d32192b72"
+    },
+    {
+      "Start": "fcfc7bc98fa04e96ab9600f78a54d12b",
+      "End": "e194bd7967514a42a508b506101c73f2",
+      "Id": "ee11ade9934447189e9bef0bddf13059"
+    },
+    {
+      "Start": "dfd761a9cc3546be90e5a1092e7d3487",
+      "End": "4c22f320521243c9b21ffe68724bf77c",
+      "Id": "c8a422c6b5864e52a8b64d3271d87d43"
+    },
+    {
+      "Start": "e116a51092dd43bcb9a0596e43c27faa",
+      "End": "68c33d3ef52e4f3aa12eec78eeb7ffa1",
+      "Id": "52ed2de090f34fd085678cbeb814e2a5"
+    },
+    {
+      "Start": "e116a51092dd43bcb9a0596e43c27faa",
+      "End": "3ab10b85f0d84aa3a376bf9c8da98c65",
+      "Id": "b128e46dacae43d58e574acd1a51dc61"
+    },
+    {
+      "Start": "2e5f755e9788463ca8bb658d74df2fa6",
+      "End": "9888de0497be41c5a26b98e43efad4d8",
+      "Id": "332da273701c476896a0d09574b30384"
+    },
+    {
+      "Start": "f9b24cb6d95b498b8ec07a8f49f1f1ee",
+      "End": "3dc6d11f5b4c480695957dce02acf926",
+      "Id": "c167ecb1066c49c3a6466c6f8ae2b0ce"
+    },
+    {
+      "Start": "f9b24cb6d95b498b8ec07a8f49f1f1ee",
+      "End": "b7ad623f4d9c4aafa29de4ac4625bfd3",
+      "Id": "bee6af122b1e4154b49d2364de9a5fb9"
+    },
+    {
+      "Start": "a41400c0bc334c6ca10eb3d071cce6b6",
+      "End": "f55e269f0b504192be59370e08cf8a73",
+      "Id": "ee52901cfc274dae9f6228a71205e6bc"
+    },
+    {
+      "Start": "a41400c0bc334c6ca10eb3d071cce6b6",
+      "End": "c965db45eb7b46dbb2a3e9275533f2b3",
+      "Id": "77145adcacf34c86a5d251d0d39f10c3"
+    },
+    {
+      "Start": "a41400c0bc334c6ca10eb3d071cce6b6",
+      "End": "517b6089771c4fdeab16531ae83acaf2",
+      "Id": "42749f3ef0ee4eaa940e9117c88437d7"
+    },
+    {
+      "Start": "a41400c0bc334c6ca10eb3d071cce6b6",
+      "End": "a461f8442ca048ae8bc82350c0f292f3",
+      "Id": "6f56ed51549b4fbd9ce0b9aeda2c14be"
+    },
+    {
+      "Start": "0ba1de6faf1f46b3a878fb5d480ce005",
+      "End": "5a798434f5e14530a852486ae8685921",
+      "Id": "5beb61214f01430f847593660a6f1f54"
+    },
+    {
+      "Start": "26d3e1ffda92426baae4d04ccd917b8d",
+      "End": "75de87fcf9b0493fb4e9e60a5533f04c",
+      "Id": "2c899412c74546608e06c2ae3d476ece"
+    },
+    {
+      "Start": "18584fabadce46bf989b533244cdc203",
+      "End": "ce17847be374408bbe524427a9847687",
+      "Id": "ac5143e0fe094604b35cbe6fb92be352"
+    },
+    {
+      "Start": "18584fabadce46bf989b533244cdc203",
+      "End": "740453032fd34442bc52a026a385ff47",
+      "Id": "f3f1a58410ac4f72a05c4574c6d38c53"
+    },
+    {
+      "Start": "6b394890e3444b869a220f5cf831b73d",
+      "End": "d3ae8c02de8c4a4cb959742e59bc68b3",
+      "Id": "6bd4275fdd184f7793019ff63c58b04d"
+    },
+    {
+      "Start": "0b133b537cd24c08a5f1baf66a6b6aec",
+      "End": "5b91b1af9a064b54b2f5aeae8ba393e7",
+      "Id": "fbd3d65720ac4a2594d742b408e7831f"
+    },
+    {
+      "Start": "76b801c58f714d74bc1f0fe0004dd62f",
+      "End": "f06218ff96fd41cfb9b9c062d27a9489",
+      "Id": "ab10639aec5d4fe38c424e65271da2ad"
+    },
+    {
+      "Start": "76b801c58f714d74bc1f0fe0004dd62f",
+      "End": "4831b8186cba45019ac37fade8e454b5",
+      "Id": "7fa09705028f4022be307fd98a328cc0"
+    },
+    {
+      "Start": "76b801c58f714d74bc1f0fe0004dd62f",
+      "End": "52130c8f108044129bf8944c0d331c69",
+      "Id": "198c0f11455e4e13a09cd8c6b73d7d85"
+    },
+    {
+      "Start": "76b801c58f714d74bc1f0fe0004dd62f",
+      "End": "a17c8d482e7748799fed8221ce9b5500",
+      "Id": "1c94c0c402a24103b1bfd2fcb6f17cce"
+    },
+    {
+      "Start": "1ff5f88f79ae4cd98966d8ba6c2bbe34",
+      "End": "0c52e915e2cd474a9c62103f184bf8ec",
+      "Id": "b88e5d4f9ddf4ac7a043b3f0739e1f5c"
+    },
+    {
+      "Start": "1ff5f88f79ae4cd98966d8ba6c2bbe34",
+      "End": "642000ee41bb4e2182456d32daf8566f",
+      "Id": "8c134b3c183e4775bc7d79c1cda132e3"
+    },
+    {
+      "Start": "1ff5f88f79ae4cd98966d8ba6c2bbe34",
+      "End": "dd28009e665e4d7fb7b4f7c9d10fdc16",
+      "Id": "02f9a3d986af425a9d85f380e83bd38a"
+    },
+    {
+      "Start": "bd5bad99eeef4bcfb94a3daddf3bd0af",
+      "End": "ac54b899bf0549f4acb6c6e80dddb09b",
+      "Id": "679a228acec14336b28889612cc07214"
+    },
+    {
+      "Start": "bd5bad99eeef4bcfb94a3daddf3bd0af",
+      "End": "001b5871d2b445a0895f365434064067",
+      "Id": "eefb22b991d14510b860d3f5604d6f71"
+    },
+    {
+      "Start": "bd5bad99eeef4bcfb94a3daddf3bd0af",
+      "End": "e8311d63cc3145ddb7140930ff4e7a1f",
+      "Id": "1479900df28a43dbb6139639596435ce"
+    },
+    {
+      "Start": "bd5bad99eeef4bcfb94a3daddf3bd0af",
+      "End": "ba982fe84dec4344bac2b1b13ebb0080",
+      "Id": "44dbcb31a17f463a95aeb4bac045b610"
+    },
+    {
+      "Start": "2c5a14f098914d4485d53b5ff63fd3d7",
+      "End": "4305441f35f94ea1b77cd7b7a9ec8362",
+      "Id": "6d551897fb42401485aabd564ea0ae8e"
+    },
+    {
+      "Start": "2c5a14f098914d4485d53b5ff63fd3d7",
+      "End": "a0a30a902b924a8aa3efb49765b64c7a",
+      "Id": "4d4ae24921a04e9b90d89934ee5b5a9a"
+    },
+    {
+      "Start": "9beac07781dd4650aabd1a311c972a3b",
+      "End": "500ae0ab1f9b47f9871cc03d4c3bac2d",
+      "Id": "10e54ccc77174a38bcdf8a3c60a6ca48"
+    },
+    {
+      "Start": "d677f668463f4b13bbf042edd7e5b47d",
+      "End": "aa0534959e2e406c99cd3505efa274ba",
+      "Id": "ff15d9d7fd41427db28cc2c07d5c6243"
+    },
+    {
+      "Start": "ab7d32372d604210b50da6391e8e98b7",
+      "End": "d09c379adbd44c57aacd48ab8e14ed8e",
+      "Id": "b178c5a08cd248b998eee18c6fb3c28c"
+    },
+    {
+      "Start": "8e73f48139da41bc9f80cd85e86dc117",
+      "End": "68d8752c83b24efa9b24ee095608e896",
+      "Id": "5fb4591f8d6c4a44af8f71bc35953cc4"
+    },
+    {
+      "Start": "0fd21de54d3e4002be4032b2e1f5875b",
+      "End": "70080316f0b1413ea0294099f5596a90",
+      "Id": "a77ce4ea0ac04603a0629104e3863203"
+    },
+    {
+      "Start": "6e67c008eae047da94c2172385a076c8",
+      "End": "d0e66464152e408aaeed4dced78bc464",
+      "Id": "4a22aecc26434550a2dd601edae916f9"
+    },
+    {
+      "Start": "ddcf00057c324867b3a02685f73824dd",
+      "End": "cf8d8d19f9f64cf784fab0a33a34b14a",
+      "Id": "f43cf60ab8374ef88d97858235e2ff12"
+    },
+    {
+      "Start": "727446a03d354b68baa6c7a2ee062010",
+      "End": "11cac5b3f0764524ac28d8ae482bddd1",
+      "Id": "8cc4bc9d48f846fab435ca22d894471b"
+    },
+    {
+      "Start": "8bc3249569244b69b05b60cac326ad28",
+      "End": "d087139490354359847fd29b247ba2ff",
+      "Id": "bc6c69401c7041b8bfdc8706bc683598"
+    },
+    {
+      "Start": "fa2e76fdbee6407198abae7faa06bc63",
+      "End": "38ed57f035234a53b266494d7ca7a463",
+      "Id": "bd60f16959374c4385e9e73a3fbd436d"
+    },
+    {
+      "Start": "dea104c880704dffb31a8743de25ebe9",
+      "End": "d6c9f14a38794a89ad3fe09240d73075",
+      "Id": "360220b34475496797a0012ce7547ad3"
+    },
+    {
+      "Start": "dea104c880704dffb31a8743de25ebe9",
+      "End": "ca5b66e2c7fe4876870b6d6c2c093b9d",
+      "Id": "ec9405c49e2f4cb6bac687fdfe2538f7"
+    },
+    {
+      "Start": "d38ac8f2dd8e4d51b45e940f57c92074",
+      "End": "38102def7aa541f7afa2912c2621d4e1",
+      "Id": "4378c7feaafb4f2f84cd5e65d6dc1db5"
+    },
+    {
+      "Start": "d38ac8f2dd8e4d51b45e940f57c92074",
+      "End": "572c913064a64140bb49f0749fe9c81f",
+      "Id": "137934cffefc4380a7317037f6a94ef1"
+    },
+    {
+      "Start": "91af39d2f3db4752a6c56d0968359e0b",
+      "End": "321da9e0f36846aeb86476a2368b1858",
+      "Id": "fa943c6b45034b239318a345ed1865ab"
+    },
+    {
+      "Start": "0e628943f0d04cf5bb934a07666720ee",
+      "End": "6fc13dbdc7e045c7bcabd470c26f7935",
+      "Id": "0d6b5d5618bd4508b40367408e1a7c4c"
+    },
+    {
+      "Start": "05bb64ac3cb746adbaeb16d2d75339e5",
+      "End": "a76bb6547a8549f38b778db661f7c197",
+      "Id": "d95240d80f994f3a88aeaa99adff370b"
+    },
+    {
+      "Start": "05bb64ac3cb746adbaeb16d2d75339e5",
+      "End": "9ac3fc1eb02b45fa8d3ac7cc6a03908b",
+      "Id": "a97ff618f057431a8836b682834859ed"
+    },
+    {
+      "Start": "a9103dda17864d879b138ef9acb86b52",
+      "End": "45729dbd664f40539cbae235d67becf6",
+      "Id": "7ac63ae63121470e9a4ab319c4921900"
+    },
+    {
+      "Start": "16742dd629ca4bf495b6ff6e03a0d81b",
+      "End": "d80d065bdd1d48329986789310bcc79b",
+      "Id": "cef093fcdefa4b9d9f2c304cca00f92d"
+    },
+    {
+      "Start": "16742dd629ca4bf495b6ff6e03a0d81b",
+      "End": "9c346f51b6cf46569c87c0dbfcbd2126",
+      "Id": "419acb7e679444dd9d1fb316a6cd3920"
+    },
+    {
+      "Start": "8d8d74eb69ea4d3d91ff0c9bed234f31",
+      "End": "f58a7d82819d48eab4cbaeff24973b66",
+      "Id": "20f574274c7743029822f45f1b60f0be"
+    },
+    {
+      "Start": "8d8d74eb69ea4d3d91ff0c9bed234f31",
+      "End": "58d55c6348264fcc9133137927df0f30",
+      "Id": "623517f878bf4478be6c579cca9a2d2b"
+    },
+    {
+      "Start": "5c251111170840cc80fe341a2bc1e12a",
+      "End": "61eaeb0ef5c2416a90a89d08bd2d212b",
+      "Id": "29451efd5a4b4106aba1ba2c423ffc73"
+    },
+    {
+      "Start": "5c251111170840cc80fe341a2bc1e12a",
+      "End": "e732c20def5742d285ec798c0b402de1",
+      "Id": "b6abba73e5d44efabfa34701d439cbd2"
+    },
+    {
+      "Start": "89351ce9d7ab45e5a223434b16a737b7",
+      "End": "921de88edb9240f1bde1755ae7c8d3f2",
+      "Id": "ad48237059c24955abf91a6569f61140"
+    },
+    {
+      "Start": "89351ce9d7ab45e5a223434b16a737b7",
+      "End": "9fb555edb35548d89c1ca47c10cdbf25",
+      "Id": "09bd7e7f008945eb9468bdeee9dbee92"
+    },
+    {
+      "Start": "2e9cf72e00d042cbab83092734724c50",
+      "End": "1b4fe5e380934f5a9cbc8586b957e04a",
+      "Id": "e123cac7e3a140bca1b53d9babc53fc8"
+    },
+    {
+      "Start": "a6cad6da0ba842c492cbb18c099122b8",
+      "End": "22dc15f3236d47fab45729971b8f0304",
+      "Id": "46a80be14c7a45ef99ea36a59c119725"
+    },
+    {
+      "Start": "a6cad6da0ba842c492cbb18c099122b8",
+      "End": "4c24a97958c545a2a1ef3e52a171a41e",
+      "Id": "906eb9a1255f405390148925f1202ac5"
+    },
+    {
+      "Start": "4bcd3d4daf384965823070e579d1188a",
+      "End": "e22f44fac2ef4de19a0b09cbbcfca01c",
+      "Id": "f4409f79b0384eaaa1edfef8a2aee052"
+    },
+    {
+      "Start": "a27dc5242419479aa81470d2a3e35d06",
+      "End": "4e9269ef58c24dce8bf487fa857953e8",
+      "Id": "0496b117d5bb4d3c94f412df7f95e707"
+    },
+    {
+      "Start": "a1bb16e7167145d69eb08ab0d77f82be",
+      "End": "100cdbd9a0e04dc68a639ca6e1966434",
+      "Id": "8d010f96ef334563a1444546edc1b7ae"
+    },
+    {
+      "Start": "a501a7d2889b479c90d55f6f0a2305f4",
+      "End": "8e4c5324eff84ce09b2698a8a545250e",
+      "Id": "5f21924e9b0f465fa1da8fbff7a9fe74"
+    },
+    {
+      "Start": "d12d1d5a02d84f6ba8fab8423040ee9f",
+      "End": "5554146e0b2746909d8d13ac80731c23",
+      "Id": "610ccfcf1f654ae8ae515386e1298f9e"
+    },
+    {
+      "Start": "abc0b0c131714a57a574e0d854a5e9df",
+      "End": "6096c070c1474b7eb7c53c7391a30c74",
+      "Id": "2b25b86d76b54e23874b250e7811840f"
+    },
+    {
+      "Start": "59296786d4184bdaafbceb82ad8eb25f",
+      "End": "1998496f852a47a0ad2c395d492975eb",
+      "Id": "38d744220bcc438cb0a6bc363d31791e"
+    },
+    {
+      "Start": "bea71d850a934cbc95947333c8514f45",
+      "End": "a2dae17467aa48d9bdad826a5fa3101a",
+      "Id": "629936322da54a53967ad9566d881b2f"
+    },
+    {
+      "Start": "58d0d0fd26424756a9b55a7d8ae10160",
+      "End": "588fc594bcf44df293b46fc19b5e30bf",
+      "Id": "7fe6c4183ae54f5085a36d1e56cf5cc2"
+    },
+    {
+      "Start": "7f143fb009404c209ff98512a1608e88",
+      "End": "48b419856b08486bbfa1d8e1b928dcd3",
+      "Id": "37415d4ea5e249a8ac91b0f4aef0b092"
+    },
+    {
+      "Start": "d8bf8728587b477eae221fa6e5618ac1",
+      "End": "63cc2262a0d7427eb46d0285389e69bc",
+      "Id": "0f7413f3bf5d41ff92a09b3859fe26c0"
+    },
+    {
+      "Start": "68a2564a9c6b4868857067c414e984af",
+      "End": "1f76d408051548888cf35d065a5fc279",
+      "Id": "51952e8d67574d4e8c12f84338b00cc5"
+    },
+    {
+      "Start": "0457a6496496474ea0aa727fce38a6b1",
+      "End": "ff32ff3a314f436c9be1e8eaa942c935",
+      "Id": "5cadaf33d3f8434c9afc6c0abc575157"
+    },
+    {
+      "Start": "e1883f603e6a4fad876dcf1ab3e756a7",
+      "End": "42f3760603cd4a9285032aa8cd287d32",
+      "Id": "6dd0c180bf374ec98748c25e6d511964"
+    },
+    {
+      "Start": "e1883f603e6a4fad876dcf1ab3e756a7",
+      "End": "f9681f30946a46eb8756826966ec67ac",
+      "Id": "5efddd9b663d4e0a83b5c309ccb80c66"
+    },
+    {
+      "Start": "57fdde11276b4e7ca2877578cfb26d78",
+      "End": "2c454d945a4640e0ad06e50495d22d6b",
+      "Id": "394209d903d94b36ae4e8ae68d1f72f3"
+    },
+    {
+      "Start": "99e7505463b04132802a82416ad72606",
+      "End": "9b47f830936949bd8370f1d107c37d2b",
+      "Id": "cb7982a15f7944828a162504c3a2a093"
+    },
+    {
+      "Start": "f1a226d79de145aa82cd9f382a41c3bc",
+      "End": "6a94cd3bcc4f43f6905d30b6962b50ae",
+      "Id": "5b0fb6b892b74591b79abab9ede71c17"
+    },
+    {
+      "Start": "b6ef51a5578647d8891d2d124944dcfa",
+      "End": "b9b1e8b6d0974d99ae318c3108d1ea34",
+      "Id": "bb8a06268ec5422a89dc77fa1709469a"
+    },
+    {
+      "Start": "03fd8e9c62a74349923b0b2af0470906",
+      "End": "ed8476c089404428b5c502fd8fb5f7cb",
+      "Id": "afd0b94d754e4f5bbfca97626c85cab7"
+    },
+    {
+      "Start": "ada69490e4e348779194714db932704c",
+      "End": "8c831a73faec42e8a14df25c0573bcd7",
+      "Id": "ab14b85763444ee98ee4c2c5c2482179"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [
+    {
+      "NodeId": "6588570e-f3cc-42e1-978d-cea49ac08896",
+      "Binding": {
+        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_6588570e-f3cc-42e1-978d-cea49ac08896": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVOalF6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJMU9Ed3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+      }
+    },
+    {
+      "NodeId": "4e0deff3-b8a1-4129-b771-c0f7ddb7c580",
+      "Binding": {
+        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_4e0deff3-b8a1-4129-b771-c0f7ddb7c580": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVOalF6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelF6d3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+      }
+    },
+    {
+      "NodeId": "ea436249-840d-4b96-ae8b-ef0214103a44",
+      "Binding": {
+        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_ea436249-840d-4b96-ae8b-ef0214103a44": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVOalF6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelFUd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+      }
+    },
+    {
+      "NodeId": "019d508e-21b0-46cb-8812-06da6a4cc17a",
+      "Binding": {
+        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_019d508e-21b0-46cb-8812-06da6a4cc17a": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVOalF6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJMFFqd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+      }
+    },
+    {
+      "NodeId": "5c982ce7-fd47-4afa-aca9-da3304d4c25d",
+      "Binding": {
+        "ByPoint_InClassDecl-1_InFunctionScope-1_Instance0_5c982ce7-fd47-4afa-aca9-da3304d4c25d": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVOalF6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJMVFUd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+      }
+    },
+    {
+      "NodeId": "7600574d-3f18-48ad-af7f-d3d580d680b5",
+      "Binding": {
+        "ByPolygon_InClassDecl-1_InFunctionScope-1_Instance0_7600574d-3f18-48ad-af7f-d3d580d680b5": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVOalF6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJek9Ed3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+      }
+    },
+    {
+      "NodeId": "1f91ae1c-e5d7-4919-94f0-1cef1f44e4d8",
+      "Binding": {
+        "AtCentrePoint_InClassDecl-1_InFunctionScope-1_Instance0_1f91ae1c-e5d7-4919-94f0-1cef1f44e4d8": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVOalF6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJMFJEd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+      }
+    },
+    {
+      "NodeId": "898a6e8c-ccdb-4ce0-99c5-2fa45023f69a",
+      "Binding": {
+        "AtCentrePoint_InClassDecl-1_InFunctionScope-1_Instance0_898a6e8c-ccdb-4ce0-99c5-2fa45023f69a": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuNS4yLjc5MTUlMkMlMjBDdWx0dXJlJTNEbmV1dHJhbCUyQyUyMFB1YmxpY0tleVRva2VuJTNEbnVsbCI+DQo8TnVtYmVyT2ZFbGVtZW50cz4xPC9OdW1iZXJPZkVsZW1lbnRzPg0KPEJhc2UtMF9IYXNEYXRhPnRydWU8L0Jhc2UtMF9IYXNEYXRhPg0KPEJhc2UtMF9EYXRhIGlkPSJyZWYtMyI+UEZOUFFWQXRSVTVXT2tWdWRtVnNiM0JsSUhodGJHNXpPbmh6YVQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0V0YVc1emRHRnVZMlVpSUhodGJHNXpPbmh6WkQwaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNUzlZVFV4VFkyaGxiV0VpSUhodGJHNXpPbE5QUVZBdFJVNURQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SWdlRzFzYm5NNlUwOUJVQzFGVGxZOUltaDBkSEE2THk5elkyaGxiV0Z6TG5odGJITnZZWEF1YjNKbkwzTnZZWEF2Wlc1MlpXeHZjR1V2SWlCNGJXeHVjenBqYkhJOUltaDBkSEE2THk5elkyaGxiV0Z6TG0xcFkzSnZjMjltZEM1amIyMHZjMjloY0M5bGJtTnZaR2x1Wnk5amJISXZNUzR3SWlCVFQwRlFMVVZPVmpwbGJtTnZaR2x1WjFOMGVXeGxQU0pvZEhSd09pOHZjMk5vWlcxaGN5NTRiV3h6YjJGd0xtOXlaeTl6YjJGd0wyVnVZMjlrYVc1bkx5SStEUW84VTA5QlVDMUZUbFk2UW05a2VUNE5DanhoTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVZ2FXUTlJbkpsWmkweElpQjRiV3h1Y3pwaE1UMGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzlqYkhJdmJuTmhjM05sYlM5RWVXNWhiVzh1UVhCd2JHbGpZWFJwYjI1ekxrRmtkbUZ1WTJWVGRHVmxiQzVUWlhKMmFXTmxjeTlCWkhaaGJtTmxVM1JsWld4VFpYSjJhV05sY3lVeVF5VXlNRlpsY25OcGIyNGxNMFF5TGpFd0xqQXVOalF6SlRKREpUSXdRM1ZzZEhWeVpTVXpSRzVsZFhSeVlXd2xNa01sTWpCUWRXSnNhV05MWlhsVWIydGxiaVV6Ukc1MWJHd2lQZzBLUEVoaGJtUnNaU0JwWkQwaWNtVm1MVE1pUGpJelJUd3ZTR0Z1Wkd4bFBnMEtQQzloTVRwVFpYSnBZV3hwZW1GaWJHVklZVzVrYkdVK0RRbzhMMU5QUVZBdFJVNVdPa0p2WkhrK0RRbzhMMU5QUVZBdFJVNVdPa1Z1ZG1Wc2IzQmxQZzBLPC9CYXNlLTBfRGF0YT4NCjxCYXNlLTBfSGFzTmVzdGVkRGF0YT5mYWxzZTwvQmFzZS0wX0hhc05lc3RlZERhdGE+DQo8L2ExOkNhbGxTaXRlX3gwMDJCX1RyYWNlU2VyaWFsaXNlckhlbHBlcj4NCjwvU09BUC1FTlY6Qm9keT4NCjwvU09BUC1FTlY6RW52ZWxvcGU+DQo="
+      }
+    }
+  ],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.5.2.7915",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -3499.1095191608238,
+      "EyeY": 1880.4025367953238,
+      "EyeZ": 2736.3983123950093,
+      "LookX": 2255.2523061889069,
+      "LookY": -1456.9642185964626,
+      "LookZ": -3082.6114405835624,
+      "UpX": 0.0872749435633866,
+      "UpY": 0.98901586336191738,
+      "UpZ": -0.11929252384156352
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "7a95a083939e42b185e2e38d42e1c188",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 84.0,
+        "Y": -309.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "StraightBeam.ByStartPointEndPoint",
+        "Id": "6588570ef3cc42e1978dcea49ac08896",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 830.78432984617655,
+        "Y": -584.14037814153835
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "StraightBeam.ByStartPointEndPoint",
+        "Id": "4e0deff3b8a14129b771c0f7ddb7c580",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 833.22851905517882,
+        "Y": -326.85746718601433
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "StraightBeam.ByStartPointEndPoint",
+        "Id": "ea436249840d4b96ae8bef0214103a44",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 837.78400923526078,
+        "Y": -56.134533615550936
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "StraightBeam.ByStartPointEndPoint",
+        "Id": "019d508e21b046cb881206da6a4cc17a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 833.61187120037653,
+        "Y": 186.53764624547716
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "BeamReferenceAxis",
+        "Id": "425fd672f6ac4af4bd847ac11dfe5158",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 183.09095847571382,
+        "Y": -107.68291970446245
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "WeldPoint.ByPoint",
+        "Id": "5c982ce7fd474afaaca9da3304d4c25d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1950.9562793024402,
+        "Y": -498.28398280786291
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "cec7b2100fb944dcb8bfd2ff4441c167",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1469.8023399768094,
+        "Y": -208.54091082863425
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "WeldConnectionTypes",
+        "Id": "e38e31af677d4388941b412867d5b713",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1671.2617004366095,
+        "Y": -108.30056637873048
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Plate.ByPolygon",
+        "Id": "7600574d3f1848adaf7fd3d580d680b5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1122.905576785322,
+        "Y": 1220.9256724205745
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Polygon.ByPoints",
+        "Id": "b86b54f35cf244d2a2f2ba93fab995c8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 316.50667036327911,
+        "Y": 954.7321663382528
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "5461974f7d9746beadb7d4af131ae90c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 114.20739603358288,
+        "Y": 918.41814896564165
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "611664cdbe814b09a5408465d87299f8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -350.69370655427906,
+        "Y": 940.43840256142812
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "052b30467bf744428b8cd8647c29b238",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 92.347123569913037,
+        "Y": 1737.0135343101333
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "e5e1e09136a64233957d87792f1cdd4f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 353.57119425615508,
+        "Y": 1667.2720909117638
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "PlateProperties",
+        "Id": "f2d918351d754a6ea7ed02f89cc30218",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 81.745575354919083,
+        "Y": 1601.3346783289139
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "PlateProperties",
+        "Id": "c5e0062c97df487eae9ce2c2795a3d02",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 72.300255964900089,
+        "Y": 1837.2110077894336
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "6a61fc3b9f0d49fdb7717fa9ef411282",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 95.3967139196991,
+        "Y": 1957.8959720828839
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "30cac3a0ada24db4aac48e0612441378",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 351.62282071002517,
+        "Y": 1903.1484203722835
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "2d8a3fd2d9f0464cbf5d071431dde928",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 877.78163097365223,
+        "Y": 1497.5813625532089
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Geometry.Translate",
+        "Id": "9b120ae894a447b9bcdd19372408cf60",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1836.8986698724627,
+        "Y": 802.43394720066181
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Geometry.Translate",
+        "Id": "3bc9bffbdb6a4b24b2c37dbd293c4d32",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1598.9127532393691,
+        "Y": 1510.164655170101
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Geometry.GetMidBetweenPoints",
+        "Id": "74e89af96ca04f69bd953f85c355957c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 313.45483255944612,
+        "Y": 1161.6979082796477
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "5ddf2f74cf204b5dbd78c860bdd6ca8b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 324.10040958630861,
+        "Y": 826.93283970207858
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "406accbf305342d4bac52deff57ebcb5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1529.3148252412079,
+        "Y": 1065.5868010995864
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "RectangularBoltPattern.AtCentrePoint",
+        "Id": "1f91ae1ce5d7491994f01cef1f44e4d8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3979.6032351700142,
+        "Y": 787.47736677560283
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "7604085912bc46dd99859ac05206020f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1824.9679092141669,
+        "Y": 685.69356978320741
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "e1f0ee61294c499aaa69bcc3b9018221",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1939.4096098060602,
+        "Y": 1141.1034343197905
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "BoltConnectionTypes",
+        "Id": "761899f8cc64450e8bbfaa30674de4a8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1923.1264595840155,
+        "Y": 1397.6703318322634
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "f877067133874e57a872b8924a4133ba",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1996.766817194831,
+        "Y": 1014.1427681831149
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "RectangularBoltPattern.AtCentrePoint",
+        "Id": "898a6e8cccdb4ce099c52fa45023f69a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 4009.0995396632011,
+        "Y": 1375.5018637229584
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "7fa2642216f44285badc3319136b0678",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3102.9188007849175,
+        "Y": 1678.397000537474
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "ef60c957d95f44709aedfe84cb3050d9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3012.1985714656244,
+        "Y": 2014.1058248130616
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "RectangularBoltProperties",
+        "Id": "23a8ab94a4e34edeaf942a977393707f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2659.6384685610342,
+        "Y": 1603.8918219160496
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "d0a036adb20a4f00b36a01b1296eedad",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3500.1240976031513,
+        "Y": 1130.2980001375749
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "RectangularBoltProperties",
+        "Id": "c4939582ce874c71bb0d8bcea1407cba",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2531.3856295759788,
+        "Y": 1987.2176728042996
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "56bf466617ea44799c071287c30d1761",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2713.8552193160313,
+        "Y": 2112.6566783551466
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.ByNameAndValue",
+        "Id": "615a1fdb7d1f4e9b97aaec1109e51279",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3015.6066784928039,
+        "Y": 2140.7555593367142
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "RectangularBoltProperties",
+        "Id": "5748f45251da4a1d9efeb976ca6bbc0a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2640.9700435282975,
+        "Y": 2253.5194902255348
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "17da24c223d44ea6a2e1615b432af603",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3598.0806994041586,
+        "Y": 1921.8902521024017
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "551ae82e69704ccfa1b3efbbc614d5f4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1937.9081154593532,
+        "Y": 1267.752146876978
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Line.ByStartPointEndPoint",
+        "Id": "149d911094974398b16228d12f2f2b1f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1274.3947871227572,
+        "Y": 1919.9713228522394
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Line.ByStartPointEndPoint",
+        "Id": "79665e13c98047dbb3bc8573e525094e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1276.4852657097897,
+        "Y": 2040.8806104112493
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Curve.Length",
+        "Id": "7125bb1d721a4b1cad84f9ca07375bfe",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1571.1003113201693,
+        "Y": 2058.4444341779808
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Curve.Length",
+        "Id": "5f1f90fa1c4149da9d408e757e6c1f27",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1560.7054695238371,
+        "Y": 1923.8413149389837
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "-",
+        "Id": "ccecae7fadb141b8becbe4572d237384",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1955.0151963545845,
+        "Y": 1795.7999252427455
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "*",
+        "Id": "bf58ea35b6a74d2fbfbfb573466ec11f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1743.8650978076657,
+        "Y": 1673.5717146706427
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "6ade74b0708a455c921ed085e329aac1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1427.5919686899128,
+        "Y": 1716.06535492245
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "/",
+        "Id": "3fa40fb1cbdc486ba843b9850e222e60",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2213.2044083792402,
+        "Y": 1718.0033083570004
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "-",
+        "Id": "3f5c2b0b9a074986a191c1a992113289",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1952.7020418441043,
+        "Y": 2069.3503900097162
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "/",
+        "Id": "c3d2e0b2ca6f4471910b42fa1db8f9d9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2243.9942542849708,
+        "Y": 2054.61825042268
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Geometry.GetDistance",
+        "Id": "191f75e1bdb744c090c3c52ac3401fa8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1239.6747801818997,
+        "Y": 2183.7789627023953
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "a00a0dc461cc41f4b350e1d5fdb1e211",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1630.5843656910151,
+        "Y": 2193.4649670472909
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "aa26a0a8bdcb49f7a99f92b8ec08b689",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2037.1406609211817,
+        "Y": 1524.3539433845772
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Property.Value",
+        "Id": "dff9f070dfd6498ead5b927ca0b164d9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 3440.666212552756,
+        "Y": 2078.0563276311059
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "4a526f65958d46b99a2fa72cdad0c939",
+        "Title": "SET PARAMETERS",
+        "Nodes": [
+          "7a95a083939e42b185e2e38d42e1c188",
+          "425fd672f6ac4af4bd847ac11dfe5158",
+          "c23419b62ed24ab6bd184b9dccd91080"
+        ],
+        "Left": -47.859682262711658,
+        "Top": -421.049809674558,
+        "Width": 440.95064073842548,
+        "Height": 406.36688997009554,
+        "FontSize": 36.0,
+        "InitialTop": -368.049809674558,
+        "InitialHeight": 405.36688997009554,
+        "TextblockHeight": 43.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "798030d862fc49af81507c2c55dc8594",
+        "Title": "CREATE WELD",
+        "Nodes": [
+          "5c982ce7fd474afaaca9da3304d4c25d",
+          "7e438bd85dd642b68cf4cc5d38478ed2"
+        ],
+        "Left": 1796.1681364057213,
+        "Top": -603.35824369408067,
+        "Width": 452.78814289671891,
+        "Height": 250.07426088621776,
+        "FontSize": 36.0,
+        "InitialTop": -550.35824369408067,
+        "InitialHeight": 197.07426088621776,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "d8cd06b333d6437fad5c0d56098db160",
+        "Title": "CREATE BEAMS",
+        "Nodes": [
+          "6588570ef3cc42e1978dcea49ac08896",
+          "4e0deff3b8a14129b771c0f7ddb7c580",
+          "ea436249840d4b96ae8bef0214103a44",
+          "019d508e21b046cb881206da6a4cc17a",
+          "14f4a1ae8ecf4050a201978c87a0ce93"
+        ],
+        "Left": 719.991270701189,
+        "Top": -698.67594577452792,
+        "Width": 493.79273853407176,
+        "Height": 1108.2135920200051,
+        "FontSize": 36.0,
+        "InitialTop": -645.67594577452792,
+        "InitialHeight": 977.21359202000508,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "e156cf74a67d42d3b3fefdcb5d4f8a62",
+        "Title": "DATA IN",
+        "Nodes": [
+          "cec7b2100fb944dcb8bfd2ff4441c167",
+          "19f18023d74044919ce824676a2c31bc"
+        ],
+        "Left": 1350.458034953263,
+        "Top": -333.75498380727953,
+        "Width": 249.34430502354644,
+        "Height": 296.21407297864528,
+        "FontSize": 36.0,
+        "InitialTop": -280.75498380727953,
+        "InitialHeight": 217.21407297864528,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "8506641f769e40559c9485a1a963b9f5",
+        "Title": "ADDITIONAL PARAMETERS",
+        "Nodes": [
+          "052b30467bf744428b8cd8647c29b238",
+          "e5e1e09136a64233957d87792f1cdd4f",
+          "f2d918351d754a6ea7ed02f89cc30218",
+          "6a61fc3b9f0d49fdb7717fa9ef411282",
+          "c5e0062c97df487eae9ce2c2795a3d02",
+          "30cac3a0ada24db4aac48e0612441378",
+          "1f81c2fe0ec84d18bfebe3f175064761"
+        ],
+        "Left": -275.00326477347835,
+        "Top": 1543.928854074567,
+        "Width": 899.57445902963343,
+        "Height": 506.9671180083169,
+        "FontSize": 36.0,
+        "InitialTop": 1596.928854074567,
+        "InitialHeight": 505.9671180083169,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "f258b254e9fe4c7885df13521838a9a5",
+        "Title": "CREATE PLATE",
+        "Nodes": [
+          "7600574d3f1848adaf7fd3d580d680b5",
+          "f714906bc5cd4fbba6922117a1aa17ed"
+        ],
+        "Left": 962.04963951388027,
+        "Top": 1111.6496352707848,
+        "Width": 480.85593727144169,
+        "Height": 228.27603714978977,
+        "FontSize": 36.0,
+        "InitialTop": 1164.6496352707848,
+        "InitialHeight": 201.27603714978977,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "9a6bda81605e40ecb88bc08faaca0f39",
+        "Title": "SET PARAMETERS",
+        "Nodes": [
+          "611664cdbe814b09a5408465d87299f8",
+          "5461974f7d9746beadb7d4af131ae90c",
+          "b86b54f35cf244d2a2f2ba93fab995c8",
+          "5ddf2f74cf204b5dbd78c860bdd6ca8b",
+          "4685105cab644b5da48a3f6fe0dbd02e"
+        ],
+        "Left": -425.74391694571568,
+        "Top": 773.93283970207858,
+        "Width": 957.2505873089948,
+        "Height": 341.50556285934965,
+        "FontSize": 36.0,
+        "InitialTop": 826.93283970207858,
+        "InitialHeight": 272.79932663617421,
+        "TextblockHeight": 43.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "e5880aa1e7ce4b3e996c6d5fbbe07f45",
+        "Title": "SET",
+        "Nodes": [
+          "f877067133874e57a872b8924a4133ba",
+          "761899f8cc64450e8bbfaa30674de4a8",
+          "e1f0ee61294c499aaa69bcc3b9018221",
+          "406accbf305342d4bac52deff57ebcb5",
+          "9b120ae894a447b9bcdd19372408cf60",
+          "7604085912bc46dd99859ac05206020f",
+          "1b117cb9c5474c1e919c74da7c0013f6"
+        ],
+        "Left": 1510.2866661803989,
+        "Top": 632.383687876007,
+        "Width": 587.839793403617,
+        "Height": 858.2866439562564,
+        "FontSize": 36.0,
+        "InitialTop": 685.383687876007,
+        "InitialHeight": 857.2866439562564,
+        "TextblockHeight": 43.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "b687b02929b84262b15488e284bbc784",
+        "Title": "CREATE BOLTS",
+        "Nodes": [
+          "1f91ae1ce5d7491994f01cef1f44e4d8",
+          "2a026b510b85462aabc83bca0a603b28"
+        ],
+        "Left": 3840.2556936993838,
+        "Top": 672.18273789768057,
+        "Width": 561.3475414706304,
+        "Height": 364.29462887792226,
+        "FontSize": 36.0,
+        "InitialTop": 725.18273789768057,
+        "InitialHeight": 207.29462887792226,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "c4e88529039244cf8d5f5902f80f1718",
+        "Title": "CREATE BOLTS",
+        "Nodes": [
+          "898a6e8cccdb4ce099c52fa45023f69a",
+          "32f5aae6cd904569b6508d2bbd4dd084"
+        ],
+        "Left": 3869.7519981925743,
+        "Top": 1260.2072348450363,
+        "Width": 561.34754147062677,
+        "Height": 364.29462887792215,
+        "FontSize": 36.0,
+        "InitialTop": 1313.2072348450363,
+        "InitialHeight": 207.29462887792215,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "827f9d02f9b7466f8706e18a8d066460",
+        "Title": "ADDITIONAL PARAMETERS",
+        "Nodes": [
+          "ef60c957d95f44709aedfe84cb3050d9",
+          "c4939582ce874c71bb0d8bcea1407cba",
+          "56bf466617ea44799c071287c30d1761",
+          "615a1fdb7d1f4e9b97aaec1109e51279",
+          "5748f45251da4a1d9efeb976ca6bbc0a",
+          "ebe1c322cf3141caba7e6d8fb0c0602e"
+        ],
+        "Left": 2422.1955140735449,
+        "Top": 1556.1633132254246,
+        "Width": 864.411164419259,
+        "Height": 790.35617700011016,
+        "FontSize": 36.0,
+        "InitialTop": 1609.1633132254246,
+        "InitialHeight": 789.35617700011016,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "261437b95d7941369438489149c6cbca",
+        "Title": "GET",
+        "Nodes": [
+          "149d911094974398b16228d12f2f2b1f",
+          "5f1f90fa1c4149da9d408e757e6c1f27",
+          "7125bb1d721a4b1cad84f9ca07375bfe",
+          "79665e13c98047dbb3bc8573e525094e",
+          "445ddd99d3744a4cb1dfc46a7248bd0b"
+        ],
+        "Left": 1167.2603684264518,
+        "Top": 1803.2174639704178,
+        "Width": 607.83994289371753,
+        "Height": 348.226970207563,
+        "FontSize": 36.0,
+        "InitialTop": 1856.2174639704178,
+        "InitialHeight": 347.226970207563,
+        "TextblockHeight": 43.0,
+        "Background": "#FFBB87C6"
+      },
+      {
+        "Id": "c23419b62ed24ab6bd184b9dccd91080",
+        "Title": "Set base parameters of Frame",
+        "Nodes": [],
+        "Left": -37.859682262711658,
+        "Top": -368.049809674558,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "7e438bd85dd642b68cf4cc5d38478ed2",
+        "Title": "Weld at point - Shop Weld",
+        "Nodes": [],
+        "Left": 1806.1681364057213,
+        "Top": -550.35824369408067,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "14f4a1ae8ecf4050a201978c87a0ce93",
+        "Title": "Create 4 Beam from a Frame",
+        "Nodes": [],
+        "Left": 729.991270701189,
+        "Top": -645.67594577452792,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "19f18023d74044919ce824676a2c31bc",
+        "Title": "List of Created Beams",
+        "Nodes": [],
+        "Left": 1360.458034953263,
+        "Top": -280.75498380727953,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "1f81c2fe0ec84d18bfebe3f175064761",
+        "Title": "Additional Plate Properties for Creation - Plate Thickness / Model Role",
+        "Nodes": [],
+        "Left": -265.00326477347835,
+        "Top": 1596.928854074567,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "f714906bc5cd4fbba6922117a1aa17ed",
+        "Title": "Create Plate on bottom portioning & 25mm Thick",
+        "Nodes": [],
+        "Left": 972.04963951388027,
+        "Top": 1164.6496352707848,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "4685105cab644b5da48a3f6fe0dbd02e",
+        "Title": "Set base parameters of Plate",
+        "Nodes": [],
+        "Left": -415.74391694571568,
+        "Top": 840.89662881594631,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "1b117cb9c5474c1e919c74da7c0013f6",
+        "Title": "Intermediate Geometry",
+        "Nodes": [],
+        "Left": 1520.2866661803989,
+        "Top": 685.383687876007,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "2a026b510b85462aabc83bca0a603b28",
+        "Title": "Create Bolts on one side",
+        "Nodes": [],
+        "Left": 3850.2556936993838,
+        "Top": 725.18273789768057,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "32f5aae6cd904569b6508d2bbd4dd084",
+        "Title": "Create Bolts on one side",
+        "Nodes": [],
+        "Left": 3879.7519981925743,
+        "Top": 1313.2072348450363,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "ebe1c322cf3141caba7e6d8fb0c0602e",
+        "Title": "Additional Bolt Properties for Creation\r\n\r\nBolt Spacing\r\nBolt Spacing and Inverted",
+        "Nodes": [],
+        "Left": 2432.1955140735449,
+        "Top": 1609.1633132254246,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "445ddd99d3744a4cb1dfc46a7248bd0b",
+        "Title": "Get Length the two side of the rectangle",
+        "Nodes": [],
+        "Left": 1177.2603684264518,
+        "Top": 1856.2174639704178,
+        "Width": 0.0,
+        "Height": 0.0,
+        "FontSize": 36.0,
+        "InitialTop": 0.0,
+        "InitialHeight": 0.0,
+        "TextblockHeight": 0.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 170.90482160847512,
+    "Y": 350.1591923844785,
+    "Zoom": 0.18780401072938635
+  }
+}
