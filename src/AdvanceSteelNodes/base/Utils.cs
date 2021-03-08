@@ -1075,12 +1075,17 @@ namespace AdvanceSteel.Nodes
           break;
         }
       }
-      return retValue;
+      return new Property(retValue);
     }
 
     public static Dictionary<string, Property> GetAllProperties(FilerObject steelFiler)
     {
-      return steelObjectPropertySets[steelFiler.Type()]; 
+      Dictionary<string, Property> ret = new Dictionary<string, Property>() { };
+      foreach (KeyValuePair<string, Property> item in steelObjectPropertySets[steelFiler.Type()])
+      {
+        ret.Add(item.Key, new Property(item.Value));
+      }
+      return ret; 
     }
 
     private static Dictionary<string, Property> addElementTypes(Dictionary<string, Property> dictProps, List<eObjectType> elementTypes)
