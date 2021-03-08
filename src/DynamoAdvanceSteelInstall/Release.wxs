@@ -3,9 +3,11 @@
   <Fragment>
     <ComponentGroup Id="ASFiles">
       <ComponentRef Id="AdvanceSteelNodes.dll" />
+      <ComponentRef Id="AdvanceSteelNodesUI.dll" />
       <ComponentRef Id="AdvanceSteelServices.dll" />
       <ComponentRef Id="DynamoAdvanceSteel.dll" />
       <ComponentRef Id="AdvanceSteelNodes.xml" />
+      <ComponentRef Id="AdvanceSteelNodesUI.xml" />
       <ComponentRef Id="DynamoAdvanceSteel.cuix" />
       <ComponentRef Id="DynamoAdvanceSteel.xml" />
     </ComponentGroup>
@@ -17,6 +19,13 @@
 				<RegistryKey Id="ASRegistry" Root="HKLM" ForceCreateOnInstall="yes" Key="Software\Autodesk">
 					<RegistryValue Action="write" Name="DynamoExtensionForAdvanceSteel" Type="string" Value="[ProductName]"/>
 				</RegistryKey>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)\steel-pkg\bin" >
+      <Component Id="AdvanceSteelNodesUI.dll" Guid="{07C0C7BA-C60E-47BB-8B5F-E61D6D2F7FA5}" Win64="yes">
+        <File Id="AdvanceSteelNodesUI.dll" Name="AdvanceSteelNodesUI.dll" KeyPath="yes" />
       </Component>
     </DirectoryRef>
   </Fragment>
@@ -66,6 +75,13 @@
     <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)\steel-pkg\bin">
       <Component Id="AdvanceSteelNodes.xml" Guid="{0A734974-5A4D-4180-864B-35FC3C85EE88}" Win64="yes">
         <File Id="AdvanceSteelNodes.xml" Name="AdvanceSteelNodes.xml" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)\steel-pkg\bin">
+      <Component Id="AdvanceSteelNodesUI.xml" Guid="{5D8617AF-7CDC-4D68-B60A-0DCD8A4264F3}" Win64="yes">
+        <File Id="AdvanceSteelNodesUI.xml" Name="AdvanceSteelNodesUI.xml" KeyPath="yes" />
       </Component>
     </DirectoryRef>
   </Fragment>
