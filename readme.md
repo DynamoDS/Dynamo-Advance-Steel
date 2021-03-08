@@ -5,19 +5,19 @@ This repository contains the source files for the Dynamo Extension for Advance S
 ### To build the sources:
 
 1. Prerequisites needed:
-  - Visual Studio 2017;
-  - AutoCAD 2021;
-  - Advance Steel 2021;
-  - Dynamo Core 2.5 from http://www.github.com/DyanmoDS/Dynamo;
-  - Make sure you have [.Net Framework 4.7 SDK](https://www.microsoft.com/en-us/download/details.aspx?id=55168) installed on your computer
+  - Visual Studio 2019;
+  - AutoCAD 2022;
+  - Advance Steel 2022;
+  - Dynamo Core 2.10.1 from http://www.github.com/DyanmoDS/Dynamo;
+  - Make sure you have [.Net Framework 4.8 SDK](https://dotnet.microsoft.com/download/visual-studio-sdks) installed on your computer
 
 2. Update the paths from \src\Config\user_local.props with the ones from your machine
 
 3. Build the DynamoAdvanceSteel.sln solution in Release configuration.
 
-4. Copy all files & folders from "Dynamo Core 2.5" build to .\bin\AnyCPU\Release\steel-pkg\bin\Core
+4. Copy all files & folders from "Dynamo Core 2.10.1" build to .\bin\AnyCPU\Release\steel-pkg\bin\Core
 
-5. Register DynamoAdvanceSteel.dll as an addon for Advance Steel (see "Register addon" section of Advance Steel [online help](http://help.autodesk.com/view/ADSTPR/2020/ENU/?guid=GUID-A4DA627E-6680-4388-9C04-79F5F3D9D075))
+5. Register DynamoAdvanceSteel.dll as an addon for Advance Steel (see "Register addon" section of Advance Steel [online help](http://help.autodesk.com/view/ADSTPR/2022/ENU/?guid=GUID-A4DA627E-6680-4388-9C04-79F5F3D9D075))
 
 
 ### To build the installer:
