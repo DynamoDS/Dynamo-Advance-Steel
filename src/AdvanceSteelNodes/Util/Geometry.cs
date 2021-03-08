@@ -272,22 +272,5 @@ namespace AdvanceSteel.Nodes.Util
       return ret;
     }
 
-    /// <summary>
-    /// Get the distance between two points
-    /// </summary>
-    /// <param name="firstPoint"> Input Dynamo First Point</param>
-    /// <param name="secondPoint"> Input Dynamo Second Point</param>
-    /// <returns name="distance"> get the length / distance between two points</returns>
-    public static double GetDistance(Autodesk.DesignScript.Geometry.Point firstPoint,
-                                     Autodesk.DesignScript.Geometry.Point secondPoint)
-    {
-      double ret = 0;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        ret = firstPoint.DistanceTo(secondPoint);
-      }
-      return ret;
-    }
-
   }
 }
