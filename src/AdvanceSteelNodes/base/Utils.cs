@@ -1067,15 +1067,14 @@ namespace AdvanceSteel.Nodes
 
     public static Property GetProperty(string keyValue)
     {
-      Property retValue = null;
       foreach (KeyValuePair<eObjectType, Dictionary<string, Property>> item in steelObjectPropertySets)
       {
-        if (item.Value.TryGetValue(keyValue, out retValue))
+        if (item.Value.TryGetValue(keyValue, out Property retValue))
         {
-          break;
+          return new Property(retValue);
         }
       }
-      return new Property(retValue);
+      return null;
     }
 
     public static Dictionary<string, Property> GetAllProperties(FilerObject steelFiler)
