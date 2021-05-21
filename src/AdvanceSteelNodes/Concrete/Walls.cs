@@ -256,7 +256,7 @@ namespace AdvanceSteel.Nodes.Concrete
     }
 
     /// <summary>
-    /// Create an Advance Steel Rectangular Wall by defining the extants of the face of the wall by Coordinate System
+    /// Create an Advance Steel Rectangular Wall by defining the extents of the face of the wall by Coordinate System
     /// </summary>
     /// <param name="coordinateSystem"> Input Dynamo Coordinate System</param>
     /// <param name="length"> Input Wall Length</param>
@@ -275,7 +275,7 @@ namespace AdvanceSteel.Nodes.Concrete
     }
 
     /// <summary>
-    /// Create an Advance Steel Rectangular Wall by defining the extants of the face of the wall by Dynamo Plane
+    /// Create an Advance Steel Rectangular Wall by defining the extents of the face of the wall by Dynamo Plane
     /// </summary>
     /// <param name="plane"> Input Dynamo Plane to insert Wall</param>
     /// <param name="length"> Input Wall Length</param>
@@ -309,7 +309,7 @@ namespace AdvanceSteel.Nodes.Concrete
     }
 
     /// <summary>
-    /// Creates aa Advance Steel Wall at CS by Length and by Height - Z axis is assumed Wall creation
+    /// Creates an Advance Steel Wall at CS by Length and by Height - Z axis is assumed Wall creation
     /// </summary>
     /// <param name="coordinateSystem"> Input Dynamo Coordinate System</param>
     /// <param name="length"> Input Wall Length</param>
