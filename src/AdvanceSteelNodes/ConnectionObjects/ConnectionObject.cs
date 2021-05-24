@@ -60,7 +60,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjectsFunctions
     }
 
     /// <summary>
-    /// Set orientation for anchol bolt object
+    /// Set orientation for anchor bolt object
     /// </summary>
     /// <param name="anchorBolts">Input anchor bolts object </param>
     /// <param name="orientation">Input Anchor Bolt Orientation location</param>
