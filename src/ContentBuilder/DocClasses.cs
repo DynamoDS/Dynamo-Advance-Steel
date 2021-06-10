@@ -53,6 +53,9 @@ namespace ContentBuilder
       name = String.Empty;
       remarks = String.Empty;
     }
+
+    internal string signature { get; set; }
+
     [XmlAttribute]
     public string name { get; set; }
 
@@ -74,12 +77,8 @@ namespace ContentBuilder
   {
     public Summary()
     {
-      userName = String.Empty;
       description = string.Empty;
     }
-
-    [XmlAttribute]
-    public string userName { get; set; }
 
     [XmlText]
     public string description { get; set; }

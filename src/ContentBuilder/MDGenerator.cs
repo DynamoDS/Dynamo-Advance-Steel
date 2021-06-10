@@ -77,24 +77,31 @@ namespace ContentBuilder
       return ret;
     }
 
-    private static Member findMethod(Doc doc, string desiredMethod)
+    private static Member findMethod(Doc doc, string desiredMethodName, string desiredMethodSignature = null)
     {
       Member ret = null;
 
       foreach (Member currMember in doc.content.members)
       {
-        string nameWithoutParams = currMember.name.Split('(').FirstOrDefault();
-        if (nameWithoutParams != null && nameWithoutParams.EndsWith(desiredMethod))
+        bool bFound = false;
+        
+        if (!string.IsNullOrEmpty(desiredMethodSignature))
         {
-          ret = currMember;
-          ret.name = desiredMethod;
-          break;
+          bFound = currMember.name.EndsWith(desiredMethodSignature);
+        }
+        else
+        {
+          string nameWithoutParams = currMember.name.Split('(').FirstOrDefault();
+          if (!string.IsNullOrEmpty(nameWithoutParams))
+          {
+            bFound = nameWithoutParams.EndsWith(desiredMethodName);
+          }
         }
 
-        if (currMember.summary.userName.Contains(desiredMethod))
+        if (bFound)
         {
           ret = currMember;
-          ret.name = desiredMethod;
+          ret.name = desiredMethodName;
           break;
         }
       }
@@ -139,14 +146,7 @@ namespace ContentBuilder
       //
       string textNodeTemplate = "**NodeName**<BR> NodeDesc";
 
-      if (0 != member.summary.userName.Length)
-      {
-        textNodeTemplate = textNodeTemplate.Replace("NodeName", NormalizeString(member.name));
-      }
-      else
-      {
-        textNodeTemplate = textNodeTemplate.Replace("NodeName", NormalizeString(member.name));
-      }
+      textNodeTemplate = textNodeTemplate.Replace("NodeName", NormalizeString(member.name));
       textNodeTemplate = textNodeTemplate.Replace("NodeDesc", NormalizeString(member.summary.description));
 
       // inParams
@@ -211,10 +211,9 @@ namespace ContentBuilder
 
       foreach (Member currMethod in whichMethods)
       {
-        Member foundDocMethod = findMethod(doc, currMethod.name);
+        Member foundDocMethod = findMethod(doc, currMethod.name, currMethod.signature);
         if (null == foundDocMethod) // if the method is not in the xml file, use the information from the attributes
           foundDocMethod = currMethod;
-
 
         WriteMethod(foundDocMethod, writer);
       }

@@ -67,6 +67,14 @@ namespace ContentBuilder
             foreach (MemberInfo memberInfo in allMembers)
             {
               Member member = new Member() { name = type.Name + "." + memberInfo.Name };
+              if (memberInfo is MethodInfo)
+              {
+                MethodInfo mi = memberInfo as MethodInfo;
+
+                string methodSig = string.Join(",", mi.GetParameters().Select(p => p.ParameterType.ToString().Replace("`1", "").Replace("[","{").Replace("]", "}")));
+                
+                member.signature = member.name + "(" + methodSig + ")";
+              }
               SetDataFromAttributes(member, memberInfo);
 
               ret.Add(member);
