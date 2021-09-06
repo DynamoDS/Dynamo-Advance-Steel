@@ -1,5 +1,6 @@
 ﻿using Autodesk.DesignScript.Interfaces;
 using Autodesk.DesignScript.Runtime;
+using System.Collections.Generic;
 
 namespace AdvanceSteel.Nodes
 {
@@ -14,15 +15,20 @@ namespace AdvanceSteel.Nodes
     private const byte DefB = 130;
     private const byte DefA = 255;
 
-    public abstract Autodesk.DesignScript.Geometry.Curve GetDynCurve();
+    public virtual Autodesk.DesignScript.Geometry.Curve GetDynCurve() { return null; }
+    public virtual IEnumerable<IGraphicItem> GetDynGeometry() { return new List<IGraphicItem>() { GetDynCurve() }; }
 
     public new void Tessellate(IRenderPackage package, TessellationParameters parameters)
     {
-      using (var crv = GetDynCurve())
+      foreach(var geometry in GetDynGeometry())
       {
-        crv.Tessellate(package, parameters);
-        package.ApplyLineVertexColors(CreateColorByteArrayOfSize(package.LineVertexCount, DefR, DefG, DefB, DefA));
+        if (geometry == null)
+          continue;
+
+        geometry.Tessellate(package, parameters);
       }
+      
+      package.ApplyLineVertexColors(CreateColorByteArrayOfSize(package.LineVertexCount, DefR, DefG, DefB, DefA));
     }
 
     private static byte[] CreateColorByteArrayOfSize(int size, byte red, byte green, byte blue, byte alpha)
