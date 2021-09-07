@@ -42,6 +42,7 @@ namespace AdvanceSteel.Nodes
       { FilerObject.eObjectType.kPlate, (string handle) => new Plate() },
       { FilerObject.eObjectType.kGrating, (string handle) => GetDynGrating(handle) },
       { FilerObject.eObjectType.kCamera, (string handle) => new Camera() },
+      { FilerObject.eObjectType.kGrid, (string handle) => new Grid() },
       { FilerObject.eObjectType.kSpecialPart, (string handle) => new SpecialPart() },
       { FilerObject.eObjectType.kAnchorPattern, (string handle) => GetDynAnchor(handle) },
       { FilerObject.eObjectType.kCircleScrewBoltPattern, (string handle) => new CircularBoltPattern() },
@@ -67,6 +68,7 @@ namespace AdvanceSteel.Nodes
       { FilerObject.eObjectType.kBeamMultiContourNotch, "Beam Polycut" },
       { FilerObject.eObjectType.kBeamShortening, "Beam Shortening" },
       { FilerObject.eObjectType.kCamera, "Camera" },
+      { FilerObject.eObjectType.kGrid, "Grid" },
       { FilerObject.eObjectType.kCircleScrewBoltPattern, "Circular Bolt Pattern" },
       { FilerObject.eObjectType.kCompoundStraightBeam, "Compound Beam" },
       { FilerObject.eObjectType.kConcreteBentBeam, "Concrete Bent Beam" },
@@ -98,6 +100,7 @@ namespace AdvanceSteel.Nodes
       { FilerObject.eObjectType.kBeamMultiContourNotch, Build_Master_BeamMultiContourNotch() },
       { FilerObject.eObjectType.kBeamShortening, Build_Master_BeamShortening() },
       { FilerObject.eObjectType.kCamera, Build_Master_Camera() },
+      { FilerObject.eObjectType.kGrid, Build_Master_Grid() },
       { FilerObject.eObjectType.kCircleScrewBoltPattern, Build_Master_CircleScrewBoltPattern() },
       { FilerObject.eObjectType.kCompoundStraightBeam, Build_Master_CompoundStraightBeam() },
       { FilerObject.eObjectType.kConcreteBentBeam, Build_Master_ConcreteBentBeam() },
@@ -1133,6 +1136,17 @@ namespace AdvanceSteel.Nodes
       }
     }
 
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.Grid objToMod, List<Property> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.SetToObject(objToMod);
+        }
+      }
+    }
+
     public static void SetParameters(Autodesk.AdvanceSteel.Modelling.PlateContourNotch objToMod, List<Property> properties)
     {
       if (properties != null)
@@ -1510,6 +1524,21 @@ namespace AdvanceSteel.Nodes
 
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kCamera });
+
+      return dictProps;
+    }
+
+    private static Dictionary<string, Property> Build_Grid()
+    {
+      Dictionary<string, Property> dictProps = Build_ConstructionElement();
+      dictProps.Add("Coordinate System of Grid", new Property("CS", typeof(Matrix3d)));
+      dictProps.Add("Grid Numbering Start Text", new Property("NumberingStart", typeof(string)));
+      dictProps.Add("Vertical Series", new Property("VerticalSeries", typeof(bool)));
+      dictProps.Add("Axis Frame", new Property("AxisFrame", typeof(bool)));
+      dictProps.Add("Grid Numbering Prefix", new Property("NumberingPrefix", typeof(string)));
+      dictProps.Add("Grid Numbering Suffix", new Property("NumberingSuffix", typeof(string)));
+      addElementTypes(dictProps, new List<eObjectType>() {
+                    eObjectType.kGrid });
 
       return dictProps;
     }
@@ -2135,6 +2164,15 @@ namespace AdvanceSteel.Nodes
       Dictionary<string, Property> dictProps = Build_Title("Camera").Union(SortDict(Build_Camera())).ToDictionary(s => s.Key, s => s.Value);
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kCamera});
+
+      return dictProps;
+    }
+
+    private static Dictionary<string, Property> Build_Master_Grid()
+    {
+      Dictionary<string, Property> dictProps = Build_Title("Grid").Union(SortDict(Build_Grid())).ToDictionary(s => s.Key, s => s.Value);
+      addElementTypes(dictProps, new List<eObjectType>() {
+                    eObjectType.kGrid});
 
       return dictProps;
     }
