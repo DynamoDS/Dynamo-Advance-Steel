@@ -65,7 +65,7 @@ namespace AdvanceSteel.Nodes.Features
                   plateFeat = new PlateFeatContour(m2d, length, width);
                   break;
                 case 1:
-                  plateFeat = new PlateFeatContour(m2d, length);
+                  plateFeat = new PlateFeatContour(m2d, radius);
                   break;
               }
 
@@ -121,7 +121,7 @@ namespace AdvanceSteel.Nodes.Features
                     plateFeat = new PlateFeatContour(m2d, length, width);
                     break;
                   case 1:
-                    plateFeat = new PlateFeatContour(m2d, length);
+                    plateFeat = new PlateFeatContour(m2d, radius);
                     break;
                 }
 
