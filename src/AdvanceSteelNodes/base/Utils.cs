@@ -55,7 +55,8 @@ namespace AdvanceSteel.Nodes
       { FilerObject.eObjectType.kBeamShortening, (string handle) => new BeamPlaneCut() },
       { FilerObject.eObjectType.kBeamMultiContourNotch, (string handle) => new BeamPolycut() },
       { FilerObject.eObjectType.kPlateFeatContour, (string handle) => new PlatePolycut() },
-      { FilerObject.eObjectType.kPlateFeatVertFillet, (string handle) => new PlateVertexCut() }
+      { FilerObject.eObjectType.kPlateFeatVertFillet, (string handle) => new PlateVertexCut() },
+      { FilerObject.eObjectType.kConnectionHolePlate, (string handle) => new PlateHoles() }
     };
 
     private static readonly Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string> filterSteelObjects = new Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string>()
@@ -88,7 +89,8 @@ namespace AdvanceSteel.Nodes
       { FilerObject.eObjectType.kUnfoldedStraightBeam, "Unfolded Straight Beam" },
       { FilerObject.eObjectType.kWall, "Wals" },
       { FilerObject.eObjectType.kWeldStraight, "Weld Line" },
-      { FilerObject.eObjectType.kWeldPattern, "Weld Point" }
+      { FilerObject.eObjectType.kWeldPattern, "Weld Point" },
+      { FilerObject.eObjectType.kConnectionHolePlate, "Connection Holes in Plate" }
     };
 
     private static readonly Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, Dictionary<string, Property>> steelObjectPropertySets = new Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, Dictionary<string, Property>>()
@@ -120,7 +122,8 @@ namespace AdvanceSteel.Nodes
       { FilerObject.eObjectType.kUnfoldedStraightBeam, Build_Master_UnfoldedStraightBeam() },
       { FilerObject.eObjectType.kWall, Build_Master_Wall() },
       { FilerObject.eObjectType.kWeldStraight, Build_Master_WeldLine() },
-      { FilerObject.eObjectType.kWeldPattern, Build_Master_WeldPoint() }
+      { FilerObject.eObjectType.kWeldPattern, Build_Master_WeldPoint() },
+      { FilerObject.eObjectType.kConnectionHolePlate, Build_Master_ConnectionHolePlate() }
     };
 
     public static double RadToDegree(double rad)
@@ -985,6 +988,12 @@ namespace AdvanceSteel.Nodes
       return Build_Master_Connector();
     }
 
+    public static Dictionary<string, Property> GetConnectionHolePlatePropertyList()
+    {
+      return Build_Master_ConnectionHolePlate();
+    }
+
+
     public static Dictionary<string, Property> GetPlatePropertyList()
     {
       return Build_Master_Plate();
@@ -1124,6 +1133,17 @@ namespace AdvanceSteel.Nodes
 
 
     #region Set Parameters Methods
+    
+    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate objToMod, List<Property> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.SetToObject(objToMod);
+        }
+      }
+    }
 
     public static void SetParameters(Autodesk.AdvanceSteel.Modelling.CountableScrewBoltPattern objToMod, List<Property> properties)
     {
@@ -1781,6 +1801,33 @@ namespace AdvanceSteel.Nodes
 
       return dictProps;
     }
+    
+    private static Dictionary<string, Property> Build_ConnectionHolePlate()
+    {
+      Dictionary<string, Property> dictProps = Build_ConnectionFeature();
+
+      addElementTypes(dictProps, new List<eObjectType>() {
+                    eObjectType.kConnectionHolePlate  });
+
+      return dictProps;
+    }
+    
+    private static Dictionary<string, Property> Build_ConnectionFeature()
+    {
+      Dictionary<string, Property> dictProps = Build_FeatureObject();
+
+      dictProps.Add("Hole Depth", new Property("Depth", typeof(double)));
+      dictProps.Add("Hole Angle", new Property("Angle", typeof(double)));
+      dictProps.Add("Use Hole Definition for Numbering", new Property("UsedForNumbering", typeof(double)));
+
+      dictProps.Add("Hole Exact Coordinate System", new Property("CSExact", typeof(Matrix3d), ".", true));
+      dictProps.Add("Hole Local Coordinate System", new Property("CSLocal", typeof(Matrix3d)));
+
+      addElementTypes(dictProps, new List<eObjectType>() {
+                    eObjectType.kConnectionFeature });
+
+      return dictProps;
+    }
 
     private static Dictionary<string, Property> Build_PlateFeatVertFillet()
     {
@@ -2083,6 +2130,15 @@ namespace AdvanceSteel.Nodes
       Dictionary<string, Property> dictProps = Build_Title("Weld Point").Union(SortDict(Build_WeldPattern())).ToDictionary(s => s.Key, s => s.Value);
       addElementTypes(dictProps, new List<eObjectType>() {
                     eObjectType.kWeldPattern });
+
+      return dictProps;
+    }
+
+    private static Dictionary<string, Property> Build_Master_ConnectionHolePlate()
+    {
+      Dictionary<string, Property> dictProps = Build_Title("Connection Holes in Plate").Union(SortDict(Build_ConnectionHolePlate())).ToDictionary(s => s.Key, s => s.Value);
+      addElementTypes(dictProps, new List<eObjectType>() {
+                    eObjectType.kConnectionHolePlate});
 
       return dictProps;
     }
