@@ -49,7 +49,7 @@ namespace AdvanceSteel.Nodes
       { FilerObject.eObjectType.kConnector, (string handle) => GetDynShearStud(handle) },
       { FilerObject.eObjectType.kInfinitMidScrewBoltPattern, (string handle) => new RectangularBoltPattern() },
       { FilerObject.eObjectType.kWeldStraight, (string handle) => new WeldLine() },
-      { FilerObject.eObjectType.kWeldPattern, (string handle) => new WeldPoint() },
+      { FilerObject.eObjectType.kWeldLevel, (string handle) => new WeldPoint() },
       { FilerObject.eObjectType.kBeamNotch2Ortho, (string handle) => new BeamCope() },
       { FilerObject.eObjectType.kBeamNotchEx, (string handle) => new BeamCope() },
       { FilerObject.eObjectType.kBeamShortening, (string handle) => new BeamPlaneCut() },
@@ -89,7 +89,7 @@ namespace AdvanceSteel.Nodes
       { FilerObject.eObjectType.kUnfoldedStraightBeam, "Unfolded Straight Beam" },
       { FilerObject.eObjectType.kWall, "Wals" },
       { FilerObject.eObjectType.kWeldStraight, "Weld Line" },
-      { FilerObject.eObjectType.kWeldPattern, "Weld Point" },
+      { FilerObject.eObjectType.kWeldLevel, "Weld Point" },
       { FilerObject.eObjectType.kConnectionHolePlate, "Connection Holes in Plate" }
     };
 
@@ -122,7 +122,7 @@ namespace AdvanceSteel.Nodes
       { FilerObject.eObjectType.kUnfoldedStraightBeam, Build_Master_UnfoldedStraightBeam() },
       { FilerObject.eObjectType.kWall, Build_Master_Wall() },
       { FilerObject.eObjectType.kWeldStraight, Build_Master_WeldLine() },
-      { FilerObject.eObjectType.kWeldPattern, Build_Master_WeldPoint() },
+      { FilerObject.eObjectType.kWeldLevel, Build_Master_WeldPoint() },
       { FilerObject.eObjectType.kConnectionHolePlate, Build_Master_ConnectionHolePlate() }
     };
 
@@ -971,6 +971,16 @@ namespace AdvanceSteel.Nodes
     public static Dictionary<string, Property> GetUnfoldedStraightBeamProperties()
     {
       return Build_Master_UnfoldedStraightBeam();
+    }
+
+    public static Dictionary<string, Property> GetWeldPointPropertiesList()
+    {
+      return Build_Master_WeldPoint();
+    }
+
+    public static Dictionary<string, Property> GetWeldLinePropertiesList()
+    {
+      return Build_Master_WeldLine();
     }
 
     public static Dictionary<string, Property> GetConcreteBentBeamProperties()
@@ -2129,7 +2139,7 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictProps = Build_Title("Weld Point").Union(SortDict(Build_WeldPattern())).ToDictionary(s => s.Key, s => s.Value);
       addElementTypes(dictProps, new List<eObjectType>() {
-                    eObjectType.kWeldPattern });
+                    eObjectType.kWeldLevel });
 
       return dictProps;
     }
