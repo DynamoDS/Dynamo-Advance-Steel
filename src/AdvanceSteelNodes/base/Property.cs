@@ -33,6 +33,7 @@ namespace AdvanceSteel.Nodes
       _valueType = existingProperty._valueType;
       UnitType = existingProperty.UnitType;
       Level = existingProperty.Level;
+      ElementTypeList = existingProperty.ElementTypeList;
     }
 
     internal Property(string name, System.Type valueType, string level = ".", bool isReadOnly = false)
