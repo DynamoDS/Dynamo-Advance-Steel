@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("HoleProperties")]
+  [NodeName("PlateHoleProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Holes")]
-  [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
+  [NodeCategory("AdvanceSteel.Nodes.Features")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("name of the selected property")]

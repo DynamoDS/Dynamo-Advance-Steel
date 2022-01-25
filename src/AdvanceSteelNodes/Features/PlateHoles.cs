@@ -83,13 +83,16 @@ namespace AdvanceSteel.Nodes.Features
                   break;
                 case 2:
                   BoundedRectArranger bArr = new BoundedRectArranger((Arranger.eBoundedSide)boundType);
-                  if (boundType == 1)
-                  {
+                  //if (boundType == 1)
+                  //{
                     bArr.Length = width;
                     bArr.Width = length;
-                  }
+                  //}
+                  bArr.Nx = nX;
+                  bArr.Ny = nY;
                   bArr.Wx = wX;
                   bArr.Wy = wY;
+                  holes.Arranger = bArr;
                   break;
               }
 
@@ -252,6 +255,18 @@ namespace AdvanceSteel.Nodes.Features
     }
 
     #region "Hole = 1"
+    /// <summary>
+    /// Create Rectangular Hole Pattern by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the X Direction of the Pattern</param>
+    /// <param name="noOfHolesY"> Number of holes in the Y Direction of the Pattern</param>
+    /// <param name="spacingBoltsX"> Spacing between holes in the X Direction</param>
+    /// <param name="spacingBoltsY"> Spacing between holes in the Y Direction</param>
+    /// <param name="diameterHole"> Hole Diameter</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles RectHoleByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                       Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                       [DefaultArgument("2;")] int noOfHolesX,
@@ -266,6 +281,16 @@ namespace AdvanceSteel.Nodes.Features
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 1, 0, -1, additionalHoleParameters);
     }
 
+    /// <summary>
+    /// Create Circular Hole Pattern by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the Circular Pattern</param>
+    /// <param name="radius"> Circular Hole Patern Radius</param>
+    /// <param name="diameterHole"> Hole Diameter</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles CircularHoleByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                   [DefaultArgument("6;")] int noOfHolesX,
@@ -281,6 +306,20 @@ namespace AdvanceSteel.Nodes.Features
     #endregion
 
     #region "Slotted Holes = 2"
+    /// <summary>
+    /// Create Rectangular Slotted Hole Pattern by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the X Direction of the Pattern</param>
+    /// <param name="noOfHolesY"> Number of holes in the Y Direction of the Pattern</param>
+    /// <param name="spacingBoltsX"> Spacing between holes in the X Direction</param>
+    /// <param name="spacingBoltsY"> Spacing between holes in the Y Direction</param>
+    /// <param name="diameterHole"> Hole Diameter</param>
+    /// <param name="slotLength"> Slot Length of Hole</param>
+    /// <param name="slotDirection"> Slot Direction of Hole 0 - Along Arc, 1 - X Axis, 2 - Y Axis</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles RectSlottedHoleByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                       Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                       [DefaultArgument("2;")] int noOfHolesX,
@@ -297,6 +336,18 @@ namespace AdvanceSteel.Nodes.Features
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 2, 0, -1, additionalHoleParameters);
     }
 
+    /// <summary>
+    /// Create Circular Slotted Hole Pattern by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the Circular Pattern</param>
+    /// <param name="radius"> Circular Hole Patern Radius</param>
+    /// <param name="diameterHole"> Hole Diameter</param>
+    /// <param name="slotLength"> Slot Length of Hole</param>
+    /// <param name="slotDirection"> Slot Direction of Hole 0 - Along Arc, 1 - X Axis, 2 - Y Axis</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles CircularSlottedHoleByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                   [DefaultArgument("6;")] int noOfHolesX,
@@ -314,6 +365,20 @@ namespace AdvanceSteel.Nodes.Features
     #endregion
 
     #region "Counter Sink Hole = 3"
+    /// <summary>
+    /// Create Rectangular CSunk Hole Pattern by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the X Direction of the Pattern</param>
+    /// <param name="noOfHolesY"> Number of holes in the Y Direction of the Pattern</param>
+    /// <param name="spacingBoltsX"> Spacing between holes in the X Direction</param>
+    /// <param name="spacingBoltsY"> Spacing between holes in the Y Direction</param>
+    /// <param name="diameterHole"> Hole Diameter</param>
+    /// <param name="sunkDepth"> Hole Sunk Depth</param>
+    /// <param name="sunkAngle"> Hole Sunk Angle</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles RectCSunkHoleByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                       Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                       [DefaultArgument("2;")] int noOfHolesX,
@@ -332,6 +397,18 @@ namespace AdvanceSteel.Nodes.Features
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 3, 0, -1, additionalHoleParameters);
     }
 
+    /// <summary>
+    /// Create Circular CSunk Hole Pattern by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the Circular Pattern</param>
+    /// <param name="radius"> Circular Hole Patern Radius</param>
+    /// <param name="diameterHole"> Hole Diameter</param>
+    /// <param name="sunkDepth"> Hole Sunk Depth</param>
+    /// <param name="sunkAngle"> Hole Sunk Angle</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles CircularCSunkHoleByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                   [DefaultArgument("6;")] int noOfHolesX,
@@ -351,6 +428,19 @@ namespace AdvanceSteel.Nodes.Features
     #endregion
 
     #region "Blind Hole = 4"
+    /// <summary>
+    /// Create Rectangular Blind Hole Pattern by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the X Direction of the Pattern</param>
+    /// <param name="noOfHolesY"> Number of holes in the Y Direction of the Pattern</param>
+    /// <param name="spacingBoltsX"> Spacing between holes in the X Direction</param>
+    /// <param name="spacingBoltsY"> Spacing between holes in the Y Direction</param>
+    /// <param name="diameterHole"> Hole Diameter</param>
+    /// <param name="blindHoleDepth"> Depth of Blind Hole</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles RectBlindHoleByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                       Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                       [DefaultArgument("2;")] int noOfHolesX,
@@ -368,6 +458,17 @@ namespace AdvanceSteel.Nodes.Features
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 4, 0, -1, additionalHoleParameters);
     }
 
+    /// <summary>
+    /// Create Circular Blind Hole Pattern by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the Circular Pattern</param>
+    /// <param name="radius"> Circular Hole Patern Radius</param>
+    /// <param name="diameterHole"> Hole Diameter</param>
+    /// <param name="blindHoleDepth"> Depth of Blind Hole</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles CircularBlindHoleByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                   [DefaultArgument("6;")] int noOfHolesX,
@@ -386,6 +487,22 @@ namespace AdvanceSteel.Nodes.Features
     #endregion
 
     #region "Threaded Hole = 5"
+    /// <summary>
+    /// Create Rectangular Threaded Hole by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the X Direction of the Pattern</param>
+    /// <param name="noOfHolesY"> Number of holes in the Y Direction of the Pattern</param>
+    /// <param name="spacingBoltsX"> Spacing between holes in the X Direction</param>
+    /// <param name="spacingBoltsY"> Spacing between holes in the Y Direction</param>
+    /// <param name="diameterHole"> Hole Diameter</param>
+    /// <param name="threadTappingRight"> Thread Holes to the right 0 - Left, 1 - Right</param>
+    /// <param name="tappingHoleSize"> Thread Tapping Hole Size</param>
+    /// <param name="threadHoleDepth"> Thread Hole Diameter</param>
+    /// <param name="threadTaper"> Thread Hole Taper</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles RectThreadedHoleByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                       Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                       [DefaultArgument("2;")] int noOfHolesX,
@@ -408,6 +525,20 @@ namespace AdvanceSteel.Nodes.Features
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 5, 0, -1, additionalHoleParameters);
     }
 
+    /// <summary>
+    /// Create Circular Threaded Hole by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the Circular Pattern</param>
+    /// <param name="radius"> Circular Hole Patern Radius</param>
+    /// <param name="diameterHole"> Hole Diameter</param>
+    /// <param name="threadTappingRight"> Thread Holes to the right 0 - Left, 1 - Right</param>
+    /// <param name="tappingHoleSize"> Thread Tapping Hole Size</param>
+    /// <param name="threadHoleDepth"> Thread Hole Diameter</param>
+    /// <param name="threadTaper"> Thread Hole Taper</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles CircularThreadedHoleByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                   [DefaultArgument("6;")] int noOfHolesX,
@@ -430,6 +561,21 @@ namespace AdvanceSteel.Nodes.Features
     #endregion
 
     #region "Sunk Hole = 6"
+    /// <summary>
+    /// Create Rectangular Sunk Hole by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the X Direction of the Pattern</param>
+    /// <param name="noOfHolesY"> Number of holes in the Y Direction of the Pattern</param>
+    /// <param name="spacingBoltsX"> Spacing between holes in the X Direction</param>
+    /// <param name="spacingBoltsY"> Spacing between holes in the Y Direction</param>
+    /// <param name="diameterHole"> Hole Diameter</param>
+    /// <param name="sunkDiameter"> Sunk Hole Diameter</param>
+    /// <param name="holeDepth"> Hole Depth</param>
+    /// <param name="holeTaper"> Hole Depth Taper</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles RectSunkHoleByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                       Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                       [DefaultArgument("2;")] int noOfHolesX,
@@ -451,6 +597,19 @@ namespace AdvanceSteel.Nodes.Features
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 6, 0, -1, additionalHoleParameters);
     }
 
+    /// <summary>
+    /// Create Circular Sunk Hole by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the Circular Pattern</param>
+    /// <param name="radius"> Circular Hole Patern Radius</param>
+    /// <param name="diameterHole"> Hole Diameter</param>
+    /// <param name="sunkDiameter"> Sunk Hole Diameter</param>
+    /// <param name="holeDepth"> Hole Depth</param>
+    /// <param name="holeTaper"> Hole Depth Taper</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles CircularSunkHoleByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                   [DefaultArgument("6;")] int noOfHolesX,
@@ -472,6 +631,17 @@ namespace AdvanceSteel.Nodes.Features
     #endregion
 
     #region "Punch Mark = 7"
+    /// <summary>
+    /// Create Rectangular Punch Mark Pattern by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the X Direction of the Pattern</param>
+    /// <param name="noOfHolesY"> Number of holes in the Y Direction of the Pattern</param>
+    /// <param name="spacingBoltsX"> Spacing between holes in the X Direction</param>
+    /// <param name="spacingBoltsY"> Spacing between holes in the Y Direction</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles RectPunchMarkByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                       Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                       [DefaultArgument("2;")] int noOfHolesX,
@@ -486,6 +656,15 @@ namespace AdvanceSteel.Nodes.Features
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 7, 0, -1, additionalHoleParameters);
     }
 
+    /// <summary>
+    /// Create Circular Punch Mark Pattern by Coordinate System
+    /// </summary>
+    /// <param name="element"> Steel element to recieve Holes</param>
+    /// <param name="coordinateSystem"> Dynamo Coordinate System</param>
+    /// <param name="noOfHolesX"> Number of holes in the Circular Pattern</param>
+    /// <param name="radius"> Circular Hole Patern Radius</param>
+    /// <param name="additionalHoleParameters"> Optional Input Hole Build Properties </param>
+    /// <returns></returns>
     public static PlateHoles CircularPunchMarkByCS(AdvanceSteel.Nodes.SteelDbObject element,
                                                   Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
                                                   [DefaultArgument("6;")] int noOfHolesX,
@@ -497,6 +676,472 @@ namespace AdvanceSteel.Nodes.Features
                                                           0, 0, 0,
                                                           Utils.ToInternalDistanceUnits(radius, true), 0, 0, 0, 0);
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 7, 1, -1, additionalHoleParameters);
+    }
+    #endregion
+
+    #region "Set and Get Functions"
+
+    /// <summary>
+    /// List all holes found in a plate
+    /// </summary>
+    /// <param name="plateObject">  Selected Advance Steel Plate Object</param>
+    /// <returns> List of plate hole objects in Plate object</returns>
+    public static List<SteelDbObject> GetPlateHoles(SteelDbObject plateObject)
+    {
+      List<SteelDbObject> foundHandlesOfHolesInPlate = new List<SteelDbObject>();
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          //Platebase to make sure we can support folded plates in the future
+          Autodesk.AdvanceSteel.Modelling.PlateBase plate = Utils.GetObject(plateHandle) as Autodesk.AdvanceSteel.Modelling.PlateBase;
+          List<Autodesk.AdvanceSteel.CADLink.Database.ObjectId> idsOfFeatures = plate.GetFeatures(false).ToList();
+          for (int i = 0; i < idsOfFeatures.Count; i++)
+          {
+            try
+            {
+              FilerObject fea = DatabaseManager.Open(idsOfFeatures[i]);
+              if (fea.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+              {
+                SteelDbObject foundSteelObj = new PlateHoles(); 
+                foundSteelObj.Handle = fea.Handle;
+                foundHandlesOfHolesInPlate.Add(foundSteelObj);
+              }
+            }
+            catch (Exception)
+            {
+              throw;
+            }
+          }
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
+      return foundHandlesOfHolesInPlate;
+    }
+
+    /// <summary>
+    /// Get Plate Hole Arranger Spacing Values
+    /// </summary>
+    /// <param name="plateObject"> Selected Advance Steel Plate Holes Object</param>
+    /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
+    /// <returns name="Hole_Spacing_X"> Hole spacing and edge Distance values from Arranger</returns>
+    [MultiReturn(new[] { "Hole_Spacing_X", "Hole_Spacing_Y", "Hole_Spacing_Radius", "Hole_EdgeDistance_X", "Hole_EdgeDistance_Y" })]
+    public static Dictionary<string, double> GetPlateHoleArrangerSpacingValues(SteelDbObject plateObject, SteelDbObject holeObject)
+    {
+      Dictionary<string, double> ret = new Dictionary<string, double>();
+
+      double dX = 0, dY = 0, radius = 0, wX = 0, wY = 0;
+
+      ret.Add("Hole_Spacing_X", dX);
+      ret.Add("Hole_Spacing_Y", dY);
+      ret.Add("Hole_Spacing_Radius", radius);
+      ret.Add("Hole_EdgeDistance_X", wX);
+      ret.Add("Hole_EdgeDistance_Y", wY);
+
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        string plateHoleHandle = holeObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = Utils.GetObject(plateHoleHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+          if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+          {
+            ret["Hole_Spacing_X"] = Utils.FromInternalDistanceUnits(holes.Arranger.Dx, true);
+            ret["Hole_Spacing_Y"] = Utils.FromInternalDistanceUnits(holes.Arranger.Dy, true);
+            ret["Hole_Spacing_Radius"] = Utils.FromInternalDistanceUnits(holes.Arranger.Radius, true);
+            ret["Hole_EdgeDistance_X"] = Utils.FromInternalDistanceUnits(holes.Arranger.Wx, true);
+            ret["Hole_EdgeDistance_Y"] = Utils.FromInternalDistanceUnits(holes.Arranger.Wy, true);
+          }
+          else
+            throw new System.Exception("Failed to Get Plate Hole Object");
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Get Plate Hole Arranger Number Off Values
+    /// </summary>
+    /// <param name="plateObject"> Selected Advance Steel Plate Holes Object</param>
+    /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
+    /// <returns name="Hole_Noff_X"> Number of holes in the X & Y direction of Plate Hole</returns>
+    [MultiReturn(new[] { "Hole_Noff_X", "Hole_Noff_Y" })]
+    public static Dictionary<string, int> GetPlateHoleArrangerNumberOffValues(SteelDbObject plateObject, SteelDbObject holeObject)
+    {
+      Dictionary<string, int> ret = new Dictionary<string, int>();
+
+      int nX = 0, nY = 0;
+
+      ret.Add("Hole_Noff_X", nX);
+      ret.Add("Hole_Noff_Y", nY);
+
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        string plateHoleHandle = holeObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = Utils.GetObject(plateHoleHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+          if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+          {
+            ret["Hole_Noff_X"] = holes.Arranger.Radius > 0 ? holes.Arranger.NumberOfElements : holes.Arranger.Nx;
+            ret["Hole_Noff_Y"] = holes.Arranger.Ny;
+          }
+          else
+            throw new System.Exception("Failed to Get Plate Hole Object");
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Get Plate Hole Type
+    /// </summary>
+    /// <param name="plateObject"> Selected Advance Steel Plate Holes Object</param>
+    /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
+    /// <returns> Return Hole Type as integer for hole type</returns>
+    public static int GetPlateHoleType(SteelDbObject plateObject, SteelDbObject holeObject)
+    {
+      int ret = 0;
+
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        string plateHoleHandle = holeObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = Utils.GetObject(plateHoleHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+          if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+          {
+            ret = (int)holes.Hole.Type;
+          }
+          else
+            throw new System.Exception("Failed to Get Plate Hole Object");
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Get Plate Slotted Hole Direction
+    /// </summary>
+    /// <param name="plateObject"> Selected Advance Steel Plate Holes Object</param>
+    /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
+    /// <returns> Returns hole Slot Direction</returns>
+    public static int GetPlateHoleSlotDirection(SteelDbObject plateObject, SteelDbObject holeObject)
+    {
+      int ret = 0;
+
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        string plateHoleHandle = holeObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = Utils.GetObject(plateHoleHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+          if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+          {
+            if (holes.Hole.Type == Hole.eHoleType.kSlottedHole)
+            {
+              SlottedHole sh = (SlottedHole)holes.Hole;
+              ret =  (int)sh.SlotDirection;
+            }
+            else
+              throw new System.Exception("Failed - not a slotted hole");
+          }
+          else
+            throw new System.Exception("Failed to Get Plate Hole Object");
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Get Plate Slotted Hole Length Value
+    /// </summary>
+    /// <param name="plateObject"> Selected Advance Steel Plate Holes Object</param>
+    /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
+    /// <returns> Returns slotted hole length</returns>
+    public static double GetPlateHoleSlotLength(SteelDbObject plateObject, SteelDbObject holeObject)
+    {
+      double ret = 0;
+
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        string plateHoleHandle = holeObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = Utils.GetObject(plateHoleHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+          if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+          {
+            if (holes.Hole.Type == Hole.eHoleType.kSlottedHole)
+            {
+              SlottedHole sh = (SlottedHole)holes.Hole;
+              ret = sh.SlotLength;
+            }
+            else
+              throw new System.Exception("Failed - not a slotted hole");
+          }
+          else
+            throw new System.Exception("Failed to Get Plate Hole Object");
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Get Plate Hole Center Point
+    /// </summary>
+    /// <param name="plateObject"> Selected Advance Steel Plate Holes Object</param>
+    /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
+    /// <returns> Returns Dynamo Point</returns>
+    public static Autodesk.DesignScript.Geometry.Point GetPlateHoleCenterPoint(SteelDbObject plateObject, SteelDbObject holeObject)
+    {
+      Autodesk.DesignScript.Geometry.Point ret = null;
+
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        string plateHoleHandle = holeObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = Utils.GetObject(plateHoleHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+          if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+          {
+            ret = Utils.ToDynPoint(holes.GetCenterPoint(), true); //GetPatternCenter
+          }
+          else
+            throw new System.Exception("Failed to Get Plate Hole Object");
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Get Plate Hole Pattern Center Point
+    /// </summary>
+    /// <param name="plateObject"> Selected Advance Steel Plate Holes Object</param>
+    /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
+    /// <returns> Returns Dynamo Point</returns>
+    public static Autodesk.DesignScript.Geometry.Point GetPlateHolePatternCenterPoint(SteelDbObject plateObject, SteelDbObject holeObject)
+    {
+      Autodesk.DesignScript.Geometry.Point ret = null;
+
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        string plateHoleHandle = holeObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = Utils.GetObject(plateHoleHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+          if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+          {
+            ret = Utils.ToDynPoint(holes.GetPatternCenter(true), true);
+          }
+          else
+            throw new System.Exception("Failed to Get Plate Hole Object");
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Get Plate Hole Points or each hole
+    /// </summary>
+    /// <param name="plateObject"> Selected Advance Steel Plate Holes Object</param>
+    /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
+    /// <returns> Returns List of Dynamo Point</returns>
+    public static List<Autodesk.DesignScript.Geometry.Point> GetPlateHoleCenterPoints(SteelDbObject plateObject, SteelDbObject holeObject)
+    {
+      List<Autodesk.DesignScript.Geometry.Point> ret = new List<DynGeometry.Point>();
+
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        string plateHoleHandle = holeObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = Utils.GetObject(plateHoleHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+          if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+          {
+            SteelGeometry.Point3d[] defPoints = null;
+            holes.GetElementOrigins(out defPoints);
+            for (int i = 0; i < defPoints.Count(); i++)
+            {
+              ret.Add(Utils.ToDynPoint(defPoints[i], true));
+            }
+          }
+          else
+            throw new System.Exception("Failed to Get Plate Hole Object");
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Set the X and Y spacing of holes on Plate Hole Object
+    /// </summary>
+    /// <param name="plateObject"> Select Advance Steel Plate Hole Object</param>
+    /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
+    /// <param name="spacingHoleX"> X spacing of Hole Arranger</param>
+    /// <param name="spacingHoleY"> Y spacing of Hole Arranger</param>
+    public static void SetHoleSpacing(SteelDbObject plateObject, SteelDbObject holeObject,
+                                  double spacingHoleX,
+                                  double spacingHoleY)
+    {
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        string plateHoleHandle = holeObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = Utils.GetObject(plateHoleHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+          if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+          {
+            holes.Arranger.Dx = spacingHoleX;
+            holes.Arranger.Dy = spacingHoleY;
+          }
+          else
+            throw new System.Exception("Failed to Get Plate Hole Object");
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
+    }
+
+    /// <summary>
+    /// Sets the number of holes in the X and Y values of the Arranger
+    /// </summary>
+    /// <param name="plateObject"> Select Advance Steel Plate Hole Object</param>
+    /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
+    /// <param name="noOfHolesX"></param>
+    /// <param name="noOfHolesY"></param>
+    public static void SetHoleArrangementCount(SteelDbObject plateObject, SteelDbObject holeObject,
+                                                [DefaultArgument("2;")] int noOfHolesX,
+                                                [DefaultArgument("2;")] int noOfHolesY)
+    {
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        string plateHoleHandle = holeObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = Utils.GetObject(plateHoleHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+          if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+          {
+            holes.Arranger.Nx = noOfHolesX;
+            holes.Arranger.Ny = noOfHolesY;
+          }
+          else
+            throw new System.Exception("Failed to Get Plate Hole Object");
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
+    }
+
+    /// <summary>
+    /// Sets the radius value in the arranger of the Plate Hole Object
+    /// </summary>
+    /// <param name="plateObject"> Select Advance Steel Plate Hole Object</param>
+    /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
+    /// <param name="radius"> New Radius Value</param>
+    public static void SetHoleArrangementRadius(SteelDbObject plateObject, 
+                                                SteelDbObject holeObject,
+                                                double radius)
+    {
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        string plateHoleHandle = holeObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = Utils.GetObject(plateHoleHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+          if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+          {
+            holes.Arranger.Radius = radius;
+          }
+          else
+            throw new System.Exception("Failed to Get Plate Hole Object");
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
+    }
+
+    /// <summary>
+    /// Sets the hole diameter of the Plate Hole Object
+    /// </summary>
+    /// <param name="plateObject"> Select Advance Steel Plate Hole Object</param>
+    /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
+    /// <param name="holeDiameter"> New Hole Diameter</param>
+    public static void SetHoleArrangementDiameter(SteelDbObject plateObject,
+                                                SteelDbObject holeObject,
+                                                double holeDiameter)
+    {
+      using (var ctx = new SteelServices.DocContext())
+      {
+        string plateHandle = plateObject.Handle;
+        string plateHoleHandle = holeObject.Handle;
+        FilerObject plateObj = Utils.GetObject(plateHandle);
+
+        if (plateObj != null && plateObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
+        {
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = Utils.GetObject(plateHoleHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+          if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+          {
+            holes.Hole.Diameter = Utils.ToInternalDistanceUnits(holeDiameter, true);
+          }
+          else
+            throw new System.Exception("Failed to Get Plate Hole Object");
+        }
+        else
+          throw new System.Exception("Failed to Get Plate Object");
+      }
     }
     #endregion
 
