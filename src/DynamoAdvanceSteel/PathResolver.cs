@@ -33,7 +33,8 @@ namespace Dynamo.Applications.AdvanceSteel
                 "DesignScriptBuiltin.dll",
                 "DSCoreNodes.dll",
                 "DSOffice.dll",
-                "DSIronPython.dll",
+              //"DSIronPython.dll",   > version 2.6 - it isn't needed to use this because DSIronPython is loaded by extension(without IronPython installed)
+                "DSCPython.dll",   // > version 2.7
                 "FunctionObject.ds",
                 "BuiltIn.ds",
                 "DynamoConversions.dll",
