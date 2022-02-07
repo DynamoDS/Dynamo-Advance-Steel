@@ -94,6 +94,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
     /// Create an Advance Steel Single Grid (Y Axis of CS)
     /// </summary>
     /// <param name="coordinateSystem">Input Dynamo Coordinate System - Bottom Left of grid system</param>
+    /// <param name="length">Input Grid Length</param>
     /// <param name="additionalGridParameters"> Optional Input Grid Build Properties </param>
     /// <returns name="grid"> grid</returns>
     public static Grid ByCSByLength(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
@@ -110,6 +111,9 @@ namespace AdvanceSteel.Nodes.Miscellaneous
     /// Create an Advance Steel Grid
     /// </summary>
     /// <param name="coordinateSystem">Input Dynamo Coordinate System - Bottom Left of grid system</param>
+    /// <param name="length">Input Grid Length</param>
+    /// <param name="width">Input Grid Width</param>
+    /// <param name="noOfGrids">Input the number of Grids</param>
     /// <param name="additionalGridParameters"> Optional Input Grid Build Properties </param>
     /// <returns name="camera"> camera</returns>
     public static Grid ByCSLengthWidthNoOfAxis(Autodesk.DesignScript.Geometry.CoordinateSystem coordinateSystem,
