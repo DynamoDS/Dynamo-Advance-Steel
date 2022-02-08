@@ -773,7 +773,7 @@ namespace AdvanceSteel.Nodes.Features
     /// </summary>
     /// <param name="plateObject"> Selected Advance Steel Plate Holes Object</param>
     /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
-    /// <returns name="Hole_Noff_X"> Number of holes in the X & Y direction of Plate Hole</returns>
+    /// <returns name="Hole_Noff_X"> Number of holes in the X and Y direction of Plate Hole</returns>
     [MultiReturn(new[] { "Hole_Noff_X", "Hole_Noff_Y" })]
     public static Dictionary<string, int> GetPlateHoleArrangerNumberOffValues(SteelDbObject plateObject, SteelDbObject holeObject)
     {
