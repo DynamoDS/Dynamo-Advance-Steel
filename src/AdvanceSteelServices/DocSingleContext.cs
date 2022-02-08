@@ -5,13 +5,13 @@ using System.Reflection;
 namespace Dynamo.Applications.AdvanceSteel.Services
 {
   /// <summary>
-  /// Used to manage the transactions while accessing Advance Steel objects
+  /// Used to manage the transactions while accessing Advance Steel objects - Single Context
   /// </summary>
-  public class DocContext : IDisposable
+  public class DocSingleContext : IDisposable
   {
     private bool readOnly = false;
 
-    public DocContext(bool readOnly = false)
+    public DocSingleContext(bool readOnly = false)
     {
       this.readOnly = readOnly;
       Manager.EnsureInContext();
@@ -19,15 +19,15 @@ namespace Dynamo.Applications.AdvanceSteel.Services
 
     public void Dispose()
     {
-
+      Manager.LeaveContext();
     }
-    public static IContextManager Manager
+    public static ISingleContextManager Manager
     {
       get
       {
         if (manager == null)
         {
-          manager = AppResolver.Resolve<IContextManager>();
+          manager = AppResolver.Resolve<ISingleContextManager>();
         }
 
         return manager;
@@ -46,6 +46,6 @@ namespace Dynamo.Applications.AdvanceSteel.Services
       }
     }
 
-    private static IContextManager manager;
+    private static ISingleContextManager manager;
   }
 }

@@ -8,7 +8,9 @@ namespace Dynamo.Applications.AdvanceSteel
     {
       if (typeof(T) == typeof(IContextManager))
         return new OneTransactionPerAllContexts() as T;
-      //return new OneTransactionPerContext() as T;
+
+      if (typeof(T) == typeof(ISingleContextManager))
+        return new OneTransactionPerContext() as T;
 
       if (typeof(T) == typeof(IAppInteraction))
         return new SteelAppInteraction() as T;

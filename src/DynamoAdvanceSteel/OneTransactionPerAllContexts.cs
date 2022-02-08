@@ -14,16 +14,12 @@ namespace Dynamo.Applications.AdvanceSteel
     private static bool DocumentLocked = false;
     private static bool SubscribedToRefreshCompleted = false;
 
-    public void EnsureInContext(DocContext ctx)
+    public void EnsureInContext()
     {
       StartTransaction();
       SubscribeToRefreshCompleted();
     }
 
-    public void LeaveContext(DocContext ctx)
-    {
-
-    }
     private static void StartTransaction()
     {
       if (DocumentLocked == false)

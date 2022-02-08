@@ -8,12 +8,12 @@ using Autodesk.AdvanceSteel.DocumentManagement;
 
 namespace Dynamo.Applications.AdvanceSteel
 {
-  public class OneTransactionPerContext : IContextManager
+  public class OneTransactionPerContext : ISingleContextManager
   {
     private Autodesk.AdvanceSteel.CADAccess.Transaction SteelTransaction = null;
     private bool DocumentLocked = false;
 
-    public void EnsureInContext(DocContext ctx)
+    public void EnsureInContext()
     {
       if (SteelTransaction != null || DocumentLocked == true)
         throw new System.Exception("Nested context");
@@ -31,7 +31,7 @@ namespace Dynamo.Applications.AdvanceSteel
       }
     }
 
-    public void LeaveContext(DocContext ctx)
+    public void LeaveContext()
     {
       if (SteelTransaction != null)
       {

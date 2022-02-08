@@ -40,7 +40,7 @@ namespace Dynamo.Applications.AdvanceSteel
     {
       List<string> ret = new List<string>() { };
 
-      using (var ctx = new DocContext())
+      using (var ctx = new DocSingleContext())
       {
         List<ObjectId> OIDx = UserInteraction.SelectObjects();
         if (OIDx.Count > 0)

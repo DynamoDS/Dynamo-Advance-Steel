@@ -33,10 +33,10 @@
       <HintPath>$(ADVANCESTEELAPI)\DotNetRoots.dll</HintPath>
       <Private>False</Private>
     </Reference>
-		<Reference Include="ASGeometryMgd">
-			<HintPath>$(ADVANCESTEELAPI)\ASGeometryMgd.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
+    <Reference Include="ASGeometryMgd">
+      <HintPath>$(ADVANCESTEELAPI)\ASGeometryMgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="DynamoServices">
       <HintPath>$(DYNAMOAPI)\DynamoServices.dll</HintPath>
       <Private>False</Private>
@@ -59,7 +59,9 @@
     </Compile>
     <Compile Include="DisposeLogic.cs" />
     <Compile Include="AppResolver.cs" />
+    <Compile Include="DocSingleContext.cs" />
     <Compile Include="IAppInteraction.cs" />
+    <Compile Include="ISingleContextManager.cs" />
     <Compile Include="IContextManager.cs" />
     <Compile Include="LifecycleManager.cs" />
     <Compile Include="ElementBinder.cs" />
