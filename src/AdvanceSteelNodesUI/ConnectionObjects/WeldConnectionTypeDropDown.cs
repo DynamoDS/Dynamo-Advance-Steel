@@ -39,9 +39,9 @@ namespace AdvanceSteel.Nodes
 
       var newItems = new List<DynamoDropDownItem>()
             {
-                new DynamoDropDownItem("Select Weld Type...", -1),
-                new DynamoDropDownItem("OnSite", 0),
-                new DynamoDropDownItem("InShop", 2)
+                new DynamoDropDownItem("Select Weld Type...", -1L),
+                new DynamoDropDownItem("OnSite", 0L),
+                new DynamoDropDownItem("InShop", 2L)
             };
 
       Items.AddRange(newItems);
@@ -59,7 +59,7 @@ namespace AdvanceSteel.Nodes
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }
 
-      var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
       var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
       return new List<AssociativeNode> { assign };
 

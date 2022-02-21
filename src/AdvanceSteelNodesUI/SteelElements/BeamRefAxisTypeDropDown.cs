@@ -39,16 +39,16 @@ namespace AdvanceSteel.Nodes
       var newItems = new List<DynamoDropDownItem>()
             {
                 new DynamoDropDownItem("Select Beam Ref Axis...", -1),
-                new DynamoDropDownItem("Upper Left", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperLeft),
-                new DynamoDropDownItem("Upper Middle", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperSys),
-                new DynamoDropDownItem("Upper Right", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperRight),
-                new DynamoDropDownItem("Middle Left", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kMidLeft),
-                new DynamoDropDownItem("Middle Middle", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kSysSys),
-                new DynamoDropDownItem("Middle Right", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kMidRight),
-                new DynamoDropDownItem("Lower Left", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kLowerLeft),
-                new DynamoDropDownItem("Lower Middle", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kLowerSys),
-                new DynamoDropDownItem("Lower Right", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kLowerRight),
-                new DynamoDropDownItem("Contour Center", (int)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kContourCenter)
+                new DynamoDropDownItem("Upper Left", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperLeft),
+                new DynamoDropDownItem("Upper Middle", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperSys),
+                new DynamoDropDownItem("Upper Right", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperRight),
+                new DynamoDropDownItem("Middle Left", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kMidLeft),
+                new DynamoDropDownItem("Middle Middle", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kSysSys),
+                new DynamoDropDownItem("Middle Right", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kMidRight),
+                new DynamoDropDownItem("Lower Left", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kLowerLeft),
+                new DynamoDropDownItem("Lower Middle", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kLowerSys),
+                new DynamoDropDownItem("Lower Right", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kLowerRight),
+                new DynamoDropDownItem("Contour Center", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kContourCenter)
             };
 
       Items.AddRange(newItems);
@@ -66,7 +66,7 @@ namespace AdvanceSteel.Nodes
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }
 
-      var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
       var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
       return new List<AssociativeNode> { assign };
 
