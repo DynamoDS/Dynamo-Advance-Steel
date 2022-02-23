@@ -38,7 +38,7 @@ namespace AdvanceSteel.Nodes
 
       var newItems = new List<DynamoDropDownItem>()
             {
-                new DynamoDropDownItem("Select Beam Ref Axis...", -1),
+                new DynamoDropDownItem("Select Beam Ref Axis...", -1L),
                 new DynamoDropDownItem("Upper Left", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperLeft),
                 new DynamoDropDownItem("Upper Middle", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperSys),
                 new DynamoDropDownItem("Upper Right", (long)Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis.kUpperRight),
