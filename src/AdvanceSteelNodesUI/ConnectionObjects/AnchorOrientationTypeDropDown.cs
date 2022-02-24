@@ -38,14 +38,14 @@ namespace AdvanceSteel.Nodes
 
       var newItems = new List<DynamoDropDownItem>()
             {
-                new DynamoDropDownItem("Select Anchor Orientation...", -1),
-                new DynamoDropDownItem("Normal Orientation", 0),
-                new DynamoDropDownItem("Diagonal Inside", 1),
-                new DynamoDropDownItem("Diagonal Outside", 2),
-                new DynamoDropDownItem("All Outside", 3),
-                new DynamoDropDownItem("All Inside", 4),
-                new DynamoDropDownItem("Inside Rotated", 5),
-                new DynamoDropDownItem("Outside Rotated", 6)
+                new DynamoDropDownItem("Select Anchor Orientation...", -1L),
+                new DynamoDropDownItem("Normal Orientation", 0L),
+                new DynamoDropDownItem("Diagonal Inside", 1L),
+                new DynamoDropDownItem("Diagonal Outside", 2L),
+                new DynamoDropDownItem("All Outside", 3L),
+                new DynamoDropDownItem("All Inside", 4L),
+                new DynamoDropDownItem("Inside Rotated", 5L),
+                new DynamoDropDownItem("Outside Rotated", 6L)
             };
 
       Items.AddRange(newItems);
@@ -63,7 +63,7 @@ namespace AdvanceSteel.Nodes
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }
 
-      var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
       var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
       return new List<AssociativeNode> { assign };
 

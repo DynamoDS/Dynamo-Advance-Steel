@@ -39,14 +39,14 @@ namespace AdvanceSteel.Nodes
 
       var newItems = new List<DynamoDropDownItem>()
             {
-                new DynamoDropDownItem("Select Hole Type...", -1),
-                new DynamoDropDownItem("Hole", 1),
-                new DynamoDropDownItem("Slotted Hole", 2),
-                new DynamoDropDownItem("Counter Sunk Hole", 3),
-                new DynamoDropDownItem("Blind Hole", 4),
-                new DynamoDropDownItem("Threaded Hole", 5),
-                new DynamoDropDownItem("Sunk Hole", 6),
-                new DynamoDropDownItem("Punch Mark", 7)
+                new DynamoDropDownItem("Select Hole Type...", -1L),
+                new DynamoDropDownItem("Hole", 1L),
+                new DynamoDropDownItem("Slotted Hole", 2L),
+                new DynamoDropDownItem("Counter Sunk Hole", 3L),
+                new DynamoDropDownItem("Blind Hole", 4L),
+                new DynamoDropDownItem("Threaded Hole", 5L),
+                new DynamoDropDownItem("Sunk Hole", 6L),
+                new DynamoDropDownItem("Punch Mark", 7L)
             };
 
       Items.AddRange(newItems);
@@ -64,7 +64,7 @@ namespace AdvanceSteel.Nodes
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }
 
-      var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
       var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
       return new List<AssociativeNode> { assign };
 

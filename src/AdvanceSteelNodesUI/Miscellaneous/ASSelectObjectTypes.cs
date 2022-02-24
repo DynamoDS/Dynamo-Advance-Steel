@@ -41,7 +41,7 @@ namespace AdvanceSteel.Nodes
       Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string> filterItems = Utils.GetASObjectFilters();
       foreach (var item in filterItems)
       {
-        newItems.Add(new DynamoDropDownItem(item.Value, (int)item.Key));
+        newItems.Add(new DynamoDropDownItem(item.Value, (long)item.Key));
       }
 
       Items.AddRange(newItems);
@@ -59,7 +59,7 @@ namespace AdvanceSteel.Nodes
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }
       AssociativeNode node;
-      IntNode intNode2 = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+      IntNode intNode2 = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
       node = AstFactory.BuildFunctionCall(new Func<int, IEnumerable<SteelDbObject>>(Utils.GetDynObjects), new List<AssociativeNode>() { intNode2 });
 
       var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), node);
