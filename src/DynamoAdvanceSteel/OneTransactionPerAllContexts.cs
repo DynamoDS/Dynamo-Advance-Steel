@@ -17,13 +17,18 @@ namespace Dynamo.Applications.AdvanceSteel
     public void EnsureInContext(DocContext ctx)
     {
       StartTransaction();
-      SubscribeToRefreshCompleted();
     }
 
     public void LeaveContext(DocContext ctx)
     {
 
     }
+
+    public void ForceCloseTransaction()
+    {
+      CloseTransaction();
+    }
+
     private static void StartTransaction()
     {
       if (DocumentLocked == false)
@@ -53,29 +58,6 @@ namespace Dynamo.Applications.AdvanceSteel
       {
         DocumentLocked = DocumentManager.UnlockCurrentDocument();
         DocumentLocked = false;
-      }
-    }
-    private static void RefreshCompleted(Graph.Workspaces.HomeWorkspaceModel obj)
-    {
-      CloseTransaction();
-      UnsubscribeFromRefreshCompleted();
-    }
-    private static void SubscribeToRefreshCompleted()
-    {
-      if (SubscribedToRefreshCompleted == false)
-      {
-        var dynModel = Dynamo.Applications.AdvanceSteel.Model.DynamoModel;
-        dynModel.RefreshCompleted += RefreshCompleted;
-        SubscribedToRefreshCompleted = true;
-      }
-    }
-    private static void UnsubscribeFromRefreshCompleted()
-    {
-      if (SubscribedToRefreshCompleted == true)
-      {
-        var dynModel = Dynamo.Applications.AdvanceSteel.Model.DynamoModel;
-        dynModel.RefreshCompleted -= RefreshCompleted;
-        SubscribedToRefreshCompleted = false;
       }
     }
   }

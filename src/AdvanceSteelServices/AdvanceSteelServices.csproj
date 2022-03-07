@@ -21,6 +21,18 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="accoremgd">
+      <HintPath>$(ACADAPI)\accoremgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acdbmgd">
+      <HintPath>$(ACADAPI)\acdbmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acmgd">
+      <HintPath>$(ACADAPI)\acmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="ASCADLinkMgd">
       <HintPath>$(ADVANCESTEELAPI)\ASCADLinkMgd.dll</HintPath>
       <Private>False</Private>
@@ -33,10 +45,10 @@
       <HintPath>$(ADVANCESTEELAPI)\DotNetRoots.dll</HintPath>
       <Private>False</Private>
     </Reference>
-		<Reference Include="ASGeometryMgd">
-			<HintPath>$(ADVANCESTEELAPI)\ASGeometryMgd.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
+    <Reference Include="ASGeometryMgd">
+      <HintPath>$(ADVANCESTEELAPI)\ASGeometryMgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="DynamoServices">
       <HintPath>$(DYNAMOAPI)\DynamoServices.dll</HintPath>
       <Private>False</Private>
@@ -57,15 +69,31 @@
     <Compile Include="$(SolutionDir)AssemblySharedInfoGenerator\AssemblySharedInfo.cs">
       <Link>Properties\AssemblySharedInfo.cs</Link>
     </Compile>
+    <Compile Include="CommandsCAD.cs" />
     <Compile Include="DisposeLogic.cs" />
     <Compile Include="AppResolver.cs" />
+    <Compile Include="Document\DocumentController.cs" />
+    <Compile Include="Document\DocumentEventArgs.cs" />
+    <Compile Include="Document\ObjectCADEventArgs.cs" />
+    <Compile Include="DxfCodeAdvanceSteel.cs" />
     <Compile Include="IAppInteraction.cs" />
     <Compile Include="IContextManager.cs" />
     <Compile Include="LifecycleManager.cs" />
     <Compile Include="ElementBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DocContext.cs" />
+    <Compile Include="ResourceStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="SerializableHandle.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ResourceStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

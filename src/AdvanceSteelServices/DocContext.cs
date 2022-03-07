@@ -21,7 +21,13 @@ namespace Dynamo.Applications.AdvanceSteel.Services
     {
       Manager.LeaveContext(this);
     }
-    public static IContextManager Manager
+
+    public static void ForceCloseTransaction()
+    {
+      Manager.LeaveContext(null);
+    }
+
+    private static IContextManager Manager
     {
       get
       {
@@ -33,6 +39,8 @@ namespace Dynamo.Applications.AdvanceSteel.Services
         return manager;
       }
     }
+
+
 
     public bool ReadOnly
     {

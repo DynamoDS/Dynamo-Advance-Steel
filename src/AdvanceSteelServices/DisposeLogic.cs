@@ -17,5 +17,10 @@
     /// removed.
     /// </summary>
     public static bool IsClosingHomeworkspace { get; set; }
+
+    /// <summary>
+    /// This flag is set true when Dynamo is running 
+    /// </summary>
+    public static bool RunningDynamo { get; set; }
   }
 }
