@@ -36,6 +36,8 @@ namespace Dynamo.Applications.AdvanceSteel
 
       try
       {
+        RibbonUtils.SetEnabledDynamoButton(false);
+
         InitializeCore();
 
         ModelController.DynamoModel = InitializeCoreModel();
@@ -47,11 +49,10 @@ namespace Dynamo.Applications.AdvanceSteel
         ModelController.DynamoView = InitializeCoreView(ModelController.ViewModel);
 
         Autodesk.AutoCAD.ApplicationServices.Application.ShowModelessWindow(ModelController.DynamoView);
-
-        RibbonUtils.SetEnabledDynamoButton(false);
       }
       catch (Exception ex)
       {
+        ModelController.CleanControls();
         RibbonUtils.SetEnabledDynamoButton(true);
         MessageBox.Show(ex.ToString());
       }
@@ -95,12 +96,13 @@ namespace Dynamo.Applications.AdvanceSteel
 
     private static DynamoViewModel InitializeCoreViewModel(DynamoSteelModel advanceSteelModel)
     {
-      var config = new DynamoSteelViewModel.StartConfiguration()
+      var viewModel = DynamoSteelViewModel.Start(
+        new DynamoViewModel.StartConfiguration()
       {
         DynamoModel = advanceSteelModel
-      };
+      });
 
-      return DynamoViewModel.Start(config);
+      return viewModel;
     }
 
     private static DynamoView InitializeCoreView(DynamoViewModel advanceSteelViewModel)
