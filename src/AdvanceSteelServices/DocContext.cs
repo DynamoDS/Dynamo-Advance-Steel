@@ -24,7 +24,7 @@ namespace Dynamo.Applications.AdvanceSteel.Services
 
     public static void ForceCloseTransaction()
     {
-      Manager.LeaveContext(null);
+      Manager.ForceCloseTransaction();
     }
 
     private static IContextManager Manager
