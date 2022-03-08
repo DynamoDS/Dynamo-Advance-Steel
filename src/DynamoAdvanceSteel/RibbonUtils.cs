@@ -18,7 +18,7 @@ namespace Dynamo.Applications.AdvanceSteel
     {
       RibbonTabCollection tabs = Autodesk.Windows.ComponentManager.Ribbon.Tabs;
 
-      RibbonButton item = tabs.FirstOrDefault(x => x.Name == DynamoASTabUID)?.Panels.FirstOrDefault(x => x.UID == DynamoASPanelUID)?.FindItem(pButtonUID) as RibbonButton;
+      RibbonButton item = tabs.FirstOrDefault(x => x.Title == DynamoASTabUID)?.Panels.FirstOrDefault(x => x.UID == DynamoASPanelUID)?.Source.Items.FirstOrDefault(x => x.UID == pButtonUID) as RibbonButton;
     
       if (item != null)
       {
