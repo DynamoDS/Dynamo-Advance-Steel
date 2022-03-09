@@ -79,6 +79,8 @@ namespace Dynamo.Applications.AdvanceSteel
       acadApp.DocumentManager.DocumentToBeDestroyed += DocumentManager_DocumentToBeDestroyed;
       acadApp.DocumentManager.DocumentDestroyed += DocumentManager_DocumentDestroyed;
 
+      this.RefreshCompleted += DynamoSteelModel_RefreshCompleted;
+
       hasRegisteredDocumentManagerEvents = true;
     }
 
@@ -94,6 +96,8 @@ namespace Dynamo.Applications.AdvanceSteel
       acadApp.DocumentManager.DocumentToBeDeactivated -= DocumentManager_DocumentToBeDeactivated;
       acadApp.DocumentManager.DocumentToBeDestroyed -= DocumentManager_DocumentToBeDestroyed;
       acadApp.DocumentManager.DocumentDestroyed -= DocumentManager_DocumentDestroyed;
+    
+      this.RefreshCompleted -= DynamoSteelModel_RefreshCompleted;
 
       hasRegisteredDocumentManagerEvents = false;
     }
@@ -342,15 +346,19 @@ namespace Dynamo.Applications.AdvanceSteel
       ModelController.CleanControls();
     }
 
-    public override void OnEvaluationCompleted(object sender, EvaluationCompletedEventArgs e)
+    //public override void OnEvaluationCompleted(object sender, EvaluationCompletedEventArgs e)
+    //{
+    //  //Debug.WriteLine(LifecycleManager<int>.GetInstance());
+    //  base.OnEvaluationCompleted(sender, e);
+
+    //}
+
+    private void DynamoSteelModel_RefreshCompleted(HomeWorkspaceModel obj)
     {
       // finally close the transaction
       DocContext.ForceCloseTransaction();
 
       UpdateDisplay();
-
-      //Debug.WriteLine(LifecycleManager<int>.GetInstance());
-      base.OnEvaluationCompleted(sender, e);
 
       DisposeLogic.RunningDynamo = false;
     }
