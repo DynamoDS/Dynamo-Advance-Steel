@@ -10,6 +10,7 @@ namespace Dynamo.Applications.AdvanceSteel.Services
   {
     private static LifecycleManager manager;
     private Dictionary<string, List<Object>> wrappers;
+    private static readonly object access_obj = new object();
 
     private LifecycleManager()
     {
@@ -18,19 +19,25 @@ namespace Dynamo.Applications.AdvanceSteel.Services
 
     public static LifecycleManager GetInstance()
     {
-      if (manager == null)
+      lock (access_obj)
       {
-        manager = new LifecycleManager();
-      }
+        if (manager == null)
+        {
+          manager = new LifecycleManager();
+        }
 
-      return manager;
+        return manager;
+      }
     }
 
     public static void DisposeInstance()
     {
-      if (manager != null)
+      lock (access_obj)
       {
-        manager = null;
+        if (manager != null)
+        {
+          manager = null;
+        }
       }
     }
 
