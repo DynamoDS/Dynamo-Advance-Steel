@@ -9,7 +9,7 @@ namespace AdvanceSteel.Nodes
 {
   [NodeName("PlateHoleProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Holes")]
-  [NodeCategory("AdvanceSteel.Nodes.Features")]
+  [NodeCategory("AdvanceSteel.Nodes.Features.PlateHoles")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("name of the selected property")]

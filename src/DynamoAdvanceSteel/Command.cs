@@ -188,7 +188,9 @@ namespace Dynamo.Applications.AdvanceSteel
       // The LibG version maybe different in Dynamo and AutoCAD, using the one which is in Dynamo.
       Version preLoadLibGVersion = PreloadLibGVersion(preloaderLocation);
 
-      DynamoShapeManager.Utilities.PreloadAsmFromPath(preloaderLocation, acadPath);
+      // We do not preload anymore, because Advance Steel seems to prompt AutoCAD to already load the ASM modules that are actually needed (all the geometry stuff).
+      // Not preloading here fixes an issue where AutoCAD does not have a particular ASM library file that is not actually needed for geometry, yet because of the missing file preloading would fail
+      //DynamoShapeManager.Utilities.PreloadAsmFromPath(preloaderLocation, acadPath);
       return preLoadLibGVersion;
     }
     internal static Version PreloadLibGVersion(string preloaderLocation)

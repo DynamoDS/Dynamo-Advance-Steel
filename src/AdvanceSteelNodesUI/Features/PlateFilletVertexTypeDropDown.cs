@@ -38,10 +38,10 @@ namespace AdvanceSteel.Nodes
 
       var newItems = new List<DynamoDropDownItem>()
             {
-                new DynamoDropDownItem("Select Plate Corener Cut Type...", -1),
-                new DynamoDropDownItem("Convex", (int)0),
-                new DynamoDropDownItem("Concave", (int)1),
-                new DynamoDropDownItem("Striaght", (int)2)
+                new DynamoDropDownItem("Select Plate Corener Cut Type...", -1L),
+                new DynamoDropDownItem("Convex", 0L),
+                new DynamoDropDownItem("Concave", 1L),
+                new DynamoDropDownItem("Striaght", 2L)
             };
 
       Items.AddRange(newItems);
@@ -59,7 +59,7 @@ namespace AdvanceSteel.Nodes
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }
 
-      var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
       var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
       return new List<AssociativeNode> { assign };
 
