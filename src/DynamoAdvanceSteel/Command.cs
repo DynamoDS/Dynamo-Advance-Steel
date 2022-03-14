@@ -136,8 +136,12 @@ namespace Dynamo.Applications.AdvanceSteel
       var customization = ModelController.DynamoModel.ExtensionManager.Service<ILibraryViewCustomization>();
       if (customization == null) return;
 
-      //Make sure to notify customization for application closing
-      DynamoSteelApp.ShutdownHandler = () => customization.OnAppShutdown();
+      if (DynamoSteelApp.ShutdownHandler == null)
+      {
+        //Make sure to notify customization for application closing, so that 
+        //the CEF can be shutdown for clean Advance Steel exit
+        DynamoSteelApp.ShutdownHandler = () => customization.OnAppShutdown();
+      }
 
       //Register the icon resource
       /*customization.RegisterResourceStream("/icons/Category.AdvanceSteel.svg", 
