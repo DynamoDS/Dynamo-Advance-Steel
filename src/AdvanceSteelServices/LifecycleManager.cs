@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Dynamo.Applications.AdvanceSteel.Services
 {
@@ -9,12 +10,15 @@ namespace Dynamo.Applications.AdvanceSteel.Services
   public class LifecycleManager
   {
     private static LifecycleManager manager;
-    private Dictionary<string, List<Object>> wrappers;
     private static readonly object access_obj = new object();
+
+    private Dictionary<string, List<Object>> wrappers;
+    private Dictionary<string, bool> bindingEntities;
 
     private LifecycleManager()
     {
       wrappers = new Dictionary<string, List<object>>();
+      bindingEntities = new Dictionary<string, bool>();
     }
 
     public static LifecycleManager GetInstance()
@@ -62,6 +66,15 @@ namespace Dynamo.Applications.AdvanceSteel.Services
       }
 
       existingWrappers.Add(wrapper);
+
+      if (bindingEntities.ContainsKey(elementHandle))
+      {
+        bindingEntities[elementHandle] = true;
+      }
+      else
+      {
+        bindingEntities.Add(elementHandle, true);
+      }
     }
 
     /// <summary>
@@ -82,6 +95,8 @@ namespace Dynamo.Applications.AdvanceSteel.Services
           if (existingWrappers.Count == 0)
           {
             wrappers.Remove(elementHandle);
+            bindingEntities.Remove(elementHandle);
+
             return 0;
           }
           else
@@ -103,5 +118,49 @@ namespace Dynamo.Applications.AdvanceSteel.Services
             "Attempting to remove a wrapper, but there were no ids registered");
       }
     }
+
+    /// <summary>
+    /// Checks whether an element binding
+    /// </summary>
+    /// <param name="handle"></param>
+    /// <returns></returns>
+    public bool IsEntityBinding(string elementHandle)
+    {
+      if (!bindingEntities.ContainsKey(elementHandle))
+      {
+        throw new ArgumentException("Entity is not registered");
+      }
+
+      return bindingEntities[elementHandle];
+    }
+
+    /// <summary>
+    /// This method tells the life cycle the element that needs to be unbinding
+    /// </summary>
+    /// <param name="elementHandle">The element that needs to be unbinding></param>
+    public void NotifyOfUnbinding(string elementHandle)
+    {
+      if (bindingEntities.ContainsKey(elementHandle))
+      {
+        bindingEntities[elementHandle] = false;
+      }
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder();
+      sb.AppendLine("LifeCycleManager:");
+      foreach (var kvp in wrappers)
+      {
+        sb.AppendLine(string.Format("\tHandle {0}:", kvp.Key));
+        foreach (var item in kvp.Value)
+        {
+          sb.AppendLine(string.Format("\t\t{0}:", item));
+        }
+      }
+
+      return sb.ToString();
+    }
+
   }
 }

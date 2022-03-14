@@ -1,4 +1,5 @@
-﻿using Autodesk.AdvanceSteel.CADAccess;
+﻿using AdvanceSteel.Nodes;
+using Autodesk.AdvanceSteel.CADAccess;
 using Autodesk.AutoCAD.ApplicationServices;
 using DSCPython;
 using DSIronPython;
@@ -79,8 +80,6 @@ namespace Dynamo.Applications.AdvanceSteel
       acadApp.DocumentManager.DocumentToBeDestroyed += DocumentManager_DocumentToBeDestroyed;
       acadApp.DocumentManager.DocumentDestroyed += DocumentManager_DocumentDestroyed;
 
-      this.RefreshCompleted += DynamoSteelModel_RefreshCompleted;
-
       hasRegisteredDocumentManagerEvents = true;
     }
 
@@ -96,8 +95,6 @@ namespace Dynamo.Applications.AdvanceSteel
       acadApp.DocumentManager.DocumentToBeDeactivated -= DocumentManager_DocumentToBeDeactivated;
       acadApp.DocumentManager.DocumentToBeDestroyed -= DocumentManager_DocumentToBeDestroyed;
       acadApp.DocumentManager.DocumentDestroyed -= DocumentManager_DocumentDestroyed;
-    
-      this.RefreshCompleted -= DynamoSteelModel_RefreshCompleted;
 
       hasRegisteredDocumentManagerEvents = false;
     }
@@ -291,6 +288,23 @@ namespace Dynamo.Applications.AdvanceSteel
       //}
     }
 
+    public override void OnWorkspaceClearing()
+    {
+      base.OnWorkspaceClearing();
+
+      if (this.CurrentWorkspace is HomeWorkspaceModel)
+      {
+        foreach (NodeModel el in this.CurrentWorkspace.Nodes)
+        {
+          if (el.CachedValue != null && el.CachedValue.Data is SteelDbObject)
+          {
+            SteelDbObject steelDbObject = el.CachedValue.Data as SteelDbObject;
+            LifecycleManager.GetInstance().NotifyOfUnbinding(steelDbObject.Handle);
+          }
+        }
+      }
+    }
+  
     private void homeWorkspaceModel_EvaluationStarted(object sender, EventArgs e)
     {
       DisposeLogic.RunningDynamo = true;
@@ -353,8 +367,11 @@ namespace Dynamo.Applications.AdvanceSteel
 
     //}
 
-    private void DynamoSteelModel_RefreshCompleted(HomeWorkspaceModel obj)
+
+    public override void OnRefreshCompleted(object sender, EventArgs e)
     {
+      base.OnRefreshCompleted(sender, e);
+
       // finally close the transaction
       DocContext.ForceCloseTransaction();
 

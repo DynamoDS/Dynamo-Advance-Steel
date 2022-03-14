@@ -40,15 +40,15 @@ namespace AdvanceSteel.Nodes
       lock (access_obj)
       {
         // Do not cleanup elements if we are shutting down Dynamo.
-        if (DisposeLogic.IsShuttingDown || DisposeLogic.IsClosingHomeworkspace)
+        if (DisposeLogic.IsShuttingDown)
           return;
 
         var elementManager = LifecycleManager.GetInstance();
-
+        bool entityBinding = elementManager.IsEntityBinding(Handle);
         int remainingBindings = elementManager.UnRegisterAssociation(Handle, this);
 
-        // Do not delete owned elements
-        if (remainingBindings == 0 && IsOwnedByDynamo == true)
+        // Do not delete owned elements neither not linked. If Homeworkspace is closing it is not needed to delete element
+        if (!DisposeLogic.IsClosingHomeworkspace && remainingBindings == 0 && IsOwnedByDynamo && entityBinding)
         {
           if (Handle != null)
           {
