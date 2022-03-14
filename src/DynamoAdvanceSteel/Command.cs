@@ -76,7 +76,7 @@ namespace Dynamo.Applications.AdvanceSteel
     {
       string folder1 = "Dynamo";
       string folder2 = "Dynamo Advance Steel";
-      string folder3 = "2022";
+      string folder3 = "2023";
 
       var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), folder1, folder2, folder3);
       var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), folder1, folder2, folder3);
