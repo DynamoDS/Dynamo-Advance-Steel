@@ -23,6 +23,22 @@
     <DocumentationFile>$(OutputPath)\AdvanceSteelNodesUI.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="accoremgd">
+      <HintPath>$(ACADAPI)\accoremgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acdbmgd">
+      <HintPath>$(ACADAPI)\acdbmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acmgd">
+      <HintPath>$(ACADAPI)\acmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AdWindows">
+      <HintPath>$(ACADAPI)\AdWindows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="ASControls">
       <HintPath>$(ADVANCESTEELAPI)\ASControls.dll</HintPath>
       <Private>False</Private>
@@ -134,6 +150,7 @@
     <Compile Include="$(SolutionDir)AssemblySharedInfoGenerator\AssemblySharedInfo.cs">
       <Link>Properties\AssemblySharedInfo.cs</Link>
     </Compile>
+    <Compile Include="Base\AcadDropDownBase.cs" />
     <Compile Include="ConnectionObjects\ASPropertiesWeldLine.cs" />
     <Compile Include="ConnectionObjects\ASPropertiesWeldPoint.cs" />
     <Compile Include="ConnectionObjects\ASPropertiesAnchorBolt.cs" />
@@ -148,6 +165,7 @@
     <Compile Include="Features\ASPropertiesBeamCutPlaneFeatures.cs" />
     <Compile Include="Features\ASPropertiesPlateVertexFeatures.cs" />
     <Compile Include="Features\PlateFilletVertexTypeDropDown.cs" />
+    <Compile Include="Miscellaneous\AcadLayer.cs" />
     <Compile Include="Miscellaneous\ASPointSelection.cs" />
     <Compile Include="Miscellaneous\ASObjectSelection.cs" />
     <Compile Include="Miscellaneous\ASSelectObjectTypes.cs" />
