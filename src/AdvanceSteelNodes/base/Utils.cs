@@ -28,35 +28,35 @@ namespace AdvanceSteel.Nodes
     //GetDynGrating
     private static Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>> avaliableSteelObjects = new Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>>()
     {
-      { FilerObject.eObjectType.kStraightBeam, (string handle) => new StraightBeam(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kPolyBeam, (string handle) => new PolyBeam(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kUnfoldedStraightBeam, (string handle) => new UnFoldedBeam(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kCompoundStraightBeam, (string handle) => new CompoundBeam(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kBeamTapered, (string handle) => new TaperedBeam(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kBentBeam, (string handle) => new BentBeam(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kConcreteBentBeam, (string handle) => new ConcreteBentBeam(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kConcreteBeam, (string handle) => new ConcreteStraightBeam(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kFootingIsolated, (string handle) => new Footings(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kSlab, (string handle) => new Slabs(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kWall, (string handle) => new Walls(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kPlate, (string handle) => new Plate(){ IsOwnedByDynamo = false } },
+      { FilerObject.eObjectType.kStraightBeam, (string handle) => new StraightBeam() },
+      { FilerObject.eObjectType.kPolyBeam, (string handle) => new PolyBeam() },
+      { FilerObject.eObjectType.kUnfoldedStraightBeam, (string handle) => new UnFoldedBeam() },
+      { FilerObject.eObjectType.kCompoundStraightBeam, (string handle) => new CompoundBeam() },
+      { FilerObject.eObjectType.kBeamTapered, (string handle) => new TaperedBeam() },
+      { FilerObject.eObjectType.kBentBeam, (string handle) => new BentBeam() },
+      { FilerObject.eObjectType.kConcreteBentBeam, (string handle) => new ConcreteBentBeam() },
+      { FilerObject.eObjectType.kConcreteBeam, (string handle) => new ConcreteStraightBeam() },
+      { FilerObject.eObjectType.kFootingIsolated, (string handle) => new Footings() },
+      { FilerObject.eObjectType.kSlab, (string handle) => new Slabs() },
+      { FilerObject.eObjectType.kWall, (string handle) => new Walls() },
+      { FilerObject.eObjectType.kPlate, (string handle) => new Plate() },
       { FilerObject.eObjectType.kGrating, (string handle) => GetDynGrating(handle) },
-      { FilerObject.eObjectType.kCamera, (string handle) => new Camera(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kGrid, (string handle) => new Grid(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kSpecialPart, (string handle) => new SpecialPart(){ IsOwnedByDynamo = false } },
+      { FilerObject.eObjectType.kCamera, (string handle) => new Camera() },
+      { FilerObject.eObjectType.kGrid, (string handle) => new Grid() },
+      { FilerObject.eObjectType.kSpecialPart, (string handle) => new SpecialPart() },
       { FilerObject.eObjectType.kAnchorPattern, (string handle) => GetDynAnchor(handle) },
-      { FilerObject.eObjectType.kCircleScrewBoltPattern, (string handle) => new CircularBoltPattern(){ IsOwnedByDynamo = false } },
+      { FilerObject.eObjectType.kCircleScrewBoltPattern, (string handle) => new CircularBoltPattern() },
       { FilerObject.eObjectType.kConnector, (string handle) => GetDynShearStud(handle) },
-      { FilerObject.eObjectType.kInfinitMidScrewBoltPattern, (string handle) => new RectangularBoltPattern(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kWeldStraight, (string handle) => new WeldLine(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kWeldLevel, (string handle) => new WeldPoint(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kBeamNotch2Ortho, (string handle) => new BeamCope(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kBeamNotchEx, (string handle) => new BeamCope(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kBeamShortening, (string handle) => new BeamPlaneCut(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kBeamMultiContourNotch, (string handle) => new BeamPolycut(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kPlateFeatContour, (string handle) => new PlatePolycut(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kPlateFeatVertFillet, (string handle) => new PlateVertexCut(){ IsOwnedByDynamo = false } },
-      { FilerObject.eObjectType.kConnectionHolePlate, (string handle) => new PlateHoles(){ IsOwnedByDynamo = false } }
+      { FilerObject.eObjectType.kInfinitMidScrewBoltPattern, (string handle) => new RectangularBoltPattern() },
+      { FilerObject.eObjectType.kWeldStraight, (string handle) => new WeldLine() },
+      { FilerObject.eObjectType.kWeldLevel, (string handle) => new WeldPoint() },
+      { FilerObject.eObjectType.kBeamNotch2Ortho, (string handle) => new BeamCope() },
+      { FilerObject.eObjectType.kBeamNotchEx, (string handle) => new BeamCope() },
+      { FilerObject.eObjectType.kBeamShortening, (string handle) => new BeamPlaneCut() },
+      { FilerObject.eObjectType.kBeamMultiContourNotch, (string handle) => new BeamPolycut() },
+      { FilerObject.eObjectType.kPlateFeatContour, (string handle) => new PlatePolycut() },
+      { FilerObject.eObjectType.kPlateFeatVertFillet, (string handle) => new PlateVertexCut() },
+      { FilerObject.eObjectType.kConnectionHolePlate, (string handle) => new PlateHoles() }
     };
 
     private static readonly Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string> filterSteelObjects = new Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string>()
@@ -699,7 +699,6 @@ namespace AdvanceSteel.Nodes
           }
         }
       }
-      foundSteelObj.IsOwnedByDynamo = false;
       return foundSteelObj;
     }
 
@@ -726,8 +725,6 @@ namespace AdvanceSteel.Nodes
           }
         }
       }
-
-      foundSteelObj.IsOwnedByDynamo = false;
       return foundSteelObj;
     }
 
@@ -752,8 +749,6 @@ namespace AdvanceSteel.Nodes
           }
         }
       }
-
-      foundSteelObj.IsOwnedByDynamo = false;
       return foundSteelObj;
     }
 
@@ -771,6 +766,7 @@ namespace AdvanceSteel.Nodes
             {
               SteelDbObject foundSteelObj = avaliableSteelObjects[obj.Type()](objHandle);
               foundSteelObj.Handle = objHandle;
+              foundSteelObj.IsOwnedByDynamo = false;
               retListOfSteelObjects.Add(foundSteelObj);
             }
           }
@@ -810,6 +806,7 @@ namespace AdvanceSteel.Nodes
               {
                 SteelDbObject foundSteelObj = avaliableSteelObjects[obj.Type()](objHandle);
                 foundSteelObj.Handle = objHandle;
+                foundSteelObj.IsOwnedByDynamo = false;
                 retListOfSteelObjects.Add(foundSteelObj);
               }
             }
