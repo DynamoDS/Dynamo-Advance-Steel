@@ -1,8 +1,8 @@
 # Dynamo Extension for Advance Steel
 
-This repository contains the source files for the Dynamo Extension for Advance Steel, that connects Dynamo with Advance Steel.
+This repository contains the source files for the Dynamo Extension for Advance Steel.
 
-**Dynamo Extension for Advance Steel** has different branches for different versions of Advance Steel. For example, to run it on Advance Steel 2020 you want the **AS2020_2.1.0** branch.
+**Dynamo Extension for Advance Steel** has different branches for different versions of Advance Steel. For example, to run it on Advance Steel 2020 you must use **AS2020_2.1.0** branch.
 
 ## How to build and use this extension:
 
