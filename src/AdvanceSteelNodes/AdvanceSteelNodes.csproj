@@ -23,6 +23,22 @@
     <DocumentationFile>$(OutputPath)\AdvanceSteelNodes.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="accoremgd">
+      <HintPath>$(ACADAPI)\accoremgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acdbmgd">
+      <HintPath>$(ACADAPI)\acdbmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="acmgd">
+      <HintPath>$(ACADAPI)\acmgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AdWindows">
+      <HintPath>$(ACADAPI)\AdWindows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="ASCADLinkMgd">
       <HintPath>$(ADVANCESTEELAPI)\ASCADLinkMgd.dll</HintPath>
       <Private>False</Private>
@@ -112,10 +128,13 @@
     <Compile Include="Util\BeamSection.cs" />
     <Compile Include="Util\Beam.cs" />
     <Compile Include="ConnectionObjects\ConnectionObject.cs" />
+    <Compile Include="Util\GroupUtils.cs" />
     <Compile Include="Util\Material.cs" />
     <Compile Include="Util\SelectionFilter.cs" />
     <Compile Include="Util\Geometry.cs" />
     <Compile Include="Util\SteelObject.cs" />
+    <Compile Include="Util\ProjectExplorer.cs" />
+    <Compile Include="Util\StructureUtils.cs" />
     <Compile Include="Util\UserAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,7 @@ using System.Linq;
 using Autodesk.AdvanceSteel.CADLink.Database;
 using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
 using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
+using ASObjectId = Autodesk.AdvanceSteel.CADLink.Database.ObjectId;
 
 namespace AdvanceSteel.Nodes
 {
@@ -766,6 +767,33 @@ namespace AdvanceSteel.Nodes
             {
               SteelDbObject foundSteelObj = avaliableSteelObjects[obj.Type()](objHandle);
               foundSteelObj.Handle = objHandle;
+              retListOfSteelObjects.Add(foundSteelObj);
+            }
+          }
+          else
+          {
+            throw new System.Exception("Object is empty");
+          }
+        }
+      }
+      return retListOfSteelObjects;
+    }
+
+    public static IEnumerable<SteelDbObject> GetDynObjects(IEnumerable<ASObjectId> objectIdsToFind)
+    {
+      var retListOfSteelObjects = new List<SteelDbObject>();
+      using (var ctx = new DocContext())
+      {
+        foreach (var objectId in objectIdsToFind)
+        {
+          FilerObject obj = FilerObject.GetFilerObject(objectId);
+          if (obj != null)
+          {
+            if (avaliableSteelObjects.ContainsKey(obj.Type()))
+            {
+              SteelDbObject foundSteelObj = avaliableSteelObjects[obj.Type()](obj.Handle);
+              foundSteelObj.Handle = obj.Handle;
+              foundSteelObj.IsOwnedByDynamo = false;
               retListOfSteelObjects.Add(foundSteelObj);
             }
           }
