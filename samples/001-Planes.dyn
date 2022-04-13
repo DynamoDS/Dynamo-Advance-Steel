@@ -53,7 +53,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Visualize the output of node."
+      "Description": "Visualize the node's output"
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
@@ -82,7 +82,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Visualize the output of node."
+      "Description": "Visualize the node's output"
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
@@ -111,7 +111,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Visualize the output of node."
+      "Description": "Visualize the node's output"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -187,7 +187,7 @@
         {
           "Id": "7096c294a7e34b70a3217f0eb5b49c38",
           "Name": "origin",
-          "Description": "Point\nDefault value : Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0)",
+          "Description": "Origin point of plane\n\nPoint\nDefault value : Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0)",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -196,7 +196,7 @@
         {
           "Id": "b14b00368db84055b7da685702c4e1c5",
           "Name": "normal",
-          "Description": "Vector\nDefault value : Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 1)",
+          "Description": "Normal direction vector of plane\n\nVector\nDefault value : Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 1)",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -207,7 +207,7 @@
         {
           "Id": "46765b12027e4e18a68705935f942c62",
           "Name": "Plane",
-          "Description": "Plane",
+          "Description": "Plane created by origin and normal",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -294,7 +294,7 @@
         {
           "Id": "88c55e06b21348cb92b7b9f77ca43412",
           "Name": "x",
-          "Description": "double\nDefault value : 0",
+          "Description": "X coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -303,7 +303,7 @@
         {
           "Id": "96ecb3745732472eb025b31ceaaa1be7",
           "Name": "y",
-          "Description": "double\nDefault value : 0",
+          "Description": "Y coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -312,7 +312,7 @@
         {
           "Id": "6a5bd06c33db41a083b1b9816b110dee",
           "Name": "z",
-          "Description": "double\nDefault value : 0",
+          "Description": "Z coordinate\n\ndouble\nDefault value : 0",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -323,7 +323,7 @@
         {
           "Id": "5d2a85f846e847caadf8b05103bde620",
           "Name": "Point",
-          "Description": "Point",
+          "Description": "Point created by coordinates",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -360,7 +360,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Visualize the output of node."
+      "Description": "Visualize the node's output"
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
@@ -389,7 +389,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Visualize the output of node."
+      "Description": "Visualize the node's output"
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
@@ -418,7 +418,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Visualize the output of node."
+      "Description": "Visualize the node's output"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -430,7 +430,7 @@
         {
           "Id": "2631eafd9c2e401cbe4940941a4c0741",
           "Name": "Point",
-          "Description": "Point",
+          "Description": "Origin point",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -604,7 +604,7 @@
         {
           "Id": "7552b3e0770246ac9b2d643df084cf2c",
           "Name": "origin",
-          "Description": "Point\nDefault value : Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0)",
+          "Description": "Origin point of plane\n\nPoint\nDefault value : Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0)",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -613,7 +613,7 @@
         {
           "Id": "bdfd0dbeb4984b15bfea856fd5ef3467",
           "Name": "normal",
-          "Description": "Vector\nDefault value : Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 1)",
+          "Description": "Normal direction vector of plane\n\nVector\nDefault value : Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 1)",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -624,7 +624,7 @@
         {
           "Id": "459ce1b238b948b0b87e69506e893a8d",
           "Name": "Plane",
-          "Description": "Plane",
+          "Description": "Plane created by origin and normal",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -678,103 +678,138 @@
     {
       "Start": "d4b6fa1d5e2542deb2e33904bbdfc0fc",
       "End": "8298e170937f4eddb3ae82dc20a7ea84",
-      "Id": "ee6b2e3818df473fbe9774d95586cf85"
+      "Id": "ee6b2e3818df473fbe9774d95586cf85",
+      "IsHidden": "False"
     },
     {
       "Start": "77eb23ea0bc641068b263c098971dba7",
       "End": "7552b3e0770246ac9b2d643df084cf2c",
-      "Id": "46c0cd9f001d4ef3bb244860fdad4339"
+      "Id": "46c0cd9f001d4ef3bb244860fdad4339",
+      "IsHidden": "False"
     },
     {
       "Start": "46765b12027e4e18a68705935f942c62",
       "End": "9632ca785da74760979fb2c8f00976d9",
-      "Id": "f49dcc5a23f4493c8b50f1063bd4070f"
+      "Id": "f49dcc5a23f4493c8b50f1063bd4070f",
+      "IsHidden": "False"
     },
     {
       "Start": "90d4504bb07b4ca9b28b1f0aff127f99",
       "End": "b14b00368db84055b7da685702c4e1c5",
-      "Id": "78d021e08b2046b7b151a10657906246"
+      "Id": "78d021e08b2046b7b151a10657906246",
+      "IsHidden": "False"
     },
     {
       "Start": "5d2a85f846e847caadf8b05103bde620",
       "End": "7096c294a7e34b70a3217f0eb5b49c38",
-      "Id": "4c94e9cde5c242ca89b36b598a19c9d5"
+      "Id": "4c94e9cde5c242ca89b36b598a19c9d5",
+      "IsHidden": "False"
     },
     {
       "Start": "2631eafd9c2e401cbe4940941a4c0741",
       "End": "e569766d18904a5eb632fe11379c01de",
-      "Id": "9c7746ee943c42ddbb3c214d3e5d75cf"
+      "Id": "9c7746ee943c42ddbb3c214d3e5d75cf",
+      "IsHidden": "False"
     },
     {
       "Start": "167846458be0472898bfb1f4abc69b76",
       "End": "72b8b47c27f748ce95bf31a7ac79d8ef",
-      "Id": "dc6304952a1d4a7994b0e2ca678cbd56"
+      "Id": "dc6304952a1d4a7994b0e2ca678cbd56",
+      "IsHidden": "False"
     },
     {
       "Start": "167846458be0472898bfb1f4abc69b76",
       "End": "b9d56cf508d446d49fcaf00813f9310c",
-      "Id": "d9c824b70e5d42138d8564cb8f85f87e"
+      "Id": "d9c824b70e5d42138d8564cb8f85f87e",
+      "IsHidden": "False"
     },
     {
       "Start": "5378a9ff92eb4d30ba8ef027d32e6752",
       "End": "8de5ad5127344739b4ca2a59525cbc3b",
-      "Id": "7345bbde2dc24020956fb8f951fe7300"
+      "Id": "7345bbde2dc24020956fb8f951fe7300",
+      "IsHidden": "False"
     },
     {
       "Start": "8fe8781169404513961337d3d3295110",
       "End": "c99677398a43462e8344e3cc2462800e",
-      "Id": "967af0f88c294dae8fc490e4da0f2b03"
+      "Id": "967af0f88c294dae8fc490e4da0f2b03",
+      "IsHidden": "False"
     },
     {
       "Start": "2e70d0e53b6549709e1ec919fbfbb4f8",
       "End": "88c55e06b21348cb92b7b9f77ca43412",
-      "Id": "b1e56eedc8464a48a1074a360290ebee"
+      "Id": "b1e56eedc8464a48a1074a360290ebee",
+      "IsHidden": "False"
     },
     {
       "Start": "2e70d0e53b6549709e1ec919fbfbb4f8",
       "End": "96ecb3745732472eb025b31ceaaa1be7",
-      "Id": "4bd365ee9f9440cba72cdb36062e8a4e"
+      "Id": "4bd365ee9f9440cba72cdb36062e8a4e",
+      "IsHidden": "False"
     },
     {
       "Start": "2e70d0e53b6549709e1ec919fbfbb4f8",
       "End": "6a5bd06c33db41a083b1b9816b110dee",
-      "Id": "bea12cb786d64f77b0b93ea369185b14"
+      "Id": "bea12cb786d64f77b0b93ea369185b14",
+      "IsHidden": "False"
     },
     {
       "Start": "3d15faf096e841da8bdedfa278d53c37",
       "End": "a2bbadfab6044521bbefa05281629424",
-      "Id": "24639dd2b1c84873934d588f1c8ce84a"
+      "Id": "24639dd2b1c84873934d588f1c8ce84a",
+      "IsHidden": "False"
     },
     {
       "Start": "35d7b5f2abdf4ed0a31ba5c9783bfba0",
       "End": "bdfd0dbeb4984b15bfea856fd5ef3467",
-      "Id": "621cdc3e776844eb80f5b057e9aec8a6"
+      "Id": "621cdc3e776844eb80f5b057e9aec8a6",
+      "IsHidden": "False"
     },
     {
       "Start": "108d64cc077040bb8f9bc1592cb6ef3e",
       "End": "46ae8968f61c467383e9c74d65943fbc",
-      "Id": "8b9f66d54764476ab3c81988c038cd1f"
+      "Id": "8b9f66d54764476ab3c81988c038cd1f",
+      "IsHidden": "False"
     },
     {
       "Start": "459ce1b238b948b0b87e69506e893a8d",
       "End": "71905a3cfc10496e82026b22eb7940dd",
-      "Id": "ff7ec9c11e1d44dfba02cb8528cc8143"
+      "Id": "ff7ec9c11e1d44dfba02cb8528cc8143",
+      "IsHidden": "False"
     },
     {
       "Start": "05d4a551ce1c46dd986a944559e2c35a",
       "End": "cbf0d6176a3d4320afb11f3053060a26",
-      "Id": "a277c0b873134a3f8f865fd88994e575"
+      "Id": "a277c0b873134a3f8f865fd88994e575",
+      "IsHidden": "False"
     }
   ],
   "Dependencies": [],
   "NodeLibraryDependencies": [],
+  "Thumbnail": null,
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.13",
+      "Data": {}
+    }
+  ],
+  "Author": "Autodesk",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
   "Bindings": [],
   "View": {
     "Dynamo": {
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.5.2.7915",
+      "Version": "2.13.1.3887",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -790,202 +825,207 @@
       "UpY": 1.0,
       "UpZ": 0.0
     },
+    "ConnectorPins": [],
     "NodeViews": [
       {
-        "ShowGeometry": true,
         "Name": "Watch",
+        "ShowGeometry": true,
         "Id": "704359fb7e844de7b206c330c858db10",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1995.4391008038278,
-        "Y": 456.23041170033991
+        "X": 1912.7097587935716,
+        "Y": 839.71325441830243
       },
       {
-        "ShowGeometry": true,
         "Name": "Watch",
+        "ShowGeometry": true,
         "Id": "ddcc63d850fa43b4a841652c3ccedf29",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2475.336448721429,
-        "Y": 819.61361586073872
+        "X": 2645.7097587935718,
+        "Y": 839.71325441830243
       },
       {
-        "ShowGeometry": true,
         "Name": "Watch",
+        "ShowGeometry": true,
         "Id": "1abf34600df0468390b2bee7fa548146",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2021.8994471421888,
-        "Y": 586.10449120957685
+        "X": 2118.9912580039531,
+        "Y": 519.876670389049
       },
       {
-        "ShowGeometry": true,
         "Name": "Code Block",
+        "ShowGeometry": true,
         "Id": "b86516ced99241b382a4b5b54f572c46",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1117.5233684572959,
-        "Y": 549.91238383106588
+        "X": 1113.7097587935716,
+        "Y": 745.54075441830241
       },
       {
-        "ShowGeometry": true,
         "Name": "Plane.ByOriginNormal",
+        "ShowGeometry": true,
         "Id": "d04bc1bfce3d4aa6a6f1c8024586fdd4",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 498.61565890532881,
-        "Y": 583.2167423662894
+        "X": 70.907698133248687,
+        "Y": 610.50634090123071
       },
       {
-        "ShowGeometry": true,
         "Name": "Plane.ByThreePoints",
+        "ShowGeometry": true,
         "Id": "97100a2fc15c4eb18f144c059b8eb318",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 474.16195395011277,
-        "Y": 712.68226569740341
+        "X": 141.56434645602263,
+        "Y": 930.45220545860116
       },
       {
-        "ShowGeometry": true,
         "Name": "Vector.ZAxis",
+        "ShowGeometry": true,
         "Id": "5bb059abee1641809bf34db561d20e0d",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 327.4034191772688,
-        "Y": 680.23874805476737
+        "X": -261.09230186675131,
+        "Y": 733.50634090123071
       },
       {
-        "ShowGeometry": true,
         "Name": "Point.ByCoordinates",
+        "ShowGeometry": true,
         "Id": "1a68204104cf405694157e7ed1f87d3e",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 260.40341917726869,
-        "Y": 514.03096885613945
+        "X": -261.09230186675131,
+        "Y": 521.50634090123071
       },
       {
-        "ShowGeometry": true,
         "Name": "Watch",
+        "ShowGeometry": true,
         "Id": "b48a41e299804826bbcfe0d55bb41b77",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 720.31573917557978,
-        "Y": 837.25999262500534
+        "X": 275.35876442851622,
+        "Y": 1456.2048351449334
       },
       {
-        "ShowGeometry": true,
         "Name": "Watch",
+        "ShowGeometry": true,
         "Id": "033d89954ac244a4affc4d5af41561a3",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 720.31573917557978,
-        "Y": 722.33246017994236
+        "X": 141.56434645602263,
+        "Y": 1142.4522054586012
       },
       {
-        "ShowGeometry": true,
         "Name": "Watch",
+        "ShowGeometry": true,
         "Id": "63af4fe2030948229ea234511054bf91",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 764.64604345606278,
-        "Y": 580.09202790646543
+        "X": 409.90769813324869,
+        "Y": 610.50634090123071
       },
       {
-        "ShowGeometry": true,
         "Name": "Point.Origin",
+        "ShowGeometry": true,
         "Id": "4de6df94ab3f41b38914c2aa975e4898",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 559.99225512225576,
-        "Y": 871.59522341934041
+        "X": 13.358764428516224,
+        "Y": 1456.2048351449334
       },
       {
-        "ShowGeometry": true,
         "Name": "World UCS Origin Point",
+        "ShowGeometry": true,
         "Id": "cbea1dae3e694d098fca6b501581d1e3",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 149.40341917726869,
-        "Y": 801.78622501145435
+        "X": -263.43565354397742,
+        "Y": 956.76220545860144
       },
       {
-        "ShowGeometry": true,
         "Name": "Code Block",
+        "ShowGeometry": true,
         "Id": "494cf7d17f344a96b39b55afd8f0c0bd",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 121.7598182512379,
-        "Y": 524.09041267238445
+        "X": -515.09230186675131,
+        "Y": 555.3338409012307
       },
       {
-        "ShowGeometry": true,
         "Name": "Geometry.GetPlaneOffsetByCentre",
+        "ShowGeometry": true,
         "Id": "2af28137ff614ad98473589df1deb224",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1629.4417104984811,
-        "Y": 610.44280723866564
+        "X": 1687.9912580039531,
+        "Y": 485.87667038904897
       },
       {
-        "ShowGeometry": true,
         "Name": "Vector.ZAxis",
+        "ShowGeometry": true,
         "Id": "b5707b3a7d54460c80ce957ab7161cff",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1353.5233684572988,
-        "Y": 732.29993195642794
+        "X": 1113.7097587935716,
+        "Y": 967.71325441830243
       },
       {
-        "ShowGeometry": true,
         "Name": "Vector.XAxis",
+        "ShowGeometry": true,
         "Id": "bcb02ac05eb249f1bc00f59d5de79a29",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1353.5233684572988,
-        "Y": 835.23886829299488
+        "X": 1422.9912580039531,
+        "Y": 519.876670389049
       },
       {
-        "ShowGeometry": true,
         "Name": "Plane.ByOriginNormal",
+        "ShowGeometry": true,
         "Id": "02752c6aa89e463ab25275014d6e302a",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1684.7140916342496,
-        "Y": 459.85164860649286
+        "X": 1573.7097587935716,
+        "Y": 839.71325441830243
       },
       {
-        "ShowGeometry": true,
         "Name": "Geometry.ClosestPointTo",
+        "ShowGeometry": true,
         "Id": "f77aed6ecb614b9c89db9509b366fce0",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2155.0687978325268,
-        "Y": 790.05816970818319
+        "X": 2284.7097587935718,
+        "Y": 839.71325441830243
       }
     ],
     "Annotations": [
       {
         "Id": "92d00ba6f55d4388b03abec8fdf3cd88",
         "Title": "CREATE Planes",
+        "DescriptionText": null,
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
         "Nodes": [
           "494cf7d17f344a96b39b55afd8f0c0bd",
           "cbea1dae3e694d098fca6b501581d1e3",
@@ -999,19 +1039,24 @@
           "d04bc1bfce3d4aa6a6f1c8024586fdd4",
           "0b591586abb74598b277062324632871"
         ],
-        "Left": 111.7598182512379,
-        "Top": 395.1583472928404,
-        "Width": 740.88622520482488,
-        "Height": 569.4368761265,
+        "HasNestedGroups": false,
+        "Left": -525.09230186675131,
+        "Top": 409.50634090123071,
+        "Width": 1217.0,
+        "Height": 1344.6984942437027,
         "FontSize": 36.0,
-        "InitialTop": 448.1583472928404,
+        "InitialTop": 482.50634090123071,
         "InitialHeight": 568.4368761265,
-        "TextblockHeight": 43.0,
+        "TextblockHeight": 63.0,
         "Background": "#FFC1D676"
       },
       {
         "Id": "ba6e08e0bd4a47f395f177ed523096f6",
         "Title": "DERIVE Planes",
+        "DescriptionText": null,
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
         "Nodes": [
           "b86516ced99241b382a4b5b54f572c46",
           "ddcc63d850fa43b4a841652c3ccedf29",
@@ -1024,22 +1069,28 @@
           "f77aed6ecb614b9c89db9509b366fce0",
           "041684e7b9c244cb9198ee92b05b03d1"
         ],
-        "Left": 1107.5233684572959,
-        "Top": 403.23041170033991,
-        "Width": 1455.8130802641331,
-        "Height": 525.008456592655,
+        "HasNestedGroups": false,
+        "Left": 1103.7097587935716,
+        "Top": 412.87667038904897,
+        "Width": 1824.0000000000002,
+        "Height": 724.83658402925334,
         "FontSize": 36.0,
-        "InitialTop": 456.23041170033991,
-        "InitialHeight": 531.40910351671891,
-        "TextblockHeight": 43.0,
+        "InitialTop": 485.87667038904897,
+        "InitialHeight": 524.008456592655,
+        "TextblockHeight": 63.0,
         "Background": "#FF71C6A8"
       },
       {
         "Id": "041684e7b9c244cb9198ee92b05b03d1",
         "Title": "Derive Points from other points and/or vectors",
+        "DescriptionText": null,
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
         "Nodes": [],
-        "Left": 1120.840986862871,
-        "Top": 458.00130869894048,
+        "HasNestedGroups": false,
+        "Left": 1113.7097587935716,
+        "Top": 706.54075441830241,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -1051,9 +1102,14 @@
       {
         "Id": "0b591586abb74598b277062324632871",
         "Title": "Create Points via Code Blocks or Nodes",
+        "DescriptionText": null,
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
         "Nodes": [],
-        "Left": 203.90314647971138,
-        "Top": 448.1583472928404,
+        "HasNestedGroups": false,
+        "Left": -261.09230186675131,
+        "Top": 482.50634090123071,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -1063,8 +1119,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": -665.84584001255985,
-    "Y": -66.811382492279108,
-    "Zoom": 0.69463805140691792
+    "X": 193.93027910623471,
+    "Y": -59.035236006888226,
+    "Zoom": 0.42327436893260684
   }
 }

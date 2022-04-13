@@ -20,15 +20,27 @@ namespace AdvanceSteel.Nodes
 
     public new void Tessellate(IRenderPackage package, TessellationParameters parameters)
     {
-      foreach(var geometry in GetDynGeometry())
+      var previousMeshVertexCount = package.MeshVertexCount;
+      var previousLineVertexCount = package.LineVertexCount;
+
+      foreach (var geometry in GetDynGeometry())
       {
         if (geometry == null)
           continue;
 
         geometry.Tessellate(package, parameters);
       }
-      
-      package.ApplyLineVertexColors(CreateColorByteArrayOfSize(package.LineVertexCount, DefR, DefG, DefB, DefA));
+
+      if (package is IRenderPackageSupplement packageSupplement)
+      {
+        int size = (package.MeshVertexCount - previousMeshVertexCount) * 4;
+        packageSupplement.AddTextureMapForMeshVerticesRange(previousMeshVertexCount, package.MeshVertexCount - 1, CreateColorByteArrayOfSize(size, DefR, DefG, DefB, DefA), size);
+
+        if (package.LineVertexCount > previousLineVertexCount)
+        {
+          packageSupplement.UpdateLineVertexColorForRange(previousLineVertexCount, package.LineVertexCount - 1, DefR, DefG, DefB, DefA);
+        }
+      }
     }
 
     private static byte[] CreateColorByteArrayOfSize(int size, byte red, byte green, byte blue, byte alpha)

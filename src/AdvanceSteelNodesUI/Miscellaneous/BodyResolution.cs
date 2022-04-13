@@ -38,11 +38,11 @@ namespace AdvanceSteel.Nodes
 
       var newItems = new List<DynamoDropDownItem>()
             {
-                new DynamoDropDownItem("Select Body Resolution...", -1),
-                new DynamoDropDownItem("Normal", (int)0),
-                new DynamoDropDownItem("Detailed", (int)1),
-                new DynamoDropDownItem("Hull", (int)2),
-                new DynamoDropDownItem("UnNotched", (int)3)
+                new DynamoDropDownItem("Select Body Resolution...", -1L),
+                new DynamoDropDownItem("Normal", 0L),
+                new DynamoDropDownItem("Detailed", 1L),
+                new DynamoDropDownItem("Hull", 2L),
+                new DynamoDropDownItem("UnNotched", 3L)
             };
 
       Items.AddRange(newItems);
@@ -60,7 +60,7 @@ namespace AdvanceSteel.Nodes
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }
 
-      var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
       var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
       return new List<AssociativeNode> { assign };
 

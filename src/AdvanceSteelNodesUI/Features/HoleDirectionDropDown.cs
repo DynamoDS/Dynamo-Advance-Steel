@@ -39,10 +39,10 @@ namespace AdvanceSteel.Nodes
 
       var newItems = new List<DynamoDropDownItem>()
             {
-                new DynamoDropDownItem("Select Slotted Hole Direction...", -1),
-                new DynamoDropDownItem("Arc Along", 2),
-                new DynamoDropDownItem("X-Axis", 1),
-                new DynamoDropDownItem("Y-Axis", 2)
+                new DynamoDropDownItem("Select Slotted Hole Direction...", -1L),
+                new DynamoDropDownItem("Arc Along", 2L),
+                new DynamoDropDownItem("X-Axis", 1L),
+                new DynamoDropDownItem("Y-Axis", 2L)
             };
       
       Items.AddRange(newItems);
@@ -60,7 +60,7 @@ namespace AdvanceSteel.Nodes
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }
 
-      var intNode = AstFactory.BuildIntNode((int)Items[SelectedIndex].Item);
+      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
       var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
       return new List<AssociativeNode> { assign };
 
