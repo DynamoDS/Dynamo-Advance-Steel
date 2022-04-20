@@ -6,7 +6,6 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 using System.Linq;
-using ASPolyBeam = Autodesk.AdvanceSteel.Modelling.PolyBeam;
 
 namespace AdvanceSteel.Nodes.Beams
 {
@@ -16,85 +15,84 @@ namespace AdvanceSteel.Nodes.Beams
   [DynamoServices.RegisterForTrace]
   public class PolyBeam : GraphicObject
   {
-    private PolyBeam(Polyline3d poly,
-                         Autodesk.DesignScript.Geometry.Vector vOrientation,
-                         List<Property> beamProperties)
+
+    internal PolyBeam()
     {
-      SafeInit(() => InitPolyBeam(poly, vOrientation, beamProperties));
     }
 
-    private PolyBeam(ASPolyBeam beam)
-    {
-      SafeInit(() => SetHandle(beam));
-    }
-
-    internal static PolyBeam FromExisting(ASPolyBeam beam)
-    {
-      return new PolyBeam(beam)
-      {
-        IsOwnedByDynamo = false
-      };
-    }
-
-    private void InitPolyBeam(Polyline3d poly,
+    internal PolyBeam(Polyline3d poly,
                       Autodesk.DesignScript.Geometry.Vector vOrientation,
                       List<Property> beamProperties)
     {
-      List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-      Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
-      string sectionName = "";
-      if (foundProfName != null)
+      lock (access_obj)
       {
-        sectionName = (string)foundProfName.InternalValue;
-      }
-
-      if (string.IsNullOrEmpty(sectionName))
-      {
-        ProfileName profName = new ProfileName();
-        ProfilesManager.GetProfTypeAsDefault("I", out profName);
-        sectionName = profName.Name;
-      }
-
-      Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
-
-      ASPolyBeam beam = SteelServices.ElementBinder.GetObjectASFromTrace<ASPolyBeam>();
-      if (beam == null)
-      {
-        beam = new ASPolyBeam(sectionName, poly, refVect);
-
-        if (defaultData != null)
+        using (var ctx = new SteelServices.DocContext())
         {
-          Utils.SetParameters(beam, defaultData);
-        }
 
-        beam.WriteToDb();
-      }
-      else
-      {
-        if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kPolyBeam))
-        {
-          beam.SetPolyline(poly);
-
-          if (defaultData != null)
+          List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+          Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
+          string sectionName = "";
+          if (foundProfName != null)
           {
-            Utils.SetParameters(beam, defaultData);
+            sectionName = (string)foundProfName.InternalValue;
           }
 
-          Utils.SetOrientation(beam, refVect);
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+
+          if (string.IsNullOrEmpty(sectionName))
+          {
+            ProfileName profName = new ProfileName();
+            ProfilesManager.GetProfTypeAsDefault("I", out profName);
+            sectionName = profName.Name;
+          }
+
+          Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
+
+          Autodesk.AdvanceSteel.Modelling.PolyBeam beam = null;
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
+            beam = new Autodesk.AdvanceSteel.Modelling.PolyBeam(sectionName, poly, refVect);
+
+            if (defaultData != null)
+            {
+              Utils.SetParameters(beam, defaultData);
+            }
+
+            beam.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(beam, postWriteDBData);
+            }
+          }
+          else
+          {
+            beam = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.PolyBeam;
+
+            if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kPolyBeam))
+            {
+              beam.SetPolyline(poly);
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(beam, defaultData);
+              }
+
+              Utils.SetOrientation(beam, refVect);
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(beam, postWriteDBData);
+              }
+            }
+            else
+              throw new System.Exception("Not an UnFolded Straight Beam");
+          }
+          Handle = beam.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
         }
-        else
-          throw new System.Exception("Not an UnFolded Straight Beam");
       }
-
-      SetHandle(beam);
-
-      if (postWriteDBData != null)
-      {
-        Utils.SetParameters(beam, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
     }
 
     /// <summary>
@@ -127,11 +125,17 @@ namespace AdvanceSteel.Nodes.Beams
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      var beam = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.PolyBeam;
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var beam = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.PolyBeam;
 
-      Polyline3d poly = beam.GetPolyline();
-      Autodesk.DesignScript.Geometry.PolyCurve pCurve = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(poly, true));
-      return pCurve;
+          Polyline3d poly = beam.GetPolyline();
+          Autodesk.DesignScript.Geometry.PolyCurve pCurve = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(poly, true));
+          return pCurve;
+        }
+      }
     }
 
     /// <summary>

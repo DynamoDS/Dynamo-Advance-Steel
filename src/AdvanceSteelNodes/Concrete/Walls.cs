@@ -1,12 +1,12 @@
 ﻿using Autodesk.AdvanceSteel.CADAccess;
 using SteelGeometry = Autodesk.AdvanceSteel.Geometry;
 using Autodesk.DesignScript.Runtime;
+
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 using System.Collections.Generic;
 using Autodesk.AdvanceSteel.CADLink.Database;
 using Autodesk.AdvanceSteel.Geometry;
 using System.Linq;
-using ASWall = Autodesk.AdvanceSteel.Modelling.Wall;
 
 namespace AdvanceSteel.Nodes.Concrete
 {
@@ -16,233 +16,243 @@ namespace AdvanceSteel.Nodes.Concrete
   [DynamoServices.RegisterForTrace]
   public class Walls : GraphicObject
   {
-    private Walls(SteelGeometry.Point3d ptCenter,
+    internal Walls()
+    {
+    }
+
+    internal Walls(SteelGeometry.Point3d ptCenter,
                     double dLength, double dHeight, double thickness,
                     SteelGeometry.Vector3d vNormal,
                     List<Property> concreteProperties)
     {
-      SafeInit(() => InitWalls(ptCenter, dLength, dHeight, thickness, vNormal, concreteProperties));
-    }
-
-    private Walls(SteelGeometry.Matrix3d matrix,
-                    double dLength, double dHeight, double thickness,
-                    List<Property> concreteProperties)
-    {
-      SafeInit(() => InitWalls(matrix, dLength, dHeight, thickness, concreteProperties));
-    }
-
-    private Walls(Autodesk.DesignScript.Geometry.Polygon poly,
-                    double thickness,
-                    List<Property> concreteProperties)
-    {
-      SafeInit(() => InitWalls(poly, thickness, concreteProperties));
-    }
-
-    private Walls(ASWall wall)
-    {
-      SafeInit(() => SetHandle(wall));
-    }
-
-    internal static Walls FromExisting(ASWall wall)
-    {
-      return new Walls(wall)
+      lock (access_obj)
       {
-        IsOwnedByDynamo = false
-      };
-    }
-
-    private void InitWalls(SteelGeometry.Point3d ptCenter,
-                    double dLength, double dHeight, double thickness,
-                    SteelGeometry.Vector3d vNormal,
-                    List<Property> concreteProperties)
-    {
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-      SteelGeometry.Plane plane = new SteelGeometry.Plane(ptCenter, vNormal);
-
-      ASWall wallObject = SteelServices.ElementBinder.GetObjectASFromTrace<ASWall>();
-      if (wallObject == null)
-      {
-        wallObject = new ASWall(plane, ptCenter, dLength, dHeight);
-        wallObject.Thickness = thickness;
-        if (defaultData != null)
+        using (var ctx = new SteelServices.DocContext())
         {
-          Utils.SetParameters(wallObject, defaultData);
-        }
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-        wallObject.WriteToDb();
-      }
-      else
-      {
-        if (wallObject != null && wallObject.IsKindOf(FilerObject.eObjectType.kWall))
-        {
-          wallObject.DefinitionPlane = plane;
-          wallObject.Thickness = thickness;
-          wallObject.SetLength(dLength, true);
-          wallObject.SetWidth(dHeight, true);
+          SteelGeometry.Plane plane = new SteelGeometry.Plane(ptCenter, vNormal);
+          Autodesk.AdvanceSteel.Modelling.Wall wallObject = null;
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
-          if (defaultData != null)
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
-            Utils.SetParameters(wallObject, defaultData);
+            wallObject = new Autodesk.AdvanceSteel.Modelling.Wall(plane, ptCenter, dLength, dHeight);
+            wallObject.Thickness = thickness;
+            if (defaultData != null)
+            {
+              Utils.SetParameters(wallObject, defaultData);
+            }
+
+            wallObject.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(wallObject, postWriteDBData);
+            }
           }
-        }
-        else
-        {
-          throw new System.Exception("Not a Wall");
-        }
-      }
-
-      SetHandle(wallObject);
-
-      if (postWriteDBData != null)
-      {
-        Utils.SetParameters(wallObject, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(wallObject);
-    }
-
-    private void InitWalls(SteelGeometry.Matrix3d matrix,
-                    double dLength, double dHeight, double thickness,
-                    List<Property> concreteProperties)
-    {
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-      SteelGeometry.Point3d baseOrigin = new SteelGeometry.Point3d();
-      SteelGeometry.Vector3d xAxis = new SteelGeometry.Vector3d();
-      SteelGeometry.Vector3d yAxis = new SteelGeometry.Vector3d();
-      SteelGeometry.Vector3d zAxis = new SteelGeometry.Vector3d();
-      matrix.GetCoordSystem(out baseOrigin, out xAxis, out yAxis, out zAxis);
-
-      SteelGeometry.Vector3d lengthVec = xAxis * dLength;
-      SteelGeometry.Vector3d heightVec = zAxis * dHeight;
-
-      SteelGeometry.Point3d brPnt = new SteelGeometry.Point3d(baseOrigin).Add(lengthVec);
-      SteelGeometry.Point3d trPnt = new SteelGeometry.Point3d(brPnt).Add(heightVec);
-      SteelGeometry.Point3d tlPnt = new SteelGeometry.Point3d(baseOrigin).Add(heightVec);
-
-      SteelGeometry.Point3d centerWallPnt = baseOrigin.GetMidPointBetween(trPnt);
-
-      SteelGeometry.Point3d[] wallPoints = { baseOrigin, brPnt, trPnt, tlPnt };
-      double[] cornerRadii = (double[])System.Collections.ArrayList.Repeat(0.0, wallPoints.Length).ToArray(typeof(double));
-
-      SteelGeometry.Plane plane = new SteelGeometry.Plane(centerWallPnt, yAxis);
-
-      ASWall wallObject = SteelServices.ElementBinder.GetObjectASFromTrace<ASWall>();
-      if (wallObject == null)
-      {
-        wallObject = new Autodesk.AdvanceSteel.Modelling.Wall(plane, wallPoints);
-        wallObject.Thickness = thickness;
-        Polyline3d outerPoly = new Polyline3d(wallPoints, cornerRadii, true, yAxis, false, 0, true, true);
-        IEnumerable<ObjectId> deletedFeaturesIds = null;
-        IEnumerable<ObjectId> newFeaturesIds = null;
-        wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
-
-        if (defaultData != null)
-        {
-          Utils.SetParameters(wallObject, defaultData);
-        }
-
-        wallObject.WriteToDb();
-      }
-      else
-      {
-        if (wallObject != null && wallObject.IsKindOf(FilerObject.eObjectType.kWall))
-        {
-          //TODO - Missing SetPolygon
-          wallObject.DefinitionPlane = plane;
-          wallObject.Thickness = thickness;
-          Polyline3d outerPoly = new Polyline3d(wallPoints, cornerRadii, true, yAxis, false, 0, true, true);
-          IEnumerable<ObjectId> deletedFeaturesIds = null;
-          IEnumerable<ObjectId> newFeaturesIds = null;
-
-          if (defaultData != null)
+          else
           {
-            Utils.SetParameters(wallObject, defaultData);
+            wallObject = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Wall;
+            if (wallObject != null && wallObject.IsKindOf(FilerObject.eObjectType.kWall))
+            {
+              wallObject.DefinitionPlane = plane;
+              wallObject.Thickness = thickness;
+              wallObject.SetLength(dLength, true);
+              wallObject.SetWidth(dHeight, true);
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(wallObject, defaultData);
+              }
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(wallObject, postWriteDBData);
+              }
+            }
+            else
+            {
+              throw new System.Exception("Not a Wall");
+            }
           }
 
-          wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
-        }
-        else
-        {
-          throw new System.Exception("Not a Wall");
+          Handle = wallObject.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(wallObject);
         }
       }
-
-      SetHandle(wallObject);
-
-      if (postWriteDBData != null)
-      {
-        Utils.SetParameters(wallObject, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(wallObject);
     }
 
-    private void InitWalls(Autodesk.DesignScript.Geometry.Polygon poly,
+    internal Walls(SteelGeometry.Matrix3d matrix,
+                    double dLength, double dHeight, double thickness,
+                    List<Property> concreteProperties)
+    {
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+          SteelGeometry.Point3d baseOrigin = new SteelGeometry.Point3d();
+          SteelGeometry.Vector3d xAxis = new SteelGeometry.Vector3d();
+          SteelGeometry.Vector3d yAxis = new SteelGeometry.Vector3d();
+          SteelGeometry.Vector3d zAxis = new SteelGeometry.Vector3d();
+          matrix.GetCoordSystem(out baseOrigin, out xAxis, out yAxis, out zAxis);
+
+          SteelGeometry.Vector3d lengthVec = xAxis * dLength;
+          SteelGeometry.Vector3d heightVec = zAxis * dHeight;
+
+          SteelGeometry.Point3d brPnt = new SteelGeometry.Point3d(baseOrigin).Add(lengthVec);
+          SteelGeometry.Point3d trPnt = new SteelGeometry.Point3d(brPnt).Add(heightVec);
+          SteelGeometry.Point3d tlPnt = new SteelGeometry.Point3d(baseOrigin).Add(heightVec);
+
+          SteelGeometry.Point3d centerWallPnt = baseOrigin.GetMidPointBetween(trPnt);
+
+          SteelGeometry.Point3d[] wallPoints = { baseOrigin, brPnt, trPnt, tlPnt };
+          double[] cornerRadii = (double[])System.Collections.ArrayList.Repeat(0.0, wallPoints.Length).ToArray(typeof(double));
+
+          SteelGeometry.Plane plane = new SteelGeometry.Plane(centerWallPnt, yAxis);
+
+          Autodesk.AdvanceSteel.Modelling.Wall wallObject = null;
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
+            wallObject = new Autodesk.AdvanceSteel.Modelling.Wall(plane, wallPoints);
+            wallObject.Thickness = thickness;
+            Polyline3d outerPoly = new Polyline3d(wallPoints, cornerRadii, true, yAxis, false, 0, true, true);
+            IEnumerable<ObjectId> deletedFeaturesIds = null;
+            IEnumerable<ObjectId> newFeaturesIds = null;
+            wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
+
+            if (defaultData != null)
+            {
+              Utils.SetParameters(wallObject, defaultData);
+            }
+
+            wallObject.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(wallObject, postWriteDBData);
+            }
+          }
+          else
+          {
+            wallObject = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Wall;
+            if (wallObject != null && wallObject.IsKindOf(FilerObject.eObjectType.kWall))
+            {
+              //TODO - Missing SetPolygon
+              wallObject.DefinitionPlane = plane;
+              wallObject.Thickness = thickness;
+              Polyline3d outerPoly = new Polyline3d(wallPoints, cornerRadii, true, yAxis, false, 0, true, true);
+              IEnumerable<ObjectId> deletedFeaturesIds = null;
+              IEnumerable<ObjectId> newFeaturesIds = null;
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(wallObject, defaultData);
+              }
+
+              wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(wallObject, postWriteDBData);
+              }
+
+            }
+            else
+            {
+              throw new System.Exception("Not a Wall");
+            }
+          }
+
+          Handle = wallObject.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(wallObject);
+        }
+      }
+    }
+
+    internal Walls(Autodesk.DesignScript.Geometry.Polygon poly,
                     double thickness,
                     List<Property> concreteProperties)
     {
       if (poly.IsPlanar == false)
         throw new System.Exception("Polygon is not planar");
 
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-      Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
-      double[] cornerRadii = (double[])System.Collections.ArrayList.Repeat(0.0, poly.Points.Length).ToArray(typeof(double));
-
-      var astPoly = new Autodesk.AdvanceSteel.Geometry.Polyline3d(astPoints, null, poly.IsClosed, true);
-      var polyPlane = new Plane(astPoints[0], astPoly.Normal);
-
-      ASWall wallObject = SteelServices.ElementBinder.GetObjectASFromTrace<ASWall>();
-      if (wallObject == null)
+      lock (access_obj)
       {
-        wallObject = new ASWall(polyPlane, astPoints);
-        wallObject.Thickness = thickness;
-        Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
-        IEnumerable<ObjectId> deletedFeaturesIds = null;
-        IEnumerable<ObjectId> newFeaturesIds = null;
-        wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
-
-        if (defaultData != null)
+        using (var ctx = new SteelServices.DocContext())
         {
-          Utils.SetParameters(wallObject, defaultData);
-        }
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-        wallObject.WriteToDb();
-      }
-      else
-      {
-        if (wallObject != null && wallObject.IsKindOf(FilerObject.eObjectType.kWall))
-        {
-          wallObject.DefinitionPlane = polyPlane;
-          wallObject.Thickness = thickness;
-          Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
-          IEnumerable<ObjectId> deletedFeaturesIds = null;
-          IEnumerable<ObjectId> newFeaturesIds = null;
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
-          if (defaultData != null)
+          Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
+          double[] cornerRadii = (double[])System.Collections.ArrayList.Repeat(0.0, poly.Points.Length).ToArray(typeof(double));
+
+          var astPoly = new Autodesk.AdvanceSteel.Geometry.Polyline3d(astPoints, null, poly.IsClosed, true);
+          var polyPlane = new Plane(astPoints[0], astPoly.Normal);
+
+          Autodesk.AdvanceSteel.Modelling.Wall wallObject = null;
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
-            Utils.SetParameters(wallObject, defaultData);
+            wallObject = new Autodesk.AdvanceSteel.Modelling.Wall(polyPlane, astPoints);
+            wallObject.Thickness = thickness;
+            Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
+            IEnumerable<ObjectId> deletedFeaturesIds = null;
+            IEnumerable<ObjectId> newFeaturesIds = null;
+            wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
+
+            if (defaultData != null)
+            {
+              Utils.SetParameters(wallObject, defaultData);
+            }
+
+            wallObject.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(wallObject, postWriteDBData);
+            }
+          }
+          else
+          {
+            wallObject = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Wall;
+
+            if (wallObject != null && wallObject.IsKindOf(FilerObject.eObjectType.kWall))
+            {
+              wallObject.DefinitionPlane = polyPlane;
+              wallObject.Thickness = thickness;
+              Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
+              IEnumerable<ObjectId> deletedFeaturesIds = null;
+              IEnumerable<ObjectId> newFeaturesIds = null;
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(wallObject, defaultData);
+              }
+
+              wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(wallObject, postWriteDBData);
+              }
+
+            }
+            else
+              throw new System.Exception("Not a Slab");
           }
 
-          wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
+          Handle = wallObject.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(wallObject);
         }
-        else
-          throw new System.Exception("Not a Slab");
       }
-
-      SetHandle(wallObject);
-
-      if (postWriteDBData != null)
-      {
-        Utils.SetParameters(wallObject, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(wallObject);
     }
 
     /// <summary>
@@ -330,18 +340,23 @@ namespace AdvanceSteel.Nodes.Concrete
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      var walls = Utils.GetObject(Handle) as ASWall;
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var walls = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.Wall;
 
-      SteelGeometry.Polyline3d astPoly = null;
-      walls.GetBaseContourPolygon(0.0, out astPoly);
+          SteelGeometry.Polyline3d astPoly = null;
+          walls.GetBaseContourPolygon(0.0, out astPoly);
 
-      var dynPoints = Utils.ToDynPoints(astPoly.Vertices, true);
-      var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, astPoly.IsClosed);
+          var dynPoints = Utils.ToDynPoints(astPoly.Vertices, true);
+          var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, astPoly.IsClosed);
 
-      foreach (var pt in dynPoints) { pt.Dispose(); }
+          foreach (var pt in dynPoints) { pt.Dispose(); }
 
-      return poly;
+          return poly;
+        }
+      }
     }
-
   }
 }

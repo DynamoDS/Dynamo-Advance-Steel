@@ -2,10 +2,10 @@
 using Autodesk.AdvanceSteel.Geometry;
 using Autodesk.AdvanceSteel.Profiles;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
+
 using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using System.Linq;
-using ASConcreteBentBeam = Autodesk.AdvanceSteel.Modelling.ConcreteBentBeam;
 
 namespace AdvanceSteel.Nodes.Concrete
 {
@@ -15,82 +15,77 @@ namespace AdvanceSteel.Nodes.Concrete
   [DynamoServices.RegisterForTrace]
   public class ConcreteBentBeam : GraphicObject
   {
-    private ConcreteBentBeam(string concName,
+    internal ConcreteBentBeam()
+    {
+    }
+
+    internal ConcreteBentBeam(string concName,
                           Autodesk.DesignScript.Geometry.Point ptStart,
                           Autodesk.DesignScript.Geometry.Point ptEnd,
                           Autodesk.DesignScript.Geometry.Point ptOnArc,
                           Autodesk.DesignScript.Geometry.Vector vOrientation,
                           List<Property> concreteProperties)
     {
-      SafeInit(() => InitConcreteBentBeam(concName, ptStart, ptEnd, ptOnArc, vOrientation, concreteProperties));
-    }
-
-    private ConcreteBentBeam(ASConcreteBentBeam beam)
-    {
-      SafeInit(() => SetHandle(beam));
-    }
-
-    internal static ConcreteBentBeam FromExisting(ASConcreteBentBeam beam)
-    {
-      return new ConcreteBentBeam(beam)
+      lock (access_obj)
       {
-        IsOwnedByDynamo = false
-      };
-    }
-
-    private void InitConcreteBentBeam(string concName,
-                          Autodesk.DesignScript.Geometry.Point ptStart,
-                          Autodesk.DesignScript.Geometry.Point ptEnd,
-                          Autodesk.DesignScript.Geometry.Point ptOnArc,
-                          Autodesk.DesignScript.Geometry.Vector vOrientation,
-                          List<Property> concreteProperties)
-    {
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-      Point3d beamStart = (ptStart == null ? new Point3d() : Utils.ToAstPoint(ptStart, true));
-      Point3d beamEnd = (ptEnd == null ? new Point3d() : Utils.ToAstPoint(ptEnd, true));
-      Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
-      Point3d pointOnArc = Utils.ToAstPoint(ptOnArc, true);
-
-      ASConcreteBentBeam concBentBeam = SteelServices.ElementBinder.GetObjectASFromTrace<ASConcreteBentBeam>();
-      if (concBentBeam == null)
-      {
-        concBentBeam = new ASConcreteBentBeam(concName, refVect, beamStart, pointOnArc, beamEnd);
-        if (defaultData != null)
+        using (var ctx = new SteelServices.DocContext())
         {
-          Utils.SetParameters(concBentBeam, defaultData);
-        }
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-        concBentBeam.WriteToDb();
-      }
-      else
-      {
-        if (concBentBeam != null && concBentBeam.IsKindOf(FilerObject.eObjectType.kConcreteBentBeam))
-        {
-          concBentBeam.SetSystemline(beamStart, pointOnArc, beamEnd);
-          concBentBeam.SetSysStart(beamStart);
-          concBentBeam.SetSysEnd(beamEnd);
-          concBentBeam.ProfName = concName;
-          Utils.SetOrientation(concBentBeam, refVect);
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
-          if (defaultData != null)
+          Point3d beamStart = (ptStart == null ? new Point3d() : Utils.ToAstPoint(ptStart, true));
+          Point3d beamEnd = (ptEnd == null ? new Point3d() : Utils.ToAstPoint(ptEnd, true));
+          Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
+          Point3d pointOnArc = Utils.ToAstPoint(ptOnArc, true);
+
+          Autodesk.AdvanceSteel.Modelling.ConcreteBentBeam concBentBeam = null;
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {
-            Utils.SetParameters(concBentBeam, defaultData);
+            concBentBeam = new Autodesk.AdvanceSteel.Modelling.ConcreteBentBeam(concName, refVect, beamStart, pointOnArc, beamEnd);
+            if (defaultData != null)
+            {
+              Utils.SetParameters(concBentBeam, defaultData);
+            }
+
+            concBentBeam.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(concBentBeam, postWriteDBData);
+            }
           }
+          else
+          {
+            concBentBeam = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.ConcreteBentBeam;
+
+            if (concBentBeam != null && concBentBeam.IsKindOf(FilerObject.eObjectType.kConcreteBentBeam))
+            {
+              concBentBeam.SetSystemline(beamStart, pointOnArc, beamEnd);
+              concBentBeam.SetSysStart(beamStart);
+              concBentBeam.SetSysEnd(beamEnd);
+              concBentBeam.ProfName = concName;
+              Utils.SetOrientation(concBentBeam, refVect);
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(concBentBeam, defaultData);
+              }
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(concBentBeam, postWriteDBData);
+              }
+            }
+            else
+              throw new System.Exception("Not a Bent Concrete Beam");
+          }
+
+          Handle = concBentBeam.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(concBentBeam);
         }
-        else
-          throw new System.Exception("Not a Bent Concrete Beam");
       }
-
-      SetHandle(concBentBeam);
-
-      if (postWriteDBData != null)
-      {
-        Utils.SetParameters(concBentBeam, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(concBentBeam);
     }
 
     /// <summary>
@@ -143,15 +138,21 @@ namespace AdvanceSteel.Nodes.Concrete
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      var beam = Utils.GetObject(Handle) as ASConcreteBentBeam;
-      var midPointOnArc = beam.CenterPoint;
-
-      using (var start = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
-      using (var end = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
-      using (var ptOnArc = Utils.ToDynPoint(midPointOnArc, true))
+      lock (access_obj)
       {
-        var arc = Autodesk.DesignScript.Geometry.Arc.ByThreePoints(start, ptOnArc, end);
-        return arc;
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var beam = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.ConcreteBentBeam;
+          var midPointOnArc = beam.CenterPoint;
+
+          using (var start = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
+          using (var end = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
+          using (var ptOnArc = Utils.ToDynPoint(midPointOnArc, true))
+          {
+            var arc = Autodesk.DesignScript.Geometry.Arc.ByThreePoints(start, ptOnArc, end);
+            return arc;
+          }
+        }
       }
     }
 
