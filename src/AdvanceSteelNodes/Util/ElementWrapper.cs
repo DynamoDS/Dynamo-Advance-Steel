@@ -180,8 +180,10 @@ namespace AdvanceSteel.Nodes
           return StandardGrating.FromExisting(grating);
         case Autodesk.AdvanceSteel.Modelling.Grating.eGratingType.kVariable:
           return VariableGrating.FromExisting(grating);
-        default: //case Autodesk.AdvanceSteel.Modelling.Grating.eGratingType.kBar:
+        case Autodesk.AdvanceSteel.Modelling.Grating.eGratingType.kBar:
           return BarGrating.FromExisting(grating);
+        default:
+          throw new NotImplementedException("Grating not implemented");
       }
     }
 
