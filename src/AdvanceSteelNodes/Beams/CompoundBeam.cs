@@ -5,6 +5,7 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
+using ASCompoundStraightBeam = Autodesk.AdvanceSteel.Modelling.CompoundStraightBeam;
 
 namespace AdvanceSteel.Nodes.Beams
 {
@@ -14,99 +15,100 @@ namespace AdvanceSteel.Nodes.Beams
   [DynamoServices.RegisterForTrace]
   public class CompoundBeam : GraphicObject
   {
-    internal CompoundBeam()
-    {
-    }
-
-    internal CompoundBeam(Autodesk.DesignScript.Geometry.Point ptStart,
+    private CompoundBeam(Autodesk.DesignScript.Geometry.Point ptStart,
                           Autodesk.DesignScript.Geometry.Point ptEnd,
                           Autodesk.DesignScript.Geometry.Vector vOrientation,
                           List<Property> beamProperties)
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
+      SafeInit(() => InitCompoundBeam(ptStart, ptEnd, vOrientation, beamProperties));
+    }
 
-          List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-          Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
-          string sectionProfileName = "";
-          if (foundProfName != null)
+    private CompoundBeam(ASCompoundStraightBeam beam)
+    {
+      SafeInit(() => SetHandle(beam));
+    }
+
+    internal static CompoundBeam FromExisting(ASCompoundStraightBeam beam)
+    {
+      return new CompoundBeam(beam)
+      {
+        IsOwnedByDynamo = false
+      };
+    }
+
+    private void InitCompoundBeam(Autodesk.DesignScript.Geometry.Point ptStart,
+                          Autodesk.DesignScript.Geometry.Point ptEnd,
+                          Autodesk.DesignScript.Geometry.Vector vOrientation,
+                          List<Property> beamProperties)
+    {
+      List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
+      List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
+      string sectionProfileName = "";
+      if (foundProfName != null)
+      {
+        sectionProfileName = (string)foundProfName.InternalValue;
+      }
+
+      Point3d beamStart = Utils.ToAstPoint(ptStart, true);
+      Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
+      Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
+
+      string sectionType = Utils.SplitSectionName(sectionProfileName)[0];
+      string sectionName = Utils.SplitSectionName(sectionProfileName)[1];
+
+      ASCompoundStraightBeam beam = SteelServices.ElementBinder.GetObjectASFromTrace<ASCompoundStraightBeam>();
+      if (beam == null)
+      {
+        beam = new ASCompoundStraightBeam(beamStart, beamEnd, refVect);
+        beam.CreateComponents(sectionType, sectionName);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(beam, defaultData);
+        }
+
+        beam.WriteToDb();
+      }
+      else
+      {
+        if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kCompoundStraightBeam))
+        {
+          Utils.AdjustBeamEnd(beam, beamStart);
+          beam.SetSysStart(beamStart);
+          beam.SetSysEnd(beamEnd);
+
+          if (defaultData != null)
           {
-            sectionProfileName = (string)foundProfName.InternalValue;
+            Utils.SetParameters(beam, defaultData);
           }
 
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+          Utils.SetOrientation(beam, refVect);
 
-          Point3d beamStart = Utils.ToAstPoint(ptStart, true);
-          Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
-          Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
-
-          string sectionType = Utils.SplitSectionName(sectionProfileName)[0];
-          string sectionName = Utils.SplitSectionName(sectionProfileName)[1];
-
-          Autodesk.AdvanceSteel.Modelling.CompoundStraightBeam beam = null;
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          if (Utils.CompareCompoundSectionTypes(sectionType, beam.ProfSectionType))
           {
-            beam = new Autodesk.AdvanceSteel.Modelling.CompoundStraightBeam(beamStart, beamEnd, refVect);
-            beam.CreateComponents(sectionType, sectionName);
-
-            if (defaultData != null)
+            if (beam.ProfSectionName != sectionName)
             {
-              Utils.SetParameters(beam, defaultData);
+              beam.ChangeProfile(sectionType, sectionName);
             }
-
-            beam.WriteToDb();
-
-            if (postWriteDBData != null)
-            {
-              Utils.SetParameters(beam, postWriteDBData);
-            }
-
           }
           else
           {
-            beam = Utils.GetObject(handle) as CompoundStraightBeam;
-
-            if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kCompoundStraightBeam))
-            {
-              Utils.AdjustBeamEnd(beam, beamStart);
-              beam.SetSysStart(beamStart);
-              beam.SetSysEnd(beamEnd);
-
-              if (defaultData != null)
-              {
-                Utils.SetParameters(beam, defaultData);
-              }
-
-              Utils.SetOrientation(beam, refVect);
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(beam, postWriteDBData);
-              }
-
-              if (Utils.CompareCompoundSectionTypes(sectionType, beam.ProfSectionType))
-              {
-                if (beam.ProfSectionName != sectionName)
-                {
-                  beam.ChangeProfile(sectionType, sectionName);
-                }
-              }
-              else
-              {
-                throw new System.Exception("Failed to change section as compound section type is different than the one created the beam was created with");
-              }
-            }
-            else
-              throw new System.Exception("Not a compound beam");
+            throw new System.Exception("Failed to change section as compound section type is different than the one created the beam was created with");
           }
-
-          Handle = beam.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
         }
+        else
+          throw new System.Exception("Not a compound beam");
       }
+
+      SetHandle(beam);
+
+      if (postWriteDBData != null)
+      {
+        Utils.SetParameters(beam, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
     }
 
 
@@ -143,24 +145,18 @@ namespace AdvanceSteel.Nodes.Beams
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
+      var beam = Utils.GetObject(Handle) as Beam;
+
+      Point3d asPt1 = beam.GetPointAtStart(0);
+      Point3d asPt2 = beam.GetPointAtEnd(0);
+
+      using (var pt1 = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
+      using (var pt2 = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var beam = Utils.GetObject(Handle) as Beam;
-
-          Point3d asPt1 = beam.GetPointAtStart(0);
-          Point3d asPt2 = beam.GetPointAtEnd(0);
-
-          using (var pt1 = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
-          using (var pt2 = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
-          {
-            var line = Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(pt1, pt2);
-            return line;
-          }
-        }
+        var line = Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(pt1, pt2);
+        return line;
       }
-
     }
+
   }
 }

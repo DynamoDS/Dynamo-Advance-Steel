@@ -6,6 +6,7 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
+using ASConcreteBeam = Autodesk.AdvanceSteel.Modelling.ConcreteBeam;
 
 namespace AdvanceSteel.Nodes.Concrete
 {
@@ -15,75 +16,80 @@ namespace AdvanceSteel.Nodes.Concrete
   [DynamoServices.RegisterForTrace]
   public class ConcreteStraightBeam : GraphicObject
   {
-    internal ConcreteStraightBeam()
-    {
-    }
-
-    internal ConcreteStraightBeam(string concName,
+    private ConcreteStraightBeam(string concName,
                               Autodesk.DesignScript.Geometry.Point ptStart,
                               Autodesk.DesignScript.Geometry.Point ptEnd,
                               Autodesk.DesignScript.Geometry.Vector vOrientation,
                               List<Property> concreteProperties)
     {
-      lock (access_obj)
+      SafeInit(() => InitConcreteStraightBeam(concName, ptStart, ptEnd, vOrientation, concreteProperties));
+    }
+
+    private ConcreteStraightBeam(ASConcreteBeam beam)
+    {
+      SafeInit(() => SetHandle(beam));
+    }
+
+    internal static ConcreteStraightBeam FromExisting(ASConcreteBeam beam)
+    {
+      return new ConcreteStraightBeam(beam)
       {
-        using (var ctx = new SteelServices.DocContext())
+        IsOwnedByDynamo = false
+      };
+    }
+
+    private void InitConcreteStraightBeam(string concName,
+                              Autodesk.DesignScript.Geometry.Point ptStart,
+                              Autodesk.DesignScript.Geometry.Point ptEnd,
+                              Autodesk.DesignScript.Geometry.Vector vOrientation,
+                              List<Property> concreteProperties)
+    {
+      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+      Point3d beamStart = Utils.ToAstPoint(ptStart, true);
+      Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
+      Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
+
+      ASConcreteBeam concBeam = SteelServices.ElementBinder.GetObjectASFromTrace<ASConcreteBeam>();
+      if (concBeam == null)
+      {
+        concBeam = new ASConcreteBeam(concName, beamStart, beamEnd, refVect);
+        if (defaultData != null)
         {
-          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-
-          Point3d beamStart = Utils.ToAstPoint(ptStart, true);
-          Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
-          Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
-
-          Autodesk.AdvanceSteel.Modelling.ConcreteBeam concBeam = null;
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-          {
-            concBeam = new Autodesk.AdvanceSteel.Modelling.ConcreteBeam(concName, beamStart, beamEnd, refVect);
-            if (defaultData != null)
-            {
-              Utils.SetParameters(concBeam, defaultData);
-            }
-
-            concBeam.WriteToDb();
-
-            if (postWriteDBData != null)
-            {
-              Utils.SetParameters(concBeam, postWriteDBData);
-            }
-          }
-          else
-          {
-            concBeam = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.ConcreteBeam;
-
-            if (concBeam != null && concBeam.IsKindOf(FilerObject.eObjectType.kConcreteBeam))
-            {
-              Utils.AdjustBeamEnd(concBeam, beamStart);
-              concBeam.SetSysStart(beamStart);
-              concBeam.SetSysEnd(beamEnd);
-              concBeam.ProfName = concName;
-
-              Utils.SetOrientation(concBeam, refVect);
-
-              if (defaultData != null)
-              {
-                Utils.SetParameters(concBeam, defaultData);
-              }
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(concBeam, postWriteDBData);
-              }
-            }
-            else
-              throw new System.Exception("Not a Concrete Straight Beam");
-          }
-          Handle = concBeam.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(concBeam);
+          Utils.SetParameters(concBeam, defaultData);
         }
+
+        concBeam.WriteToDb();
       }
+      else
+      {
+        if (concBeam != null && concBeam.IsKindOf(FilerObject.eObjectType.kConcreteBeam))
+        {
+          Utils.AdjustBeamEnd(concBeam, beamStart);
+          concBeam.SetSysStart(beamStart);
+          concBeam.SetSysEnd(beamEnd);
+          concBeam.ProfName = concName;
+
+          Utils.SetOrientation(concBeam, refVect);
+
+          if (defaultData != null)
+          {
+            Utils.SetParameters(concBeam, defaultData);
+          }
+        }
+        else
+          throw new System.Exception("Not a Concrete Straight Beam");
+      }
+
+      SetHandle(concBeam);
+
+      if (postWriteDBData != null)
+      {
+        Utils.SetParameters(concBeam, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(concBeam);
     }
 
     /// <summary>
@@ -157,23 +163,18 @@ namespace AdvanceSteel.Nodes.Concrete
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
+      ASConcreteBeam beam = Utils.GetObject(Handle) as ASConcreteBeam;
+
+      Point3d asPt1 = beam.GetPointAtStart(0);
+      Point3d asPt2 = beam.GetPointAtEnd(0);
+
+      using (var pt1 = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
+      using (var pt2 = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var beam = Utils.GetObject(Handle) as Beam;
-
-          Point3d asPt1 = beam.GetPointAtStart(0);
-          Point3d asPt2 = beam.GetPointAtEnd(0);
-
-          using (var pt1 = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
-          using (var pt2 = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
-          {
-            var line = Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(pt1, pt2);
-            return line;
-          }
-        }
+        var line = Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(pt1, pt2);
+        return line;
       }
     }
+
   }
 }

@@ -88,5 +88,22 @@ namespace Dynamo.Applications.AdvanceSteel.Services
             "Attempting to remove a wrapper, but there were no ids registered");
       }
     }
+
+    /// <summary>
+    /// Get the number of wrappers that are registered
+    /// </summary>
+    /// <param name="handle"></param>
+    /// <returns></returns>
+    public int GetRegisteredCount(string handle)
+    {
+      if (!wrappers.ContainsKey(handle))
+      {
+        return 0;
+      }
+      else
+      {
+        return wrappers[handle].Count;
+      }
+    }
   }
 }

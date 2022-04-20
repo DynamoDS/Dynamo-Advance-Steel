@@ -28,23 +28,6 @@ namespace AdvanceSteel.Nodes
     //GetDynGrating
     private static Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>> avaliableSteelObjects = new Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>>()
     {
-      { FilerObject.eObjectType.kStraightBeam, (string handle) => new StraightBeam() },
-      { FilerObject.eObjectType.kPolyBeam, (string handle) => new PolyBeam() },
-      { FilerObject.eObjectType.kUnfoldedStraightBeam, (string handle) => new UnFoldedBeam() },
-      { FilerObject.eObjectType.kCompoundStraightBeam, (string handle) => new CompoundBeam() },
-      { FilerObject.eObjectType.kBeamTapered, (string handle) => new TaperedBeam() },
-      { FilerObject.eObjectType.kBentBeam, (string handle) => new BentBeam() },
-      { FilerObject.eObjectType.kConcreteBentBeam, (string handle) => new ConcreteBentBeam() },
-      { FilerObject.eObjectType.kConcreteBeam, (string handle) => new ConcreteStraightBeam() },
-      { FilerObject.eObjectType.kFootingIsolated, (string handle) => new Footings() },
-      { FilerObject.eObjectType.kSlab, (string handle) => new Slabs() },
-      { FilerObject.eObjectType.kWall, (string handle) => new Walls() },
-      { FilerObject.eObjectType.kPlate, (string handle) => new Plate() },
-      { FilerObject.eObjectType.kGrating, (string handle) => GetDynGrating(handle) },
-      { FilerObject.eObjectType.kCamera, (string handle) => new Camera() },
-      { FilerObject.eObjectType.kGrid, (string handle) => new Grid() },
-      { FilerObject.eObjectType.kSpecialPart, (string handle) => new SpecialPart() },
-      { FilerObject.eObjectType.kAnchorPattern, (string handle) => GetDynAnchor(handle) },
       { FilerObject.eObjectType.kCircleScrewBoltPattern, (string handle) => new CircularBoltPattern() },
       { FilerObject.eObjectType.kConnector, (string handle) => GetDynShearStud(handle) },
       { FilerObject.eObjectType.kInfinitMidScrewBoltPattern, (string handle) => new RectangularBoltPattern() },
@@ -673,35 +656,6 @@ namespace AdvanceSteel.Nodes
       return filterSteelObjects;
     }
 
-    private static SteelDbObject GetDynGrating(string handle)
-    {
-      SteelDbObject foundSteelObj = null;
-      FilerObject obj = Utils.GetObject(handle);
-      if (obj != null)
-      {
-        if (avaliableSteelObjects.ContainsKey(obj.Type()))
-        {
-          if (obj.Type() == FilerObject.eObjectType.kGrating)
-          {
-            var gratings = obj as Autodesk.AdvanceSteel.Modelling.Grating;
-            switch (gratings.GratingType)
-            {
-              case Autodesk.AdvanceSteel.Modelling.Grating.eGratingType.kStandard:
-                foundSteelObj = new StandardGrating();
-                break;
-              case Autodesk.AdvanceSteel.Modelling.Grating.eGratingType.kVariable:
-                foundSteelObj = new VariableGrating();
-                break;
-              case Autodesk.AdvanceSteel.Modelling.Grating.eGratingType.kBar:
-                foundSteelObj = new BarGrating();
-                break;
-            }
-          }
-        }
-      }
-      return foundSteelObj;
-    }
-
     private static SteelDbObject GetDynShearStud(string handle)
     {
       SteelDbObject foundSteelObj = null;
@@ -720,30 +674,6 @@ namespace AdvanceSteel.Nodes
                 break;
               case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular:
                 foundSteelObj = new RectangularShearStudsPattern();
-                break;
-            }
-          }
-        }
-      }
-      return foundSteelObj;
-    }
-
-    private static SteelDbObject GetDynAnchor(string handle)
-    {
-      SteelDbObject foundSteelObj = null;
-      FilerObject obj = Utils.GetObject(handle);
-      if (obj != null)
-      {
-        if (avaliableSteelObjects.ContainsKey(obj.Type()))
-        {
-          if (obj.Type() == FilerObject.eObjectType.kAnchorPattern)
-          {
-            var anchors = obj as Autodesk.AdvanceSteel.Modelling.AnchorPattern;
-            switch (anchors.ArrangerType)
-            {
-              case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle:
-                break;
-              case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular:
                 break;
             }
           }

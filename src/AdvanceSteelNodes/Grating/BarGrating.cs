@@ -9,6 +9,7 @@ using Autodesk.AdvanceSteel.ConstructionTypes;
 using System.Collections.Generic;
 using Autodesk.AdvanceSteel.Geometry;
 using System.Linq;
+using ASGrating = Autodesk.AdvanceSteel.Modelling.Grating;
 
 namespace AdvanceSteel.Nodes.Gratings
 {
@@ -18,68 +19,71 @@ namespace AdvanceSteel.Nodes.Gratings
   [DynamoServices.RegisterForTrace]
   public class BarGrating : GraphicObject
   {
-    internal BarGrating()
+    private BarGrating(Vector3d vNormal, Point3d ptCenter, double dLength, List<Property> additionalGratingParameters)
     {
+      SafeInit(() => InitBarGrating(vNormal, ptCenter, dLength, additionalGratingParameters));
     }
 
-    internal BarGrating(Vector3d vNormal, Point3d ptCenter, double dLength, List<Property> additionalGratingParameters)
+    private BarGrating(ASGrating gratings)
     {
-      lock (access_obj)
+      SafeInit(() => SetHandle(gratings));
+    }
+
+    internal static BarGrating FromExisting(ASGrating gratings)
+    {
+      return new BarGrating(gratings)
       {
-        using (var ctx = new SteelServices.DocContext())
+        IsOwnedByDynamo = false
+      };
+    }
+
+    private void InitBarGrating(Vector3d vNormal, Point3d ptCenter, double dLength, List<Property> additionalGratingParameters)
+    {
+      List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == ".").ToList<Property>();
+      List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+      Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
+
+      ASGrating gratings = SteelServices.ElementBinder.GetObjectASFromTrace<ASGrating>();
+      if (gratings == null)
+      {
+        gratings = new Autodesk.AdvanceSteel.Modelling.Grating("ADT", 11, 2, "3 / 16 inch", "10", "3/16", plane, ptCenter, dLength);
+
+        if (defaultData != null)
         {
-          List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+          Utils.SetParameters(gratings, defaultData);
+        }
 
-          Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
-          Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+        gratings.WriteToDb();
+      }
+      else
+      {
+        if (gratings != null && gratings.IsKindOf(FilerObject.eObjectType.kGrating))
+        {
+          gratings.DefinitionPlane = plane;
+          gratings.SetLength(dLength, true);
 
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          if (defaultData != null)
           {
-
-            gratings = new Autodesk.AdvanceSteel.Modelling.Grating("ADT", 11, 2, "3 / 16 inch", "10", "3/16", plane, ptCenter, dLength);
-
-            if (defaultData != null)
-            {
-              Utils.SetParameters(gratings, defaultData);
-            }
-
-            gratings.WriteToDb();
-
-            if (postWriteDBData != null)
-            {
-              Utils.SetParameters(gratings, postWriteDBData);
-            }
+            Utils.SetParameters(gratings, defaultData);
           }
-          else
-          {
-            gratings = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Grating;
-            if (gratings != null && gratings.IsKindOf(FilerObject.eObjectType.kGrating))
-            {
-              gratings.DefinitionPlane = plane;
-              gratings.SetLength(dLength, true);
-
-              if (defaultData != null)
-              {
-                Utils.SetParameters(gratings, defaultData);
-              }
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(gratings, postWriteDBData);
-              }
-            }
-            else
-            {
-              throw new System.Exception("Not a Bar Grating pattern");
-            }
-          }
-          Handle = gratings.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(gratings);
+        }
+        else
+        {
+          throw new System.Exception("Not a Bar Grating pattern");
         }
       }
+
+      SetHandle(gratings);
+
+      if (postWriteDBData != null)
+      {
+        Utils.SetParameters(gratings, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(gratings);
     }
+
     /// <summary>
     /// Create an Advance Steel Bar Grating
     /// </summary>
@@ -117,23 +121,17 @@ namespace AdvanceSteel.Nodes.Gratings
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
+      var grating = Utils.GetObject(Handle) as ASGrating;
+
+      if (grating == null)
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var grating = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.Grating;
-
-          if (grating == null)
-          {
-            throw new Exception("Null Variable Grating pattern");
-          }
-
-          List<DynGeometry.Point> polyPoints = GratingDraw.GetPointsToDraw(grating);
-
-          return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
-        }
+        throw new Exception("Null Variable Grating pattern");
       }
+
+      List<DynGeometry.Point> polyPoints = GratingDraw.GetPointsToDraw(grating);
+
+      return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
     }
+
   }
 }
-

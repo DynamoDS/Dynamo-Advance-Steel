@@ -4,6 +4,7 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
+using ASFootingIsolated = Autodesk.AdvanceSteel.Modelling.FootingIsolated;
 
 namespace AdvanceSteel.Nodes.Concrete
 {
@@ -13,136 +14,131 @@ namespace AdvanceSteel.Nodes.Concrete
   [DynamoServices.RegisterForTrace]
   public class Footings : GraphicObject
   {
-    internal Footings()
-    {
-    }
-
-    internal Footings(Point3d ptCenter, Vector3d vNormal,
+    private Footings(Point3d ptCenter, Vector3d vNormal,
                       double depth, double radius,
                       List<Property> concreteProperties)
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-
-          Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
-
-          Autodesk.AdvanceSteel.Modelling.FootingIsolated padFooting = null;
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-          {
-            padFooting = new Autodesk.AdvanceSteel.Modelling.FootingIsolated(plane, ptCenter, radius);
-            padFooting.Thickness = depth;
-            if (defaultData != null)
-            {
-              Utils.SetParameters(padFooting, defaultData);
-            }
-
-            padFooting.WriteToDb();
-
-            if (postWriteDBData != null)
-            {
-              Utils.SetParameters(padFooting, postWriteDBData);
-            }
-          }
-          else
-          {
-            padFooting = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.FootingIsolated;
-
-            if (padFooting != null && padFooting.IsKindOf(FilerObject.eObjectType.kFootingIsolated))
-            {
-              padFooting.DefinitionPlane = plane;
-              padFooting.Thickness = depth;
-              padFooting.setRadius(radius, true);
-
-              if (defaultData != null)
-              {
-                Utils.SetParameters(padFooting, defaultData);
-              }
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(padFooting, postWriteDBData);
-              }
-            }
-            else
-              throw new System.Exception("Not an Isolated Footing");
-          }
-
-          Handle = padFooting.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(padFooting);
-        }
-      }
+      SafeInit(() => InitFootings(ptCenter, vNormal, depth, radius, concreteProperties));
     }
 
-    internal Footings(Point3d ptCenter, Vector3d vNormal,
+    private Footings(Point3d ptCenter, Vector3d vNormal,
                       double depth, double width, double length,
                       List<Property> concreteProperties)
     {
-      lock (access_obj)
+      SafeInit(() => InitFootings(ptCenter, vNormal, depth, width, length, concreteProperties));
+    }
+
+    private Footings(ASFootingIsolated padFooting)
+    {
+      SafeInit(() => SetHandle(padFooting));
+    }
+
+    internal static Footings FromExisting(ASFootingIsolated padFooting)
+    {
+      return new Footings(padFooting)
       {
-        using (var ctx = new SteelServices.DocContext())
+        IsOwnedByDynamo = false
+      };
+    }
+
+    private void InitFootings(Point3d ptCenter, Vector3d vNormal,
+                      double depth, double radius,
+                      List<Property> concreteProperties)
+    {
+      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+      Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
+
+      ASFootingIsolated padFooting = SteelServices.ElementBinder.GetObjectASFromTrace<ASFootingIsolated>();
+      if (padFooting == null)
+      {
+        padFooting = new ASFootingIsolated(plane, ptCenter, radius);
+        padFooting.Thickness = depth;
+        if (defaultData != null)
         {
-          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-
-          Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
-
-          Autodesk.AdvanceSteel.Modelling.FootingIsolated padFooting = null;
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-          {
-            padFooting = new Autodesk.AdvanceSteel.Modelling.FootingIsolated(plane, ptCenter, width, length);
-            padFooting.SetLength(length, false);
-            padFooting.SetWidth(width, false);
-            padFooting.Thickness = depth;
-
-            if (defaultData != null)
-            {
-              Utils.SetParameters(padFooting, defaultData);
-            }
-
-            padFooting.WriteToDb();
-
-            if (postWriteDBData != null)
-            {
-              Utils.SetParameters(padFooting, postWriteDBData);
-            }
-          }
-          else
-          {
-            padFooting = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.FootingIsolated;
-
-            if (padFooting != null && padFooting.IsKindOf(FilerObject.eObjectType.kFootingIsolated))
-            {
-              padFooting.DefinitionPlane = plane;
-              padFooting.Thickness = depth;
-              padFooting.SetLength(length, false);
-              padFooting.SetWidth(width, false);
-
-              if (defaultData != null)
-              {
-                Utils.SetParameters(padFooting, defaultData);
-              }
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(padFooting, postWriteDBData);
-              }
-            }
-            else
-              throw new System.Exception("Not an Isolated Footing");
-          }
-
-          Handle = padFooting.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(padFooting);
+          Utils.SetParameters(padFooting, defaultData);
         }
+
+        padFooting.WriteToDb();
       }
+      else
+      {
+        if (padFooting != null && padFooting.IsKindOf(FilerObject.eObjectType.kFootingIsolated))
+        {
+          padFooting.DefinitionPlane = plane;
+          padFooting.Thickness = depth;
+          padFooting.setRadius(radius, true);
+
+          if (defaultData != null)
+          {
+            Utils.SetParameters(padFooting, defaultData);
+          }
+        }
+        else
+          throw new System.Exception("Not an Isolated Footing");
+      }
+
+      SetHandle(padFooting);
+
+      if (postWriteDBData != null)
+      {
+        Utils.SetParameters(padFooting, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(padFooting);
+    }
+
+    private void InitFootings(Point3d ptCenter, Vector3d vNormal,
+                      double depth, double width, double length,
+                      List<Property> concreteProperties)
+    {
+      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+      Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
+
+      ASFootingIsolated padFooting = SteelServices.ElementBinder.GetObjectASFromTrace<ASFootingIsolated>();
+      if (padFooting == null)
+      {
+        padFooting = new ASFootingIsolated(plane, ptCenter, width, length);
+        padFooting.SetLength(length, false);
+        padFooting.SetWidth(width, false);
+        padFooting.Thickness = depth;
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(padFooting, defaultData);
+        }
+
+        padFooting.WriteToDb();
+      }
+      else
+      {
+        if (padFooting != null && padFooting.IsKindOf(FilerObject.eObjectType.kFootingIsolated))
+        {
+          padFooting.DefinitionPlane = plane;
+          padFooting.Thickness = depth;
+          padFooting.SetLength(length, false);
+          padFooting.SetWidth(width, false);
+
+          if (defaultData != null)
+          {
+            Utils.SetParameters(padFooting, defaultData);
+          }
+        }
+        else
+          throw new System.Exception("Not an Isolated Footing");
+      }
+
+      SetHandle(padFooting);
+
+      if (postWriteDBData != null)
+      {
+        Utils.SetParameters(padFooting, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(padFooting);
     }
 
     /// <summary>
@@ -196,23 +192,18 @@ namespace AdvanceSteel.Nodes.Concrete
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var padFooting = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.FootingIsolated;
+      var padFooting = Utils.GetObject(Handle) as ASFootingIsolated;
 
-          Polyline3d astPoly = null;
-          padFooting.GetBaseContourPolygon(0.0, out astPoly);
+      Polyline3d astPoly = null;
+      padFooting.GetBaseContourPolygon(0.0, out astPoly);
 
-          var dynPoints = Utils.ToDynPoints(astPoly.Vertices, true);
-          var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, astPoly.IsClosed);
+      var dynPoints = Utils.ToDynPoints(astPoly.Vertices, true);
+      var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, astPoly.IsClosed);
 
-          foreach (var pt in dynPoints) { pt.Dispose(); }
+      foreach (var pt in dynPoints) { pt.Dispose(); }
 
-          return poly;
-        }
-      }
+      return poly;
     }
+
   }
 }

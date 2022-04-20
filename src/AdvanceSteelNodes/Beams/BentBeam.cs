@@ -6,6 +6,7 @@ using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using System.Linq;
+using ASBentBeam = Autodesk.AdvanceSteel.Modelling.BentBeam;
 
 namespace AdvanceSteel.Nodes.Beams
 {
@@ -15,103 +16,108 @@ namespace AdvanceSteel.Nodes.Beams
   [DynamoServices.RegisterForTrace]
   public class BentBeam : GraphicObject
   {
-    internal BentBeam()
-    {
-    }
-
-    internal BentBeam(Autodesk.DesignScript.Geometry.Point ptStart,
+    private BentBeam(Autodesk.DesignScript.Geometry.Point ptStart,
                       Autodesk.DesignScript.Geometry.Point ptEnd,
                       Autodesk.DesignScript.Geometry.Point ptOnArc,
                       Autodesk.DesignScript.Geometry.Vector vOrientation,
                       int refAxis, bool crossSectionMirror,
                       List<Property> beamProperties)
     {
-      lock (access_obj)
+      SafeInit(() => InitBentBeam(ptStart, ptEnd, ptOnArc, vOrientation, refAxis, crossSectionMirror, beamProperties));
+    }
+
+    private BentBeam(ASBentBeam beam)
+    {
+      SafeInit(() => SetHandle(beam));
+    }
+
+    internal static BentBeam FromExisting(ASBentBeam beam)
+    {
+      return new BentBeam(beam)
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-          Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
-          string sectionName = "";
-          if (foundProfName != null)
-          {
-            sectionName = (string)foundProfName.InternalValue;
-          }
+        IsOwnedByDynamo = false
+      };
+    }
 
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-          Point3d beamStart = (ptStart == null ? new Point3d() : Utils.ToAstPoint(ptStart, true));
-          Point3d beamEnd = (ptEnd == null ? new Point3d() : Utils.ToAstPoint(ptEnd, true));
-          Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
-          Point3d pointOnArc = Utils.ToAstPoint(ptOnArc, true);
-
-          if (string.IsNullOrEmpty(sectionName))
-          {
-            ProfileName profName = new ProfileName();
-            ProfilesManager.GetProfTypeAsDefault("I", out profName);
-            sectionName = profName.Name;
-          }
-
-          Autodesk.AdvanceSteel.Modelling.BentBeam beam = null;
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-          {
-            beam = new Autodesk.AdvanceSteel.Modelling.BentBeam(sectionName, refVect, beamStart, pointOnArc, beamEnd);
-            if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
-            {
-              beam.RefAxis = (Beam.eRefAxis)refAxis;
-            }
-            beam.SetCrossSectionMirrored(crossSectionMirror, false);
-
-            if (defaultData != null)
-            {
-              Utils.SetParameters(beam, defaultData);
-            }
-
-            beam.WriteToDb();
-
-            if (postWriteDBData != null)
-            {
-              Utils.SetParameters(beam, postWriteDBData);
-            }
-          }
-          else
-          {
-            beam = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.BentBeam;
-
-            if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kBentBeam))
-            {
-              string sectionType = Utils.SplitSectionName(sectionName)[0];
-              string sectionSize = Utils.SplitSectionName(sectionName)[1];
-              beam.SetSystemline(beamStart, pointOnArc, beamEnd);
-              beam.ChangeProfile(sectionType, sectionSize);
-              if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
-              {
-                beam.RefAxis = (Beam.eRefAxis)refAxis;
-              }
-
-              if (defaultData != null)
-              {
-                Utils.SetParameters(beam, defaultData);
-              }
-
-              beam.SetCrossSectionMirrored(crossSectionMirror, false);
-              Utils.SetOrientation(beam, refVect);
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(beam, postWriteDBData);
-              }
-
-            }
-            else
-              throw new System.Exception("Not a bent Beam");
-          }
-
-          Handle = beam.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
-
-        }
+    private void InitBentBeam(Autodesk.DesignScript.Geometry.Point ptStart,
+                      Autodesk.DesignScript.Geometry.Point ptEnd,
+                      Autodesk.DesignScript.Geometry.Point ptOnArc,
+                      Autodesk.DesignScript.Geometry.Vector vOrientation,
+                      int refAxis, bool crossSectionMirror,
+                      List<Property> beamProperties)
+    {
+      List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
+      List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
+      string sectionName = "";
+      if (foundProfName != null)
+      {
+        sectionName = (string)foundProfName.InternalValue;
       }
+
+      Point3d beamStart = (ptStart == null ? new Point3d() : Utils.ToAstPoint(ptStart, true));
+      Point3d beamEnd = (ptEnd == null ? new Point3d() : Utils.ToAstPoint(ptEnd, true));
+      Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
+      Point3d pointOnArc = Utils.ToAstPoint(ptOnArc, true);
+
+      if (string.IsNullOrEmpty(sectionName))
+      {
+        ProfileName profName = new ProfileName();
+        ProfilesManager.GetProfTypeAsDefault("I", out profName);
+        sectionName = profName.Name;
+      }
+
+      ASBentBeam beam = SteelServices.ElementBinder.GetObjectASFromTrace<ASBentBeam>();
+      if (beam == null)
+      {
+        beam = new ASBentBeam(sectionName, refVect, beamStart, pointOnArc, beamEnd);
+        if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
+        {
+          beam.RefAxis = (Beam.eRefAxis)refAxis;
+        }
+        beam.SetCrossSectionMirrored(crossSectionMirror, false);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(beam, defaultData);
+        }
+
+        beam.WriteToDb();
+      }
+      else
+      {
+        if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kBentBeam))
+        {
+          string sectionType = Utils.SplitSectionName(sectionName)[0];
+          string sectionSize = Utils.SplitSectionName(sectionName)[1];
+          beam.SetSystemline(beamStart, pointOnArc, beamEnd);
+          beam.ChangeProfile(sectionType, sectionSize);
+          if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
+          {
+            beam.RefAxis = (Beam.eRefAxis)refAxis;
+          }
+
+          if (defaultData != null)
+          {
+            Utils.SetParameters(beam, defaultData);
+          }
+
+          beam.SetCrossSectionMirrored(crossSectionMirror, false);
+        
+          Utils.SetOrientation(beam, refVect);
+        }
+        else
+          throw new System.Exception("Not a bent Beam");
+      }
+
+      SetHandle(beam);
+
+      if (postWriteDBData != null)
+      {
+        Utils.SetParameters(beam, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
     }
 
     /// <summary>
@@ -190,21 +196,15 @@ namespace AdvanceSteel.Nodes.Beams
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var beam = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.BentBeam;
-          var midPointOnArc = beam.CenterPoint;
+      var beam = Utils.GetObject(Handle) as ASBentBeam;
+      var midPointOnArc = beam.CenterPoint;
 
-          using (var start = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
-          using (var end = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
-          using (var ptOnArc = Utils.ToDynPoint(midPointOnArc, true))
-          {
-            var arc = Autodesk.DesignScript.Geometry.Arc.ByThreePoints(start, ptOnArc, end);
-            return arc;
-          }
-        }
+      using (var start = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
+      using (var end = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
+      using (var ptOnArc = Utils.ToDynPoint(midPointOnArc, true))
+      {
+        var arc = Autodesk.DesignScript.Geometry.Arc.ByThreePoints(start, ptOnArc, end);
+        return arc;
       }
     }
 

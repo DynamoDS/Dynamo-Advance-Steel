@@ -2,6 +2,8 @@
 using Autodesk.DesignScript.Runtime;
 using System;
 using Dynamo.Applications.AdvanceSteel.Services;
+using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
+using Autodesk.AdvanceSteel.CADAccess;
 
 namespace AdvanceSteel.Nodes
 {
@@ -11,9 +13,85 @@ namespace AdvanceSteel.Nodes
   [IsVisibleInDynamoLibrary(false)]
   public abstract class SteelDbObject : SteelDynObject, IGraphicItem
   {
-    protected string ObjectHandle;
-    protected static readonly object access_obj = new object();
-    internal bool IsOwnedByDynamo = true;
+    private string ObjectHandle;
+    private static readonly object access_obj = new object();
+    protected bool IsOwnedByDynamo = true;
+
+    protected void SafeInit(Action init)
+    {
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var elementManager = LifecycleManager.GetInstance();
+
+          string handle = GetObjectASHandleFromTrace();
+          bool elementExist = !string.IsNullOrEmpty(handle);
+
+          int count = 0;
+          if (elementExist)
+          {
+            count = elementManager.GetRegisteredCount(handle);
+          }
+
+          try
+          {
+            init();
+          }
+          catch (Exception e)
+          {
+            //If the element is newly created and bound but the creation is aborted because
+            //of an exception, it need to be unregistered and deleted
+            if (!elementExist && ObjectHandle != null)
+            { 
+              var filerObject = Utils.GetObject(ObjectHandle);
+
+              if (filerObject != null)
+                filerObject.DelFromDb();
+
+              elementManager.UnRegisterAssociation(ObjectHandle, this);
+              ObjectHandle = null;
+              throw e;
+            }
+            else if (elementExist)
+            {
+              //If the internal element has already been bound, and if the registered count has increased,
+              //it need to be unregistered.
+              if (elementManager.GetRegisteredCount(handle) == (count + 1))
+              {
+                elementManager.UnRegisterAssociation(handle, this);
+                ObjectHandle = null;
+              }
+
+              //It means that the updating operation failed, an attemption of making a new element is made.
+              ElementBinder.SetRawDataForTrace(null);
+              SafeInit(init);
+            }
+            else
+            {
+              throw e;
+            }
+          }//catch
+
+        }// TransactionContext
+      }
+
+    }
+
+    private string GetObjectASHandleFromTrace()
+    {
+      FilerObject filerObject = ElementBinder.GetObjectASFromTrace<FilerObject>();
+
+      if (filerObject == null)
+        return null;
+
+      return filerObject.Handle;
+    }
+
+    protected void SetHandle(FilerObject pFilerObject)
+    {
+      this.Handle = pFilerObject.Handle;
+    }
 
     /// <summary>
     /// Property that holds the handle of the object
@@ -25,7 +103,7 @@ namespace AdvanceSteel.Nodes
       {
         return ObjectHandle;
       }
-      set
+      private set
       {
         ObjectHandle = value;
 

@@ -4,6 +4,7 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
+using ASPlate = Autodesk.AdvanceSteel.Modelling.Plate;
 
 namespace AdvanceSteel.Nodes.Plates
 {
@@ -13,177 +14,167 @@ namespace AdvanceSteel.Nodes.Plates
   [DynamoServices.RegisterForTrace]
   public class Plate : GraphicObject
   {
-    internal Plate()
+    private Plate(Point3d[] astPoints, Vector3d normal, List<Property> plateProperties)
     {
+      SafeInit(() => InitPlate(astPoints, normal, plateProperties));
     }
 
-    internal Plate(Point3d[] astPoints, Vector3d normal, List<Property> plateProperties)
+    private Plate(Point3d planePoint, Vector3d normal, double length, double width, int corner, List<Property> plateProperties)
+    {
+      SafeInit(() => InitPlate(planePoint, normal, length, width, corner, plateProperties));
+    }
+
+    private Plate(ASPlate plate)
+    {
+      SafeInit(() => SetHandle(plate));
+    }
+
+    internal static Plate FromExisting(ASPlate plate)
+    {
+      return new Plate(plate)
+      {
+        IsOwnedByDynamo = false
+      };
+    }
+
+    private void InitPlate(Point3d[] astPoints, Vector3d normal, List<Property> plateProperties)
     {
       //if (poly.IsPlanar == false)
       //  throw new System.Exception("Polygon is not planar");
 
-      lock (access_obj)
+      List<Property> defaultData = plateProperties.Where(x => x.Level == ".").ToList<Property>();
+      List<Property> postWriteDBData = plateProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+      //Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
+      var astPoly = new Autodesk.AdvanceSteel.Geometry.Polyline3d(astPoints, null, true, true);
+
+      if (astPoly.IsPlanar == false)
+        throw new System.Exception("Polygon is not planar");
+
+      var polyPlane = new Plane(astPoints[0], normal); // astPoly.Normal);
+
+      ASPlate plate = SteelServices.ElementBinder.GetObjectASFromTrace<ASPlate>();
+      if (plate == null)
       {
-        using (var ctx = new SteelServices.DocContext())
+        plate = new ASPlate(polyPlane, astPoints);
+        if (defaultData != null)
         {
-
-          List<Property> defaultData = plateProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = plateProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-
-          //Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
-          var astPoly = new Autodesk.AdvanceSteel.Geometry.Polyline3d(astPoints, null, true, true);
-
-          if (astPoly.IsPlanar == false)
-            throw new System.Exception("Polygon is not planar");
-
-          var polyPlane = new Plane(astPoints[0], normal); // astPoly.Normal);
-
-          Autodesk.AdvanceSteel.Modelling.Plate plate = null;
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-          {
-            plate = new Autodesk.AdvanceSteel.Modelling.Plate(polyPlane, astPoints);
-            if (defaultData != null)
-            {
-              Utils.SetParameters(plate, defaultData);
-            }
-
-            plate.WriteToDb();
-
-            if (postWriteDBData != null)
-            {
-              Utils.SetParameters(plate, postWriteDBData);
-            }
-
-          }
-          else
-          {
-            plate = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Plate;
-
-            if (plate != null && plate.IsKindOf(FilerObject.eObjectType.kPlate))
-            {
-              plate.DefinitionPlane = polyPlane;
-              if (defaultData != null)
-              {
-                Utils.SetParameters(plate, defaultData);
-              }
-
-              plate.SetPolygonContour(astPoints);
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(plate, postWriteDBData);
-              }
-
-            }
-            else
-              throw new System.Exception("Not a Plate");
-          }
-
-          Handle = plate.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(plate);
+          Utils.SetParameters(plate, defaultData);
         }
+
+        plate.WriteToDb();
       }
+      else
+      {
+        if (plate != null && plate.IsKindOf(FilerObject.eObjectType.kPlate))
+        {
+          plate.DefinitionPlane = polyPlane;
+          if (defaultData != null)
+          {
+            Utils.SetParameters(plate, defaultData);
+          }
+
+          plate.SetPolygonContour(astPoints);
+        }
+        else
+          throw new System.Exception("Not a Plate");
+      }
+
+      SetHandle(plate);
+
+      if (postWriteDBData != null)
+      {
+        Utils.SetParameters(plate, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(plate);
     }
 
-    internal Plate(Point3d planePoint, Vector3d normal, double length, double width, int corner, List<Property> plateProperties)
+    private void InitPlate(Point3d planePoint, Vector3d normal, double length, double width, int corner, List<Property> plateProperties)
     {
-      lock (access_obj)
+      List<Property> defaultData = plateProperties.Where(x => x.Level == ".").ToList<Property>();
+      List<Property> postWriteDBData = plateProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+      var polyPlane = new Plane(planePoint, normal);
+
+      ASPlate plate = SteelServices.ElementBinder.GetObjectASFromTrace<ASPlate>();
+      if (plate == null)
       {
-        using (var ctx = new SteelServices.DocContext())
+        plate = new ASPlate(polyPlane, planePoint, length, width);
+        plate.SetLengthAndWidth(length, width, 1);
+        Vector2d offset;
+        switch (corner)
         {
-          List<Property> defaultData = plateProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = plateProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-          var polyPlane = new Plane(planePoint, normal);
-
-          Autodesk.AdvanceSteel.Modelling.Plate plate = null;
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-          {
-            plate = new Autodesk.AdvanceSteel.Modelling.Plate(polyPlane, planePoint, length, width);
-            plate.SetLengthAndWidth(length, width, 1);
-            Vector2d offset;
-            switch (corner)
-            {
-              case 0:  //Top Left
-                offset = new Vector2d(-1, 1);
-                break;
-              case 1: //Top Right
-                offset = new Vector2d(1, 1);
-                break;
-              case 2: //Bottom Right
-                offset = new Vector2d(1, -1);
-                break;
-              case 3: //Bottom left
-                offset = new Vector2d(-1, -1);
-                break;
-              default: //Anything else ignore
-                offset = new Vector2d(0, 0);
-                break;
-            }
-            plate.Offset = offset;
-
-            if (defaultData != null)
-            {
-              Utils.SetParameters(plate, defaultData);
-            }
-
-            plate.WriteToDb();
-
-            if (postWriteDBData != null)
-            {
-              Utils.SetParameters(plate, postWriteDBData);
-            }
-          }
-          else
-          {
-            plate = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Plate;
-            if (plate != null && plate.IsKindOf(FilerObject.eObjectType.kPlate))
-            {
-              plate.DefinitionPlane = polyPlane;
-              plate.SetLengthAndWidth(length, width, 1);
-              Vector2d offset;
-              switch (corner)
-              {
-                case 0:  //Top Left
-                  offset = new Vector2d(-1, 1);
-                  break;
-                case 1: //Top Right
-                  offset = new Vector2d(1, 1);
-                  break;
-                case 2: //Bottom Right
-                  offset = new Vector2d(1, -1);
-                  break;
-                case 3: //Bottom left
-                  offset = new Vector2d(-1, -1);
-                  break;
-                default: //Anything else ignore
-                  offset = new Vector2d(0, 0);
-                  break;
-              }
-
-              if (defaultData != null)
-              {
-                Utils.SetParameters(plate, defaultData);
-              }
-
-              plate.Offset = offset;
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(plate, postWriteDBData);
-              }
-            }
-            else
-              throw new System.Exception("Not a Plate");
-          }
-
-          Handle = plate.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(plate);
+          case 0:  //Top Left
+            offset = new Vector2d(-1, 1);
+            break;
+          case 1: //Top Right
+            offset = new Vector2d(1, 1);
+            break;
+          case 2: //Bottom Right
+            offset = new Vector2d(1, -1);
+            break;
+          case 3: //Bottom left
+            offset = new Vector2d(-1, -1);
+            break;
+          default: //Anything else ignore
+            offset = new Vector2d(0, 0);
+            break;
         }
+        plate.Offset = offset;
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(plate, defaultData);
+        }
+
+        plate.WriteToDb();
       }
+      else
+      {
+        if (plate != null && plate.IsKindOf(FilerObject.eObjectType.kPlate))
+        {
+          plate.DefinitionPlane = polyPlane;
+          plate.SetLengthAndWidth(length, width, 1);
+          Vector2d offset;
+          switch (corner)
+          {
+            case 0:  //Top Left
+              offset = new Vector2d(-1, 1);
+              break;
+            case 1: //Top Right
+              offset = new Vector2d(1, 1);
+              break;
+            case 2: //Bottom Right
+              offset = new Vector2d(1, -1);
+              break;
+            case 3: //Bottom left
+              offset = new Vector2d(-1, -1);
+              break;
+            default: //Anything else ignore
+              offset = new Vector2d(0, 0);
+              break;
+          }
+
+          if (defaultData != null)
+          {
+            Utils.SetParameters(plate, defaultData);
+          }
+
+          plate.Offset = offset;
+        }
+        else
+          throw new System.Exception("Not a Plate");
+      }
+
+      SetHandle(plate);
+
+      if (postWriteDBData != null)
+      {
+        Utils.SetParameters(plate, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(plate);
     }
 
     /// <summary>
@@ -495,22 +486,17 @@ namespace AdvanceSteel.Nodes.Plates
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var plate = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.Plate;
+      var plate = Utils.GetObject(Handle) as ASPlate;
 
-          Polyline3d astPoly = null;
-          plate.GetBaseContourPolygon(0.0, out astPoly);
+      Polyline3d astPoly = null;
+      plate.GetBaseContourPolygon(0.0, out astPoly);
 
-          var dynPoints = Utils.ToDynPoints(astPoly.Vertices, true);
-          var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, astPoly.IsClosed);
-          foreach (var pt in dynPoints) { pt.Dispose(); }
+      var dynPoints = Utils.ToDynPoints(astPoly.Vertices, true);
+      var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, astPoly.IsClosed);
+      foreach (var pt in dynPoints) { pt.Dispose(); }
 
-          return poly;
-        }
-      }
+      return poly;
     }
+
   }
 }

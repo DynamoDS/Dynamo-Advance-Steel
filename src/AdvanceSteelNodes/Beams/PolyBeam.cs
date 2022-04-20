@@ -6,6 +6,7 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 using System.Linq;
+using ASPolyBeam = Autodesk.AdvanceSteel.Modelling.PolyBeam;
 
 namespace AdvanceSteel.Nodes.Beams
 {
@@ -15,84 +16,85 @@ namespace AdvanceSteel.Nodes.Beams
   [DynamoServices.RegisterForTrace]
   public class PolyBeam : GraphicObject
   {
-
-    internal PolyBeam()
+    private PolyBeam(Polyline3d poly,
+                         Autodesk.DesignScript.Geometry.Vector vOrientation,
+                         List<Property> beamProperties)
     {
+      SafeInit(() => InitPolyBeam(poly, vOrientation, beamProperties));
     }
 
-    internal PolyBeam(Polyline3d poly,
+    private PolyBeam(ASPolyBeam beam)
+    {
+      SafeInit(() => SetHandle(beam));
+    }
+
+    internal static PolyBeam FromExisting(ASPolyBeam beam)
+    {
+      return new PolyBeam(beam)
+      {
+        IsOwnedByDynamo = false
+      };
+    }
+
+    private void InitPolyBeam(Polyline3d poly,
                       Autodesk.DesignScript.Geometry.Vector vOrientation,
                       List<Property> beamProperties)
     {
-      lock (access_obj)
+      List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
+      List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
+      string sectionName = "";
+      if (foundProfName != null)
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
-
-          List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-          Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
-          string sectionName = "";
-          if (foundProfName != null)
-          {
-            sectionName = (string)foundProfName.InternalValue;
-          }
-
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-
-          if (string.IsNullOrEmpty(sectionName))
-          {
-            ProfileName profName = new ProfileName();
-            ProfilesManager.GetProfTypeAsDefault("I", out profName);
-            sectionName = profName.Name;
-          }
-
-          Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
-
-          Autodesk.AdvanceSteel.Modelling.PolyBeam beam = null;
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-          {
-            beam = new Autodesk.AdvanceSteel.Modelling.PolyBeam(sectionName, poly, refVect);
-
-            if (defaultData != null)
-            {
-              Utils.SetParameters(beam, defaultData);
-            }
-
-            beam.WriteToDb();
-
-            if (postWriteDBData != null)
-            {
-              Utils.SetParameters(beam, postWriteDBData);
-            }
-          }
-          else
-          {
-            beam = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.PolyBeam;
-
-            if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kPolyBeam))
-            {
-              beam.SetPolyline(poly);
-
-              if (defaultData != null)
-              {
-                Utils.SetParameters(beam, defaultData);
-              }
-
-              Utils.SetOrientation(beam, refVect);
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(beam, postWriteDBData);
-              }
-            }
-            else
-              throw new System.Exception("Not an UnFolded Straight Beam");
-          }
-          Handle = beam.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
-        }
+        sectionName = (string)foundProfName.InternalValue;
       }
+
+      if (string.IsNullOrEmpty(sectionName))
+      {
+        ProfileName profName = new ProfileName();
+        ProfilesManager.GetProfTypeAsDefault("I", out profName);
+        sectionName = profName.Name;
+      }
+
+      Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
+
+      ASPolyBeam beam = SteelServices.ElementBinder.GetObjectASFromTrace<ASPolyBeam>();
+      if (beam == null)
+      {
+        beam = new ASPolyBeam(sectionName, poly, refVect);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(beam, defaultData);
+        }
+
+        beam.WriteToDb();
+      }
+      else
+      {
+        if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kPolyBeam))
+        {
+          beam.SetPolyline(poly);
+
+          if (defaultData != null)
+          {
+            Utils.SetParameters(beam, defaultData);
+          }
+
+          Utils.SetOrientation(beam, refVect);
+        }
+        else
+          throw new System.Exception("Not an UnFolded Straight Beam");
+      }
+
+      SetHandle(beam);
+
+      if (postWriteDBData != null)
+      {
+        Utils.SetParameters(beam, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
     }
 
     /// <summary>
@@ -125,17 +127,11 @@ namespace AdvanceSteel.Nodes.Beams
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var beam = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.PolyBeam;
+      var beam = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.PolyBeam;
 
-          Polyline3d poly = beam.GetPolyline();
-          Autodesk.DesignScript.Geometry.PolyCurve pCurve = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(poly, true));
-          return pCurve;
-        }
-      }
+      Polyline3d poly = beam.GetPolyline();
+      Autodesk.DesignScript.Geometry.PolyCurve pCurve = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(poly, true));
+      return pCurve;
     }
 
     /// <summary>

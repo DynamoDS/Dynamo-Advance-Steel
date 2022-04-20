@@ -1,6 +1,7 @@
 ﻿using Autodesk.DesignScript.Interfaces;
 using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
+using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 
 namespace AdvanceSteel.Nodes
 {
@@ -15,8 +16,19 @@ namespace AdvanceSteel.Nodes
     private const byte DefB = 130;
     private const byte DefA = 255;
 
+    private static readonly object access_obj_graphic = new object();
+
     public virtual Autodesk.DesignScript.Geometry.Curve GetDynCurve() { return null; }
-    public virtual IEnumerable<IGraphicItem> GetDynGeometry() { return new List<IGraphicItem>() { GetDynCurve() }; }
+    public virtual IEnumerable<IGraphicItem> GetDynGeometry()
+    {
+      lock (access_obj_graphic)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          return new List<IGraphicItem>() { GetDynCurve() };
+        }
+      }
+    }
 
     public new void Tessellate(IRenderPackage package, TessellationParameters parameters)
     {
