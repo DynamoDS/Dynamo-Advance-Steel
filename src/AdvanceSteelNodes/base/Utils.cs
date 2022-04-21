@@ -28,9 +28,6 @@ namespace AdvanceSteel.Nodes
     //GetDynGrating
     private static Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>> avaliableSteelObjects = new Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>>()
     {
-      { FilerObject.eObjectType.kCircleScrewBoltPattern, (string handle) => new CircularBoltPattern() },
-      { FilerObject.eObjectType.kConnector, (string handle) => GetDynShearStud(handle) },
-      { FilerObject.eObjectType.kInfinitMidScrewBoltPattern, (string handle) => new RectangularBoltPattern() },
       { FilerObject.eObjectType.kWeldStraight, (string handle) => new WeldLine() },
       { FilerObject.eObjectType.kWeldLevel, (string handle) => new WeldPoint() },
       { FilerObject.eObjectType.kBeamNotch2Ortho, (string handle) => new BeamCope() },
@@ -654,32 +651,6 @@ namespace AdvanceSteel.Nodes
     public static Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string> GetASObjectFilters()
     {
       return filterSteelObjects;
-    }
-
-    private static SteelDbObject GetDynShearStud(string handle)
-    {
-      SteelDbObject foundSteelObj = null;
-      FilerObject obj = Utils.GetObject(handle);
-      if (obj != null)
-      {
-        if (avaliableSteelObjects.ContainsKey(obj.Type()))
-        {
-          if (obj.Type() == FilerObject.eObjectType.kConnector)
-          {
-            var shearStuds = obj as Autodesk.AdvanceSteel.Modelling.Connector;
-            switch (shearStuds.Arranger.Type)
-            {
-              case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle:
-                foundSteelObj = new CircularShearStudsPattern();
-                break;
-              case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular:
-                foundSteelObj = new RectangularShearStudsPattern();
-                break;
-            }
-          }
-        }
-      }
-      return foundSteelObj;
     }
 
     public static IEnumerable<SteelDbObject> GetDynObjects(IEnumerable<string> handlesToFind)

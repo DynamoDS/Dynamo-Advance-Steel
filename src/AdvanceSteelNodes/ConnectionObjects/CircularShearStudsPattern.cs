@@ -9,6 +9,7 @@ using Autodesk.AdvanceSteel.ConstructionTypes;
 using System.Collections.Generic;
 using Autodesk.AdvanceSteel.Geometry;
 using System.Linq;
+using ASConnector = Autodesk.AdvanceSteel.Modelling.Connector;
 
 namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
 {
@@ -18,79 +19,83 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
   [DynamoServices.RegisterForTrace]
   public class CircularShearStudsPattern : GraphicObject
   {
-    internal CircularShearStudsPattern()
-    {
-    }
-
-    internal CircularShearStudsPattern(string handleToConnect,
+    private CircularShearStudsPattern(string handleToConnect,
                                         SteelGeometry.Matrix3d coordSyst,
                                         List<Property> shearStudData,
                                         int boltCon)
     {
-      lock (access_obj)
+      SafeInit(() => InitCircularShearStudsPattern(handleToConnect, coordSyst, shearStudData, boltCon));
+    }
+
+    private CircularShearStudsPattern(ASConnector shearStuds)
+    {
+      SafeInit(() => SetHandle(shearStuds));
+    }
+
+    internal static CircularShearStudsPattern FromExisting(ASConnector shearStuds)
+    {
+      return new CircularShearStudsPattern(shearStuds)
       {
-        using (var ctx = new SteelServices.DocContext())
+        IsOwnedByDynamo = false
+      };
+    }
+
+    private void InitCircularShearStudsPattern(string handleToConnect,
+                                        SteelGeometry.Matrix3d coordSyst,
+                                        List<Property> shearStudData,
+                                        int boltCon)
+    {
+      List<Property> defaultShearStudData = shearStudData.Where(x => x.Level == ".").ToList<Property>();
+      List<Property> arrangerShearStudData = shearStudData.Where(x => x.Level == "Arranger").ToList<Property>();
+      List<Property> postWriteDBData = shearStudData.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+      ASConnector shearStuds = SteelServices.ElementBinder.GetObjectASFromTrace<ASConnector>();
+      if (shearStuds == null)
+      {
+        var temp_radius = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Radius").InternalValue;
+        var temp_noss = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "NumberOfElements").InternalValue;
+
+        shearStuds = new ASConnector();
+        shearStuds.Arranger = new Autodesk.AdvanceSteel.Arrangement.CircleArranger(Matrix2d.kIdentity, temp_radius, temp_noss);
+
+        if (defaultShearStudData != null)
+        {
+          Utils.SetParameters(shearStuds, defaultShearStudData);
+        }
+
+        Utils.SetParameters(shearStuds.Arranger, arrangerShearStudData);
+
+        shearStuds.WriteToDb();
+      }
+      else
+      {
+        if (shearStuds != null && shearStuds.IsKindOf(FilerObject.eObjectType.kConnector))
         {
 
-          List<Property> defaultShearStudData = shearStudData.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> arrangerShearStudData = shearStudData.Where(x => x.Level == "Arranger").ToList<Property>();
-          List<Property> postWriteDBData = shearStudData.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-          Autodesk.AdvanceSteel.Modelling.Connector shearStuds = null;
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          if (defaultShearStudData != null)
           {
-            var temp_radius = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Radius").InternalValue;
-            var temp_noss = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "NumberOfElements").InternalValue;
-
-            shearStuds = new Autodesk.AdvanceSteel.Modelling.Connector();
-            shearStuds.Arranger = new Autodesk.AdvanceSteel.Arrangement.CircleArranger(Matrix2d.kIdentity, temp_radius, temp_noss);
-
-            if (defaultShearStudData != null)
-            {
-              Utils.SetParameters(shearStuds, defaultShearStudData);
-            }
-
-            Utils.SetParameters(shearStuds.Arranger, arrangerShearStudData);
-
-            shearStuds.WriteToDb();
-
-            if (postWriteDBData != null)
-            {
-              Utils.SetParameters(shearStuds, postWriteDBData);
-            }
-
+            Utils.SetParameters(shearStuds, defaultShearStudData);
           }
-          else
-          {
-            shearStuds = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Connector;
-            if (shearStuds != null && shearStuds.IsKindOf(FilerObject.eObjectType.kConnector))
-            {
 
-              if (defaultShearStudData != null)
-              {
-                Utils.SetParameters(shearStuds, defaultShearStudData);
-              }
+          Utils.SetParameters(shearStuds.Arranger, arrangerShearStudData);
 
-              Utils.SetParameters(shearStuds.Arranger, arrangerShearStudData);
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(shearStuds, postWriteDBData);
-              }
-
-            }
-            else
-              throw new System.Exception("Not a shear stud pattern");
-          }
-          FilerObject obj = Utils.GetObject(handleToConnect);
-          Autodesk.AdvanceSteel.Modelling.WeldPoint weld = shearStuds.Connect(obj, coordSyst);
-          weld.AssemblyLocation = (AtomicElement.eAssemblyLocation)boltCon;
-
-          Handle = shearStuds.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(shearStuds);
         }
+        else
+          throw new System.Exception("Not a shear stud pattern");
       }
+    
+      SetHandle(shearStuds);
+
+      if (postWriteDBData != null)
+      {
+        Utils.SetParameters(shearStuds, postWriteDBData);
+      }
+
+      FilerObject obj = Utils.GetObject(handleToConnect);
+      Autodesk.AdvanceSteel.Modelling.WeldPoint weld = shearStuds.Connect(obj, coordSyst);
+      weld.AssemblyLocation = (AtomicElement.eAssemblyLocation)boltCon;
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(shearStuds);
     }
 
     /// <summary>
@@ -190,21 +195,15 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
+      var shearStud = Utils.GetObject(Handle) as ASConnector;
+      if (shearStud == null)
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var shearStud = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.Connector;
-          if (shearStud == null)
-          {
-            throw new Exception("Null shear stud pattern");
-          }
-          using (var point = Utils.ToDynPoint(shearStud.CenterPoint, true))
-          using (var norm = Utils.ToDynVector(shearStud.Normal, true))
-          {
-            return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadiusNormal(point, Utils.FromInternalDistanceUnits(shearStud.Arranger.Radius, true), norm);
-          }
-        }
+        throw new Exception("Null shear stud pattern");
+      }
+      using (var point = Utils.ToDynPoint(shearStud.CenterPoint, true))
+      using (var norm = Utils.ToDynVector(shearStud.Normal, true))
+      {
+        return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadiusNormal(point, Utils.FromInternalDistanceUnits(shearStud.Arranger.Radius, true), norm);
       }
     }
 

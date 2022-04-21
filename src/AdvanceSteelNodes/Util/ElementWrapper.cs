@@ -10,6 +10,9 @@ using AdvanceSteel.Nodes.Concrete;
 using AdvanceSteel.Nodes.Gratings;
 using AdvanceSteel.Nodes.Plates;
 using AdvanceSteel.Nodes.Miscellaneous;
+using AdvanceSteel.Nodes.ConnectionObjects.Anchors;
+using AdvanceSteel.Nodes.ConnectionObjects.Bolts;
+using AdvanceSteel.Nodes.ConnectionObjects.ShearStuds;
 
 using ASStraightBeam = Autodesk.AdvanceSteel.Modelling.StraightBeam;
 using ASCompoundStraightBeam = Autodesk.AdvanceSteel.Modelling.CompoundStraightBeam;
@@ -28,7 +31,10 @@ using ASCamera = Autodesk.AdvanceSteel.ConstructionHelper.Camera;
 using ASGrid = Autodesk.AdvanceSteel.Modelling.Grid;
 using ASSpecialPart = Autodesk.AdvanceSteel.Modelling.SpecialPart;
 using ASAnchorPattern = Autodesk.AdvanceSteel.Modelling.AnchorPattern;
-using AdvanceSteel.Nodes.ConnectionObjects.Anchors;
+using ASCircleScrewBoltPattern = Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern;
+using ASConnector = Autodesk.AdvanceSteel.Modelling.Connector;
+using ASFinitRectScrewBoltPattern = Autodesk.AdvanceSteel.Modelling.FinitRectScrewBoltPattern;
+using ASInfinitMidScrewBoltPattern = Autodesk.AdvanceSteel.Modelling.InfinitMidScrewBoltPattern;
 
 namespace AdvanceSteel.Nodes
 {
@@ -233,6 +239,54 @@ namespace AdvanceSteel.Nodes
         default:
           throw new NotImplementedException("Anchor not implemented");
       }
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS CircleScrewBoltPattern
+    /// </summary>
+    /// <param name="bolt"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASCircleScrewBoltPattern bolt)
+    {
+      return CircularBoltPattern.FromExisting(bolt);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS AnchorPattern
+    /// </summary>
+    /// <param name="shearStuds"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASConnector shearStuds)
+    {
+      switch (shearStuds.Arranger.Type)
+      {
+        case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle:
+          return CircularShearStudsPattern.FromExisting(shearStuds);
+        case Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular:
+          return RectangularShearStudsPattern.FromExisting(shearStuds);
+        default:
+          throw new NotImplementedException("Shear Studs not implemented");
+      }
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS FinitRectScrewBoltPattern
+    /// </summary>
+    /// <param name="bolt"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASFinitRectScrewBoltPattern bolt)
+    {
+      return RectangularBoltPattern.FromExisting(bolt);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS InfinitMidScrewBoltPattern
+    /// </summary>
+    /// <param name="bolt"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASInfinitMidScrewBoltPattern bolt)
+    {
+      return RectangularBoltPattern.FromExisting(bolt);
     }
 
   }
