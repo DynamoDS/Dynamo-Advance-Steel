@@ -75,12 +75,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       }
       else
       {
-        if (bolts != null && bolts.IsKindOf(FilerObject.eObjectType.kInfinitMidScrewBoltPattern))
-        {
-          Utils.SetParameters(bolts, boltData);
-        }
-        else
+        if (!bolts.IsKindOf(FilerObject.eObjectType.kInfinitMidScrewBoltPattern))
           throw new System.Exception("Not a rectangular pattern");
+
+        Utils.SetParameters(bolts, boltData);
       }
 
       SetHandle(bolts);
@@ -111,20 +109,17 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       }
       else
       {
-        if (bolts != null && bolts.IsKindOf(FilerObject.eObjectType.kFinitRectScrewBoltPattern))
-        {
-          bolts.XDirection = vx;
-          bolts.YDirection = vy;
-
-          bolts.RefPoint = astPoint1 + (astPoint2 - astPoint1) * 0.5;
-          bolts.Length = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
-          bolts.Height = Utils.GetRectangleHeight(astPoint1, astPoint2, vy);
-
-          Utils.SetParameters(bolts, boltData);
-
-        }
-        else
+        if (!bolts.IsKindOf(FilerObject.eObjectType.kFinitRectScrewBoltPattern))
           throw new System.Exception("Not a rectangular pattern");
+
+        bolts.XDirection = vx;
+        bolts.YDirection = vy;
+
+        bolts.RefPoint = astPoint1 + (astPoint2 - astPoint1) * 0.5;
+        bolts.Length = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
+        bolts.Height = Utils.GetRectangleHeight(astPoint1, astPoint2, vy);
+
+        Utils.SetParameters(bolts, boltData);
       }
 
       SetHandle(bolts);

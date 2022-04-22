@@ -72,33 +72,31 @@ namespace AdvanceSteel.Nodes.Beams
       }
       else
       {
-        if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kCompoundStraightBeam))
+        if (!beam.IsKindOf(FilerObject.eObjectType.kCompoundStraightBeam))
+          throw new System.Exception("Not a compound beam");
+
+        Utils.AdjustBeamEnd(beam, beamStart);
+        beam.SetSysStart(beamStart);
+        beam.SetSysEnd(beamEnd);
+
+        if (defaultData != null)
         {
-          Utils.AdjustBeamEnd(beam, beamStart);
-          beam.SetSysStart(beamStart);
-          beam.SetSysEnd(beamEnd);
+          Utils.SetParameters(beam, defaultData);
+        }
 
-          if (defaultData != null)
-          {
-            Utils.SetParameters(beam, defaultData);
-          }
+        Utils.SetOrientation(beam, refVect);
 
-          Utils.SetOrientation(beam, refVect);
-
-          if (Utils.CompareCompoundSectionTypes(sectionType, beam.ProfSectionType))
+        if (Utils.CompareCompoundSectionTypes(sectionType, beam.ProfSectionType))
+        {
+          if (beam.ProfSectionName != sectionName)
           {
-            if (beam.ProfSectionName != sectionName)
-            {
-              beam.ChangeProfile(sectionType, sectionName);
-            }
-          }
-          else
-          {
-            throw new System.Exception("Failed to change section as compound section type is different than the one created the beam was created with");
+            beam.ChangeProfile(sectionType, sectionName);
           }
         }
         else
-          throw new System.Exception("Not a compound beam");
+        {
+          throw new System.Exception("Failed to change section as compound section type is different than the one created the beam was created with");
+        }
       }
 
       SetHandle(beam);

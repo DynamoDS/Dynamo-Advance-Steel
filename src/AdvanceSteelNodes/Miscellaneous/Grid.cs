@@ -61,22 +61,20 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       }
       else
       {
-        if (myGrid != null && myGrid.IsKindOf(FilerObject.eObjectType.kGrid))
-        {
-          myGrid.updateWidth(length);
-          if (width > 0)
-          {
-            myGrid.updateLength(width);
-            myGrid.setNumElementPerSequence(0, noOfAxis);
-          }
+        if (!myGrid.IsKindOf(FilerObject.eObjectType.kGrid))
+          throw new System.Exception("Not a Grid");
 
-          if (defaultData != null)
-          {
-            Utils.SetParameters(myGrid, defaultData);
-          }
+        myGrid.updateWidth(length);
+        if (width > 0)
+        {
+          myGrid.updateLength(width);
+          myGrid.setNumElementPerSequence(0, noOfAxis);
         }
-        else
-          throw new System.Exception("Not a Camera");
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(myGrid, defaultData);
+        }
       }
 
       SetHandle(myGrid);

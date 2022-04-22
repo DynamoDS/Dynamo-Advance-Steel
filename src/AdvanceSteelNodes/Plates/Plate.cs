@@ -66,18 +66,16 @@ namespace AdvanceSteel.Nodes.Plates
       }
       else
       {
-        if (plate != null && plate.IsKindOf(FilerObject.eObjectType.kPlate))
-        {
-          plate.DefinitionPlane = polyPlane;
-          if (defaultData != null)
-          {
-            Utils.SetParameters(plate, defaultData);
-          }
-
-          plate.SetPolygonContour(astPoints);
-        }
-        else
+        if (!plate.IsKindOf(FilerObject.eObjectType.kPlate))
           throw new System.Exception("Not a Plate");
+
+        plate.DefinitionPlane = polyPlane;
+        if (defaultData != null)
+        {
+          Utils.SetParameters(plate, defaultData);
+        }
+
+        plate.SetPolygonContour(astPoints);
       }
 
       SetHandle(plate);
@@ -132,39 +130,37 @@ namespace AdvanceSteel.Nodes.Plates
       }
       else
       {
-        if (plate != null && plate.IsKindOf(FilerObject.eObjectType.kPlate))
-        {
-          plate.DefinitionPlane = polyPlane;
-          plate.SetLengthAndWidth(length, width, 1);
-          Vector2d offset;
-          switch (corner)
-          {
-            case 0:  //Top Left
-              offset = new Vector2d(-1, 1);
-              break;
-            case 1: //Top Right
-              offset = new Vector2d(1, 1);
-              break;
-            case 2: //Bottom Right
-              offset = new Vector2d(1, -1);
-              break;
-            case 3: //Bottom left
-              offset = new Vector2d(-1, -1);
-              break;
-            default: //Anything else ignore
-              offset = new Vector2d(0, 0);
-              break;
-          }
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(plate, defaultData);
-          }
-
-          plate.Offset = offset;
-        }
-        else
+        if (!plate.IsKindOf(FilerObject.eObjectType.kPlate))
           throw new System.Exception("Not a Plate");
+
+        plate.DefinitionPlane = polyPlane;
+        plate.SetLengthAndWidth(length, width, 1);
+        Vector2d offset;
+        switch (corner)
+        {
+          case 0:  //Top Left
+            offset = new Vector2d(-1, 1);
+            break;
+          case 1: //Top Right
+            offset = new Vector2d(1, 1);
+            break;
+          case 2: //Bottom Right
+            offset = new Vector2d(1, -1);
+            break;
+          case 3: //Bottom left
+            offset = new Vector2d(-1, -1);
+            break;
+          default: //Anything else ignore
+            offset = new Vector2d(0, 0);
+            break;
+        }
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(plate, defaultData);
+        }
+
+        plate.Offset = offset;
       }
 
       SetHandle(plate);

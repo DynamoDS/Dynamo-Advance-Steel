@@ -53,15 +53,13 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       }
       else
       {
-        if (anchors != null && anchors.IsKindOf(FilerObject.eObjectType.kAnchorPattern))
-        {
-          SetAnchorSetOutDetails(anchors, astPointRef, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle);
-          anchors.XDirection = vx;
-          anchors.YDirection = vy;
-          Utils.SetParameters(anchors, anchorBoltData);
-        }
-        else
+        if (!anchors.IsKindOf(FilerObject.eObjectType.kAnchorPattern))
           throw new System.Exception("Not a circular pattern");
+
+        SetAnchorSetOutDetails(anchors, astPointRef, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle);
+        anchors.XDirection = vx;
+        anchors.YDirection = vy;
+        Utils.SetParameters(anchors, anchorBoltData);
       }
 
       SetHandle(anchors);

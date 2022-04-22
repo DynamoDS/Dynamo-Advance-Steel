@@ -52,15 +52,13 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       }
       else
       {
-        if (camera != null && camera.IsKindOf(FilerObject.eObjectType.kCamera))
-        {
-          if (defaultData != null)
-          {
-            Utils.SetParameters(camera, defaultData);
-          }
-        }
-        else
+        if (!camera.IsKindOf(FilerObject.eObjectType.kCamera))
           throw new System.Exception("Not a Camera");
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(camera, defaultData);
+        }
       }
 
       SetHandle(camera);

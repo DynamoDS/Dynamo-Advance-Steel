@@ -56,17 +56,14 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       }
       else
       {
-        if (bolt != null && bolt.IsKindOf(FilerObject.eObjectType.kCircleScrewBoltPattern))
-        {
-          bolt.RefPoint = holeInsertPoint;
-          bolt.XDirection = vx;
-          bolt.YDirection = vy;
-
-          Utils.SetParameters(bolt, boltData);
-
-        }
-        else
+        if (!bolt.IsKindOf(FilerObject.eObjectType.kCircleScrewBoltPattern))
           throw new System.Exception("Not a circular pattern");
+
+        bolt.RefPoint = holeInsertPoint;
+        bolt.XDirection = vx;
+        bolt.YDirection = vy;
+
+        Utils.SetParameters(bolt, boltData);
       }
 
       SetHandle(bolt);

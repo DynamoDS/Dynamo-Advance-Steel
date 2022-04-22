@@ -86,28 +86,26 @@ namespace AdvanceSteel.Nodes.Beams
       }
       else
       {
-        if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kBentBeam))
-        {
-          string sectionType = Utils.SplitSectionName(sectionName)[0];
-          string sectionSize = Utils.SplitSectionName(sectionName)[1];
-          beam.SetSystemline(beamStart, pointOnArc, beamEnd);
-          beam.ChangeProfile(sectionType, sectionSize);
-          if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
-          {
-            beam.RefAxis = (Beam.eRefAxis)refAxis;
-          }
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(beam, defaultData);
-          }
-
-          beam.SetCrossSectionMirrored(crossSectionMirror, false);
-        
-          Utils.SetOrientation(beam, refVect);
-        }
-        else
+        if (!beam.IsKindOf(FilerObject.eObjectType.kBentBeam))
           throw new System.Exception("Not a bent Beam");
+
+        string sectionType = Utils.SplitSectionName(sectionName)[0];
+        string sectionSize = Utils.SplitSectionName(sectionName)[1];
+        beam.SetSystemline(beamStart, pointOnArc, beamEnd);
+        beam.ChangeProfile(sectionType, sectionSize);
+        if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
+        {
+          beam.RefAxis = (Beam.eRefAxis)refAxis;
+        }
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(beam, defaultData);
+        }
+
+        beam.SetCrossSectionMirrored(crossSectionMirror, false);
+
+        Utils.SetOrientation(beam, refVect);
       }
 
       SetHandle(beam);

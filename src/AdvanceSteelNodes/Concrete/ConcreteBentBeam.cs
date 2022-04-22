@@ -66,21 +66,19 @@ namespace AdvanceSteel.Nodes.Concrete
       }
       else
       {
-        if (concBentBeam != null && concBentBeam.IsKindOf(FilerObject.eObjectType.kConcreteBentBeam))
-        {
-          concBentBeam.SetSystemline(beamStart, pointOnArc, beamEnd);
-          concBentBeam.SetSysStart(beamStart);
-          concBentBeam.SetSysEnd(beamEnd);
-          concBentBeam.ProfName = concName;
-          Utils.SetOrientation(concBentBeam, refVect);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(concBentBeam, defaultData);
-          }
-        }
-        else
+        if (!concBentBeam.IsKindOf(FilerObject.eObjectType.kConcreteBentBeam))
           throw new System.Exception("Not a Bent Concrete Beam");
+
+        concBentBeam.SetSystemline(beamStart, pointOnArc, beamEnd);
+        concBentBeam.SetSysStart(beamStart);
+        concBentBeam.SetSysEnd(beamEnd);
+        concBentBeam.ProfName = concName;
+        Utils.SetOrientation(concBentBeam, refVect);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(concBentBeam, defaultData);
+        }
       }
 
       SetHandle(concBentBeam);

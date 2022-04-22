@@ -54,13 +54,11 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       }
       else
       {
-        if (anchors != null && anchors.IsKindOf(FilerObject.eObjectType.kAnchorPattern))
-        {
-          SetAnchorSetOutDetails(anchors, anchorBoltPatternInsertPoint, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular);
-          Utils.SetParameters(anchors, anchorBoltData);
-        }
-        else
+        if (!anchors.IsKindOf(FilerObject.eObjectType.kAnchorPattern))
           throw new System.Exception("Not an anchor pattern");
+
+        SetAnchorSetOutDetails(anchors, anchorBoltPatternInsertPoint, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular);
+        Utils.SetParameters(anchors, anchorBoltData);
       }
 
       SetHandle(anchors);
@@ -94,20 +92,17 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       }
       else
       {
-        if (anchors != null && anchors.IsKindOf(FilerObject.eObjectType.kAnchorPattern))
-        {
-          SetAnchorSetOutDetails(anchors, astPoint1 + (astPoint2 - astPoint1) * 0.5, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kBounded);
-
-          double aLengthX = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
-          double aLengthY = Utils.GetRectangleLength(astPoint1, astPoint2, vy);
-          anchors.SetArrangerLength(aLengthX, 0);
-          anchors.SetArrangerLength(aLengthY, 1);
-
-          Utils.SetParameters(anchors, anchorBoltData);
-
-        }
-        else
+        if (!anchors.IsKindOf(FilerObject.eObjectType.kAnchorPattern))
           throw new System.Exception("Not an anchor pattern");
+
+        SetAnchorSetOutDetails(anchors, astPoint1 + (astPoint2 - astPoint1) * 0.5, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kBounded);
+
+        double aLengthX = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
+        double aLengthY = Utils.GetRectangleLength(astPoint1, astPoint2, vy);
+        anchors.SetArrangerLength(aLengthX, 0);
+        anchors.SetArrangerLength(aLengthY, 1);
+
+        Utils.SetParameters(anchors, anchorBoltData);
       }
 
       SetHandle(anchors);

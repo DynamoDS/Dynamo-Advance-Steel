@@ -58,19 +58,15 @@ namespace AdvanceSteel.Nodes.Gratings
       }
       else
       {
-        if (gratings != null && gratings.IsKindOf(FilerObject.eObjectType.kGrating))
-        {
-          gratings.DefinitionPlane = plane;
-          gratings.SetLength(dLength, true);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(gratings, defaultData);
-          }
-        }
-        else
-        {
+        if (!gratings.IsKindOf(FilerObject.eObjectType.kGrating))
           throw new System.Exception("Not a Bar Grating pattern");
+
+        gratings.DefinitionPlane = plane;
+        gratings.SetLength(dLength, true);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(gratings, defaultData);
         }
       }
 

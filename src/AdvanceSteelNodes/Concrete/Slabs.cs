@@ -68,7 +68,7 @@ namespace AdvanceSteel.Nodes.Concrete
       var polyPlane = new Plane(astPoints[0], astPoly.Normal);
 
       ASSlab floorSlab = SteelServices.ElementBinder.GetObjectASFromTrace<ASSlab>();
-      if(floorSlab == null)
+      if (floorSlab == null)
       {
         floorSlab = new ASSlab(polyPlane, astPoints);
         floorSlab.Thickness = thickness;
@@ -85,23 +85,21 @@ namespace AdvanceSteel.Nodes.Concrete
       }
       else
       {
-        if (floorSlab != null && floorSlab.IsKindOf(FilerObject.eObjectType.kSlab))
-        {
-          floorSlab.DefinitionPlane = polyPlane;
-          floorSlab.Thickness = thickness;
-          Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
-          IEnumerable<ObjectId> deletedFeaturesIds = null;
-          IEnumerable<ObjectId> newFeaturesIds = null;
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(floorSlab, defaultData);
-          }
-
-          floorSlab.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
-        }
-        else
+        if (!floorSlab.IsKindOf(FilerObject.eObjectType.kSlab))
           throw new System.Exception("Not a Slab");
+
+        floorSlab.DefinitionPlane = polyPlane;
+        floorSlab.Thickness = thickness;
+        Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
+        IEnumerable<ObjectId> deletedFeaturesIds = null;
+        IEnumerable<ObjectId> newFeaturesIds = null;
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(floorSlab, defaultData);
+        }
+
+        floorSlab.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
       }
 
       SetHandle(floorSlab);
@@ -140,21 +138,17 @@ namespace AdvanceSteel.Nodes.Concrete
       }
       else
       {
-        if (floorSlab != null && floorSlab.IsKindOf(FilerObject.eObjectType.kSlab))
-        {
-          floorSlab.DefinitionPlane = plane;
-          floorSlab.Thickness = thickness;
-          floorSlab.SetLength(dWidth, true);
-          floorSlab.SetWidth(dLength, true);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(floorSlab, defaultData);
-          }
-        }
-        else
-        {
+        if (!floorSlab.IsKindOf(FilerObject.eObjectType.kSlab))
           throw new System.Exception("Not a Slab");
+
+        floorSlab.DefinitionPlane = plane;
+        floorSlab.Thickness = thickness;
+        floorSlab.SetLength(dWidth, true);
+        floorSlab.SetWidth(dLength, true);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(floorSlab, defaultData);
         }
       }
 
@@ -193,20 +187,16 @@ namespace AdvanceSteel.Nodes.Concrete
       }
       else
       {
-        if (floorSlab != null && floorSlab.IsKindOf(FilerObject.eObjectType.kSlab))
-        {
-          floorSlab.DefinitionPlane = plane;
-          floorSlab.setRadius(dRadius, true); //Not Working
-          floorSlab.Thickness = thickness;
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(floorSlab, defaultData);
-          }
-        }
-        else
-        {
+        if (!floorSlab.IsKindOf(FilerObject.eObjectType.kSlab))
           throw new System.Exception("Not a Slab");
+
+        floorSlab.DefinitionPlane = plane;
+        floorSlab.setRadius(dRadius, true); //Not Working
+        floorSlab.Thickness = thickness;
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(floorSlab, defaultData);
         }
       }
 

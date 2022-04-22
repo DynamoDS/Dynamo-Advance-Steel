@@ -55,8 +55,8 @@ namespace AdvanceSteel.Nodes.Beams
       Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
 
       ASBeamTapered beam = SteelServices.ElementBinder.GetObjectASFromTrace<ASBeamTapered>();
-      if (beam == null) 
-      { 
+      if (beam == null)
+      {
         beam = new ASBeamTapered(beamStart, beamEnd, refVect, startHeight, endHeight, webThickness);
         beam.CreateComponents();
 
@@ -69,21 +69,19 @@ namespace AdvanceSteel.Nodes.Beams
       }
       else
       {
-        if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kBeamTapered))
-        {
-          Utils.AdjustBeamEnd(beam, beamStart);
-          beam.SetSysStart(beamStart);
-          beam.SetSysEnd(beamEnd);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(beam, defaultData);
-          }
-
-          Utils.SetOrientation(beam, refVect);
-        }
-        else
+        if (!beam.IsKindOf(FilerObject.eObjectType.kBeamTapered))
           throw new System.Exception("Not a tapered beam");
+
+        Utils.AdjustBeamEnd(beam, beamStart);
+        beam.SetSysStart(beamStart);
+        beam.SetSysEnd(beamEnd);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(beam, defaultData);
+        }
+
+        Utils.SetOrientation(beam, refVect);
       }
 
       SetHandle(beam);

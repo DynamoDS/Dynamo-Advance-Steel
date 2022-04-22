@@ -72,19 +72,17 @@ namespace AdvanceSteel.Nodes.Beams
       }
       else
       {
-        if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kPolyBeam))
-        {
-          beam.SetPolyline(poly);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(beam, defaultData);
-          }
-
-          Utils.SetOrientation(beam, refVect);
-        }
-        else
+        if (!beam.IsKindOf(FilerObject.eObjectType.kPolyBeam))
           throw new System.Exception("Not an UnFolded Straight Beam");
+
+        beam.SetPolyline(poly);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(beam, defaultData);
+        }
+
+        Utils.SetOrientation(beam, refVect);
       }
 
       SetHandle(beam);

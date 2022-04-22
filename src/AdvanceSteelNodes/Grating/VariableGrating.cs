@@ -76,22 +76,18 @@ namespace AdvanceSteel.Nodes.Gratings
       }
       else
       {
-        if (gratings != null && gratings.IsKindOf(FilerObject.eObjectType.kGrating))
-        {
-          gratings.GratingClass = strClass;
-          gratings.GratingSize = strName;
-          gratings.DefinitionPlane = plane;
-          gratings.SetLength(dWidth, true);
-          gratings.SetWidth(dLength, true);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(gratings, defaultData);
-          }
-        }
-        else
-        {
+        if (!gratings.IsKindOf(FilerObject.eObjectType.kGrating))
           throw new System.Exception("Not a Variable Grating pattern");
+
+        gratings.GratingClass = strClass;
+        gratings.GratingSize = strName;
+        gratings.DefinitionPlane = plane;
+        gratings.SetLength(dWidth, true);
+        gratings.SetWidth(dLength, true);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(gratings, defaultData);
         }
       }
 
@@ -132,21 +128,17 @@ namespace AdvanceSteel.Nodes.Gratings
       }
       else
       {
-        if (gratings != null && gratings.IsKindOf(FilerObject.eObjectType.kGrating))
-        {
-          gratings.GratingClass = strClass;
-          gratings.GratingSize = strName;
-          gratings.DefinitionPlane = plane;
-          gratings.SetPolygonContour(astPoints);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(gratings, defaultData);
-          }
-        }
-        else
-        {
+        if (!gratings.IsKindOf(FilerObject.eObjectType.kGrating))
           throw new System.Exception("Not a Variable Grating pattern");
+
+        gratings.GratingClass = strClass;
+        gratings.GratingSize = strName;
+        gratings.DefinitionPlane = plane;
+        gratings.SetPolygonContour(astPoints);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(gratings, defaultData);
         }
       }
 

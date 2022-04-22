@@ -67,21 +67,19 @@ namespace AdvanceSteel.Nodes.Beams
       }
       else
       {
-        if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kUnfoldedStraightBeam))
-        {
-          Utils.AdjustBeamEnd(beam, beamStart);
-          beam.SetSysStart(beamStart);
-          beam.SetSysEnd(beamEnd);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(beam, defaultData);
-          }
-
-          Utils.SetOrientation(beam, refVect);
-        }
-        else
+        if (!beam.IsKindOf(FilerObject.eObjectType.kUnfoldedStraightBeam))
           throw new System.Exception("Not an UnFolded Straight Beam");
+
+        Utils.AdjustBeamEnd(beam, beamStart);
+        beam.SetSysStart(beamStart);
+        beam.SetSysEnd(beamEnd);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(beam, defaultData);
+        }
+
+        Utils.SetOrientation(beam, refVect);
       }
 
       SetHandle(beam);

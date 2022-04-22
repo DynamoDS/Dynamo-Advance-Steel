@@ -69,19 +69,15 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       }
       else
       {
-        if (shearStuds != null && shearStuds.IsKindOf(FilerObject.eObjectType.kConnector))
-        {
-
-          if (defaultShearStudData != null)
-          {
-            Utils.SetParameters(shearStuds, defaultShearStudData);
-          }
-
-          Utils.SetParameters(shearStuds.Arranger, arrangerShearStudData);
-
-        }
-        else
+        if (!shearStuds.IsKindOf(FilerObject.eObjectType.kConnector))
           throw new System.Exception("Not a shear stud pattern");
+
+        if (defaultShearStudData != null)
+        {
+          Utils.SetParameters(shearStuds, defaultShearStudData);
+        }
+
+        Utils.SetParameters(shearStuds.Arranger, arrangerShearStudData);
       }
     
       SetHandle(shearStuds);

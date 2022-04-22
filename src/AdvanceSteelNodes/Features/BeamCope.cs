@@ -95,19 +95,17 @@ namespace AdvanceSteel.Nodes.Features
       }
       else
       {
-        if (beamFeat != null && beamFeat.IsKindOf(FilerObject.eObjectType.kBeamNotch2Ortho))
-        {
-          beamFeat.End = (Beam.eEnd)end;
-          beamFeat.Side = (Beam.eSide)side;
-          beamFeat.SetCorner((BeamNotch.eBeamNotchCornerType)cnrType, radius);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(beamFeat, defaultData);
-          }
-        }
-        else
+        if (!beamFeat.IsKindOf(FilerObject.eObjectType.kBeamNotch2Ortho))
           throw new System.Exception("Not a Beam Feature");
+
+        beamFeat.End = (Beam.eEnd)end;
+        beamFeat.Side = (Beam.eSide)side;
+        beamFeat.SetCorner((BeamNotch.eBeamNotchCornerType)cnrType, radius);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(beamFeat, defaultData);
+        }
       }
 
       SetHandle(beamFeat);

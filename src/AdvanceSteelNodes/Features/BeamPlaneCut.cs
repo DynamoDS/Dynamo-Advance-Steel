@@ -72,16 +72,14 @@ namespace AdvanceSteel.Nodes.Features
       }
       else
       {
-        if (beamFeat != null && beamFeat.IsKindOf(FilerObject.eObjectType.kBeamShortening))
-        {
-          beamFeat.Set(cutPoint, normal);
-          if (defaultData != null)
-          {
-            Utils.SetParameters(beamFeat, defaultData);
-          }
-        }
-        else
+        if (!beamFeat.IsKindOf(FilerObject.eObjectType.kBeamShortening))
           throw new System.Exception("Not a Beam Shorting Feature");
+
+        beamFeat.Set(cutPoint, normal);
+        if (defaultData != null)
+        {
+          Utils.SetParameters(beamFeat, defaultData);
+        }
       }
 
       SetHandle(beamFeat);
@@ -162,16 +160,14 @@ namespace AdvanceSteel.Nodes.Features
       }
       else
       {
-        if (beamFeat != null && beamFeat.IsKindOf(FilerObject.eObjectType.kBeamShortening))
-        {
-          beamFeat.Set(cutPoint, normal);
-          if (defaultData != null)
-          {
-            Utils.SetParameters(beamFeat, defaultData);
-          }
-        }
-        else
+        if (!beamFeat.IsKindOf(FilerObject.eObjectType.kBeamShortening))
           throw new System.Exception("Not a Beam Shorting Feature");
+
+        beamFeat.Set(cutPoint, normal);
+        if (defaultData != null)
+        {
+          Utils.SetParameters(beamFeat, defaultData);
+        }
       }
 
       SetHandle(beamFeat);

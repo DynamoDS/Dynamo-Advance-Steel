@@ -64,22 +64,20 @@ namespace AdvanceSteel.Nodes.Concrete
       }
       else
       {
-        if (concBeam != null && concBeam.IsKindOf(FilerObject.eObjectType.kConcreteBeam))
-        {
-          Utils.AdjustBeamEnd(concBeam, beamStart);
-          concBeam.SetSysStart(beamStart);
-          concBeam.SetSysEnd(beamEnd);
-          concBeam.ProfName = concName;
-
-          Utils.SetOrientation(concBeam, refVect);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(concBeam, defaultData);
-          }
-        }
-        else
+        if (!concBeam.IsKindOf(FilerObject.eObjectType.kConcreteBeam))
           throw new System.Exception("Not a Concrete Straight Beam");
+
+        Utils.AdjustBeamEnd(concBeam, beamStart);
+        concBeam.SetSysStart(beamStart);
+        concBeam.SetSysEnd(beamEnd);
+        concBeam.ProfName = concName;
+
+        Utils.SetOrientation(concBeam, refVect);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(concBeam, defaultData);
+        }
       }
 
       SetHandle(concBeam);

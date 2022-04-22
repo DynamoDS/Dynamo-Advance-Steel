@@ -46,6 +46,8 @@ namespace AdvanceSteel.Nodes
       if (package is IRenderPackageSupplement packageSupplement)
       {
         int size = (package.MeshVertexCount - previousMeshVertexCount) * 4;
+        if (size == 0) return;
+
         packageSupplement.AddTextureMapForMeshVerticesRange(previousMeshVertexCount, package.MeshVertexCount - 1, CreateColorByteArrayOfSize(size, DefR, DefG, DefB, DefA), size);
 
         if (package.LineVertexCount > previousLineVertexCount)

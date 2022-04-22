@@ -75,21 +75,17 @@ namespace AdvanceSteel.Nodes.Concrete
       }
       else
       {
-        if (wallObject != null && wallObject.IsKindOf(FilerObject.eObjectType.kWall))
-        {
-          wallObject.DefinitionPlane = plane;
-          wallObject.Thickness = thickness;
-          wallObject.SetLength(dLength, true);
-          wallObject.SetWidth(dHeight, true);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(wallObject, defaultData);
-          }
-        }
-        else
-        {
+        if (!wallObject.IsKindOf(FilerObject.eObjectType.kWall))
           throw new System.Exception("Not a Wall");
+
+        wallObject.DefinitionPlane = plane;
+        wallObject.Thickness = thickness;
+        wallObject.SetLength(dLength, true);
+        wallObject.SetWidth(dHeight, true);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(wallObject, defaultData);
         }
       }
 
@@ -149,26 +145,22 @@ namespace AdvanceSteel.Nodes.Concrete
       }
       else
       {
-        if (wallObject != null && wallObject.IsKindOf(FilerObject.eObjectType.kWall))
-        {
-          //TODO - Missing SetPolygon
-          wallObject.DefinitionPlane = plane;
-          wallObject.Thickness = thickness;
-          Polyline3d outerPoly = new Polyline3d(wallPoints, cornerRadii, true, yAxis, false, 0, true, true);
-          IEnumerable<ObjectId> deletedFeaturesIds = null;
-          IEnumerable<ObjectId> newFeaturesIds = null;
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(wallObject, defaultData);
-          }
-
-          wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
-        }
-        else
-        {
+        if (!wallObject.IsKindOf(FilerObject.eObjectType.kWall))
           throw new System.Exception("Not a Wall");
+
+        //TODO - Missing SetPolygon
+        wallObject.DefinitionPlane = plane;
+        wallObject.Thickness = thickness;
+        Polyline3d outerPoly = new Polyline3d(wallPoints, cornerRadii, true, yAxis, false, 0, true, true);
+        IEnumerable<ObjectId> deletedFeaturesIds = null;
+        IEnumerable<ObjectId> newFeaturesIds = null;
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(wallObject, defaultData);
         }
+
+        wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
       }
 
       SetHandle(wallObject);
@@ -216,23 +208,21 @@ namespace AdvanceSteel.Nodes.Concrete
       }
       else
       {
-        if (wallObject != null && wallObject.IsKindOf(FilerObject.eObjectType.kWall))
+        if (!wallObject.IsKindOf(FilerObject.eObjectType.kWall))
+          throw new System.Exception("Not a Wall");
+
+        wallObject.DefinitionPlane = polyPlane;
+        wallObject.Thickness = thickness;
+        Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
+        IEnumerable<ObjectId> deletedFeaturesIds = null;
+        IEnumerable<ObjectId> newFeaturesIds = null;
+
+        if (defaultData != null)
         {
-          wallObject.DefinitionPlane = polyPlane;
-          wallObject.Thickness = thickness;
-          Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
-          IEnumerable<ObjectId> deletedFeaturesIds = null;
-          IEnumerable<ObjectId> newFeaturesIds = null;
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(wallObject, defaultData);
-          }
-
-          wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
+          Utils.SetParameters(wallObject, defaultData);
         }
-        else
-          throw new System.Exception("Not a Slab");
+
+        wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
       }
 
       SetHandle(wallObject);

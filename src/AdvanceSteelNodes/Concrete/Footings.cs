@@ -64,19 +64,17 @@ namespace AdvanceSteel.Nodes.Concrete
       }
       else
       {
-        if (padFooting != null && padFooting.IsKindOf(FilerObject.eObjectType.kFootingIsolated))
-        {
-          padFooting.DefinitionPlane = plane;
-          padFooting.Thickness = depth;
-          padFooting.setRadius(radius, true);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(padFooting, defaultData);
-          }
-        }
-        else
+        if (!padFooting.IsKindOf(FilerObject.eObjectType.kFootingIsolated))
           throw new System.Exception("Not an Isolated Footing");
+
+        padFooting.DefinitionPlane = plane;
+        padFooting.Thickness = depth;
+        padFooting.setRadius(radius, true);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(padFooting, defaultData);
+        }
       }
 
       SetHandle(padFooting);
@@ -115,20 +113,18 @@ namespace AdvanceSteel.Nodes.Concrete
       }
       else
       {
-        if (padFooting != null && padFooting.IsKindOf(FilerObject.eObjectType.kFootingIsolated))
-        {
-          padFooting.DefinitionPlane = plane;
-          padFooting.Thickness = depth;
-          padFooting.SetLength(length, false);
-          padFooting.SetWidth(width, false);
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(padFooting, defaultData);
-          }
-        }
-        else
+        if (!padFooting.IsKindOf(FilerObject.eObjectType.kFootingIsolated))
           throw new System.Exception("Not an Isolated Footing");
+
+        padFooting.DefinitionPlane = plane;
+        padFooting.Thickness = depth;
+        padFooting.SetLength(length, false);
+        padFooting.SetWidth(width, false);
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(padFooting, defaultData);
+        }
       }
 
       SetHandle(padFooting);

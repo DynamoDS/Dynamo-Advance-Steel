@@ -47,14 +47,12 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Welds
       }
       else
       {
-        if (weld != null && weld.IsKindOf(FilerObject.eObjectType.kWeldPattern))
-        {
-          Matrix3d coordinateSystem = new Matrix3d();
-          coordinateSystem.SetCoordSystem(astPoint, Vector3d.kXAxis, Vector3d.kYAxis, Vector3d.kZAxis);
-          weld.SetCS(coordinateSystem);
-        }
-        else
+        if (!weld.IsKindOf(FilerObject.eObjectType.kWeldPattern))
           throw new System.Exception("Not a weld point");
+
+        Matrix3d coordinateSystem = new Matrix3d();
+        coordinateSystem.SetCoordSystem(astPoint, Vector3d.kXAxis, Vector3d.kYAxis, Vector3d.kZAxis);
+        weld.SetCS(coordinateSystem);
       }
 
       SetHandle(weld);

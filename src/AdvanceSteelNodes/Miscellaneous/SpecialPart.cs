@@ -54,16 +54,14 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       }
       else
       {
-        if (specPart != null && specPart.IsKindOf(FilerObject.eObjectType.kSpecialPart))
-        {
-          specPart.SetBlock(blockName, scale);
-          if (defaultData != null)
-          {
-            Utils.SetParameters(specPart, defaultData);
-          }
-        }
-        else
+        if (!specPart.IsKindOf(FilerObject.eObjectType.kSpecialPart))
           throw new System.Exception("Not a Special Part");
+
+        specPart.SetBlock(blockName, scale);
+        if (defaultData != null)
+        {
+          Utils.SetParameters(specPart, defaultData);
+        }
       }
 
       SetHandle(specPart);
