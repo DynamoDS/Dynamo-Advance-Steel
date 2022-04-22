@@ -25,20 +25,7 @@ namespace AdvanceSteel.Nodes
   public static class Utils
   {
     private static readonly string separator = "#@§@#";
-    //GetDynGrating
-    private static Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>> avaliableSteelObjects = new Dictionary<FilerObject.eObjectType, Func<string, SteelDbObject>>()
-    {
-      { FilerObject.eObjectType.kWeldStraight, (string handle) => new WeldLine() },
-      { FilerObject.eObjectType.kWeldLevel, (string handle) => new WeldPoint() },
-      { FilerObject.eObjectType.kBeamNotch2Ortho, (string handle) => new BeamCope() },
-      { FilerObject.eObjectType.kBeamNotchEx, (string handle) => new BeamCope() },
-      { FilerObject.eObjectType.kBeamShortening, (string handle) => new BeamPlaneCut() },
-      { FilerObject.eObjectType.kBeamMultiContourNotch, (string handle) => new BeamPolycut() },
-      { FilerObject.eObjectType.kPlateFeatContour, (string handle) => new PlatePolycut() },
-      { FilerObject.eObjectType.kPlateFeatVertFillet, (string handle) => new PlateVertexCut() },
-      { FilerObject.eObjectType.kConnectionHolePlate, (string handle) => new PlateHoles() }
-    };
-
+   
     private static readonly Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string> filterSteelObjects = new Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string>()
     {
       { FilerObject.eObjectType.kUnknown , "Select Object Type..." },
@@ -661,19 +648,17 @@ namespace AdvanceSteel.Nodes
         foreach (var objHandle in handlesToFind)
         {
           FilerObject obj = Utils.GetObject(objHandle);
-          if (obj != null)
-          {
-            if (avaliableSteelObjects.ContainsKey(obj.Type()))
-            {
-              SteelDbObject foundSteelObj = avaliableSteelObjects[obj.Type()](objHandle);
-              foundSteelObj.Handle = objHandle;
-              retListOfSteelObjects.Add(foundSteelObj);
-            }
-          }
-          else
+          if (obj == null)
           {
             throw new System.Exception("Object is empty");
           }
+
+          if (filterSteelObjects.ContainsKey(obj.Type()))
+          {
+            SteelDbObject foundSteelObj = obj.ToDSType();
+            retListOfSteelObjects.Add(foundSteelObj);
+          }
+
         }
       }
       return retListOfSteelObjects;
@@ -702,11 +687,9 @@ namespace AdvanceSteel.Nodes
             if (obj != null)
             {
               string objHandle = obj.Handle;
-              if (avaliableSteelObjects.ContainsKey(obj.Type()))
+              if (filterSteelObjects.ContainsKey(obj.Type()))
               {
-                SteelDbObject foundSteelObj = avaliableSteelObjects[obj.Type()](objHandle);
-                foundSteelObj.IsOwnedByDynamo = false;
-                foundSteelObj.Handle = objHandle;
+                SteelDbObject foundSteelObj = obj.ToDSType();
                 retListOfSteelObjects.Add(foundSteelObj);
               }
             }

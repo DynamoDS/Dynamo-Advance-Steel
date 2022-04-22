@@ -83,29 +83,27 @@ namespace AdvanceSteel.Nodes.Beams
       }
       else
       {
-        if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kStraightBeam))
-        {
-          string sectionType = Utils.SplitSectionName(sectionName)[0];
-          string sectionSize = Utils.SplitSectionName(sectionName)[1];
-          Utils.AdjustBeamEnd(beam, beamStart);
-          beam.SetSysStart(beamStart);
-          beam.SetSysEnd(beamEnd);
-          beam.ChangeProfile(sectionType, sectionSize);
-          if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
-          {
-            beam.RefAxis = (Beam.eRefAxis)refAxis;
-          }
-
-          if (defaultData != null)
-          {
-            Utils.SetParameters(beam, defaultData);
-          }
-
-          beam.SetCrossSectionMirrored(crossSectionMirror, false);
-          Utils.SetOrientation(beam, refVect);
-        }
-        else
+        if (!beam.IsKindOf(FilerObject.eObjectType.kStraightBeam))
           throw new System.Exception("Not a straight Beam");
+
+        string sectionType = Utils.SplitSectionName(sectionName)[0];
+        string sectionSize = Utils.SplitSectionName(sectionName)[1];
+        Utils.AdjustBeamEnd(beam, beamStart);
+        beam.SetSysStart(beamStart);
+        beam.SetSysEnd(beamEnd);
+        beam.ChangeProfile(sectionType, sectionSize);
+        if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
+        {
+          beam.RefAxis = (Beam.eRefAxis)refAxis;
+        }
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(beam, defaultData);
+        }
+
+        beam.SetCrossSectionMirrored(crossSectionMirror, false);
+        Utils.SetOrientation(beam, refVect);
       }
 
       SetHandle(beam);

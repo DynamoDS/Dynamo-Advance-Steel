@@ -13,6 +13,8 @@ using AdvanceSteel.Nodes.Miscellaneous;
 using AdvanceSteel.Nodes.ConnectionObjects.Anchors;
 using AdvanceSteel.Nodes.ConnectionObjects.Bolts;
 using AdvanceSteel.Nodes.ConnectionObjects.ShearStuds;
+using AdvanceSteel.Nodes.ConnectionObjects.Welds;
+using AdvanceSteel.Nodes.Features;
 
 using ASStraightBeam = Autodesk.AdvanceSteel.Modelling.StraightBeam;
 using ASCompoundStraightBeam = Autodesk.AdvanceSteel.Modelling.CompoundStraightBeam;
@@ -35,6 +37,16 @@ using ASCircleScrewBoltPattern = Autodesk.AdvanceSteel.Modelling.CircleScrewBolt
 using ASConnector = Autodesk.AdvanceSteel.Modelling.Connector;
 using ASFinitRectScrewBoltPattern = Autodesk.AdvanceSteel.Modelling.FinitRectScrewBoltPattern;
 using ASInfinitMidScrewBoltPattern = Autodesk.AdvanceSteel.Modelling.InfinitMidScrewBoltPattern;
+using ASWeldLine = Autodesk.AdvanceSteel.Modelling.WeldLine;
+using ASWeldPoint = Autodesk.AdvanceSteel.Modelling.WeldPoint;
+using ASBeamNotch2Ortho = Autodesk.AdvanceSteel.Modelling.BeamNotch2Ortho;
+using ASBeamNotchEx = Autodesk.AdvanceSteel.Modelling.BeamNotchEx;
+using ASBeamShortening = Autodesk.AdvanceSteel.Modelling.BeamShortening;
+using ASBeamMultiContourNotch = Autodesk.AdvanceSteel.Modelling.BeamMultiContourNotch;
+using ASPlateFeatContour = Autodesk.AdvanceSteel.Modelling.PlateFeatContour;
+using ASPlateContourNotch = Autodesk.AdvanceSteel.Modelling.PlateContourNotch;
+using ASPlateFeatVertFillet = Autodesk.AdvanceSteel.Modelling.PlateFeatVertFillet;
+using ASConnectionHolePlate = Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
 
 namespace AdvanceSteel.Nodes
 {
@@ -287,6 +299,106 @@ namespace AdvanceSteel.Nodes
     private static SteelDbObject Wrap(ASInfinitMidScrewBoltPattern bolt)
     {
       return RectangularBoltPattern.FromExisting(bolt);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS WeldLine
+    /// </summary>
+    /// <param name="wed"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASWeldLine wed)
+    {
+      return WeldLine.FromExisting(wed);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS WeldPoint
+    /// </summary>
+    /// <param name="wed"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASWeldPoint wed)
+    {
+      return WeldPoint.FromExisting(wed);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS BeamNotch2Ortho
+    /// </summary>
+    /// <param name="beamFeat"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASBeamNotch2Ortho beamFeat)
+    {
+      return BeamCope.FromExisting(beamFeat);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS BeamNotchEx
+    /// </summary>
+    /// <param name="beamFeat"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASBeamNotchEx beamFeat)
+    {
+      return BeamCope.FromExisting(beamFeat);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS BeamShortening
+    /// </summary>
+    /// <param name="beamFeat"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASBeamShortening beamFeat)
+    {
+      return BeamPlaneCut.FromExisting(beamFeat);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS BeamMultiContourNotch
+    /// </summary>
+    /// <param name="beamFeat"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASBeamMultiContourNotch beamFeat)
+    {
+      return BeamPolycut.FromExisting(beamFeat);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS PlateFeatContour
+    /// </summary>
+    /// <param name="plateFeat"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASPlateFeatContour plateFeat)
+    {
+      return PlatePolycut.FromExisting(plateFeat);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS PlateContourNotch
+    /// </summary>
+    /// <param name="plateFeat"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASPlateContourNotch plateFeat)
+    {
+      return PlatePolycut.FromExisting(plateFeat);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS PlateFeatVertFillet
+    /// </summary>
+    /// <param name="plateFeat"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASPlateFeatVertFillet plateFeat)
+    {
+      return PlateVertexCut.FromExisting(plateFeat);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS ConnectionHolePlate
+    /// </summary>
+    /// <param name="hole"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASConnectionHolePlate hole)
+    {
+      return PlateHoles.FromExisting(hole);
     }
 
   }

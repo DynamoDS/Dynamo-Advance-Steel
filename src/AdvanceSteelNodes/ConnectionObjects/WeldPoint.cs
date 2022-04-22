@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Autodesk.AdvanceSteel.Geometry;
 using System.Linq;
 using System;
+using ASWeldPoint = Autodesk.AdvanceSteel.Modelling.WeldPoint;
 
 namespace AdvanceSteel.Nodes.ConnectionObjects.Welds
 {
@@ -18,46 +19,52 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Welds
   [DynamoServices.RegisterForTrace]
   public class WeldPoint : GraphicObject
   {
-    internal WeldPoint()
+    private WeldPoint(SteelGeometry.Point3d astPoint, IEnumerable<string> handlesToConnect, int connectionType)
     {
+      SafeInit(() => InitWeldPoint(astPoint, handlesToConnect, connectionType));
     }
 
-    internal WeldPoint(SteelGeometry.Point3d astPoint, IEnumerable<string> handlesToConnect, int connectionType)
+    private WeldPoint(ASWeldPoint weld)
     {
-      lock (access_obj)
+      SafeInit(() => SetHandle(weld));
+    }
+
+    internal static WeldPoint FromExisting(ASWeldPoint weld)
+    {
+      return new WeldPoint(weld)
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          Autodesk.AdvanceSteel.Modelling.WeldPoint weld = null;
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-          {
-            weld = new Autodesk.AdvanceSteel.Modelling.WeldPoint(astPoint, Vector3d.kXAxis, Vector3d.kYAxis);
-            weld.WriteToDb();
-          }
-          else
-          {
-            weld = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.WeldPoint;
-
-            if (weld != null && weld.IsKindOf(FilerObject.eObjectType.kWeldPattern))
-            {
-              Matrix3d coordinateSystem = new Matrix3d();
-              coordinateSystem.SetCoordSystem(astPoint, Vector3d.kXAxis, Vector3d.kYAxis, Vector3d.kZAxis);
-              weld.SetCS(coordinateSystem);
-            }
-            else
-              throw new System.Exception("Not a weld point");
-          }
-
-          FilerObject[] filerObjects = Utils.GetFilerObjects(handlesToConnect);
-          weld.Connect(filerObjects, (AtomicElement.eAssemblyLocation)connectionType);
-
-          Handle = weld.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(weld);
-        }
-      }
+        IsOwnedByDynamo = false
+      };
     }
+
+    private void InitWeldPoint(SteelGeometry.Point3d astPoint, IEnumerable<string> handlesToConnect, int connectionType)
+    {
+      ASWeldPoint weld = SteelServices.ElementBinder.GetObjectASFromTrace<ASWeldPoint>();
+      if (weld == null)
+      {
+        weld = new ASWeldPoint(astPoint, Vector3d.kXAxis, Vector3d.kYAxis);
+        weld.WriteToDb();
+      }
+      else
+      {
+        if (weld != null && weld.IsKindOf(FilerObject.eObjectType.kWeldPattern))
+        {
+          Matrix3d coordinateSystem = new Matrix3d();
+          coordinateSystem.SetCoordSystem(astPoint, Vector3d.kXAxis, Vector3d.kYAxis, Vector3d.kZAxis);
+          weld.SetCS(coordinateSystem);
+        }
+        else
+          throw new System.Exception("Not a weld point");
+      }
+
+      SetHandle(weld);
+
+      FilerObject[] filerObjects = Utils.GetFilerObjects(handlesToConnect);
+      weld.Connect(filerObjects, (AtomicElement.eAssemblyLocation)connectionType);
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(weld);
+    }
+
     /// <summary>
     /// Create an Advance Steel Weld Pattern By Point
     /// </summary>
@@ -80,24 +87,19 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Welds
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
+      var weld = Utils.GetObject(Handle) as ASWeldPoint;
+
+      if (weld == null)
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var weld = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.WeldPoint;
+        throw new Exception("Null weld point");
+      }
 
-          if (weld == null)
-          {
-            throw new Exception("Null weld point");
-          }
-
-          using (var dynPoint = Utils.ToDynPoint(weld.CenterPoint, true))
-          {
-            return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadius(dynPoint, 0.01);
-          }
-        }
+      using (var dynPoint = Utils.ToDynPoint(weld.CenterPoint, true))
+      {
+        return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadius(dynPoint, 0.01);
       }
     }
+
   }
 }
 

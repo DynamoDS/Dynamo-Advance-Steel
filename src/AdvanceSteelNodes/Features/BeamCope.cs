@@ -5,6 +5,8 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
+using ASBeamNotch2Ortho = Autodesk.AdvanceSteel.Modelling.BeamNotch2Ortho;
+using ASBeamNotchEx = Autodesk.AdvanceSteel.Modelling.BeamNotchEx;
 
 namespace AdvanceSteel.Nodes.Features
 {
@@ -14,169 +16,172 @@ namespace AdvanceSteel.Nodes.Features
   [DynamoServices.RegisterForTrace]
   public class BeamCope : GraphicObject
   {
-    internal BeamCope()
-    {
-    }
-
-    internal BeamCope(AdvanceSteel.Nodes.SteelDbObject element,
+    private BeamCope(AdvanceSteel.Nodes.SteelDbObject element,
                       int end, int side,
                       int cnrType, double radius,
                       List<Property> beamFeatureProperties)
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-          double length = 0;
-          double depth = 0;
-
-          length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceLength").InternalValue;
-          depth = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceDepth").InternalValue;
-
-          string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
-
-          string elementHandle = element.Handle;
-          FilerObject obj = Utils.GetObject(elementHandle);
-          BeamNotch2Ortho beamFeat = null;
-          if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kBeam))
-          {
-            if (string.IsNullOrEmpty(existingFeatureHandle) || Utils.GetObject(existingFeatureHandle) == null)
-            {
-
-              beamFeat = new BeamNotch2Ortho((Beam.eEnd)end, (Beam.eSide)side, length, depth);
-              beamFeat.SetCorner((BeamNotch.eBeamNotchCornerType)cnrType, radius);
-
-              AtomicElement atomic = obj as AtomicElement;
-
-              if (defaultData != null)
-              {
-                Utils.SetParameters(beamFeat, defaultData);
-              }
-
-              atomic.AddFeature(beamFeat);
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(beamFeat, postWriteDBData);
-              }
-
-            }
-            else
-            {
-              beamFeat = Utils.GetObject(existingFeatureHandle) as BeamNotch2Ortho;
-              if (beamFeat != null && beamFeat.IsKindOf(FilerObject.eObjectType.kBeamNotch2Ortho))
-              {
-                beamFeat.End = (Beam.eEnd)end;
-                beamFeat.Side = (Beam.eSide)side;
-                beamFeat.SetCorner((BeamNotch.eBeamNotchCornerType)cnrType, radius);
-
-                if (defaultData != null)
-                {
-                  Utils.SetParameters(beamFeat, defaultData);
-                }
-
-                if (postWriteDBData != null)
-                {
-                  Utils.SetParameters(beamFeat, postWriteDBData);
-                }
-
-              }
-              else
-                throw new System.Exception("Not a Beam Feature");
-            }
-          }
-          else
-            throw new System.Exception("No Input Element found");
-
-          Handle = beamFeat.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
-        }
-      }
+      SafeInit(() => InitBeamCope(element, end, side, cnrType, radius, beamFeatureProperties));
     }
 
-    internal BeamCope(AdvanceSteel.Nodes.SteelDbObject element,
+    private BeamCope(AdvanceSteel.Nodes.SteelDbObject element,
                   int end, int side,
                   int cnrType, double radius,
                   int rotationType,
                   List<Property> beamFeatureProperties)
     {
-      lock (access_obj)
+      SafeInit(() => InitBeamCope(element, end, side, cnrType, radius, rotationType, beamFeatureProperties));
+    }
+
+    private BeamCope(ASBeamNotch2Ortho beamFeat)
+    {
+      SafeInit(() => SetHandle(beamFeat));
+    }
+
+    private BeamCope(ASBeamNotchEx beamFeat)
+    {
+      SafeInit(() => SetHandle(beamFeat));
+    }
+
+    internal static BeamCope FromExisting(ASBeamNotch2Ortho beamFeat)
+    {
+      return new BeamCope(beamFeat)
       {
-        using (var ctx = new SteelServices.DocContext())
+        IsOwnedByDynamo = false
+      };
+    }
+
+    internal static BeamCope FromExisting(ASBeamNotchEx beamFeat)
+    {
+      return new BeamCope(beamFeat)
+      {
+        IsOwnedByDynamo = false
+      };
+    }
+
+    private void InitBeamCope(AdvanceSteel.Nodes.SteelDbObject element,
+                      int end, int side,
+                      int cnrType, double radius,
+                      List<Property> beamFeatureProperties)
+    {
+      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
+      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+      double length = 0;
+      double depth = 0;
+
+      length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceLength").InternalValue;
+      depth = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceDepth").InternalValue;
+
+      FilerObject obj = Utils.GetObject(element.Handle);
+
+      if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kBeam)))
+        throw new System.Exception("No Input Element found");
+
+      ASBeamNotch2Ortho beamFeat = SteelServices.ElementBinder.GetObjectASFromTrace<ASBeamNotch2Ortho>();
+      if (beamFeat == null)
+      {
+        beamFeat = new BeamNotch2Ortho((Beam.eEnd)end, (Beam.eSide)side, length, depth);
+        beamFeat.SetCorner((BeamNotch.eBeamNotchCornerType)cnrType, radius);
+
+        AtomicElement atomic = obj as AtomicElement;
+
+        if (defaultData != null)
         {
-          List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-          double length = 0;
-          double depth = 0;
-
-          length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceLength").InternalValue;
-          depth = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceDepth").InternalValue;
-
-          string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
-
-          string elementHandle = element.Handle;
-          FilerObject obj = Utils.GetObject(elementHandle);
-          BeamNotchEx beamFeat = null;
-          if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kBeam))
-          {
-            if (string.IsNullOrEmpty(existingFeatureHandle) || Utils.GetObject(existingFeatureHandle) == null)
-            {
-
-              beamFeat = new BeamNotchEx((Beam.eEnd)end, (Beam.eSide)side, length, depth);
-              beamFeat.XRotation = (BeamNotchEx.eXRotation)rotationType;
-              beamFeat.SetCorner((BeamNotch.eBeamNotchCornerType)cnrType, radius);
-
-              AtomicElement atomic = obj as AtomicElement;
-
-              if (defaultData != null)
-              {
-                Utils.SetParameters(beamFeat, defaultData);
-              }
-
-              atomic.AddFeature(beamFeat);
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(beamFeat, postWriteDBData);
-              }
-
-            }
-            else
-            {
-              beamFeat = Utils.GetObject(existingFeatureHandle) as BeamNotchEx;
-              if (beamFeat != null && beamFeat.IsKindOf(FilerObject.eObjectType.kBeamNotchEx))
-              {
-                beamFeat.End = (Beam.eEnd)end;
-                beamFeat.Side = (Beam.eSide)side;
-                beamFeat.XRotation = (BeamNotchEx.eXRotation)rotationType;
-                beamFeat.SetCorner((BeamNotch.eBeamNotchCornerType)cnrType, radius);
-
-                if (defaultData != null)
-                {
-                  Utils.SetParameters(beamFeat, defaultData);
-                }
-
-                if (postWriteDBData != null)
-                {
-                  Utils.SetParameters(beamFeat, postWriteDBData);
-                }
-
-              }
-              else
-                throw new System.Exception("Not a Beam Feature");
-            }
-          }
-          else
-            throw new System.Exception("No Input Element found");
-
-          Handle = beamFeat.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
+          Utils.SetParameters(beamFeat, defaultData);
         }
+
+        atomic.AddFeature(beamFeat);
       }
+      else
+      {
+        if (beamFeat != null && beamFeat.IsKindOf(FilerObject.eObjectType.kBeamNotch2Ortho))
+        {
+          beamFeat.End = (Beam.eEnd)end;
+          beamFeat.Side = (Beam.eSide)side;
+          beamFeat.SetCorner((BeamNotch.eBeamNotchCornerType)cnrType, radius);
+
+          if (defaultData != null)
+          {
+            Utils.SetParameters(beamFeat, defaultData);
+          }
+        }
+        else
+          throw new System.Exception("Not a Beam Feature");
+      }
+
+      SetHandle(beamFeat);
+
+      if (postWriteDBData != null)
+      {
+        Utils.SetParameters(beamFeat, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
+    }
+
+    private void InitBeamCope(AdvanceSteel.Nodes.SteelDbObject element,
+                  int end, int side,
+                  int cnrType, double radius,
+                  int rotationType,
+                  List<Property> beamFeatureProperties)
+    {
+      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
+      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+      double length = 0;
+      double depth = 0;
+
+      length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceLength").InternalValue;
+      depth = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceDepth").InternalValue;
+
+      FilerObject obj = Utils.GetObject(element.Handle);
+
+      if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kBeam)))
+        throw new System.Exception("No Input Element found");
+
+      ASBeamNotchEx beamFeat = SteelServices.ElementBinder.GetObjectASFromTrace<ASBeamNotchEx>();
+      if (beamFeat == null)
+      {
+        beamFeat = new BeamNotchEx((Beam.eEnd)end, (Beam.eSide)side, length, depth);
+        beamFeat.XRotation = (BeamNotchEx.eXRotation)rotationType;
+        beamFeat.SetCorner((BeamNotch.eBeamNotchCornerType)cnrType, radius);
+
+        AtomicElement atomic = obj as AtomicElement;
+
+        if (defaultData != null)
+        {
+          Utils.SetParameters(beamFeat, defaultData);
+        }
+
+        atomic.AddFeature(beamFeat);
+      }
+      else
+      {
+        if (beamFeat != null && beamFeat.IsKindOf(FilerObject.eObjectType.kBeamNotchEx))
+        {
+          beamFeat.End = (Beam.eEnd)end;
+          beamFeat.Side = (Beam.eSide)side;
+          beamFeat.XRotation = (BeamNotchEx.eXRotation)rotationType;
+          beamFeat.SetCorner((BeamNotch.eBeamNotchCornerType)cnrType, radius);
+
+          if (defaultData != null)
+          {
+            Utils.SetParameters(beamFeat, defaultData);
+          }
+        }
+        else
+          throw new System.Exception("Not a Beam Feature");
+      }
+
+      SetHandle(beamFeat);
+
+      if (postWriteDBData != null)
+      {
+        Utils.SetParameters(beamFeat, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
     }
 
     /// <summary>
@@ -242,20 +247,15 @@ namespace AdvanceSteel.Nodes.Features
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var beamFeat = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.BeamNotch;
+      var beamFeat = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.BeamNotch;
 
-          Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = beamFeat.CS;
-          var poly = Autodesk.DesignScript.Geometry.Rectangle.ByWidthLength(Utils.ToDynCoordinateSys(matrix, true),
-                                                                  Utils.FromInternalDistanceUnits(beamFeat.ReferenceLength, true),
-                                                                  Utils.FromInternalDistanceUnits(beamFeat.ReferenceDepth, true));
+      Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = beamFeat.CS;
+      var poly = Autodesk.DesignScript.Geometry.Rectangle.ByWidthLength(Utils.ToDynCoordinateSys(matrix, true),
+                                                              Utils.FromInternalDistanceUnits(beamFeat.ReferenceLength, true),
+                                                              Utils.FromInternalDistanceUnits(beamFeat.ReferenceDepth, true));
 
-          return poly;
-        }
-      }
+      return poly;
     }
+
   }
 }
