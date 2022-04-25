@@ -1197,34 +1197,6 @@ namespace AdvanceSteel.Nodes
 
     #region Property Base Class Definitions
 
-    private static Dictionary<string, Property> Build_FilerObject()
-    {
-      Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
-      dictProps.Add("Layer", new Property("Layer", typeof(string)));
-      dictProps.Add("Handle", new Property("Handle", typeof(string), ".", true));
-
-      addElementTypes(dictProps, new List<eObjectType>() {
-                    eObjectType.kFilerObject });
-
-      return dictProps;
-    }
-
-    private static Dictionary<string, Property> Build_ConstructionElement()
-    {
-      Dictionary<string, Property> dictProps = Build_FilerObject();
-      dictProps.Add("Role Description", new Property("RoleDescription", typeof(string), ".", true));
-      dictProps.Add("Pure Role", new Property("PureRole", typeof(string), ".", true));
-      dictProps.Add("CenterPoint", new Property("CenterPoint", typeof(Point3d), ".", true));
-      dictProps.Add("Role", new Property("Role", typeof(string)));
-      dictProps.Add("Number Of Object Display Modes", new Property("NumberOfReprModes", typeof(int), ".", true));
-      dictProps.Add("Object Display Mode", new Property("ReprMode", typeof(int)));
-
-      addElementTypes(dictProps, new List<eObjectType>() {
-                    eObjectType.kConstructionElem });
-
-      return dictProps;
-    }
-
     private static Dictionary<string, Property> Build_ActiveConstructionElement()
     {
       Dictionary<string, Property> dictProps = Build_ConstructionElement();

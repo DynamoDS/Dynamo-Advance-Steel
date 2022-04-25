@@ -69,7 +69,14 @@
     <Compile Include="$(SolutionDir)AssemblySharedInfoGenerator\AssemblySharedInfo.cs">
       <Link>Properties\AssemblySharedInfo.cs</Link>
     </Compile>
-    <Compile Include="Base\Property.cs" />
+    <Compile Include="BaseProperties\PropertySets\ConstructionElementProperties.cs" />
+    <Compile Include="BaseProperties\PropertySets\FilerObjectProperties.cs" />
+    <Compile Include="BaseProperties\SteelTypeData.cs" />
+    <Compile Include="BaseProperties\BaseProperties.cs" />
+    <Compile Include="BaseProperties\IASProperties.cs" />
+    <Compile Include="BaseProperties\LevelEnum.cs" />
+    <Compile Include="BaseProperties\Property.cs" />
+    <Compile Include="BaseProperties\UtilsProperties.cs" />
     <Compile Include="Base\SteelDynObject.cs" />
     <Compile Include="Beams\BentBeam.cs" />
     <Compile Include="Beams\CompoundBeam.cs" />

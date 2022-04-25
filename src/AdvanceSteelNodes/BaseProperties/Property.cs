@@ -9,6 +9,8 @@ using Autodesk.AdvanceSteel.ConstructionTypes;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
 using Autodesk.AdvanceSteel.DotNetRoots.Units;
+using System.Reflection;
+using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
@@ -17,50 +19,76 @@ namespace AdvanceSteel.Nodes
   /// </summary>
   public class Property
   {
-    private string _name;
+    private eObjectType _eObjectType;
+    public string _description;
+    private MemberInfo _memberInfo;
     private System.Type _valueType;
-    private object _value;
-    private bool _isReadOnly;
+    private Func<object, object> _funcGetValue;
 
-    internal List<eObjectType> ElementTypeList { get; set; } = new List<eObjectType>() { };
-    internal string Level { get; }
-    internal Unit.eUnitType? UnitType { get; }
+    private object _value;
+    private bool _read;
+    private bool _write;
+
+    internal LevelEnum Level { get; }
+    private eUnitType? UnitType { get; }
 
     internal Property(Property existingProperty)
     {
-      _isReadOnly = existingProperty.IsReadOnly;
-      _name = existingProperty.Name;
+      _read = existingProperty._read;
+      _write = existingProperty._write;
+      _eObjectType = existingProperty._eObjectType;
+      _description = existingProperty._description;
+      _memberInfo = existingProperty._memberInfo;
       _valueType = existingProperty._valueType;
+      _funcGetValue = existingProperty._funcGetValue;
+
       UnitType = existingProperty.UnitType;
       Level = existingProperty.Level;
-      ElementTypeList = existingProperty.ElementTypeList;
     }
 
-    internal Property(string name, System.Type valueType, string level = ".", bool isReadOnly = false)
+    internal Property(Type objectASType, eObjectType eObjectType, string description, string memberName, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
-      _isReadOnly = isReadOnly;
-      _name = name;
-      _valueType = valueType;
-      
-      Level = level;
-    }
-
-    internal Property(string name, System.Type valueType, Unit.eUnitType unitType, string level = ".", bool isReadOnly = false)
-    {
-      _isReadOnly = isReadOnly;
-      _name = name;
-      _valueType = valueType;
-
-      Level = level;
+      _eObjectType = eObjectType;
+      _description = description;
       UnitType = unitType;
+
+      Level = level;
+
+      PropertyInfo property = objectASType.GetProperty(memberName);
+      if (property != null)
+      {
+        _valueType = property.PropertyType;
+        _read = property.CanRead;
+        _write = property.CanWrite;
+
+        _memberInfo = property;
+        return;
+      }
+
+      MethodInfo method = objectASType.GetMethod(memberName, new Type[] { });
+      if (method != null)
+      {
+        _valueType = method.ReturnType;
+        _read = true;
+        _write = false;
+
+        _memberInfo = method;
+        return;
+      }
+
+      throw new Exception(string.Format("'{0}' is not a property nor method with no arguments", memberName));
     }
-    internal Property(string name, object internalValue, System.Type valueType, string level = ".", bool isReadOnly = false)
+
+    internal Property(eObjectType eObjectType, string description, Func<object, object> funcGetValue, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
-      _isReadOnly = isReadOnly;
-      _name = name;
-      _valueType = valueType;
-      
-      InternalValue = internalValue;
+      _eObjectType = eObjectType;
+      _description = description;
+      UnitType = unitType;
+
+      _funcGetValue = funcGetValue;
+      _read = true;
+      _write = false;
+
       Level = level;
     }
 
@@ -85,18 +113,6 @@ namespace AdvanceSteel.Nodes
       get
       {
         return _name;
-      }
-    }
-
-    /// <summary>
-    /// Check if this property is readonly
-    /// </summary>
-    /// <returns name="IsReadOnly">The read status of the property</returns>
-    public bool IsReadOnly
-    {
-      get
-      {
-        return _isReadOnly;
       }
     }
 
@@ -155,7 +171,7 @@ namespace AdvanceSteel.Nodes
     /// <returns name="steelObject"> The updated steel object</returns>
     public static SteelDbObject SetObjectProperty(SteelDbObject steelObject, Property property)
     {
-      if (property.IsReadOnly)
+      if (!property._write)
         throw new System.Exception("property is readonly");
 
       using (var ctx = new SteelServices.DocContext())
@@ -234,10 +250,10 @@ namespace AdvanceSteel.Nodes
 
     internal bool SetToObject(object objectToUpdate)
     {
-      if (IsReadOnly)
+      if (!_write)
         throw new System.Exception("Cannot set readonly property: " + Name?.ToString());
 
-      if (objectToUpdate != null && !IsReadOnly)
+      if (objectToUpdate != null)
       {
         objectToUpdate.GetType().GetProperty(Name).SetValue(objectToUpdate, InternalValue);
         return true;
