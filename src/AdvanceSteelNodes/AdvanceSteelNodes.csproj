@@ -69,8 +69,13 @@
     <Compile Include="$(SolutionDir)AssemblySharedInfoGenerator\AssemblySharedInfo.cs">
       <Link>Properties\AssemblySharedInfo.cs</Link>
     </Compile>
+    <Compile Include="BaseProperties\PropertySets\ActiveConstructionElementProperties.cs" />
+    <Compile Include="BaseProperties\PropertySets\AtomicElementProperties.cs" />
+    <Compile Include="BaseProperties\PropertySets\BeamProperties.cs" />
     <Compile Include="BaseProperties\PropertySets\ConstructionElementProperties.cs" />
     <Compile Include="BaseProperties\PropertySets\FilerObjectProperties.cs" />
+    <Compile Include="BaseProperties\PropertySets\MainAliasProperties.cs" />
+    <Compile Include="BaseProperties\PropertySets\PlateBaseProperties.cs" />
     <Compile Include="BaseProperties\SteelTypeData.cs" />
     <Compile Include="BaseProperties\BaseProperties.cs" />
     <Compile Include="BaseProperties\IASProperties.cs" />
@@ -120,6 +125,7 @@
     <Compile Include="Util\Beam.cs" />
     <Compile Include="ConnectionObjects\ConnectionObject.cs" />
     <Compile Include="Util\ElementWrapper.cs" />
+    <Compile Include="Util\HolesUtils.cs" />
     <Compile Include="Util\Material.cs" />
     <Compile Include="Util\SelectionFilter.cs" />
     <Compile Include="Util\Geometry.cs" />

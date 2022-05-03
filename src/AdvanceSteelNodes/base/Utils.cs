@@ -171,6 +171,11 @@ namespace AdvanceSteel.Nodes
       return (value * factor);
     }
 
+    static public Double FromInternalDistanceUnits(this double value)
+    {
+      return FromInternalDistanceUnits(value, true);
+    }
+
     static public Double FromInternalDistanceUnits(double value, bool bConvertFromAstUnits)
     {
       double factor = 1.0;
@@ -425,6 +430,11 @@ namespace AdvanceSteel.Nodes
       return newReturnPoly;
     }
 
+    static public Autodesk.DesignScript.Geometry.Point ToDynPoint(this Autodesk.AdvanceSteel.Geometry.Point3d pt)
+    {
+      return ToDynPoint(pt, true);
+    }
+
     static public Autodesk.DesignScript.Geometry.Point ToDynPoint(Autodesk.AdvanceSteel.Geometry.Point3d pt, bool bConvertFromAstUnits)
     {
       double factor = 1.0;
@@ -435,6 +445,11 @@ namespace AdvanceSteel.Nodes
       }
       pt = pt * (1 / factor);
       return Autodesk.DesignScript.Geometry.Point.ByCoordinates(pt.x, pt.y, pt.z);
+    }
+
+    static public Autodesk.DesignScript.Geometry.Vector ToDynVector(this Autodesk.AdvanceSteel.Geometry.Vector3d vect)
+    {
+      return ToDynVector(vect, true);
     }
 
     static public Autodesk.DesignScript.Geometry.Vector ToDynVector(Autodesk.AdvanceSteel.Geometry.Vector3d vect, bool bConvertFromAstUnits)
@@ -819,7 +834,6 @@ namespace AdvanceSteel.Nodes
       return handlesList;
     }
 
-
     #region "UI Get Methods for Properties
 
     public static Dictionary<string, Property> GetMidScrewBoltPattern()
@@ -970,7 +984,6 @@ namespace AdvanceSteel.Nodes
 
     #endregion
 
-
     public static Property GetProperty(string keyValue)
     {
       foreach (KeyValuePair<eObjectType, Dictionary<string, Property>> item in steelObjectPropertySets)
@@ -1009,10 +1022,7 @@ namespace AdvanceSteel.Nodes
       return dictProps;
     }
 
-    public static void CheckListUpdateOrAddValue(List<Property> listOfPropertyData,
-                                              string propName,
-                                              object propValue,
-                                              string propLevel = "")
+    public static void CheckListUpdateOrAddValue(List<Property> listOfPropertyData, string propName, object propValue, string propLevel = "")
     {
       var foundItem = listOfPropertyData.FirstOrDefault<Property>(props => props.Name == propName);
       if (foundItem != null)
@@ -1024,7 +1034,6 @@ namespace AdvanceSteel.Nodes
         listOfPropertyData.Add(new Property(propName, propValue, propValue.GetType(), propLevel));
       }
     }
-
 
     #region Set Parameters Methods
     
@@ -1082,6 +1091,7 @@ namespace AdvanceSteel.Nodes
         }
       }
     }
+
     public static void SetParameters(Autodesk.AdvanceSteel.Modelling.BeamShortening objToMod, List<Property> properties)
     {
       if (properties != null)
@@ -1194,145 +1204,7 @@ namespace AdvanceSteel.Nodes
 
     #endregion
 
-
     #region Property Base Class Definitions
-
-    private static Dictionary<string, Property> Build_ActiveConstructionElement()
-    {
-      Dictionary<string, Property> dictProps = Build_ConstructionElement();
-      dictProps.Add("Coordinate System", new Property("CS", typeof(Matrix3d), ".", true));
-
-      addElementTypes(dictProps, new List<eObjectType>() {
-                    eObjectType.kActConstructionElem });
-
-      return dictProps;
-    }
-
-    private static Dictionary<string, Property> Build_AtomicElement()
-    {
-      Dictionary<string, Property> dictProps = Build_ActiveConstructionElement();
-      dictProps.Add("Volume", new Property("Volume", typeof(double), ".", true));
-      dictProps.Add("Used For Numbering - Assembly", new Property("AssemblyUsedForNumbering", typeof(int)));
-      dictProps.Add("Used For Numbering - Note", new Property("NoteUsedForNumbering", typeof(int)));
-      dictProps.Add("Used For Numbering - Role", new Property("RoleUsedForNumbering", typeof(int)));
-      dictProps.Add("Used For BOM - SinglePart", new Property("SinglePartUsedForBOM", typeof(int)));
-      dictProps.Add("Used For BOM - MainPart", new Property("MainPartUsedForBOM", typeof(int)));
-      dictProps.Add("Used For CollisionCheck - SinglePart", new Property("SinglePartUsedForCollisionCheck", typeof(int)));
-      dictProps.Add("Used For CollisionCheck - MainPart", new Property("MainPartUsedForCollisionCheck", typeof(int)));
-      dictProps.Add("Structural Member", new Property("StructuralMember", typeof(int)));
-      dictProps.Add("Used For Numbering - Holes", new Property("HolesUsedForNumbering", typeof(int)));
-      dictProps.Add("MainPart Number", new Property("MainPartNumber", typeof(string)));
-      dictProps.Add("SinglePart Number", new Property("SinglePartNumber", typeof(string)));
-      dictProps.Add("PreliminaryPart Prefix", new Property("PreliminaryPartPrefix", typeof(string)));
-      dictProps.Add("PreliminaryPart Number", new Property("PreliminaryPartNumber", typeof(string)));
-      dictProps.Add("PreliminaryPart PositionNumber", new Property("PreliminaryPartPositionNumber", typeof(string)));
-      dictProps.Add("Used For Numbering - ItemNumber", new Property("ItemNumberUsedForNumbering", typeof(int)));
-      dictProps.Add("Used For Numbering - Dennotation", new Property("DennotationUsedForNumbering", typeof(int)));
-      dictProps.Add("Used For Numbering - Coating", new Property("CoatingUsedForNumbering", typeof(int)));
-      dictProps.Add("Used For Numbering - Material", new Property("MaterialUsedForNumbering", typeof(int)));
-      dictProps.Add("Unwind StartFactor", new Property("UnwindStartFactor", typeof(double)));
-      dictProps.Add("Denotation", new Property("Denotation", typeof(string)));
-      dictProps.Add("Assembly", new Property("Assembly", typeof(string)));
-      dictProps.Add("Note", new Property("Note", typeof(string)));
-      dictProps.Add("ItemNumber", new Property("ItemNumber", typeof(string)));
-      dictProps.Add("Specific Gravity", new Property("SpecificGravity", typeof(double)));
-      dictProps.Add("Coating", new Property("Coating", typeof(string)));
-      dictProps.Add("Number Of Holes", new Property("NumberOfHoles", typeof(int), ".", true));
-      dictProps.Add("Is AttachedPart", new Property("IsAttachedPart", typeof(bool), ".", true));
-      dictProps.Add("Is MainPart", new Property("IsMainPart", typeof(bool)));
-      dictProps.Add("MainPart Prefix", new Property("MainPartPrefix", typeof(string)));
-      dictProps.Add("SinglePart Prefix", new Property("SinglePartPrefix", typeof(string)));
-      dictProps.Add("Used For Numbering - SinglePart", new Property("SinglePartUsedForNumbering", typeof(int)));
-      dictProps.Add("Used For Numbering - MainPart", new Property("MainPartUsedForNumbering", typeof(int)));
-      dictProps.Add("Explicit Quantity", new Property("ExplicitQuantity", typeof(int)));
-      dictProps.Add("Material Description", new Property("MaterialDescription", typeof(string), ".", true));
-      dictProps.Add("Coating Description", new Property("CoatingDescription", typeof(string), ".", true));
-      dictProps.Add("Material", new Property("Material", typeof(string)));
-      dictProps.Add("Unwind", new Property("Unwind", typeof(bool)));
-
-      addElementTypes(dictProps, new List<eObjectType>() {
-                    eObjectType.kAtomicElem });
-
-      return dictProps;
-    }
-
-    private static Dictionary<string, Property> Build_MainAlias()
-    {
-      Dictionary<string, Property> dictProps = Build_AtomicElement();
-
-      dictProps.Add("Used For Numbering - Fabrication Station", new Property("FabricationStationUsedForNumbering", typeof(bool)));
-      dictProps.Add("Load Number", new Property("LoadNumber", typeof(string)));
-      dictProps.Add("Carrier", new Property("Carrier", typeof(string)));
-      dictProps.Add("Fabrication Station", new Property("FabricationStation", typeof(string)));
-      dictProps.Add("Supplier", new Property("Supplier", typeof(string)));
-      dictProps.Add("PO Number", new Property("PONumber", typeof(string)));
-      dictProps.Add("Requisition Number", new Property("RequisitionNumber", typeof(string)));
-      dictProps.Add("Heat Number", new Property("HeatNumber", typeof(string)));
-      dictProps.Add("Shipped Date", new Property("ShippedDate", typeof(string)));
-      dictProps.Add("Delivery Date", new Property("DeliveryDate", typeof(string)));
-      dictProps.Add("Used For Numbering - Supplier", new Property("SupplierUsedForNumbering", typeof(bool)));
-      dictProps.Add("Used For Numbering - RequisitionNumber", new Property("RequisitionNumberUsedForNumbering", typeof(bool)));
-      dictProps.Add("Approval Comment", new Property("ApprovalComment", typeof(string)));
-      dictProps.Add("Used For Numbering - Heat Number", new Property("HeatNumberUsedForNumbering", typeof(bool)));
-      dictProps.Add("Used For Numbering - PO Number", new Property("PONumberUsedForNumbering", typeof(bool)));
-      dictProps.Add("Approval Status Code", new Property("ApprovalStatusCode", typeof(string)));
-
-      addElementTypes(dictProps, new List<eObjectType>() {
-                    eObjectType.kMainAlias });
-
-      return dictProps;
-    }
-
-    private static Dictionary<string, Property> Build_Platebase()
-    {
-      Dictionary<string, Property> dictProps = Build_MainAlias();
-
-      dictProps.Add("Plate Portioning", new Property("Portioning", typeof(double)));
-      dictProps.Add("Upper Plane", new Property("UpperPlane", typeof(Plane), ".", true));
-      dictProps.Add("Length", new Property("Length", typeof(double), ".", true));
-      dictProps.Add("Width", new Property("Width", typeof(double), ".", true));
-      dictProps.Add("Length Increment", new Property("LengthIncrement", typeof(double)));
-      dictProps.Add("Radius", new Property("Radius", typeof(double), ".", true));
-      dictProps.Add("Radius Increment", new Property("RadIncrement", typeof(double)));
-      dictProps.Add("Lower Z Position", new Property("LowerZPos", typeof(double), ".", true));
-      dictProps.Add("Plate Normal", new Property("PlateNormal", typeof(Vector3d), ".", true));
-      dictProps.Add("Thickness", new Property("Thickness", typeof(double)));
-      dictProps.Add("Lower Plane", new Property("LowerPlane", typeof(Plane), ".", true));
-      dictProps.Add("Upper Z Position", new Property("UpperZPos", typeof(double), ".", true));
-      dictProps.Add("Top Is Z Positive", new Property("TopIsZPositive", typeof(bool)));
-      dictProps.Add("DefinitionPlane", new Property("DefinitionPlane", typeof(Plane)));
-
-      addElementTypes(dictProps, new List<eObjectType>() {
-                    eObjectType.kPlateBase });
-
-      return dictProps;
-    }
-
-    private static Dictionary<string, Property> Build_Beam()
-    {
-      Dictionary<string, Property> dictProps = Build_MainAlias();
-
-      dictProps.Add("Coordinate System at System Mid", new Property("SysCSMid", typeof(Matrix3d), ".", true));
-      dictProps.Add("Profile Section Name", new Property("ProfSectionName", typeof(string), ".", true));
-      dictProps.Add("Coordinate System at Physical End", new Property("PhysCSEnd", typeof(Matrix3d), ".", true));
-      dictProps.Add("Profile Section Type", new Property("ProfSectionType", typeof(string)));
-      dictProps.Add("Systemline Length", new Property("SysLength", typeof(double), ".", true));
-      dictProps.Add("Deviation", new Property("Deviation", typeof(double)));
-      dictProps.Add("Beam Shrink Value", new Property("ShrinkValue", typeof(double), ".", true));
-      dictProps.Add("Coordinate System at System Start", new Property("SysCSStart", typeof(Matrix3d), ".", true));
-      dictProps.Add("Is Cross Section Mirrored", new Property("IsCrossSectionMirrored", typeof(bool), ".", true));
-      dictProps.Add("Angle", new Property("Angle", typeof(double)));
-      dictProps.Add("Profile Name", new Property("ProfName", typeof(string)));
-      dictProps.Add("Coordinate System at System End", new Property("SysCSEnd", typeof(Matrix3d), ".", true));
-      dictProps.Add("Beam Runname", new Property("Runname", typeof(string), ".", true));
-      dictProps.Add("Coordinate System at Physical Start", new Property("PhysCSStart", typeof(Matrix3d), ".", true));
-      dictProps.Add("Coordinate System at Physical Mid", new Property("PhysCSMid", typeof(Matrix3d), ".", true));
-
-      addElementTypes(dictProps, new List<eObjectType>() {
-                    eObjectType.kBeam });
-
-      return dictProps;
-    }
 
     private static Dictionary<string, Property> Build_BentBeamBase()
     {
