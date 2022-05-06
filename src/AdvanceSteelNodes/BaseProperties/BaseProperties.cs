@@ -19,9 +19,19 @@ namespace AdvanceSteel.Nodes
       dictionary.Add(description, new Property(objectASType, GetObjectType, description, memberName, level, unitType));
     }
 
+    protected void InsertItem(Dictionary<string, Property> dictionary, Type objectASType, string description, string memberName, eUnitType unitType)
+    {
+      InsertItem(dictionary, objectASType, description, memberName, LevelEnum.NoDefinition, unitType);
+    }
+
     protected void InsertItem(Dictionary<string, Property> dictionary, string description, Func<object, object> funcGetValue, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
       dictionary.Add(description, new Property(GetObjectType, description, funcGetValue, level, unitType));
+    }
+
+    protected void InsertItem(Dictionary<string, Property> dictionary, string description, Func<object, object> funcGetValue, eUnitType? unitType)
+    {
+      InsertItem(dictionary, description, funcGetValue, LevelEnum.NoDefinition, unitType);
     }
   }
 }

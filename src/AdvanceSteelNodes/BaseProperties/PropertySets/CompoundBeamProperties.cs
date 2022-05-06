@@ -9,7 +9,7 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  class CompoundBeamProperties : BaseProperties, IASProperties
+  public class CompoundBeamProperties : BaseProperties, IASProperties
   {
     public override eObjectType GetObjectType => eObjectType.kCompoundBeam;
 

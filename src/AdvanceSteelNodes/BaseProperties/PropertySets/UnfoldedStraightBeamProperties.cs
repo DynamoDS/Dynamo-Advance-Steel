@@ -17,8 +17,8 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Unfolded Bem Thickness", nameof(UnfoldedStraightBeam.Thickness), LevelEnum.NoDefinition, eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Unfolded Bem Portioning", nameof(UnfoldedStraightBeam.Portioning), LevelEnum.NoDefinition, eUnitType.kDistance);
+      InsertItem(dictionary, objectASType, "Unfolded Bem Thickness", nameof(UnfoldedStraightBeam.Thickness), eUnitType.kDistance);
+      InsertItem(dictionary, objectASType, "Unfolded Bem Portioning", nameof(UnfoldedStraightBeam.Portioning), eUnitType.kDistance);
       InsertItem(dictionary, objectASType, "Closed", nameof(UnfoldedStraightBeam.IsClosed));
 
       return dictionary;

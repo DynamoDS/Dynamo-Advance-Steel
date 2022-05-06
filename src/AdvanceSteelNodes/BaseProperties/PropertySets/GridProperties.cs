@@ -9,7 +9,7 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  class GridProperties : BaseProperties, IASProperties
+  public class GridProperties : BaseProperties, IASProperties
   {
     public override eObjectType GetObjectType => eObjectType.kGrid;
 

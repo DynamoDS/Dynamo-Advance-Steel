@@ -44,22 +44,22 @@ namespace AdvanceSteel.Nodes
       InsertItem(dictionary, objectASType, "Coordinate System at Physical Start", nameof(ASBeam.PhysCSStart), LevelEnum.Default);
       InsertItem(dictionary, objectASType, "Coordinate System at Physical Mid", nameof(ASBeam.PhysCSMid), LevelEnum.Default);
       InsertItem(dictionary, objectASType, "Offsets", nameof(ASBeam.Offsets));
-      InsertItem(dictionary, objectASType, "Length", nameof(ASBeam.GetLength), LevelEnum.NoDefinition, eUnitType.kDistance);
-      InsertItem(dictionary, "Weight", GetWeight, LevelEnum.NoDefinition, eUnitType.kWeight);
-      InsertItem(dictionary, "Weight (Exact)", GetWeightExact, LevelEnum.NoDefinition, eUnitType.kWeight);
-      InsertItem(dictionary, objectASType, "Weight (Per Meter)", nameof(ASBeam.GetWeightPerMeter), LevelEnum.NoDefinition, eUnitType.kWeight);
+      InsertItem(dictionary, objectASType, "Length", nameof(ASBeam.GetLength), eUnitType.kDistance);
+      InsertItem(dictionary, "Weight", GetWeight, eUnitType.kWeight);
+      InsertItem(dictionary, "Weight (Exact)", GetWeightExact, eUnitType.kWeight);
+      InsertItem(dictionary, objectASType, "Weight (Per Meter)", nameof(ASBeam.GetWeightPerMeter), eUnitType.kWeight);
       InsertItem(dictionary, objectASType, "Start Point", nameof(ASBeam.GetPointAtStart));
       InsertItem(dictionary, objectASType, "End Point", nameof(ASBeam.GetPointAtEnd));
       InsertItem(dictionary, "Beam Points", GetListPoints);
       InsertItem(dictionary, "Line", GetLine);
-      InsertItem(dictionary, objectASType, "Paint Area", nameof(ASBeam.GetPaintArea), LevelEnum.NoDefinition, eUnitType.kArea);
+      InsertItem(dictionary, objectASType, "Paint Area", nameof(ASBeam.GetPaintArea), eUnitType.kArea);
       InsertItem(dictionary, "Profile Type Code", GetProfileTypeCode);
       InsertItem(dictionary, "Profile Type", GetProfileType);
-      InsertItem(dictionary, "Saw Length", GetSawLength, LevelEnum.NoDefinition, eUnitType.kAreaPerDistance);
-      InsertItem(dictionary, "Flange Angle At Start", GetFlangeAngleAtStart, LevelEnum.NoDefinition, eUnitType.kAngle);
-      InsertItem(dictionary, "Flange Angle At End", GetFlangeAngleAtEnd, LevelEnum.NoDefinition, eUnitType.kAngle);
-      InsertItem(dictionary, "Web Angle At Start", GetWebAngleAtStart, LevelEnum.NoDefinition, eUnitType.kAngle);
-      InsertItem(dictionary, "Web Angle At End", GetWebAngleAtEnd, LevelEnum.NoDefinition, eUnitType.kAngle);
+      InsertItem(dictionary, "Saw Length", GetSawLength, eUnitType.kAreaPerDistance);
+      InsertItem(dictionary, "Flange Angle At Start", GetFlangeAngleAtStart, eUnitType.kAngle);
+      InsertItem(dictionary, "Flange Angle At End", GetFlangeAngleAtEnd, eUnitType.kAngle);
+      InsertItem(dictionary, "Web Angle At Start", GetWebAngleAtStart, eUnitType.kAngle);
+      InsertItem(dictionary, "Web Angle At End", GetWebAngleAtEnd, eUnitType.kAngle);
 
       return dictionary;
     }

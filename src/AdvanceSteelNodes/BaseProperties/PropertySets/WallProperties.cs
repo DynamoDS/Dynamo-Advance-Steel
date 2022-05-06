@@ -9,7 +9,7 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  class WallProperties : BaseProperties, IASProperties
+  public class WallProperties : BaseProperties, IASProperties
   {
     public override eObjectType GetObjectType => eObjectType.kWall;
 

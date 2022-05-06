@@ -10,7 +10,7 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  class CameraProperties : BaseProperties, IASProperties
+  public class CameraProperties : BaseProperties, IASProperties
   {
     public override eObjectType GetObjectType => eObjectType.kCamera;
 
