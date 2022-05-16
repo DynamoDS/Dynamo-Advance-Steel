@@ -56,8 +56,8 @@ namespace AdvanceSteel.Nodes.Concrete
                     SteelGeometry.Vector3d vNormal,
                     List<Property> concreteProperties)
     {
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = concreteProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       SteelGeometry.Plane plane = new SteelGeometry.Plane(ptCenter, vNormal);
 
@@ -103,8 +103,8 @@ namespace AdvanceSteel.Nodes.Concrete
                     double dLength, double dHeight, double thickness,
                     List<Property> concreteProperties)
     {
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = concreteProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       SteelGeometry.Point3d baseOrigin = new SteelGeometry.Point3d();
       SteelGeometry.Vector3d xAxis = new SteelGeometry.Vector3d();
@@ -180,8 +180,8 @@ namespace AdvanceSteel.Nodes.Concrete
       if (poly.IsPlanar == false)
         throw new System.Exception("Polygon is not planar");
 
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = concreteProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
       double[] cornerRadii = (double[])System.Collections.ArrayList.Repeat(0.0, poly.Points.Length).ToArray(typeof(double));

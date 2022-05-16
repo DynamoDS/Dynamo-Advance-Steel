@@ -44,8 +44,8 @@ namespace AdvanceSteel.Nodes.Concrete
                               Autodesk.DesignScript.Geometry.Vector vOrientation,
                               List<Property> concreteProperties)
     {
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = concreteProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       Point3d beamStart = Utils.ToAstPoint(ptStart, true);
       Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);

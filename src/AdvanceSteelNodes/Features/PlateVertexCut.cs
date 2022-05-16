@@ -39,8 +39,8 @@ namespace AdvanceSteel.Nodes.Features
                       int vertexFeatureType,
                       List<Property> plateFeatureProperties)
     {
-      List<Property> defaultData = plateFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = plateFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = plateFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = plateFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       double length1 = 0;
       double length2 = 0;
@@ -148,11 +148,11 @@ namespace AdvanceSteel.Nodes.Features
       {
         listPlateFeatureData = new List<Property>() { };
       }
-      if (conIndex > -1) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "ContourIndex", conIndex, ".");
-      if (vertIndex > -1) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "VertexIndex", vertIndex, ".");
-      if (length1 > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Length1", length1, ".");
-      if (length2 > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Length2", length2, ".");
-      if (radius > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Radius", radius, ".");
+      if (conIndex > -1) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "ContourIndex", conIndex, LevelEnum.Default);
+      if (vertIndex > -1) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "VertexIndex", vertIndex, LevelEnum.Default);
+      if (length1 > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Length1", length1, LevelEnum.Default);
+      if (length2 > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Length2", length2, LevelEnum.Default);
+      if (radius > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Radius", radius, LevelEnum.Default);
       return listPlateFeatureData;
     }
 

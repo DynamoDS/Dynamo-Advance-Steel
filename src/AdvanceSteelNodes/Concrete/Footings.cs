@@ -45,8 +45,8 @@ namespace AdvanceSteel.Nodes.Concrete
                       double depth, double radius,
                       List<Property> concreteProperties)
     {
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = concreteProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
 
@@ -91,8 +91,8 @@ namespace AdvanceSteel.Nodes.Concrete
                       double depth, double width, double length,
                       List<Property> concreteProperties)
     {
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = concreteProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
 

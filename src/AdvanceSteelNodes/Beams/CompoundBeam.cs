@@ -41,8 +41,8 @@ namespace AdvanceSteel.Nodes.Beams
                           Autodesk.DesignScript.Geometry.Vector vOrientation,
                           List<Property> beamProperties)
     {
-      List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = beamProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = beamProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
       Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
       string sectionProfileName = "";
       if (foundProfName != null)
@@ -135,7 +135,7 @@ namespace AdvanceSteel.Nodes.Beams
       {
         listBeamData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(listBeamData, "ProfName", sectionName, ".");
+      Utils.CheckListUpdateOrAddValue(listBeamData, "ProfName", sectionName, LevelEnum.Default);
 
       return listBeamData;
     }

@@ -64,8 +64,8 @@ namespace AdvanceSteel.Nodes.Features
                       int cnrType, double radius,
                       List<Property> beamFeatureProperties)
     {
-      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       double length = 0;
       double depth = 0;
@@ -124,8 +124,8 @@ namespace AdvanceSteel.Nodes.Features
                   int rotationType,
                   List<Property> beamFeatureProperties)
     {
-      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       double length = 0;
       double depth = 0;
@@ -237,8 +237,8 @@ namespace AdvanceSteel.Nodes.Features
       {
         listBeamFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "ReferenceLength", length, ".");
-      if (depth > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "ReferenceDepth", depth, ".");
+      if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "ReferenceLength", length, LevelEnum.Default);
+      if (depth > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "ReferenceDepth", depth, LevelEnum.Default);
       return listBeamFeatureData;
     }
 

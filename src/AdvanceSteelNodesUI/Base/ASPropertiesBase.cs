@@ -4,21 +4,21 @@ using Dynamo.Graph.Nodes;
 using Dynamo.Utilities;
 using ProtoCore.AST.AssociativeAST;
 using Newtonsoft.Json;
+using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
 
 namespace AdvanceSteel.Nodes
 {
-  [NodeName("CameraProperties")]
-  [NodeDescription("Lists all the property names of an Advance Steel Camera")]
-  [NodeCategory("AdvanceSteel.Nodes.Miscellaneous.Camera")]
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("name of the selected property")]
   [IsDesignScriptCompatible]
-  public class ASPropertiesCamera : AstDropDownBase
+  public abstract class ASPropertiesBase : AstDropDownBase
   {
     private const string outputName = "propertyName";
 
-    public ASPropertiesCamera()
+    protected abstract eObjectType GetObjectType { get; }
+
+    public ASPropertiesBase()
         : base(outputName)
     {
       InPorts.Clear();
@@ -27,7 +27,7 @@ namespace AdvanceSteel.Nodes
     }
 
     [JsonConstructor]
-    public ASPropertiesCamera(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    public ASPropertiesBase(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
     : base(outputName, inPorts, outPorts)
     {
     }
@@ -37,7 +37,9 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>() { };
-      foreach (var item in Utils.GetCameraPropertyList())
+
+      var steelTypeData = UtilsProperties.SteelObjectPropertySets[GetObjectType];
+      foreach (var item in steelTypeData.Properties)
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }

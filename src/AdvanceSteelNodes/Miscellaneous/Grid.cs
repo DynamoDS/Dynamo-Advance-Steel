@@ -35,8 +35,8 @@ namespace AdvanceSteel.Nodes.Miscellaneous
 
     private void InitGrid(List<Property> gridProperties, double length, double width = 0, int noOfAxis = 0)
     {
-      List<Property> defaultData = gridProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = gridProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = gridProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = gridProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       Matrix3d gridMat = (Matrix3d)defaultData.FirstOrDefault<Property>(x => x.Name == "CS").InternalValue;
 
@@ -296,7 +296,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       {
         listGridData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(listGridData, "CS", gridCS, ".");
+      Utils.CheckListUpdateOrAddValue(listGridData, "CS", gridCS, LevelEnum.Default);
       return listGridData;
     }
 

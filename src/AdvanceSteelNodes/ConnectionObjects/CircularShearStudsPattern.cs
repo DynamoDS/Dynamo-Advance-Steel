@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Autodesk.AdvanceSteel.Geometry;
 using System.Linq;
 using ASConnector = Autodesk.AdvanceSteel.Modelling.Connector;
+using Autodesk.AdvanceSteel.Arrangement;
 
 namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
 {
@@ -45,18 +46,18 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
                                         List<Property> shearStudData,
                                         int boltCon)
     {
-      List<Property> defaultShearStudData = shearStudData.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> arrangerShearStudData = shearStudData.Where(x => x.Level == "Arranger").ToList<Property>();
-      List<Property> postWriteDBData = shearStudData.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultShearStudData = shearStudData.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> arrangerShearStudData = shearStudData.Where(x => x.Level == LevelEnum.Arranger).ToList<Property>();
+      List<Property> postWriteDBData = shearStudData.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       ASConnector shearStuds = SteelServices.ElementBinder.GetObjectASFromTrace<ASConnector>();
       if (shearStuds == null)
       {
-        var temp_radius = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Radius").InternalValue;
-        var temp_noss = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "NumberOfElements").InternalValue;
+        var temp_radius = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == nameof(CircleArranger.Radius)).InternalValue;
+        var temp_noss = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == nameof(CircleArranger.NumberOfElements)).InternalValue;
 
         shearStuds = new ASConnector();
-        shearStuds.Arranger = new Autodesk.AdvanceSteel.Arrangement.CircleArranger(Matrix2d.kIdentity, temp_radius, temp_noss);
+        shearStuds.Arranger = new CircleArranger(Matrix2d.kIdentity, temp_radius, temp_noss);
 
         if (defaultShearStudData != null)
         {
@@ -180,10 +181,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
         listOfBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "NumberOfElements", noss, "Arranger");
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Radius", radius, "Arranger");
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Length", studLength, ".");
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Diameter", studDiameter, ".");
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "NumberOfElements", noss, LevelEnum.Arranger);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Radius", radius, LevelEnum.Arranger);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Length", studLength, LevelEnum.Default);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Diameter", studDiameter, LevelEnum.Default);
 
       return listOfBoltParameters;
     }

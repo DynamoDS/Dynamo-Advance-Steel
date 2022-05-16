@@ -21,7 +21,7 @@ namespace AdvanceSteel.Nodes
       { eObjectType.kBeam, new SteelTypeData(typeof(Beam), "Any Beam") },
       { eObjectType.kBeamNotch, new SteelTypeData(typeof(BeamNotch), "Beam Cope") },
       { eObjectType.kBeamNotchEx, new SteelTypeData(typeof(BeamNotchEx), "Beam Cope Rotated") },
-      { eObjectType.kBentBeamBase, new SteelTypeData(typeof(BentBeamBase), "Bent Beam") },
+      { eObjectType.kBentBeam, new SteelTypeData(typeof(BentBeamBase), "Bent Beam") },
       { eObjectType.kBeamMultiContourNotch, new SteelTypeData(typeof(BeamMultiContourNotch), "Beam Polycut") },
       { eObjectType.kBeamShortening, new SteelTypeData(typeof(BeamShortening), "Beam Shortening") },
       { eObjectType.kBeamTapered, new SteelTypeData(typeof(BeamTapered), "Tapered Beam") },

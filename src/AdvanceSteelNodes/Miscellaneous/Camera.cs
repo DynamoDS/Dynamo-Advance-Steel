@@ -34,8 +34,8 @@ namespace AdvanceSteel.Nodes.Miscellaneous
 
     private void InitCamera(List<Property> cameraProperties)
     {
-      List<Property> defaultData = cameraProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = cameraProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       Matrix3d cameraMat = (Matrix3d)defaultData.FirstOrDefault<Property>(x => x.Name == "CameraCS").InternalValue;
 
@@ -224,7 +224,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       {
         listCameraData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(listCameraData, "CameraCS", cameraCS, ".");
+      Utils.CheckListUpdateOrAddValue(listCameraData, "CameraCS", cameraCS, LevelEnum.Default);
       return listCameraData;
     }
 

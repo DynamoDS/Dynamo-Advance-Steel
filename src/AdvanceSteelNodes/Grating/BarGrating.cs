@@ -39,8 +39,8 @@ namespace AdvanceSteel.Nodes.Gratings
 
     private void InitBarGrating(Vector3d vNormal, Point3d ptCenter, double dLength, List<Property> additionalGratingParameters)
     {
-      List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
 

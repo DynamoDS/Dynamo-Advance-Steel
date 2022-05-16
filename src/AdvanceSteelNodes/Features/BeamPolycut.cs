@@ -57,8 +57,8 @@ namespace AdvanceSteel.Nodes.Features
                       int corner,
                       List<Property> beamFeatureProperties)
     {
-      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       double length = 0;
       double width = 0;
@@ -184,8 +184,8 @@ namespace AdvanceSteel.Nodes.Features
                         Autodesk.AdvanceSteel.Geometry.Vector3d lengthVector,
                         List<Property> beamFeatureProperties)
     {
-      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       FilerObject obj = Utils.GetObject(element.Handle);
       if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kBeam)))
@@ -395,8 +395,8 @@ namespace AdvanceSteel.Nodes.Features
       {
         listBeamFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Length", length, ".");
-      if (width > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Width", width, ".");
+      if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Length", length, LevelEnum.Default);
+      if (width > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Width", width, LevelEnum.Default);
       return listBeamFeatureData;
     }
 

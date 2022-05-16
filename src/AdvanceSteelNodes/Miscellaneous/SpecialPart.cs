@@ -34,8 +34,8 @@ namespace AdvanceSteel.Nodes.Miscellaneous
 
     private void InitSpecialPart(Matrix3d insertMatrix, string blockName, List<Property> cameraProperties)
     {
-      List<Property> defaultData = cameraProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = cameraProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       double scale = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Scale").InternalValue;
 
@@ -123,7 +123,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       if (listSpecialPartData == null)
       {
         listSpecialPartData = new List<Property>() { };
-        Utils.CheckListUpdateOrAddValue(listSpecialPartData, "Scale", scale, ".");
+        Utils.CheckListUpdateOrAddValue(listSpecialPartData, "Scale", scale, LevelEnum.Default);
       }
       return listSpecialPartData;
     }

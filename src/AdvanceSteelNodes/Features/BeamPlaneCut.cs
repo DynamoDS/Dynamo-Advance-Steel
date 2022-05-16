@@ -50,8 +50,8 @@ namespace AdvanceSteel.Nodes.Features
                       Vector3d normal,
                       List<Property> beamFeatureProperties)
     {
-      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       FilerObject obj = Utils.GetObject(element.Handle);
       if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kBeam)))
@@ -97,8 +97,8 @@ namespace AdvanceSteel.Nodes.Features
                   double shorteningLength,
                   List<Property> beamFeatureProperties)
     {
-      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       FilerObject obj = Utils.GetObject(element.Handle);
       if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kBeam)))

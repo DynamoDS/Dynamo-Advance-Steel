@@ -11,7 +11,7 @@ namespace AdvanceSteel.Nodes
 {
   public class BentBeamProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kBentBeamBase;
+    public override eObjectType GetObjectType => eObjectType.kBentBeam;
 
     public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
     {

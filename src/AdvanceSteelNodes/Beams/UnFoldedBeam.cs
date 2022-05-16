@@ -44,8 +44,8 @@ namespace AdvanceSteel.Nodes.Beams
                           Autodesk.DesignScript.Geometry.Vector vOrientation,
                           List<Property> beamProperties)
     {
-      List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = beamProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = beamProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
       Property foundThickness = beamProperties.FirstOrDefault<Property>(x => x.Name == "Thickness");
       double thickness = (double)foundThickness.InternalValue;
 

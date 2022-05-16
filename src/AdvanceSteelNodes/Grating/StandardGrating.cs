@@ -39,8 +39,8 @@ namespace AdvanceSteel.Nodes.Gratings
 
     private void InitStandardGrating(Point3d ptCenter, Vector3d vNormal, List<Property> additionalGratingParameters)
     {
-      List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       string strClass = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingClass").InternalValue;
       string strName = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingSize").InternalValue;
@@ -155,8 +155,8 @@ namespace AdvanceSteel.Nodes.Gratings
       {
         listGratingData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(listGratingData, "GratingClass", gratingClass, ".");
-      Utils.CheckListUpdateOrAddValue(listGratingData, "GratingSize", gratingName, ".");
+      Utils.CheckListUpdateOrAddValue(listGratingData, "GratingClass", gratingClass, LevelEnum.Default);
+      Utils.CheckListUpdateOrAddValue(listGratingData, "GratingSize", gratingName, LevelEnum.Default);
 
       return listGratingData;
     }

@@ -11,6 +11,7 @@ namespace AdvanceSteel.Nodes
     NoDefinition,
     Default,
     PostWriteDB,
-    Arranger
+    Arranger,
+    HoleDefault,
   }
 }

@@ -42,8 +42,8 @@ namespace AdvanceSteel.Nodes.Plates
       //if (poly.IsPlanar == false)
       //  throw new System.Exception("Polygon is not planar");
 
-      List<Property> defaultData = plateProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = plateProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = plateProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = plateProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       //Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
       var astPoly = new Autodesk.AdvanceSteel.Geometry.Polyline3d(astPoints, null, true, true);
@@ -90,8 +90,8 @@ namespace AdvanceSteel.Nodes.Plates
 
     private void InitPlate(Point3d planePoint, Vector3d normal, double length, double width, int corner, List<Property> plateProperties)
     {
-      List<Property> defaultData = plateProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = plateProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = plateProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = plateProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       var polyPlane = new Plane(planePoint, normal);
 

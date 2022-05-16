@@ -49,9 +49,9 @@ namespace AdvanceSteel.Nodes.Features
                                     int holeType, int arrangementType, int boundType,
                                     List<Property> holeData)
     {
-      List<Property> defaultData = holeData.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> defaultHoleData = holeData.Where(x => x.Level == "-").ToList<Property>();
-      List<Property> postWriteDBData = holeData.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = holeData.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> defaultHoleData = holeData.Where(x => x.Level == LevelEnum.HoleDefault).ToList<Property>();
+      List<Property> postWriteDBData = holeData.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       double dX, dY, diameterHole, slotLength, sunkDepth, alphaE, headDepth, radius, wX, wY, width, length;
       int nX, nY, isTappingRight, slotDirection;
@@ -1154,23 +1154,23 @@ namespace AdvanceSteel.Nodes.Features
         listOfHoleParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Nx", nx, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Ny", ny, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Dx", dx, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Dy", dy, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Diameter", diameterHole, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "SlotLength", slotLength, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "SlotDirection", slotDirection, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "SunkDepth", sunkDepth, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "AlphaE", alphaE, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "IsTappingRight", isTappingRight, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "HeadDepth", headDepth, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Nx", nx, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Ny", ny, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Dx", dx, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Dy", dy, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Diameter", diameterHole, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "SlotLength", slotLength, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "SlotDirection", slotDirection, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "SunkDepth", sunkDepth, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "AlphaE", alphaE, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "IsTappingRight", isTappingRight, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "HeadDepth", headDepth, LevelEnum.HoleDefault);
 
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Radius", radius, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Length", length, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Width", width, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Wx", wx, "-");
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Wy", wy, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Radius", radius, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Length", length, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Width", width, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Wx", wx, LevelEnum.HoleDefault);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Wy", wy, LevelEnum.HoleDefault);
 
 
       return listOfHoleParameters;

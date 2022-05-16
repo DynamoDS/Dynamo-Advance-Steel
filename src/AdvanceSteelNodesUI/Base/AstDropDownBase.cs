@@ -8,12 +8,12 @@ namespace AdvanceSteel.Nodes
 {
   public abstract class AstDropDownBase : DSDropDownBase
   {
-    protected AstDropDownBase(string value) : base(value)
+    protected AstDropDownBase(string outputName) : base(outputName)
     {
     }
 
     [JsonConstructor]
-    public AstDropDownBase(string value, IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts) : base(value, inPorts, outPorts)
+    public AstDropDownBase(string outputName, IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts) : base(outputName, inPorts, outPorts)
     {
     }
   }

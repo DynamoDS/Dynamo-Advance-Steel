@@ -112,7 +112,7 @@ namespace AdvanceSteel.Nodes
     {
       get
       {
-        return _name;
+        return _memberInfo.Name;
       }
     }
 

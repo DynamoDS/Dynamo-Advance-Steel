@@ -65,8 +65,8 @@ namespace AdvanceSteel.Nodes.Features
                       int cutShapeRectCircle,
                       List<Property> plateFeatureProperties)
     {
-      List<Property> defaultData = plateFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = plateFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = plateFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = plateFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       double length = 0;
       double width = 0;
@@ -200,8 +200,8 @@ namespace AdvanceSteel.Nodes.Features
                           Autodesk.AdvanceSteel.Geometry.Vector3d lengthVector,
                           List<Property> plateFeatureProperties)
     {
-      List<Property> defaultData = plateFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-      List<Property> postWriteDBData = plateFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+      List<Property> defaultData = plateFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = plateFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
       FilerObject obj = Utils.GetObject(element.Handle);
       if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kPlate)))
@@ -346,9 +346,9 @@ namespace AdvanceSteel.Nodes.Features
       {
         listPlateFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Length", length, ".");
-      if (width > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Width", width, ".");
-      if (radius > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Radius", radius, ".");
+      if (length > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Length", length, LevelEnum.Default);
+      if (width > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Width", width, LevelEnum.Default);
+      if (radius > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Radius", radius, LevelEnum.Default);
       return listPlateFeatureData;
     }
 
