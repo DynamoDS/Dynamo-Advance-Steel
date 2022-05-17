@@ -20,7 +20,8 @@ namespace AdvanceSteel.Nodes
   public class Property
   {
     private eObjectType _eObjectType;
-    public string _description;
+    private string _description;
+    private string _memberName;
     private MemberInfo _memberInfo;
     private System.Type _valueType;
     private Func<object, object> _funcGetValue;
@@ -28,6 +29,8 @@ namespace AdvanceSteel.Nodes
     private object _value;
     private bool _read;
     private bool _write;
+
+    private bool _inicialized;
 
     internal LevelEnum Level { get; }
     private eUnitType? UnitType { get; }
@@ -39,19 +42,30 @@ namespace AdvanceSteel.Nodes
       _eObjectType = existingProperty._eObjectType;
       _description = existingProperty._description;
       _memberInfo = existingProperty._memberInfo;
+      _memberName = existingProperty._memberName;
       _valueType = existingProperty._valueType;
       _funcGetValue = existingProperty._funcGetValue;
 
+      _inicialized = existingProperty._inicialized;
+
       UnitType = existingProperty.UnitType;
       Level = existingProperty.Level;
+    }
+
+    internal Property(string memberName, object internalValue)
+    {
+      _memberName = memberName;
+      InternalValue = internalValue;
     }
 
     internal Property(Type objectASType, eObjectType eObjectType, string description, string memberName, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
       _eObjectType = eObjectType;
       _description = description;
+      _memberName = memberName;
+      
+      _inicialized = true;
       UnitType = unitType;
-
       Level = level;
 
       PropertyInfo property = objectASType.GetProperty(memberName);
@@ -81,6 +95,8 @@ namespace AdvanceSteel.Nodes
 
     internal Property(eObjectType eObjectType, string description, Func<object, object> funcGetValue, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
+      _inicialized = true;
+
       _eObjectType = eObjectType;
       _description = description;
       UnitType = unitType;
@@ -112,7 +128,7 @@ namespace AdvanceSteel.Nodes
     {
       get
       {
-        return _memberInfo.Name;
+        return _memberName;
       }
     }
 
@@ -124,14 +140,9 @@ namespace AdvanceSteel.Nodes
     /// <returns name="property"> property</returns>
     public static Property ByNameAndValue(string propertyName, object value)
     {
-      Property selectedProperty = Utils.GetProperty(propertyName);
-      if (selectedProperty != null)
-      {
-         selectedProperty.InternalValue = selectedProperty.ConvertValueFromDynToAS(value);
-      }
-      else
-        throw new System.Exception("No property found for the given name");
-      return selectedProperty;
+      //Store value and name property in a not inicialized property
+
+      return new Property(propertyName, value);
     }
 
     /// <summary>
@@ -147,7 +158,7 @@ namespace AdvanceSteel.Nodes
       {
         FilerObject filerObj = Utils.GetObject(steelObject.Handle);
 
-        Property extractionProperty = Utils.GetProperty(propertyName);
+        Property extractionProperty = Utils.GetProperty(filerObj.Type(), propertyName);
         if (extractionProperty != null)
         {
           if (extractionProperty.EvaluateFromObject(filerObj))
@@ -171,19 +182,16 @@ namespace AdvanceSteel.Nodes
     /// <returns name="steelObject"> The updated steel object</returns>
     public static SteelDbObject SetObjectProperty(SteelDbObject steelObject, Property property)
     {
-      if (!property._write)
-        throw new System.Exception("property is readonly");
-
       using (var ctx = new SteelServices.DocContext())
       {
         FilerObject fo = Utils.GetObject(steelObject.Handle);
-        if (fo != null)
+        if (fo == null)
         {
-          property.SetToObject(fo);
-          return steelObject;
-        }
-        else
           throw new System.Exception("No Advance Steel Object Found");
+        }
+
+        property.SetToObject(fo);
+        return steelObject;
       }
     }
 
@@ -202,15 +210,12 @@ namespace AdvanceSteel.Nodes
 
         foreach (KeyValuePair<string, Property> prop in allProperties)
         {
-          if (prop.Value.ElementTypeList.Contains(filerObj.Type()))
+          Property extractionProperty = prop.Value;
+          if (extractionProperty != null)
           {
-            Property extractionProperty = prop.Value;
-            if (extractionProperty != null)
+            if (extractionProperty.EvaluateFromObject(filerObj))
             {
-              if (extractionProperty.EvaluateFromObject(filerObj))
-              {
-                ret.Add(extractionProperty);
-              }
+              ret.Add(extractionProperty);
             }
           }
         }
@@ -251,7 +256,9 @@ namespace AdvanceSteel.Nodes
     internal bool SetToObject(object objectToUpdate)
     {
       if (!_write)
+      {
         throw new System.Exception("Cannot set readonly property: " + Name?.ToString());
+      }
 
       if (objectToUpdate != null)
       {
@@ -279,6 +286,30 @@ namespace AdvanceSteel.Nodes
       else
       {
         throw new System.Exception("Null object");
+      }
+    }
+
+    private object GetAndConvertASObjectProperty(object asObject)
+    {
+      if (_memberInfo is PropertyInfo)
+      {
+        PropertyInfo propertyInfo = _memberInfo as PropertyInfo;
+
+        return propertyInfo.GetValue(asObject);
+      }
+      else if (_memberInfo is MethodInfo)
+      {
+        MethodInfo methodInfo = _memberInfo as MethodInfo;
+
+        return methodInfo.Invoke(asObject, null);
+      }
+      else if (_funcGetValue != null)
+      {
+        return _funcGetValue(asObject);
+      }
+      else
+      {
+        throw new Exception("Not inicialized");
       }
     }
 

@@ -791,6 +791,18 @@ namespace AdvanceSteel.Nodes
       return handlesList;
     }
 
+    public static Property GetProperty(eObjectType objectType, string keyValue)
+    {
+      var dictionaryProperties = GetAllPropertiesWithoutClone(objectType);
+
+      if (dictionaryProperties.TryGetValue(keyValue, out Property retValue))
+      {
+        return new Property(retValue);
+      }
+
+      return null;
+    }
+
     public static Property GetProperty(string keyValue)
     {
       foreach (KeyValuePair<eObjectType, Dictionary<string, Property>> item in steelObjectPropertySets)
@@ -803,30 +815,27 @@ namespace AdvanceSteel.Nodes
       return null;
     }
 
+    public static Dictionary<string, Property> GetAllPropertiesWithoutClone(eObjectType objectType)
+    {
+      if (!UtilsProperties.SteelObjectPropertySets.ContainsKey(objectType))
+      {
+        throw new Exception(string.Format("Properties not found for type '{0}'", objectType));
+      }
+
+      return UtilsProperties.SteelObjectPropertySets[objectType].Properties;
+    }
+
     public static Dictionary<string, Property> GetAllProperties(FilerObject steelFiler)
     {
+      var dictionaryProperties = GetAllPropertiesWithoutClone(steelFiler.Type());
+
       Dictionary<string, Property> ret = new Dictionary<string, Property>() { };
-      foreach (KeyValuePair<string, Property> item in steelObjectPropertySets[steelFiler.Type()])
+      foreach (KeyValuePair<string, Property> item in dictionaryProperties)
       {
         ret.Add(item.Key, new Property(item.Value));
       }
-      return ret; 
-    }
 
-    private static Dictionary<string, Property> addElementTypes(Dictionary<string, Property> dictProps, List<eObjectType> elementTypes)
-    {
-      foreach (string key in dictProps.Keys.ToList())
-      {
-        if (key.EndsWith("..."))
-        {
-          dictProps[key].ElementTypeList = new List<eObjectType>() { eObjectType.kUnknown };
-        }
-        else
-        {
-          dictProps[key].ElementTypeList.AddRange(elementTypes);
-        }
-      }
-      return dictProps;
+      return ret; 
     }
 
     public static void CheckListUpdateOrAddValue(List<Property> listOfPropertyData, string propName, object propValue, LevelEnum propLevel = LevelEnum.NoDefinition)
@@ -843,139 +852,7 @@ namespace AdvanceSteel.Nodes
     }
 
     #region Set Parameters Methods
-    
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.CountableScrewBoltPattern objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.Grid objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.PlateContourNotch objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.PlateFeatContour objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.BeamShortening objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.BeamNotch2Ortho objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.BeamNotchEx objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.BeamMultiContourNotch objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.PlateFeatVertFillet objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(Autodesk.AdvanceSteel.ConstructionHelper.Camera objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
+  
     public static void SetParameters(Autodesk.AdvanceSteel.Arrangement.Arranger objToMod, List<Property> properties)
     {
       if (properties != null)
@@ -987,18 +864,7 @@ namespace AdvanceSteel.Nodes
       }
     }
 
-    public static void SetParameters(Autodesk.AdvanceSteel.ConstructionTypes.AtomicElement objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(Autodesk.AdvanceSteel.Modelling.AnchorPattern objToMod, List<Property> properties)
+    public static void SetParameters(FilerObject objToMod, List<Property> properties)
     {
       if (properties != null)
       {
