@@ -158,7 +158,7 @@ namespace AdvanceSteel.Nodes
       {
         FilerObject filerObj = Utils.GetObject(steelObject.Handle);
 
-        Property extractionProperty = Utils.GetProperty(filerObj.Type(), propertyName);
+        Property extractionProperty = Utils.GetProperty(filerObj, propertyName);
         if (extractionProperty != null)
         {
           if (extractionProperty.EvaluateFromObject(filerObj))

@@ -791,9 +791,9 @@ namespace AdvanceSteel.Nodes
       return handlesList;
     }
 
-    public static Property GetProperty(eObjectType objectType, string keyValue)
+    internal static Property GetProperty(FilerObject filerObject, string keyValue)
     {
-      var dictionaryProperties = GetAllPropertiesWithoutClone(objectType);
+      var dictionaryProperties = GetAllPropertiesWithoutClone(filerObject);
 
       if (dictionaryProperties.TryGetValue(keyValue, out Property retValue))
       {
@@ -803,20 +803,10 @@ namespace AdvanceSteel.Nodes
       return null;
     }
 
-    public static Property GetProperty(string keyValue)
+    internal static Dictionary<string, Property> GetAllPropertiesWithoutClone(FilerObject filerObject)
     {
-      foreach (KeyValuePair<eObjectType, Dictionary<string, Property>> item in steelObjectPropertySets)
-      {
-        if (item.Value.TryGetValue(keyValue, out Property retValue))
-        {
-          return new Property(retValue);
-        }
-      }
-      return null;
-    }
+      var objectType = filerObject.Type();
 
-    public static Dictionary<string, Property> GetAllPropertiesWithoutClone(eObjectType objectType)
-    {
       if (!UtilsProperties.SteelObjectPropertySets.ContainsKey(objectType))
       {
         throw new Exception(string.Format("Properties not found for type '{0}'", objectType));
@@ -825,9 +815,9 @@ namespace AdvanceSteel.Nodes
       return UtilsProperties.SteelObjectPropertySets[objectType].Properties;
     }
 
-    public static Dictionary<string, Property> GetAllProperties(FilerObject steelFiler)
+    internal static Dictionary<string, Property> GetAllProperties(FilerObject filerObject)
     {
-      var dictionaryProperties = GetAllPropertiesWithoutClone(steelFiler.Type());
+      var dictionaryProperties = GetAllPropertiesWithoutClone(filerObject);
 
       Dictionary<string, Property> ret = new Dictionary<string, Property>() { };
       foreach (KeyValuePair<string, Property> item in dictionaryProperties)
