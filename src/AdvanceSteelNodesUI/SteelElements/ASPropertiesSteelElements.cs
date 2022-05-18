@@ -6,6 +6,8 @@ using ProtoCore.AST.AssociativeAST;
 using Newtonsoft.Json;
 using Autodesk.AdvanceSteel.CADAccess;
 using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
+using System;
+using Autodesk.AdvanceSteel.Modelling;
 
 namespace AdvanceSteel.Nodes
 {
@@ -16,7 +18,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Beams.StraightBeam")]
   public class ASPropertiesStraightBeam : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kStraightBeam;
+    protected override Type GetObjectType => typeof(StraightBeam);
 
     public ASPropertiesStraightBeam() : base() { }
 
@@ -30,7 +32,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Beams.BentBeam")]
   public class ASPropertiesBentBeam : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kBentBeam;
+    protected override Type GetObjectType => typeof(BentBeam);
 
     public ASPropertiesBentBeam() : base() { }
 
@@ -44,7 +46,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Beams.CompoundBeam")]
   public class ASPropertiesCompoundStraightBeam : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kCompoundStraightBeam;
+    protected override Type GetObjectType => typeof(CompoundStraightBeam);
 
     public ASPropertiesCompoundStraightBeam() : base() { }
 
@@ -58,7 +60,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Concrete.ConcreteBentBeam")]
   public class ASPropertiesConcBentBeam : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kConcreteBentBeam;
+    protected override Type GetObjectType => typeof(ConcreteBentBeam);
 
     public ASPropertiesConcBentBeam() : base() { }
 
@@ -72,7 +74,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Concrete.ConcreteStraightBeam")]
   public class ASPropertiesConcStraightBeam : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kConcreteBeam;
+    protected override Type GetObjectType => typeof(ConcreteBeam);
 
     public ASPropertiesConcStraightBeam() : base() { }
 
@@ -86,7 +88,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Grating")]
   public class ASPropertiesGrating : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kGrating;
+    protected override Type GetObjectType => typeof(Grating);
 
     public ASPropertiesGrating() : base() { }
 
@@ -100,7 +102,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Concrete.Footings")]
   public class ASPropertiesIsolatedFooting : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kFootingIsolated;
+    protected override Type GetObjectType => typeof(FootingIsolated);
 
     public ASPropertiesIsolatedFooting() : base() { }
 
@@ -115,7 +117,7 @@ namespace AdvanceSteel.Nodes
 
   public class ASPropertiesPlate : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kPlate;
+    protected override Type GetObjectType => typeof(Plate);
 
     public ASPropertiesPlate() : base() { }
 
@@ -130,7 +132,7 @@ namespace AdvanceSteel.Nodes
 
   public class ASPropertiesPolyBeam : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kPolyBeam;
+    protected override Type GetObjectType => typeof(PolyBeam);
 
     public ASPropertiesPolyBeam() : base() { }
 
@@ -145,7 +147,7 @@ namespace AdvanceSteel.Nodes
 
   public class ASPropertiesSlab : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kSlab;
+    protected override Type GetObjectType => typeof(Slab);
 
     public ASPropertiesSlab() : base() { }
 
@@ -160,7 +162,7 @@ namespace AdvanceSteel.Nodes
 
   public class ASPropertiesTaperedBeam : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kBeamTapered;
+    protected override Type GetObjectType => typeof(BeamTapered);
 
     public ASPropertiesTaperedBeam() : base() { }
 
@@ -175,7 +177,7 @@ namespace AdvanceSteel.Nodes
 
   public class ASPropertiesUnfoldedBeam : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kUnfoldedStraightBeam;
+    protected override Type GetObjectType => typeof(UnfoldedStraightBeam);
 
     public ASPropertiesUnfoldedBeam() : base() { }
 
@@ -190,7 +192,7 @@ namespace AdvanceSteel.Nodes
 
   public class ASPropertiesWall : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kWall;
+    protected override Type GetObjectType => typeof(Wall);
 
     public ASPropertiesWall() : base() { }
 

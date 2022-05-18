@@ -11,20 +11,20 @@ namespace AdvanceSteel.Nodes
 {
   public class GridProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kGrid;
+    public override Type GetObjectType => typeof(Grid);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Coordinate System of Grid", nameof(Grid.CS));
-      InsertItem(dictionary, objectASType, "Grid Numbering Start Text", nameof(Grid.NumberingStart));
-      InsertItem(dictionary, objectASType, "Vertical Series", nameof(Grid.VerticalSeries));
-      InsertItem(dictionary, objectASType, "Axis Frame", nameof(Grid.AxisFrame));
-      InsertItem(dictionary, objectASType, "Grid Numbering Prefix", nameof(Grid.NumberingPrefix));
-      InsertItem(dictionary, objectASType, "Grid Numbering Suffix", nameof(Grid.NumberingSuffix));
+      InsertItem(dictionary, "Coordinate System of Grid", nameof(Grid.CS));
+      InsertItem(dictionary, "Grid Numbering Start Text", nameof(Grid.NumberingStart));
+      InsertItem(dictionary, "Vertical Series", nameof(Grid.VerticalSeries));
+      InsertItem(dictionary, "Axis Frame", nameof(Grid.AxisFrame));
+      InsertItem(dictionary, "Grid Numbering Prefix", nameof(Grid.NumberingPrefix));
+      InsertItem(dictionary, "Grid Numbering Suffix", nameof(Grid.NumberingSuffix));
 
-      InsertItem(dictionary, objectASType, "Grid Numbering Suffix", nameof(Grid.GetNumSequences));
+      InsertItem(dictionary, "Grid Numbering Suffix", nameof(Grid.GetNumSequences));
       InsertItem(dictionary, "Grid Type", GridType);
       InsertItem(dictionary, "Vertical Projection Status", VerticalProjectionStatus);
       InsertItem(dictionary, "Numbering Type", NumberingType);

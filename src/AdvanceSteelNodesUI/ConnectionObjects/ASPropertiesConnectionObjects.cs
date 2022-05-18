@@ -6,6 +6,8 @@ using ProtoCore.AST.AssociativeAST;
 using Newtonsoft.Json;
 using Autodesk.AdvanceSteel.CADAccess;
 using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
+using System;
+using Autodesk.AdvanceSteel.Modelling;
 
 namespace AdvanceSteel.Nodes
 {
@@ -14,7 +16,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   public class ASPropertiesAnchorBolt : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kAnchorPattern;
+    protected override Type GetObjectType => typeof(AnchorPattern);
 
     public ASPropertiesAnchorBolt() : base() { }
 
@@ -28,7 +30,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects.CircularBoltPattern")]
   public class CircleScrewBoltPattern : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kCircleScrewBoltPattern;
+    protected override Type GetObjectType => typeof(CircleScrewBoltPattern);
 
     public CircleScrewBoltPattern() : base() { }
 
@@ -42,7 +44,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects.RectangularBoltPattern")]
   public class ASPropertiesBolts : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kInfinitMidScrewBoltPattern;
+    protected override Type GetObjectType => typeof(InfinitMidScrewBoltPattern);
 
     public ASPropertiesBolts() : base() { }
 
@@ -56,7 +58,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   public class ASPropertiesShearStud : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kConnector;
+    protected override Type GetObjectType => typeof(Connector);
 
     public ASPropertiesShearStud() : base() { }
 
@@ -70,7 +72,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   public class ASPropertiesWeldLine : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kWeldStraight;
+    protected override Type GetObjectType => typeof(WeldLine);
 
     public ASPropertiesWeldLine() : base() { }
 
@@ -84,7 +86,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
   public class ASPropertiesWeldPoint : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kWeldLevel;
+    protected override Type GetObjectType => typeof(WeldPoint);
 
     public ASPropertiesWeldPoint() : base() { }
 

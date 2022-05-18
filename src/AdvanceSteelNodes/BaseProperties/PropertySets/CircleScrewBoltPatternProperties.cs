@@ -11,14 +11,14 @@ namespace AdvanceSteel.Nodes
 {
   public class CircleScrewBoltPatternProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kCircleScrewBoltPattern;
+    public override Type GetObjectType => typeof(CircleScrewBoltPattern);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Bolts Number", nameof(CircleScrewBoltPattern.NumberOfScrews));
-      InsertItem(dictionary, objectASType, "Radius", nameof(CircleScrewBoltPattern.Radius), eUnitType.kDistance);
+      InsertItem(dictionary, "Bolts Number", nameof(CircleScrewBoltPattern.NumberOfScrews));
+      InsertItem(dictionary, "Radius", nameof(CircleScrewBoltPattern.Radius), eUnitType.kDistance);
 
       return dictionary;
     }

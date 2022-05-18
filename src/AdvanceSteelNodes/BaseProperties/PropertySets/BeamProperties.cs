@@ -17,42 +17,43 @@ using AsType = Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType;
 using Autodesk.AdvanceSteel.CADAccess;
 using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
+using Autodesk.AdvanceSteel.Modelling;
 
 namespace AdvanceSteel.Nodes
 {
   public class BeamProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kBeam;
+    public override Type GetObjectType => typeof(Beam);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Coordinate System at System Mid", nameof(ASBeam.SysCSMid), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Profile Section Name", nameof(ASBeam.ProfSectionName), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Coordinate System at Physical End", nameof(ASBeam.PhysCSEnd), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Profile Section Type", nameof(ASBeam.ProfSectionType));
-      InsertItem(dictionary, objectASType, "Systemline Length", nameof(ASBeam.SysLength), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Deviation", nameof(ASBeam.Deviation));
-      InsertItem(dictionary, objectASType, "Beam Shrink Value", nameof(ASBeam.ShrinkValue), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Coordinate System at System Start", nameof(ASBeam.SysCSStart), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Is Cross Section Mirrored", nameof(ASBeam.IsCrossSectionMirrored), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Angle (Radians)", nameof(ASBeam.Angle), LevelEnum.Default, eUnitType.kAngle);
-      InsertItem(dictionary, objectASType, "Profile Name", nameof(ASBeam.ProfName));
-      InsertItem(dictionary, objectASType, "Coordinate System at System End", nameof(ASBeam.SysCSEnd), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Beam Runname", nameof(ASBeam.Runname), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Coordinate System at Physical Start", nameof(ASBeam.PhysCSStart), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Coordinate System at Physical Mid", nameof(ASBeam.PhysCSMid), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Offsets", nameof(ASBeam.Offsets));
-      InsertItem(dictionary, objectASType, "Length", nameof(ASBeam.GetLength), eUnitType.kDistance);
+      InsertItem(dictionary, "Coordinate System at System Mid", nameof(ASBeam.SysCSMid), LevelEnum.Default);
+      InsertItem(dictionary, "Profile Section Name", nameof(ASBeam.ProfSectionName), LevelEnum.Default);
+      InsertItem(dictionary, "Coordinate System at Physical End", nameof(ASBeam.PhysCSEnd), LevelEnum.Default);
+      InsertItem(dictionary, "Profile Section Type", nameof(ASBeam.ProfSectionType));
+      InsertItem(dictionary, "Systemline Length", nameof(ASBeam.SysLength), LevelEnum.Default);
+      InsertItem(dictionary, "Deviation", nameof(ASBeam.Deviation));
+      InsertItem(dictionary, "Beam Shrink Value", nameof(ASBeam.ShrinkValue), LevelEnum.Default);
+      InsertItem(dictionary, "Coordinate System at System Start", nameof(ASBeam.SysCSStart), LevelEnum.Default);
+      InsertItem(dictionary, "Is Cross Section Mirrored", nameof(ASBeam.IsCrossSectionMirrored), LevelEnum.Default);
+      InsertItem(dictionary, "Angle (Radians)", nameof(ASBeam.Angle), LevelEnum.Default, eUnitType.kAngle);
+      InsertItem(dictionary, "Profile Name", nameof(ASBeam.ProfName));
+      InsertItem(dictionary, "Coordinate System at System End", nameof(ASBeam.SysCSEnd), LevelEnum.Default);
+      InsertItem(dictionary, "Beam Runname", nameof(ASBeam.Runname), LevelEnum.Default);
+      InsertItem(dictionary, "Coordinate System at Physical Start", nameof(ASBeam.PhysCSStart), LevelEnum.Default);
+      InsertItem(dictionary, "Coordinate System at Physical Mid", nameof(ASBeam.PhysCSMid), LevelEnum.Default);
+      InsertItem(dictionary, "Offsets", nameof(ASBeam.Offsets));
+      InsertItem(dictionary, "Length", nameof(ASBeam.GetLength), eUnitType.kDistance);
       InsertItem(dictionary, "Weight", GetWeight, eUnitType.kWeight);
       InsertItem(dictionary, "Weight (Exact)", GetWeightExact, eUnitType.kWeight);
-      InsertItem(dictionary, objectASType, "Weight (Per Meter)", nameof(ASBeam.GetWeightPerMeter), eUnitType.kWeight);
-      InsertItem(dictionary, objectASType, "Start Point", nameof(ASBeam.GetPointAtStart));
-      InsertItem(dictionary, objectASType, "End Point", nameof(ASBeam.GetPointAtEnd));
+      InsertItem(dictionary, "Weight (Per Meter)", nameof(ASBeam.GetWeightPerMeter), eUnitType.kWeight);
+      InsertItem(dictionary, "Start Point", nameof(ASBeam.GetPointAtStart));
+      InsertItem(dictionary, "End Point", nameof(ASBeam.GetPointAtEnd));
       InsertItem(dictionary, "Beam Points", GetListPoints);
       InsertItem(dictionary, "Line", GetLine);
-      InsertItem(dictionary, objectASType, "Paint Area", nameof(ASBeam.GetPaintArea), eUnitType.kArea);
+      InsertItem(dictionary, "Paint Area", nameof(ASBeam.GetPaintArea), eUnitType.kArea);
       InsertItem(dictionary, "Profile Type Code", GetProfileTypeCode);
       InsertItem(dictionary, "Profile Type", GetProfileType);
       InsertItem(dictionary, "Saw Length", GetSawLength, eUnitType.kAreaPerDistance);

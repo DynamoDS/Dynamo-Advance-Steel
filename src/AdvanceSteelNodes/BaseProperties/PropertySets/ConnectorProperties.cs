@@ -11,19 +11,19 @@ namespace AdvanceSteel.Nodes
 {
   public class ConnectorProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kConnector;
+    public override Type GetObjectType => typeof(Connector);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Head Height", nameof(Connector.HeadHeight), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Head Diameter", nameof(Connector.HeadDiameter), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Length", nameof(Connector.Length), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Diameter", nameof(Connector.Diameter), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Grade", nameof(Connector.Grade));
-      InsertItem(dictionary, objectASType, "Standard", nameof(Connector.Standard));
-      InsertItem(dictionary, objectASType, "Normal", nameof(Connector.Normal), LevelEnum.Default);
+      InsertItem(dictionary, "Head Height", nameof(Connector.HeadHeight), LevelEnum.Default, eUnitType.kDistance);
+      InsertItem(dictionary, "Head Diameter", nameof(Connector.HeadDiameter), LevelEnum.Default, eUnitType.kDistance);
+      InsertItem(dictionary, "Length", nameof(Connector.Length), eUnitType.kDistance);
+      InsertItem(dictionary, "Diameter", nameof(Connector.Diameter), eUnitType.kDistance);
+      InsertItem(dictionary, "Grade", nameof(Connector.Grade));
+      InsertItem(dictionary, "Standard", nameof(Connector.Standard));
+      InsertItem(dictionary, "Normal", nameof(Connector.Normal), LevelEnum.Default);
 
       return dictionary;
     }

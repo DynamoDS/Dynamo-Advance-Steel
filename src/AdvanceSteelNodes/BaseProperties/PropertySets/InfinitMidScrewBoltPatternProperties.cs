@@ -12,15 +12,15 @@ namespace AdvanceSteel.Nodes
 {
   public class InfinitMidScrewBoltPatternProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kInfinitMidScrewBoltPattern;
+    public override Type GetObjectType => typeof(InfinitMidScrewBoltPattern);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Midpoint On Lower Left", nameof(InfinitMidScrewBoltPattern.MidpointOnLowerLeft), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Midpoint On Lower Right", nameof(InfinitMidScrewBoltPattern.MidpointOnLowerRight), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Midpoint On Upper Left", nameof(InfinitMidScrewBoltPattern.MidpointOnUpperLeft), LevelEnum.Default);
+      InsertItem(dictionary, "Midpoint On Lower Left", nameof(InfinitMidScrewBoltPattern.MidpointOnLowerLeft), LevelEnum.Default);
+      InsertItem(dictionary, "Midpoint On Lower Right", nameof(InfinitMidScrewBoltPattern.MidpointOnLowerRight), LevelEnum.Default);
+      InsertItem(dictionary, "Midpoint On Upper Left", nameof(InfinitMidScrewBoltPattern.MidpointOnUpperLeft), LevelEnum.Default);
 
       return dictionary;
     }

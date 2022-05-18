@@ -11,23 +11,23 @@ namespace AdvanceSteel.Nodes
 {
   public class BeamMultiContourNotchProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kBeamMultiContourNotch;
+    public override Type GetObjectType => typeof(BeamMultiContourNotch);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Gap", nameof(BeamMultiContourNotch.Gap), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Radius Increment", nameof(BeamMultiContourNotch.RadIncrement), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "BoringOut", nameof(BeamMultiContourNotch.BoringOut));
-      InsertItem(dictionary, objectASType, "Normal", nameof(BeamMultiContourNotch.Normal), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Length", nameof(BeamMultiContourNotch.Length), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Width", nameof(BeamMultiContourNotch.Width), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Length Increment", nameof(BeamMultiContourNotch.LengthIncrement), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Radius", nameof(BeamMultiContourNotch.Radius), eUnitType.kDistance);
+      InsertItem(dictionary, "Gap", nameof(BeamMultiContourNotch.Gap), eUnitType.kDistance);
+      InsertItem(dictionary, "Radius Increment", nameof(BeamMultiContourNotch.RadIncrement), eUnitType.kDistance);
+      InsertItem(dictionary, "BoringOut", nameof(BeamMultiContourNotch.BoringOut));
+      InsertItem(dictionary, "Normal", nameof(BeamMultiContourNotch.Normal), LevelEnum.Default);
+      InsertItem(dictionary, "Length", nameof(BeamMultiContourNotch.Length), eUnitType.kDistance);
+      InsertItem(dictionary, "Width", nameof(BeamMultiContourNotch.Width), eUnitType.kDistance);
+      InsertItem(dictionary, "Length Increment", nameof(BeamMultiContourNotch.LengthIncrement), eUnitType.kDistance);
+      InsertItem(dictionary, "Radius", nameof(BeamMultiContourNotch.Radius), eUnitType.kDistance);
 
-      InsertItem(dictionary, objectASType, "Offset", nameof(BeamMultiContourNotch.Offset));
-      InsertItem(dictionary, objectASType, "Lower Clip", nameof(BeamMultiContourNotch.GetLowerClip));
+      InsertItem(dictionary, "Offset", nameof(BeamMultiContourNotch.Offset));
+      InsertItem(dictionary, "Lower Clip", nameof(BeamMultiContourNotch.GetLowerClip));
 
       InsertItem(dictionary, "Contour Type", GetContourType);
       InsertItem(dictionary, "End", GetEnd);

@@ -19,7 +19,7 @@ namespace AdvanceSteel.Nodes
   /// </summary>
   public class Property
   {
-    private eObjectType _eObjectType;
+    private Type _objectType;
     private string _description;
     private string _memberName;
     private MemberInfo _memberInfo;
@@ -39,7 +39,7 @@ namespace AdvanceSteel.Nodes
     {
       _read = existingProperty._read;
       _write = existingProperty._write;
-      _eObjectType = existingProperty._eObjectType;
+      _objectType = existingProperty._objectType;
       _description = existingProperty._description;
       _memberInfo = existingProperty._memberInfo;
       _memberName = existingProperty._memberName;
@@ -58,9 +58,9 @@ namespace AdvanceSteel.Nodes
       InternalValue = internalValue;
     }
 
-    internal Property(Type objectASType, eObjectType eObjectType, string description, string memberName, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
+    internal Property(Type objectASType, string description, string memberName, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
-      _eObjectType = eObjectType;
+      _objectType = objectASType;
       _description = description;
       _memberName = memberName;
       
@@ -93,11 +93,11 @@ namespace AdvanceSteel.Nodes
       throw new Exception(string.Format("'{0}' is not a property nor method with no arguments", memberName));
     }
 
-    internal Property(eObjectType eObjectType, string description, Func<object, object> funcGetValue, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
+    internal Property(Type objectType, string description, Func<object, object> funcGetValue, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
       _inicialized = true;
 
-      _eObjectType = eObjectType;
+      _objectType = objectType;
       _description = description;
       UnitType = unitType;
 
@@ -141,7 +141,6 @@ namespace AdvanceSteel.Nodes
     public static Property ByNameAndValue(string propertyName, object value)
     {
       //Store value and name property in a not inicialized property
-
       return new Property(propertyName, value);
     }
 
@@ -153,25 +152,15 @@ namespace AdvanceSteel.Nodes
     /// <returns name="property">The desired property</returns>
     public static Property GetObjectProperty(SteelDbObject steelObject, string propertyName)
     {
-      Property ret = null;
       using (var ctx = new SteelServices.DocContext())
       {
         FilerObject filerObj = Utils.GetObject(steelObject.Handle);
 
         Property extractionProperty = Utils.GetProperty(filerObj, propertyName);
-        if (extractionProperty != null)
-        {
-          if (extractionProperty.EvaluateFromObject(filerObj))
-          {
-            ret = extractionProperty;
-          }
-        }
-        else
-        {
-          throw new System.Exception("No property found for the given name");
-        }
+        extractionProperty.EvaluateFromObject(filerObj);
+
+        return extractionProperty;
       }
-      return ret;
     }
 
     /// <summary>
@@ -185,11 +174,7 @@ namespace AdvanceSteel.Nodes
       using (var ctx = new SteelServices.DocContext())
       {
         FilerObject fo = Utils.GetObject(steelObject.Handle);
-        if (fo == null)
-        {
-          throw new System.Exception("No Advance Steel Object Found");
-        }
-
+       
         property.SetToObject(fo);
         return steelObject;
       }
@@ -203,6 +188,7 @@ namespace AdvanceSteel.Nodes
     public static List<Property> GetObjectProperties(SteelDbObject steelObject)
     {
       List<Property> ret = new List<Property>() { };
+
       using (var ctx = new SteelServices.DocContext())
       {
         FilerObject filerObj = Utils.GetObject(steelObject.Handle);
@@ -211,15 +197,12 @@ namespace AdvanceSteel.Nodes
         foreach (KeyValuePair<string, Property> prop in allProperties)
         {
           Property extractionProperty = prop.Value;
-          if (extractionProperty != null)
-          {
-            if (extractionProperty.EvaluateFromObject(filerObj))
-            {
-              ret.Add(extractionProperty);
-            }
-          }
+          extractionProperty.EvaluateFromObject(filerObj);
+
+          ret.Add(extractionProperty);
         }
       }
+
       return ret;
     }
 
@@ -241,55 +224,77 @@ namespace AdvanceSteel.Nodes
       }
       set
       {
-        object valueToSet = value;
-        if (_valueType == typeof(int) && IsInteger(valueToSet))
-          _value = Convert.ToInt32(valueToSet);
-        else if (_valueType == typeof(double) && IsInteger(valueToSet))
-          _value = Convert.ToDouble(valueToSet);
-        else if (_valueType.Equals(valueToSet.GetType()))
-          _value = valueToSet;
-        else
-          throw new System.Exception("invalid value");
+        HasValidValue(value);
+        _value = value;
       }
     }
 
-    internal bool SetToObject(object objectToUpdate)
+    internal void SetToObject(object objectToUpdate)
     {
-      if (!_write)
+      if (objectToUpdate == null)
       {
-        throw new System.Exception("Cannot set readonly property: " + Name?.ToString());
+        throw new System.Exception("No Advance Steel Object Found");
       }
 
-      if (objectToUpdate != null)
+      Property property = this;
+
+      if (!this._inicialized)
       {
-        objectToUpdate.GetType().GetProperty(Name).SetValue(objectToUpdate, InternalValue);
-        return true;
+        property = Utils.GetProperty(objectToUpdate, this.Name);
       }
 
-      return false;
+      if (!property._write)
+      {
+        throw new System.Exception(string.Format("Cannot set readonly property: {0}", Name?.ToString()));
+      }
+
+      SetASObjectProperty(objectToUpdate, InternalValue);
     }
 
-    internal bool EvaluateFromObject(object objectToUpdateFrom)
+    internal void EvaluateFromObject(object objectToUpdateFrom)
     {
-      if (objectToUpdateFrom != null)
+      if (objectToUpdateFrom == null)
       {
-        try
-        {
-          InternalValue = objectToUpdateFrom.GetType().GetProperty(Name).GetValue(objectToUpdateFrom, null);
-          return true;
-        }
-        catch (Exception)
-        {
-          throw new System.Exception("Object Has no Property - " + Name);
-        }
+        throw new System.Exception("No Advance Steel Object Found");
       }
+
+      try
+      {
+        InternalValue = GetASObjectProperty(objectToUpdateFrom);
+      }
+      catch (Exception)
+      {
+        throw new System.Exception(string.Format("Object has no Property - {0}", Name?.ToString()));
+      }
+
+    }
+
+    private void HasValidValue(object value)
+    {
+      if (_valueType == typeof(int) && IsInteger(value))
+        return;
+      else if (_valueType == typeof(double) && IsDouble(value))
+        return;
+      else if (_valueType.Equals(value.GetType()))
+        return;
       else
-      {
-        throw new System.Exception("Null object");
-      }
+        throw new System.Exception(string.Format("This value type '{0}' is not valid for '{1}'", value.GetType().ToString(), _description));
     }
 
-    private object GetAndConvertASObjectProperty(object asObject)
+    public void SetASObjectProperty(object asObject, object value)
+    {
+      if (!(_memberInfo is PropertyInfo))
+      {
+        throw new System.Exception(string.Format("Set property not found: {0}", Name?.ToString()));
+      }
+
+      HasValidValue(value);
+
+      PropertyInfo propertyInfo = _memberInfo as PropertyInfo;
+      propertyInfo.SetValue(asObject, value);
+    }
+
+    private object GetASObjectProperty(object asObject)
     {
       if (_memberInfo is PropertyInfo)
       {
@@ -309,8 +314,67 @@ namespace AdvanceSteel.Nodes
       }
       else
       {
-        throw new Exception("Not inicialized");
+        throw new NotImplementedException();
       }
+    }
+
+    private object ConvertToDynamoObject(object objectAS)
+    {
+      dynamic objectASDynamic = objectAS;
+      return Convert(objectASDynamic);
+    }
+
+    private object Convert(Point3d objectAS)
+    {
+      return objectAS.ToDynPoint();
+    }
+
+    private object Convert(Vector3d objectAS)
+    {
+      return objectAS.ToDSVector();
+    }
+
+    private object Convert(Vector2d objectAS)
+    {
+      return objectAS.ToDSVector();
+    }
+
+    private object Convert(Plane objectAS)
+    {
+      return objectAS.ToDSPlane();
+    }
+
+    private object Convert(Polyline3d objectAS)
+    {
+      return objectAS.ToDSPolyCurve();
+    }
+
+    private object Convert(Matrix3d objectAS)
+    {
+      objectAS.GetCoordSystem(out ASPoint3d point, out ASVector3d vetorX, out ASVector3d vetorY, out ASVector3d vetorZ);
+
+      //Try the vectors
+      if (vetorX.IsZeroLength() || vetorY.IsZeroLength() || vetorZ.IsZeroLength())
+      {
+        throw new Exception(ResourceStrings.Nodes_ErrorConvertingCS);
+      }
+
+      return DSCoordinateSystem.ByOriginVectors(point.ToDSPoint(), vetorX.ToDSVector(), vetorY.ToDSVector(), vetorZ.ToDSVector());
+    }
+
+    private object Convert(double objectAS)
+    {
+      if (UnitType.HasValue)
+      {
+        ((double)objectAS).FromInternalUnits(UnitType.Value);
+      }
+
+      return objectAS;
+    }
+
+    private object Convert(object objectAS)
+    {
+      return objectAS;
     }
 
     internal object ConvertValueFromDynToAS(object val)
@@ -332,7 +396,7 @@ namespace AdvanceSteel.Nodes
       }
       else if ((IsDouble(val) || IsInteger(val)) && this.UnitType.HasValue)
       {
-        return Utils.ToInternalUnits(Convert.ToDouble(val), this.UnitType.Value, true);
+        return Utils.ToInternalUnits(System.Convert.ToDouble(val), this.UnitType.Value, true);
       }
       else
       {
@@ -359,7 +423,7 @@ namespace AdvanceSteel.Nodes
       }
       else if ((IsDouble(val) || IsInteger(val)) && this.UnitType.HasValue)
       {
-        return Utils.FromInternalUnits(Convert.ToDouble(val), this.UnitType.Value, true);
+        return Utils.FromInternalUnits(System.Convert.ToDouble(val), this.UnitType.Value, true);
       }
       else
       {

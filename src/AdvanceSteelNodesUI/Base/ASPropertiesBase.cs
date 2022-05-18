@@ -5,6 +5,7 @@ using Dynamo.Utilities;
 using ProtoCore.AST.AssociativeAST;
 using Newtonsoft.Json;
 using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
+using System;
 
 namespace AdvanceSteel.Nodes
 {
@@ -16,7 +17,7 @@ namespace AdvanceSteel.Nodes
   {
     private const string outputName = "propertyName";
 
-    protected abstract eObjectType GetObjectType { get; }
+    protected abstract Type GetObjectType { get; }
 
     public ASPropertiesBase()
         : base(outputName)

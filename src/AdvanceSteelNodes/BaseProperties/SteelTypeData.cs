@@ -14,9 +14,8 @@ namespace AdvanceSteel.Nodes
 
     public Dictionary<string, Property> Properties { get; private set; }
 
-    public SteelTypeData(Type asType, string description)
+    public SteelTypeData(string description)
     {
-      ASType = asType;
       Description = description;
     }
 

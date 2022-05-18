@@ -11,21 +11,21 @@ namespace AdvanceSteel.Nodes
 {
   public class PlateFeatContourProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kPlateFeatContour;
+    public override Type GetObjectType => typeof(PlateFeatContour);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Gap", nameof(PlateFeatContour.Gap), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Length", nameof(PlateFeatContour.Length), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Length Increment", nameof(PlateFeatContour.LengthIncrement), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Radius", nameof(PlateFeatContour.Radius), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Radius Increment", nameof(PlateFeatContour.RadIncrement), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Width", nameof(PlateFeatContour.Width), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Boring Out Option", nameof(PlateFeatContour.BoringOut));
-      InsertItem(dictionary, objectASType, "Offset", nameof(PlateFeatContour.Offset));
-      InsertItem(dictionary, objectASType, "Vertex", nameof(PlateFeatContour.VertexInformation));
+      InsertItem(dictionary, "Gap", nameof(PlateFeatContour.Gap), eUnitType.kDistance);
+      InsertItem(dictionary, "Length", nameof(PlateFeatContour.Length), eUnitType.kDistance);
+      InsertItem(dictionary, "Length Increment", nameof(PlateFeatContour.LengthIncrement), eUnitType.kDistance);
+      InsertItem(dictionary, "Radius", nameof(PlateFeatContour.Radius), eUnitType.kDistance);
+      InsertItem(dictionary, "Radius Increment", nameof(PlateFeatContour.RadIncrement), eUnitType.kDistance);
+      InsertItem(dictionary, "Width", nameof(PlateFeatContour.Width), eUnitType.kDistance);
+      InsertItem(dictionary, "Boring Out Option", nameof(PlateFeatContour.BoringOut));
+      InsertItem(dictionary, "Offset", nameof(PlateFeatContour.Offset));
+      InsertItem(dictionary, "Vertex", nameof(PlateFeatContour.VertexInformation));
 
       InsertItem(dictionary, "Contour Type", GetContourType);
       InsertItem(dictionary, "Contour Polygon", GetContourPolygon);

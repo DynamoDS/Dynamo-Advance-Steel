@@ -12,18 +12,18 @@ namespace AdvanceSteel.Nodes
 {
   public class ConnectionHoleProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kConnectionHoleFeature;
+    public override Type GetObjectType => typeof(ConnectionHoleFeature);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Depth", nameof(ConnectionHoleFeature.Depth), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Angle", nameof(ConnectionHoleFeature.Angle), eUnitType.kAngle);
-      InsertItem(dictionary, objectASType, "Use Hole Definition for Numbering", nameof(ConnectionHoleFeature.UsedForNumbering));
-      InsertItem(dictionary, objectASType, "Center Point", nameof(ConnectionHoleFeature.GetCenterPoint));
-      InsertItem(dictionary, objectASType, "Exact Coordinate System", nameof(ConnectionHoleFeature.CSExact));
-      InsertItem(dictionary, objectASType, "Local Coordinate System", nameof(ConnectionHoleFeature.CSLocal));
+      InsertItem(dictionary, "Depth", nameof(ConnectionHoleFeature.Depth), eUnitType.kDistance);
+      InsertItem(dictionary, "Angle", nameof(ConnectionHoleFeature.Angle), eUnitType.kAngle);
+      InsertItem(dictionary, "Use Hole Definition for Numbering", nameof(ConnectionHoleFeature.UsedForNumbering));
+      InsertItem(dictionary, "Center Point", nameof(ConnectionHoleFeature.GetCenterPoint));
+      InsertItem(dictionary, "Exact Coordinate System", nameof(ConnectionHoleFeature.CSExact));
+      InsertItem(dictionary, "Local Coordinate System", nameof(ConnectionHoleFeature.CSLocal));
 
       InsertItem(dictionary, "Diameter", GetDiameter);
 

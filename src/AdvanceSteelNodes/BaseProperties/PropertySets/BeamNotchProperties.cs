@@ -11,15 +11,15 @@ namespace AdvanceSteel.Nodes
 {
   public class BeamNotchProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kBeamNotch;
+    public override Type GetObjectType => typeof(BeamNotch);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Radius", nameof(BeamNotch.CornerRadius), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Depth", nameof(BeamNotch.ReferenceDepth), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Length", nameof(BeamNotch.ReferenceLength), eUnitType.kDistance);
+      InsertItem(dictionary, "Radius", nameof(BeamNotch.CornerRadius), eUnitType.kDistance);
+      InsertItem(dictionary, "Depth", nameof(BeamNotch.ReferenceDepth), eUnitType.kDistance);
+      InsertItem(dictionary, "Length", nameof(BeamNotch.ReferenceLength), eUnitType.kDistance);
 
       InsertItem(dictionary, "Side", GetSide);
       InsertItem(dictionary, "End", GetEnd);

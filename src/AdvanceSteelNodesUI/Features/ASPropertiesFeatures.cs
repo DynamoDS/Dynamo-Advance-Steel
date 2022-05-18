@@ -6,6 +6,8 @@ using ProtoCore.AST.AssociativeAST;
 using Newtonsoft.Json;
 using Autodesk.AdvanceSteel.CADAccess;
 using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
+using System;
+using Autodesk.AdvanceSteel.Modelling;
 
 namespace AdvanceSteel.Nodes
 {
@@ -14,7 +16,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Features.BeamPlaneCut")]
   public class ASPropertiesBeamCutPlaneFeatures : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kBeamShortening;
+    protected override Type GetObjectType => typeof(BeamShortening);
 
     public ASPropertiesBeamCutPlaneFeatures() : base() { }
 
@@ -28,7 +30,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Features.BeamCope")]
   public class ASPropertiesBeamNotchExFeatures : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kBeamNotchEx;
+    protected override Type GetObjectType => typeof(BeamNotchEx);
 
     public ASPropertiesBeamNotchExFeatures() : base() { }
 
@@ -42,7 +44,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Features.BeamCope")]
   public class ASPropertiesBeamNotchSqFeatures : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kBeamNotch2Ortho;
+    protected override Type GetObjectType => typeof(BeamNotch2Ortho);
 
     public ASPropertiesBeamNotchSqFeatures() : base() { }
 
@@ -56,7 +58,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Features.BeamPolycut")]
   public class ASPropertiesBeamPolylineNotchFeatures : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kBeamMultiContourNotch;
+    protected override Type GetObjectType => typeof(BeamMultiContourNotch);
 
     public ASPropertiesBeamPolylineNotchFeatures() : base() { }
 
@@ -70,7 +72,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Features.PlateHoles")]
   public class ASPropertiesHoles : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kConnectionHolePlate;
+    protected override Type GetObjectType => typeof(ConnectionHolePlate);
 
     public ASPropertiesHoles() : base() { }
 
@@ -84,7 +86,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Features.PlatePolycut")]
   public class ASPropertiesPlatePolylineNotchFeatures : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kPlateContourNotch;
+    protected override Type GetObjectType => typeof(PlateContourNotch);
 
     public ASPropertiesPlatePolylineNotchFeatures() : base() { }
 
@@ -98,7 +100,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Features.PlateVertexCut")]
   public class ASPropertiesPlateVertexFeatures : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kPlateFeatVertex;
+    protected override Type GetObjectType => typeof(PlateFeatVertex);
 
     public ASPropertiesPlateVertexFeatures() : base() { }
 

@@ -12,20 +12,20 @@ namespace AdvanceSteel.Nodes
 {
   public class BoltPatternProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kBoltPattern;
+    public override Type GetObjectType => typeof(BoltPattern);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Reference Point", nameof(BoltPattern.RefPoint));
-      InsertItem(dictionary, objectASType, "Number of Screws", nameof(BoltPattern.NumberOfScrews), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Is Inverted", nameof(BoltPattern.IsInverted));
-      InsertItem(dictionary, objectASType, "Center", nameof(BoltPattern.Center), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "X Direction", nameof(BoltPattern.XDirection));
-      InsertItem(dictionary, objectASType, "Bolt Normal", nameof(BoltPattern.BoltNormal), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Normal", nameof(BoltPattern.Normal), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Y Direction", nameof(BoltPattern.YDirection));
+      InsertItem(dictionary, "Reference Point", nameof(BoltPattern.RefPoint));
+      InsertItem(dictionary, "Number of Screws", nameof(BoltPattern.NumberOfScrews), LevelEnum.Default);
+      InsertItem(dictionary, "Is Inverted", nameof(BoltPattern.IsInverted));
+      InsertItem(dictionary, "Center", nameof(BoltPattern.Center), LevelEnum.Default);
+      InsertItem(dictionary, "X Direction", nameof(BoltPattern.XDirection));
+      InsertItem(dictionary, "Bolt Normal", nameof(BoltPattern.BoltNormal), LevelEnum.Default);
+      InsertItem(dictionary, "Normal", nameof(BoltPattern.Normal), LevelEnum.Default);
+      InsertItem(dictionary, "Y Direction", nameof(BoltPattern.YDirection));
 
       InsertItem(dictionary, "Middle Points", GetMidPoints);
 

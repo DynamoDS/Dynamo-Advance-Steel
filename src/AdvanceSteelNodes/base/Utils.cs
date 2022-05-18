@@ -791,21 +791,21 @@ namespace AdvanceSteel.Nodes
       return handlesList;
     }
 
-    internal static Property GetProperty(FilerObject filerObject, string keyValue)
+    internal static Property GetProperty(Object objectToGetProperty, string keyValue)
     {
-      var dictionaryProperties = GetAllPropertiesWithoutClone(filerObject);
+      var dictionaryProperties = GetAllPropertiesWithoutClone(objectToGetProperty);
 
       if (dictionaryProperties.TryGetValue(keyValue, out Property retValue))
       {
         return new Property(retValue);
       }
 
-      return null;
+      throw new System.Exception(string.Format("Property '{0}' not found", keyValue));
     }
 
-    internal static Dictionary<string, Property> GetAllPropertiesWithoutClone(FilerObject filerObject)
+    internal static Dictionary<string, Property> GetAllPropertiesWithoutClone(Object objectToGetProperties)
     {
-      var objectType = filerObject.Type();
+      var objectType = objectToGetProperties.GetType();
 
       if (!UtilsProperties.SteelObjectPropertySets.ContainsKey(objectType))
       {

@@ -11,13 +11,13 @@ namespace AdvanceSteel.Nodes
 {
   public class ConnectionHolePlateProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kConnectionHolePlate;
+    public override Type GetObjectType => typeof(ConnectionHolePlate);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Plate", nameof(ConnectionHolePlate.GetPlate));
+      InsertItem(dictionary, "Plate", nameof(ConnectionHolePlate.GetPlate));
 
       return dictionary;
     }

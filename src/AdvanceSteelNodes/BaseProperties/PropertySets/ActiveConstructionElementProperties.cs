@@ -10,14 +10,14 @@ namespace AdvanceSteel.Nodes
 {
   public class ActiveConstructionElementProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kActConstructionElem;
+    public override Type GetObjectType => typeof(ActiveConstructionElement);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Coordinate System", nameof(ActiveConstructionElement.CS), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Connection Number", nameof(ActiveConstructionElement.NumberOfDrivenConObj));
+      InsertItem(dictionary, "Coordinate System", nameof(ActiveConstructionElement.CS), LevelEnum.Default);
+      InsertItem(dictionary, "Connection Number", nameof(ActiveConstructionElement.NumberOfDrivenConObj));
 
       return dictionary;
     }

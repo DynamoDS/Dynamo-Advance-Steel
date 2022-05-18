@@ -9,8 +9,8 @@ namespace AdvanceSteel.Nodes
 {
   public interface IASProperties
   {
-    eObjectType GetObjectType { get; }
+    Type GetObjectType { get; }
 
-    Dictionary<string, Property> BuildPropertyList(Type objectASType);
+    Dictionary<string, Property> BuildPropertyList();
   }
 }

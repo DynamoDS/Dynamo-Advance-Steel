@@ -6,6 +6,9 @@ using ProtoCore.AST.AssociativeAST;
 using Newtonsoft.Json;
 using Autodesk.AdvanceSteel.CADAccess;
 using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
+using System;
+using Autodesk.AdvanceSteel.Modelling;
+using Autodesk.AdvanceSteel.ConstructionHelper;
 
 namespace AdvanceSteel.Nodes
 {
@@ -14,7 +17,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Miscellaneous.Camera")]
   public class ASPropertiesCamera : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kCamera;
+    protected override Type GetObjectType => typeof(Camera);
 
     public ASPropertiesCamera() : base() { }
 
@@ -28,7 +31,7 @@ namespace AdvanceSteel.Nodes
   [NodeCategory("AdvanceSteel.Nodes.Miscellaneous.SpecialPart")]
   public class ASPropertiesSpecialParts : ASPropertiesBase
   {
-    protected override eObjectType GetObjectType => eObjectType.kSpecialPart;
+    protected override Type GetObjectType => typeof(SpecialPart);
 
     public ASPropertiesSpecialParts() : base() { }
 

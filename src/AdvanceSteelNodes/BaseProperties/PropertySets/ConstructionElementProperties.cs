@@ -10,18 +10,18 @@ namespace AdvanceSteel.Nodes
 {
   public class ConstructionElementProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kConstructionElem;
+    public override Type GetObjectType => typeof(ConstructionElement);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Role Description", nameof(ConstructionElement.RoleDescription), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Pure Role", nameof(ConstructionElement.PureRole), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Center Point", nameof(ConstructionElement.CenterPoint), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Role", nameof(ConstructionElement.Role));
-      InsertItem(dictionary, objectASType, "Display Modes Number", nameof(ConstructionElement.NumberOfReprModes), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Display Mode", nameof(ConstructionElement.ReprMode));
+      InsertItem(dictionary, "Role Description", nameof(ConstructionElement.RoleDescription), LevelEnum.Default);
+      InsertItem(dictionary, "Pure Role", nameof(ConstructionElement.PureRole), LevelEnum.Default);
+      InsertItem(dictionary, "Center Point", nameof(ConstructionElement.CenterPoint), LevelEnum.Default);
+      InsertItem(dictionary, "Role", nameof(ConstructionElement.Role));
+      InsertItem(dictionary, "Display Modes Number", nameof(ConstructionElement.NumberOfReprModes), LevelEnum.Default);
+      InsertItem(dictionary, "Display Mode", nameof(ConstructionElement.ReprMode));
 
       return dictionary;
     }

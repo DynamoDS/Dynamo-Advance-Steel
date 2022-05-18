@@ -12,16 +12,16 @@ namespace AdvanceSteel.Nodes
 {
   public class FeatureObjectProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kFeatureObject;
+    public override Type GetObjectType => typeof(FeatureObject);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Is From Fitter", nameof(FeatureObject.IsFromFitter), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Coordinate System", nameof(FeatureObject.CS));
-      InsertItem(dictionary, objectASType, "Use Gap", nameof(FeatureObject.UseGap));
-      InsertItem(dictionary, objectASType, "Object Index", nameof(FeatureObject.ObjectIndex));
+      InsertItem(dictionary, "Is From Fitter", nameof(FeatureObject.IsFromFitter), LevelEnum.Default);
+      InsertItem(dictionary, "Coordinate System", nameof(FeatureObject.CS));
+      InsertItem(dictionary, "Use Gap", nameof(FeatureObject.UseGap));
+      InsertItem(dictionary, "Object Index", nameof(FeatureObject.ObjectIndex));
 
       return dictionary;
     }

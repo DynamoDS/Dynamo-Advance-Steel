@@ -11,15 +11,15 @@ namespace AdvanceSteel.Nodes
 {
   public class BeamNotchExProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kBeamNotchEx;
+    public override Type GetObjectType => typeof(BeamNotchEx);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Axis Angle", nameof(BeamNotchEx.AxisAngle), eUnitType.kAngle);
-      InsertItem(dictionary, objectASType, "Z Angle", nameof(BeamNotchEx.ZAngle), eUnitType.kAngle);
-      InsertItem(dictionary, objectASType, "X Angle", nameof(BeamNotchEx.XAngle), eUnitType.kAngle);
+      InsertItem(dictionary, "Axis Angle", nameof(BeamNotchEx.AxisAngle), eUnitType.kAngle);
+      InsertItem(dictionary, "Z Angle", nameof(BeamNotchEx.ZAngle), eUnitType.kAngle);
+      InsertItem(dictionary, "X Angle", nameof(BeamNotchEx.XAngle), eUnitType.kAngle);
 
       InsertItem(dictionary, "X Axis Rotation", GetXRotation);
 

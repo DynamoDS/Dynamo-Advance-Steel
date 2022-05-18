@@ -11,15 +11,15 @@ namespace AdvanceSteel.Nodes
 {
   public class UnfoldedStraightBeamProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kUnfoldedStraightBeam;
+    public override Type GetObjectType => typeof(UnfoldedStraightBeam);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Unfolded Bem Thickness", nameof(UnfoldedStraightBeam.Thickness), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Unfolded Bem Portioning", nameof(UnfoldedStraightBeam.Portioning), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Closed", nameof(UnfoldedStraightBeam.IsClosed));
+      InsertItem(dictionary, "Unfolded Bem Thickness", nameof(UnfoldedStraightBeam.Thickness), eUnitType.kDistance);
+      InsertItem(dictionary, "Unfolded Bem Portioning", nameof(UnfoldedStraightBeam.Portioning), eUnitType.kDistance);
+      InsertItem(dictionary, "Closed", nameof(UnfoldedStraightBeam.IsClosed));
 
       return dictionary;
     }

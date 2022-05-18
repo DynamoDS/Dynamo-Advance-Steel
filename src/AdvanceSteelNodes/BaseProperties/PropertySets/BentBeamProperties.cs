@@ -11,17 +11,17 @@ namespace AdvanceSteel.Nodes
 {
   public class BentBeamProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kBentBeam;
+    public override Type GetObjectType => typeof(BentBeam);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Offset Curve Radius", nameof(BentBeamBase.OffsetCurveRadius), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Curve Offset", nameof(BentBeamBase.CurveOffset), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Definition Plane Coordinate System", nameof(BentBeamBase.DefinitionPlane), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Systemline Radius", nameof(BentBeamBase.SystemlineRadius), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Physical Length", nameof(BentBeamBase.GetPhysLength), eUnitType.kDistance);
+      InsertItem(dictionary, "Offset Curve Radius", nameof(BentBeamBase.OffsetCurveRadius), eUnitType.kDistance);
+      InsertItem(dictionary, "Curve Offset", nameof(BentBeamBase.CurveOffset), LevelEnum.Default, eUnitType.kDistance);
+      InsertItem(dictionary, "Definition Plane Coordinate System", nameof(BentBeamBase.DefinitionPlane), LevelEnum.Default);
+      InsertItem(dictionary, "Systemline Radius", nameof(BentBeamBase.SystemlineRadius), LevelEnum.Default, eUnitType.kDistance);
+      InsertItem(dictionary, "Physical Length", nameof(BentBeamBase.GetPhysLength), eUnitType.kDistance);
 
       InsertItem(dictionary, "Arc Center", GetArcCenter);
       InsertItem(dictionary, "Arc Normal", GetArcNormal);

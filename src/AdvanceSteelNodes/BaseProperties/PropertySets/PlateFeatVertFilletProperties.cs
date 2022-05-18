@@ -11,16 +11,16 @@ namespace AdvanceSteel.Nodes
 {
   public class PlateFeatVertFilletProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kPlateFeatVertFillet;
+    public override Type GetObjectType => typeof(PlateFeatVertFillet);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Length 1", nameof(PlateFeatVertFillet.Length1), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Length 2", nameof(PlateFeatVertFillet.Length2), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Radius Increment", nameof(PlateFeatVertFillet.RadiusIncrement), eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Radius", nameof(PlateFeatVertFillet.Radius), eUnitType.kDistance);
+      InsertItem(dictionary, "Length 1", nameof(PlateFeatVertFillet.Length1), eUnitType.kDistance);
+      InsertItem(dictionary, "Length 2", nameof(PlateFeatVertFillet.Length2), eUnitType.kDistance);
+      InsertItem(dictionary, "Radius Increment", nameof(PlateFeatVertFillet.RadiusIncrement), eUnitType.kDistance);
+      InsertItem(dictionary, "Radius", nameof(PlateFeatVertFillet.Radius), eUnitType.kDistance);
 
       InsertItem(dictionary, "Fillet Type", GetFilletType);
       InsertItem(dictionary, "Contour Polygon", GetContourPolygon);

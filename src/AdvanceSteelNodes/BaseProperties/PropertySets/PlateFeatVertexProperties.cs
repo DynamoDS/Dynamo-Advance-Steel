@@ -11,14 +11,14 @@ namespace AdvanceSteel.Nodes
 {
   public class PlateFeatVertexProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kPlateFeatVertex;
+    public override Type GetObjectType => typeof(PlateFeatVertex);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Vertex Index", nameof(PlateFeatVertex.VertexIndex));
-      InsertItem(dictionary, objectASType, "Contour Index", nameof(PlateFeatVertex.ContourIndex));
+      InsertItem(dictionary, "Vertex Index", nameof(PlateFeatVertex.VertexIndex));
+      InsertItem(dictionary, "Contour Index", nameof(PlateFeatVertex.ContourIndex));
 
       InsertItem(dictionary, "Polygon", GetPolygon);
 

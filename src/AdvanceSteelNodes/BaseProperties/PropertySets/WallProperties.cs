@@ -11,14 +11,14 @@ namespace AdvanceSteel.Nodes
 {
   public class WallProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kWall;
+    public override Type GetObjectType => typeof(Wall);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "Height", nameof(Wall.Height), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, objectASType, "Free", nameof(Wall.IsFree));
+      InsertItem(dictionary, "Height", nameof(Wall.Height), LevelEnum.Default, eUnitType.kDistance);
+      InsertItem(dictionary, "Free", nameof(Wall.IsFree));
 
       return dictionary;
     }

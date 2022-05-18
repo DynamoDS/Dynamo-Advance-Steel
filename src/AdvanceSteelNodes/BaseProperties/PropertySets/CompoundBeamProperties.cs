@@ -11,15 +11,15 @@ namespace AdvanceSteel.Nodes
 {
   public class CompoundBeamProperties : BaseProperties, IASProperties
   {
-    public override eObjectType GetObjectType => eObjectType.kCompoundBeam;
+    public override Type GetObjectType => typeof(CompoundStraightBeam);
 
-    public override Dictionary<string, Property> BuildPropertyList(Type objectASType)
+    public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, objectASType, "CompoundTypeName", nameof(CompoundStraightBeam.CompoundTypeName), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "CompoundClassName", nameof(CompoundStraightBeam.CompoundClassName), LevelEnum.Default);
-      InsertItem(dictionary, objectASType, "Use Compound As One Beam", nameof(CompoundStraightBeam.UseCompoundAsOneBeam));
+      InsertItem(dictionary, "CompoundTypeName", nameof(CompoundStraightBeam.CompoundTypeName), LevelEnum.Default);
+      InsertItem(dictionary, "CompoundClassName", nameof(CompoundStraightBeam.CompoundClassName), LevelEnum.Default);
+      InsertItem(dictionary, "Use Compound As One Beam", nameof(CompoundStraightBeam.UseCompoundAsOneBeam));
 
       return dictionary;
     }
