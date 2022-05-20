@@ -237,8 +237,8 @@ namespace AdvanceSteel.Nodes.Features
       {
         listBeamFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "ReferenceLength", length);
-      if (depth > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "ReferenceDepth", depth);
+      if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, nameof(ASBeamNotchEx.ReferenceLength), length);
+      if (depth > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, nameof(ASBeamNotchEx.ReferenceDepth), depth);
       return listBeamFeatureData;
     }
 

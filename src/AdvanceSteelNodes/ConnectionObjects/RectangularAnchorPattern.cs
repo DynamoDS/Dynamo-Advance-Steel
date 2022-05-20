@@ -178,8 +178,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
         listOfAnchorBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Nx", nx);
-      Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Ny", ny);
+      Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, nameof(ASAnchorPattern.Nx), nx);
+      Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, nameof(ASAnchorPattern.Ny), ny);
 
       return listOfAnchorBoltParameters;
     }

@@ -57,8 +57,8 @@ namespace AdvanceSteel.Nodes.Gratings
       List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
       List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
-      string strClass = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingClass").InternalValue;
-      string strName = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingSize").InternalValue;
+      string strClass = (string)defaultData.FirstOrDefault<Property>(x => x.Name == nameof(ASGrating.GratingClass)).InternalValue;
+      string strName = (string)defaultData.FirstOrDefault<Property>(x => x.Name == nameof(ASGrating.GratingSize)).InternalValue;
 
       Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
 
@@ -108,8 +108,8 @@ namespace AdvanceSteel.Nodes.Gratings
       List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
       List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
-      string strClass = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingClass").InternalValue;
-      string strName = (string)defaultData.FirstOrDefault<Property>(x => x.Name == "GratingSize").InternalValue;
+      string strClass = (string)defaultData.FirstOrDefault<Property>(x => x.Name == nameof(ASGrating.GratingClass)).InternalValue;
+      string strName = (string)defaultData.FirstOrDefault<Property>(x => x.Name == nameof(ASGrating.GratingSize)).InternalValue;
 
       Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(Utils.ToAstPoint(poly.Center(), true), vNormal);
       Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
@@ -269,8 +269,8 @@ namespace AdvanceSteel.Nodes.Gratings
       {
         listGratingData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(listGratingData, "GratingClass", gratingClass);
-      Utils.CheckListUpdateOrAddValue(listGratingData, "GratingSize", gratingName);
+      Utils.CheckListUpdateOrAddValue(listGratingData, nameof(ASGrating.GratingClass), gratingClass);
+      Utils.CheckListUpdateOrAddValue(listGratingData, nameof(ASGrating.GratingSize), gratingName);
       return listGratingData;
     }
 

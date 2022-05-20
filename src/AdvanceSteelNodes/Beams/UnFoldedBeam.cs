@@ -215,7 +215,7 @@ namespace AdvanceSteel.Nodes.Beams
       {
         listBeamData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(listBeamData, "Thickness", thickness);
+      Utils.CheckListUpdateOrAddValue(listBeamData, nameof(UnfoldedStraightBeam.Thickness), thickness);
       return listBeamData;
     }
 

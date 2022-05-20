@@ -133,7 +133,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 
       if (radius > 0 )
       {
-        Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, "Radius", radius);
+        Utils.CheckListUpdateOrAddValue(listOfAnchorBoltParameters, nameof(ASAnchorPattern.Radius), radius);
       }
 
       return listOfAnchorBoltParameters;

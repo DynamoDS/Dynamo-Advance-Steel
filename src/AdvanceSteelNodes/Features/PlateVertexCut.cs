@@ -148,11 +148,11 @@ namespace AdvanceSteel.Nodes.Features
       {
         listPlateFeatureData = new List<Property>() { };
       }
-      if (conIndex > -1) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "ContourIndex", conIndex);
-      if (vertIndex > -1) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "VertexIndex", vertIndex);
-      if (length1 > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Length1", length1);
-      if (length2 > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Length2", length2);
-      if (radius > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Radius", radius);
+      if (conIndex > -1) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, nameof(PlateFeatEdge.ContourIndex), conIndex);
+      if (vertIndex > -1) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, nameof(PlateFeatVertex.VertexIndex), vertIndex);
+      if (length1 > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, nameof(PlateFeatVertFillet.Length1), length1);
+      if (length2 > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, nameof(PlateFeatVertFillet.Length2), length2);
+      if (radius > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, nameof(PlateFeatVertFillet.Radius), radius);
       return listPlateFeatureData;
     }
 

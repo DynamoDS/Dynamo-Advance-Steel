@@ -155,8 +155,8 @@ namespace AdvanceSteel.Nodes.Gratings
       {
         listGratingData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(listGratingData, "GratingClass", gratingClass);
-      Utils.CheckListUpdateOrAddValue(listGratingData, "GratingSize", gratingName);
+      Utils.CheckListUpdateOrAddValue(listGratingData, nameof(ASGrating.GratingClass), gratingClass);
+      Utils.CheckListUpdateOrAddValue(listGratingData, nameof(ASGrating.GratingSize), gratingName);
 
       return listGratingData;
     }

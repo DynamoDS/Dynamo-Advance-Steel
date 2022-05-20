@@ -13,6 +13,7 @@ using Autodesk.AdvanceSteel.Arrangement;
 using Autodesk.AdvanceSteel.Contours;
 using System;
 using ASConnectionHolePlate = Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+using Autodesk.AdvanceSteel.Connection;
 
 namespace AdvanceSteel.Nodes.Features
 {
@@ -56,22 +57,22 @@ namespace AdvanceSteel.Nodes.Features
       double dX, dY, diameterHole, slotLength, sunkDepth, alphaE, headDepth, radius, wX, wY, width, length;
       int nX, nY, isTappingRight, slotDirection;
 
-      dX = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Dx").InternalValue;
-      dY = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Dy").InternalValue;
-      wX = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Wx").InternalValue;
-      wY = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Wy").InternalValue;
-      nX = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Nx").InternalValue;
-      nY = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Ny").InternalValue;
-      diameterHole = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Diameter").InternalValue;
-      slotLength = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "SlotLength").InternalValue;
-      slotDirection = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "SlotDirection").InternalValue;
-      sunkDepth = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "SunkDepth").InternalValue;
-      alphaE = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "AlphaE").InternalValue;
-      isTappingRight = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "IsTappingRight").InternalValue;
-      headDepth = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "HeadDepth").InternalValue;
-      radius = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Radius").InternalValue;
-      width = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Width").InternalValue;
-      length = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Length").InternalValue;
+      dX = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Dx)).InternalValue;
+      dY = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Dy)).InternalValue;
+      wX = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Wx)).InternalValue;
+      wY = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Wy)).InternalValue;
+      nX = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Nx)).InternalValue;
+      nY = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Ny)).InternalValue;
+      diameterHole = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Hole.Diameter)).InternalValue;
+      slotLength = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(SlottedHole.SlotLength)).InternalValue;
+      slotDirection = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(SlottedHole.SlotDirection)).InternalValue;
+      sunkDepth = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(ExtendedHole.SunkDepth)).InternalValue;
+      alphaE = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(ExtendedHole.Alpha_e)).InternalValue;
+      isTappingRight = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(ExtendedHole.IsTappingRight)).InternalValue;
+      headDepth = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(ExtendedHole.HeadDiameter)).InternalValue;
+      radius = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Radius)).InternalValue;
+      width = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Width)).InternalValue;
+      length = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Length)).InternalValue;
 
       FilerObject obj = Utils.GetObject(element.Handle);
       if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kPlate)))
@@ -1154,23 +1155,23 @@ namespace AdvanceSteel.Nodes.Features
         listOfHoleParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Nx", nx);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Ny", ny);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Dx", dx);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Dy", dy);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Diameter", diameterHole);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "SlotLength", slotLength);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "SlotDirection", slotDirection);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "SunkDepth", sunkDepth);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "AlphaE", alphaE);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "IsTappingRight", isTappingRight);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "HeadDepth", headDepth);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Nx), nx);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Ny), ny);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Dx), dx);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Dy), dy);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Hole.Diameter), diameterHole);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(SlottedHole.SlotLength), slotLength);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(SlottedHole.SlotDirection), slotDirection);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(ExtendedHole.SunkDepth), sunkDepth);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(ExtendedHole.Alpha_e), alphaE);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(ExtendedHole.IsTappingRight), isTappingRight);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(ExtendedHole.HeadDiameter), headDepth);
 
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Radius", radius);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Length", length);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Width", width);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Wx", wx);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Wy", wy);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Radius), radius);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Length), length);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Width), width);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Wx), wx);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Wy), wy);
 
 
       return listOfHoleParameters;

@@ -11,6 +11,7 @@ using Autodesk.AdvanceSteel.Geometry;
 using System.Linq;
 using ASConnector = Autodesk.AdvanceSteel.Modelling.Connector;
 using Autodesk.AdvanceSteel.Arrangement;
+using Autodesk.AdvanceSteel.Contours;
 
 namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
 {
@@ -181,10 +182,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
         listOfBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "NumberOfElements", noss);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Radius", radius);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Length", studLength);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Diameter", studDiameter);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(Arranger.NumberOfElements), noss);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(Arranger.Radius), radius);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(Arranger.Length), studLength);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(ASConnector.Diameter), studDiameter);
 
       return listOfBoltParameters;
     }
