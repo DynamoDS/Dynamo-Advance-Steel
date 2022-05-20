@@ -8,6 +8,8 @@ namespace AdvanceSteel.Nodes
 {
   public abstract class AstDropDownBase : DSDropDownBase
   {
+
+    protected const string SelectObjectTypeString = "Select Object Type...";
     protected AstDropDownBase(string outputName) : base(outputName)
     {
     }

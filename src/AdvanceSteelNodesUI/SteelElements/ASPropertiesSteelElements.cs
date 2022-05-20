@@ -16,6 +16,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("StraightBeamProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Straight Beam")]
   [NodeCategory("AdvanceSteel.Nodes.Beams.StraightBeam")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesStraightBeam : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(StraightBeam);
@@ -30,6 +31,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("BentBeamProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Bent Beam")]
   [NodeCategory("AdvanceSteel.Nodes.Beams.BentBeam")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesBentBeam : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(BentBeam);
@@ -44,6 +46,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("CompoundStraightBeamProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Compound Straight Beam")]
   [NodeCategory("AdvanceSteel.Nodes.Beams.CompoundBeam")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesCompoundStraightBeam : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(CompoundStraightBeam);
@@ -58,6 +61,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("ConcreteBentBeamProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Concrete Bent Beam")]
   [NodeCategory("AdvanceSteel.Nodes.Concrete.ConcreteBentBeam")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesConcBentBeam : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(ConcreteBentBeam);
@@ -72,6 +76,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("ConcreteStraightBeamProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Concrete Straight Beam")]
   [NodeCategory("AdvanceSteel.Nodes.Concrete.ConcreteStraightBeam")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesConcStraightBeam : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(ConcreteBeam);
@@ -86,6 +91,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("GratingProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Grating")]
   [NodeCategory("AdvanceSteel.Nodes.Grating")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesGrating : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(Grating);
@@ -100,6 +106,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("ConcreteIsolatedFootingProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Concrete Isolated Footing")]
   [NodeCategory("AdvanceSteel.Nodes.Concrete.Footings")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesIsolatedFooting : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(FootingIsolated);
@@ -114,6 +121,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("PlateProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Plate")]
   [NodeCategory("AdvanceSteel.Nodes.Plates")]
+  [IsDesignScriptCompatible]
 
   public class ASPropertiesPlate : ASPropertiesBase
   {
@@ -129,6 +137,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("PolyBeamProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Poly Beam")]
   [NodeCategory("AdvanceSteel.Nodes.Beams.PolyBeam")]
+  [IsDesignScriptCompatible]
 
   public class ASPropertiesPolyBeam : ASPropertiesBase
   {
@@ -144,6 +153,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("ConcreteSlabProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Concrete Slabs")]
   [NodeCategory("AdvanceSteel.Nodes.Concrete.Slabs")]
+  [IsDesignScriptCompatible]
 
   public class ASPropertiesSlab : ASPropertiesBase
   {
@@ -159,6 +169,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("TaperedBeamProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Tapered Beam")]
   [NodeCategory("AdvanceSteel.Nodes.Beams.TaperedBeam")]
+  [IsDesignScriptCompatible]
 
   public class ASPropertiesTaperedBeam : ASPropertiesBase
   {
@@ -174,6 +185,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("UnfoldedBeamProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Unfolded Beam")]
   [NodeCategory("AdvanceSteel.Nodes.Beams.UnFoldedBeam")]
+  [IsDesignScriptCompatible]
 
   public class ASPropertiesUnfoldedBeam : ASPropertiesBase
   {
@@ -189,6 +201,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("ConcreteWallProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Concrete Wall")]
   [NodeCategory("AdvanceSteel.Nodes.Concrete.Walls")]
+  [IsDesignScriptCompatible]
 
   public class ASPropertiesWall : ASPropertiesBase
   {

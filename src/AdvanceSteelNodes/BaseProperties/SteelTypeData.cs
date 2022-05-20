@@ -9,24 +9,45 @@ namespace AdvanceSteel.Nodes
 {
   public class SteelTypeData
   {
-    public Type ASType { get; private set; }
-    public string Description { get; private set; }
+    internal Type ASType { get; set; }
+    internal string Description { get; private set; }
 
-    public Dictionary<string, Property> Properties { get; private set; }
+    internal Dictionary<string, Property> PropertiesSpecific { get; private set; }
 
-    public SteelTypeData(string description)
+    internal Dictionary<string, Property> PropertiesAll { get; private set; }
+
+    internal SteelTypeData(string description)
     {
       Description = description;
+
+      PropertiesAll = new Dictionary<string, Property>();
     }
 
-    public bool IsFromThisType(Type type)
+    internal bool IsFromThisType(Type type)
     {
       return this.ASType.IsSubclassOf(type) || this.ASType.IsEquivalentTo(type);
     }
 
-    public void SetProperties(Dictionary<string, Property> properties)
+    internal void SetPropertiesSpecific(Dictionary<string, Property> properties)
     {
-      Properties = properties;
+      PropertiesSpecific = properties;
+    }
+    internal void AddPropertiesAll(Dictionary<string, Property> properties)
+    {
+      foreach (var item in properties)
+      {
+        if (PropertiesAll.ContainsKey(item.Key))
+        {
+          throw new Exception(string.Format("Property '{0}' already added", item.Key));
+        }
+
+        PropertiesAll.Add(item.Key, new Property(item.Value));
+      }
+    }
+
+    internal void OrderDictionaryPropertiesAll()
+    {
+      PropertiesAll = (from entry in PropertiesAll orderby entry.Key ascending select entry).ToDictionary(x => x.Key, y => y.Value);
     }
   }
 }

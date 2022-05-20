@@ -21,7 +21,7 @@ namespace AdvanceSteel.Nodes
       InsertItem(dictionary, "Depth", nameof(ConnectionHoleFeature.Depth), eUnitType.kDistance);
       InsertItem(dictionary, "Angle", nameof(ConnectionHoleFeature.Angle), eUnitType.kAngle);
       InsertItem(dictionary, "Use Hole Definition for Numbering", nameof(ConnectionHoleFeature.UsedForNumbering));
-      InsertItem(dictionary, "Center Point", nameof(ConnectionHoleFeature.GetCenterPoint));
+      InsertItem(dictionary, "Hole Center Point", nameof(ConnectionHoleFeature.GetCenterPoint));
       InsertItem(dictionary, "Exact Coordinate System", nameof(ConnectionHoleFeature.CSExact));
       InsertItem(dictionary, "Local Coordinate System", nameof(ConnectionHoleFeature.CSLocal));
 

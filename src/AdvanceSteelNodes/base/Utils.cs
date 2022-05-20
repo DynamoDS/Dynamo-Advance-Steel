@@ -15,40 +15,6 @@ namespace AdvanceSteel.Nodes
   public static class Utils
   {
     private static readonly string separator = "#@§@#";
-   
-    private static readonly Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string> filterSteelObjects = new Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string>()
-    {
-      { FilerObject.eObjectType.kUnknown , "Select Object Type..." },
-      { FilerObject.eObjectType.kAnchorPattern, "Anchor Pattern" },
-      { FilerObject.eObjectType.kBeamNotch2Ortho, "Beam Cope" },
-      { FilerObject.eObjectType.kBeamNotchEx, "Beam Cope Rotated" },
-      { FilerObject.eObjectType.kBentBeam, "Bent Beam" },
-      { FilerObject.eObjectType.kBeamMultiContourNotch, "Beam Polycut" },
-      { FilerObject.eObjectType.kBeamShortening, "Beam Shortening" },
-      { FilerObject.eObjectType.kCamera, "Camera" },
-      { FilerObject.eObjectType.kGrid, "Grid" },
-      { FilerObject.eObjectType.kCircleScrewBoltPattern, "Circular Bolt Pattern" },
-      { FilerObject.eObjectType.kCompoundStraightBeam, "Compound Beam" },
-      { FilerObject.eObjectType.kConcreteBentBeam, "Concrete Bent Beam" },
-      { FilerObject.eObjectType.kConcreteBeam, "Concrete Striaght Beam" },
-      { FilerObject.eObjectType.kGrating, "Grating" },
-      { FilerObject.eObjectType.kFootingIsolated, "Isolated Footings" },
-      { FilerObject.eObjectType.kPlate, "Plate" },
-      { FilerObject.eObjectType.kPolyBeam, "Poly Beam" },
-      { FilerObject.eObjectType.kPlateFeatContour, "Plate Polycut" },
-      { FilerObject.eObjectType.kPlateFeatVertFillet, "Plate Corner Cut" },
-      { FilerObject.eObjectType.kInfinitMidScrewBoltPattern, "Rectangular Bolt Pattern" },
-      { FilerObject.eObjectType.kStraightBeam, "Straight Beam" },
-      { FilerObject.eObjectType.kSpecialPart, "Special Part" },
-      { FilerObject.eObjectType.kSlab, "Slabs" },
-      { FilerObject.eObjectType.kConnector, "Shear Studs" },
-      { FilerObject.eObjectType.kBeamTapered, "Tapered Beam" },
-      { FilerObject.eObjectType.kUnfoldedStraightBeam, "Unfolded Straight Beam" },
-      { FilerObject.eObjectType.kWall, "Wals" },
-      { FilerObject.eObjectType.kWeldStraight, "Weld Line" },
-      { FilerObject.eObjectType.kWeldLevel, "Weld Point" },
-      { FilerObject.eObjectType.kConnectionHolePlate, "Connection Holes in Plate" }
-    };
 
     public static double RadToDegree(double rad)
     {
@@ -80,6 +46,11 @@ namespace AdvanceSteel.Nodes
       return returnPnt;
     }
 
+    static public Autodesk.AdvanceSteel.Geometry.Point3d ToAstPoint(this Autodesk.DesignScript.Geometry.Point pt)
+    {
+      return ToAstPoint(pt, true);
+    }
+
     static public Autodesk.AdvanceSteel.Geometry.Point3d ToAstPoint(Autodesk.DesignScript.Geometry.Point pt, bool bConvertToAstUnits)
     {
       double factor = 1.0;
@@ -92,6 +63,11 @@ namespace AdvanceSteel.Nodes
       return new Autodesk.AdvanceSteel.Geometry.Point3d(pt.X, pt.Y, pt.Z) * factor;
     }
 
+    static public Double ToInternalUnits(this double value, eUnitType unitType)
+    {
+      return ToInternalUnits(value, unitType, true);
+    }
+
     static public Double ToInternalUnits(double value, eUnitType unitType, bool bConvert)
     {
       double factor = 1.0;
@@ -102,6 +78,11 @@ namespace AdvanceSteel.Nodes
       }
 
       return (value * factor);
+    }
+
+    static public Double FromInternalUnits(this double value, eUnitType unitType)
+    {
+      return FromInternalUnits(value, unitType, true);
     }
 
     static public Double FromInternalUnits(double value, eUnitType unitType, bool bConvert)
@@ -259,6 +240,12 @@ namespace AdvanceSteel.Nodes
       return (value * (1 / factor));
     }
 
+    public static Autodesk.DesignScript.Geometry.PolyCurve ToDynPolyCurve(this Autodesk.AdvanceSteel.Geometry.Polyline3d poly)
+    {
+      var listCurves = ToDynPolyCurves(poly, true);
+
+      return Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(listCurves);
+    }
     static public List<Autodesk.DesignScript.Geometry.Curve> ToDynPolyCurves(Autodesk.AdvanceSteel.Geometry.Polyline3d poly, bool bConvertFromAstUnits)
     {
       List<Autodesk.DesignScript.Geometry.Curve> retData = new List<Autodesk.DesignScript.Geometry.Curve>();
@@ -292,6 +279,7 @@ namespace AdvanceSteel.Nodes
                                                                                          Utils.ToDynPoint(aEndPoint, true)));
         }
       }
+
       return retData;
     }
 
@@ -409,6 +397,11 @@ namespace AdvanceSteel.Nodes
       return ToDynVector(vect, true);
     }
 
+    static public Autodesk.DesignScript.Geometry.Vector ToDynVector(this Autodesk.AdvanceSteel.Geometry.Vector2d vect)
+    {
+      return ToDynVector(new Vector3d(vect.x, vect.y, 0), true);
+    }
+
     static public Autodesk.DesignScript.Geometry.Vector ToDynVector(Autodesk.AdvanceSteel.Geometry.Vector3d vect, bool bConvertFromAstUnits)
     {
       double factor = 1.0;
@@ -421,6 +414,11 @@ namespace AdvanceSteel.Nodes
       return Autodesk.DesignScript.Geometry.Vector.ByCoordinates(vect.x, vect.y, vect.z);
     }
 
+    static public Autodesk.DesignScript.Geometry.CoordinateSystem ToDynCoordinateSys(this Autodesk.AdvanceSteel.Geometry.Matrix3d matrix)
+    {
+      return ToDynCoordinateSys(matrix, true);
+    }
+
     static public Autodesk.DesignScript.Geometry.CoordinateSystem ToDynCoordinateSys(Autodesk.AdvanceSteel.Geometry.Matrix3d matrix, bool bConvertToAstUnits)
     {
       Autodesk.AdvanceSteel.Geometry.Point3d origin = new Point3d();
@@ -429,8 +427,19 @@ namespace AdvanceSteel.Nodes
       Autodesk.AdvanceSteel.Geometry.Vector3d zAxis = new Autodesk.AdvanceSteel.Geometry.Vector3d();
       matrix.GetCoordSystem(out origin, out xAxis, out yAxis, out zAxis);
 
+      //Try the vectors
+      if (xAxis.IsZeroLength() || yAxis.IsZeroLength() || zAxis.IsZeroLength())
+      {
+        throw new Exception("Error converting Coordinate");
+      }
+
       return Autodesk.DesignScript.Geometry.CoordinateSystem.ByOriginVectors(ToDynPoint(origin, bConvertToAstUnits), ToDynVector(xAxis, bConvertToAstUnits),
         ToDynVector(yAxis, bConvertToAstUnits), ToDynVector(zAxis, bConvertToAstUnits));
+    }
+
+    static public Autodesk.AdvanceSteel.Geometry.Vector3d ToAstVector3d(this Autodesk.DesignScript.Geometry.Vector v)
+    {
+      return ToAstVector3d(v, true);
     }
 
     static public Autodesk.AdvanceSteel.Geometry.Vector3d ToAstVector3d(Autodesk.DesignScript.Geometry.Vector v, bool bConvertToAstUnits)
@@ -442,6 +451,11 @@ namespace AdvanceSteel.Nodes
         factor = units.UnitOfDistance.Factor;
       }
       return new Autodesk.AdvanceSteel.Geometry.Vector3d(v.X, v.Y, v.Z) * factor;
+    }
+
+    static public Autodesk.AdvanceSteel.Geometry.Matrix3d ToAstMatrix3d(this Autodesk.DesignScript.Geometry.CoordinateSystem cs)
+    {
+      return ToAstMatrix3d(cs, true);
     }
 
     static public Autodesk.AdvanceSteel.Geometry.Matrix3d ToAstMatrix3d(Autodesk.DesignScript.Geometry.CoordinateSystem cs, bool bConvertToAstUnits)
@@ -457,6 +471,11 @@ namespace AdvanceSteel.Nodes
       Vector3d planeNormal = ToAstVector3d(dynPlane.Normal, bConvertToAstUnits);
       Autodesk.AdvanceSteel.Geometry.Plane plane = new Autodesk.AdvanceSteel.Geometry.Plane(planeOrigin, planeNormal);
       return plane;
+    }
+
+    static public Autodesk.DesignScript.Geometry.Plane ToDynPlane(this Autodesk.AdvanceSteel.Geometry.Plane astPlane)
+    {
+      return ToDynPlane(astPlane, true);
     }
 
     static public Autodesk.DesignScript.Geometry.Plane ToDynPlane(Autodesk.AdvanceSteel.Geometry.Plane astPlane, bool bConvertToAstUnits)
@@ -607,9 +626,9 @@ namespace AdvanceSteel.Nodes
       return diagLen * Math.Sin(alpha);
     }
 
-    public static Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string> GetASObjectFilters()
+    public static Dictionary<Type, string> GetASObjectFilters()
     {
-      return filterSteelObjects;
+      return UtilsProperties.SteelObjectPropertySets.ToDictionary(x => x.Key, y => y.Value.Description);
     }
 
     public static IEnumerable<SteelDbObject> GetDynObjects(IEnumerable<string> handlesToFind)
@@ -622,21 +641,19 @@ namespace AdvanceSteel.Nodes
           FilerObject obj = Utils.GetObject(objHandle);
           if (obj == null)
           {
-            throw new System.Exception("Object is empty");
+            throw new System.Exception("No Advance Steel Object Found");
           }
 
-          if (filterSteelObjects.ContainsKey(obj.Type()))
-          {
-            SteelDbObject foundSteelObj = obj.ToDSType();
-            retListOfSteelObjects.Add(foundSteelObj);
-          }
+          CheckType(obj.GetType());
 
+          SteelDbObject foundSteelObj = obj.ToDSType();
+          retListOfSteelObjects.Add(foundSteelObj);
         }
       }
       return retListOfSteelObjects;
     }
 
-    public static IEnumerable<SteelDbObject> GetDynObjects(int objectSelectionType)
+    public static IEnumerable<SteelDbObject> GetDynObjects(Type objectSelectionType)
     {
       var retListOfSteelObjects = new List<SteelDbObject>();
       using (var ctx = new DocContext())
@@ -645,29 +662,24 @@ namespace AdvanceSteel.Nodes
 
         ObjectId[] OIDxs = null;
 
-        ClassTypeFilter xFilter = new ClassTypeFilter();
-        xFilter.RejectAllFirst();
-        xFilter.AppendAcceptedClass((FilerObject.eObjectType)objectSelectionType);
-
-        DatabaseManager.GetModelObjectIds(out OIDxs, xFilter);
+        DatabaseManager.GetModelObjectIds(out OIDxs);
         List<ObjectId> OIDx = OIDxs.ToList<ObjectId>();
-        if (OIDx.Count > 0)
+        if (OIDx.Count == 0)
         {
-          for (int i = 0; i < OIDx.Count; i++)
+          return retListOfSteelObjects;
+        }
+
+        for (int i = 0; i < OIDx.Count; i++)
+        {
+          FilerObject obj = FilerObject.GetFilerObject(OIDx[i]);
+          if (obj != null && obj.GetType().IsSubclassOf(objectSelectionType) || obj.GetType().IsEquivalentTo(objectSelectionType))
           {
-            FilerObject obj = FilerObject.GetFilerObject(OIDx[i]);
-            if (obj != null)
-            {
-              string objHandle = obj.Handle;
-              if (filterSteelObjects.ContainsKey(obj.Type()))
-              {
-                SteelDbObject foundSteelObj = obj.ToDSType();
-                retListOfSteelObjects.Add(foundSteelObj);
-              }
-            }
+            SteelDbObject foundSteelObj = obj.ToDSType();
+            retListOfSteelObjects.Add(foundSteelObj);
           }
         }
       }
+
       return retListOfSteelObjects;
     }
 
@@ -793,7 +805,7 @@ namespace AdvanceSteel.Nodes
 
     internal static Property GetProperty(Object objectToGetProperty, string keyValue)
     {
-      var dictionaryProperties = GetAllPropertiesWithoutClone(objectToGetProperty);
+      var dictionaryProperties = GetAllPropertiesWithoutClone(objectToGetProperty.GetType());
 
       if (dictionaryProperties.TryGetValue(keyValue, out Property retValue))
       {
@@ -803,21 +815,29 @@ namespace AdvanceSteel.Nodes
       throw new System.Exception(string.Format("Property '{0}' not found", keyValue));
     }
 
-    internal static Dictionary<string, Property> GetAllPropertiesWithoutClone(Object objectToGetProperties)
+    internal static Dictionary<string, Property> GetAllPropertiesWithoutClone(Type objectType)
     {
-      var objectType = objectToGetProperties.GetType();
+      CheckType(objectType);
 
+      return UtilsProperties.SteelObjectPropertySets[objectType].PropertiesAll;
+    }
+
+    public static string GetDescriptionObject(Type objectType)
+    {
+      return UtilsProperties.SteelObjectPropertySets[objectType].Description;
+    }
+
+    private static void CheckType(Type objectType)
+    {
       if (!UtilsProperties.SteelObjectPropertySets.ContainsKey(objectType))
       {
         throw new Exception(string.Format("Properties not found for type '{0}'", objectType));
       }
-
-      return UtilsProperties.SteelObjectPropertySets[objectType].Properties;
     }
 
-    internal static Dictionary<string, Property> GetAllProperties(FilerObject filerObject)
+    public static Dictionary<string, Property> GetAllProperties(Type objectType)
     {
-      var dictionaryProperties = GetAllPropertiesWithoutClone(filerObject);
+      var dictionaryProperties = GetAllPropertiesWithoutClone(objectType);
 
       Dictionary<string, Property> ret = new Dictionary<string, Property>() { };
       foreach (KeyValuePair<string, Property> item in dictionaryProperties)
@@ -825,10 +845,10 @@ namespace AdvanceSteel.Nodes
         ret.Add(item.Key, new Property(item.Value));
       }
 
-      return ret; 
+      return ret;
     }
 
-    public static void CheckListUpdateOrAddValue(List<Property> listOfPropertyData, string propName, object propValue, LevelEnum propLevel = LevelEnum.NoDefinition)
+    public static void CheckListUpdateOrAddValue(List<Property> listOfPropertyData, string propName, object propValue)
     {
       var foundItem = listOfPropertyData.FirstOrDefault<Property>(props => props.Name == propName);
       if (foundItem != null)
@@ -837,12 +857,12 @@ namespace AdvanceSteel.Nodes
       }
       else
       {
-        listOfPropertyData.Add(new Property(propName, propValue, propValue.GetType(), propLevel));
+        listOfPropertyData.Add(Property.ByNameAndValue(propName, propValue));
       }
     }
 
     #region Set Parameters Methods
-  
+
     public static void SetParameters(Autodesk.AdvanceSteel.Arrangement.Arranger objToMod, List<Property> properties)
     {
       if (properties != null)

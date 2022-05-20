@@ -52,10 +52,9 @@ namespace AdvanceSteel.Nodes
       Level = existingProperty.Level;
     }
 
-    internal Property(string memberName, object internalValue)
+    internal Property(string memberName)
     {
       _memberName = memberName;
-      InternalValue = internalValue;
     }
 
     internal Property(Type objectASType, string description, string memberName, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
@@ -116,7 +115,11 @@ namespace AdvanceSteel.Nodes
     {
       get
       {
-        return ConvertValueFromASToDyn(InternalValue);
+        return ConvertToDynamoObject(InternalValue);
+      }
+      set
+      {
+        InternalValue = ConvertFromDynamoObject(value);
       }
     }
 
@@ -141,7 +144,10 @@ namespace AdvanceSteel.Nodes
     public static Property ByNameAndValue(string propertyName, object value)
     {
       //Store value and name property in a not inicialized property
-      return new Property(propertyName, value);
+      var property = new Property(propertyName);
+      property.Value = value;
+
+      return property;
     }
 
     /// <summary>
@@ -192,7 +198,7 @@ namespace AdvanceSteel.Nodes
       using (var ctx = new SteelServices.DocContext())
       {
         FilerObject filerObj = Utils.GetObject(steelObject.Handle);
-        Dictionary<string, Property> allProperties = Utils.GetAllProperties(filerObj);
+        Dictionary<string, Property> allProperties = Utils.GetAllProperties(filerObj.GetType());
 
         foreach (KeyValuePair<string, Property> prop in allProperties)
         {
@@ -271,14 +277,19 @@ namespace AdvanceSteel.Nodes
 
     private void HasValidValue(object value)
     {
+      if (value == null || _valueType == null)
+        return;
+
       if (_valueType == typeof(int) && IsInteger(value))
         return;
-      else if (_valueType == typeof(double) && IsDouble(value))
+
+      if (_valueType == typeof(double) && IsDouble(value))
         return;
-      else if (_valueType.Equals(value.GetType()))
+
+      if (_valueType.Equals(value.GetType()))
         return;
-      else
-        throw new System.Exception(string.Format("This value type '{0}' is not valid for '{1}'", value.GetType().ToString(), _description));
+
+      throw new System.Exception(string.Format("This value type '{0}' is not valid for '{1}'", value.GetType().ToString(), _description));
     }
 
     public void SetASObjectProperty(object asObject, object value)
@@ -321,114 +332,78 @@ namespace AdvanceSteel.Nodes
     private object ConvertToDynamoObject(object objectAS)
     {
       dynamic objectASDynamic = objectAS;
-      return Convert(objectASDynamic);
+      return ConvertToDyn(objectASDynamic);
     }
 
-    private object Convert(Point3d objectAS)
+    private object ConvertToDyn(Point3d objectAS)
     {
       return objectAS.ToDynPoint();
     }
 
-    private object Convert(Vector3d objectAS)
+    private object ConvertToDyn(Vector3d objectAS)
     {
-      return objectAS.ToDSVector();
+      return objectAS.ToDynVector();
     }
 
-    private object Convert(Vector2d objectAS)
+    private object ConvertToDyn(Vector2d objectAS)
     {
-      return objectAS.ToDSVector();
+      return objectAS.ToDynVector();
     }
 
-    private object Convert(Plane objectAS)
+    private object ConvertToDyn(Plane objectAS)
     {
-      return objectAS.ToDSPlane();
+      return objectAS.ToDynPlane();
     }
 
-    private object Convert(Polyline3d objectAS)
+    private object ConvertToDyn(Polyline3d objectAS)
     {
-      return objectAS.ToDSPolyCurve();
+      return objectAS.ToDynPolyCurve();
     }
 
-    private object Convert(Matrix3d objectAS)
+    private object ConvertToDyn(Matrix3d objectAS)
     {
-      objectAS.GetCoordSystem(out ASPoint3d point, out ASVector3d vetorX, out ASVector3d vetorY, out ASVector3d vetorZ);
+      return objectAS.ToDynCoordinateSys();
+    }
 
-      //Try the vectors
-      if (vetorX.IsZeroLength() || vetorY.IsZeroLength() || vetorZ.IsZeroLength())
+    private object ConvertToDyn(double objectAS)
+    {
+      if ((IsDouble(objectAS) || IsInteger(objectAS)) && UnitType.HasValue)
       {
-        throw new Exception(ResourceStrings.Nodes_ErrorConvertingCS);
-      }
-
-      return DSCoordinateSystem.ByOriginVectors(point.ToDSPoint(), vetorX.ToDSVector(), vetorY.ToDSVector(), vetorZ.ToDSVector());
-    }
-
-    private object Convert(double objectAS)
-    {
-      if (UnitType.HasValue)
-      {
-        ((double)objectAS).FromInternalUnits(UnitType.Value);
+        return System.Convert.ToDouble(objectAS).FromInternalUnits(this.UnitType.Value);
       }
 
       return objectAS;
     }
 
-    private object Convert(object objectAS)
+    private object ConvertFromDynamoObject(object objectDyn)
     {
-      return objectAS;
+      dynamic objectDynDynamic = objectDyn;
+      return ConvertFromDyn(objectDynDynamic);
     }
 
-    internal object ConvertValueFromDynToAS(object val)
+    private object ConvertFromDyn(Autodesk.DesignScript.Geometry.Point objectDyn)
     {
-      if (val == null)
-        return null;
-
-      if (val.GetType() == typeof(Autodesk.DesignScript.Geometry.Point))
-      {
-        return Utils.ToAstPoint(val as Autodesk.DesignScript.Geometry.Point, true);
-      }
-      else if (val.GetType() == typeof(Autodesk.DesignScript.Geometry.Vector))
-      {
-        return Utils.ToAstVector3d(val as Autodesk.DesignScript.Geometry.Vector, true);
-      }
-      else if (val.GetType() == typeof(Autodesk.DesignScript.Geometry.CoordinateSystem))
-      {
-        return Utils.ToAstMatrix3d(val as Autodesk.DesignScript.Geometry.CoordinateSystem, true);
-      }
-      else if ((IsDouble(val) || IsInteger(val)) && this.UnitType.HasValue)
-      {
-        return Utils.ToInternalUnits(System.Convert.ToDouble(val), this.UnitType.Value, true);
-      }
-      else
-      {
-        return val;
-      }
+      return objectDyn.ToAstPoint();
     }
 
-    internal object ConvertValueFromASToDyn(object val)
+    private object ConvertFromDyn(Autodesk.DesignScript.Geometry.Vector objectDyn)
     {
-      if (val == null)
-        return null;
+      return objectDyn.ToAstVector3d();
+    }
 
-      if (val.GetType() == typeof(Point3d))
+    private object ConvertFromDyn(Autodesk.DesignScript.Geometry.CoordinateSystem objectDyn)
+    {
+      return objectDyn.ToAstMatrix3d();
+    }
+
+    private object ConvertFromDyn(object objectDyn)
+    {
+      if ((IsDouble(objectDyn) || IsInteger(objectDyn)) && UnitType.HasValue)
       {
-        return Utils.ToDynPoint(val as Point3d, true);
+        return System.Convert.ToDouble(objectDyn).ToInternalUnits(this.UnitType.Value);
       }
-      else if (val.GetType() == typeof(Vector3d))
-      {
-        return Utils.ToDynVector(val as Vector3d, true);
-      }
-      else if (val.GetType() == typeof(Matrix3d))
-      {
-        return Utils.ToDynCoordinateSys(val as Matrix3d, true);
-      }
-      else if ((IsDouble(val) || IsInteger(val)) && this.UnitType.HasValue)
-      {
-        return Utils.FromInternalUnits(System.Convert.ToDouble(val), this.UnitType.Value, true);
-      }
-      else
-      {
-        return val;
-      }
+
+      return objectDyn;
     }
 
     internal static bool IsInteger(object value)
@@ -457,6 +432,7 @@ namespace AdvanceSteel.Nodes
 
       return false;
     }
+
     #endregion
   }
 }

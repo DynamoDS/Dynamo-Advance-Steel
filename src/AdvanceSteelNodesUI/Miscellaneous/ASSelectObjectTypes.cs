@@ -38,10 +38,12 @@ namespace AdvanceSteel.Nodes
       Items.Clear();
 
       var newItems = new List<DynamoDropDownItem>();
-      Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string> filterItems = Utils.GetASObjectFilters();
+      newItems.Add(new DynamoDropDownItem(SelectObjectTypeString, null));
+
+      Dictionary<Type, string> filterItems = Utils.GetASObjectFilters();
       foreach (var item in filterItems)
       {
-        newItems.Add(new DynamoDropDownItem(item.Value, (long)item.Key));
+        newItems.Add(new DynamoDropDownItem(item.Value, item.Key));
       }
 
       Items.AddRange(newItems);
@@ -53,14 +55,14 @@ namespace AdvanceSteel.Nodes
     public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
     {
       if (Items.Count == 0 ||
-          Items[SelectedIndex].Name == "Select Object Type..." ||
-          SelectedIndex < 0)
+          SelectedIndex < 0 ||
+          Items[SelectedIndex].Name.Equals(SelectObjectTypeString))
       {
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }
-      AssociativeNode node;
-      IntNode intNode2 = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
-      node = AstFactory.BuildFunctionCall(new Func<int, IEnumerable<SteelDbObject>>(Utils.GetDynObjects), new List<AssociativeNode>() { intNode2 });
+
+      AssociativeNode typeNode = AstFactory.BuildPrimitiveNodeFromObject((Type)Items[SelectedIndex].Item);
+      AssociativeNode node = AstFactory.BuildFunctionCall(new Func<Type, IEnumerable<SteelDbObject>>(Utils.GetDynObjects), new List<AssociativeNode>() { typeNode });
 
       var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), node);
       return new List<AssociativeNode> { assign };

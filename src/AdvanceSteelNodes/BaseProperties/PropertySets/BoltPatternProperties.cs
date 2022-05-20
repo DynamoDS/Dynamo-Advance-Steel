@@ -29,7 +29,7 @@ namespace AdvanceSteel.Nodes
 
       InsertItem(dictionary, "Middle Points", GetMidPoints);
 
-      InsertItem(dictionary, "Coordinate System", GetBoltCoordinateSystem);
+      InsertItem(dictionary, "Bolt Coordinate System", GetBoltCoordinateSystem);
 
       return dictionary;
     }

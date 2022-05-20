@@ -14,6 +14,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("AnchorBoltProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Anchor Bolt")]
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesAnchorBolt : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(AnchorPattern);
@@ -28,6 +29,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("CircularBoltProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Circular Bolt Pattern")]
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects.CircularBoltPattern")]
+  [IsDesignScriptCompatible]
   public class CircleScrewBoltPattern : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(CircleScrewBoltPattern);
@@ -42,6 +44,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("RectangularBoltProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Rectangular Bolt")]
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects.RectangularBoltPattern")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesBolts : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(InfinitMidScrewBoltPattern);
@@ -56,6 +59,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("ShearStudProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Shear Stud")]
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesShearStud : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(Connector);
@@ -70,6 +74,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("WeldLineProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Weld Lines")]
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesWeldLine : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(WeldLine);
@@ -84,6 +89,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("WeldPointProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Weld Points")]
   [NodeCategory("AdvanceSteel.Nodes.ConnectionObjects")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesWeldPoint : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(WeldPoint);

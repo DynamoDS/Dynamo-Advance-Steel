@@ -123,7 +123,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       if (listSpecialPartData == null)
       {
         listSpecialPartData = new List<Property>() { };
-        Utils.CheckListUpdateOrAddValue(listSpecialPartData, "Scale", scale, LevelEnum.Default);
+        Utils.CheckListUpdateOrAddValue(listSpecialPartData, "Scale", scale);
       }
       return listSpecialPartData;
     }

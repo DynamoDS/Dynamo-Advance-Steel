@@ -19,7 +19,7 @@ namespace AdvanceSteel.Nodes
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
       InsertItem(dictionary, "Description", nameof(Camera.Description));
-      InsertItem(dictionary, "Type", nameof(Camera.CameraType));
+      InsertItem(dictionary, "Camera Type", nameof(Camera.CameraType));
       InsertItem(dictionary, "Coordinate System of Camera", nameof(Camera.CameraCS));
       InsertItem(dictionary, "Scale", nameof(Camera.Scale));
       InsertItem(dictionary, "Type Description", nameof(Camera.TypeDescription), LevelEnum.Default);

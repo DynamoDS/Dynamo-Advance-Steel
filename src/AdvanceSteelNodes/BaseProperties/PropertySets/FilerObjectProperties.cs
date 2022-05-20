@@ -18,14 +18,14 @@ namespace AdvanceSteel.Nodes
 
       InsertItem(dictionary, "Layer", nameof(FilerObject.Layer));
       InsertItem(dictionary, "Handle", nameof(FilerObject.Handle), LevelEnum.Default);
-      InsertItem(dictionary, "Type", GetFormatedType);
+      InsertItem(dictionary, "Object Type", GetFormatedType);
 
       return dictionary;
     }
 
     private object GetFormatedType(object filerObject)
     {
-      return UtilsProperties.SteelObjectPropertySets[filerObject.GetType()].Description;
+      return Utils.GetDescriptionObject(filerObject.GetType());
     }
   }
 }

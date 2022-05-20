@@ -15,6 +15,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("CameraProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Camera")]
   [NodeCategory("AdvanceSteel.Nodes.Miscellaneous.Camera")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesCamera : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(Camera);
@@ -29,6 +30,7 @@ namespace AdvanceSteel.Nodes
   [NodeName("SpecialPartsProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Special Part")]
   [NodeCategory("AdvanceSteel.Nodes.Miscellaneous.SpecialPart")]
+  [IsDesignScriptCompatible]
   public class ASPropertiesSpecialParts : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(SpecialPart);

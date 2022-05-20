@@ -35,7 +35,7 @@ namespace AdvanceSteel.Nodes
       InsertItem(dictionary, "Main Root Opening", nameof(WeldPattern.MainRootOpening), eUnitType.kDistance);
 
       InsertItem(dictionary, "Combining Welding", nameof(WeldPattern.IsCombiWelding));
-      InsertItem(dictionary, "Center Point", nameof(WeldPattern.GetCenterPoint));
+      InsertItem(dictionary, "Weld Center Point", nameof(WeldPattern.GetCenterPoint));
 
       return dictionary;
     }

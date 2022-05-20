@@ -12,12 +12,27 @@ namespace AdvanceSteel.Nodes
   [OutPortNames("propertyName")]
   [OutPortTypes("string")]
   [OutPortDescriptions("name of the selected property")]
-  [IsDesignScriptCompatible]
   public abstract class ASPropertiesBase : AstDropDownBase
   {
     private const string outputName = "propertyName";
 
     protected abstract Type GetObjectType { get; }
+
+    private string _selectionText = null;
+
+    public string SelectionText
+    {
+      get 
+      {
+        if(string.IsNullOrEmpty(_selectionText))
+        {
+          _selectionText = string.Format("Select {0} Property...", Utils.GetDescriptionObject(GetObjectType));
+        }
+
+        return _selectionText; 
+      }
+    }
+
 
     public ASPropertiesBase()
         : base(outputName)
@@ -39,8 +54,11 @@ namespace AdvanceSteel.Nodes
 
       var newItems = new List<DynamoDropDownItem>() { };
 
-      var steelTypeData = UtilsProperties.SteelObjectPropertySets[GetObjectType];
-      foreach (var item in steelTypeData.Properties)
+      var properties = Utils.GetAllProperties(GetObjectType);
+
+      newItems.Add(new DynamoDropDownItem(SelectionText, null));
+
+      foreach (var item in properties)
       {
         newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }
@@ -53,8 +71,8 @@ namespace AdvanceSteel.Nodes
     public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
     {
       if (Items.Count == 0 ||
-          Items[SelectedIndex].Name == "None" ||
-          SelectedIndex < 0)
+          SelectedIndex < 0 ||
+          Items[SelectedIndex].Name.Equals(SelectionText))
       {
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }

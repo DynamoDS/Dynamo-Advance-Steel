@@ -25,7 +25,7 @@ namespace AdvanceSteel.Nodes
       InsertItem(dictionary, "Head Diameter", nameof(ScrewBoltPattern.BoltHeadDiameter), LevelEnum.Default, eUnitType.kDistance);
       InsertItem(dictionary, "Head Height", nameof(ScrewBoltPattern.BoltHeadHeight), LevelEnum.Default, eUnitType.kDistance);
       InsertItem(dictionary, "Top Tool Height", nameof(ScrewBoltPattern.TopToolHeight), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Assembly", nameof(ScrewBoltPattern.BoltAssembly));
+      InsertItem(dictionary, "Bolt Assembly", nameof(ScrewBoltPattern.BoltAssembly));
       InsertItem(dictionary, "Grade", nameof(ScrewBoltPattern.Grade));
       InsertItem(dictionary, "Standard", nameof(ScrewBoltPattern.Standard));
       InsertItem(dictionary, "Hole Tolerance", nameof(ScrewBoltPattern.HoleTolerance), eUnitType.kDistance);

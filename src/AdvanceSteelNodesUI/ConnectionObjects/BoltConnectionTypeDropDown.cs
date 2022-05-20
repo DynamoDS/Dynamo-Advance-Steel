@@ -53,8 +53,8 @@ namespace AdvanceSteel.Nodes
     public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
     {
       if (Items.Count == 0 ||
-          Items[SelectedIndex].Name == "Select Bolt Type..." ||
-          SelectedIndex < 0)
+          SelectedIndex < 0 ||
+          Items[SelectedIndex].Name == "Select Bolt Type...")
       {
         return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
       }

@@ -16,7 +16,7 @@ namespace AdvanceSteel.Nodes
   public static class UtilsProperties
   {
 
-    public static readonly Dictionary<Type, SteelTypeData> SteelObjectPropertySets = new Dictionary<Type, SteelTypeData>()
+    internal static readonly Dictionary<Type, SteelTypeData> SteelObjectPropertySets = new Dictionary<Type, SteelTypeData>()
     {
       { typeof(AnchorPattern), new SteelTypeData("Anchor Pattern") },
       { typeof(Beam), new SteelTypeData("Any Beam") },
@@ -64,6 +64,51 @@ namespace AdvanceSteel.Nodes
       { typeof(ConnectionHoleBeam), new SteelTypeData ("Beam Hole") },
       { typeof(Arranger), new SteelTypeData ("Arranger") }
     };
+
+    private static bool dictionaryLoaded = false;
+
+    /// <summary>
+    /// Load all properties of each ASType
+    /// </summary>
+    public static void LoadASTypeDictionary()
+    {
+      if (dictionaryLoaded)
+      {
+        return;
+      }
+
+      var assemblyTypes = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
+
+      var listIASProperties = assemblyTypes.Where(x => !x.IsAbstract && x.GetInterfaces().Contains(typeof(IASProperties))).Select(x => Activator.CreateInstance(x) as IASProperties);
+
+      //Fill specific properties
+      foreach (var item in SteelObjectPropertySets)
+      {
+        IASProperties asProperties = listIASProperties.FirstOrDefault(x => x.GetObjectType.Equals(item.Key));
+
+        if (asProperties == null)
+        {
+          throw new NotImplementedException(item.Key.ToString() + " not implemented");
+        }
+
+        item.Value.ASType = item.Key;
+        item.Value.SetPropertiesSpecific(asProperties.BuildPropertyList());
+      }
+
+      //Fill all properties
+      foreach (var item in SteelObjectPropertySets)
+      {
+        IEnumerable<SteelTypeData> steelTypeDataList = SteelObjectPropertySets.Where(x => item.Key.IsSubclassOf(x.Key) || item.Key.IsEquivalentTo(x.Key)).Select(x => x.Value);
+        foreach (var steelTypeData in steelTypeDataList)
+        {
+          item.Value.AddPropertiesAll(steelTypeData.PropertiesSpecific);
+        }
+
+        item.Value.OrderDictionaryPropertiesAll();
+      }
+
+      dictionaryLoaded = true;
+    }
 
   }
 }

@@ -61,10 +61,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Ny").InternalValue;
 
       var dx = Utils.GetRectangleLength(astPoint1, astPoint2, vx) / (temp_nx - 1);
-      Utils.CheckListUpdateOrAddValue(arrangerShearStudData, "Dx", dx, LevelEnum.Arranger);
+      Utils.CheckListUpdateOrAddValue(arrangerShearStudData, "Dx", dx);
 
       var dy = Utils.GetRectangleHeight(astPoint1, astPoint2, vx) / (temp_ny - 1);
-      Utils.CheckListUpdateOrAddValue(arrangerShearStudData, "Dy", dy, LevelEnum.Arranger);
+      Utils.CheckListUpdateOrAddValue(arrangerShearStudData, "Dy", dy);
 
       ASConnector shearStuds = SteelServices.ElementBinder.GetObjectASFromTrace<ASConnector>();
       if (shearStuds == null)
@@ -251,8 +251,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
                                                               noOfShearStudsX, noOfShearStudsY,
                                                               Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
 
-      Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, "Dx", Utils.ToInternalDistanceUnits(studSpacingX, true), LevelEnum.Arranger);
-      Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, "Dy", Utils.ToInternalDistanceUnits(studSpacingY, true), LevelEnum.Arranger);
+      Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, "Dx", Utils.ToInternalDistanceUnits(studSpacingX, true));
+      Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, "Dy", Utils.ToInternalDistanceUnits(studSpacingY, true));
 
       return new RectangularShearStudsPattern(handlesList[0], matrix3D, additionalShearStudParameters, shearStudConnectionType);
     }
@@ -265,10 +265,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
         listOfBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Nx", nx, LevelEnum.Arranger);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Ny", ny, LevelEnum.Arranger);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Length", studLength, LevelEnum.Default);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Diameter", studDiameter, LevelEnum.Default);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Nx", nx);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Ny", ny);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Length", studLength);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Diameter", studDiameter);
 
       return listOfBoltParameters;
     }

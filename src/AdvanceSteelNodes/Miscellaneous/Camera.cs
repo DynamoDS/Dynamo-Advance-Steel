@@ -224,7 +224,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       {
         listCameraData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(listCameraData, "CameraCS", cameraCS, LevelEnum.Default);
+      Utils.CheckListUpdateOrAddValue(listCameraData, "CameraCS", cameraCS);
       return listCameraData;
     }
 

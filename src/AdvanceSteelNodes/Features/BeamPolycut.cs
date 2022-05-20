@@ -395,8 +395,8 @@ namespace AdvanceSteel.Nodes.Features
       {
         listBeamFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Length", length, LevelEnum.Default);
-      if (width > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Width", width, LevelEnum.Default);
+      if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Length", length);
+      if (width > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Width", width);
       return listBeamFeatureData;
     }
 

@@ -32,12 +32,6 @@ namespace AdvanceSteel.Nodes
       InsertItem(dictionary, "Midpoint On Upper Left", nameof(AnchorPattern.MidpointOnUpperLeft), LevelEnum.Default);
       InsertItem(dictionary, "Radius", nameof(AnchorPattern.Radius), eUnitType.kDistance);
       InsertItem(dictionary, "Part Name", nameof(AnchorPattern.AnchorPartName), LevelEnum.Default);
-      InsertItem(dictionary, "Height", nameof(AnchorPattern.Height), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Max Top Diameter", nameof(AnchorPattern.MaxTopDiameter), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Max Bottom Diameter", nameof(AnchorPattern.MaxBottomDiameter), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Length", nameof(AnchorPattern.Length), LevelEnum.Default, eUnitType.kDistance);
-
-      InsertItem(dictionary, "Weight", nameof(AnchorPattern.GetWeight), eUnitType.kWeight);
 
       InsertItem(dictionary, "Orientation Type", GetOrientationType);
 
