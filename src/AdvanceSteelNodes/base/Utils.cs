@@ -815,6 +815,20 @@ namespace AdvanceSteel.Nodes
       throw new System.Exception(string.Format("Property '{0}' not found", keyValue));
     }
 
+    internal static Property GetPropertyByMemberName(Object objectToGetProperty, string memberName)
+    {
+      var dictionaryProperties = GetAllPropertiesWithoutClone(objectToGetProperty.GetType());
+
+      var itemKeyValue = dictionaryProperties.FirstOrDefault(x => x.Value.MemberName.Equals(memberName));
+
+      if(itemKeyValue.Value == null)
+      {
+        throw new System.Exception(string.Format("Property of member '{0}' not found", memberName));
+      }
+
+      return new Property(itemKeyValue.Value);
+    }
+
     internal static Dictionary<string, Property> GetAllPropertiesWithoutClone(Type objectType)
     {
       CheckType(objectType);
@@ -850,14 +864,14 @@ namespace AdvanceSteel.Nodes
 
     public static void CheckListUpdateOrAddValue(List<Property> listOfPropertyData, string propName, object propValue)
     {
-      var foundItem = listOfPropertyData.FirstOrDefault<Property>(props => props.Name == propName);
+      var foundItem = listOfPropertyData.FirstOrDefault<Property>(props => props.MemberName == propName);
       if (foundItem != null)
       {
         foundItem.InternalValue = propValue;
       }
       else
       {
-        listOfPropertyData.Add(Property.ByNameAndValue(propName, propValue));
+        listOfPropertyData.Add(new Property(propName, propValue));
       }
     }
 

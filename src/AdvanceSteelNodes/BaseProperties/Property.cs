@@ -52,9 +52,15 @@ namespace AdvanceSteel.Nodes
       Level = existingProperty.Level;
     }
 
-    internal Property(string memberName)
+    internal Property(string description)
+    {
+      _description = description;
+    }
+
+    internal Property(string memberName, object value)
     {
       _memberName = memberName;
+      Value = value;
     }
 
     internal Property(Type objectASType, string description, string memberName, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
@@ -105,6 +111,9 @@ namespace AdvanceSteel.Nodes
       _write = false;
 
       Level = level;
+
+      //Same name for description and membername
+      _memberName = description;
     }
 
     /// <summary>
@@ -128,6 +137,18 @@ namespace AdvanceSteel.Nodes
     /// </summary>
     /// <returns name="Name">The name of the property</returns>
     public string Name
+    {
+      get
+      {
+        return _description;
+      }
+    }
+
+    /// <summary>
+    /// Get the name of property member
+    /// </summary>
+    /// <returns name="MemberName">The name of property member</returns>
+    public string MemberName
     {
       get
       {
@@ -214,7 +235,7 @@ namespace AdvanceSteel.Nodes
 
     public override string ToString()
     {
-      return Name?.ToString() + " = " + Value?.ToString();
+      return _description?.ToString() + " = " + Value?.ToString();
     }
 
     #region internal stuff
@@ -246,15 +267,36 @@ namespace AdvanceSteel.Nodes
 
       if (!this._inicialized)
       {
-        property = Utils.GetProperty(objectToUpdate, this.Name);
+        if (string.IsNullOrEmpty(this.MemberName))
+        {
+          property = Utils.GetProperty(objectToUpdate, this._description);
+        }
+
+        else
+        {
+          property = Utils.GetPropertyByMemberName(objectToUpdate, this.MemberName);
+        }
       }
 
-      if (!property._write)
+      property.SetASObjectProperty(objectToUpdate, InternalValue);
+    }
+
+    private void SetASObjectProperty(object asObject, object value)
+    {
+      if (!(_memberInfo is PropertyInfo))
       {
-        throw new System.Exception(string.Format("Cannot set readonly property: {0}", Name?.ToString()));
+        throw new System.Exception(string.Format("Set property not found: {0}", _description?.ToString()));
       }
 
-      SetASObjectProperty(objectToUpdate, InternalValue);
+      if (!_write)
+      {
+        throw new System.Exception(string.Format("Cannot set readonly property: {0}", _description?.ToString()));
+      }
+
+      HasValidValue(value);
+
+      PropertyInfo propertyInfo = _memberInfo as PropertyInfo;
+      propertyInfo.SetValue(asObject, value);
     }
 
     internal void EvaluateFromObject(object objectToUpdateFrom)
@@ -270,7 +312,7 @@ namespace AdvanceSteel.Nodes
       }
       catch (Exception)
       {
-        throw new System.Exception(string.Format("Object has no Property - {0}", Name?.ToString()));
+        throw new System.Exception(string.Format("Object has no Property - {0}", _description?.ToString()));
       }
 
     }
@@ -290,19 +332,6 @@ namespace AdvanceSteel.Nodes
         return;
 
       throw new System.Exception(string.Format("This value type '{0}' is not valid for '{1}'", value.GetType().ToString(), _description));
-    }
-
-    public void SetASObjectProperty(object asObject, object value)
-    {
-      if (!(_memberInfo is PropertyInfo))
-      {
-        throw new System.Exception(string.Format("Set property not found: {0}", Name?.ToString()));
-      }
-
-      HasValidValue(value);
-
-      PropertyInfo propertyInfo = _memberInfo as PropertyInfo;
-      propertyInfo.SetValue(asObject, value);
     }
 
     private object GetASObjectProperty(object asObject)
@@ -365,7 +394,7 @@ namespace AdvanceSteel.Nodes
       return objectAS.ToDynCoordinateSys();
     }
 
-    private object ConvertToDyn(double objectAS)
+    private object ConvertToDyn(object objectAS)
     {
       if ((IsDouble(objectAS) || IsInteger(objectAS)) && UnitType.HasValue)
       {

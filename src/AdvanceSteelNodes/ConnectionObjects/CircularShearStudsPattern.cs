@@ -54,8 +54,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       ASConnector shearStuds = SteelServices.ElementBinder.GetObjectASFromTrace<ASConnector>();
       if (shearStuds == null)
       {
-        var temp_radius = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == nameof(CircleArranger.Radius)).InternalValue;
-        var temp_noss = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == nameof(CircleArranger.NumberOfElements)).InternalValue;
+        var temp_radius = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == nameof(CircleArranger.Radius)).InternalValue;
+        var temp_noss = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == nameof(CircleArranger.NumberOfElements)).InternalValue;
 
         shearStuds = new ASConnector();
         shearStuds.Arranger = new CircleArranger(Matrix2d.kIdentity, temp_radius, temp_noss);

@@ -42,7 +42,7 @@ namespace AdvanceSteel.Nodes.Beams
     {
       List<Property> defaultData = beamProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
       List<Property> postWriteDBData = beamProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
-      Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
+      Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.MemberName == nameof(Beam.ProfName));
       string sectionName = "";
       if (foundProfName != null)
       {

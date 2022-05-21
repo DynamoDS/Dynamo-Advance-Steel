@@ -70,8 +70,8 @@ namespace AdvanceSteel.Nodes.Features
       double length = 0;
       double depth = 0;
 
-      length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceLength").InternalValue;
-      depth = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceDepth").InternalValue;
+      length = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "ReferenceLength").InternalValue;
+      depth = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "ReferenceDepth").InternalValue;
 
       FilerObject obj = Utils.GetObject(element.Handle);
 
@@ -130,8 +130,8 @@ namespace AdvanceSteel.Nodes.Features
       double length = 0;
       double depth = 0;
 
-      length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceLength").InternalValue;
-      depth = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "ReferenceDepth").InternalValue;
+      length = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "ReferenceLength").InternalValue;
+      depth = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "ReferenceDepth").InternalValue;
 
       FilerObject obj = Utils.GetObject(element.Handle);
 

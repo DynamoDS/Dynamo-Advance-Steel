@@ -46,17 +46,17 @@ namespace AdvanceSteel.Nodes.Features
       double length2 = 0;
       double radius = 0;
 
-      if (defaultData.FirstOrDefault<Property>(x => x.Name == "Length1") != null)
+      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == "Length1") != null)
       {
-        length1 = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Length1").InternalValue;
+        length1 = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "Length1").InternalValue;
       }
-      if (defaultData.FirstOrDefault<Property>(x => x.Name == "Length2") != null)
+      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == "Length2") != null)
       {
-        length2 = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Length2").InternalValue;
+        length2 = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "Length2").InternalValue;
       }
-      if (defaultData.FirstOrDefault<Property>(x => x.Name == "Radius") != null)
+      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == "Radius") != null)
       {
-        radius = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Radius").InternalValue;
+        radius = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "Radius").InternalValue;
       }
 
       FilerObject obj = Utils.GetObject(element.Handle);

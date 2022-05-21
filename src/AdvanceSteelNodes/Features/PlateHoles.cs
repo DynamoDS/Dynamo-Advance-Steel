@@ -57,22 +57,22 @@ namespace AdvanceSteel.Nodes.Features
       double dX, dY, diameterHole, slotLength, sunkDepth, alphaE, headDepth, radius, wX, wY, width, length;
       int nX, nY, isTappingRight, slotDirection;
 
-      dX = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Dx)).InternalValue;
-      dY = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Dy)).InternalValue;
-      wX = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Wx)).InternalValue;
-      wY = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Wy)).InternalValue;
-      nX = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Nx)).InternalValue;
-      nY = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Ny)).InternalValue;
-      diameterHole = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Hole.Diameter)).InternalValue;
-      slotLength = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(SlottedHole.SlotLength)).InternalValue;
-      slotDirection = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(SlottedHole.SlotDirection)).InternalValue;
-      sunkDepth = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(ExtendedHole.SunkDepth)).InternalValue;
-      alphaE = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(ExtendedHole.Alpha_e)).InternalValue;
-      isTappingRight = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(ExtendedHole.IsTappingRight)).InternalValue;
-      headDepth = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(ExtendedHole.HeadDiameter)).InternalValue;
-      radius = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Radius)).InternalValue;
-      width = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Width)).InternalValue;
-      length = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == nameof(Arranger.Length)).InternalValue;
+      dX = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Dx)).InternalValue;
+      dY = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Dy)).InternalValue;
+      wX = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Wx)).InternalValue;
+      wY = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Wy)).InternalValue;
+      nX = (int)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Nx)).InternalValue;
+      nY = (int)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Ny)).InternalValue;
+      diameterHole = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Hole.Diameter)).InternalValue;
+      slotLength = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(SlottedHole.SlotLength)).InternalValue;
+      slotDirection = (int)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(SlottedHole.SlotDirection)).InternalValue;
+      sunkDepth = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(ExtendedHole.SunkDepth)).InternalValue;
+      alphaE = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(ExtendedHole.Alpha_e)).InternalValue;
+      isTappingRight = (int)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(ExtendedHole.IsTappingRight)).InternalValue;
+      headDepth = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(ExtendedHole.HeadDiameter)).InternalValue;
+      radius = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Radius)).InternalValue;
+      width = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Width)).InternalValue;
+      length = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Length)).InternalValue;
 
       FilerObject obj = Utils.GetObject(element.Handle);
       if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kPlate)))

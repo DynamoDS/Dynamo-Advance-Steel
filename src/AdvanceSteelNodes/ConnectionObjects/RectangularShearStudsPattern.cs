@@ -57,8 +57,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       List<Property> arrangerShearStudData = shearStudData.Where(x => x.Level == LevelEnum.Arranger).ToList<Property>();
       List<Property> postWriteDBData = shearStudData.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
-      int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Nx").InternalValue;
-      int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Ny").InternalValue;
+      int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == "Nx").InternalValue;
+      int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == "Ny").InternalValue;
 
       var dx = Utils.GetRectangleLength(astPoint1, astPoint2, vx) / (temp_nx - 1);
       Utils.CheckListUpdateOrAddValue(arrangerShearStudData, "Dx", dx);
@@ -121,10 +121,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       ASConnector shearStuds = SteelServices.ElementBinder.GetObjectASFromTrace<ASConnector>();
       if (shearStuds == null)
       {
-        double temp_Dx = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Dx").InternalValue;
-        double temp_Dy = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Dy").InternalValue;
-        int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Nx").InternalValue;
-        int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.Name == "Ny").InternalValue;
+        double temp_Dx = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == "Dx").InternalValue;
+        double temp_Dy = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == "Dy").InternalValue;
+        int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == "Nx").InternalValue;
+        int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == "Ny").InternalValue;
 
         shearStuds = new ASConnector();
         Autodesk.AdvanceSteel.Arrangement.Arranger arranger = new Autodesk.AdvanceSteel.Arrangement.RectangularArranger(Matrix2d.kIdentity, temp_Dx, temp_Dy, temp_nx, temp_ny);
