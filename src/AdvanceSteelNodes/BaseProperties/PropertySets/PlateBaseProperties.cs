@@ -19,7 +19,7 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Portioning", nameof(PlateBase.Portioning));
+      InsertItem(dictionary, "Plate Portioning", nameof(PlateBase.Portioning));
       InsertItem(dictionary, "Upper Plane", nameof(PlateBase.UpperPlane), LevelEnum.Default);
       InsertItem(dictionary, "Length", nameof(PlateBase.Length), LevelEnum.Default, eUnitType.kDistance);
       InsertItem(dictionary, "Width", nameof(PlateBase.Width), LevelEnum.Default, eUnitType.kDistance);

@@ -20,8 +20,8 @@ namespace AdvanceSteel.Nodes
       
       InsertItem(dictionary, "Height", nameof(CountableScrewBoltPattern.Height), LevelEnum.Default, eUnitType.kDistance);
       InsertItem(dictionary, "Length", nameof(CountableScrewBoltPattern.Length), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Holes spacing in X Direction", nameof(CountableScrewBoltPattern.Dx), eUnitType.kDistance);
-      InsertItem(dictionary, "Holes spacing in Y Direction", nameof(CountableScrewBoltPattern.Dy), eUnitType.kDistance);
+      InsertItem(dictionary, "Spacing of holes in X Direction", nameof(CountableScrewBoltPattern.Dx), eUnitType.kDistance);
+      InsertItem(dictionary, "Spacing of holes in Y Direction", nameof(CountableScrewBoltPattern.Dy), eUnitType.kDistance);
       InsertItem(dictionary, "Holes in Y Direction", nameof(CountableScrewBoltPattern.Ny));
       InsertItem(dictionary, "Holes in X Direction", nameof(CountableScrewBoltPattern.Nx));
 
