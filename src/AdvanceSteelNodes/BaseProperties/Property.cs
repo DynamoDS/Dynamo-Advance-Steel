@@ -157,6 +157,18 @@ namespace AdvanceSteel.Nodes
     }
 
     /// <summary>
+    /// Check if this property is readonly
+    /// </summary>
+    /// <returns name="IsReadOnly">The read status of the property</returns>
+    public bool IsReadOnly
+    {
+      get
+      {
+        return _read && !_write;
+      }
+    }
+
+    /// <summary>
     /// Create a Property object
     /// </summary>
     /// <param name="propertyName"> Name from property list node for a particular steel object type</param>
