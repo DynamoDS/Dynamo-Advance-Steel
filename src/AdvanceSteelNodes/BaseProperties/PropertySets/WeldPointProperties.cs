@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class WeldPointProperties : BaseProperties, IASProperties
+  public class WeldPointProperties : BaseProperties<WeldPoint>, IASProperties
   {
-    public override Type GetObjectType => typeof(WeldPoint);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

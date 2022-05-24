@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class GratingProperties : BaseProperties, IASProperties
+  public class GratingProperties : BaseProperties<Grating>, IASProperties
   {
-    public override Type GetObjectType => typeof(Grating);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

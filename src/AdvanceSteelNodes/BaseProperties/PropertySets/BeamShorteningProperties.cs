@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class BeamShorteningProperties : BaseProperties, IASProperties
+  public class BeamShorteningProperties : BaseProperties<BeamShortening>, IASProperties
   {
-    public override Type GetObjectType => typeof(BeamShortening);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

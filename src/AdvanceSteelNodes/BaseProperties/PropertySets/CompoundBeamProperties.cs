@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class CompoundBeamProperties : BaseProperties, IASProperties
+  public class CompoundBeamProperties : BaseProperties<CompoundStraightBeam>, IASProperties
   {
-    public override Type GetObjectType => typeof(CompoundStraightBeam);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

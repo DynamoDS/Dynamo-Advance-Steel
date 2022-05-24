@@ -10,10 +10,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class ConnectionHoleProperties : BaseProperties, IASProperties
+  public class ConnectionHoleProperties : BaseProperties<ConnectionHoleFeature>, IASProperties
   {
-    public override Type GetObjectType => typeof(ConnectionHoleFeature);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

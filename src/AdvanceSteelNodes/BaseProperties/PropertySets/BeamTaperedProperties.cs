@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class BeamTaperedProperties : BaseProperties, IASProperties
+  public class BeamTaperedProperties : BaseProperties<BeamTapered>, IASProperties
   {
-    public override Type GetObjectType => typeof(BeamTapered);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

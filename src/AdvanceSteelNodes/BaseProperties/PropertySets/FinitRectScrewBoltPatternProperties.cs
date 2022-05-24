@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class FinitRectScrewBoltPatternProperties : BaseProperties, IASProperties
+  public class FinitRectScrewBoltPatternProperties : BaseProperties<FinitRectScrewBoltPattern>, IASProperties
   {
-    public override Type GetObjectType => typeof(FinitRectScrewBoltPattern);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

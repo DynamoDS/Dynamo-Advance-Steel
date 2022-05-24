@@ -10,10 +10,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class FeatureObjectProperties : BaseProperties, IASProperties
+  public class FeatureObjectProperties : BaseProperties<FeatureObject>, IASProperties
   {
-    public override Type GetObjectType => typeof(FeatureObject);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

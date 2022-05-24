@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class PlateProperties : BaseProperties, IASProperties
+  public class PlateProperties : BaseProperties<Plate>, IASProperties
   {
-    public override Type GetObjectType => typeof(Plate);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

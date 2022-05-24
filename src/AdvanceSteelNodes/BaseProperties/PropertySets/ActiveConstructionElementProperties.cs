@@ -8,10 +8,8 @@ using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
 
 namespace AdvanceSteel.Nodes
 {
-  public class ActiveConstructionElementProperties : BaseProperties, IASProperties
+  public class ActiveConstructionElementProperties : BaseProperties<ActiveConstructionElement>, IASProperties
   {
-    public override Type GetObjectType => typeof(ActiveConstructionElement);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class AnchorPatternProperties : BaseProperties, IASProperties
+  public class AnchorPatternProperties : BaseProperties<AnchorPattern>, IASProperties
   {
-    public override Type GetObjectType => typeof(AnchorPattern);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

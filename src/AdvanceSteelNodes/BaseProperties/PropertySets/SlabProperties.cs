@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class SlabProperties : BaseProperties, IASProperties
+  public class SlabProperties : BaseProperties<Slab>, IASProperties
   {
-    public override Type GetObjectType => typeof(Slab);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

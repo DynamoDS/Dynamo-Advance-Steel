@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class ConnectorProperties : BaseProperties, IASProperties
+  public class ConnectorProperties : BaseProperties<Connector>, IASProperties
   {
-    public override Type GetObjectType => typeof(Connector);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

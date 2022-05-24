@@ -10,10 +10,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class ArrangerProperties : BaseProperties, IASProperties
+  public class ArrangerProperties : BaseProperties<Arranger>, IASProperties
   {
-    public override Type GetObjectType => typeof(Arranger);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

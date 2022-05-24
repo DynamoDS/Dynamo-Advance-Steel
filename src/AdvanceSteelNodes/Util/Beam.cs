@@ -192,48 +192,6 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
-    /// Return Dynamo Line object from the Beam System Line. Supports Straight Beam, Tapered Beam, Unfolded Beam or Compound Beam
-    /// </summary>
-    /// <param name="steelObject"> Advance Steel element</param>
-    /// <returns name="line"> beam system line as line object</returns>
-    public static Autodesk.DesignScript.Geometry.Line GetBeamLine(AdvanceSteel.Nodes.SteelDbObject steelObject)
-    {
-      Autodesk.DesignScript.Geometry.Line ret = null;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (steelObject != null)
-        {
-          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
-          if (filerObj != null)
-          {
-            if (filerObj.IsKindOf(FilerObject.eObjectType.kStraightBeam) ||
-                filerObj.IsKindOf(FilerObject.eObjectType.kBeamTapered) ||
-                filerObj.IsKindOf(FilerObject.eObjectType.kUnfoldedStraightBeam) ||
-                filerObj.IsKindOf(FilerObject.eObjectType.kCompoundStraightBeam))
-            {
-              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
-              Point3d foundStartPoint = selectedObj.GetPointAtStart();
-              Point3d foundEndPoint = selectedObj.GetPointAtEnd();
-              if (foundStartPoint != null || foundEndPoint != null)
-              {
-                ret = Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(Utils.ToDynPoint(foundStartPoint, true), Utils.ToDynPoint(foundEndPoint, true));
-              }
-              else
-                throw new System.Exception("No Points wer returned from the Object");
-            }
-            else
-              throw new System.Exception("Not a Straight Beam, Tapered Beam, Unfolded Beam or Compound Beam Object");
-          }
-          else
-            throw new System.Exception("AS Object is null");
-        }
-        else
-          throw new System.Exception("Steel Object is null");
-      }
-      return ret;
-    }
-
-    /// <summary>
     /// Get Point at a distance from the END of the Beam
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>

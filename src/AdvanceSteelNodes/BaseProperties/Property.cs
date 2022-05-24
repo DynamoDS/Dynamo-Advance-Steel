@@ -290,6 +290,11 @@ namespace AdvanceSteel.Nodes
         }
       }
 
+      if (!objectToUpdate.GetType().IsSubclassOf(property._objectType) && !objectToUpdate.GetType().IsEquivalentTo(property._objectType))
+      {
+        throw new System.Exception(string.Format("Not '{0}' Object", _objectType.Name));
+      }
+
       property.SetASObjectProperty(objectToUpdate, InternalValue);
     }
 
@@ -316,6 +321,11 @@ namespace AdvanceSteel.Nodes
       if (objectToUpdateFrom == null)
       {
         throw new System.Exception("No Advance Steel Object Found");
+      }
+
+      if(!objectToUpdateFrom.GetType().IsSubclassOf(_objectType) && !objectToUpdateFrom.GetType().IsEquivalentTo(_objectType))
+      {
+        throw new System.Exception(string.Format("Not '{0}' Object", _objectType.Name));
       }
 
       try

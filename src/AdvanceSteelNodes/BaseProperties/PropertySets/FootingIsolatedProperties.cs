@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class FootingIsolatedProperties : BaseProperties, IASProperties
+  public class FootingIsolatedProperties : BaseProperties<FootingIsolated>, IASProperties
   {
-    public override Type GetObjectType => typeof(FootingIsolated);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

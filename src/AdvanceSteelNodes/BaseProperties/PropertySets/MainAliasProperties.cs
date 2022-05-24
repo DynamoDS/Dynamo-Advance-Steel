@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
 
 namespace AdvanceSteel.Nodes
 {
-  public class MainAliasProperties : BaseProperties, IASProperties
+  public class MainAliasProperties : BaseProperties<MainAlias>, IASProperties
   {
-    public override Type GetObjectType => typeof(MainAlias);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

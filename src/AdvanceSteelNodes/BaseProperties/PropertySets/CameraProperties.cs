@@ -10,10 +10,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class CameraProperties : BaseProperties, IASProperties
+  public class CameraProperties : BaseProperties<Camera>, IASProperties
   {
-    public override Type GetObjectType => typeof(Camera);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

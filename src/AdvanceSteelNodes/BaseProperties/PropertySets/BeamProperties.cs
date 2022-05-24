@@ -21,10 +21,8 @@ using Autodesk.AdvanceSteel.Modelling;
 
 namespace AdvanceSteel.Nodes
 {
-  public class BeamProperties : BaseProperties, IASProperties
+  public class BeamProperties : BaseProperties<Beam>, IASProperties
   {
-    public override Type GetObjectType => typeof(Beam);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
@@ -52,7 +50,7 @@ namespace AdvanceSteel.Nodes
       InsertItem(dictionary, "Start Point", nameof(ASBeam.GetPointAtStart));
       InsertItem(dictionary, "End Point", nameof(ASBeam.GetPointAtEnd));
       InsertItem(dictionary, "Beam Points", GetListPoints);
-      InsertItem(dictionary, "Line", GetLine);
+      InsertItem(dictionary, "Beam Line", GetLine);
       InsertItem(dictionary, "Paint Area", nameof(ASBeam.GetPaintArea), eUnitType.kArea);
       InsertItem(dictionary, "Profile Type Code", GetProfileTypeCode);
       InsertItem(dictionary, "Profile Type", GetProfileType);

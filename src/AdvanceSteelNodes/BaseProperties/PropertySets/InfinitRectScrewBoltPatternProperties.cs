@@ -10,10 +10,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class InfinitRectScrewBoltPatternProperties : BaseProperties, IASProperties
+  public class InfinitRectScrewBoltPatternProperties : BaseProperties<InfinitRectScrewBoltPattern>, IASProperties
   {
-    public override Type GetObjectType => typeof(InfinitRectScrewBoltPattern);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

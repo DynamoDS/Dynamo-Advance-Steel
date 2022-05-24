@@ -10,10 +10,8 @@ using DSCoordinateSystem = Autodesk.DesignScript.Geometry.CoordinateSystem;
 
 namespace AdvanceSteel.Nodes
 {
-  public class BoltPatternProperties : BaseProperties, IASProperties
+  public class BoltPatternProperties : BaseProperties<BoltPattern>, IASProperties
   {
-    public override Type GetObjectType => typeof(BoltPattern);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

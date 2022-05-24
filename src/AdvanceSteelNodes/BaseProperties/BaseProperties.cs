@@ -8,9 +8,9 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public abstract class BaseProperties : IASProperties
+  public abstract class BaseProperties<T> : IASProperties where T:class
   {
-    public abstract Type GetObjectType { get; }
+    public Type GetObjectType { get => typeof(T); }
 
     public abstract Dictionary<string, Property> BuildPropertyList();
 
@@ -33,5 +33,16 @@ namespace AdvanceSteel.Nodes
     {
       InsertItem(dictionary, description, funcGetValue, LevelEnum.NoDefinition, unitType);
     }
+
+    protected T GetObjectAS(object objAS)
+    {
+      if (!(objAS is T))
+      {
+        throw new System.Exception(string.Format("Not '{0}' Object", typeof(T).Name));
+      }
+
+      return objAS as T;
+    }
+
   }
 }

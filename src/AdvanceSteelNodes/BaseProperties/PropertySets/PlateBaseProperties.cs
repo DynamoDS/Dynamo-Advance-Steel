@@ -11,10 +11,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class PlateBaseProperties : BaseProperties, IASProperties
+  public class PlateBaseProperties : BaseProperties<PlateBase>, IASProperties
   {
-    public override Type GetObjectType => typeof(PlateBase);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

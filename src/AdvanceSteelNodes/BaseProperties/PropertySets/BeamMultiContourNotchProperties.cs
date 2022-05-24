@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class BeamMultiContourNotchProperties : BaseProperties, IASProperties
+  public class BeamMultiContourNotchProperties : BaseProperties<BeamMultiContourNotch>, IASProperties
   {
-    public override Type GetObjectType => typeof(BeamMultiContourNotch);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();

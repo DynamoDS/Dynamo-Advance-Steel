@@ -9,10 +9,8 @@ using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 
 namespace AdvanceSteel.Nodes
 {
-  public class PlateContourNotchProperties : BaseProperties, IASProperties
+  public class PlateContourNotchProperties : BaseProperties<PlateContourNotch>, IASProperties
   {
-    public override Type GetObjectType => typeof(PlateContourNotch);
-
     public override Dictionary<string, Property> BuildPropertyList()
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
