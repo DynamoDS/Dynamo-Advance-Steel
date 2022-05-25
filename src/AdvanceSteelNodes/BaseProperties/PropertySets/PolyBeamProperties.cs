@@ -1,4 +1,5 @@
-﻿using Autodesk.AdvanceSteel.Modelling;
+﻿using Autodesk.AdvanceSteel.Geometry;
+using Autodesk.AdvanceSteel.Modelling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,16 +18,26 @@ namespace AdvanceSteel.Nodes
 
       InsertItem(dictionary, "Vector Reference Orientation", nameof(PolyBeam.VecRefOrientation), LevelEnum.Default);
       InsertItem(dictionary, "Continuous", nameof(PolyBeam.IsContinuous));
-      InsertItem(dictionary, "Poly Curve", nameof(PolyBeam.GetPolyline));
-      InsertItem(dictionary, "Set Poly Curve", nameof(PolyBeam.SetPolyline));
-      InsertItem(dictionary, "Orientation", GetOrientation);
+      InsertItem(dictionary, "Poly Curve", new PropertyMethods(this.GetType(), nameof(PolyBeamProperties.GetPolyline), nameof(PolyBeamProperties.SetPolyline)));
+      InsertItem(dictionary, "Orientation", new PropertyMethods(this.GetType(), nameof(PolyBeamProperties.GetOrientation), null));
 
       return dictionary;
     }
 
-    private object GetOrientation(object beam)
+    private string GetOrientation(PolyBeam beam)
     {
-      return ((PolyBeam)beam).Orientation.ToString();
+      return beam.Orientation.ToString();
     }
+
+    private Polyline3d GetPolyline(PolyBeam beam)
+    {
+      return beam.GetPolyline(true);
+    }
+
+    private void SetPolyline(PolyBeam beam, Polyline3d newPolyline)
+    {
+      beam.SetPolyline(newPolyline);
+    }
+
   }
 }

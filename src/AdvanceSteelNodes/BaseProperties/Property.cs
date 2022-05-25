@@ -24,7 +24,7 @@ namespace AdvanceSteel.Nodes
     private string _memberName;
     private MemberInfo _memberInfo;
     private System.Type _valueType;
-    private Func<object, object> _funcGetValue;
+    private PropertyMethods _propertyMethods;
 
     private object _value;
     private bool _read;
@@ -44,7 +44,7 @@ namespace AdvanceSteel.Nodes
       _memberInfo = existingProperty._memberInfo;
       _memberName = existingProperty._memberName;
       _valueType = existingProperty._valueType;
-      _funcGetValue = existingProperty._funcGetValue;
+      _propertyMethods = existingProperty._propertyMethods;
 
       _inicialized = existingProperty._inicialized;
 
@@ -95,10 +95,10 @@ namespace AdvanceSteel.Nodes
         return;
       }
 
-      throw new Exception(string.Format("'{0}' is not a property nor method with no arguments", memberName));
+      throw new Exception(string.Format("'{0}' is not a property nor return method with 0 arguments nor void method with 1 argument", memberName));
     }
 
-    internal Property(Type objectType, string description, Func<object, object> funcGetValue, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
+    internal Property(Type objectType, string description, PropertyMethods propertyMethods, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
       _inicialized = true;
 
@@ -106,9 +106,19 @@ namespace AdvanceSteel.Nodes
       _description = description;
       UnitType = unitType;
 
-      _funcGetValue = funcGetValue;
-      _read = true;
-      _write = false;
+      _propertyMethods = propertyMethods;
+      _read = _propertyMethods.MethodInfoGet != null;
+      _write = _propertyMethods.MethodInfoSet != null;
+
+      if(_propertyMethods.MethodInfoGet != null)
+      {
+        _valueType = _propertyMethods.MethodInfoGet.ReturnType;
+      }
+
+      if (_propertyMethods.MethodInfoSet != null)
+      {
+        _valueType = _propertyMethods.MethodInfoSet.GetParameters()[1].ParameterType;
+      }
 
       Level = level;
 
@@ -279,6 +289,8 @@ namespace AdvanceSteel.Nodes
 
       if (!this._inicialized)
       {
+        var internalValue = property.InternalValue;
+
         if (string.IsNullOrEmpty(this.MemberName))
         {
           property = Utils.GetProperty(objectToUpdate, this._description);
@@ -288,6 +300,8 @@ namespace AdvanceSteel.Nodes
         {
           property = Utils.GetPropertyByMemberName(objectToUpdate, this.MemberName);
         }
+
+        property.InternalValue = internalValue;
       }
 
       if (!objectToUpdate.GetType().IsSubclassOf(property._objectType) && !objectToUpdate.GetType().IsEquivalentTo(property._objectType))
@@ -295,16 +309,11 @@ namespace AdvanceSteel.Nodes
         throw new System.Exception(string.Format("Not '{0}' Object", _objectType.Name));
       }
 
-      property.SetASObjectProperty(objectToUpdate, InternalValue);
+      property.SetASObjectProperty(objectToUpdate, property.InternalValue);
     }
 
     private void SetASObjectProperty(object asObject, object value)
     {
-      if (!(_memberInfo is PropertyInfo))
-      {
-        throw new System.Exception(string.Format("Set property not found: {0}", _description?.ToString()));
-      }
-
       if (!_write)
       {
         throw new System.Exception(string.Format("Cannot set readonly property: {0}", _description?.ToString()));
@@ -312,8 +321,25 @@ namespace AdvanceSteel.Nodes
 
       HasValidValue(value);
 
-      PropertyInfo propertyInfo = _memberInfo as PropertyInfo;
-      propertyInfo.SetValue(asObject, value);
+      if (_memberInfo is PropertyInfo)
+      {
+        PropertyInfo propertyInfo = _memberInfo as PropertyInfo;
+        propertyInfo.SetValue(asObject, value);
+      }
+      else if (_memberInfo is MethodInfo)
+      {
+        MethodInfo methodInfo = _memberInfo as MethodInfo;
+        methodInfo.Invoke(asObject, new object[] { value });
+      }
+      else if (_propertyMethods?.MethodInfoSet != null)
+      {
+        _propertyMethods.MethodInfoSet.Invoke(null, new object[] { asObject, value});
+      }
+      else
+      {
+        throw new System.Exception(string.Format("Set property not found: {0}", _description?.ToString()));
+      }
+
     }
 
     internal void EvaluateFromObject(object objectToUpdateFrom)
@@ -361,18 +387,16 @@ namespace AdvanceSteel.Nodes
       if (_memberInfo is PropertyInfo)
       {
         PropertyInfo propertyInfo = _memberInfo as PropertyInfo;
-
         return propertyInfo.GetValue(asObject);
       }
       else if (_memberInfo is MethodInfo)
       {
         MethodInfo methodInfo = _memberInfo as MethodInfo;
-
         return methodInfo.Invoke(asObject, null);
       }
-      else if (_funcGetValue != null)
+      else if (_propertyMethods?.MethodInfoGet != null)
       {
-        return _funcGetValue(asObject);
+        return _propertyMethods.MethodInfoGet.Invoke(null, new object[] { asObject });
       }
       else
       {
@@ -445,6 +469,11 @@ namespace AdvanceSteel.Nodes
     private object ConvertFromDyn(Autodesk.DesignScript.Geometry.CoordinateSystem objectDyn)
     {
       return objectDyn.ToAstMatrix3d();
+    }
+
+    private object ConvertFromDyn(Autodesk.DesignScript.Geometry.PolyCurve objectDyn)
+    {
+      return objectDyn.ToAstPolyline3dOpened();
     }
 
     private object ConvertFromDyn(object objectDyn)

@@ -127,7 +127,7 @@ namespace AdvanceSteel.Nodes.Beams
     {
       var beam = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.PolyBeam;
 
-      Polyline3d poly = beam.GetPolyline();
+      Polyline3d poly = beam.GetPolyline(true);
       Autodesk.DesignScript.Geometry.PolyCurve pCurve = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(poly, true));
       return pCurve;
     }

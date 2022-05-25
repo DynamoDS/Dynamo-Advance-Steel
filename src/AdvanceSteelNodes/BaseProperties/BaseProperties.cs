@@ -14,34 +14,57 @@ namespace AdvanceSteel.Nodes
 
     public abstract Dictionary<string, Property> BuildPropertyList();
 
+    /// <summary>
+    /// Insert item at properties dictionary
+    /// </summary>
+    /// <param name="dictionary"></param>
+    /// <param name="description"></param>
+    /// <param name="memberName">Member name of AS Object - May be Get/Set property or Get Method(without parameter)</param>
+    /// <param name="level"></param>
+    /// <param name="unitType"></param>
     protected void InsertItem(Dictionary<string, Property> dictionary, string description, string memberName, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
       dictionary.Add(description, new Property(GetObjectType, description, memberName, level, unitType));
     }
 
+    /// <summary>
+    /// Insert item at properties dictionary
+    /// </summary>
+    /// <param name="dictionary"></param>
+    /// <param name="description"></param>
+    /// <param name="memberName">Member name of AS Object - May be Get/Set property or Get Method(without parameter)</param>
+    /// <param name="unitType"></param>
     protected void InsertItem(Dictionary<string, Property> dictionary, string description, string memberName, eUnitType unitType)
     {
       InsertItem(dictionary, description, memberName, LevelEnum.NoDefinition, unitType);
     }
 
-    protected void InsertItem(Dictionary<string, Property> dictionary, string description, Func<object, object> funcGetValue, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
+    /// <summary>
+    /// Insert item at properties dictionary
+    /// </summary>
+    /// <param name="dictionary"></param>
+    /// <param name="description"></param>
+    /// <param name="methodInfoGet">Method name of Get Custom Function on properties class</param>
+    /// <param name="methodInfoSet">Method name of Set Custom Function on properties class</param>
+    /// <param name="level"></param>
+    /// <param name="unitType"></param>
+    protected void InsertItem(Dictionary<string, Property> dictionary, string description, string methodInfoGet, string methodInfoSet, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
-      dictionary.Add(description, new Property(GetObjectType, description, funcGetValue, level, unitType));
+      PropertyMethods propertyMethods = new PropertyMethods(this.GetType(), methodInfoGet, methodInfoSet);
+      dictionary.Add(description, new Property(GetObjectType, description, propertyMethods, level, unitType));
     }
 
-    protected void InsertItem(Dictionary<string, Property> dictionary, string description, Func<object, object> funcGetValue, eUnitType? unitType)
+    /// <summary>
+    /// Insert item at properties dictionary
+    /// </summary>
+    /// <param name="dictionary"></param>
+    /// <param name="description"></param>
+    /// <param name="methodInfoGet">Method name of Get Custom Function on properties class</param>
+    /// <param name="methodInfoSet">Method name of Set Custom Function on properties class</param>
+    /// <param name="unitType"></param>
+    protected void InsertItem(Dictionary<string, Property> dictionary, string description, string methodInfoGet, string methodInfoSet, eUnitType? unitType)
     {
-      InsertItem(dictionary, description, funcGetValue, LevelEnum.NoDefinition, unitType);
-    }
-
-    protected T GetObjectAS(object objAS)
-    {
-      if (!(objAS is T))
-      {
-        throw new System.Exception(string.Format("Not '{0}' Object", typeof(T).Name));
-      }
-
-      return objAS as T;
+      InsertItem(dictionary, description, methodInfoGet, methodInfoSet, LevelEnum.NoDefinition, unitType);
     }
 
   }

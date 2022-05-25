@@ -249,38 +249,76 @@ namespace AdvanceSteel.Nodes
     static public List<Autodesk.DesignScript.Geometry.Curve> ToDynPolyCurves(Autodesk.AdvanceSteel.Geometry.Polyline3d poly, bool bConvertFromAstUnits)
     {
       List<Autodesk.DesignScript.Geometry.Curve> retData = new List<Autodesk.DesignScript.Geometry.Curve>();
-      Curve3d[] foundPolyCurves;
-      poly.GetCurves(out foundPolyCurves);
-      for (int i = 0; i < foundPolyCurves.Length; i++)
+      poly.GetCurves(out Curve3d[] foundPolyCurves);
+
+      foreach (Curve3d curve in foundPolyCurves)
       {
-        Curve3d nextCurve;
-        nextCurve = foundPolyCurves[i];
-        LineSeg3d line = nextCurve as LineSeg3d;
-        if (line != null)
+        if (curve is LineSeg3d)
         {
-          Point3d lStartPoint;
-          Point3d lEndPoint;
-          line.HasStartPoint(out lStartPoint);
-          line.HasEndPoint(out lEndPoint);
+          LineSeg3d line = curve as LineSeg3d;
 
-          retData.Add(Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(Utils.ToDynPoint(lStartPoint, true),
-                                                                                Utils.ToDynPoint(lEndPoint, true)));
+          line.HasStartPoint(out var lStartPoint);
+          line.HasEndPoint(out var lEndPoint);
+
+          retData.Add(Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(Utils.ToDynPoint(lStartPoint, bConvertFromAstUnits), Utils.ToDynPoint(lEndPoint, bConvertFromAstUnits)));
         }
-        CircArc3d arc = nextCurve as CircArc3d;
-        if (line != null)
+        else if (curve is CircArc3d)
         {
-          Point3d aStartPoint = arc.StartPoint;
-          Point3d aEndPoint = arc.EndPoint;
-          Point3d aCentrePoint = arc.Center;
-          Vector3d arcNormal = arc.Normal;
-
-          retData.Add(Autodesk.DesignScript.Geometry.Arc.ByCenterPointStartPointEndPoint(Utils.ToDynPoint(aCentrePoint, true),
-                                                                                         Utils.ToDynPoint(aStartPoint, true),
-                                                                                         Utils.ToDynPoint(aEndPoint, true)));
+          CircArc3d arc = curve as CircArc3d;
+          if (arc != null)
+          {
+            retData.Add(Autodesk.DesignScript.Geometry.Arc.ByCenterPointStartPointEndPoint(Utils.ToDynPoint(arc.Center, bConvertFromAstUnits), 
+              Utils.ToDynPoint(arc.StartPoint, bConvertFromAstUnits), Utils.ToDynPoint(arc.EndPoint, bConvertFromAstUnits)));
+          }
         }
       }
 
       return retData;
+    }
+
+    static public Autodesk.AdvanceSteel.Geometry.Polyline3d ToAstPolyline3dOpened(this Autodesk.DesignScript.Geometry.PolyCurve poly)
+    {
+      return ToAstPolyline3dOpened(poly,  true);
+    }
+
+    static public Autodesk.AdvanceSteel.Geometry.Polyline3d ToAstPolyline3dOpened(Autodesk.DesignScript.Geometry.PolyCurve poly, bool bConvertToAstUnits)
+    {
+      var curves = poly.Curves();
+
+      Polyline3d newReturnPoly = new Polyline3d();
+      Point3d[] PolyPoint = new Point3d[poly.NumberOfCurves + 1];
+      VertexInfo[] PolyVertexs = new VertexInfo[poly.NumberOfCurves + 1];
+
+      int count = 0;
+      foreach (var curve in curves)
+      {  
+        if (curve is Autodesk.DesignScript.Geometry.Line)
+        {
+          var line = curve as Autodesk.DesignScript.Geometry.Line;
+
+          PolyPoint[count] = Utils.ToAstPoint(line.StartPoint, bConvertToAstUnits);
+          PolyVertexs[count] = new VertexInfo();
+        }
+        else if (curve is Autodesk.DesignScript.Geometry.Arc)
+        {
+          var arc = curve as Autodesk.DesignScript.Geometry.Arc;
+
+          PolyPoint[count] = Utils.ToAstPoint(arc.StartPoint, bConvertToAstUnits);
+          PolyVertexs[count] = new VertexInfo(Utils.FromInternalDistanceUnits(arc.Radius, bConvertToAstUnits), Utils.ToAstPoint(arc.CenterPoint, bConvertToAstUnits), Utils.ToAstVector3d(arc.Normal, bConvertToAstUnits));
+        }
+
+        count++;
+
+        if (count == poly.NumberOfCurves)
+        {
+          PolyPoint[count] = Utils.ToAstPoint(curve.EndPoint, bConvertToAstUnits);
+          PolyVertexs[count] = new VertexInfo();
+        }
+      }
+
+      newReturnPoly.CreateFrom(PolyPoint, PolyVertexs, false, true);
+
+      return newReturnPoly;
     }
 
     static public Autodesk.AdvanceSteel.Geometry.Polyline3d ToAstPolyline3d(Autodesk.DesignScript.Geometry.PolyCurve poly, bool bConvertToAstUnits)
@@ -900,27 +938,5 @@ namespace AdvanceSteel.Nodes
     }
 
     #endregion
-
-    #region Property Base Class Definitions
-
-    //private static Dictionary<string, Property> Build_Title(string prefix)
-    //{
-    //  Dictionary<string, Property> dictProps = new Dictionary<string, Property>() { };
-    //  dictProps.Add("Select " + prefix + " Property...", new Property("0_none", typeof(double)));
-
-    //  addElementTypes(dictProps, new List<eObjectType>() {
-    //                eObjectType.kUnknown });
-
-    //  return dictProps;
-    //}
-
-    #endregion
-
-    //private static Dictionary<string, Property> SortDict(Dictionary<string, Property> dataSource)
-    //{
-    //  return (from pair in dataSource orderby pair.Key ascending select pair).ToDictionary(s => s.Key, s => s.Value);
-
-    //}
-
   }
 }

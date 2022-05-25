@@ -31,14 +31,14 @@ namespace AdvanceSteel.Nodes
       InsertItem(dictionary, "Radius", nameof(AnchorPattern.Radius), eUnitType.kDistance);
       InsertItem(dictionary, "Part Name", nameof(AnchorPattern.AnchorPartName), LevelEnum.Default);
 
-      InsertItem(dictionary, "Orientation Type", GetOrientationType);
+      InsertItem(dictionary, "Orientation Type", nameof(AnchorPatternProperties.GetOrientationType), null);
 
       return dictionary;
     }
 
-    private object GetOrientationType(object anchorPattern)
+    private string GetOrientationType(AnchorPattern anchorPattern)
     {
-      return ((AnchorPattern)anchorPattern).OrientationType.ToString();
+      return anchorPattern.OrientationType.ToString();
     }
   }
 }

@@ -9,9 +9,6 @@ using System;
 
 namespace AdvanceSteel.Nodes
 {
-  [OutPortNames("propertyName")]
-  [OutPortTypes("string")]
-  [OutPortDescriptions("name of the selected property")]
   public abstract class ASPropertiesBase : AstDropDownBase
   {
     private const string outputName = "propertyName";
@@ -39,6 +36,9 @@ namespace AdvanceSteel.Nodes
     {
       InPorts.Clear();
       OutPorts.Clear();
+
+      OutPorts.Add(new PortModel(PortType.Output, this, new PortData("propertyName", "name of the selected property")));
+
       RegisterAllPorts();
     }
 
