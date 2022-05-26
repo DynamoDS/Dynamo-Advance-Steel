@@ -17,7 +17,7 @@ namespace AdvanceSteel.Nodes
 
     private string _selectionText = null;
 
-    public string SelectionText
+    private string SelectionText
     {
       get 
       {
