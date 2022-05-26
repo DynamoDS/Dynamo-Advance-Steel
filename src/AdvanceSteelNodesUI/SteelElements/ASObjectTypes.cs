@@ -15,57 +15,18 @@ namespace AdvanceSteel.Nodes
   [OutPortTypes("int")]
   [OutPortDescriptions("advance steel object type")]
   [IsDesignScriptCompatible]
-  public class ASObjecTypes : AstDropDownBase
+  public class ASObjecTypes : ASObjectTypeBase
   {
-    private const string outputName = "objectType";
- 
-    public ASObjecTypes()
-        : base(outputName)
-    {
-      InPorts.Clear();
-      OutPorts.Clear();
-      RegisterAllPorts();
-    }
+    public ASObjecTypes() : base() { }
 
     [JsonConstructor]
-    public ASObjecTypes(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-    : base(outputName, inPorts, outPorts)
+    public ASObjecTypes(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts) : base(inPorts, outPorts) { }
+
+
+    protected override AssociativeNode CreateAssociativeNode(DynamoDropDownItem dynamoDropDownItem)
     {
-    }
-
-    protected override SelectionState PopulateItemsCore(string currentSelection)
-    {
-      Items.Clear();
-
-      var newItems = new List<DynamoDropDownItem>();
-      newItems.Add(new DynamoDropDownItem(SelectObjectTypeString, null));
-
-      Dictionary<Type, string> filterItems = Utils.GetASObjectFilters();
-      foreach (var item in filterItems)
-      {
-        newItems.Add(new DynamoDropDownItem(item.Value, item.Key));
-      }
-
-      Items.AddRange(newItems);
-
-      SelectedIndex = 0;
-      return SelectionState.Restore;
-    }
-
-    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-    {
-      if (Items.Count == 0 ||
-          SelectedIndex < 0 ||
-          Items[SelectedIndex].Name.Equals(SelectObjectTypeString))
-      {
-        return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
-      }
-
-      var stringNode = AstFactory.BuildStringNode(((Type)Items[SelectedIndex].Item).Name);
-     
-      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), stringNode);
-      return new List<AssociativeNode> { assign };
-
+      var stringNode = AstFactory.BuildStringNode(((Type)dynamoDropDownItem.Item).Name);
+      return stringNode;
     }
   }
 }

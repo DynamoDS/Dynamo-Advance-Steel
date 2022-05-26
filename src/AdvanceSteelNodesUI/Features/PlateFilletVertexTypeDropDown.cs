@@ -14,55 +14,24 @@ namespace AdvanceSteel.Nodes
   [OutPortTypes("int")]
   [OutPortDescriptions("type of vertex")]
   [IsDesignScriptCompatible]
-  public class PlateFilletVertexType : AstDropDownBase
+  public class PlateFilletVertexType : ASListBase
   {
-    private const string outputName = "vertexType";
+    protected override string GetListName => "Plate Corner Cut Type";
 
-    public PlateFilletVertexType()
-        : base(outputName)
-    {
-      InPorts.Clear();
-      OutPorts.Clear();
-      RegisterAllPorts();
-    }
+    public PlateFilletVertexType() : base() { }
 
     [JsonConstructor]
-    public PlateFilletVertexType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-    : base(outputName, inPorts, outPorts)
+    public PlateFilletVertexType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts) : base(inPorts, outPorts) { }
+
+    protected override List<DynamoDropDownItem> GetListDropDown()
     {
-    }
-
-    protected override SelectionState PopulateItemsCore(string currentSelection)
-    {
-      Items.Clear();
-
-      var newItems = new List<DynamoDropDownItem>()
-            {
-                new DynamoDropDownItem("Select Plate Corener Cut Type...", -1L),
-                new DynamoDropDownItem("Convex", 0L),
-                new DynamoDropDownItem("Concave", 1L),
-                new DynamoDropDownItem("Striaght", 2L)
-            };
-
-      Items.AddRange(newItems);
-
-      SelectedIndex = 0;
-      return SelectionState.Restore;
-    }
-
-    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-    {
-      if (Items.Count == 0 ||
-          SelectedIndex < 0 ||
-          Items[SelectedIndex].Name == "Select Plate Corener Cut Type...")
+      var list = new List<DynamoDropDownItem>()
       {
-        return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
-      }
-
-      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
-      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
-      return new List<AssociativeNode> { assign };
-
+        new DynamoDropDownItem("Convex", 0L),
+        new DynamoDropDownItem("Concave", 1L),
+        new DynamoDropDownItem("Striaght", 2L)
+      };
+      return list;
     }
   }
 }

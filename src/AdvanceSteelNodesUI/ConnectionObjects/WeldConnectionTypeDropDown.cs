@@ -15,54 +15,23 @@ namespace AdvanceSteel.Nodes
   [OutPortTypes("int")]
   [OutPortDescriptions("weld connection type")]
   [IsDesignScriptCompatible]
-  public class WeldConnectionType : AstDropDownBase
+  public class WeldConnectionType : ASListBase
   {
-    private const string outputName = "weldType";
+    protected override string GetListName => "Weld Type";
 
-    public WeldConnectionType()
-        : base(outputName)
-    {
-      InPorts.Clear();
-      OutPorts.Clear();
-      RegisterAllPorts();
-    }
+    public WeldConnectionType() : base() { }
 
     [JsonConstructor]
-    public WeldConnectionType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-    : base(outputName, inPorts, outPorts)
+    public WeldConnectionType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts) : base(inPorts, outPorts) { }
+
+    protected override List<DynamoDropDownItem> GetListDropDown()
     {
-    }
-
-    protected override SelectionState PopulateItemsCore(string currentSelection)
-    {
-      Items.Clear();
-
-      var newItems = new List<DynamoDropDownItem>()
-            {
-                new DynamoDropDownItem("Select Weld Type...", -1L),
-                new DynamoDropDownItem("OnSite", 0L),
-                new DynamoDropDownItem("InShop", 2L)
-            };
-
-      Items.AddRange(newItems);
-
-      SelectedIndex = 0;
-      return SelectionState.Restore;
-    }
-
-    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-    {
-      if (Items.Count == 0 ||
-          SelectedIndex < 0 ||
-          Items[SelectedIndex].Name == "Select Weld Type...")
+      var list = new List<DynamoDropDownItem>()
       {
-        return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
-      }
-
-      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
-      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
-      return new List<AssociativeNode> { assign };
-
+        new DynamoDropDownItem("OnSite", 0L),
+        new DynamoDropDownItem("InShop", 2L)
+      };
+      return list;
     }
   }
 }
