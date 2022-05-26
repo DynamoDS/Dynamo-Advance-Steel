@@ -37,22 +37,22 @@ namespace AdvanceSteel.Nodes
 
       return dictionary;
     }
-    private string GetCheckStatus(UserAutoConstructionObject joint)
+    private static string GetCheckStatus(UserAutoConstructionObject joint)
     {
       return joint.CheckStatus.ToString();
     }
 
-    private string GetApprovalStatus(UserAutoConstructionObject joint)
+    private static string GetApprovalStatus(UserAutoConstructionObject joint)
     {
       return joint.ApprovalStatus.ToString();
     }
 
-    private IEnumerable<SteelDbObject> GetInputObjects(UserAutoConstructionObject joint)
+    private static IEnumerable<SteelDbObject> GetInputObjects(UserAutoConstructionObject joint)
     {
       return joint.InputObjects.Select(x => x.ToDSType());
     }
 
-    private IEnumerable<SteelDbObject> GetCreatedObjects(UserAutoConstructionObject joint)
+    private static IEnumerable<SteelDbObject> GetCreatedObjects(UserAutoConstructionObject joint)
     {
       return joint.CreatedObjects.Where(x => x is Beam || x is Plate || x is BoltPattern).Select(x => x.ToDSType());
     }

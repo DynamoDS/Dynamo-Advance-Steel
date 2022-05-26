@@ -26,12 +26,12 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private string GetFilletType(PlateFeatVertFillet plateFeatVertFillet)
+    private static string GetFilletType(PlateFeatVertFillet plateFeatVertFillet)
     {
       return plateFeatVertFillet.FilletType.ToString();
     }
 
-    private IEnumerable<Autodesk.DesignScript.Geometry.Point> GetContourPolygon(PlateFeatVertFillet plateFeatVertFillet)
+    private static IEnumerable<Autodesk.DesignScript.Geometry.Point> GetContourPolygon(PlateFeatVertFillet plateFeatVertFillet)
     {
       return plateFeatVertFillet.GetBaseContourPolygon(0).Select(x => x.ToDynPoint());
     }

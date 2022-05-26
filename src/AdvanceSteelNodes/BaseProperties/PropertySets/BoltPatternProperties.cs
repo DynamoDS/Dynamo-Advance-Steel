@@ -32,13 +32,13 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private IEnumerable<Autodesk.DesignScript.Geometry.Point> GetMidPoints(BoltPattern boltPattern)
+    private static IEnumerable<Autodesk.DesignScript.Geometry.Point> GetMidPoints(BoltPattern boltPattern)
     {
       boltPattern.GetMidpoints(out var points);
       return points.Select(x => x.ToDynPoint());
     }
 
-    private DSCoordinateSystem GetBoltCoordinateSystem(BoltPattern boltPattern)
+    private static DSCoordinateSystem GetBoltCoordinateSystem(BoltPattern boltPattern)
     {
       return DSCoordinateSystem.ByOriginVectors(boltPattern.RefPoint.ToDynPoint(), boltPattern.XDirection.ToDynVector(), boltPattern.YDirection.ToDynVector());
     }

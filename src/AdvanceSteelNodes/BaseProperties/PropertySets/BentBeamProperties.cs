@@ -28,13 +28,13 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private Point3d GetArcCenter(BentBeamBase beam)
+    private static Point3d GetArcCenter(BentBeamBase beam)
     {
       beam.GetArcCenter(out var point, true);
       return point;
     }
 
-    private Vector3d GetArcNormal(BentBeamBase beam)
+    private static Vector3d GetArcNormal(BentBeamBase beam)
     {
       beam.GetArcNormal(out var normal, true);
       return normal;

@@ -30,17 +30,17 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private string GridType(Grid grid)
+    private static string GridType(Grid grid)
     {
       return grid.GridType.ToString();
     }
 
-    private string VerticalProjectionStatus(Grid grid)
+    private static string VerticalProjectionStatus(Grid grid)
     {
       return grid.VerticalProjectionStatus.ToString();
     }
 
-    private string NumberingType(Grid grid)
+    private static string NumberingType(Grid grid)
     {
       return grid.NumberingType.ToString();
     }

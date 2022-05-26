@@ -34,17 +34,17 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private string GetContourType(BeamMultiContourNotch beamNotch)
+    private static string GetContourType(BeamMultiContourNotch beamNotch)
     {
       return beamNotch.ContourType.ToString();
     }
 
-    private string GetEnd(BeamMultiContourNotch beamNotch)
+    private static string GetEnd(BeamMultiContourNotch beamNotch)
     {
       return beamNotch.End.ToString();
     }
 
-    private string GetClipType(BeamMultiContourNotch beamNotch)
+    private static string GetClipType(BeamMultiContourNotch beamNotch)
     {
       return beamNotch.ClipType.ToString();
     }

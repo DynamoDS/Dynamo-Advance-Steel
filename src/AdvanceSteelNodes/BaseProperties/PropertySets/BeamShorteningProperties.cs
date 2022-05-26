@@ -28,7 +28,7 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private string GetEnd(BeamShortening beamShortening)
+    private static string GetEnd(BeamShortening beamShortening)
     {
       return beamShortening.End.ToString();
     }

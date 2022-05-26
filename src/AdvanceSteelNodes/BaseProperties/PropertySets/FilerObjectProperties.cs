@@ -21,7 +21,7 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private string GetFormatedType(object filerObject)
+    private static string GetFormatedType(object filerObject)
     {
       return Utils.GetDescriptionObject(filerObject.GetType());
     }

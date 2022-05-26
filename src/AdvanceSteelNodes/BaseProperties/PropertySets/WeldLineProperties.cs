@@ -20,13 +20,13 @@ namespace AdvanceSteel.Nodes
 
       return dictionary;
     }
-    private IEnumerable<Autodesk.DesignScript.Geometry.Point> GetWeldPointsLower(WeldLine weldLine)
+    private static IEnumerable<Autodesk.DesignScript.Geometry.Point> GetWeldPointsLower(WeldLine weldLine)
     {
       weldLine.GetWeldPoints(out var points, WeldPattern.eSeamPosition.kLower);
       return points.Select(x => x.ToDynPoint());
     }
 
-    private IEnumerable<Autodesk.DesignScript.Geometry.Point> GetWeldPointsUpper(WeldLine weldLine)
+    private static IEnumerable<Autodesk.DesignScript.Geometry.Point> GetWeldPointsUpper(WeldLine weldLine)
     {
       weldLine.GetWeldPoints(out var points, WeldPattern.eSeamPosition.kUpper);
       return points.Select(x => x.ToDynPoint());

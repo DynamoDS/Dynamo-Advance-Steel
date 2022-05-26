@@ -26,27 +26,27 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private double GetCamberHeight(StraightBeam straightBeam)
+    private static double GetCamberHeight(StraightBeam straightBeam)
     {
       return straightBeam.Camber.Height;
     }
 
-    private double GetCamberPosition(StraightBeam straightBeam)
+    private static double GetCamberPosition(StraightBeam straightBeam)
     {
       return straightBeam.Camber.Position;
     }
 
-    private bool GetCamberDirectionYZStatus(StraightBeam straightBeam)
+    private static bool GetCamberDirectionYZStatus(StraightBeam straightBeam)
     {
       return straightBeam.Camber.DirectionYZStatus;
     }
 
-    private double GetCamberStartOffset(StraightBeam straightBeam)
+    private static double GetCamberStartOffset(StraightBeam straightBeam)
     {
       return straightBeam.Camber.StartOffset;
     }
 
-    private double GetCamberEndOffset(StraightBeam straightBeam)
+    private static double GetCamberEndOffset(StraightBeam straightBeam)
     {
       return straightBeam.Camber.EndOffset;
     }

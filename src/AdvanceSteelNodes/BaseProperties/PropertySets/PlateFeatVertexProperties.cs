@@ -23,7 +23,7 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private IEnumerable<Autodesk.DesignScript.Geometry.Point> GetPolygon(PlateFeatVertex plateFeatVertex)
+    private static IEnumerable<Autodesk.DesignScript.Geometry.Point> GetPolygon(PlateFeatVertex plateFeatVertex)
     {
       plateFeatVertex.GetPolygon(out var polygon);
 

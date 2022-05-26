@@ -33,40 +33,40 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private string GetSide(BeamNotch beamNotch)
+    private static string GetSide(BeamNotch beamNotch)
     {
       return beamNotch.Side.ToString();
     }
 
-    private string GetEnd(BeamNotch beamNotch)
+    private static string GetEnd(BeamNotch beamNotch)
     {
       return beamNotch.End.ToString();
     }
 
-    private string GetCornerType(BeamNotch beamNotch)
+    private static string GetCornerType(BeamNotch beamNotch)
     {
       return beamNotch.CornerType.ToString();
     }
 
-    private Plane GetPlane1(BeamNotch beamNotch)
+    private static Plane GetPlane1(BeamNotch beamNotch)
     {
       beamNotch.getPlanes(out var plane1, out var plane2);
       return plane1;
     }
 
-    private Plane GetPlane2(BeamNotch beamNotch)
+    private static Plane GetPlane2(BeamNotch beamNotch)
     {
       beamNotch.getPlanes(out var plane1, out var plane2);
       return plane2;
     }
 
-    private Point3d GetAxisBeamIntersectionPoint1(BeamNotch beamNotch)
+    private static Point3d GetAxisBeamIntersectionPoint1(BeamNotch beamNotch)
     {
       beamNotch.getAxisBeamIntersection(out var point1, out var point2);
       return point1;
     }
 
-    private Point3d GetAxisBeamIntersectionPoint2(BeamNotch beamNotch)
+    private static Point3d GetAxisBeamIntersectionPoint2(BeamNotch beamNotch)
     {
       beamNotch.getAxisBeamIntersection(out var point1, out var point2);
       return point2;

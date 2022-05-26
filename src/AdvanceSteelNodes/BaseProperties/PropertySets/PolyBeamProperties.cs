@@ -18,23 +18,23 @@ namespace AdvanceSteel.Nodes
 
       InsertProperty(dictionary, "Vector Reference Orientation", nameof(PolyBeam.VecRefOrientation), LevelEnum.Default);
       InsertProperty(dictionary, "Continuous", nameof(PolyBeam.IsContinuous));
-      InsertProperty(dictionary, "Poly Curve", nameof(PolyBeamProperties.GetPolyline));
+      InsertCustomProperty(dictionary, "Poly Curve", nameof(PolyBeamProperties.GetPolyline), nameof(PolyBeamProperties.SetPolyline));
       InsertCustomProperty(dictionary, "Orientation", nameof(PolyBeamProperties.GetOrientation), null);
 
       return dictionary;
     }
 
-    private string GetOrientation(PolyBeam beam)
+    private static string GetOrientation(PolyBeam beam)
     {
       return beam.Orientation.ToString();
     }
 
-    private Polyline3d GetPolyline(PolyBeam beam)
+    private static Polyline3d GetPolyline(PolyBeam beam)
     {
       return beam.GetPolyline(true);
     }
 
-    private void SetPolyline(PolyBeam beam, Polyline3d newPolyline)
+    private static void SetPolyline(PolyBeam beam, Polyline3d newPolyline)
     {
       beam.SetPolyline(newPolyline);
     }

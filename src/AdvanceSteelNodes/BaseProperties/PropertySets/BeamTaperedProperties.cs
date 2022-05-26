@@ -21,13 +21,13 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private double[] GetDistances(BeamTapered beam)
+    private static double[] GetDistances(BeamTapered beam)
     {
       beam.GetSegmentsData(out var dists, out var heigths, out var alignment);
       return dists;
     }
 
-    private double[] GetHeigths(BeamTapered beam)
+    private static double[] GetHeigths(BeamTapered beam)
     {
       beam.GetSegmentsData(out var dists, out var heigths, out var alignment);
       return heigths;

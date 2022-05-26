@@ -13,7 +13,7 @@ namespace AdvanceSteel.Nodes
     {
       if (!string.IsNullOrEmpty(methodInfoGet))
       {
-        MethodInfoGet = typeProperties.GetMethod(methodInfoGet, BindingFlags.Static);
+        MethodInfoGet = typeProperties.GetMethod(methodInfoGet, BindingFlags.Static | BindingFlags.NonPublic);
         if (MethodInfoGet == null || MethodInfoGet.GetParameters().Length != 1 && MethodInfoGet.ReturnType == typeof(void))
         {
           throw new Exception(string.Format("Method Get '{0}' must have 1 parameter, 1 return and be static", methodInfoGet));
@@ -22,7 +22,7 @@ namespace AdvanceSteel.Nodes
 
       if (!string.IsNullOrEmpty(methodInfoSet))
       {
-        MethodInfoSet = typeProperties.GetMethod(methodInfoSet, BindingFlags.Static);
+        MethodInfoSet = typeProperties.GetMethod(methodInfoSet, BindingFlags.Static | BindingFlags.NonPublic);
         if (MethodInfoSet == null || MethodInfoSet.GetParameters().Length != 2 && MethodInfoSet.ReturnType != typeof(void))
         {
           throw new Exception(string.Format("Method Set '{0}' must have 2 parameters, void return and be static", MethodInfoSet));

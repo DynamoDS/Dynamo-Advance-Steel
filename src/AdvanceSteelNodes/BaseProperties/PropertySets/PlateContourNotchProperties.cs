@@ -32,12 +32,12 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private string ContourType(PlateContourNotch plateContourNotch)
+    private static string ContourType(PlateContourNotch plateContourNotch)
     {
       return plateContourNotch.ContourType.ToString();
     }
 
-    private string ClipType(PlateContourNotch plateContourNotch)
+    private static string ClipType(PlateContourNotch plateContourNotch)
     {
       return plateContourNotch.ClipType.ToString();
     }

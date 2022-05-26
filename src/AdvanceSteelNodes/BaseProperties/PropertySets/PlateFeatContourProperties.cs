@@ -31,12 +31,12 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private string GetContourType(PlateFeatContour plateFeatContour)
+    private static string GetContourType(PlateFeatContour plateFeatContour)
     {
       return plateFeatContour.ContourType.ToString();
     }
 
-    private IEnumerable<Autodesk.DesignScript.Geometry.Point> GetContourPolygon(PlateFeatContour plateFeatContour)
+    private static IEnumerable<Autodesk.DesignScript.Geometry.Point> GetContourPolygon(PlateFeatContour plateFeatContour)
     {
       return plateFeatContour.GetContourPolygon(0).Select(x => x.ToDynPoint());
     }

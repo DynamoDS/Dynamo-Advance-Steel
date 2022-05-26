@@ -54,12 +54,12 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private string GetConnectorType(Grating grating)
+    private static string GetConnectorType(Grating grating)
     {
       return grating.ConnectorType.ToString();
     }
 
-    private string GetGratingType(Grating grating)
+    private static string GetGratingType(Grating grating)
     {
       return grating.GratingType.ToString();
     }

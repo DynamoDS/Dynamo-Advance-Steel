@@ -45,13 +45,13 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private double GetWeight(PlateBase plate)
+    private static double GetWeight(PlateBase plate)
     {
       //1 yields the weight, 2 the exact weight
       return plate.GetWeight(1);
     }
 
-    private double GetWeightExact(PlateBase plate)
+    private static double GetWeightExact(PlateBase plate)
     {
       //1 yields the weight, 2 the exact weight
       return plate.GetWeight(2);

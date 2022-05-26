@@ -21,7 +21,7 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private List<Dictionary<string, object>> GetFoldPlates(FoldedPlate foldedPlate)
+    private static List<Dictionary<string, object>> GetFoldPlates(FoldedPlate foldedPlate)
     {
       List<Dictionary<string, object>> listHolesDetails = new List<Dictionary<string, object>>();
 

@@ -28,7 +28,7 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private double GetDiameter(ConnectionHoleFeature hole)
+    private static double GetDiameter(ConnectionHoleFeature hole)
     {
       return hole.Hole.Diameter;
     }

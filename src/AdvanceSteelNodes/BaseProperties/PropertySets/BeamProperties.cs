@@ -63,24 +63,24 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private double GetWeight(ASBeam beam)
+    private static double GetWeight(ASBeam beam)
     {
       //1 yields the weight, 2 the exact weight
       return RoundWeight(beam.GetWeight(1));
     }
 
-    private double GetWeightExact(ASBeam beam)
+    private static double GetWeightExact(ASBeam beam)
     {
       //1 yields the weight, 2 the exact weight
       return RoundWeight(beam.GetWeight(2));
     }
 
-    private double RoundWeight(double value)
+    private static double RoundWeight(double value)
     {
       return Math.Round(value, 5, MidpointRounding.AwayFromZero);
     }
 
-    private List<DSPoint> GetListPoints(ASBeam beam)
+    private static List<DSPoint> GetListPoints(ASBeam beam)
     {
       List<DSPoint> pointList = new List<DSPoint>();
 
@@ -101,46 +101,46 @@ namespace AdvanceSteel.Nodes
       return pointList;
     }
 
-    private Autodesk.DesignScript.Geometry.Line GetLine(ASBeam beam)
+    private static Autodesk.DesignScript.Geometry.Line GetLine(ASBeam beam)
     {
       return Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(beam.GetPointAtStart().ToDynPoint(), beam.GetPointAtEnd().ToDynPoint());
     }
 
-    private string GetProfileTypeCode(ASBeam beam)
+    private static string GetProfileTypeCode(ASBeam beam)
     {
       return beam.GetProfType().GetDSTVValues().GetProfileTypeString();
     }
 
-    private int GetProfileType(ASBeam beam)
+    private static int GetProfileType(ASBeam beam)
     {
       return (int)beam.GetProfType().GetDSTVValues().DSTVType;
     }
 
-    private double GetSawLength(ASBeam beam)
+    private static double GetSawLength(ASBeam beam)
     {
       beam.GetSawInformation(out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
       return sawLength;
     }
 
-    private double GetFlangeAngleAtStart(ASBeam beam)
+    private static double GetFlangeAngleAtStart(ASBeam beam)
     {
       beam.GetSawInformation(out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
       return Utils.DegreeToRad(flangeAngleAtStart);
     }
 
-    private double GetWebAngleAtStart(ASBeam beam)
+    private static double GetWebAngleAtStart(ASBeam beam)
     {
       beam.GetSawInformation(out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
       return Utils.DegreeToRad(webAngleAtStart);
     }
 
-    private double GetFlangeAngleAtEnd(ASBeam beam)
+    private static double GetFlangeAngleAtEnd(ASBeam beam)
     {
       beam.GetSawInformation(out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
       return Utils.DegreeToRad(flangeAngleAtEnd);
     }
 
-    private double GetWebAngleAtEnd(ASBeam beam)
+    private static double GetWebAngleAtEnd(ASBeam beam)
     {
       beam.GetSawInformation(out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
       return Utils.DegreeToRad(webAngleAtEnd);

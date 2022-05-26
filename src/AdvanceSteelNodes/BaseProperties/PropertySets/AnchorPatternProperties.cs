@@ -36,7 +36,7 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private string GetOrientationType(AnchorPattern anchorPattern)
+    private static string GetOrientationType(AnchorPattern anchorPattern)
     {
       return anchorPattern.OrientationType.ToString();
     }

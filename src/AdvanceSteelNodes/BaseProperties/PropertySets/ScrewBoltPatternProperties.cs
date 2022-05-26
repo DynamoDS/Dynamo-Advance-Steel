@@ -50,12 +50,12 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private string GetScrewBoltType(ScrewBoltPattern screwBoltPattern)
+    private static string GetScrewBoltType(ScrewBoltPattern screwBoltPattern)
     {
       return screwBoltPattern.ScrewBoltType.ToString();
     }
 
-    private string GetAssemblyLocation(ScrewBoltPattern screwBoltPattern)
+    private static string GetAssemblyLocation(ScrewBoltPattern screwBoltPattern)
     {
       return screwBoltPattern.AssemblyLocation.ToString();
     }

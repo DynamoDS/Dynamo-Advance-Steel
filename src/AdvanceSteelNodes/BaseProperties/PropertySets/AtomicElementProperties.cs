@@ -68,19 +68,19 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private Point3d GetBalancePoint(AtomicElement atomicElement)
+    private static Point3d GetBalancePoint(AtomicElement atomicElement)
     {
       //it's necessary round the balance point because it has different returns at the last decimals 
       atomicElement.GetBalancepoint(out var point, out var weigth);
       return new Point3d(Round(point.x), Round(point.y), Round(point.z));
     }
 
-    private double Round(double value)
+    private static double Round(double value)
     {
       return Math.Round(value, 3, MidpointRounding.AwayFromZero);
     }
 
-    private List<Dictionary<string, object>> GetHoles(AtomicElement atomicElement)
+    private static List<Dictionary<string, object>> GetHoles(AtomicElement atomicElement)
     {
       var holes = HolesUtils.GetHoles(atomicElement);
 
@@ -101,13 +101,13 @@ namespace AdvanceSteel.Nodes
       return listHolesDetails;
     }
 
-    private bool HasValidSPNumber(AtomicElement atomicElement)
+    private static bool HasValidSPNumber(AtomicElement atomicElement)
     {
       atomicElement.GetNumberingStatus(out bool hasValidSPNumber, out bool hasValidMPNumber);
       return hasValidSPNumber;
     }
 
-    private bool HasValidMPNumber(AtomicElement atomicElement)
+    private static bool HasValidMPNumber(AtomicElement atomicElement)
     {
       atomicElement.GetNumberingStatus(out bool hasValidSPNumber, out bool hasValidMPNumber);
       return hasValidMPNumber;

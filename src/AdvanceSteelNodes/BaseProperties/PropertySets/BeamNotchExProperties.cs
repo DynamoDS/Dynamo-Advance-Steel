@@ -24,7 +24,7 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private string GetXRotation(BeamNotchEx beamNotch)
+    private static string GetXRotation(BeamNotchEx beamNotch)
     {
       return beamNotch.XRotation.ToString();
     }

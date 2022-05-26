@@ -21,12 +21,12 @@ namespace AdvanceSteel.Nodes
       return dictionary;
     }
 
-    private SteelDbObject GetBeam(ConnectionHoleBeam connectionHoleBeam)
+    private static SteelDbObject GetBeam(ConnectionHoleBeam connectionHoleBeam)
     {
       return connectionHoleBeam.GetBeam().ToDSType();
     }
 
-    private string GetEnd(ConnectionHoleBeam connectionHoleBeam)
+    private static string GetEnd(ConnectionHoleBeam connectionHoleBeam)
     {
       return connectionHoleBeam.GetEnd().ToString();
     }
