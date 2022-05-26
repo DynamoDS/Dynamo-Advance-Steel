@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       List<Property> defaultData = cameraProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
       List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
-      Matrix3d cameraMat = (Matrix3d)defaultData.FirstOrDefault<Property>(x => x.MemberName == "CameraCS").InternalValue;
+      Matrix3d cameraMat = (Matrix3d)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASCamera.CameraCS)).InternalValue;
 
       ASCamera camera = SteelServices.ElementBinder.GetObjectASFromTrace<ASCamera>();
       if (camera == null)

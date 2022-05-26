@@ -15,7 +15,7 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Plate", nameof(ConnectionHolePlate.GetPlate));
+      InsertProperty(dictionary, "Plate", nameof(ConnectionHolePlate.GetPlate));
 
       return dictionary;
     }

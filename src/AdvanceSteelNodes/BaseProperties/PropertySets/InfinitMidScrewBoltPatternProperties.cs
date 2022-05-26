@@ -16,9 +16,9 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Midpoint On Lower Left", nameof(InfinitMidScrewBoltPattern.MidpointOnLowerLeft), LevelEnum.Default);
-      InsertItem(dictionary, "Midpoint On Lower Right", nameof(InfinitMidScrewBoltPattern.MidpointOnLowerRight), LevelEnum.Default);
-      InsertItem(dictionary, "Midpoint On Upper Left", nameof(InfinitMidScrewBoltPattern.MidpointOnUpperLeft), LevelEnum.Default);
+      InsertProperty(dictionary, "Midpoint On Lower Left", nameof(InfinitMidScrewBoltPattern.MidpointOnLowerLeft), LevelEnum.Default);
+      InsertProperty(dictionary, "Midpoint On Lower Right", nameof(InfinitMidScrewBoltPattern.MidpointOnLowerRight), LevelEnum.Default);
+      InsertProperty(dictionary, "Midpoint On Upper Left", nameof(InfinitMidScrewBoltPattern.MidpointOnUpperLeft), LevelEnum.Default);
 
       return dictionary;
     }

@@ -16,23 +16,21 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Depth", nameof(ConnectionHoleFeature.Depth), eUnitType.kDistance);
-      InsertItem(dictionary, "Angle", nameof(ConnectionHoleFeature.Angle), eUnitType.kAngle);
-      InsertItem(dictionary, "Use Hole Definition for Numbering", nameof(ConnectionHoleFeature.UsedForNumbering));
-      InsertItem(dictionary, "Hole Center Point", nameof(ConnectionHoleFeature.GetCenterPoint));
-      InsertItem(dictionary, "Exact Coordinate System", nameof(ConnectionHoleFeature.CSExact));
-      InsertItem(dictionary, "Local Coordinate System", nameof(ConnectionHoleFeature.CSLocal));
+      InsertProperty(dictionary, "Depth", nameof(ConnectionHoleFeature.Depth), eUnitType.kDistance);
+      InsertProperty(dictionary, "Angle", nameof(ConnectionHoleFeature.Angle), eUnitType.kAngle);
+      InsertProperty(dictionary, "Use Hole Definition for Numbering", nameof(ConnectionHoleFeature.UsedForNumbering));
+      InsertProperty(dictionary, "Hole Center Point", nameof(ConnectionHoleFeature.GetCenterPoint));
+      InsertProperty(dictionary, "Exact Coordinate System", nameof(ConnectionHoleFeature.CSExact));
+      InsertProperty(dictionary, "Local Coordinate System", nameof(ConnectionHoleFeature.CSLocal));
 
-      InsertItem(dictionary, "Diameter", GetDiameter);
+      InsertCustomProperty(dictionary, "Diameter", nameof(ConnectionHoleProperties.GetDiameter), null);
 
       return dictionary;
     }
 
-    private object GetDiameter(object hole)
+    private double GetDiameter(ConnectionHoleFeature hole)
     {
-      ConnectionHoleFeature asHole = hole as ConnectionHoleFeature;
-
-      return asHole.Hole.Diameter;
+      return hole.Hole.Diameter;
     }
   }
 }

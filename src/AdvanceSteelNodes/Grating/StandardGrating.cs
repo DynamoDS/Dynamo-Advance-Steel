@@ -42,8 +42,8 @@ namespace AdvanceSteel.Nodes.Gratings
       List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
       List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
-      string strClass = (string)defaultData.FirstOrDefault<Property>(x => x.MemberName == "GratingClass").InternalValue;
-      string strName = (string)defaultData.FirstOrDefault<Property>(x => x.MemberName == "GratingSize").InternalValue;
+      string strClass = (string)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASGrating.GratingClass)).InternalValue;
+      string strName = (string)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASGrating.GratingSize)).InternalValue;
 
       Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
 

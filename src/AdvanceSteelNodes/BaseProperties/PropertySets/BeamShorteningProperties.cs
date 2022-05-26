@@ -15,24 +15,22 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Ins Length", nameof(BeamShortening.InsLength), eUnitType.kDistance);
-      InsertItem(dictionary, "Cut Straight Relative Offset", nameof(BeamShortening.CutStraightRelativeOffset), eUnitType.kDistance);
-      InsertItem(dictionary, "Cut Straight", nameof(BeamShortening.CutStraight), eUnitType.kDistance);
-      InsertItem(dictionary, "Cut Straight Type", nameof(BeamShortening.CutStraightType), eUnitType.kDistance);
-      InsertItem(dictionary, "Angle On Y", nameof(BeamShortening.AngleOnY), eUnitType.kAngle);
-      InsertItem(dictionary, "Cut Straight Offset", nameof(BeamShortening.CutStraightOffset), eUnitType.kDistance);
-      InsertItem(dictionary, "Angle On Z", nameof(BeamShortening.AngleOnZ), eUnitType.kAngle);
+      InsertProperty(dictionary, "Ins Length", nameof(BeamShortening.InsLength), eUnitType.kDistance);
+      InsertProperty(dictionary, "Cut Straight Relative Offset", nameof(BeamShortening.CutStraightRelativeOffset), eUnitType.kDistance);
+      InsertProperty(dictionary, "Cut Straight", nameof(BeamShortening.CutStraight), eUnitType.kDistance);
+      InsertProperty(dictionary, "Cut Straight Type", nameof(BeamShortening.CutStraightType), eUnitType.kDistance);
+      InsertProperty(dictionary, "Angle On Y", nameof(BeamShortening.AngleOnY), eUnitType.kAngle);
+      InsertProperty(dictionary, "Cut Straight Offset", nameof(BeamShortening.CutStraightOffset), eUnitType.kDistance);
+      InsertProperty(dictionary, "Angle On Z", nameof(BeamShortening.AngleOnZ), eUnitType.kAngle);
 
-      InsertItem(dictionary, "End", GetEnd);
+      InsertCustomProperty(dictionary, "End", nameof(BeamShorteningProperties.GetEnd), null);
 
       return dictionary;
     }
 
-    private object GetEnd(object beamShortening)
+    private string GetEnd(BeamShortening beamShortening)
     {
-      BeamShortening asBeamShortening = beamShortening as BeamShortening;
-
-      return asBeamShortening.End.ToString();
+      return beamShortening.End.ToString();
     }
   }
 }

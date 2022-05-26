@@ -15,18 +15,17 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Vertex Index", nameof(PlateFeatVertex.VertexIndex));
-      InsertItem(dictionary, "Contour Index", nameof(PlateFeatVertex.ContourIndex));
+      InsertProperty(dictionary, "Vertex Index", nameof(PlateFeatVertex.VertexIndex));
+      InsertProperty(dictionary, "Contour Index", nameof(PlateFeatVertex.ContourIndex));
 
-      InsertItem(dictionary, "Polygon", GetPolygon);
+      InsertCustomProperty(dictionary, "Polygon", nameof(PlateFeatVertexProperties.GetPolygon), null);
 
       return dictionary;
     }
 
-    private object GetPolygon(object plateFeatVertex)
+    private IEnumerable<Autodesk.DesignScript.Geometry.Point> GetPolygon(PlateFeatVertex plateFeatVertex)
     {
-      PlateFeatVertex asPlateFeatVertex = plateFeatVertex as PlateFeatVertex;
-      asPlateFeatVertex.GetPolygon(out var polygon);
+      plateFeatVertex.GetPolygon(out var polygon);
 
       return polygon.Vertices.Select(x => x.ToDynPoint());
     }

@@ -15,25 +15,25 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Thickness", nameof(WeldPattern.Thickness), eUnitType.kDistance);
-      InsertItem(dictionary, "Main Effective Throat", nameof(WeldPattern.MainEffectiveThroat), eUnitType.kDistance);
-      InsertItem(dictionary, "Double Effective Throat", nameof(WeldPattern.DoubleEffectiveThroat), eUnitType.kDistance);
-      InsertItem(dictionary, "Main Preparation Depth", nameof(WeldPattern.MainPreparationDepth), eUnitType.kDistance);
-      InsertItem(dictionary, "Double Preparation Depth", nameof(WeldPattern.DoublePreparationDepth), eUnitType.kDistance);
-      InsertItem(dictionary, "Prefix", nameof(WeldPattern.Prefix));
-      InsertItem(dictionary, "Closed", nameof(WeldPattern.IsClosed));
-      InsertItem(dictionary, "Length", nameof(WeldPattern.Length), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Double Weld Text", nameof(WeldPattern.DoubleWeldText));
-      InsertItem(dictionary, "Double Root Opening", nameof(WeldPattern.DoubleRootOpening), eUnitType.kDistance);
-      InsertItem(dictionary, "Main Weld Text", nameof(WeldPattern.MainWeldText));
-      InsertItem(dictionary, "Pitch", nameof(WeldPattern.Pitch), eUnitType.kDistance);
-      InsertItem(dictionary, "Additional Data", nameof(WeldPattern.AdditionalData));
-      InsertItem(dictionary, "Single Seam Length", nameof(WeldPattern.SingleSeamLength), eUnitType.kDistance);
-      InsertItem(dictionary, "Seam Distance", nameof(WeldPattern.SeamDistance), eUnitType.kDistance);
-      InsertItem(dictionary, "Main Root Opening", nameof(WeldPattern.MainRootOpening), eUnitType.kDistance);
+      InsertProperty(dictionary, "Thickness", nameof(WeldPattern.Thickness), eUnitType.kDistance);
+      InsertProperty(dictionary, "Main Effective Throat", nameof(WeldPattern.MainEffectiveThroat), eUnitType.kDistance);
+      InsertProperty(dictionary, "Double Effective Throat", nameof(WeldPattern.DoubleEffectiveThroat), eUnitType.kDistance);
+      InsertProperty(dictionary, "Main Preparation Depth", nameof(WeldPattern.MainPreparationDepth), eUnitType.kDistance);
+      InsertProperty(dictionary, "Double Preparation Depth", nameof(WeldPattern.DoublePreparationDepth), eUnitType.kDistance);
+      InsertProperty(dictionary, "Prefix", nameof(WeldPattern.Prefix));
+      InsertProperty(dictionary, "Closed", nameof(WeldPattern.IsClosed));
+      InsertProperty(dictionary, "Length", nameof(WeldPattern.Length), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "Double Weld Text", nameof(WeldPattern.DoubleWeldText));
+      InsertProperty(dictionary, "Double Root Opening", nameof(WeldPattern.DoubleRootOpening), eUnitType.kDistance);
+      InsertProperty(dictionary, "Main Weld Text", nameof(WeldPattern.MainWeldText));
+      InsertProperty(dictionary, "Pitch", nameof(WeldPattern.Pitch), eUnitType.kDistance);
+      InsertProperty(dictionary, "Additional Data", nameof(WeldPattern.AdditionalData));
+      InsertProperty(dictionary, "Single Seam Length", nameof(WeldPattern.SingleSeamLength), eUnitType.kDistance);
+      InsertProperty(dictionary, "Seam Distance", nameof(WeldPattern.SeamDistance), eUnitType.kDistance);
+      InsertProperty(dictionary, "Main Root Opening", nameof(WeldPattern.MainRootOpening), eUnitType.kDistance);
 
-      InsertItem(dictionary, "Combining Welding", nameof(WeldPattern.IsCombiWelding));
-      InsertItem(dictionary, "Weld Center Point", nameof(WeldPattern.GetCenterPoint));
+      InsertProperty(dictionary, "Combining Welding", nameof(WeldPattern.IsCombiWelding));
+      InsertProperty(dictionary, "Weld Center Point", nameof(WeldPattern.GetCenterPoint));
 
       return dictionary;
     }

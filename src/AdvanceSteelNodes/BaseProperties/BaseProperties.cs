@@ -22,7 +22,7 @@ namespace AdvanceSteel.Nodes
     /// <param name="memberName">Member name of AS Object - May be Get/Set property or Get Method(without parameter)</param>
     /// <param name="level"></param>
     /// <param name="unitType"></param>
-    protected void InsertItem(Dictionary<string, Property> dictionary, string description, string memberName, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
+    protected void InsertProperty(Dictionary<string, Property> dictionary, string description, string memberName, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
       dictionary.Add(description, new Property(GetObjectType, description, memberName, level, unitType));
     }
@@ -34,9 +34,9 @@ namespace AdvanceSteel.Nodes
     /// <param name="description"></param>
     /// <param name="memberName">Member name of AS Object - May be Get/Set property or Get Method(without parameter)</param>
     /// <param name="unitType"></param>
-    protected void InsertItem(Dictionary<string, Property> dictionary, string description, string memberName, eUnitType unitType)
+    protected void InsertProperty(Dictionary<string, Property> dictionary, string description, string memberName, eUnitType unitType)
     {
-      InsertItem(dictionary, description, memberName, LevelEnum.NoDefinition, unitType);
+      InsertProperty(dictionary, description, memberName, LevelEnum.NoDefinition, unitType);
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace AdvanceSteel.Nodes
     /// <param name="methodInfoSet">Method name of Set Custom Function on properties class</param>
     /// <param name="level"></param>
     /// <param name="unitType"></param>
-    protected void InsertItem(Dictionary<string, Property> dictionary, string description, string methodInfoGet, string methodInfoSet, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
+    protected void InsertCustomProperty(Dictionary<string, Property> dictionary, string description, string methodInfoGet, string methodInfoSet, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
       PropertyMethods propertyMethods = new PropertyMethods(this.GetType(), methodInfoGet, methodInfoSet);
       dictionary.Add(description, new Property(GetObjectType, description, propertyMethods, level, unitType));
@@ -62,9 +62,9 @@ namespace AdvanceSteel.Nodes
     /// <param name="methodInfoGet">Method name of Get Custom Function on properties class</param>
     /// <param name="methodInfoSet">Method name of Set Custom Function on properties class</param>
     /// <param name="unitType"></param>
-    protected void InsertItem(Dictionary<string, Property> dictionary, string description, string methodInfoGet, string methodInfoSet, eUnitType? unitType)
+    protected void InsertCustomProperty(Dictionary<string, Property> dictionary, string description, string methodInfoGet, string methodInfoSet, eUnitType? unitType)
     {
-      InsertItem(dictionary, description, methodInfoGet, methodInfoSet, LevelEnum.NoDefinition, unitType);
+      InsertCustomProperty(dictionary, description, methodInfoGet, methodInfoSet, LevelEnum.NoDefinition, unitType);
     }
 
   }

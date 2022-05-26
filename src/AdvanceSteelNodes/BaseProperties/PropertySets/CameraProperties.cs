@@ -16,15 +16,15 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Description", nameof(Camera.Description));
-      InsertItem(dictionary, "Camera Type", nameof(Camera.CameraType));
-      InsertItem(dictionary, "Coordinate System of Camera", nameof(Camera.CameraCS));
-      InsertItem(dictionary, "Scale", nameof(Camera.Scale));
-      InsertItem(dictionary, "Type Description", nameof(Camera.TypeDescription), LevelEnum.Default);
-      InsertItem(dictionary, "Disable Supports Detailing", nameof(Camera.SupportsDetailingDisable), LevelEnum.Default);
-      InsertItem(dictionary, "Detail Style Location Index Number", nameof(Camera.DetailStyleLocation));
-      InsertItem(dictionary, "Detail Style Index Number", nameof(Camera.DetailStyle));
-      InsertItem(dictionary, "Disable Detailing", nameof(Camera.DisableDetailing));
+      InsertProperty(dictionary, "Description", nameof(Camera.Description));
+      InsertProperty(dictionary, "Camera Type", nameof(Camera.CameraType));
+      InsertProperty(dictionary, "Coordinate System of Camera", nameof(Camera.CameraCS));
+      InsertProperty(dictionary, "Scale", nameof(Camera.Scale));
+      InsertProperty(dictionary, "Type Description", nameof(Camera.TypeDescription), LevelEnum.Default);
+      InsertProperty(dictionary, "Disable Supports Detailing", nameof(Camera.SupportsDetailingDisable), LevelEnum.Default);
+      InsertProperty(dictionary, "Detail Style Location Index Number", nameof(Camera.DetailStyleLocation));
+      InsertProperty(dictionary, "Detail Style Index Number", nameof(Camera.DetailStyle));
+      InsertProperty(dictionary, "Disable Detailing", nameof(Camera.DisableDetailing));
 
       return dictionary;
     }

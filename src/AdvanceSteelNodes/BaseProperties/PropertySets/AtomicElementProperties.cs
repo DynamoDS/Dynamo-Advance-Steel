@@ -15,63 +15,63 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Volume", nameof(AtomicElement.Volume), LevelEnum.Default);
-      InsertItem(dictionary, "Used For Numbering - Assembly", nameof(AtomicElement.AssemblyUsedForNumbering));
-      InsertItem(dictionary, "Used For Numbering - Note", nameof(AtomicElement.NoteUsedForNumbering));
-      InsertItem(dictionary, "Used For Numbering - Role", nameof(AtomicElement.RoleUsedForNumbering));
-      InsertItem(dictionary, "Used For BOM - Single Part", nameof(AtomicElement.SinglePartUsedForBOM));
-      InsertItem(dictionary, "Used For BOM - Main Part", nameof(AtomicElement.MainPartUsedForBOM));
-      InsertItem(dictionary, "Used For Collision Check - Single Part", nameof(AtomicElement.SinglePartUsedForCollisionCheck));
-      InsertItem(dictionary, "Used For Collision Check - Main Part", nameof(AtomicElement.MainPartUsedForCollisionCheck));
-      InsertItem(dictionary, "Structural Member", nameof(AtomicElement.StructuralMember));
-      InsertItem(dictionary, "Used For Numbering - Holes", nameof(AtomicElement.HolesUsedForNumbering));
-      InsertItem(dictionary, "MainPart Number", nameof(AtomicElement.MainPartNumber));
-      InsertItem(dictionary, "SinglePart Number", nameof(AtomicElement.SinglePartNumber));
-      InsertItem(dictionary, "Preliminary Part Prefix", nameof(AtomicElement.PreliminaryPartPrefix));
-      InsertItem(dictionary, "Preliminary Part Number", nameof(AtomicElement.PreliminaryPartNumber));
-      InsertItem(dictionary, "Preliminary Part Position Number", nameof(AtomicElement.PreliminaryPartPositionNumber));
-      InsertItem(dictionary, "Used For Numbering - Item Number", nameof(AtomicElement.ItemNumberUsedForNumbering));
-      InsertItem(dictionary, "Used For Numbering - Dennotation", nameof(AtomicElement.DennotationUsedForNumbering));
-      InsertItem(dictionary, "Used For Numbering - Coating", nameof(AtomicElement.CoatingUsedForNumbering));
-      InsertItem(dictionary, "Used For Numbering - Material", nameof(AtomicElement.MaterialUsedForNumbering));
-      InsertItem(dictionary, "Unwind Start Factor", nameof(AtomicElement.UnwindStartFactor));
-      InsertItem(dictionary, "Denotation", nameof(AtomicElement.Denotation));
-      InsertItem(dictionary, "Assembly", nameof(AtomicElement.Assembly));
-      InsertItem(dictionary, "Note", nameof(AtomicElement.Note));
-      InsertItem(dictionary, "Item Number", nameof(AtomicElement.ItemNumber));
-      InsertItem(dictionary, "Specific Gravity", nameof(AtomicElement.SpecificGravity));
-      InsertItem(dictionary, "Coating", nameof(AtomicElement.Coating));
-      InsertItem(dictionary, "Number Of Holes", nameof(AtomicElement.NumberOfHoles), LevelEnum.Default);
-      InsertItem(dictionary, "Is Attached Part", nameof(AtomicElement.IsAttachedPart), LevelEnum.Default);
-      InsertItem(dictionary, "Is Main Part", nameof(AtomicElement.IsMainPart));
-      InsertItem(dictionary, "Main Part Prefix", nameof(AtomicElement.MainPartPrefix));
-      InsertItem(dictionary, "Single Part Prefix", nameof(AtomicElement.SinglePartPrefix));
-      InsertItem(dictionary, "Used For Numbering - SinglePart", nameof(AtomicElement.SinglePartUsedForNumbering));
-      InsertItem(dictionary, "Used For Numbering - MainPart", nameof(AtomicElement.MainPartUsedForNumbering));
-      InsertItem(dictionary, "Explicit Quantity", nameof(AtomicElement.ExplicitQuantity));
-      InsertItem(dictionary, "Material Description", nameof(AtomicElement.MaterialDescription), LevelEnum.Default);
-      InsertItem(dictionary, "Coating Description", nameof(AtomicElement.CoatingDescription), LevelEnum.Default);
-      InsertItem(dictionary, "Material", nameof(AtomicElement.Material));
-      InsertItem(dictionary, "Unwind", nameof(AtomicElement.Unwind));
+      InsertProperty(dictionary, "Volume", nameof(AtomicElement.Volume), LevelEnum.Default);
+      InsertProperty(dictionary, "Used For Numbering - Assembly", nameof(AtomicElement.AssemblyUsedForNumbering));
+      InsertProperty(dictionary, "Used For Numbering - Note", nameof(AtomicElement.NoteUsedForNumbering));
+      InsertProperty(dictionary, "Used For Numbering - Role", nameof(AtomicElement.RoleUsedForNumbering));
+      InsertProperty(dictionary, "Used For BOM - Single Part", nameof(AtomicElement.SinglePartUsedForBOM));
+      InsertProperty(dictionary, "Used For BOM - Main Part", nameof(AtomicElement.MainPartUsedForBOM));
+      InsertProperty(dictionary, "Used For Collision Check - Single Part", nameof(AtomicElement.SinglePartUsedForCollisionCheck));
+      InsertProperty(dictionary, "Used For Collision Check - Main Part", nameof(AtomicElement.MainPartUsedForCollisionCheck));
+      InsertProperty(dictionary, "Structural Member", nameof(AtomicElement.StructuralMember));
+      InsertProperty(dictionary, "Used For Numbering - Holes", nameof(AtomicElement.HolesUsedForNumbering));
+      InsertProperty(dictionary, "MainPart Number", nameof(AtomicElement.MainPartNumber));
+      InsertProperty(dictionary, "SinglePart Number", nameof(AtomicElement.SinglePartNumber));
+      InsertProperty(dictionary, "Preliminary Part Prefix", nameof(AtomicElement.PreliminaryPartPrefix));
+      InsertProperty(dictionary, "Preliminary Part Number", nameof(AtomicElement.PreliminaryPartNumber));
+      InsertProperty(dictionary, "Preliminary Part Position Number", nameof(AtomicElement.PreliminaryPartPositionNumber));
+      InsertProperty(dictionary, "Used For Numbering - Item Number", nameof(AtomicElement.ItemNumberUsedForNumbering));
+      InsertProperty(dictionary, "Used For Numbering - Dennotation", nameof(AtomicElement.DennotationUsedForNumbering));
+      InsertProperty(dictionary, "Used For Numbering - Coating", nameof(AtomicElement.CoatingUsedForNumbering));
+      InsertProperty(dictionary, "Used For Numbering - Material", nameof(AtomicElement.MaterialUsedForNumbering));
+      InsertProperty(dictionary, "Unwind Start Factor", nameof(AtomicElement.UnwindStartFactor));
+      InsertProperty(dictionary, "Denotation", nameof(AtomicElement.Denotation));
+      InsertProperty(dictionary, "Assembly", nameof(AtomicElement.Assembly));
+      InsertProperty(dictionary, "Note", nameof(AtomicElement.Note));
+      InsertProperty(dictionary, "Item Number", nameof(AtomicElement.ItemNumber));
+      InsertProperty(dictionary, "Specific Gravity", nameof(AtomicElement.SpecificGravity));
+      InsertProperty(dictionary, "Coating", nameof(AtomicElement.Coating));
+      InsertProperty(dictionary, "Number Of Holes", nameof(AtomicElement.NumberOfHoles), LevelEnum.Default);
+      InsertProperty(dictionary, "Is Attached Part", nameof(AtomicElement.IsAttachedPart), LevelEnum.Default);
+      InsertProperty(dictionary, "Is Main Part", nameof(AtomicElement.IsMainPart));
+      InsertProperty(dictionary, "Main Part Prefix", nameof(AtomicElement.MainPartPrefix));
+      InsertProperty(dictionary, "Single Part Prefix", nameof(AtomicElement.SinglePartPrefix));
+      InsertProperty(dictionary, "Used For Numbering - SinglePart", nameof(AtomicElement.SinglePartUsedForNumbering));
+      InsertProperty(dictionary, "Used For Numbering - MainPart", nameof(AtomicElement.MainPartUsedForNumbering));
+      InsertProperty(dictionary, "Explicit Quantity", nameof(AtomicElement.ExplicitQuantity));
+      InsertProperty(dictionary, "Material Description", nameof(AtomicElement.MaterialDescription), LevelEnum.Default);
+      InsertProperty(dictionary, "Coating Description", nameof(AtomicElement.CoatingDescription), LevelEnum.Default);
+      InsertProperty(dictionary, "Material", nameof(AtomicElement.Material));
+      InsertProperty(dictionary, "Unwind", nameof(AtomicElement.Unwind));
 
       //Functions
 
-      InsertItem(dictionary, "Balance Point", GetBalancePoint);
-      InsertItem(dictionary, "Main Part Position", nameof(AtomicElement.GetMainPartPositionNumber));
-      InsertItem(dictionary, "Model Quantity", nameof(AtomicElement.GetQuantityInModel));
-      InsertItem(dictionary, "Single Part Position", nameof(AtomicElement.GetSinglePartPositionNumber));
-      InsertItem(dictionary, "Features Number", nameof(AtomicElement.NumFeatures));
-      InsertItem(dictionary, "Holes (Properties)", GetHoles);
-      InsertItem(dictionary, "Numbering - Valid Single Part", HasValidSPNumber);
-      InsertItem(dictionary, "Numbering - Valid Main Part", HasValidMPNumber);
+      InsertCustomProperty(dictionary, "Balance Point", nameof(AtomicElementProperties.GetBalancePoint), null);
+      InsertProperty(dictionary, "Main Part Position", nameof(AtomicElement.GetMainPartPositionNumber));
+      InsertProperty(dictionary, "Model Quantity", nameof(AtomicElement.GetQuantityInModel));
+      InsertProperty(dictionary, "Single Part Position", nameof(AtomicElement.GetSinglePartPositionNumber));
+      InsertProperty(dictionary, "Features Number", nameof(AtomicElement.NumFeatures));
+      InsertCustomProperty(dictionary, "Holes (Properties)", nameof(AtomicElementProperties.GetHoles), null);
+      InsertCustomProperty(dictionary, "Numbering - Valid Single Part", nameof(AtomicElementProperties.HasValidSPNumber), null);
+      InsertCustomProperty(dictionary, "Numbering - Valid Main Part", nameof(AtomicElementProperties.HasValidMPNumber), null);
 
       return dictionary;
     }
 
-    private object GetBalancePoint(object atomicElement)
+    private Point3d GetBalancePoint(AtomicElement atomicElement)
     {
       //it's necessary round the balance point because it has different returns at the last decimals 
-      ((AtomicElement)atomicElement).GetBalancepoint(out var point, out var weigth);
+      atomicElement.GetBalancepoint(out var point, out var weigth);
       return new Point3d(Round(point.x), Round(point.y), Round(point.z));
     }
 
@@ -80,9 +80,9 @@ namespace AdvanceSteel.Nodes
       return Math.Round(value, 3, MidpointRounding.AwayFromZero);
     }
 
-    private object GetHoles(object atomicElement)
+    private List<Dictionary<string, object>> GetHoles(AtomicElement atomicElement)
     {
-      var holes = HolesUtils.GetHoles((AtomicElement)atomicElement);
+      var holes = HolesUtils.GetHoles(atomicElement);
 
       List<Dictionary<string, object>> listHolesDetails = new List<Dictionary<string, object>>();
 
@@ -101,15 +101,15 @@ namespace AdvanceSteel.Nodes
       return listHolesDetails;
     }
 
-    private object HasValidSPNumber(object atomicElement)
+    private bool HasValidSPNumber(AtomicElement atomicElement)
     {
-      ((AtomicElement)atomicElement).GetNumberingStatus(out bool hasValidSPNumber, out bool hasValidMPNumber);
+      atomicElement.GetNumberingStatus(out bool hasValidSPNumber, out bool hasValidMPNumber);
       return hasValidSPNumber;
     }
 
-    private object HasValidMPNumber(object atomicElement)
+    private bool HasValidMPNumber(AtomicElement atomicElement)
     {
-      ((AtomicElement)atomicElement).GetNumberingStatus(out bool hasValidSPNumber, out bool hasValidMPNumber);
+      atomicElement.GetNumberingStatus(out bool hasValidSPNumber, out bool hasValidMPNumber);
       return hasValidMPNumber;
     }
   }

@@ -15,50 +15,40 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Has Valid Saw Cut", nameof(StraightBeam.HasValidSawCut));
+      InsertProperty(dictionary, "Has Valid Saw Cut", nameof(StraightBeam.HasValidSawCut));
 
-      InsertItem(dictionary, "Camber Height", GetCamberHeight);
-      InsertItem(dictionary, "Camber Position", GetCamberPosition);
-      InsertItem(dictionary, "Camber Direction YZ", GetCamberDirectionYZStatus);
-      InsertItem(dictionary, "Camber Start Offset", GetCamberStartOffset);
-      InsertItem(dictionary, "Camber End Offset", GetCamberEndOffset);
+      InsertCustomProperty(dictionary, "Camber Height", nameof(StraightBeamProperties.GetCamberHeight), null);
+      InsertCustomProperty(dictionary, "Camber Position", nameof(StraightBeamProperties.GetCamberPosition), null);
+      InsertCustomProperty(dictionary, "Camber Direction YZ", nameof(StraightBeamProperties.GetCamberDirectionYZStatus), null);
+      InsertCustomProperty(dictionary, "Camber Start Offset", nameof(StraightBeamProperties.GetCamberStartOffset), null);
+      InsertCustomProperty(dictionary, "Camber End Offset", nameof(StraightBeamProperties.GetCamberEndOffset), null);
 
       return dictionary;
     }
 
-    private object GetCamberHeight(object straightBeam)
+    private double GetCamberHeight(StraightBeam straightBeam)
     {
-      StraightBeam asStraightBeam = straightBeam as StraightBeam;
-
-      return asStraightBeam.Camber.Height;
+      return straightBeam.Camber.Height;
     }
 
-    private object GetCamberPosition(object straightBeam)
+    private double GetCamberPosition(StraightBeam straightBeam)
     {
-      StraightBeam asStraightBeam = straightBeam as StraightBeam;
-
-      return asStraightBeam.Camber.Position;
+      return straightBeam.Camber.Position;
     }
 
-    private object GetCamberDirectionYZStatus(object straightBeam)
+    private bool GetCamberDirectionYZStatus(StraightBeam straightBeam)
     {
-      StraightBeam asStraightBeam = straightBeam as StraightBeam;
-
-      return asStraightBeam.Camber.DirectionYZStatus;
+      return straightBeam.Camber.DirectionYZStatus;
     }
 
-    private object GetCamberStartOffset(object straightBeam)
+    private double GetCamberStartOffset(StraightBeam straightBeam)
     {
-      StraightBeam asStraightBeam = straightBeam as StraightBeam;
-
-      return asStraightBeam.Camber.StartOffset;
+      return straightBeam.Camber.StartOffset;
     }
 
-    private object GetCamberEndOffset(object straightBeam)
+    private double GetCamberEndOffset(StraightBeam straightBeam)
     {
-      StraightBeam asStraightBeam = straightBeam as StraightBeam;
-
-      return asStraightBeam.Camber.EndOffset;
+      return straightBeam.Camber.EndOffset;
     }
   }
 }

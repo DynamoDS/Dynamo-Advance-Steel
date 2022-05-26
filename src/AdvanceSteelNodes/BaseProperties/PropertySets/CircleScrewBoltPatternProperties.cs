@@ -15,8 +15,8 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Bolts Number", nameof(CircleScrewBoltPattern.NumberOfScrews));
-      InsertItem(dictionary, "Radius", nameof(CircleScrewBoltPattern.Radius), eUnitType.kDistance);
+      InsertProperty(dictionary, "Bolts Number", nameof(CircleScrewBoltPattern.NumberOfScrews));
+      InsertProperty(dictionary, "Radius", nameof(CircleScrewBoltPattern.Radius), eUnitType.kDistance);
 
       return dictionary;
     }

@@ -15,20 +15,18 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Axis Angle", nameof(BeamNotchEx.AxisAngle), eUnitType.kAngle);
-      InsertItem(dictionary, "Z Angle", nameof(BeamNotchEx.ZAngle), eUnitType.kAngle);
-      InsertItem(dictionary, "X Angle", nameof(BeamNotchEx.XAngle), eUnitType.kAngle);
+      InsertProperty(dictionary, "Axis Angle", nameof(BeamNotchEx.AxisAngle), eUnitType.kAngle);
+      InsertProperty(dictionary, "Z Angle", nameof(BeamNotchEx.ZAngle), eUnitType.kAngle);
+      InsertProperty(dictionary, "X Angle", nameof(BeamNotchEx.XAngle), eUnitType.kAngle);
 
-      InsertItem(dictionary, "X Axis Rotation", GetXRotation);
+      InsertCustomProperty(dictionary, "X Axis Rotation", nameof(BeamNotchExProperties.GetXRotation), null);
 
       return dictionary;
     }
 
-    private object GetXRotation(object beamNotch)
+    private string GetXRotation(BeamNotchEx beamNotch)
     {
-      BeamNotchEx asBeamNotch = beamNotch as BeamNotchEx;
-
-      return asBeamNotch.XRotation.ToString();
+      return beamNotch.XRotation.ToString();
     }
   }
 }

@@ -15,34 +15,34 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Coordinate System of Grid", nameof(Grid.CS));
-      InsertItem(dictionary, "Grid Numbering Start Text", nameof(Grid.NumberingStart));
-      InsertItem(dictionary, "Vertical Series", nameof(Grid.VerticalSeries));
-      InsertItem(dictionary, "Axis Frame", nameof(Grid.AxisFrame));
-      InsertItem(dictionary, "Grid Numbering Prefix", nameof(Grid.NumberingPrefix));
-      InsertItem(dictionary, "Grid Numbering Suffix", nameof(Grid.NumberingSuffix));
+      InsertProperty(dictionary, "Coordinate System of Grid", nameof(Grid.CS));
+      InsertProperty(dictionary, "Grid Numbering Start Text", nameof(Grid.NumberingStart));
+      InsertProperty(dictionary, "Vertical Series", nameof(Grid.VerticalSeries));
+      InsertProperty(dictionary, "Axis Frame", nameof(Grid.AxisFrame));
+      InsertProperty(dictionary, "Grid Numbering Prefix", nameof(Grid.NumberingPrefix));
+      InsertProperty(dictionary, "Grid Numbering Suffix", nameof(Grid.NumberingSuffix));
 
-      InsertItem(dictionary, "Grid Numbering Suffix", nameof(Grid.GetNumSequences));
-      InsertItem(dictionary, "Grid Type", GridType);
-      InsertItem(dictionary, "Vertical Projection Status", VerticalProjectionStatus);
-      InsertItem(dictionary, "Numbering Type", NumberingType);
+      InsertProperty(dictionary, "Grid Numbering Suffix", nameof(Grid.GetNumSequences));
+      InsertCustomProperty(dictionary, "Grid Type", nameof(GridProperties.GridType), null);
+      InsertCustomProperty(dictionary, "Vertical Projection Status", nameof(GridProperties.VerticalProjectionStatus), null);
+      InsertCustomProperty(dictionary, "Numbering Type", nameof(GridProperties.NumberingType), null);
 
       return dictionary;
     }
 
-    private object GridType(object grid)
+    private string GridType(Grid grid)
     {
-      return ((Grid)grid).GridType.ToString();
+      return grid.GridType.ToString();
     }
 
-    private object VerticalProjectionStatus(object grid)
+    private string VerticalProjectionStatus(Grid grid)
     {
-      return ((Grid)grid).VerticalProjectionStatus.ToString();
+      return grid.VerticalProjectionStatus.ToString();
     }
 
-    private object NumberingType(object grid)
+    private string NumberingType(Grid grid)
     {
-      return ((Grid)grid).NumberingType.ToString();
+      return grid.NumberingType.ToString();
     }
 
   }

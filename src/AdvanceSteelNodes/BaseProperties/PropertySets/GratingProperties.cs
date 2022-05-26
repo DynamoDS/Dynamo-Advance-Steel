@@ -15,57 +15,53 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Bearing Bar Spacing", nameof(Grating.BearingBarSpacing), LevelEnum.Default);
-      InsertItem(dictionary, "Cross Bar Quantity", nameof(Grating.CrossBarQuantity), LevelEnum.Default);
-      InsertItem(dictionary, "Bearing Bar Quantity", nameof(Grating.BearingBarQuantity), LevelEnum.Default);
-      InsertItem(dictionary, "Connector Key", nameof(Grating.ConnectorKey));
-      InsertItem(dictionary, "OED Value", nameof(Grating.OEDValue), LevelEnum.Default);
-      InsertItem(dictionary, "ED Value", nameof(Grating.EDValue));
-      InsertItem(dictionary, "Is Using Standard ED", nameof(Grating.IsUsingStandardED));
-      InsertItem(dictionary, "Width Extension Right", nameof(Grating.WidthExtensionRight), eUnitType.kDistance);
-      InsertItem(dictionary, "Width Extension Left", nameof(Grating.WidthExtensionLeft), eUnitType.kDistance);
-      InsertItem(dictionary, "Grating Class", nameof(Grating.GratingClass));
-      InsertItem(dictionary, "Grating Size", nameof(Grating.GratingSize), eUnitType.kDistance);
-      InsertItem(dictionary, "BearingBar Spacing Distance", nameof(Grating.BearingBarSpacingDistance), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Is MatCoatDbDefined", nameof(Grating.IsMatCoatDbDefined));
-      InsertItem(dictionary, "Direction", nameof(Grating.Direction));
-      InsertItem(dictionary, "Is Top On Upper Plane", nameof(Grating.IsTopOnUpperPlane));
-      InsertItem(dictionary, "Connector Quantity", nameof(Grating.ConnectorQuantity));
-      InsertItem(dictionary, "Connector Name", nameof(Grating.ConnectorName));
-      InsertItem(dictionary, "CrossBar", nameof(Grating.CrossBar));
-      InsertItem(dictionary, "CrossBar Spacing Distance", nameof(Grating.CrossBarSpacingDistance), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Bearing Bar Thickness", nameof(Grating.ThicknessOfABearingBar), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "CrossBar Spacing", nameof(Grating.CrossBarSpacing), LevelEnum.Default);
-      InsertItem(dictionary, "Using Standard Hatch", nameof(Grating.IsUsingStandardHatch));
-      InsertItem(dictionary, "Standard Hatch", nameof(Grating.StandardHatch), LevelEnum.Default);
-      InsertItem(dictionary, "Thickness of CrossBar", nameof(Grating.ThicknessOfACrossBar), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Custom Hatch", nameof(Grating.CustomHatch));
+      InsertProperty(dictionary, "Bearing Bar Spacing", nameof(Grating.BearingBarSpacing), LevelEnum.Default);
+      InsertProperty(dictionary, "Cross Bar Quantity", nameof(Grating.CrossBarQuantity), LevelEnum.Default);
+      InsertProperty(dictionary, "Bearing Bar Quantity", nameof(Grating.BearingBarQuantity), LevelEnum.Default);
+      InsertProperty(dictionary, "Connector Key", nameof(Grating.ConnectorKey));
+      InsertProperty(dictionary, "OED Value", nameof(Grating.OEDValue), LevelEnum.Default);
+      InsertProperty(dictionary, "ED Value", nameof(Grating.EDValue));
+      InsertProperty(dictionary, "Is Using Standard ED", nameof(Grating.IsUsingStandardED));
+      InsertProperty(dictionary, "Width Extension Right", nameof(Grating.WidthExtensionRight), eUnitType.kDistance);
+      InsertProperty(dictionary, "Width Extension Left", nameof(Grating.WidthExtensionLeft), eUnitType.kDistance);
+      InsertProperty(dictionary, "Grating Class", nameof(Grating.GratingClass));
+      InsertProperty(dictionary, "Grating Size", nameof(Grating.GratingSize), eUnitType.kDistance);
+      InsertProperty(dictionary, "BearingBar Spacing Distance", nameof(Grating.BearingBarSpacingDistance), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "Is MatCoatDbDefined", nameof(Grating.IsMatCoatDbDefined));
+      InsertProperty(dictionary, "Direction", nameof(Grating.Direction));
+      InsertProperty(dictionary, "Is Top On Upper Plane", nameof(Grating.IsTopOnUpperPlane));
+      InsertProperty(dictionary, "Connector Quantity", nameof(Grating.ConnectorQuantity));
+      InsertProperty(dictionary, "Connector Name", nameof(Grating.ConnectorName));
+      InsertProperty(dictionary, "CrossBar", nameof(Grating.CrossBar));
+      InsertProperty(dictionary, "CrossBar Spacing Distance", nameof(Grating.CrossBarSpacingDistance), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "Bearing Bar Thickness", nameof(Grating.ThicknessOfABearingBar), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "CrossBar Spacing", nameof(Grating.CrossBarSpacing), LevelEnum.Default);
+      InsertProperty(dictionary, "Using Standard Hatch", nameof(Grating.IsUsingStandardHatch));
+      InsertProperty(dictionary, "Standard Hatch", nameof(Grating.StandardHatch), LevelEnum.Default);
+      InsertProperty(dictionary, "Thickness of CrossBar", nameof(Grating.ThicknessOfACrossBar), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "Custom Hatch", nameof(Grating.CustomHatch));
 
-      InsertItem(dictionary, "Bar Grating Product Name", nameof(Grating.GetBarGratingProductName));
-      InsertItem(dictionary, "Center Point on Top", nameof(Grating.GetCenterOnTop));
-      InsertItem(dictionary, "Exact Paint Area", nameof(Grating.GetExactPaintArea), eUnitType.kArea);
-      InsertItem(dictionary, "Top Normal", nameof(Grating.GetTopNormal));
-      InsertItem(dictionary, "top Plane", nameof(Grating.GetTopPlane));
-      InsertItem(dictionary, "Y Direction", nameof(Grating.GetYDir));
+      InsertProperty(dictionary, "Bar Grating Product Name", nameof(Grating.GetBarGratingProductName));
+      InsertProperty(dictionary, "Center Point on Top", nameof(Grating.GetCenterOnTop));
+      InsertProperty(dictionary, "Exact Paint Area", nameof(Grating.GetExactPaintArea), eUnitType.kArea);
+      InsertProperty(dictionary, "Top Normal", nameof(Grating.GetTopNormal));
+      InsertProperty(dictionary, "top Plane", nameof(Grating.GetTopPlane));
+      InsertProperty(dictionary, "Y Direction", nameof(Grating.GetYDir));
 
-      InsertItem(dictionary, "Connector Type", GetConnectorType);
-      InsertItem(dictionary, "Grating Type", GetGratingType);
+      InsertCustomProperty(dictionary, "Connector Type", nameof(GratingProperties.GetConnectorType), null);
+      InsertCustomProperty(dictionary, "Grating Type", nameof(GratingProperties.GetGratingType), null);
 
       return dictionary;
     }
 
-    private object GetConnectorType(object grating)
+    private string GetConnectorType(Grating grating)
     {
-      Grating asGrating = grating as Grating;
-
-      return asGrating.ConnectorType.ToString();
+      return grating.ConnectorType.ToString();
     }
 
-    private object GetGratingType(object grating)
+    private string GetGratingType(Grating grating)
     {
-      Grating asGrating = grating as Grating;
-
-      return asGrating.GratingType.ToString();
+      return grating.GratingType.ToString();
     }
   }
 }

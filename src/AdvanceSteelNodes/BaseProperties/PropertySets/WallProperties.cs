@@ -15,8 +15,8 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Height", nameof(Wall.Height), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Free", nameof(Wall.IsFree));
+      InsertProperty(dictionary, "Height", nameof(Wall.Height), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "Free", nameof(Wall.IsFree));
 
       return dictionary;
     }

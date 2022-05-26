@@ -37,7 +37,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       List<Property> defaultData = cameraProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
       List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
-      double scale = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "Scale").InternalValue;
+      double scale = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASSpecialPart.Scale)).InternalValue;
 
       ASSpecialPart specPart = SteelServices.ElementBinder.GetObjectASFromTrace<ASSpecialPart>();
       if (specPart == null)
@@ -123,7 +123,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       if (listSpecialPartData == null)
       {
         listSpecialPartData = new List<Property>() { };
-        Utils.CheckListUpdateOrAddValue(listSpecialPartData, "Scale", scale);
+        Utils.CheckListUpdateOrAddValue(listSpecialPartData, nameof(ASSpecialPart.Scale), scale);
       }
       return listSpecialPartData;
     }

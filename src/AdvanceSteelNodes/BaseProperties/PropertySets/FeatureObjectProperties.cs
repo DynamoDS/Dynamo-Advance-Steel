@@ -16,10 +16,10 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Is From Fitter", nameof(FeatureObject.IsFromFitter), LevelEnum.Default);
-      InsertItem(dictionary, "Coordinate System", nameof(FeatureObject.CS));
-      InsertItem(dictionary, "Use Gap", nameof(FeatureObject.UseGap));
-      InsertItem(dictionary, "Object Index", nameof(FeatureObject.ObjectIndex));
+      InsertProperty(dictionary, "Is From Fitter", nameof(FeatureObject.IsFromFitter), LevelEnum.Default);
+      InsertProperty(dictionary, "Coordinate System", nameof(FeatureObject.CS));
+      InsertProperty(dictionary, "Use Gap", nameof(FeatureObject.UseGap));
+      InsertProperty(dictionary, "Object Index", nameof(FeatureObject.ObjectIndex));
 
       return dictionary;
     }

@@ -1,4 +1,5 @@
-﻿using Autodesk.AdvanceSteel.Modelling;
+﻿using Autodesk.AdvanceSteel.Geometry;
+using Autodesk.AdvanceSteel.Modelling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,73 +16,59 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Radius", nameof(BeamNotch.CornerRadius), eUnitType.kDistance);
-      InsertItem(dictionary, "Depth", nameof(BeamNotch.ReferenceDepth), eUnitType.kDistance);
-      InsertItem(dictionary, "Length", nameof(BeamNotch.ReferenceLength), eUnitType.kDistance);
+      InsertProperty(dictionary, "Radius", nameof(BeamNotch.CornerRadius), eUnitType.kDistance);
+      InsertProperty(dictionary, "Depth", nameof(BeamNotch.ReferenceDepth), eUnitType.kDistance);
+      InsertProperty(dictionary, "Length", nameof(BeamNotch.ReferenceLength), eUnitType.kDistance);
 
-      InsertItem(dictionary, "Side", GetSide);
-      InsertItem(dictionary, "End", GetEnd);
-      InsertItem(dictionary, "Corner Type", GetCornerType);
+      InsertCustomProperty(dictionary, "Side", nameof(BeamNotchProperties.GetSide), null);
+      InsertCustomProperty(dictionary, "End", nameof(BeamNotchProperties.GetEnd), null);
+      InsertCustomProperty(dictionary, "Corner Type", nameof(BeamNotchProperties.GetCornerType), null);
 
-      InsertItem(dictionary, "Plane 1", GetPlane1);
-      InsertItem(dictionary, "Plane 2", GetPlane2);
+      InsertCustomProperty(dictionary, "Plane 1", nameof(BeamNotchProperties.GetPlane1), null);
+      InsertCustomProperty(dictionary, "Plane 2", nameof(BeamNotchProperties.GetPlane2), null);
 
-      InsertItem(dictionary, "Axis Beam Intersection Point 1", GetAxisBeamIntersectionPoint1);
-      InsertItem(dictionary, "Axis Beam Intersection Point 2", GetAxisBeamIntersectionPoint2);
+      InsertCustomProperty(dictionary, "Axis Beam Intersection Point 1", nameof(BeamNotchProperties.GetAxisBeamIntersectionPoint1), null);
+      InsertCustomProperty(dictionary, "Axis Beam Intersection Point 2", nameof(BeamNotchProperties.GetAxisBeamIntersectionPoint2), null);
 
       return dictionary;
     }
 
-    private object GetSide(object beamNotch)
+    private string GetSide(BeamNotch beamNotch)
     {
-      BeamNotch asBeamNotch = beamNotch as BeamNotch;
-
-      return asBeamNotch.Side.ToString();
+      return beamNotch.Side.ToString();
     }
 
-    private object GetEnd(object beamNotch)
+    private string GetEnd(BeamNotch beamNotch)
     {
-      BeamNotch asBeamNotch = beamNotch as BeamNotch;
-
-      return asBeamNotch.End.ToString();
+      return beamNotch.End.ToString();
     }
 
-    private object GetCornerType(object beamNotch)
+    private string GetCornerType(BeamNotch beamNotch)
     {
-      BeamNotch asBeamNotch = beamNotch as BeamNotch;
-
-      return asBeamNotch.CornerType.ToString();
+      return beamNotch.CornerType.ToString();
     }
 
-    private object GetPlane1(object beamNotch)
+    private Plane GetPlane1(BeamNotch beamNotch)
     {
-      BeamNotch asBeamNotch = beamNotch as BeamNotch;
-
-      asBeamNotch.getPlanes(out var plane1, out var plane2);
+      beamNotch.getPlanes(out var plane1, out var plane2);
       return plane1;
     }
 
-    private object GetPlane2(object beamNotch)
+    private Plane GetPlane2(BeamNotch beamNotch)
     {
-      BeamNotch asBeamNotch = beamNotch as BeamNotch;
-
-      asBeamNotch.getPlanes(out var plane1, out var plane2);
+      beamNotch.getPlanes(out var plane1, out var plane2);
       return plane2;
     }
 
-    private object GetAxisBeamIntersectionPoint1(object beamNotch)
+    private Point3d GetAxisBeamIntersectionPoint1(BeamNotch beamNotch)
     {
-      BeamNotch asBeamNotch = beamNotch as BeamNotch;
-
-      asBeamNotch.getAxisBeamIntersection(out var point1, out var point2);
+      beamNotch.getAxisBeamIntersection(out var point1, out var point2);
       return point1;
     }
 
-    private object GetAxisBeamIntersectionPoint2(object beamNotch)
+    private Point3d GetAxisBeamIntersectionPoint2(BeamNotch beamNotch)
     {
-      BeamNotch asBeamNotch = beamNotch as BeamNotch;
-
-      asBeamNotch.getAxisBeamIntersection(out var point1, out var point2);
+      beamNotch.getAxisBeamIntersection(out var point1, out var point2);
       return point2;
     }
   }

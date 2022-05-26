@@ -16,32 +16,31 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Reference Point", nameof(BoltPattern.RefPoint));
-      InsertItem(dictionary, "Number of Screws", nameof(BoltPattern.NumberOfScrews), LevelEnum.Default);
-      InsertItem(dictionary, "Is Inverted", nameof(BoltPattern.IsInverted));
-      InsertItem(dictionary, "Center", nameof(BoltPattern.Center), LevelEnum.Default);
-      InsertItem(dictionary, "X Direction", nameof(BoltPattern.XDirection));
-      InsertItem(dictionary, "Bolt Normal", nameof(BoltPattern.BoltNormal), LevelEnum.Default);
-      InsertItem(dictionary, "Normal", nameof(BoltPattern.Normal), LevelEnum.Default);
-      InsertItem(dictionary, "Y Direction", nameof(BoltPattern.YDirection));
+      InsertProperty(dictionary, "Reference Point", nameof(BoltPattern.RefPoint));
+      InsertProperty(dictionary, "Number of Screws", nameof(BoltPattern.NumberOfScrews), LevelEnum.Default);
+      InsertProperty(dictionary, "Is Inverted", nameof(BoltPattern.IsInverted));
+      InsertProperty(dictionary, "Center", nameof(BoltPattern.Center), LevelEnum.Default);
+      InsertProperty(dictionary, "X Direction", nameof(BoltPattern.XDirection));
+      InsertProperty(dictionary, "Bolt Normal", nameof(BoltPattern.BoltNormal), LevelEnum.Default);
+      InsertProperty(dictionary, "Normal", nameof(BoltPattern.Normal), LevelEnum.Default);
+      InsertProperty(dictionary, "Y Direction", nameof(BoltPattern.YDirection));
 
-      InsertItem(dictionary, "Middle Points", GetMidPoints);
+      InsertCustomProperty(dictionary, "Middle Points", nameof(BoltPatternProperties.GetMidPoints), null);
 
-      InsertItem(dictionary, "Bolt Coordinate System", GetBoltCoordinateSystem);
+      InsertCustomProperty(dictionary, "Bolt Coordinate System", nameof(BoltPatternProperties.GetBoltCoordinateSystem), null);
 
       return dictionary;
     }
 
-    private object GetMidPoints(object boltPattern)
+    private IEnumerable<Autodesk.DesignScript.Geometry.Point> GetMidPoints(BoltPattern boltPattern)
     {
-      ((BoltPattern)boltPattern).GetMidpoints(out var points);
+      boltPattern.GetMidpoints(out var points);
       return points.Select(x => x.ToDynPoint());
     }
 
-    private object GetBoltCoordinateSystem(object boltPattern)
+    private DSCoordinateSystem GetBoltCoordinateSystem(BoltPattern boltPattern)
     {
-      var bolt = (BoltPattern)boltPattern;
-      return DSCoordinateSystem.ByOriginVectors(bolt.RefPoint.ToDynPoint(), bolt.XDirection.ToDynVector(), bolt.YDirection.ToDynVector());
+      return DSCoordinateSystem.ByOriginVectors(boltPattern.RefPoint.ToDynPoint(), boltPattern.XDirection.ToDynVector(), boltPattern.YDirection.ToDynVector());
     }
 
   }

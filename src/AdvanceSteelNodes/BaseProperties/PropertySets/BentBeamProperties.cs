@@ -1,4 +1,5 @@
-﻿using Autodesk.AdvanceSteel.Modelling;
+﻿using Autodesk.AdvanceSteel.Geometry;
+using Autodesk.AdvanceSteel.Modelling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,27 +16,27 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Offset Curve Radius", nameof(BentBeamBase.OffsetCurveRadius), eUnitType.kDistance);
-      InsertItem(dictionary, "Curve Offset", nameof(BentBeamBase.CurveOffset), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Definition Plane Coordinate System", nameof(BentBeamBase.DefinitionPlane), LevelEnum.Default);
-      InsertItem(dictionary, "Systemline Radius", nameof(BentBeamBase.SystemlineRadius), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Physical Length", nameof(BentBeamBase.GetPhysLength), eUnitType.kDistance);
+      InsertProperty(dictionary, "Offset Curve Radius", nameof(BentBeamBase.OffsetCurveRadius), eUnitType.kDistance);
+      InsertProperty(dictionary, "Curve Offset", nameof(BentBeamBase.CurveOffset), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "Definition Plane Coordinate System", nameof(BentBeamBase.DefinitionPlane), LevelEnum.Default);
+      InsertProperty(dictionary, "Systemline Radius", nameof(BentBeamBase.SystemlineRadius), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "Physical Length", nameof(BentBeamBase.GetPhysLength), eUnitType.kDistance);
 
-      InsertItem(dictionary, "Arc Center", GetArcCenter);
-      InsertItem(dictionary, "Arc Normal", GetArcNormal);
+      InsertCustomProperty(dictionary, "Arc Center", nameof(BentBeamProperties.GetArcCenter), null);
+      InsertCustomProperty(dictionary, "Arc Normal", nameof(BentBeamProperties.GetArcNormal), null);
 
       return dictionary;
     }
 
-    private object GetArcCenter(object beam)
+    private Point3d GetArcCenter(BentBeamBase beam)
     {
-      ((BentBeamBase)beam).GetArcCenter(out var point, true);
+      beam.GetArcCenter(out var point, true);
       return point;
     }
 
-    private object GetArcNormal(object beam)
+    private Vector3d GetArcNormal(BentBeamBase beam)
     {
-      ((BentBeamBase)beam).GetArcNormal(out var normal, true);
+      beam.GetArcNormal(out var normal, true);
       return normal;
     }
   }

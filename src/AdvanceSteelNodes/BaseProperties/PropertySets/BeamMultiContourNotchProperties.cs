@@ -15,44 +15,38 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Gap", nameof(BeamMultiContourNotch.Gap), eUnitType.kDistance);
-      InsertItem(dictionary, "Radius Increment", nameof(BeamMultiContourNotch.RadIncrement), eUnitType.kDistance);
-      InsertItem(dictionary, "BoringOut", nameof(BeamMultiContourNotch.BoringOut));
-      InsertItem(dictionary, "Normal", nameof(BeamMultiContourNotch.Normal), LevelEnum.Default);
-      InsertItem(dictionary, "Length", nameof(BeamMultiContourNotch.Length), eUnitType.kDistance);
-      InsertItem(dictionary, "Width", nameof(BeamMultiContourNotch.Width), eUnitType.kDistance);
-      InsertItem(dictionary, "Length Increment", nameof(BeamMultiContourNotch.LengthIncrement), eUnitType.kDistance);
-      InsertItem(dictionary, "Radius", nameof(BeamMultiContourNotch.Radius), eUnitType.kDistance);
+      InsertProperty(dictionary, "Gap", nameof(BeamMultiContourNotch.Gap), eUnitType.kDistance);
+      InsertProperty(dictionary, "Radius Increment", nameof(BeamMultiContourNotch.RadIncrement), eUnitType.kDistance);
+      InsertProperty(dictionary, "BoringOut", nameof(BeamMultiContourNotch.BoringOut));
+      InsertProperty(dictionary, "Normal", nameof(BeamMultiContourNotch.Normal), LevelEnum.Default);
+      InsertProperty(dictionary, "Length", nameof(BeamMultiContourNotch.Length), eUnitType.kDistance);
+      InsertProperty(dictionary, "Width", nameof(BeamMultiContourNotch.Width), eUnitType.kDistance);
+      InsertProperty(dictionary, "Length Increment", nameof(BeamMultiContourNotch.LengthIncrement), eUnitType.kDistance);
+      InsertProperty(dictionary, "Radius", nameof(BeamMultiContourNotch.Radius), eUnitType.kDistance);
 
-      InsertItem(dictionary, "Offset", nameof(BeamMultiContourNotch.Offset));
-      InsertItem(dictionary, "Lower Clip", nameof(BeamMultiContourNotch.GetLowerClip));
+      InsertProperty(dictionary, "Offset", nameof(BeamMultiContourNotch.Offset));
+      InsertProperty(dictionary, "Lower Clip", nameof(BeamMultiContourNotch.GetLowerClip));
 
-      InsertItem(dictionary, "Contour Type", GetContourType);
-      InsertItem(dictionary, "End", GetEnd);
-      InsertItem(dictionary, "Clip Type", GetClipType);
+      InsertCustomProperty(dictionary, "Contour Type", nameof(BeamMultiContourNotchProperties.GetContourType), null);
+      InsertCustomProperty(dictionary, "End", nameof(BeamMultiContourNotchProperties.GetEnd), null);
+      InsertCustomProperty(dictionary, "Clip Type", nameof(BeamMultiContourNotchProperties.GetClipType), null);
 
       return dictionary;
     }
 
-    private object GetContourType(object beamNotch)
+    private string GetContourType(BeamMultiContourNotch beamNotch)
     {
-      BeamMultiContourNotch asBeamNotch = beamNotch as BeamMultiContourNotch;
-
-      return asBeamNotch.ContourType.ToString();
+      return beamNotch.ContourType.ToString();
     }
 
-    private object GetEnd(object beamNotch)
+    private string GetEnd(BeamMultiContourNotch beamNotch)
     {
-      BeamMultiContourNotch asBeamNotch = beamNotch as BeamMultiContourNotch;
-
-      return asBeamNotch.End.ToString();
+      return beamNotch.End.ToString();
     }
 
-    private object GetClipType(object beamNotch)
+    private string GetClipType(BeamMultiContourNotch beamNotch)
     {
-      BeamMultiContourNotch asBeamNotch = beamNotch as BeamMultiContourNotch;
-
-      return asBeamNotch.ClipType.ToString();
+      return beamNotch.ClipType.ToString();
     }
   }
 }

@@ -14,8 +14,8 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Coordinate System", nameof(ActiveConstructionElement.CS), LevelEnum.Default);
-      InsertItem(dictionary, "Connection Number", nameof(ActiveConstructionElement.NumberOfDrivenConObj));
+      InsertProperty(dictionary, "Coordinate System", nameof(ActiveConstructionElement.CS), LevelEnum.Default);
+      InsertProperty(dictionary, "Connection Number", nameof(ActiveConstructionElement.NumberOfDrivenConObj));
 
       return dictionary;
     }

@@ -15,20 +15,20 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Points Lower", GetWeldPointsLower);
-      InsertItem(dictionary, "Points Upper", GetWeldPointsUpper);
+      InsertCustomProperty(dictionary, "Points Lower", nameof(WeldLineProperties.GetWeldPointsLower), null);
+      InsertCustomProperty(dictionary, "Points Upper", nameof(WeldLineProperties.GetWeldPointsUpper), null);
 
       return dictionary;
     }
-    private object GetWeldPointsLower(object weldLine)
+    private IEnumerable<Autodesk.DesignScript.Geometry.Point> GetWeldPointsLower(WeldLine weldLine)
     {
-      ((WeldLine)weldLine).GetWeldPoints(out var points, WeldPattern.eSeamPosition.kLower);
+      weldLine.GetWeldPoints(out var points, WeldPattern.eSeamPosition.kLower);
       return points.Select(x => x.ToDynPoint());
     }
 
-    private object GetWeldPointsUpper(object weldLine)
+    private IEnumerable<Autodesk.DesignScript.Geometry.Point> GetWeldPointsUpper(WeldLine weldLine)
     {
-      ((WeldLine)weldLine).GetWeldPoints(out var points, WeldPattern.eSeamPosition.kUpper);
+      weldLine.GetWeldPoints(out var points, WeldPattern.eSeamPosition.kUpper);
       return points.Select(x => x.ToDynPoint());
     }
 

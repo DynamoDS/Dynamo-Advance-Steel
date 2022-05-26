@@ -15,29 +15,25 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Length 1", nameof(PlateFeatVertFillet.Length1), eUnitType.kDistance);
-      InsertItem(dictionary, "Length 2", nameof(PlateFeatVertFillet.Length2), eUnitType.kDistance);
-      InsertItem(dictionary, "Radius Increment", nameof(PlateFeatVertFillet.RadiusIncrement), eUnitType.kDistance);
-      InsertItem(dictionary, "Radius", nameof(PlateFeatVertFillet.Radius), eUnitType.kDistance);
+      InsertProperty(dictionary, "Length 1", nameof(PlateFeatVertFillet.Length1), eUnitType.kDistance);
+      InsertProperty(dictionary, "Length 2", nameof(PlateFeatVertFillet.Length2), eUnitType.kDistance);
+      InsertProperty(dictionary, "Radius Increment", nameof(PlateFeatVertFillet.RadiusIncrement), eUnitType.kDistance);
+      InsertProperty(dictionary, "Radius", nameof(PlateFeatVertFillet.Radius), eUnitType.kDistance);
 
-      InsertItem(dictionary, "Fillet Type", GetFilletType);
-      InsertItem(dictionary, "Contour Polygon", GetContourPolygon);
+      InsertCustomProperty(dictionary, "Fillet Type", nameof(PlateFeatVertFilletProperties.GetFilletType), null);
+      InsertCustomProperty(dictionary, "Contour Polygon", nameof(PlateFeatVertFilletProperties.GetContourPolygon), null);
 
       return dictionary;
     }
 
-    private object GetFilletType(object plateFeatVertFillet)
+    private string GetFilletType(PlateFeatVertFillet plateFeatVertFillet)
     {
-      PlateFeatVertFillet asPlateFeatVertFillet = plateFeatVertFillet as PlateFeatVertFillet;
-
-      return asPlateFeatVertFillet.FilletType.ToString();
+      return plateFeatVertFillet.FilletType.ToString();
     }
 
-    private object GetContourPolygon(object plateFeatVertFillet)
+    private IEnumerable<Autodesk.DesignScript.Geometry.Point> GetContourPolygon(PlateFeatVertFillet plateFeatVertFillet)
     {
-      PlateFeatVertFillet asPlateFeatVertFillet = plateFeatVertFillet as PlateFeatVertFillet;
-
-      return asPlateFeatVertFillet.GetBaseContourPolygon(0).Select(x => x.ToDynPoint());
+      return plateFeatVertFillet.GetBaseContourPolygon(0).Select(x => x.ToDynPoint());
     }
   }
 }

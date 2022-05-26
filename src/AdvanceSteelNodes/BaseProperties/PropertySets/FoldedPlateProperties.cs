@@ -15,19 +15,17 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Main Fold Id", nameof(FoldedPlate.MainFoldId));
-      InsertItem(dictionary, "Fold Plates", GetFoldPlates);
+      InsertProperty(dictionary, "Main Fold Id", nameof(FoldedPlate.MainFoldId));
+      InsertCustomProperty(dictionary, "Fold Plates", nameof(FoldedPlateProperties.GetFoldPlates), null);
 
       return dictionary;
     }
 
-    private object GetFoldPlates(object foldedPlate)
+    private List<Dictionary<string, object>> GetFoldPlates(FoldedPlate foldedPlate)
     {
-      FoldedPlate asFoldedPlate = (FoldedPlate)foldedPlate;
-
       List<Dictionary<string, object>> listHolesDetails = new List<Dictionary<string, object>>();
 
-      foreach (var foldPlate in asFoldedPlate.GetAllFolds())
+      foreach (var foldPlate in foldedPlate.GetAllFolds())
       {
         Dictionary<string, object> foldPlateDictionary = new Dictionary<string, object>();
         foldPlateDictionary.Add("Id", foldPlate.Id);

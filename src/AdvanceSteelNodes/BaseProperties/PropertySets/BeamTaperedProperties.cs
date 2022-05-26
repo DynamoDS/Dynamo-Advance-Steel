@@ -15,21 +15,21 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Distances", GetDistances);
-      InsertItem(dictionary, "Heigths", GetHeigths);
+      InsertCustomProperty(dictionary, "Distances", nameof(BeamTaperedProperties.GetDistances), null);
+      InsertCustomProperty(dictionary, "Heigths", nameof(BeamTaperedProperties.GetHeigths), null);
 
       return dictionary;
     }
 
-    private object GetDistances(object beam)
+    private double[] GetDistances(BeamTapered beam)
     {
-      ((BeamTapered)beam).GetSegmentsData(out var dists, out var heigths, out var alignment);
+      beam.GetSegmentsData(out var dists, out var heigths, out var alignment);
       return dists;
     }
 
-    private object GetHeigths(object beam)
+    private double[] GetHeigths(BeamTapered beam)
     {
-      ((BeamTapered)beam).GetSegmentsData(out var dists, out var heigths, out var alignment);
+      beam.GetSegmentsData(out var dists, out var heigths, out var alignment);
       return heigths;
     }
   }

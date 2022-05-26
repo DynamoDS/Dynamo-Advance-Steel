@@ -16,10 +16,10 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Vector Reference Orientation", nameof(PolyBeam.VecRefOrientation), LevelEnum.Default);
-      InsertItem(dictionary, "Continuous", nameof(PolyBeam.IsContinuous));
-      InsertItem(dictionary, "Poly Curve", new PropertyMethods(this.GetType(), nameof(PolyBeamProperties.GetPolyline), nameof(PolyBeamProperties.SetPolyline)));
-      InsertItem(dictionary, "Orientation", new PropertyMethods(this.GetType(), nameof(PolyBeamProperties.GetOrientation), null));
+      InsertProperty(dictionary, "Vector Reference Orientation", nameof(PolyBeam.VecRefOrientation), LevelEnum.Default);
+      InsertProperty(dictionary, "Continuous", nameof(PolyBeam.IsContinuous));
+      InsertProperty(dictionary, "Poly Curve", nameof(PolyBeamProperties.GetPolyline));
+      InsertCustomProperty(dictionary, "Orientation", nameof(PolyBeamProperties.GetOrientation), null);
 
       return dictionary;
     }

@@ -15,9 +15,9 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Polygon", nameof(PlateFeatEdge.ContextPolygon), eUnitType.kDistance);
-      InsertItem(dictionary, "Edge Index", nameof(PlateFeatEdge.EdgeIndex));
-      InsertItem(dictionary, "Contour Index", nameof(PlateFeatEdge.ContourIndex));
+      InsertProperty(dictionary, "Polygon", nameof(PlateFeatEdge.ContextPolygon), eUnitType.kDistance);
+      InsertProperty(dictionary, "Edge Index", nameof(PlateFeatEdge.EdgeIndex));
+      InsertProperty(dictionary, "Contour Index", nameof(PlateFeatEdge.ContourIndex));
 
       return dictionary;
     }

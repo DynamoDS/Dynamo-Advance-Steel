@@ -64,17 +64,17 @@ namespace AdvanceSteel.Nodes.Features
       double width = 0;
       double radius = 0;
 
-      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == "Length") != null)
+      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASBeamMultiContourNotch.Length)) != null)
       {
-        length = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "Length").InternalValue;
+        length = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASBeamMultiContourNotch.Length)).InternalValue;
       }
-      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == "Width") != null)
+      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASBeamMultiContourNotch.Width)) != null)
       {
-        width = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "Width").InternalValue;
+        width = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASBeamMultiContourNotch.Width)).InternalValue;
       }
-      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == "Radius") != null)
+      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASBeamMultiContourNotch.Radius)) != null)
       {
-        radius = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "Radius").InternalValue;
+        radius = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASBeamMultiContourNotch.Radius)).InternalValue;
       }
 
       FilerObject obj = Utils.GetObject(element.Handle);
@@ -395,8 +395,8 @@ namespace AdvanceSteel.Nodes.Features
       {
         listBeamFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Length", length);
-      if (width > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Width", width);
+      if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, nameof(ASBeamMultiContourNotch.Length), length);
+      if (width > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, nameof(ASBeamMultiContourNotch.Width), width);
       return listBeamFeatureData;
     }
 

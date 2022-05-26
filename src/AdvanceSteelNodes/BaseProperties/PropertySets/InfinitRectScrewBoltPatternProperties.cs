@@ -16,10 +16,10 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Midpoint On Lower Right", nameof(InfinitRectScrewBoltPattern.MidpointOnUpperRight));
-      InsertItem(dictionary, "Midpoint On Lower Left", nameof(InfinitRectScrewBoltPattern.MidpointOnLowerLeft));
-      InsertItem(dictionary, "Size Y Direction", nameof(InfinitRectScrewBoltPattern.Wy), eUnitType.kDistance);
-      InsertItem(dictionary, "Size X Direction", nameof(InfinitRectScrewBoltPattern.Wx), eUnitType.kDistance);
+      InsertProperty(dictionary, "Midpoint On Lower Right", nameof(InfinitRectScrewBoltPattern.MidpointOnUpperRight));
+      InsertProperty(dictionary, "Midpoint On Lower Left", nameof(InfinitRectScrewBoltPattern.MidpointOnLowerLeft));
+      InsertProperty(dictionary, "Size Y Direction", nameof(InfinitRectScrewBoltPattern.Wy), eUnitType.kDistance);
+      InsertProperty(dictionary, "Size X Direction", nameof(InfinitRectScrewBoltPattern.Wx), eUnitType.kDistance);
 
       return dictionary;
     }

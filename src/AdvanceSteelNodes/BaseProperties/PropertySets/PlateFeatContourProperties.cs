@@ -15,34 +15,30 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Gap", nameof(PlateFeatContour.Gap), eUnitType.kDistance);
-      InsertItem(dictionary, "Length", nameof(PlateFeatContour.Length), eUnitType.kDistance);
-      InsertItem(dictionary, "Length Increment", nameof(PlateFeatContour.LengthIncrement), eUnitType.kDistance);
-      InsertItem(dictionary, "Radius", nameof(PlateFeatContour.Radius), eUnitType.kDistance);
-      InsertItem(dictionary, "Radius Increment", nameof(PlateFeatContour.RadIncrement), eUnitType.kDistance);
-      InsertItem(dictionary, "Width", nameof(PlateFeatContour.Width), eUnitType.kDistance);
-      InsertItem(dictionary, "Boring Out Option", nameof(PlateFeatContour.BoringOut));
-      InsertItem(dictionary, "Offset", nameof(PlateFeatContour.Offset));
-      InsertItem(dictionary, "Vertex", nameof(PlateFeatContour.VertexInformation));
+      InsertProperty(dictionary, "Gap", nameof(PlateFeatContour.Gap), eUnitType.kDistance);
+      InsertProperty(dictionary, "Length", nameof(PlateFeatContour.Length), eUnitType.kDistance);
+      InsertProperty(dictionary, "Length Increment", nameof(PlateFeatContour.LengthIncrement), eUnitType.kDistance);
+      InsertProperty(dictionary, "Radius", nameof(PlateFeatContour.Radius), eUnitType.kDistance);
+      InsertProperty(dictionary, "Radius Increment", nameof(PlateFeatContour.RadIncrement), eUnitType.kDistance);
+      InsertProperty(dictionary, "Width", nameof(PlateFeatContour.Width), eUnitType.kDistance);
+      InsertProperty(dictionary, "Boring Out Option", nameof(PlateFeatContour.BoringOut));
+      InsertProperty(dictionary, "Offset", nameof(PlateFeatContour.Offset));
+      InsertProperty(dictionary, "Vertex", nameof(PlateFeatContour.VertexInformation));
 
-      InsertItem(dictionary, "Contour Type", GetContourType);
-      InsertItem(dictionary, "Contour Polygon", GetContourPolygon);
+      InsertCustomProperty(dictionary, "Contour Type", nameof(PlateFeatContourProperties.GetContourType), null);
+      InsertCustomProperty(dictionary, "Contour Polygon", nameof(PlateFeatContourProperties.GetContourPolygon), null);
 
       return dictionary;
     }
 
-    private object GetContourType(object plateFeatContour)
+    private string GetContourType(PlateFeatContour plateFeatContour)
     {
-      PlateFeatContour asPlateFeatContour = plateFeatContour as PlateFeatContour;
-
-      return asPlateFeatContour.ContourType.ToString();
+      return plateFeatContour.ContourType.ToString();
     }
 
-    private object GetContourPolygon(object plateFeatContour)
+    private IEnumerable<Autodesk.DesignScript.Geometry.Point> GetContourPolygon(PlateFeatContour plateFeatContour)
     {
-      PlateFeatContour asPlateFeatContour = plateFeatContour as PlateFeatContour;
-
-      return asPlateFeatContour.GetContourPolygon(0).Select(x => x.ToDynPoint());
+      return plateFeatContour.GetContourPolygon(0).Select(x => x.ToDynPoint());
     }
   }
 }

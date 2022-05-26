@@ -72,17 +72,17 @@ namespace AdvanceSteel.Nodes.Features
       double width = 0;
       double radius = 0;
 
-      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == "Length") != null)
+      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASPlateFeatContour.Length)) != null)
       {
-        length = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "Length").InternalValue;
+        length = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASPlateFeatContour.Length)).InternalValue;
       }
-      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == "Width") != null)
+      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASPlateFeatContour.Width)) != null)
       {
-        width = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "Width").InternalValue;
+        width = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASPlateFeatContour.Width)).InternalValue;
       }
-      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == "Radius") != null)
+      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASPlateFeatContour.Radius)) != null)
       {
-        radius = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == "Radius").InternalValue;
+        radius = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASPlateFeatContour.Radius)).InternalValue;
       }
 
       FilerObject obj = Utils.GetObject(element.Handle);
@@ -346,9 +346,9 @@ namespace AdvanceSteel.Nodes.Features
       {
         listPlateFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Length", length);
-      if (width > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Width", width);
-      if (radius > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Radius", radius);
+      if (length > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, nameof(ASPlateContourNotch.Length), length);
+      if (width > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, nameof(ASPlateContourNotch.Width), width);
+      if (radius > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, nameof(ASPlateContourNotch.Radius), radius);
       return listPlateFeatureData;
     }
 

@@ -16,45 +16,45 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Export Available", nameof(UserAutoConstructionObject.ExportIsAvailable));
-      InsertItem(dictionary, "Use Detailed Torsors", nameof(UserAutoConstructionObject.UseDetailedTorsors));
-      InsertItem(dictionary, "Use Load Cases Is Available", nameof(UserAutoConstructionObject.UseLoadCasesIsAvailable));
-      InsertItem(dictionary, "Import Is Available", nameof(UserAutoConstructionObject.ImportIsAvailable));
-      InsertItem(dictionary, "Presize Is Available", nameof(UserAutoConstructionObject.PresizeIsAvailable));
+      InsertProperty(dictionary, "Export Available", nameof(UserAutoConstructionObject.ExportIsAvailable));
+      InsertProperty(dictionary, "Use Detailed Torsors", nameof(UserAutoConstructionObject.UseDetailedTorsors));
+      InsertProperty(dictionary, "Use Load Cases Is Available", nameof(UserAutoConstructionObject.UseLoadCasesIsAvailable));
+      InsertProperty(dictionary, "Import Is Available", nameof(UserAutoConstructionObject.ImportIsAvailable));
+      InsertProperty(dictionary, "Presize Is Available", nameof(UserAutoConstructionObject.PresizeIsAvailable));
 
-      InsertItem(dictionary, "NSA Module Internal Name", nameof(UserAutoConstructionObject.NSAModuleInternalName));
-      InsertItem(dictionary, "New Rule Type RunName", nameof(UserAutoConstructionObject.NewRuleTypeRunName));
-      InsertItem(dictionary, "NSA Module Standard", nameof(UserAutoConstructionObject.NSAModuleStandard));
-      InsertItem(dictionary, "NSA Module Name", nameof(UserAutoConstructionObject.NSAModuleName));
-      InsertItem(dictionary, "Check Is Available", nameof(UserAutoConstructionObject.CheckIsAvailable));
-      InsertItem(dictionary, "Update When Driver Feature Changed", nameof(UserAutoConstructionObject.UpdateWhenDriverFeatChanged));
+      InsertProperty(dictionary, "NSA Module Internal Name", nameof(UserAutoConstructionObject.NSAModuleInternalName));
+      InsertProperty(dictionary, "New Rule Type RunName", nameof(UserAutoConstructionObject.NewRuleTypeRunName));
+      InsertProperty(dictionary, "NSA Module Standard", nameof(UserAutoConstructionObject.NSAModuleStandard));
+      InsertProperty(dictionary, "NSA Module Name", nameof(UserAutoConstructionObject.NSAModuleName));
+      InsertProperty(dictionary, "Check Is Available", nameof(UserAutoConstructionObject.CheckIsAvailable));
+      InsertProperty(dictionary, "Update When Driver Feature Changed", nameof(UserAutoConstructionObject.UpdateWhenDriverFeatChanged));
 
-      InsertItem(dictionary, "Check Status", GetCheckStatus);
-      InsertItem(dictionary, "Approval Status", GetApprovalStatus);
+      InsertCustomProperty(dictionary, "Check Status", nameof(UserAutoConstructionObjectProperties.GetCheckStatus), null);
+      InsertCustomProperty(dictionary, "Approval Status", nameof(UserAutoConstructionObjectProperties.GetApprovalStatus), null);
 
-      InsertItem(dictionary, "Input Objects", GetInputObjects);
-      InsertItem(dictionary, "Created Objects", GetCreatedObjects);
+      InsertCustomProperty(dictionary, "Input Objects", nameof(UserAutoConstructionObjectProperties.GetInputObjects), null);
+      InsertCustomProperty(dictionary, "Created Objects", nameof(UserAutoConstructionObjectProperties.GetCreatedObjects), null);
 
       return dictionary;
     }
-    private object GetCheckStatus(object joint)
+    private string GetCheckStatus(UserAutoConstructionObject joint)
     {
-      return ((UserAutoConstructionObject)joint).CheckStatus.ToString();
+      return joint.CheckStatus.ToString();
     }
 
-    private object GetApprovalStatus(object joint)
+    private string GetApprovalStatus(UserAutoConstructionObject joint)
     {
-      return ((UserAutoConstructionObject)joint).ApprovalStatus.ToString();
+      return joint.ApprovalStatus.ToString();
     }
 
-    private object GetInputObjects(object joint)
+    private IEnumerable<SteelDbObject> GetInputObjects(UserAutoConstructionObject joint)
     {
-      return ((UserAutoConstructionObject)joint).InputObjects.Select(x => x.ToDSType());
+      return joint.InputObjects.Select(x => x.ToDSType());
     }
 
-    private object GetCreatedObjects(object joint)
+    private IEnumerable<SteelDbObject> GetCreatedObjects(UserAutoConstructionObject joint)
     {
-      return ((UserAutoConstructionObject)joint).CreatedObjects.Where(x => x is Beam || x is Plate || x is BoltPattern).Select(x => x.ToDSType());
+      return joint.CreatedObjects.Where(x => x is Beam || x is Plate || x is BoltPattern).Select(x => x.ToDSType());
     }
 
   }

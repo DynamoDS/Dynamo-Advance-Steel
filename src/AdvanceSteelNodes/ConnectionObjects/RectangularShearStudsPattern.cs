@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Autodesk.AdvanceSteel.Geometry;
 using System.Linq;
 using ASConnector = Autodesk.AdvanceSteel.Modelling.Connector;
+using Autodesk.AdvanceSteel.Arrangement;
 
 namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
 {
@@ -57,14 +58,14 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       List<Property> arrangerShearStudData = shearStudData.Where(x => x.Level == LevelEnum.Arranger).ToList<Property>();
       List<Property> postWriteDBData = shearStudData.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
-      int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == "Nx").InternalValue;
-      int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == "Ny").InternalValue;
+      int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Nx)).InternalValue;
+      int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Ny)).InternalValue;
 
       var dx = Utils.GetRectangleLength(astPoint1, astPoint2, vx) / (temp_nx - 1);
-      Utils.CheckListUpdateOrAddValue(arrangerShearStudData, "Dx", dx);
+      Utils.CheckListUpdateOrAddValue(arrangerShearStudData, nameof(Arranger.Dx), dx);
 
       var dy = Utils.GetRectangleHeight(astPoint1, astPoint2, vx) / (temp_ny - 1);
-      Utils.CheckListUpdateOrAddValue(arrangerShearStudData, "Dy", dy);
+      Utils.CheckListUpdateOrAddValue(arrangerShearStudData, nameof(Arranger.Dy), dy);
 
       ASConnector shearStuds = SteelServices.ElementBinder.GetObjectASFromTrace<ASConnector>();
       if (shearStuds == null)
@@ -121,10 +122,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
       ASConnector shearStuds = SteelServices.ElementBinder.GetObjectASFromTrace<ASConnector>();
       if (shearStuds == null)
       {
-        double temp_Dx = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == "Dx").InternalValue;
-        double temp_Dy = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == "Dy").InternalValue;
-        int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == "Nx").InternalValue;
-        int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == "Ny").InternalValue;
+        double temp_Dx = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Dx)).InternalValue;
+        double temp_Dy = (double)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Dy)).InternalValue;
+        int temp_nx = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Nx)).InternalValue;
+        int temp_ny = (int)arrangerShearStudData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Ny)).InternalValue;
 
         shearStuds = new ASConnector();
         Autodesk.AdvanceSteel.Arrangement.Arranger arranger = new Autodesk.AdvanceSteel.Arrangement.RectangularArranger(Matrix2d.kIdentity, temp_Dx, temp_Dy, temp_nx, temp_ny);
@@ -251,8 +252,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
                                                               noOfShearStudsX, noOfShearStudsY,
                                                               Utils.ToInternalDistanceUnits(studLength, true), Utils.ToInternalDistanceUnits(studDiameter, true));
 
-      Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, "Dx", Utils.ToInternalDistanceUnits(studSpacingX, true));
-      Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, "Dy", Utils.ToInternalDistanceUnits(studSpacingY, true));
+      Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, nameof(Arranger.Dx), Utils.ToInternalDistanceUnits(studSpacingX, true));
+      Utils.CheckListUpdateOrAddValue(additionalShearStudParameters, nameof(Arranger.Dy), Utils.ToInternalDistanceUnits(studSpacingY, true));
 
       return new RectangularShearStudsPattern(handlesList[0], matrix3D, additionalShearStudParameters, shearStudConnectionType);
     }
@@ -265,10 +266,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
         listOfBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Nx", nx);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Ny", ny);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Length", studLength);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Diameter", studDiameter);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(Arranger.Nx), nx);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(Arranger.Ny), ny);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(Arranger.Length), studLength);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(ASConnector.Diameter), studDiameter);
 
       return listOfBoltParameters;
     }

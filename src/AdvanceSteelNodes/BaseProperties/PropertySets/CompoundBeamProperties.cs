@@ -15,9 +15,9 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "CompoundTypeName", nameof(CompoundStraightBeam.CompoundTypeName), LevelEnum.Default);
-      InsertItem(dictionary, "CompoundClassName", nameof(CompoundStraightBeam.CompoundClassName), LevelEnum.Default);
-      InsertItem(dictionary, "Use Compound As One Beam", nameof(CompoundStraightBeam.UseCompoundAsOneBeam));
+      InsertProperty(dictionary, "CompoundTypeName", nameof(CompoundStraightBeam.CompoundTypeName), LevelEnum.Default);
+      InsertProperty(dictionary, "CompoundClassName", nameof(CompoundStraightBeam.CompoundClassName), LevelEnum.Default);
+      InsertProperty(dictionary, "Use Compound As One Beam", nameof(CompoundStraightBeam.UseCompoundAsOneBeam));
 
       return dictionary;
     }

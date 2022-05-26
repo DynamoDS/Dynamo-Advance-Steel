@@ -14,14 +14,14 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Layer", nameof(FilerObject.Layer));
-      InsertItem(dictionary, "Handle", nameof(FilerObject.Handle), LevelEnum.Default);
-      InsertItem(dictionary, "Object Type", GetFormatedType);
+      InsertProperty(dictionary, "Layer", nameof(FilerObject.Layer));
+      InsertProperty(dictionary, "Handle", nameof(FilerObject.Handle), LevelEnum.Default);
+      InsertCustomProperty(dictionary, "Object Type", nameof(FilerObjectProperties.GetFormatedType), null);
 
       return dictionary;
     }
 
-    private object GetFormatedType(object filerObject)
+    private string GetFormatedType(object filerObject)
     {
       return Utils.GetDescriptionObject(filerObject.GetType());
     }

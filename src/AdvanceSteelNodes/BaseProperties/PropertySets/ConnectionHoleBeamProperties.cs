@@ -15,24 +15,20 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Beam", GetBeam);
-      InsertItem(dictionary, "End", GetEnd);
+      InsertCustomProperty(dictionary, "Beam", nameof(ConnectionHoleBeamProperties.GetBeam), null);
+      InsertCustomProperty(dictionary, "End", nameof(ConnectionHoleBeamProperties.GetEnd), null);
 
       return dictionary;
     }
 
-    private object GetBeam(object connectionHoleBeam)
+    private SteelDbObject GetBeam(ConnectionHoleBeam connectionHoleBeam)
     {
-      ConnectionHoleBeam asConnectionHoleBeam = connectionHoleBeam as ConnectionHoleBeam;
-
-      return asConnectionHoleBeam.GetBeam().ToDSType();
+      return connectionHoleBeam.GetBeam().ToDSType();
     }
 
-    private object GetEnd(object connectionHoleBeam)
+    private string GetEnd(ConnectionHoleBeam connectionHoleBeam)
     {
-      ConnectionHoleBeam asConnectionHoleBeam = connectionHoleBeam as ConnectionHoleBeam;
-
-      return asConnectionHoleBeam.GetEnd().ToString();
+      return connectionHoleBeam.GetEnd().ToString();
     }
   }
 }

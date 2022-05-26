@@ -17,44 +17,44 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertItem(dictionary, "Plate Portioning", nameof(PlateBase.Portioning));
-      InsertItem(dictionary, "Upper Plane", nameof(PlateBase.UpperPlane), LevelEnum.Default);
-      InsertItem(dictionary, "Length", nameof(PlateBase.Length), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Width", nameof(PlateBase.Width), LevelEnum.Default, eUnitType.kDistance);
-      InsertItem(dictionary, "Length Increment", nameof(PlateBase.LengthIncrement), eUnitType.kDistance);
-      InsertItem(dictionary, "Radius", nameof(PlateBase.Radius), LevelEnum.Default);
-      InsertItem(dictionary, "Radius Increment", nameof(PlateBase.RadIncrement));
-      InsertItem(dictionary, "Lower Z Position", nameof(PlateBase.LowerZPos));
-      InsertItem(dictionary, "Plate Normal", nameof(PlateBase.PlateNormal));
-      InsertItem(dictionary, "Thickness", nameof(PlateBase.Thickness));
-      InsertItem(dictionary, "Lower Plane", nameof(PlateBase.LowerPlane), LevelEnum.Default);
-      InsertItem(dictionary, "Upper Z Position", nameof(PlateBase.UpperZPos), LevelEnum.Default);
-      InsertItem(dictionary, "Top Is Z Positive", nameof(PlateBase.TopIsZPositive));
-      InsertItem(dictionary, "Definition Plane", nameof(PlateBase.DefinitionPlane));
+      InsertProperty(dictionary, "Plate Portioning", nameof(PlateBase.Portioning));
+      InsertProperty(dictionary, "Upper Plane", nameof(PlateBase.UpperPlane), LevelEnum.Default);
+      InsertProperty(dictionary, "Length", nameof(PlateBase.Length), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "Width", nameof(PlateBase.Width), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "Length Increment", nameof(PlateBase.LengthIncrement), eUnitType.kDistance);
+      InsertProperty(dictionary, "Radius", nameof(PlateBase.Radius), LevelEnum.Default);
+      InsertProperty(dictionary, "Radius Increment", nameof(PlateBase.RadIncrement));
+      InsertProperty(dictionary, "Lower Z Position", nameof(PlateBase.LowerZPos));
+      InsertProperty(dictionary, "Plate Normal", nameof(PlateBase.PlateNormal));
+      InsertProperty(dictionary, "Thickness", nameof(PlateBase.Thickness));
+      InsertProperty(dictionary, "Lower Plane", nameof(PlateBase.LowerPlane), LevelEnum.Default);
+      InsertProperty(dictionary, "Upper Z Position", nameof(PlateBase.UpperZPos), LevelEnum.Default);
+      InsertProperty(dictionary, "Top Is Z Positive", nameof(PlateBase.TopIsZPositive));
+      InsertProperty(dictionary, "Definition Plane", nameof(PlateBase.DefinitionPlane));
 
-      InsertItem(dictionary, "Area", nameof(PlateBase.GetArea), eUnitType.kArea);
-      InsertItem(dictionary, "Circumference", nameof(PlateBase.GetCircumference), eUnitType.kDistance);
-      InsertItem(dictionary, "Paint Area", nameof(PlateBase.GetPaintArea), eUnitType.kArea);
-      InsertItem(dictionary, "Rectangular", nameof(PlateBase.IsRectangular));
-      InsertItem(dictionary, "Vertex Manipulation Possible", nameof(PlateBase.IsVertexManipulationPossible));
-      InsertItem(dictionary, "Definition Plane Coordinate System", nameof(PlateBase.GetDefinitionPlaneCS));
+      InsertProperty(dictionary, "Area", nameof(PlateBase.GetArea), eUnitType.kArea);
+      InsertProperty(dictionary, "Circumference", nameof(PlateBase.GetCircumference), eUnitType.kDistance);
+      InsertProperty(dictionary, "Paint Area", nameof(PlateBase.GetPaintArea), eUnitType.kArea);
+      InsertProperty(dictionary, "Rectangular", nameof(PlateBase.IsRectangular));
+      InsertProperty(dictionary, "Vertex Manipulation Possible", nameof(PlateBase.IsVertexManipulationPossible));
+      InsertProperty(dictionary, "Definition Plane Coordinate System", nameof(PlateBase.GetDefinitionPlaneCS));
 
-      InsertItem(dictionary, "Weight", GetWeight, eUnitType.kWeight);
-      InsertItem(dictionary, "Weight (Exact)", GetWeightExact, eUnitType.kWeight);
+      InsertCustomProperty(dictionary, "Weight", nameof(PlateBaseProperties.GetWeight), null, eUnitType.kWeight);
+      InsertCustomProperty(dictionary, "Weight (Exact)", nameof(PlateBaseProperties.GetWeightExact), null, eUnitType.kWeight);
 
       return dictionary;
     }
 
-    private object GetWeight(object plate)
+    private double GetWeight(PlateBase plate)
     {
       //1 yields the weight, 2 the exact weight
-      return ((PlateBase)plate).GetWeight(1);
+      return plate.GetWeight(1);
     }
 
-    private object GetWeightExact(object plate)
+    private double GetWeightExact(PlateBase plate)
     {
       //1 yields the weight, 2 the exact weight
-      return ((PlateBase)plate).GetWeight(2);
+      return plate.GetWeight(2);
     }
   }
 }
