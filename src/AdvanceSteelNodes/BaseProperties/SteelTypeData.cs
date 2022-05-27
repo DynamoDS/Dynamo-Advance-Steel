@@ -23,11 +23,6 @@ namespace AdvanceSteel.Nodes
       PropertiesAll = new Dictionary<string, Property>();
     }
 
-    internal bool IsFromThisType(Type type)
-    {
-      return this.ASType.IsSubclassOf(type) || this.ASType.IsEquivalentTo(type);
-    }
-
     internal void SetPropertiesSpecific(Dictionary<string, Property> properties)
     {
       PropertiesSpecific = properties;

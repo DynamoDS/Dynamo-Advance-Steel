@@ -9,6 +9,7 @@ using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
 using System;
 using Autodesk.AdvanceSteel.Modelling;
 using Autodesk.AdvanceSteel.ConstructionHelper;
+using Autodesk.AdvanceSteel.ConstructionTypes;
 
 namespace AdvanceSteel.Nodes
 {
@@ -39,6 +40,21 @@ namespace AdvanceSteel.Nodes
 
     [JsonConstructor]
     public ASPropertiesSpecialParts(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(inPorts, outPorts) { }
+  }
+
+  [NodeName("JointProperties")]
+  [NodeDescription("Lists all the property names of an Advance Steel Joint")]
+  [NodeCategory("AdvanceSteel.Nodes.Miscellaneous.Joint")]
+  [IsDesignScriptCompatible]
+  public class ASPropertiesJoint : ASPropertiesBase
+  {
+    protected override Type GetObjectType => typeof(UserAutoConstructionObject);
+
+    public ASPropertiesJoint() : base() { }
+
+    [JsonConstructor]
+    public ASPropertiesJoint(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
     : base(inPorts, outPorts) { }
   }
 }

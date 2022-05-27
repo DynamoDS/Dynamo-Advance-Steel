@@ -47,6 +47,8 @@ using ASPlateFeatContour = Autodesk.AdvanceSteel.Modelling.PlateFeatContour;
 using ASPlateContourNotch = Autodesk.AdvanceSteel.Modelling.PlateContourNotch;
 using ASPlateFeatVertFillet = Autodesk.AdvanceSteel.Modelling.PlateFeatVertFillet;
 using ASConnectionHolePlate = Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+using ASConnectionHoleBeam = Autodesk.AdvanceSteel.Modelling.ConnectionHoleBeam;
+using Autodesk.AdvanceSteel.ConstructionTypes;
 
 namespace AdvanceSteel.Nodes
 {
@@ -399,6 +401,26 @@ namespace AdvanceSteel.Nodes
     private static SteelDbObject Wrap(ASConnectionHolePlate hole)
     {
       return PlateHoles.FromExisting(hole);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS ConnectionHoleBeam
+    /// </summary>
+    /// <param name="hole"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(ASConnectionHoleBeam hole)
+    {
+      return BeamHoles.FromExisting(hole);
+    }
+
+    /// <summary>
+    /// Specific dispatch to AS UserAutoConstructionObject
+    /// </summary>
+    /// <param name="userAutoConstructionObject"></param>
+    /// <returns></returns>
+    private static SteelDbObject Wrap(UserAutoConstructionObject userAutoConstructionObject)
+    {
+      return Joint.FromExisting(userAutoConstructionObject);
     }
 
   }

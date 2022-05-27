@@ -72,17 +72,32 @@ namespace AdvanceSteel.Nodes
   }
 
   [NodeName("PlateHoleProperties")]
-  [NodeDescription("Lists all the property names of an Advance Steel Holes")]
+  [NodeDescription("Lists all the property names of an Advance Steel Plate Holes")]
   [NodeCategory("AdvanceSteel.Nodes.Features.PlateHoles")]
   [IsDesignScriptCompatible]
-  public class ASPropertiesHoles : ASPropertiesBase
+  public class ASPropertiesPlateHoles : ASPropertiesBase
   {
     protected override Type GetObjectType => typeof(ConnectionHolePlate);
 
-    public ASPropertiesHoles() : base() { }
+    public ASPropertiesPlateHoles() : base() { }
 
     [JsonConstructor]
-    public ASPropertiesHoles(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    public ASPropertiesPlateHoles(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(inPorts, outPorts) { }
+  }
+
+  [NodeName("BeamHoleProperties")]
+  [NodeDescription("Lists all the property names of an Advance Steel Beam Holes")]
+  [NodeCategory("AdvanceSteel.Nodes.Features.BeamHoles")]
+  [IsDesignScriptCompatible]
+  public class ASPropertiesBeamHoles : ASPropertiesBase
+  {
+    protected override Type GetObjectType => typeof(ConnectionHoleBeam);
+
+    public ASPropertiesBeamHoles() : base() { }
+
+    [JsonConstructor]
+    public ASPropertiesBeamHoles(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
     : base(inPorts, outPorts) { }
   }
 

@@ -41,8 +41,8 @@
     },
     {
       "ConcreteType": "AdvanceSteel.Nodes.ASObjecTypes, AdvanceSteelNodesUI",
-      "SelectedIndex": 20,
-      "SelectedString": "Straight Beam",
+      "SelectedIndex": 3,
+      "SelectedString": "Any Beam",
       "NodeType": "ExtensionNode",
       "Id": "d21249f6ed794c76b9c0e26d84a6e5b2",
       "Inputs": [],
@@ -92,7 +92,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Selection.SelectionFilter.FilterSelectionByType@AdvanceSteel.Nodes.SteelDbObject[],int[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Selection.SelectionFilter.FilterSelectionByType@AdvanceSteel.Nodes.SteelDbObject[],string[]",
       "Id": "5843e10d4107414d8cfff5262d550017",
       "Inputs": [
         {
@@ -107,7 +107,7 @@
         {
           "Id": "e2316d19f8c94428829834b04caaf2c6",
           "Name": "objectTypeFilters",
-          "Description": "List of accepted Steel Object Types\n\nint[]",
+          "Description": "List of accepted Steel Object Types\n\nstring[]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -126,7 +126,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Filter a collection of steel objects by a list of object types\n\nSelectionFilter.FilterSelectionByType (steelObjects: SteelDbObject[], objectTypeFilters: int[]): SteelDbObject[]"
+      "Description": "Filter a collection of steel objects by a list of object types\n\nSelectionFilter.FilterSelectionByType (steelObjects: SteelDbObject[], objectTypeFilters: string[]): SteelDbObject[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -240,16 +240,72 @@
       "ConcreteType": "AdvanceSteel.Nodes.ASObjectSelection, AdvanceSteelNodesUI",
       "NodeType": "ExtensionNode",
       "InstanceId": [
-        "271",
-        "26F",
-        "26D",
-        "26A",
-        "268",
-        "249",
-        "247",
-        "245",
-        "243",
-        "241"
+        "15171F",
+        "183117",
+        "183BEF",
+        "183C69",
+        "16EB87",
+        "183C8B",
+        "183BFB",
+        "183145",
+        "1A0615",
+        "1AC4BF",
+        "1AC2D5",
+        "1AC44B",
+        "1AC56F",
+        "1AC53F",
+        "1AC331",
+        "15871F",
+        "16B8A7",
+        "1AC4E7",
+        "1772EA",
+        "177442",
+        "17746E",
+        "183C3F",
+        "16B8B4",
+        "177BF6",
+        "183067",
+        "183C0F",
+        "183C5D",
+        "183C09",
+        "1773D0",
+        "17053B",
+        "16D212",
+        "183C6B",
+        "1773B6",
+        "1776CA",
+        "183C57",
+        "1776CC",
+        "183109",
+        "16D207",
+        "177157",
+        "177156",
+        "1AA278",
+        "1A05AC",
+        "1AC27B",
+        "1AA38C",
+        "1AC4EB",
+        "1AC499",
+        "1AC335",
+        "1A0D06",
+        "1AC495",
+        "1AA299",
+        "1AC35F",
+        "1AC447",
+        "1AA3C2",
+        "1AA2B4",
+        "1AC303",
+        "1AA2CF",
+        "1AA27E",
+        "1AA27A",
+        "1AC2D1",
+        "1AA27C",
+        "1AC443",
+        "1AC697",
+        "1AC63D",
+        "1AC66D",
+        "1AA3A7",
+        "1AC471"
       ],
       "Id": "de1b82465657498f813a1d6c08e8c438",
       "Inputs": [],
@@ -298,7 +354,7 @@
     },
     {
       "ConcreteType": "AdvanceSteel.Nodes.ASObjecTypes, AdvanceSteelNodesUI",
-      "SelectedIndex": 15,
+      "SelectedIndex": 30,
       "SelectedString": "Plate",
       "NodeType": "ExtensionNode",
       "Id": "79c9455bf6cf4bbd8a587f1aec7d4a27",
@@ -320,7 +376,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Selection.SelectionFilter.FilterSelectionByType@AdvanceSteel.Nodes.SteelDbObject[],int[]",
+      "FunctionSignature": "AdvanceSteel.Nodes.Selection.SelectionFilter.FilterSelectionByType@AdvanceSteel.Nodes.SteelDbObject[],string[]",
       "Id": "f268fcda2b9841e3b9ff352d43ddcac7",
       "Inputs": [
         {
@@ -335,7 +391,7 @@
         {
           "Id": "3ba795ca8fff4ea0bc6e2b02effef79d",
           "Name": "objectTypeFilters",
-          "Description": "List of accepted Steel Object Types\n\nint[]",
+          "Description": "List of accepted Steel Object Types\n\nstring[]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -354,7 +410,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Filter a collection of steel objects by a list of object types\n\nSelectionFilter.FilterSelectionByType (steelObjects: SteelDbObject[], objectTypeFilters: int[]): SteelDbObject[]"
+      "Description": "Filter a collection of steel objects by a list of object types\n\nSelectionFilter.FilterSelectionByType (steelObjects: SteelDbObject[], objectTypeFilters: string[]): SteelDbObject[]"
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
@@ -384,69 +440,6 @@
       ],
       "Replication": "Disabled",
       "Description": "Visualize the node's output"
-    },
-    {
-      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesStraightBeam, AdvanceSteelNodesUI",
-      "SelectedIndex": 51,
-      "SelectedString": "SinglePart Number",
-      "NodeType": "ExtensionNode",
-      "Id": "c88ec662d86744048b2c8f143a3236c3",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "ce1d9ed1b9134a608a8cc51c0ea86fcb",
-          "Name": "propertyName",
-          "Description": "name of the selected property",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Lists all the property names of an Advance Steel Straight Beam"
-    },
-    {
-      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesStraightBeam, AdvanceSteelNodesUI",
-      "SelectedIndex": 23,
-      "SelectedString": "Handle",
-      "NodeType": "ExtensionNode",
-      "Id": "869f07eafbba48f5a44556c70f652ca0",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "ba2bfeaeac0847f0b62c14afb7dc6932",
-          "Name": "propertyName",
-          "Description": "name of the selected property",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Lists all the property names of an Advance Steel Straight Beam"
-    },
-    {
-      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesStraightBeam, AdvanceSteelNodesUI",
-      "SelectedIndex": 52,
-      "SelectedString": "SinglePart Prefix",
-      "NodeType": "ExtensionNode",
-      "Id": "0247bf158b1b47e3ba489835879964fc",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "a17fa20839a14b6382c2107a0dea0a98",
-          "Name": "propertyName",
-          "Description": "name of the selected property",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Lists all the property names of an Advance Steel Straight Beam"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -892,7 +885,7 @@
     },
     {
       "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesStraightBeam, AdvanceSteelNodesUI",
-      "SelectedIndex": 23,
+      "SelectedIndex": 33,
       "SelectedString": "Handle",
       "NodeType": "ExtensionNode",
       "Id": "b06a8bfac1374464a780235d5130107f",
@@ -952,7 +945,7 @@
     },
     {
       "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesStraightBeam, AdvanceSteelNodesUI",
-      "SelectedIndex": 52,
+      "SelectedIndex": 69,
       "SelectedString": "SinglePart Prefix",
       "NodeType": "ExtensionNode",
       "Id": "a5df8d185eb94764b9c47994329788e0",
@@ -1102,7 +1095,7 @@
     },
     {
       "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesStraightBeam, AdvanceSteelNodesUI",
-      "SelectedIndex": 51,
+      "SelectedIndex": 67,
       "SelectedString": "SinglePart Number",
       "NodeType": "ExtensionNode",
       "Id": "f26cfa58190f4757996b201e7838c47f",
@@ -1384,6 +1377,69 @@
       ],
       "Replication": "Auto",
       "Description": "Get all properties from a steel object\n\nProperty.GetObjectProperties (steelObject: SteelDbObject): Property[]"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesBeam, AdvanceSteelNodesUI",
+      "SelectedIndex": 28,
+      "SelectedString": "Handle",
+      "NodeType": "ExtensionNode",
+      "Id": "4b04f04b72594839becdee57e3313de6",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f48020cb23ef4858877228e74a0a141b",
+          "Name": "propertyName",
+          "Description": "name of the selected property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Beam"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesBeam, AdvanceSteelNodesUI",
+      "SelectedIndex": 63,
+      "SelectedString": "SinglePart Prefix",
+      "NodeType": "ExtensionNode",
+      "Id": "3505118330bb4f6583a41f3faa33d5e9",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "09d290df74e24742bb118f88dc78a102",
+          "Name": "propertyName",
+          "Description": "name of the selected property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Beam"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesBeam, AdvanceSteelNodesUI",
+      "SelectedIndex": 61,
+      "SelectedString": "SinglePart Number",
+      "NodeType": "ExtensionNode",
+      "Id": "891023575da64de8ac323a86e3b1c5cb",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a773a9d7450c46c8953eb2745597a6e3",
+          "Name": "propertyName",
+          "Description": "name of the selected property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Beam"
     }
   ],
   "Connectors": [
@@ -1517,24 +1573,6 @@
       "Start": "46714940f88744c7aca8e406ac81af0c",
       "End": "773e36e2ad064a6d8300f36db8c081de",
       "Id": "424886a49b424da385ba82548cdb691e",
-      "IsHidden": "False"
-    },
-    {
-      "Start": "ce1d9ed1b9134a608a8cc51c0ea86fcb",
-      "End": "8351109e94ad42b4b5eeaac1924641d0",
-      "Id": "661e5e03d0664dba8cfe7895eecbf2c8",
-      "IsHidden": "False"
-    },
-    {
-      "Start": "ba2bfeaeac0847f0b62c14afb7dc6932",
-      "End": "f0fe710be7124915bc1fa83d07db4002",
-      "Id": "e97eb14ae5c84a55bc3f722e39051bb3",
-      "IsHidden": "False"
-    },
-    {
-      "Start": "a17fa20839a14b6382c2107a0dea0a98",
-      "End": "9aa15ec39e2d4647ad6dba9cacb8e731",
-      "Id": "dc0317b03399488695980d160c9bf7ef",
       "IsHidden": "False"
     },
     {
@@ -1692,11 +1730,29 @@
       "End": "f0f8978305854dbd9c9745e89e30a536",
       "Id": "1c323d54fba6447dad788544be8681df",
       "IsHidden": "False"
+    },
+    {
+      "Start": "f48020cb23ef4858877228e74a0a141b",
+      "End": "f0fe710be7124915bc1fa83d07db4002",
+      "Id": "055e47f852f84bda9fa6fe65c7dcb5d9",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "09d290df74e24742bb118f88dc78a102",
+      "End": "9aa15ec39e2d4647ad6dba9cacb8e731",
+      "Id": "745be771ff0d4be59a998f6b133f6194",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "a773a9d7450c46c8953eb2745597a6e3",
+      "End": "8351109e94ad42b4b5eeaac1924641d0",
+      "Id": "fb7819476dee48508eafbd1b1ace05eb",
+      "IsHidden": "False"
     }
   ],
   "Dependencies": [],
   "NodeLibraryDependencies": [],
-  "Thumbnail": null,
+  "Thumbnail": "",
   "GraphDocumentationURL": null,
   "ExtensionWorkspaceData": [
     {
@@ -1784,8 +1840,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1703.4734220548335,
-        "Y": -767.897611685507
+        "X": 1680.1068366847621,
+        "Y": -531.895099447788
       },
       {
         "Name": "Property.GetObjectProperty",
@@ -1794,8 +1850,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2049.1820937700422,
-        "Y": 169.81632750846308
+        "X": 2060.2327341826658,
+        "Y": 199.8109229141557
       },
       {
         "Name": "Property.GetObjectProperty",
@@ -1804,8 +1860,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2049.1820937700422,
-        "Y": -185.18367249153698
+        "X": 2060.2327341826658,
+        "Y": -155.18907708584436
       },
       {
         "Name": "SelectAdvanceSteelObjects",
@@ -1814,8 +1870,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -53.967047293353858,
-        "Y": 483.22964089982787
+        "X": -6.4311901224583607,
+        "Y": 562.96720776713664
       },
       {
         "Name": "List Create",
@@ -1858,44 +1914,14 @@
         "Y": 967.7926574503465
       },
       {
-        "Name": "StraightBeamProperties",
-        "ShowGeometry": true,
-        "Id": "c88ec662d86744048b2c8f143a3236c3",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1664.1820937700422,
-        "Y": 203.81632750846308
-      },
-      {
-        "Name": "StraightBeamProperties",
-        "ShowGeometry": true,
-        "Id": "869f07eafbba48f5a44556c70f652ca0",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1664.1820937700422,
-        "Y": -151.18367249153698
-      },
-      {
-        "Name": "StraightBeamProperties",
-        "ShowGeometry": true,
-        "Id": "0247bf158b1b47e3ba489835879964fc",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1664.1820937700422,
-        "Y": 25.816327508463075
-      },
-      {
         "Name": "Property.GetObjectProperty",
         "ShowGeometry": true,
         "Id": "3868b420256c4aadb688d7155bce9ce6",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2049.1820937700422,
-        "Y": -8.1836724915369814
+        "X": 2060.2327341826658,
+        "Y": 21.81092291415564
       },
       {
         "Name": "BodyResolutions",
@@ -1904,8 +1930,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2049.1820937700422,
-        "Y": 346.81632750846308
+        "X": 2060.2327341826658,
+        "Y": 376.8109229141557
       },
       {
         "Name": "Beam.GetLength",
@@ -1914,8 +1940,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2429.1820937700422,
-        "Y": 292.81632750846308
+        "X": 2440.2327341826658,
+        "Y": 322.8109229141557
       },
       {
         "Name": "SteelObject.GetWeight",
@@ -1924,8 +1950,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2429.1820937700422,
-        "Y": 469.816327508463
+        "X": 2440.2327341826658,
+        "Y": 499.81092291415564
       },
       {
         "Name": "Code Block",
@@ -1934,8 +1960,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2049.1820937700422,
-        "Y": 503.64382750846289
+        "X": 2060.2327341826658,
+        "Y": 533.63842291415563
       },
       {
         "Name": "List Create",
@@ -1944,8 +1970,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2873.1820937700422,
-        "Y": 83.816327508463075
+        "X": 2884.2327341826658,
+        "Y": 113.8109229141557
       },
       {
         "Name": "Property.Value",
@@ -1954,8 +1980,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2429.1820937700422,
-        "Y": -148.18367249153698
+        "X": 2440.2327341826658,
+        "Y": -118.18907708584436
       },
       {
         "Name": "Property.Value",
@@ -1964,8 +1990,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2429.1820937700422,
-        "Y": -1.1836724915369814
+        "X": 2440.2327341826658,
+        "Y": 28.81092291415564
       },
       {
         "Name": "Property.Value",
@@ -1974,8 +2000,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2429.1820937700422,
-        "Y": 145.81632750846308
+        "X": 2440.2327341826658,
+        "Y": 175.8109229141557
       },
       {
         "Name": "List.Transpose",
@@ -2004,8 +2030,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3974.3979516811546,
-        "Y": 641.1937256792562
+        "X": 3994.175517674616,
+        "Y": 568.67598370322776
       },
       {
         "Name": "Property.GetObjectProperty",
@@ -2166,6 +2192,36 @@
         "Excluded": false,
         "X": 1749.8295732524159,
         "Y": 2443.524139488165
+      },
+      {
+        "Name": "BeamProperties",
+        "ShowGeometry": true,
+        "Id": "4b04f04b72594839becdee57e3313de6",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1711.8013730369451,
+        "Y": -131.88158865086962
+      },
+      {
+        "Name": "BeamProperties",
+        "ShowGeometry": true,
+        "Id": "3505118330bb4f6583a41f3faa33d5e9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1710.7207110569989,
+        "Y": 42.827377125860608
+      },
+      {
+        "Name": "BeamProperties",
+        "ShowGeometry": true,
+        "Id": "891023575da64de8ac323a86e3b1c5cb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1679.8588245104697,
+        "Y": 251.21628664392733
       }
     ],
     "Annotations": [
@@ -2188,7 +2244,7 @@
         "Height": 244.0,
         "FontSize": 36.0,
         "InitialTop": 275.57704399838224,
-        "InitialHeight": 195.654463116442,
+        "InitialHeight": 184.0,
         "TextblockHeight": 63.0,
         "Background": "#FF71C6A8"
       },
@@ -2209,10 +2265,10 @@
         "Left": -63.967047293353858,
         "Top": 169.58689052234814,
         "Width": 1138.0,
-        "Height": 481.64275037747979,
+        "Height": 628.38031724478856,
         "FontSize": 36.0,
         "InitialTop": 242.58689052234814,
-        "InitialHeight": 233.19369043634526,
+        "InitialHeight": 465.3803172447885,
         "TextblockHeight": 63.0,
         "Background": "#FFBB87C6"
       },
@@ -2235,7 +2291,7 @@
         "Height": 244.0,
         "FontSize": 36.0,
         "InitialTop": 996.82096743227021,
-        "InitialHeight": 195.65446311644189,
+        "InitialHeight": 184.0,
         "TextblockHeight": 63.0,
         "Background": "#FF71C6A8"
       },
@@ -2258,7 +2314,7 @@
         "Height": 410.0,
         "FontSize": 36.0,
         "InitialTop": 928.7926574503465,
-        "InitialHeight": 217.69124399792383,
+        "InitialHeight": 184.0,
         "TextblockHeight": 63.0,
         "Background": "#FFBB87C6"
       },
@@ -2271,11 +2327,8 @@
         "HeightAdjustment": 0.0,
         "Nodes": [
           "2afe58276b27434289a01a7da4b844e6",
-          "869f07eafbba48f5a44556c70f652ca0",
           "3868b420256c4aadb688d7155bce9ce6",
-          "0247bf158b1b47e3ba489835879964fc",
           "0699dd169eea4f87be2dc19a20b077fe",
-          "c88ec662d86744048b2c8f143a3236c3",
           "df0ab2f7bbca4f7684dfebe70d7151a9",
           "eb43c59433934d39b6b5eae2ab154487",
           "fa356a9f4d234d358d9a97b5bb3dbad0",
@@ -2284,16 +2337,19 @@
           "553fdffc0dcc4c8aad12dabf8ea6b734",
           "4f7baeb81a484276996c14f0c10ce326",
           "8c4524067a4a45b394064513dc84a342",
-          "618c5cb1361e4d9bbe09d3e0568deb88"
+          "618c5cb1361e4d9bbe09d3e0568deb88",
+          "891023575da64de8ac323a86e3b1c5cb",
+          "3505118330bb4f6583a41f3faa33d5e9",
+          "4b04f04b72594839becdee57e3313de6"
         ],
         "HasNestedGroups": false,
-        "Left": 1654.1820937700422,
-        "Top": -263.183672491537,
-        "Width": 1384.0,
-        "Height": 898.82749999999987,
+        "Left": 1665.232734182666,
+        "Top": -233.18907708584436,
+        "Width": 1383.9999999999998,
+        "Height": 898.8275,
         "FontSize": 36.0,
-        "InitialTop": -190.18367249153698,
-        "InitialHeight": 782.60866169749477,
+        "InitialTop": -160.18907708584436,
+        "InitialHeight": 838.82749999999987,
         "TextblockHeight": 63.0,
         "Background": "#FFBB87C6"
       },
@@ -2327,7 +2383,7 @@
         "Height": 898.82749999999987,
         "FontSize": 36.0,
         "InitialTop": 923.73107271608887,
-        "InitialHeight": 817.44189966197234,
+        "InitialHeight": 838.82749999999987,
         "TextblockHeight": 63.0,
         "Background": "#FFBB87C6"
       },
@@ -2347,11 +2403,11 @@
         "HasNestedGroups": false,
         "Left": 3319.7551200519006,
         "Top": 521.01351180513325,
-        "Width": 494.0,
+        "Width": 494.5,
         "Height": 392.0,
         "FontSize": 36.0,
         "InitialTop": 594.01351180513325,
-        "InitialHeight": 632.11437273451224,
+        "InitialHeight": 332.0,
         "TextblockHeight": 63.0,
         "Background": "#FFFFAA45"
       },
@@ -2369,12 +2425,12 @@
         ],
         "HasNestedGroups": false,
         "Left": 3964.3979516811546,
-        "Top": 529.1937256792562,
-        "Width": 612.99999999999955,
-        "Height": 274.1725,
+        "Top": 495.67598370322776,
+        "Width": 612.49999999999955,
+        "Height": 307.69024197602846,
         "FontSize": 36.0,
-        "InitialTop": 602.1937256792562,
-        "InitialHeight": 354.04027808909871,
+        "InitialTop": 568.67598370322776,
+        "InitialHeight": 217.69024197602846,
         "TextblockHeight": 63.0,
         "Background": "#FFC1D676"
       },
@@ -2390,13 +2446,13 @@
           "6eb94350f1ca474b91eb345996066375"
         ],
         "HasNestedGroups": false,
-        "Left": 1693.4734220548335,
-        "Top": -890.897611685507,
+        "Left": 1670.1068366847621,
+        "Top": -655.395099447788,
         "Width": 313.0,
-        "Height": 255.0,
+        "Height": 255.5,
         "FontSize": 36.0,
-        "InitialTop": -817.897611685507,
-        "InitialHeight": 225.37497685016069,
+        "InitialTop": -582.395099447788,
+        "InitialHeight": 243.5,
         "TextblockHeight": 63.0,
         "Background": "#FFD8D8D8"
       },
@@ -2413,12 +2469,12 @@
         ],
         "HasNestedGroups": false,
         "Left": 1739.8295732524159,
-        "Top": 2320.524139488165,
+        "Top": 2320.024139488165,
         "Width": 313.0,
-        "Height": 255.0,
+        "Height": 255.5,
         "FontSize": 36.0,
-        "InitialTop": 2393.524139488165,
-        "InitialHeight": 225.37497685016069,
+        "InitialTop": 2393.024139488165,
+        "InitialHeight": 195.5,
         "TextblockHeight": 63.0,
         "Background": "#FFD8D8D8"
       },
@@ -2507,8 +2563,8 @@
         "HeightAdjustment": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
-        "Left": 1664.1820937700422,
-        "Top": -190.18367249153698,
+        "Left": 1675.232734182666,
+        "Top": -160.18907708584436,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -2583,8 +2639,8 @@
         "HeightAdjustment": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
-        "Left": 1740.4734220548335,
-        "Top": -817.897611685507,
+        "Left": 1716.8568366847621,
+        "Top": -582.395099447788,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -2603,8 +2659,8 @@
         "HeightAdjustment": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
-        "Left": 1786.8295732524159,
-        "Top": 2393.524139488165,
+        "Left": 1786.5795732524159,
+        "Top": 2393.024139488165,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -2615,8 +2671,8 @@
         "PinnedNode": "8e074f513505432386066507bb27ab45"
       }
     ],
-    "X": 167.26985569787655,
-    "Y": 308.075567946114,
-    "Zoom": 0.30386081506362034
+    "X": 176.77323271113994,
+    "Y": 222.51947544786117,
+    "Zoom": 0.076849398011782852
   }
 }

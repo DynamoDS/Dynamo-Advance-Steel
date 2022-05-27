@@ -44,8 +44,8 @@ namespace AdvanceSteel.Nodes
       InsertProperty(dictionary, "Number Of Holes", nameof(AtomicElement.NumberOfHoles), LevelEnum.Default);
       InsertProperty(dictionary, "Is Attached Part", nameof(AtomicElement.IsAttachedPart), LevelEnum.Default);
       InsertProperty(dictionary, "Is Main Part", nameof(AtomicElement.IsMainPart));
-      InsertProperty(dictionary, "Main Part Prefix", nameof(AtomicElement.MainPartPrefix));
-      InsertProperty(dictionary, "Single Part Prefix", nameof(AtomicElement.SinglePartPrefix));
+      InsertProperty(dictionary, "MainPart Prefix", nameof(AtomicElement.MainPartPrefix));
+      InsertProperty(dictionary, "SinglePart Prefix", nameof(AtomicElement.SinglePartPrefix));
       InsertProperty(dictionary, "Used For Numbering - SinglePart", nameof(AtomicElement.SinglePartUsedForNumbering));
       InsertProperty(dictionary, "Used For Numbering - MainPart", nameof(AtomicElement.MainPartUsedForNumbering));
       InsertProperty(dictionary, "Explicit Quantity", nameof(AtomicElement.ExplicitQuantity));
@@ -57,9 +57,9 @@ namespace AdvanceSteel.Nodes
       //Functions
 
       InsertCustomProperty(dictionary, "Balance Point", nameof(AtomicElementProperties.GetBalancePoint), null);
-      InsertProperty(dictionary, "Main Part Position", nameof(AtomicElement.GetMainPartPositionNumber));
+      InsertProperty(dictionary, "MainPart Position", nameof(AtomicElement.GetMainPartPositionNumber));
       InsertProperty(dictionary, "Model Quantity", nameof(AtomicElement.GetQuantityInModel));
-      InsertProperty(dictionary, "Single Part Position", nameof(AtomicElement.GetSinglePartPositionNumber));
+      InsertProperty(dictionary, "SinglePart Position", nameof(AtomicElement.GetSinglePartPositionNumber));
       InsertProperty(dictionary, "Features Number", nameof(AtomicElement.NumFeatures));
       InsertCustomProperty(dictionary, "Holes (Properties)", nameof(AtomicElementProperties.GetHoles), null);
       InsertCustomProperty(dictionary, "Numbering - Valid Single Part", nameof(AtomicElementProperties.HasValidSPNumber), null);

@@ -25,7 +25,7 @@ namespace AdvanceSteel.Nodes
 
     protected override AssociativeNode CreateAssociativeNode(DynamoDropDownItem dynamoDropDownItem)
     {
-      var stringNode = AstFactory.BuildStringNode(((Type)dynamoDropDownItem.Item).Name);
+      var stringNode = AstFactory.BuildStringNode(dynamoDropDownItem.Name);
       return stringNode;
     }
   }

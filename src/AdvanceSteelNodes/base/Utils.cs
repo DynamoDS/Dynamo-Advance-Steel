@@ -664,9 +664,14 @@ namespace AdvanceSteel.Nodes
       return diagLen * Math.Sin(alpha);
     }
 
-    public static Dictionary<Type, string> GetASObjectFilters()
+    public static Dictionary<string, Type> GetASObjectFilters()
     {
-      return UtilsProperties.SteelObjectPropertySets.ToDictionary(x => x.Key, y => y.Value.Description);
+      return (from entry in UtilsProperties.SteelObjectPropertySets orderby entry.Value.Description ascending select entry).ToDictionary(x => x.Value.Description, y => y.Key);
+    }
+
+    public static List<Type> GetASObjectTypeFilters(List<string> listFilter)
+    {
+      return UtilsProperties.SteelObjectPropertySets.Where(x => listFilter.Contains(x.Value.Description)).Select(x => x.Key).ToList();
     }
 
     public static IEnumerable<SteelDbObject> GetDynObjects(IEnumerable<string> handlesToFind)
@@ -682,7 +687,10 @@ namespace AdvanceSteel.Nodes
             throw new System.Exception("No Advance Steel Object Found");
           }
 
-          CheckType(obj.GetType());
+          if (!CheckType(obj.GetType()))
+          {
+            continue;
+          }
 
           SteelDbObject foundSteelObj = obj.ToDSType();
           retListOfSteelObjects.Add(foundSteelObj);
@@ -869,7 +877,10 @@ namespace AdvanceSteel.Nodes
 
     internal static Dictionary<string, Property> GetAllPropertiesWithoutClone(Type objectType)
     {
-      CheckType(objectType);
+      if (!CheckType(objectType))
+      {
+        throw new Exception(string.Format("Properties not found for type '{0}'", objectType));
+      }
 
       return UtilsProperties.SteelObjectPropertySets[objectType].PropertiesAll;
     }
@@ -879,12 +890,9 @@ namespace AdvanceSteel.Nodes
       return UtilsProperties.SteelObjectPropertySets[objectType].Description;
     }
 
-    private static void CheckType(Type objectType)
+    private static bool CheckType(Type objectType)
     {
-      if (!UtilsProperties.SteelObjectPropertySets.ContainsKey(objectType))
-      {
-        throw new Exception(string.Format("Properties not found for type '{0}'", objectType));
-      }
+      return UtilsProperties.SteelObjectPropertySets.ContainsKey(objectType);
     }
 
     public static Dictionary<string, Property> GetAllProperties(Type objectType)

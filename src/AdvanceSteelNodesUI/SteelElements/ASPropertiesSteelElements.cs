@@ -11,7 +11,20 @@ using Autodesk.AdvanceSteel.Modelling;
 
 namespace AdvanceSteel.Nodes
 {
-  //TODO: Tentar tirar os contrutores e checar se funciona
+  [NodeName("BeamProperties")]
+  [NodeDescription("Lists all the property names of an Advance Steel Beam")]
+  [NodeCategory("AdvanceSteel.Nodes.Beams")]
+  [IsDesignScriptCompatible]
+  public class ASPropertiesBeam : ASPropertiesBase
+  {
+    protected override Type GetObjectType => typeof(Beam);
+
+    public ASPropertiesBeam() : base() { }
+
+    [JsonConstructor]
+    public ASPropertiesBeam(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(inPorts, outPorts) { }
+  }
 
   [NodeName("StraightBeamProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Straight Beam")]

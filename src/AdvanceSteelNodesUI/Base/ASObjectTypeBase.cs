@@ -33,10 +33,10 @@ namespace AdvanceSteel.Nodes
       var newItems = new List<DynamoDropDownItem>();
       newItems.Add(new DynamoDropDownItem(SelectObjectTypeString, null));
 
-      Dictionary<Type, string> filterItems = Utils.GetASObjectFilters();
+      Dictionary<string, Type> filterItems = Utils.GetASObjectFilters();
       foreach (var item in filterItems)
       {
-        newItems.Add(new DynamoDropDownItem(item.Value, item.Key));
+        newItems.Add(new DynamoDropDownItem(item.Key, item.Value));
       }
 
       Items.AddRange(newItems);
