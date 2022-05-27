@@ -182,10 +182,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
         listOfBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(Arranger.NumberOfElements), noss);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(Arranger.Radius), radius);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(Arranger.Length), studLength);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(ASConnector.Diameter), studDiameter);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfBoltParameters, nameof(Arranger.NumberOfElements), noss);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfBoltParameters, nameof(Arranger.Radius), radius);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfBoltParameters, nameof(Arranger.Length), studLength);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfBoltParameters, nameof(ASConnector.Diameter), studDiameter);
 
       return listOfBoltParameters;
     }

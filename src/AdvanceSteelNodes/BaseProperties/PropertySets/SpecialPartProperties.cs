@@ -20,7 +20,7 @@ namespace AdvanceSteel.Nodes
       InsertProperty(dictionary, "Width", nameof(SpecialPart.Width), LevelEnum.Default, eUnitType.kDistance);
       InsertProperty(dictionary, "Length", nameof(SpecialPart.Length), LevelEnum.Default, eUnitType.kDistance);
       InsertProperty(dictionary, "Paint Area", nameof(SpecialPart.PaintArea), eUnitType.kDistance);
-      InsertProperty(dictionary, "Scale", nameof(SpecialPart.Scale), eUnitType.kDistance);
+      InsertProperty(dictionary, "Scale", nameof(SpecialPart.Scale), LevelEnum.Default, eUnitType.kDistance);
       InsertProperty(dictionary, "Weight", nameof(SpecialPart.Weight), eUnitType.kDistance);
 
       return dictionary;

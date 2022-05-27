@@ -15,10 +15,10 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertProperty(dictionary, "Length 1", nameof(PlateFeatVertFillet.Length1), eUnitType.kDistance);
-      InsertProperty(dictionary, "Length 2", nameof(PlateFeatVertFillet.Length2), eUnitType.kDistance);
+      InsertProperty(dictionary, "Length 1", nameof(PlateFeatVertFillet.Length1), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "Length 2", nameof(PlateFeatVertFillet.Length2), LevelEnum.Default, eUnitType.kDistance);
       InsertProperty(dictionary, "Radius Increment", nameof(PlateFeatVertFillet.RadiusIncrement), eUnitType.kDistance);
-      InsertProperty(dictionary, "Radius", nameof(PlateFeatVertFillet.Radius), eUnitType.kDistance);
+      InsertProperty(dictionary, "Radius", nameof(PlateFeatVertFillet.Radius), LevelEnum.Default, eUnitType.kDistance);
 
       InsertCustomProperty(dictionary, "Fillet Type", nameof(PlateFeatVertFilletProperties.GetFilletType), null);
       InsertCustomProperty(dictionary, "Contour Polygon", nameof(PlateFeatVertFilletProperties.GetContourPolygon), null);

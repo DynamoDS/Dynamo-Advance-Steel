@@ -841,9 +841,9 @@ namespace AdvanceSteel.Nodes
       return handlesList;
     }
 
-    internal static Property GetProperty(Object objectToGetProperty, string keyValue)
+    internal static Property GetProperty(Type objectType, string keyValue)
     {
-      var dictionaryProperties = GetAllPropertiesWithoutClone(objectToGetProperty.GetType());
+      var dictionaryProperties = GetAllPropertiesWithoutClone(objectType);
 
       if (dictionaryProperties.TryGetValue(keyValue, out Property retValue))
       {
@@ -853,9 +853,9 @@ namespace AdvanceSteel.Nodes
       throw new System.Exception(string.Format("Property '{0}' not found", keyValue));
     }
 
-    internal static Property GetPropertyByMemberName(Object objectToGetProperty, string memberName)
+    internal static Property GetPropertyByMemberName(Type objectType, string memberName)
     {
-      var dictionaryProperties = GetAllPropertiesWithoutClone(objectToGetProperty.GetType());
+      var dictionaryProperties = GetAllPropertiesWithoutClone(objectType);
 
       var itemKeyValue = dictionaryProperties.FirstOrDefault(x => x.Value.MemberName.Equals(memberName));
 
@@ -900,16 +900,25 @@ namespace AdvanceSteel.Nodes
       return ret;
     }
 
-    public static void CheckListUpdateOrAddValue(List<Property> listOfPropertyData, string propName, object propValue)
+    public static void CheckListUpdateOrAddValue(Type objectType, List<Property> listOfPropertyData, string propName, object propValue)
     {
-      var foundItem = listOfPropertyData.FirstOrDefault<Property>(props => props.MemberName == propName);
-      if (foundItem != null)
+      InitializeProperties(objectType, listOfPropertyData);
+
+      var property = listOfPropertyData.FirstOrDefault<Property>(props => props.MemberName == propName);
+      if (property == null)
       {
-        foundItem.InternalValue = propValue;
+        property = Utils.GetPropertyByMemberName(objectType, propName);
+        listOfPropertyData.Add(property);
       }
-      else
+
+      property.InternalValue = propValue;
+    }
+
+    private static void InitializeProperties(Type typeObject, List<Property> listOfPropertyData)
+    {
+      foreach (var property in listOfPropertyData)
       {
-        listOfPropertyData.Add(new Property(propName, propValue));
+        property.InitializePropertyIfNeeded(typeObject);
       }
     }
 

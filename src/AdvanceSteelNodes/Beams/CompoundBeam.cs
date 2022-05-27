@@ -135,7 +135,7 @@ namespace AdvanceSteel.Nodes.Beams
       {
         listBeamData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(listBeamData, nameof(Beam.ProfName), sectionName);
+      Utils.CheckListUpdateOrAddValue(typeof(Beam), listBeamData, nameof(Beam.ProfName), sectionName);
 
       return listBeamData;
     }

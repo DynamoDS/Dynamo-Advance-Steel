@@ -19,10 +19,10 @@ namespace AdvanceSteel.Nodes
       InsertProperty(dictionary, "Radius Increment", nameof(BeamMultiContourNotch.RadIncrement), eUnitType.kDistance);
       InsertProperty(dictionary, "BoringOut", nameof(BeamMultiContourNotch.BoringOut));
       InsertProperty(dictionary, "Normal", nameof(BeamMultiContourNotch.Normal), LevelEnum.Default);
-      InsertProperty(dictionary, "Length", nameof(BeamMultiContourNotch.Length), eUnitType.kDistance);
-      InsertProperty(dictionary, "Width", nameof(BeamMultiContourNotch.Width), eUnitType.kDistance);
+      InsertProperty(dictionary, "Length", nameof(BeamMultiContourNotch.Length), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "Width", nameof(BeamMultiContourNotch.Width), LevelEnum.Default, eUnitType.kDistance);
       InsertProperty(dictionary, "Length Increment", nameof(BeamMultiContourNotch.LengthIncrement), eUnitType.kDistance);
-      InsertProperty(dictionary, "Radius", nameof(BeamMultiContourNotch.Radius), eUnitType.kDistance);
+      InsertProperty(dictionary, "Radius", nameof(BeamMultiContourNotch.Radius), LevelEnum.Default, eUnitType.kDistance);
 
       InsertProperty(dictionary, "Offset", nameof(BeamMultiContourNotch.Offset));
       InsertProperty(dictionary, "Lower Clip", nameof(BeamMultiContourNotch.GetLowerClip));

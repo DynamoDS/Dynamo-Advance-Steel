@@ -346,9 +346,9 @@ namespace AdvanceSteel.Nodes.Features
       {
         listPlateFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, nameof(ASPlateContourNotch.Length), length);
-      if (width > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, nameof(ASPlateContourNotch.Width), width);
-      if (radius > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, nameof(ASPlateContourNotch.Radius), radius);
+      if (length > 0) Utils.CheckListUpdateOrAddValue(typeof(ASPlateContourNotch), listPlateFeatureData, nameof(ASPlateContourNotch.Length), length);
+      if (width > 0) Utils.CheckListUpdateOrAddValue(typeof(ASPlateContourNotch), listPlateFeatureData, nameof(ASPlateContourNotch.Width), width);
+      if (radius > 0) Utils.CheckListUpdateOrAddValue(typeof(ASPlateContourNotch), listPlateFeatureData, nameof(ASPlateContourNotch.Radius), radius);
       return listPlateFeatureData;
     }
 

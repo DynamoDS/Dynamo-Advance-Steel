@@ -197,8 +197,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
         listOfBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(CountableScrewBoltPattern.Nx), nx);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(CountableScrewBoltPattern.Ny), ny);
+      Utils.CheckListUpdateOrAddValue(typeof(CountableScrewBoltPattern), listOfBoltParameters, nameof(CountableScrewBoltPattern.Nx), nx);
+      Utils.CheckListUpdateOrAddValue(typeof(CountableScrewBoltPattern), listOfBoltParameters, nameof(CountableScrewBoltPattern.Ny), ny);
 
       return listOfBoltParameters;
     }

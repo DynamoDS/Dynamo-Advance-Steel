@@ -395,8 +395,8 @@ namespace AdvanceSteel.Nodes.Features
       {
         listBeamFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, nameof(ASBeamMultiContourNotch.Length), length);
-      if (width > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, nameof(ASBeamMultiContourNotch.Width), width);
+      if (length > 0) Utils.CheckListUpdateOrAddValue(typeof(ASBeamMultiContourNotch), listBeamFeatureData, nameof(ASBeamMultiContourNotch.Length), length);
+      if (width > 0) Utils.CheckListUpdateOrAddValue(typeof(ASBeamMultiContourNotch), listBeamFeatureData, nameof(ASBeamMultiContourNotch.Width), width);
       return listBeamFeatureData;
     }
 

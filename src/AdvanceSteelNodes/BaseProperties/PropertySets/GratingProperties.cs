@@ -24,8 +24,8 @@ namespace AdvanceSteel.Nodes
       InsertProperty(dictionary, "Is Using Standard ED", nameof(Grating.IsUsingStandardED));
       InsertProperty(dictionary, "Width Extension Right", nameof(Grating.WidthExtensionRight), eUnitType.kDistance);
       InsertProperty(dictionary, "Width Extension Left", nameof(Grating.WidthExtensionLeft), eUnitType.kDistance);
-      InsertProperty(dictionary, "Grating Class", nameof(Grating.GratingClass));
-      InsertProperty(dictionary, "Grating Size", nameof(Grating.GratingSize), eUnitType.kDistance);
+      InsertProperty(dictionary, "Grating Class", nameof(Grating.GratingClass), LevelEnum.Default);
+      InsertProperty(dictionary, "Grating Size", nameof(Grating.GratingSize), LevelEnum.Default, eUnitType.kDistance);
       InsertProperty(dictionary, "BearingBar Spacing Distance", nameof(Grating.BearingBarSpacingDistance), LevelEnum.Default, eUnitType.kDistance);
       InsertProperty(dictionary, "Is MatCoatDbDefined", nameof(Grating.IsMatCoatDbDefined));
       InsertProperty(dictionary, "Direction", nameof(Grating.Direction));

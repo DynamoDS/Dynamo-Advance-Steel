@@ -136,7 +136,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
         listOfBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, nameof(ASCircleScrewBoltPattern.Radius), radius);
+      Utils.CheckListUpdateOrAddValue(typeof(ASCircleScrewBoltPattern), listOfBoltParameters, nameof(ASCircleScrewBoltPattern.Radius), radius);
 
       return listOfBoltParameters;
     }

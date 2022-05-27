@@ -1155,23 +1155,23 @@ namespace AdvanceSteel.Nodes.Features
         listOfHoleParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Nx), nx);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Ny), ny);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Dx), dx);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Dy), dy);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Hole.Diameter), diameterHole);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(SlottedHole.SlotLength), slotLength);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(SlottedHole.SlotDirection), slotDirection);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(ExtendedHole.SunkDepth), sunkDepth);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(ExtendedHole.Alpha_e), alphaE);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(ExtendedHole.IsTappingRight), isTappingRight);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(ExtendedHole.HeadDiameter), headDepth);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Nx), nx);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Ny), ny);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Dx), dx);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Dy), dy);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Hole.Diameter), diameterHole);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(SlottedHole.SlotLength), slotLength);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(SlottedHole.SlotDirection), slotDirection);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(ExtendedHole.SunkDepth), sunkDepth);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(ExtendedHole.Alpha_e), alphaE);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(ExtendedHole.IsTappingRight), isTappingRight);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(ExtendedHole.HeadDiameter), headDepth);
 
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Radius), radius);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Length), length);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Width), width);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Wx), wx);
-      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, nameof(Arranger.Wy), wy);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Radius), radius);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Length), length);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Width), width);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Wx), wx);
+      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Wy), wy);
 
 
       return listOfHoleParameters;

@@ -16,11 +16,11 @@ namespace AdvanceSteel.Nodes
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
       InsertProperty(dictionary, "Gap", nameof(PlateFeatContour.Gap), eUnitType.kDistance);
-      InsertProperty(dictionary, "Length", nameof(PlateFeatContour.Length), eUnitType.kDistance);
+      InsertProperty(dictionary, "Length", nameof(PlateFeatContour.Length), LevelEnum.Default, eUnitType.kDistance);
       InsertProperty(dictionary, "Length Increment", nameof(PlateFeatContour.LengthIncrement), eUnitType.kDistance);
-      InsertProperty(dictionary, "Radius", nameof(PlateFeatContour.Radius), eUnitType.kDistance);
+      InsertProperty(dictionary, "Radius", nameof(PlateFeatContour.Radius), LevelEnum.Default, eUnitType.kDistance);
       InsertProperty(dictionary, "Radius Increment", nameof(PlateFeatContour.RadIncrement), eUnitType.kDistance);
-      InsertProperty(dictionary, "Width", nameof(PlateFeatContour.Width), eUnitType.kDistance);
+      InsertProperty(dictionary, "Width", nameof(PlateFeatContour.Width), LevelEnum.Default, eUnitType.kDistance);
       InsertProperty(dictionary, "Boring Out Option", nameof(PlateFeatContour.BoringOut));
       InsertProperty(dictionary, "Offset", nameof(PlateFeatContour.Offset));
       InsertProperty(dictionary, "Vertex", nameof(PlateFeatContour.VertexInformation));

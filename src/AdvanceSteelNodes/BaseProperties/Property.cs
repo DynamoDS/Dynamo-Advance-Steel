@@ -30,12 +30,17 @@ namespace AdvanceSteel.Nodes
     private bool _read;
     private bool _write;
 
-    private bool _inicialized;
+    private bool _initialized;
 
-    internal LevelEnum Level { get; }
-    private eUnitType? UnitType { get; }
+    internal LevelEnum Level { get; private set; }
+    private eUnitType? UnitType { get; set; }
 
     internal Property(Property existingProperty)
+    {
+      CopyProperty(existingProperty);
+    }
+
+    internal void CopyProperty(Property existingProperty)
     {
       _read = existingProperty._read;
       _write = existingProperty._write;
@@ -46,7 +51,7 @@ namespace AdvanceSteel.Nodes
       _valueType = existingProperty._valueType;
       _propertyMethods = existingProperty._propertyMethods;
 
-      _inicialized = existingProperty._inicialized;
+      _initialized = existingProperty._initialized;
 
       UnitType = existingProperty.UnitType;
       Level = existingProperty.Level;
@@ -69,7 +74,7 @@ namespace AdvanceSteel.Nodes
       _description = description;
       _memberName = memberName;
       
-      _inicialized = true;
+      _initialized = true;
       UnitType = unitType;
       Level = level;
 
@@ -100,7 +105,7 @@ namespace AdvanceSteel.Nodes
 
     internal Property(Type objectType, string description, PropertyMethods propertyMethods, LevelEnum level = LevelEnum.NoDefinition, eUnitType? unitType = null)
     {
-      _inicialized = true;
+      _initialized = true;
 
       _objectType = objectType;
       _description = description;
@@ -205,7 +210,7 @@ namespace AdvanceSteel.Nodes
       {
         FilerObject filerObj = Utils.GetObject(steelObject.Handle);
 
-        Property extractionProperty = Utils.GetProperty(filerObj, propertyName);
+        Property extractionProperty = Utils.GetProperty(filerObj.GetType(), propertyName);
         extractionProperty.EvaluateFromObject(filerObj);
 
         return extractionProperty;
@@ -285,39 +290,45 @@ namespace AdvanceSteel.Nodes
         throw new System.Exception("No Advance Steel Object Found");
       }
 
-      Property property = this;
+      this.InitializePropertyIfNeeded(objectToUpdate.GetType());
 
-      if (!this._inicialized)
-      {
-        var internalValue = property.InternalValue;
-
-        if (string.IsNullOrEmpty(this.MemberName))
-        {
-          property = Utils.GetProperty(objectToUpdate, this._description);
-        }
-
-        else
-        {
-          property = Utils.GetPropertyByMemberName(objectToUpdate, this.MemberName);
-        }
-
-        property.InternalValue = internalValue;
-      }
-
-      if (!objectToUpdate.GetType().IsSubclassOf(property._objectType) && !objectToUpdate.GetType().IsEquivalentTo(property._objectType))
+      if (!objectToUpdate.GetType().IsSubclassOf(this._objectType) && !objectToUpdate.GetType().IsEquivalentTo(this._objectType))
       {
         throw new System.Exception(string.Format("Not '{0}' Object", _objectType.Name));
       }
 
-      property.SetASObjectProperty(objectToUpdate, property.InternalValue);
+      this.SetASObjectProperty(objectToUpdate);
     }
 
-    private void SetASObjectProperty(object asObject, object value)
+    internal void InitializePropertyIfNeeded(Type objectType)
+    {
+      if (this._initialized)
+      {
+        return;
+      }
+
+      Property newProperty;
+
+      if (string.IsNullOrEmpty(this.MemberName))
+      {
+        newProperty = Utils.GetProperty(objectType, this._description);
+      }
+      else
+      {
+        newProperty = Utils.GetPropertyByMemberName(objectType, this.MemberName);
+      }
+
+      this.CopyProperty(newProperty);
+    }
+
+    private void SetASObjectProperty(object asObject)
     {
       if (!_write)
       {
         throw new System.Exception(string.Format("Cannot set readonly property: {0}", _description?.ToString()));
       }
+
+      object value = this.InternalValue;
 
       HasValidValue(value);
 

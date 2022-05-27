@@ -17,8 +17,8 @@ namespace AdvanceSteel.Nodes
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
       InsertProperty(dictionary, "Radius", nameof(BeamNotch.CornerRadius), eUnitType.kDistance);
-      InsertProperty(dictionary, "Depth", nameof(BeamNotch.ReferenceDepth), eUnitType.kDistance);
-      InsertProperty(dictionary, "Length", nameof(BeamNotch.ReferenceLength), eUnitType.kDistance);
+      InsertProperty(dictionary, "Depth", nameof(BeamNotch.ReferenceDepth), LevelEnum.Default, eUnitType.kDistance);
+      InsertProperty(dictionary, "Length", nameof(BeamNotch.ReferenceLength), LevelEnum.Default, eUnitType.kDistance);
 
       InsertCustomProperty(dictionary, "Side", nameof(BeamNotchProperties.GetSide), null);
       InsertCustomProperty(dictionary, "End", nameof(BeamNotchProperties.GetEnd), null);

@@ -18,7 +18,7 @@ namespace AdvanceSteel.Nodes
 
       InsertProperty(dictionary, "Description", nameof(Camera.Description));
       InsertProperty(dictionary, "Camera Type", nameof(Camera.CameraType));
-      InsertProperty(dictionary, "Coordinate System of Camera", nameof(Camera.CameraCS));
+      InsertProperty(dictionary, "Coordinate System of Camera", nameof(Camera.CameraCS), LevelEnum.Default);
       InsertProperty(dictionary, "Scale", nameof(Camera.Scale));
       InsertProperty(dictionary, "Type Description", nameof(Camera.TypeDescription), LevelEnum.Default);
       InsertProperty(dictionary, "Disable Supports Detailing", nameof(Camera.SupportsDetailingDisable), LevelEnum.Default);

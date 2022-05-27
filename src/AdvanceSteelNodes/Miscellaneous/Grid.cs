@@ -296,7 +296,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       {
         listGridData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(listGridData, nameof(ASGrid.CS), gridCS);
+      Utils.CheckListUpdateOrAddValue(typeof(ASGrid), listGridData, nameof(ASGrid.CS), gridCS);
       return listGridData;
     }
 

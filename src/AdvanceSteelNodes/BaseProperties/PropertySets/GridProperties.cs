@@ -15,7 +15,7 @@ namespace AdvanceSteel.Nodes
     {
       Dictionary<string, Property> dictionary = new Dictionary<string, Property>();
 
-      InsertProperty(dictionary, "Coordinate System of Grid", nameof(Grid.CS));
+      InsertProperty(dictionary, "Coordinate System of Grid", nameof(Grid.CS), LevelEnum.Default);
       InsertProperty(dictionary, "Grid Numbering Start Text", nameof(Grid.NumberingStart));
       InsertProperty(dictionary, "Vertical Series", nameof(Grid.VerticalSeries));
       InsertProperty(dictionary, "Axis Frame", nameof(Grid.AxisFrame));

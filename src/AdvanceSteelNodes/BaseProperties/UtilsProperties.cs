@@ -41,6 +41,7 @@ namespace AdvanceSteel.Nodes
       { typeof(PlateFeatContour), new SteelTypeData("Plate Polycut") },
       { typeof(PlateFeatVertFillet), new SteelTypeData("Plate Corner Cut") },
       { typeof(PlateFeatEdge), new SteelTypeData("Plate Edge Cut") },
+      { typeof(PlateContourNotch), new SteelTypeData("Plate Notch") },
       { typeof(ScrewBoltPattern), new SteelTypeData("Screw Bolt") },
       { typeof(CountableScrewBoltPattern), new SteelTypeData("Countable Bolt") },
       { typeof(FinitRectScrewBoltPattern), new SteelTypeData("Rectangular Bolt") },
