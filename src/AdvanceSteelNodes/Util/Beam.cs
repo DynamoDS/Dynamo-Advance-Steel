@@ -186,7 +186,7 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
-    /// Get BEAM data
+    /// Get Beam data
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="bodyResolutionForLength"> Set Steel body display resolution</param>
@@ -268,7 +268,7 @@ namespace AdvanceSteel.Nodes.Util
               ret = (double)selectedObj.GetLength((BodyContext.eBodyContext)bodyResolutionForLength);
             }
             else
-              throw new System.Exception("Not a BEAM Object");
+              throw new System.Exception("Not a Beam Object");
           }
           else
             throw new System.Exception("AS Object is null");

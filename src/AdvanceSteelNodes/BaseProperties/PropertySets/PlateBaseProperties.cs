@@ -66,7 +66,7 @@ namespace AdvanceSteel.Nodes
       return plate.GetWeight(3);
     }
 
-    public static Dictionary<string, double> GetPhysicalLengthAndWidth(PlateBase plate)
+    private static Dictionary<string, double> GetPhysicalLengthAndWidth(PlateBase plate)
     {
       Dictionary<string, double> ret = new Dictionary<string, double>();
 
