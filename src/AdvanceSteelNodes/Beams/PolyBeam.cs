@@ -65,7 +65,7 @@ namespace AdvanceSteel.Nodes.Beams
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beam, defaultData);
+          UtilsProperties.SetParameters(beam, defaultData);
         }
 
         beam.WriteToDb();
@@ -79,7 +79,7 @@ namespace AdvanceSteel.Nodes.Beams
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beam, defaultData);
+          UtilsProperties.SetParameters(beam, defaultData);
         }
 
         Utils.SetOrientation(beam, refVect);
@@ -89,7 +89,7 @@ namespace AdvanceSteel.Nodes.Beams
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(beam, postWriteDBData);
+        UtilsProperties.SetParameters(beam, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
@@ -132,32 +132,5 @@ namespace AdvanceSteel.Nodes.Beams
       return pCurve;
     }
 
-    /// <summary>
-    /// Sets the Polycurve in an Advance Steel Polybeam
-    /// </summary>
-    /// <param name="polyBeam"> Advance Steel polyBeam</param>
-    /// <param name="polyCurve"> Input Dynamo Polycurve</param>
-    /// <returns></returns>
-    public static void SetPolyCurve(PolyBeam polyBeam, Autodesk.DesignScript.Geometry.PolyCurve polyCurve)
-    {
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (polyBeam != null)
-        {
-          FilerObject filerObj = Utils.GetObject(polyBeam.Handle);
-          if (filerObj != null)
-          {
-            if (filerObj.IsKindOf(FilerObject.eObjectType.kPolyBeam))
-            {
-              Autodesk.AdvanceSteel.Modelling.PolyBeam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PolyBeam;
-              selectedObj.SetPolyline(Utils.ToAstPolyline3d(polyCurve, true));
-            }
-            throw new System.Exception("Wrong type of Steel Object found, must be a Polybeam");
-          }
-        }
-        else
-          throw new System.Exception("No Steel Object found or Line Object is null");
-      }
-    }
   }
 }

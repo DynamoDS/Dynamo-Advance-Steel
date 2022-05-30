@@ -23,7 +23,7 @@ namespace AdvanceSteel.Nodes
       {
         if(string.IsNullOrEmpty(_selectionText))
         {
-          _selectionText = string.Format("Select {0} Property...", Utils.GetDescriptionObject(GetObjectType));
+          _selectionText = string.Format("Select {0} Property...", UtilsProperties.GetDescriptionObject(GetObjectType));
         }
 
         return _selectionText; 
@@ -54,7 +54,7 @@ namespace AdvanceSteel.Nodes
 
       var newItems = new List<DynamoDropDownItem>() { };
 
-      var properties = Utils.GetAllProperties(GetObjectType);
+      var properties = UtilsProperties.GetAllProperties(GetObjectType);
 
       newItems.Add(new DynamoDropDownItem(SelectionText, null));
 

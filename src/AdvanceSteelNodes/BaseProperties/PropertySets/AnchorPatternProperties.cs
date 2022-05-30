@@ -31,12 +31,23 @@ namespace AdvanceSteel.Nodes
       InsertProperty(dictionary, "Radius", nameof(AnchorPattern.Radius), eUnitType.kDistance);
       InsertProperty(dictionary, "Part Name", nameof(AnchorPattern.AnchorPartName), LevelEnum.Default);
 
-      InsertCustomProperty(dictionary, "Orientation Type", nameof(AnchorPatternProperties.GetOrientationType), null);
+      InsertCustomProperty(dictionary, "Bolt Orientation", nameof(AnchorPatternProperties.GetOrientationType), nameof(AnchorPatternProperties.SetOrientationType));
+      InsertCustomProperty(dictionary, "Bolt Orientation Description", nameof(AnchorPatternProperties.GetOrientation), null);
 
       return dictionary;
     }
 
-    private static string GetOrientationType(AnchorPattern anchorPattern)
+    private static int GetOrientationType(AnchorPattern anchorPattern)
+    {
+      return (int)anchorPattern.OrientationType;
+    }
+
+    private static void SetOrientationType(AnchorPattern anchorPattern, int orientationType)
+    {
+      anchorPattern.OrientationType = (Autodesk.AdvanceSteel.Modelling.AnchorPattern.eOrientationType)orientationType;
+    }
+
+    private static string GetOrientation(AnchorPattern anchorPattern)
     {
       return anchorPattern.OrientationType.ToString();
     }

@@ -45,7 +45,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
         camera = new ASCamera(cameraMat);
         if (defaultData != null)
         {
-          Utils.SetParameters(camera, defaultData);
+          UtilsProperties.SetParameters(camera, defaultData);
         }
 
         camera.WriteToDb();
@@ -57,7 +57,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
 
         if (defaultData != null)
         {
-          Utils.SetParameters(camera, defaultData);
+          UtilsProperties.SetParameters(camera, defaultData);
         }
       }
 
@@ -65,7 +65,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(camera, postWriteDBData);
+        UtilsProperties.SetParameters(camera, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(camera);
@@ -225,7 +225,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
         listCameraData = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(typeof(ASCamera), listCameraData, nameof(ASCamera.CameraCS), cameraCS);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(ASCamera), listCameraData, nameof(ASCamera.CameraCS), cameraCS);
       return listCameraData;
     }
 

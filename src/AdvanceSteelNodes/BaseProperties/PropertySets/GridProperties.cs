@@ -23,16 +23,24 @@ namespace AdvanceSteel.Nodes
       InsertProperty(dictionary, "Grid Numbering Suffix", nameof(Grid.NumberingSuffix));
 
       InsertProperty(dictionary, "Grid Numbering Suffix", nameof(Grid.GetNumSequences));
+      InsertProperty(dictionary, "Grid Elements Count", nameof(Grid.getNumElements));
       InsertCustomProperty(dictionary, "Grid Type", nameof(GridProperties.GridType), null);
+      InsertCustomProperty(dictionary, "Grid Type Description", nameof(GridProperties.GridTypeDescription), null);
       InsertCustomProperty(dictionary, "Vertical Projection Status", nameof(GridProperties.VerticalProjectionStatus), null);
-      InsertCustomProperty(dictionary, "Numbering Type", nameof(GridProperties.NumberingType), null);
+      InsertCustomProperty(dictionary, "Numbering Type", nameof(GridProperties.NumberingType), nameof(GridProperties.SetNumberingType));
+      InsertCustomProperty(dictionary, "Numbering Type Description", nameof(GridProperties.NumberingTypeDescription), null);
 
       return dictionary;
     }
 
-    private static string GridType(Grid grid)
+    private static string GridTypeDescription(Grid grid)
     {
       return grid.GridType.ToString();
+    }
+
+    private static int GridType(Grid grid)
+    {
+      return (int)grid.GridType;
     }
 
     private static string VerticalProjectionStatus(Grid grid)
@@ -40,9 +48,19 @@ namespace AdvanceSteel.Nodes
       return grid.VerticalProjectionStatus.ToString();
     }
 
-    private static string NumberingType(Grid grid)
+    private static string NumberingTypeDescription(Grid grid)
     {
       return grid.NumberingType.ToString();
+    }
+
+    private static int NumberingType(Grid grid)
+    {
+      return (int)grid.NumberingType;
+    }
+
+    private static void SetNumberingType(Grid grid, int numberingType)
+    {
+      grid.NumberingType = (Grid.eNumberingType)numberingType;
     }
 
   }

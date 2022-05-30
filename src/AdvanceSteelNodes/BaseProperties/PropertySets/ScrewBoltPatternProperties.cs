@@ -45,7 +45,9 @@ namespace AdvanceSteel.Nodes
       InsertProperty(dictionary, "Weight", nameof(ScrewBoltPattern.GetWeight), eUnitType.kWeight);
 
       InsertCustomProperty(dictionary, "Screw Bolt Type", nameof(ScrewBoltPatternProperties.GetScrewBoltType), null);
-      InsertCustomProperty(dictionary, "Assembly Location", nameof(ScrewBoltPatternProperties.GetAssemblyLocation), null);
+
+      InsertCustomProperty(dictionary, "Assembly Location", nameof(ScrewBoltPatternProperties.GetAssemblyLocation), nameof(ScrewBoltPatternProperties.SetAssemblyLocation));
+      InsertCustomProperty(dictionary, "Assembly Location Description", nameof(ScrewBoltPatternProperties.GetAssemblyLocationDescription), null);
 
       return dictionary;
     }
@@ -55,7 +57,17 @@ namespace AdvanceSteel.Nodes
       return screwBoltPattern.ScrewBoltType.ToString();
     }
 
-    private static string GetAssemblyLocation(ScrewBoltPattern screwBoltPattern)
+    private static int GetAssemblyLocation(ScrewBoltPattern screwBoltPattern)
+    {
+      return (int)screwBoltPattern.AssemblyLocation;
+    }
+
+    private static void SetAssemblyLocation(ScrewBoltPattern screwBoltPattern, int assemblyLocation)
+    {
+     screwBoltPattern.AssemblyLocation = (Autodesk.AdvanceSteel.ConstructionTypes.AtomicElement.eAssemblyLocation)assemblyLocation;
+    }
+
+    private static string GetAssemblyLocationDescription(ScrewBoltPattern screwBoltPattern)
     {
       return screwBoltPattern.AssemblyLocation.ToString();
     }

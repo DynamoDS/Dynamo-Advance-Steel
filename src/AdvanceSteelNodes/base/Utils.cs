@@ -503,6 +503,11 @@ namespace AdvanceSteel.Nodes
       return matrix;
     }
 
+    static public Autodesk.AdvanceSteel.Geometry.Plane ToAstPlane(this Autodesk.DesignScript.Geometry.Plane dynPlane)
+    {
+      return ToAstPlane(dynPlane, true);
+    }
+
     static public Autodesk.AdvanceSteel.Geometry.Plane ToAstPlane(Autodesk.DesignScript.Geometry.Plane dynPlane, bool bConvertToAstUnits)
     {
       Point3d planeOrigin = ToAstPoint(dynPlane.Origin, bConvertToAstUnits);
@@ -687,7 +692,7 @@ namespace AdvanceSteel.Nodes
             throw new System.Exception("No Advance Steel Object Found");
           }
 
-          if (!CheckType(obj.GetType()))
+          if (!UtilsProperties.CheckType(obj.GetType()))
           {
             continue;
           }
@@ -699,8 +704,10 @@ namespace AdvanceSteel.Nodes
       return retListOfSteelObjects;
     }
 
-    public static IEnumerable<SteelDbObject> GetDynObjects(Type objectSelectionType)
+    public static IEnumerable<SteelDbObject> GetDynObjectsByType(string objectSelectionFilter)
     {
+      var typeFilter = UtilsProperties.SteelObjectPropertySets.FirstOrDefault(x => objectSelectionFilter.Equals(x.Value.Description)).Value.ASType;
+
       var retListOfSteelObjects = new List<SteelDbObject>();
       using (var ctx = new DocContext())
       {
@@ -718,7 +725,8 @@ namespace AdvanceSteel.Nodes
         for (int i = 0; i < OIDx.Count; i++)
         {
           FilerObject obj = FilerObject.GetFilerObject(OIDx[i]);
-          if (obj != null && obj.GetType().IsSubclassOf(objectSelectionType) || obj.GetType().IsEquivalentTo(objectSelectionType))
+
+          if (obj != null && (obj.GetType().IsSubclassOf(typeFilter) || obj.GetType().IsEquivalentTo(typeFilter)))
           {
             SteelDbObject foundSteelObj = obj.ToDSType();
             retListOfSteelObjects.Add(foundSteelObj);
@@ -765,66 +773,6 @@ namespace AdvanceSteel.Nodes
       return Objs ? ret.ToArray() : Array.Empty<FilerObject>();
     }
 
-    public static double GetPaintArea(string handle)
-    {
-      double ret = 0;
-      FilerObject filerObj = Utils.GetObject(handle);
-      if (filerObj != null)
-      {
-        if (filerObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
-        {
-          Autodesk.AdvanceSteel.Modelling.PlateBase selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PlateBase;
-          ret = (double)selectedObj.GetPaintArea();
-        }
-        else if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
-        {
-          Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
-          ret = (double)selectedObj.GetPaintArea();
-        }
-        else
-          throw new System.Exception("Not a Supported Object for Paint Area");
-      }
-      else
-        throw new System.Exception("AS Object is null");
-
-      return ret;
-    }
-
-    public static double GetWeight(string handle, int weightCode)
-    {
-      double ret = 0;
-      FilerObject filerObj = Utils.GetObject(handle);
-      if (filerObj != null)
-      {
-        if (filerObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
-        {
-          Autodesk.AdvanceSteel.Modelling.PlateBase selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PlateBase;
-          ret = (double)selectedObj.GetWeight(weightCode);
-        }
-        else if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
-        {
-          Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
-          ret = (double)selectedObj.GetWeight(weightCode);
-        }
-        else if (filerObj.IsKindOf(FilerObject.eObjectType.kScrewBoltPattern))
-        {
-          Autodesk.AdvanceSteel.Modelling.ScrewBoltPattern selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.ScrewBoltPattern;
-          ret = (double)selectedObj.GetWeight();
-        }
-        else if (filerObj.IsKindOf(FilerObject.eObjectType.kConnector))
-        {
-          Autodesk.AdvanceSteel.Modelling.Connector selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Connector;
-          ret = (double)selectedObj.GetWeight();
-        }
-        else
-          throw new System.Exception("Not a Supported Object for Paint Area");
-      }
-      else
-        throw new System.Exception("AS Object is null");
-
-      return ret;
-    }
-
     public static List<string> GetSteelDbObjectsToConnect(IEnumerable<SteelDbObject> objectsToConnect)
     {
       List<string> handlesList = new List<string>();
@@ -849,111 +797,5 @@ namespace AdvanceSteel.Nodes
       return handlesList;
     }
 
-    internal static Property GetProperty(Type objectType, string keyValue)
-    {
-      var dictionaryProperties = GetAllPropertiesWithoutClone(objectType);
-
-      if (dictionaryProperties.TryGetValue(keyValue, out Property retValue))
-      {
-        return new Property(retValue);
-      }
-
-      throw new System.Exception(string.Format("Property '{0}' not found", keyValue));
-    }
-
-    internal static Property GetPropertyByMemberName(Type objectType, string memberName)
-    {
-      var dictionaryProperties = GetAllPropertiesWithoutClone(objectType);
-
-      var itemKeyValue = dictionaryProperties.FirstOrDefault(x => x.Value.MemberName.Equals(memberName));
-
-      if(itemKeyValue.Value == null)
-      {
-        throw new System.Exception(string.Format("Property of member '{0}' not found", memberName));
-      }
-
-      return new Property(itemKeyValue.Value);
-    }
-
-    internal static Dictionary<string, Property> GetAllPropertiesWithoutClone(Type objectType)
-    {
-      if (!CheckType(objectType))
-      {
-        throw new Exception(string.Format("Properties not found for type '{0}'", objectType));
-      }
-
-      return UtilsProperties.SteelObjectPropertySets[objectType].PropertiesAll;
-    }
-
-    public static string GetDescriptionObject(Type objectType)
-    {
-      return UtilsProperties.SteelObjectPropertySets[objectType].Description;
-    }
-
-    private static bool CheckType(Type objectType)
-    {
-      return UtilsProperties.SteelObjectPropertySets.ContainsKey(objectType);
-    }
-
-    public static Dictionary<string, Property> GetAllProperties(Type objectType)
-    {
-      var dictionaryProperties = GetAllPropertiesWithoutClone(objectType);
-
-      Dictionary<string, Property> ret = new Dictionary<string, Property>() { };
-      foreach (KeyValuePair<string, Property> item in dictionaryProperties)
-      {
-        ret.Add(item.Key, new Property(item.Value));
-      }
-
-      return ret;
-    }
-
-    public static void CheckListUpdateOrAddValue(Type objectType, List<Property> listOfPropertyData, string propName, object propValue)
-    {
-      InitializeProperties(objectType, listOfPropertyData);
-
-      var property = listOfPropertyData.FirstOrDefault<Property>(props => props.MemberName == propName);
-      if (property == null)
-      {
-        property = Utils.GetPropertyByMemberName(objectType, propName);
-        listOfPropertyData.Add(property);
-      }
-
-      property.InternalValue = propValue;
-    }
-
-    private static void InitializeProperties(Type typeObject, List<Property> listOfPropertyData)
-    {
-      foreach (var property in listOfPropertyData)
-      {
-        property.InitializePropertyIfNeeded(typeObject);
-      }
-    }
-
-    #region Set Parameters Methods
-
-    public static void SetParameters(Autodesk.AdvanceSteel.Arrangement.Arranger objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    public static void SetParameters(FilerObject objToMod, List<Property> properties)
-    {
-      if (properties != null)
-      {
-        foreach (var prop in properties)
-        {
-          prop.SetToObject(objToMod);
-        }
-      }
-    }
-
-    #endregion
   }
 }

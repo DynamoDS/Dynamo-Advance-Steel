@@ -15,6 +15,54 @@ namespace AdvanceSteel.Nodes
 {
   public static class UtilsProperties
   {
+    #region Load dictionary
+
+    private static bool dictionaryLoaded = false;
+
+    /// <summary>
+    /// Load all properties of each ASType
+    /// </summary>
+    public static void LoadASTypeDictionary()
+    {
+      if (dictionaryLoaded)
+      {
+        return;
+      }
+
+      var assemblyTypes = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
+
+      var listIASProperties = assemblyTypes.Where(x => !x.IsAbstract && x.GetInterfaces().Contains(typeof(IASProperties))).Select(x => Activator.CreateInstance(x) as IASProperties);
+
+      //Fill specific properties
+      foreach (var item in SteelObjectPropertySets)
+      {
+        IASProperties asProperties = listIASProperties.FirstOrDefault(x => x.GetObjectType.Equals(item.Key));
+
+        if (asProperties == null)
+        {
+          throw new NotImplementedException(item.Key.ToString() + " not implemented");
+        }
+
+        item.Value.ASType = item.Key;
+        item.Value.SetPropertiesSpecific(asProperties.BuildPropertyList());
+      }
+
+      //Fill all properties
+      foreach (var item in SteelObjectPropertySets)
+      {
+        IEnumerable<SteelTypeData> steelTypeDataList = SteelObjectPropertySets.Where(x => item.Key.IsSubclassOf(x.Key) || item.Key.IsEquivalentTo(x.Key)).Select(x => x.Value);
+        foreach (var steelTypeData in steelTypeDataList)
+        {
+          item.Value.AddPropertiesAll(steelTypeData.PropertiesSpecific);
+        }
+
+        item.Value.OrderDictionaryPropertiesAll();
+      }
+
+      dictionaryLoaded = true;
+    }
+
+    #endregion
 
     internal static readonly Dictionary<Type, SteelTypeData> SteelObjectPropertySets = new Dictionary<Type, SteelTypeData>()
     {
@@ -66,50 +114,112 @@ namespace AdvanceSteel.Nodes
       { typeof(Arranger), new SteelTypeData ("Arranger") }
     };
 
-    private static bool dictionaryLoaded = false;
-
-    /// <summary>
-    /// Load all properties of each ASType
-    /// </summary>
-    public static void LoadASTypeDictionary()
+    internal static Property GetProperty(Type objectType, string keyValue)
     {
-      if (dictionaryLoaded)
+      var dictionaryProperties = GetAllPropertiesWithoutClone(objectType);
+
+      if (dictionaryProperties.TryGetValue(keyValue, out Property retValue))
       {
-        return;
+        return new Property(retValue);
       }
 
-      var assemblyTypes = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
-
-      var listIASProperties = assemblyTypes.Where(x => !x.IsAbstract && x.GetInterfaces().Contains(typeof(IASProperties))).Select(x => Activator.CreateInstance(x) as IASProperties);
-
-      //Fill specific properties
-      foreach (var item in SteelObjectPropertySets)
-      {
-        IASProperties asProperties = listIASProperties.FirstOrDefault(x => x.GetObjectType.Equals(item.Key));
-
-        if (asProperties == null)
-        {
-          throw new NotImplementedException(item.Key.ToString() + " not implemented");
-        }
-
-        item.Value.ASType = item.Key;
-        item.Value.SetPropertiesSpecific(asProperties.BuildPropertyList());
-      }
-
-      //Fill all properties
-      foreach (var item in SteelObjectPropertySets)
-      {
-        IEnumerable<SteelTypeData> steelTypeDataList = SteelObjectPropertySets.Where(x => item.Key.IsSubclassOf(x.Key) || item.Key.IsEquivalentTo(x.Key)).Select(x => x.Value);
-        foreach (var steelTypeData in steelTypeDataList)
-        {
-          item.Value.AddPropertiesAll(steelTypeData.PropertiesSpecific);
-        }
-
-        item.Value.OrderDictionaryPropertiesAll();
-      }
-
-      dictionaryLoaded = true;
+      throw new System.Exception(string.Format("Property '{0}' not found", keyValue));
     }
+
+    internal static Property GetPropertyByMemberName(Type objectType, string memberName)
+    {
+      var dictionaryProperties = GetAllPropertiesWithoutClone(objectType);
+
+      var itemKeyValue = dictionaryProperties.FirstOrDefault(x => x.Value.MemberName.Equals(memberName));
+
+      if (itemKeyValue.Value == null)
+      {
+        throw new System.Exception(string.Format("Property of member '{0}' not found", memberName));
+      }
+
+      return new Property(itemKeyValue.Value);
+    }
+
+    internal static Dictionary<string, Property> GetAllPropertiesWithoutClone(Type objectType)
+    {
+      if (!CheckType(objectType))
+      {
+        throw new Exception(string.Format("Properties not found for type '{0}'", objectType));
+      }
+
+      return UtilsProperties.SteelObjectPropertySets[objectType].PropertiesAll;
+    }
+
+    public static string GetDescriptionObject(Type objectType)
+    {
+      return UtilsProperties.SteelObjectPropertySets[objectType].Description;
+    }
+
+    internal static bool CheckType(Type objectType)
+    {
+      return UtilsProperties.SteelObjectPropertySets.ContainsKey(objectType);
+    }
+
+    public static Dictionary<string, Property> GetAllProperties(Type objectType)
+    {
+      var dictionaryProperties = GetAllPropertiesWithoutClone(objectType);
+
+      Dictionary<string, Property> ret = new Dictionary<string, Property>() { };
+      foreach (KeyValuePair<string, Property> item in dictionaryProperties)
+      {
+        ret.Add(item.Key, new Property(item.Value));
+      }
+
+      return ret;
+    }
+
+    public static void CheckListUpdateOrAddValue(Type objectType, List<Property> listOfPropertyData, string propName, object propValue)
+    {
+      InitializeProperties(objectType, listOfPropertyData);
+
+      var property = listOfPropertyData.FirstOrDefault<Property>(props => props.MemberName == propName);
+      if (property == null)
+      {
+        property = GetPropertyByMemberName(objectType, propName);
+        listOfPropertyData.Add(property);
+      }
+
+      property.InternalValue = propValue;
+    }
+
+    private static void InitializeProperties(Type typeObject, List<Property> listOfPropertyData)
+    {
+      foreach (var property in listOfPropertyData)
+      {
+        property.InitializePropertyIfNeeded(typeObject);
+      }
+    }
+
+    #region Set Parameters Methods
+
+    public static void SetParameters(Autodesk.AdvanceSteel.Arrangement.Arranger objToMod, List<Property> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.SetToObject(objToMod);
+        }
+      }
+    }
+
+    public static void SetParameters(FilerObject objToMod, List<Property> properties)
+    {
+      if (properties != null)
+      {
+        foreach (var prop in properties)
+        {
+          prop.SetToObject(objToMod);
+        }
+      }
+    }
+
+    #endregion
 
   }
 }

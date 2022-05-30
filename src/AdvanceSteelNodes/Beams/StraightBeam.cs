@@ -76,7 +76,7 @@ namespace AdvanceSteel.Nodes.Beams
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beam, defaultData);
+          UtilsProperties.SetParameters(beam, defaultData);
         }
 
         beam.WriteToDb();
@@ -99,7 +99,7 @@ namespace AdvanceSteel.Nodes.Beams
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beam, defaultData);
+          UtilsProperties.SetParameters(beam, defaultData);
         }
 
         beam.SetCrossSectionMirrored(crossSectionMirror, false);
@@ -110,7 +110,7 @@ namespace AdvanceSteel.Nodes.Beams
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(beam, postWriteDBData);
+        UtilsProperties.SetParameters(beam, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);

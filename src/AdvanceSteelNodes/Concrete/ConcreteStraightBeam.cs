@@ -57,7 +57,7 @@ namespace AdvanceSteel.Nodes.Concrete
         concBeam = new ASConcreteBeam(concName, beamStart, beamEnd, refVect);
         if (defaultData != null)
         {
-          Utils.SetParameters(concBeam, defaultData);
+          UtilsProperties.SetParameters(concBeam, defaultData);
         }
 
         concBeam.WriteToDb();
@@ -76,7 +76,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
         if (defaultData != null)
         {
-          Utils.SetParameters(concBeam, defaultData);
+          UtilsProperties.SetParameters(concBeam, defaultData);
         }
       }
 
@@ -84,7 +84,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(concBeam, postWriteDBData);
+        UtilsProperties.SetParameters(concBeam, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(concBeam);

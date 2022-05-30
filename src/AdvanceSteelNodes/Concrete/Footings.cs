@@ -57,7 +57,7 @@ namespace AdvanceSteel.Nodes.Concrete
         padFooting.Thickness = depth;
         if (defaultData != null)
         {
-          Utils.SetParameters(padFooting, defaultData);
+          UtilsProperties.SetParameters(padFooting, defaultData);
         }
 
         padFooting.WriteToDb();
@@ -73,7 +73,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
         if (defaultData != null)
         {
-          Utils.SetParameters(padFooting, defaultData);
+          UtilsProperties.SetParameters(padFooting, defaultData);
         }
       }
 
@@ -81,7 +81,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(padFooting, postWriteDBData);
+        UtilsProperties.SetParameters(padFooting, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(padFooting);
@@ -106,7 +106,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
         if (defaultData != null)
         {
-          Utils.SetParameters(padFooting, defaultData);
+          UtilsProperties.SetParameters(padFooting, defaultData);
         }
 
         padFooting.WriteToDb();
@@ -123,7 +123,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
         if (defaultData != null)
         {
-          Utils.SetParameters(padFooting, defaultData);
+          UtilsProperties.SetParameters(padFooting, defaultData);
         }
       }
 
@@ -131,7 +131,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(padFooting, postWriteDBData);
+        UtilsProperties.SetParameters(padFooting, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(padFooting);

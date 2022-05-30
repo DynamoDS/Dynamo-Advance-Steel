@@ -66,7 +66,7 @@ namespace AdvanceSteel.Nodes.Features
         beamFeat.Set(cutPoint, normal);
         if (defaultData != null)
         {
-          Utils.SetParameters(beamFeat, defaultData);
+          UtilsProperties.SetParameters(beamFeat, defaultData);
         }
         atomic.AddFeature(beamFeat);
       }
@@ -78,7 +78,7 @@ namespace AdvanceSteel.Nodes.Features
         beamFeat.Set(cutPoint, normal);
         if (defaultData != null)
         {
-          Utils.SetParameters(beamFeat, defaultData);
+          UtilsProperties.SetParameters(beamFeat, defaultData);
         }
       }
 
@@ -86,7 +86,7 @@ namespace AdvanceSteel.Nodes.Features
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(beamFeat, postWriteDBData);
+        UtilsProperties.SetParameters(beamFeat, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
@@ -154,7 +154,7 @@ namespace AdvanceSteel.Nodes.Features
         beamFeat.Set(cutPoint, normal);
         if (defaultData != null)
         {
-          Utils.SetParameters(beamFeat, defaultData);
+          UtilsProperties.SetParameters(beamFeat, defaultData);
         }
         atomic.AddFeature(beamFeat);
       }
@@ -166,7 +166,7 @@ namespace AdvanceSteel.Nodes.Features
         beamFeat.Set(cutPoint, normal);
         if (defaultData != null)
         {
-          Utils.SetParameters(beamFeat, defaultData);
+          UtilsProperties.SetParameters(beamFeat, defaultData);
         }
       }
 
@@ -174,7 +174,7 @@ namespace AdvanceSteel.Nodes.Features
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(beamFeat, postWriteDBData);
+        UtilsProperties.SetParameters(beamFeat, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);

@@ -17,7 +17,7 @@ namespace AdvanceSteel.Nodes
 
       InsertProperty(dictionary, "Unfolded Bem Thickness", nameof(UnfoldedStraightBeam.Thickness), eUnitType.kDistance);
       InsertProperty(dictionary, "Unfolded Bem Portioning", nameof(UnfoldedStraightBeam.Portioning), eUnitType.kDistance);
-      InsertProperty(dictionary, "Closed", nameof(UnfoldedStraightBeam.IsClosed));
+      InsertProperty(dictionary, "Is Closed", nameof(UnfoldedStraightBeam.IsClosed));
 
       return dictionary;
     }

@@ -54,7 +54,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
         }
         if (defaultData != null)
         {
-          Utils.SetParameters(myGrid, defaultData);
+          UtilsProperties.SetParameters(myGrid, defaultData);
         }
 
         myGrid.WriteToDb();
@@ -73,7 +73,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
 
         if (defaultData != null)
         {
-          Utils.SetParameters(myGrid, defaultData);
+          UtilsProperties.SetParameters(myGrid, defaultData);
         }
       }
 
@@ -81,7 +81,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(myGrid, postWriteDBData);
+        UtilsProperties.SetParameters(myGrid, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(myGrid);
@@ -123,125 +123,6 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       additionalGridParameters = PreSetDefaults(additionalGridParameters, cameraMat);
 
       return new Grid(additionalGridParameters, length, width, noOfGrids);
-    }
-
-    /// <summary>
-    /// Get Grid Element Count
-    /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
-    /// <returns name="gridObjectCount"> Integer value for grid count</returns>
-    public static int GetGridElementsCount(AdvanceSteel.Nodes.SteelDbObject steelObject)
-    {
-      int ret = -1;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (steelObject != null)
-        {
-          FilerObject myGrid = Utils.GetObject(steelObject.Handle);
-          if (myGrid != null)
-          {
-            if (myGrid.IsKindOf(FilerObject.eObjectType.kGrid))
-            {
-              Autodesk.AdvanceSteel.Modelling.Grid selectedObj = myGrid as Autodesk.AdvanceSteel.Modelling.Grid;
-              ret = (int)selectedObj.getNumElements();
-            }
-            else
-              throw new System.Exception("Not a Grid Object");
-          }
-          else
-            throw new System.Exception("AS Object is null");
-        }
-        else
-          throw new System.Exception("Steel Object or Point is null");
-      }
-      return ret;
-    }
-
-    /// <summary>
-    /// Get Grid Type - 0 - Undefined, 2 - Single or Multiple Straight Grid, 3 - Circular
-    /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
-    /// <returns name="gridType"> Integer value for grid type</returns>
-    public static int GetGridType(AdvanceSteel.Nodes.SteelDbObject steelObject)
-    {
-      int ret = -1;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (steelObject != null)
-        {
-          FilerObject myGrid = Utils.GetObject(steelObject.Handle);
-          if (myGrid != null)
-          {
-            if (myGrid.IsKindOf(FilerObject.eObjectType.kGrid))
-            {
-              Autodesk.AdvanceSteel.Modelling.Grid selectedObj = myGrid as Autodesk.AdvanceSteel.Modelling.Grid;
-              ret = (int)selectedObj.GridType;
-            }
-            else
-              throw new System.Exception("Not a Grid Object");
-          }
-          else
-            throw new System.Exception("AS Object is null");
-        }
-        else
-          throw new System.Exception("Steel Object or Point is null");
-      }
-      return ret;
-    }
-
-    /// <summary>
-    /// Set Advance Steel Grid Numbering Type
-    /// </summary>
-    /// <param name="steelObject"> Selected Advance Steel Grid Object</param>
-    /// <param name="numberingType"> 0 - User Defined, 1 - Lowercase, 2 - Uppercase, 3 - Numerical</param>
-    public static void SetGridNumberingType(SteelDbObject steelObject,
-                                          [DefaultArgument("1")] int numberingType)
-    {
-      using (var ctx = new SteelServices.DocContext())
-      {
-        string handle = steelObject.Handle;
-        FilerObject obj = Utils.GetObject(handle);
-
-        if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kGrid))
-        {
-          Autodesk.AdvanceSteel.Modelling.Grid myGrid = obj as Autodesk.AdvanceSteel.Modelling.Grid;
-          myGrid.NumberingType = (Autodesk.AdvanceSteel.Modelling.Grid.eNumberingType)numberingType;
-        }
-        else
-          throw new System.Exception("Failed to Get Grid Object");
-      }
-    }
-
-    /// <summary>
-    /// Get Advance Steel Grid Numbering Type
-    /// </summary>
-    /// <param name="steelObject"> Selected Advance Steel Grid Object</param>
-    /// <returns>Int = 0 - User Defined, 1 - Lowercase, 2 - Uppercase, 3 - Numerical</returns>
-    public static int GetGridNumberingType(AdvanceSteel.Nodes.SteelDbObject steelObject)
-    {
-      int ret = -1;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (steelObject != null)
-        {
-          FilerObject myGrid = Utils.GetObject(steelObject.Handle);
-          if (myGrid != null)
-          {
-            if (myGrid.IsKindOf(FilerObject.eObjectType.kGrid))
-            {
-              Autodesk.AdvanceSteel.Modelling.Grid selectedObj = myGrid as Autodesk.AdvanceSteel.Modelling.Grid;
-              ret = (int)selectedObj.NumberingType;
-            }
-            else
-              throw new System.Exception("Not a Grid Object");
-          }
-          else
-            throw new System.Exception("AS Object is null");
-        }
-        else
-          throw new System.Exception("Steel Object or Point is null");
-      }
-      return ret;
     }
 
     /// <summary>
@@ -296,7 +177,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       {
         listGridData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(typeof(ASGrid), listGridData, nameof(ASGrid.CS), gridCS);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(ASGrid), listGridData, nameof(ASGrid.CS), gridCS);
       return listGridData;
     }
 

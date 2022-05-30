@@ -25,8 +25,8 @@ namespace AdvanceSteel.Nodes
 
     protected override AssociativeNode CreateAssociativeNode(DynamoDropDownItem dynamoDropDownItem)
     {
-      AssociativeNode typeNode = AstFactory.BuildPrimitiveNodeFromObject((Type)Items[SelectedIndex].Item);
-      AssociativeNode node = AstFactory.BuildFunctionCall(new Func<Type, IEnumerable<SteelDbObject>>(Utils.GetDynObjects), new List<AssociativeNode>() { typeNode });
+      StringNode stringNode = AstFactory.BuildStringNode(Items[SelectedIndex].Name);
+      AssociativeNode node = AstFactory.BuildFunctionCall(new Func<string, IEnumerable<SteelDbObject>>(Utils.GetDynObjectsByType), new List<AssociativeNode>() { stringNode });
 
       return node;
     }

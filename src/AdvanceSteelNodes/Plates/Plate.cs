@@ -59,7 +59,7 @@ namespace AdvanceSteel.Nodes.Plates
         plate = new ASPlate(polyPlane, astPoints);
         if (defaultData != null)
         {
-          Utils.SetParameters(plate, defaultData);
+          UtilsProperties.SetParameters(plate, defaultData);
         }
 
         plate.WriteToDb();
@@ -72,7 +72,7 @@ namespace AdvanceSteel.Nodes.Plates
         plate.DefinitionPlane = polyPlane;
         if (defaultData != null)
         {
-          Utils.SetParameters(plate, defaultData);
+          UtilsProperties.SetParameters(plate, defaultData);
         }
 
         plate.SetPolygonContour(astPoints);
@@ -82,7 +82,7 @@ namespace AdvanceSteel.Nodes.Plates
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(plate, postWriteDBData);
+        UtilsProperties.SetParameters(plate, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(plate);
@@ -123,7 +123,7 @@ namespace AdvanceSteel.Nodes.Plates
 
         if (defaultData != null)
         {
-          Utils.SetParameters(plate, defaultData);
+          UtilsProperties.SetParameters(plate, defaultData);
         }
 
         plate.WriteToDb();
@@ -157,7 +157,7 @@ namespace AdvanceSteel.Nodes.Plates
 
         if (defaultData != null)
         {
-          Utils.SetParameters(plate, defaultData);
+          UtilsProperties.SetParameters(plate, defaultData);
         }
 
         plate.Offset = offset;
@@ -167,7 +167,7 @@ namespace AdvanceSteel.Nodes.Plates
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(plate, postWriteDBData);
+        UtilsProperties.SetParameters(plate, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(plate);
@@ -349,107 +349,6 @@ namespace AdvanceSteel.Nodes.Plates
       additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
       Point3d[] astPoints = new Point3d[] { cpOrigin, xDPoint, pt3, finalYPoint };
       return new Plate(astPoints, zAxis, additionalPlateParameters);
-    }
-
-    /// <summary>
-    /// Get Plate Physical Length and Width
-    /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
-    /// <returns name="Length"> plate length and width values</returns>
-    [MultiReturn(new[] { "Length", "Width" })]
-    public static Dictionary<string, double> GetPhysicalLengthAndWidth(AdvanceSteel.Nodes.SteelDbObject steelObject)
-    {
-      Dictionary<string, double> ret = new Dictionary<string, double>();
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (steelObject != null)
-        {
-          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
-          if (filerObj != null)
-          {
-            if (filerObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
-            {
-              Autodesk.AdvanceSteel.Modelling.PlateBase selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PlateBase;
-              double length = 0;
-              double width = 0;
-              selectedObj.GetPhysLengthAndWidth(out length, out width);
-              ret.Add("Length", Utils.FromInternalDistanceUnits(length, true));
-              ret.Add("Width", Utils.FromInternalDistanceUnits(width, true));
-            }
-            else
-              throw new System.Exception("Not a Plate Object");
-          }
-          else
-            throw new System.Exception("AS Object is null");
-        }
-        else
-          throw new System.Exception("Steel Object or Point is null");
-      }
-      return ret;
-    }
-
-    /// <summary>
-    /// Get Plate Circumference
-    /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
-    /// <returns name="plateCircumference"> plate circumference value</returns>
-    public static double GetCircumference(AdvanceSteel.Nodes.SteelDbObject steelObject)
-    {
-      double ret = 0;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (steelObject != null)
-        {
-          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
-          if (filerObj != null)
-          {
-            if (filerObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
-            {
-              Autodesk.AdvanceSteel.Modelling.PlateBase selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PlateBase;
-              ret = (double)selectedObj.GetCircumference();
-            }
-            else
-              throw new System.Exception("Not a Plate Object");
-          }
-          else
-            throw new System.Exception("AS Object is null");
-        }
-        else
-          throw new System.Exception("Steel Object or Point is null");
-      }
-      return Utils.FromInternalDistanceUnits(ret, true);
-    }
-
-    /// <summary>
-    /// Is Plate Rectangular
-    /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
-    /// <returns name="IsRectangular"> reads if the plate is rectangular - true or false</returns>
-    public static bool IsRectangular(AdvanceSteel.Nodes.SteelDbObject steelObject)
-    {
-      bool ret = false;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (steelObject != null)
-        {
-          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
-          if (filerObj != null)
-          {
-            if (filerObj.IsKindOf(FilerObject.eObjectType.kPlateBase))
-            {
-              Autodesk.AdvanceSteel.Modelling.PlateBase selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PlateBase;
-              ret = (bool)selectedObj.IsRectangular();
-            }
-            else
-              throw new System.Exception("Not a Plate Object");
-          }
-          else
-            throw new System.Exception("AS Object is null");
-        }
-        else
-          throw new System.Exception("Steel Object or Point is null");
-      }
-      return ret;
     }
 
     private static List<Property> PreSetDefaults(List<Property> listPlateData)

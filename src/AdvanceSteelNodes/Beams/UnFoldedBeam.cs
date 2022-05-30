@@ -60,7 +60,7 @@ namespace AdvanceSteel.Nodes.Beams
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beam, defaultData);
+          UtilsProperties.SetParameters(beam, defaultData);
         }
 
         beam.WriteToDb();
@@ -76,7 +76,7 @@ namespace AdvanceSteel.Nodes.Beams
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beam, defaultData);
+          UtilsProperties.SetParameters(beam, defaultData);
         }
 
         Utils.SetOrientation(beam, refVect);
@@ -86,7 +86,7 @@ namespace AdvanceSteel.Nodes.Beams
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(beam, postWriteDBData);
+        UtilsProperties.SetParameters(beam, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
@@ -176,46 +176,13 @@ namespace AdvanceSteel.Nodes.Beams
       return new UnFoldedBeam(poly, startPoint, endPoint, orientation, additionalBeamParameters);
     }
 
-
-    /// <summary>
-    /// Return True or False depending if the UnfoldedBeam is Closed or not.
-    /// </summary>
-    /// <param name="unFoldedBeam">Input beam</param>
-    /// <returns name="isClosed">True or False depending if the UnfoldedBeam is Closed or not</returns>
-    public static bool IsClosed(UnFoldedBeam unFoldedBeam)
-    {
-      bool ret;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (unFoldedBeam != null)
-        {
-          FilerObject filerObj = Utils.GetObject(unFoldedBeam.Handle);
-          if (filerObj != null)
-          {
-            if (filerObj.IsKindOf(FilerObject.eObjectType.kUnfoldedStraightBeam))
-            {
-              Autodesk.AdvanceSteel.Modelling.UnfoldedStraightBeam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.UnfoldedStraightBeam;
-              ret = (bool)selectedObj.IsClosed();
-            }
-            else
-              throw new System.Exception("Not an Unfolded Beam Object");
-          }
-          else
-            throw new System.Exception("AS Object is null");
-        }
-        else
-          throw new System.Exception("Steel Object or Point is null");
-      }
-      return ret;
-    }
-
     private static List<Property> PreSetDefaults(List<Property> listBeamData, double thickness)
     {
       if (listBeamData == null)
       {
         listBeamData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(typeof(UnfoldedStraightBeam), listBeamData, nameof(UnfoldedStraightBeam.Thickness), thickness);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(UnfoldedStraightBeam), listBeamData, nameof(UnfoldedStraightBeam.Thickness), thickness);
       return listBeamData;
     }
 

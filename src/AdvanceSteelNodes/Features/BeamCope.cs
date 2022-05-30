@@ -88,7 +88,7 @@ namespace AdvanceSteel.Nodes.Features
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beamFeat, defaultData);
+          UtilsProperties.SetParameters(beamFeat, defaultData);
         }
 
         atomic.AddFeature(beamFeat);
@@ -104,7 +104,7 @@ namespace AdvanceSteel.Nodes.Features
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beamFeat, defaultData);
+          UtilsProperties.SetParameters(beamFeat, defaultData);
         }
       }
 
@@ -112,7 +112,7 @@ namespace AdvanceSteel.Nodes.Features
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(beamFeat, postWriteDBData);
+        UtilsProperties.SetParameters(beamFeat, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
@@ -149,7 +149,7 @@ namespace AdvanceSteel.Nodes.Features
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beamFeat, defaultData);
+          UtilsProperties.SetParameters(beamFeat, defaultData);
         }
 
         atomic.AddFeature(beamFeat);
@@ -165,7 +165,7 @@ namespace AdvanceSteel.Nodes.Features
 
           if (defaultData != null)
           {
-            Utils.SetParameters(beamFeat, defaultData);
+            UtilsProperties.SetParameters(beamFeat, defaultData);
           }
         }
         else
@@ -176,7 +176,7 @@ namespace AdvanceSteel.Nodes.Features
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(beamFeat, postWriteDBData);
+        UtilsProperties.SetParameters(beamFeat, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
@@ -237,8 +237,8 @@ namespace AdvanceSteel.Nodes.Features
       {
         listBeamFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(typeof(ASBeamNotchEx), listBeamFeatureData, nameof(ASBeamNotchEx.ReferenceLength), length);
-      if (depth > 0) Utils.CheckListUpdateOrAddValue(typeof(ASBeamNotchEx), listBeamFeatureData, nameof(ASBeamNotchEx.ReferenceDepth), depth);
+      if (length > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(ASBeamNotchEx), listBeamFeatureData, nameof(ASBeamNotchEx.ReferenceLength), length);
+      if (depth > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(ASBeamNotchEx), listBeamFeatureData, nameof(ASBeamNotchEx.ReferenceDepth), depth);
       return listBeamFeatureData;
     }
 

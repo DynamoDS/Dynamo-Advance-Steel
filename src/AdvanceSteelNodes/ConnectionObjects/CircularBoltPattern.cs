@@ -50,7 +50,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       {
         bolt = new ASCircleScrewBoltPattern(holeInsertPoint, vx, vy);
 
-        Utils.SetParameters(bolt, boltData);
+        UtilsProperties.SetParameters(bolt, boltData);
 
         bolt.WriteToDb();
       }
@@ -63,7 +63,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
         bolt.XDirection = vx;
         bolt.YDirection = vy;
 
-        Utils.SetParameters(bolt, boltData);
+        UtilsProperties.SetParameters(bolt, boltData);
       }
 
       SetHandle(bolt);
@@ -136,7 +136,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
         listOfBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(typeof(ASCircleScrewBoltPattern), listOfBoltParameters, nameof(ASCircleScrewBoltPattern.Radius), radius);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(ASCircleScrewBoltPattern), listOfBoltParameters, nameof(ASCircleScrewBoltPattern.Radius), radius);
 
       return listOfBoltParameters;
     }

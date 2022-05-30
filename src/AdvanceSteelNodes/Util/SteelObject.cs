@@ -14,38 +14,6 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
-    /// Get Quantity in Model
-    /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
-    /// <returns name="objectQuantity"> steelobject total quantity in the current model - numbering needs to be completed</returns>
-    public static int GetQuantityInModel(AdvanceSteel.Nodes.SteelDbObject steelObject)
-    {
-      int ret = -1;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (steelObject != null)
-        {
-          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
-          if (filerObj != null)
-          {
-            if (filerObj.IsKindOf(FilerObject.eObjectType.kAtomicElem))
-            {
-              AtomicElement selectedObj = filerObj as AtomicElement;
-              ret = (int)selectedObj.GetQuantityInModel();
-            }
-            else
-              throw new System.Exception("Not a BEAM Object");
-          }
-          else
-            throw new System.Exception("AS Object is null");
-        }
-        else
-          throw new System.Exception("Steel Object or Point is null");
-      }
-      return ret;
-    }
-
-    /// <summary>
     /// This node can set User attributes for Advance Steel elements from Dynamo
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
@@ -109,46 +77,5 @@ namespace AdvanceSteel.Nodes.Util
       return ret;
     }
 
-    /// <summary>
-    /// Get Beam Weight based on display code
-    /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
-    /// <param name="weightCode">1 = Standard, 2 = Exact, 3 = Fast</param>
-    /// <returns name="weight"> The weight of the steel object based on display mode / resolution</returns>
-    public static double GetWeight(AdvanceSteel.Nodes.SteelDbObject steelObject,
-                                    int weightCode)
-    {
-      double ret = 0;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (steelObject != null)
-        {
-          ret = Utils.GetWeight(steelObject.Handle, weightCode);
-        }
-        else
-          throw new System.Exception("Steel Object or Point is null");
-      }
-      return Utils.FromInternalWeightUnits(ret, true);
-    }
-
-    /// <summary>
-    /// Get Beam Paint Area
-    /// </summary>
-    /// <param name="steelObject">Advance Steel element</param>
-    /// <returns name="paintArea"> The paint area of the selected object</returns>
-    public static double GetPaintArea(AdvanceSteel.Nodes.SteelDbObject steelObject)
-    {
-      double ret = 0;
-      using (var ctx = new SteelServices.DocContext())
-      {
-        if (steelObject != null)
-        {
-          ret = Utils.GetPaintArea(steelObject.Handle);
-        }
-        else
-          throw new System.Exception("Steel Object or Point is null");
-      }
-      return Utils.FromInternalAreaUnits(ret, true);
-    }
   }
 }

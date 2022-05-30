@@ -62,10 +62,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
 
         if (defaultShearStudData != null)
         {
-          Utils.SetParameters(shearStuds, defaultShearStudData);
+          UtilsProperties.SetParameters(shearStuds, defaultShearStudData);
         }
 
-        Utils.SetParameters(shearStuds.Arranger, arrangerShearStudData);
+        UtilsProperties.SetParameters(shearStuds.Arranger, arrangerShearStudData);
 
         shearStuds.WriteToDb();
       }
@@ -76,17 +76,17 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
 
         if (defaultShearStudData != null)
         {
-          Utils.SetParameters(shearStuds, defaultShearStudData);
+          UtilsProperties.SetParameters(shearStuds, defaultShearStudData);
         }
 
-        Utils.SetParameters(shearStuds.Arranger, arrangerShearStudData);
+        UtilsProperties.SetParameters(shearStuds.Arranger, arrangerShearStudData);
       }
     
       SetHandle(shearStuds);
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(shearStuds, postWriteDBData);
+        UtilsProperties.SetParameters(shearStuds, postWriteDBData);
       }
 
       FilerObject obj = Utils.GetObject(handleToConnect);
@@ -182,10 +182,10 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.ShearStuds
         listOfBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfBoltParameters, nameof(Arranger.NumberOfElements), noss);
-      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfBoltParameters, nameof(Arranger.Radius), radius);
-      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfBoltParameters, nameof(Arranger.Length), studLength);
-      Utils.CheckListUpdateOrAddValue(typeof(Arranger), listOfBoltParameters, nameof(ASConnector.Diameter), studDiameter);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfBoltParameters, nameof(Arranger.NumberOfElements), noss);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfBoltParameters, nameof(Arranger.Radius), radius);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfBoltParameters, nameof(Arranger.Length), studLength);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfBoltParameters, nameof(ASConnector.Diameter), studDiameter);
 
       return listOfBoltParameters;
     }

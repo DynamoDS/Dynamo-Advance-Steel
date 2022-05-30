@@ -68,7 +68,7 @@ namespace AdvanceSteel.Nodes.Concrete
         wallObject.Thickness = thickness;
         if (defaultData != null)
         {
-          Utils.SetParameters(wallObject, defaultData);
+          UtilsProperties.SetParameters(wallObject, defaultData);
         }
 
         wallObject.WriteToDb();
@@ -85,7 +85,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
         if (defaultData != null)
         {
-          Utils.SetParameters(wallObject, defaultData);
+          UtilsProperties.SetParameters(wallObject, defaultData);
         }
       }
 
@@ -93,7 +93,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(wallObject, postWriteDBData);
+        UtilsProperties.SetParameters(wallObject, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(wallObject);
@@ -138,7 +138,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
         if (defaultData != null)
         {
-          Utils.SetParameters(wallObject, defaultData);
+          UtilsProperties.SetParameters(wallObject, defaultData);
         }
 
         wallObject.WriteToDb();
@@ -157,7 +157,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
         if (defaultData != null)
         {
-          Utils.SetParameters(wallObject, defaultData);
+          UtilsProperties.SetParameters(wallObject, defaultData);
         }
 
         wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
@@ -167,7 +167,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(wallObject, postWriteDBData);
+        UtilsProperties.SetParameters(wallObject, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(wallObject);
@@ -201,7 +201,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
         if (defaultData != null)
         {
-          Utils.SetParameters(wallObject, defaultData);
+          UtilsProperties.SetParameters(wallObject, defaultData);
         }
 
         wallObject.WriteToDb();
@@ -219,7 +219,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
         if (defaultData != null)
         {
-          Utils.SetParameters(wallObject, defaultData);
+          UtilsProperties.SetParameters(wallObject, defaultData);
         }
 
         wallObject.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
@@ -229,7 +229,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(wallObject, postWriteDBData);
+        UtilsProperties.SetParameters(wallObject, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(wallObject);

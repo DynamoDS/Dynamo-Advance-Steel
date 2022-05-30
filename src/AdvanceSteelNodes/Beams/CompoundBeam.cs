@@ -65,7 +65,7 @@ namespace AdvanceSteel.Nodes.Beams
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beam, defaultData);
+          UtilsProperties.SetParameters(beam, defaultData);
         }
 
         beam.WriteToDb();
@@ -81,7 +81,7 @@ namespace AdvanceSteel.Nodes.Beams
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beam, defaultData);
+          UtilsProperties.SetParameters(beam, defaultData);
         }
 
         Utils.SetOrientation(beam, refVect);
@@ -103,7 +103,7 @@ namespace AdvanceSteel.Nodes.Beams
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(beam, postWriteDBData);
+        UtilsProperties.SetParameters(beam, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
@@ -135,7 +135,7 @@ namespace AdvanceSteel.Nodes.Beams
       {
         listBeamData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(typeof(Beam), listBeamData, nameof(Beam.ProfName), sectionName);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(Beam), listBeamData, nameof(Beam.ProfName), sectionName);
 
       return listBeamData;
     }

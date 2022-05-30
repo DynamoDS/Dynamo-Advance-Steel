@@ -47,7 +47,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
 
         if (defaultData != null)
         {
-          Utils.SetParameters(specPart, defaultData);
+          UtilsProperties.SetParameters(specPart, defaultData);
         }
 
         specPart.WriteToDb();
@@ -60,7 +60,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
         specPart.SetBlock(blockName, scale);
         if (defaultData != null)
         {
-          Utils.SetParameters(specPart, defaultData);
+          UtilsProperties.SetParameters(specPart, defaultData);
         }
       }
 
@@ -68,7 +68,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(specPart, postWriteDBData);
+        UtilsProperties.SetParameters(specPart, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(specPart);
@@ -123,7 +123,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       if (listSpecialPartData == null)
       {
         listSpecialPartData = new List<Property>() { };
-        Utils.CheckListUpdateOrAddValue(typeof(ASSpecialPart), listSpecialPartData, nameof(ASSpecialPart.Scale), scale);
+        UtilsProperties.CheckListUpdateOrAddValue(typeof(ASSpecialPart), listSpecialPartData, nameof(ASSpecialPart.Scale), scale);
       }
       return listSpecialPartData;
     }

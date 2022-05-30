@@ -41,6 +41,9 @@ namespace AdvanceSteel.Nodes
 
       InsertCustomProperty(dictionary, "Weight", nameof(PlateBaseProperties.GetWeight), null, eUnitType.kWeight);
       InsertCustomProperty(dictionary, "Weight (Exact)", nameof(PlateBaseProperties.GetWeightExact), null, eUnitType.kWeight);
+      InsertCustomProperty(dictionary, "Weight (Fast)", nameof(PlateBaseProperties.GetWeightFast), null, eUnitType.kWeight);
+
+      InsertCustomProperty(dictionary, "Physical Length And Width", nameof(PlateBaseProperties.GetPhysicalLengthAndWidth), null);
 
       return dictionary;
     }
@@ -56,5 +59,23 @@ namespace AdvanceSteel.Nodes
       //1 yields the weight, 2 the exact weight
       return plate.GetWeight(2);
     }
+
+    private static double GetWeightFast(PlateBase plate)
+    {
+      //3 the fast weight
+      return plate.GetWeight(3);
+    }
+
+    public static Dictionary<string, double> GetPhysicalLengthAndWidth(PlateBase plate)
+    {
+      Dictionary<string, double> ret = new Dictionary<string, double>();
+
+      plate.GetPhysLengthAndWidth(out var length, out var width);
+      ret.Add("Length", Utils.FromInternalDistanceUnits(length, true));
+      ret.Add("Width", Utils.FromInternalDistanceUnits(width, true));
+
+      return ret;
+    }
+
   }
 }

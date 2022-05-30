@@ -54,7 +54,7 @@ namespace AdvanceSteel.Nodes.Gratings
 
         if (defaultData != null)
         {
-          Utils.SetParameters(gratings, defaultData);
+          UtilsProperties.SetParameters(gratings, defaultData);
         }
 
         gratings.WriteToDb();
@@ -70,7 +70,7 @@ namespace AdvanceSteel.Nodes.Gratings
 
         if (defaultData != null)
         {
-          Utils.SetParameters(gratings, defaultData);
+          UtilsProperties.SetParameters(gratings, defaultData);
         }
       }
 
@@ -78,7 +78,7 @@ namespace AdvanceSteel.Nodes.Gratings
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(gratings, postWriteDBData);
+        UtilsProperties.SetParameters(gratings, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(gratings);
@@ -155,8 +155,8 @@ namespace AdvanceSteel.Nodes.Gratings
       {
         listGratingData = new List<Property>() { };
       }
-      Utils.CheckListUpdateOrAddValue(typeof(ASGrating), listGratingData, nameof(ASGrating.GratingClass), gratingClass);
-      Utils.CheckListUpdateOrAddValue(typeof(ASGrating), listGratingData, nameof(ASGrating.GratingSize), gratingName);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(ASGrating), listGratingData, nameof(ASGrating.GratingClass), gratingClass);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(ASGrating), listGratingData, nameof(ASGrating.GratingSize), gratingName);
 
       return listGratingData;
     }

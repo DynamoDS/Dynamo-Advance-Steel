@@ -70,7 +70,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
       if (bolts == null)
       {
         bolts = new InfinitMidScrewBoltPattern(boltPatternInsertPoint, vx, vy);
-        Utils.SetParameters(bolts, boltData);
+        UtilsProperties.SetParameters(bolts, boltData);
         bolts.WriteToDb();
       }
       else
@@ -78,7 +78,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
         if (!bolts.IsKindOf(FilerObject.eObjectType.kInfinitMidScrewBoltPattern))
           throw new System.Exception("Not a rectangular pattern");
 
-        Utils.SetParameters(bolts, boltData);
+        UtilsProperties.SetParameters(bolts, boltData);
       }
 
       SetHandle(bolts);
@@ -103,7 +103,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
         bolts.Length = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
         bolts.Height = Utils.GetRectangleHeight(astPoint1, astPoint2, vy);
 
-        Utils.SetParameters(bolts, boltData);
+        UtilsProperties.SetParameters(bolts, boltData);
 
         bolts.WriteToDb();
       }
@@ -119,7 +119,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
         bolts.Length = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
         bolts.Height = Utils.GetRectangleHeight(astPoint1, astPoint2, vy);
 
-        Utils.SetParameters(bolts, boltData);
+        UtilsProperties.SetParameters(bolts, boltData);
       }
 
       SetHandle(bolts);
@@ -197,8 +197,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
         listOfBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(typeof(CountableScrewBoltPattern), listOfBoltParameters, nameof(CountableScrewBoltPattern.Nx), nx);
-      Utils.CheckListUpdateOrAddValue(typeof(CountableScrewBoltPattern), listOfBoltParameters, nameof(CountableScrewBoltPattern.Ny), ny);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(CountableScrewBoltPattern), listOfBoltParameters, nameof(CountableScrewBoltPattern.Nx), nx);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(CountableScrewBoltPattern), listOfBoltParameters, nameof(CountableScrewBoltPattern.Ny), ny);
 
       return listOfBoltParameters;
     }

@@ -118,7 +118,7 @@ namespace AdvanceSteel.Nodes.Features
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beamFeat, defaultData);
+          UtilsProperties.SetParameters(beamFeat, defaultData);
         }
 
         bmObj.AddFeature(beamFeat);
@@ -164,7 +164,7 @@ namespace AdvanceSteel.Nodes.Features
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beamFeat, defaultData);
+          UtilsProperties.SetParameters(beamFeat, defaultData);
         }
       }
 
@@ -172,7 +172,7 @@ namespace AdvanceSteel.Nodes.Features
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(beamFeat, postWriteDBData);
+        UtilsProperties.SetParameters(beamFeat, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
@@ -199,7 +199,7 @@ namespace AdvanceSteel.Nodes.Features
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beamFeat, defaultData);
+          UtilsProperties.SetParameters(beamFeat, defaultData);
         }
 
         bmObj.AddFeature(beamFeat);
@@ -217,7 +217,7 @@ namespace AdvanceSteel.Nodes.Features
 
         if (defaultData != null)
         {
-          Utils.SetParameters(beamFeat, defaultData);
+          UtilsProperties.SetParameters(beamFeat, defaultData);
         }
 
         bmObj.AddFeature(beamFeat);
@@ -227,7 +227,7 @@ namespace AdvanceSteel.Nodes.Features
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(beamFeat, postWriteDBData);
+        UtilsProperties.SetParameters(beamFeat, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
@@ -395,8 +395,8 @@ namespace AdvanceSteel.Nodes.Features
       {
         listBeamFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(typeof(ASBeamMultiContourNotch), listBeamFeatureData, nameof(ASBeamMultiContourNotch.Length), length);
-      if (width > 0) Utils.CheckListUpdateOrAddValue(typeof(ASBeamMultiContourNotch), listBeamFeatureData, nameof(ASBeamMultiContourNotch.Width), width);
+      if (length > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(ASBeamMultiContourNotch), listBeamFeatureData, nameof(ASBeamMultiContourNotch.Length), length);
+      if (width > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(ASBeamMultiContourNotch), listBeamFeatureData, nameof(ASBeamMultiContourNotch.Width), width);
       return listBeamFeatureData;
     }
 

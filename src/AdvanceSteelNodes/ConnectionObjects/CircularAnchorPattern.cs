@@ -48,7 +48,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       {
         anchors = new ASAnchorPattern(astPointRef, vx, vy);
         SetAnchorSetOutDetails(anchors, astPointRef, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle);
-        Utils.SetParameters(anchors, anchorBoltData);
+        UtilsProperties.SetParameters(anchors, anchorBoltData);
         anchors.WriteToDb();
       }
       else
@@ -59,7 +59,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
         SetAnchorSetOutDetails(anchors, astPointRef, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kCircle);
         anchors.XDirection = vx;
         anchors.YDirection = vy;
-        Utils.SetParameters(anchors, anchorBoltData);
+        UtilsProperties.SetParameters(anchors, anchorBoltData);
       }
 
       SetHandle(anchors);
@@ -133,7 +133,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
 
       if (radius > 0 )
       {
-        Utils.CheckListUpdateOrAddValue(typeof(ASAnchorPattern), listOfAnchorBoltParameters, nameof(ASAnchorPattern.Radius), radius);
+        UtilsProperties.CheckListUpdateOrAddValue(typeof(ASAnchorPattern), listOfAnchorBoltParameters, nameof(ASAnchorPattern.Radius), radius);
       }
 
       return listOfAnchorBoltParameters;

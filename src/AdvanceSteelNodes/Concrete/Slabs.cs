@@ -78,7 +78,7 @@ namespace AdvanceSteel.Nodes.Concrete
         floorSlab.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
         if (defaultData != null)
         {
-          Utils.SetParameters(floorSlab, defaultData);
+          UtilsProperties.SetParameters(floorSlab, defaultData);
         }
 
         floorSlab.WriteToDb();
@@ -96,7 +96,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
         if (defaultData != null)
         {
-          Utils.SetParameters(floorSlab, defaultData);
+          UtilsProperties.SetParameters(floorSlab, defaultData);
         }
 
         floorSlab.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
@@ -106,7 +106,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(floorSlab, postWriteDBData);
+        UtilsProperties.SetParameters(floorSlab, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(floorSlab);
@@ -131,7 +131,7 @@ namespace AdvanceSteel.Nodes.Concrete
         floorSlab.Thickness = thickness;
         if (defaultData != null)
         {
-          Utils.SetParameters(floorSlab, defaultData);
+          UtilsProperties.SetParameters(floorSlab, defaultData);
         }
 
         floorSlab.WriteToDb();
@@ -148,7 +148,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
         if (defaultData != null)
         {
-          Utils.SetParameters(floorSlab, defaultData);
+          UtilsProperties.SetParameters(floorSlab, defaultData);
         }
       }
 
@@ -156,7 +156,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(floorSlab, postWriteDBData);
+        UtilsProperties.SetParameters(floorSlab, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(floorSlab);
@@ -180,7 +180,7 @@ namespace AdvanceSteel.Nodes.Concrete
         floorSlab.Thickness = thickness;
         if (defaultData != null)
         {
-          Utils.SetParameters(floorSlab, defaultData);
+          UtilsProperties.SetParameters(floorSlab, defaultData);
         }
 
         floorSlab.WriteToDb();
@@ -196,7 +196,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
         if (defaultData != null)
         {
-          Utils.SetParameters(floorSlab, defaultData);
+          UtilsProperties.SetParameters(floorSlab, defaultData);
         }
       }
 
@@ -204,7 +204,7 @@ namespace AdvanceSteel.Nodes.Concrete
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(floorSlab, postWriteDBData);
+        UtilsProperties.SetParameters(floorSlab, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(floorSlab);

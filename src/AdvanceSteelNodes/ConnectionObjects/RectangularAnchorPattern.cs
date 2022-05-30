@@ -48,7 +48,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
       {
         anchors = new ASAnchorPattern(anchorBoltPatternInsertPoint, vx, vy);
         SetAnchorSetOutDetails(anchors, anchorBoltPatternInsertPoint, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular);
-        Utils.SetParameters(anchors, anchorBoltData);
+        UtilsProperties.SetParameters(anchors, anchorBoltData);
 
         anchors.WriteToDb();
       }
@@ -58,7 +58,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
           throw new System.Exception("Not an anchor pattern");
 
         SetAnchorSetOutDetails(anchors, anchorBoltPatternInsertPoint, Autodesk.AdvanceSteel.Arrangement.Arranger.eArrangerType.kRectangular);
-        Utils.SetParameters(anchors, anchorBoltData);
+        UtilsProperties.SetParameters(anchors, anchorBoltData);
       }
 
       SetHandle(anchors);
@@ -86,7 +86,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
         anchors.SetArrangerLength(aLengthX, 0);
         anchors.SetArrangerLength(aLengthY, 1);
 
-        Utils.SetParameters(anchors, anchorBoltData);
+        UtilsProperties.SetParameters(anchors, anchorBoltData);
 
         anchors.WriteToDb();
       }
@@ -102,7 +102,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
         anchors.SetArrangerLength(aLengthX, 0);
         anchors.SetArrangerLength(aLengthY, 1);
 
-        Utils.SetParameters(anchors, anchorBoltData);
+        UtilsProperties.SetParameters(anchors, anchorBoltData);
       }
 
       SetHandle(anchors);
@@ -178,8 +178,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Anchors
         listOfAnchorBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(typeof(ASAnchorPattern), listOfAnchorBoltParameters, nameof(ASAnchorPattern.Nx), nx);
-      Utils.CheckListUpdateOrAddValue(typeof(ASAnchorPattern), listOfAnchorBoltParameters, nameof(ASAnchorPattern.Ny), ny);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(ASAnchorPattern), listOfAnchorBoltParameters, nameof(ASAnchorPattern.Nx), nx);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(ASAnchorPattern), listOfAnchorBoltParameters, nameof(ASAnchorPattern.Ny), ny);
 
       return listOfAnchorBoltParameters;
     }

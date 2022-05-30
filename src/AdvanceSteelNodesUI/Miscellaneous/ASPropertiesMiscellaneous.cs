@@ -43,6 +43,21 @@ namespace AdvanceSteel.Nodes
     : base(inPorts, outPorts) { }
   }
 
+  [NodeName("GridProperties")]
+  [NodeDescription("Lists all the property names of an Advance Steel Grid")]
+  [NodeCategory("AdvanceSteel.Nodes.Miscellaneous.Grid")]
+  [IsDesignScriptCompatible]
+  public class ASPropertiesGrid : ASPropertiesBase
+  {
+    protected override Type GetObjectType => typeof(Grid);
+
+    public ASPropertiesGrid() : base() { }
+
+    [JsonConstructor]
+    public ASPropertiesGrid(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(inPorts, outPorts) { }
+  }
+
   [NodeName("JointProperties")]
   [NodeDescription("Lists all the property names of an Advance Steel Joint")]
   [NodeCategory("AdvanceSteel.Nodes.Miscellaneous.Joint")]

@@ -72,7 +72,7 @@ namespace AdvanceSteel.Nodes.Features
         AtomicElement atomic = obj as AtomicElement;
         if (defaultData != null)
         {
-          Utils.SetParameters(plateFeat, defaultData);
+          UtilsProperties.SetParameters(plateFeat, defaultData);
         }
 
         atomic.AddFeature(plateFeat);
@@ -84,7 +84,7 @@ namespace AdvanceSteel.Nodes.Features
 
         if (defaultData != null)
         {
-          Utils.SetParameters(plateFeat, defaultData);
+          UtilsProperties.SetParameters(plateFeat, defaultData);
         }
       }
 
@@ -92,7 +92,7 @@ namespace AdvanceSteel.Nodes.Features
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(plateFeat, postWriteDBData);
+        UtilsProperties.SetParameters(plateFeat, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(plateFeat);
@@ -148,11 +148,11 @@ namespace AdvanceSteel.Nodes.Features
       {
         listPlateFeatureData = new List<Property>() { };
       }
-      if (conIndex > -1) Utils.CheckListUpdateOrAddValue(typeof(PlateFeatEdge), listPlateFeatureData, nameof(PlateFeatEdge.ContourIndex), conIndex);
-      if (vertIndex > -1) Utils.CheckListUpdateOrAddValue(typeof(PlateFeatEdge), listPlateFeatureData, nameof(PlateFeatVertex.VertexIndex), vertIndex);
-      if (length1 > 0) Utils.CheckListUpdateOrAddValue(typeof(PlateFeatVertFillet), listPlateFeatureData, nameof(PlateFeatVertFillet.Length1), length1);
-      if (length2 > 0) Utils.CheckListUpdateOrAddValue(typeof(PlateFeatVertFillet), listPlateFeatureData, nameof(PlateFeatVertFillet.Length2), length2);
-      if (radius > 0) Utils.CheckListUpdateOrAddValue(typeof(PlateFeatVertFillet), listPlateFeatureData, nameof(PlateFeatVertFillet.Radius), radius);
+      if (conIndex > -1) UtilsProperties.CheckListUpdateOrAddValue(typeof(PlateFeatEdge), listPlateFeatureData, nameof(PlateFeatEdge.ContourIndex), conIndex);
+      if (vertIndex > -1) UtilsProperties.CheckListUpdateOrAddValue(typeof(PlateFeatEdge), listPlateFeatureData, nameof(PlateFeatVertex.VertexIndex), vertIndex);
+      if (length1 > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(PlateFeatVertFillet), listPlateFeatureData, nameof(PlateFeatVertFillet.Length1), length1);
+      if (length2 > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(PlateFeatVertFillet), listPlateFeatureData, nameof(PlateFeatVertFillet.Length2), length2);
+      if (radius > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(PlateFeatVertFillet), listPlateFeatureData, nameof(PlateFeatVertFillet.Radius), radius);
       return listPlateFeatureData;
     }
 

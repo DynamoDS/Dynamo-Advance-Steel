@@ -18,6 +18,7 @@ using Autodesk.AdvanceSteel.CADAccess;
 using static Autodesk.AdvanceSteel.DotNetRoots.Units.Unit;
 using static Autodesk.AdvanceSteel.CADAccess.FilerObject;
 using Autodesk.AdvanceSteel.Modelling;
+using static Autodesk.AdvanceSteel.Modelling.Beam;
 
 namespace AdvanceSteel.Nodes
 {
@@ -35,7 +36,6 @@ namespace AdvanceSteel.Nodes
       InsertProperty(dictionary, "Deviation", nameof(ASBeam.Deviation));
       InsertProperty(dictionary, "Beam Shrink Value", nameof(ASBeam.ShrinkValue), LevelEnum.Default);
       InsertProperty(dictionary, "Coordinate System at System Start", nameof(ASBeam.SysCSStart), LevelEnum.Default);
-      InsertProperty(dictionary, "Is Cross Section Mirrored", nameof(ASBeam.IsCrossSectionMirrored), LevelEnum.Default);
       InsertProperty(dictionary, "Angle (Radians)", nameof(ASBeam.Angle), LevelEnum.Default, eUnitType.kAngle);
       InsertProperty(dictionary, "Profile Name", nameof(ASBeam.ProfName));
       InsertProperty(dictionary, "Coordinate System at System End", nameof(ASBeam.SysCSEnd), LevelEnum.Default);
@@ -44,14 +44,19 @@ namespace AdvanceSteel.Nodes
       InsertProperty(dictionary, "Coordinate System at Physical Mid", nameof(ASBeam.PhysCSMid), LevelEnum.Default);
       InsertProperty(dictionary, "Offsets", nameof(ASBeam.Offsets));
       InsertProperty(dictionary, "Length", nameof(ASBeam.GetLength), eUnitType.kDistance);
+      InsertProperty(dictionary, "Weight (Per Meter)", nameof(ASBeam.GetWeightPerMeter), eUnitType.kWeightPerDistance);
+      InsertProperty(dictionary, "Paint Area", nameof(ASBeam.GetPaintArea), eUnitType.kArea);
+
+      InsertCustomProperty(dictionary, "Start Point", nameof(BeamProperties.GetPointAtStart), nameof(BeamProperties.SetPointAtStart));
+      InsertCustomProperty(dictionary, "End Point", nameof(BeamProperties.GetPointAtEnd), nameof(BeamProperties.SetPointAtEnd));
+      InsertCustomProperty(dictionary, "Is Cross Section Mirrored", nameof(BeamProperties.IsCrossSectionMirrored), nameof(BeamProperties.SetIsCrossSectionMirrored), LevelEnum.Default);
+      InsertCustomProperty(dictionary, "Reference Axis Description", nameof(BeamProperties.GetReferenceAxisDescription), null);
+      InsertCustomProperty(dictionary, "Reference Axis", nameof(BeamProperties.GetReferenceAxis), nameof(BeamProperties.SetReferenceAxis));
       InsertCustomProperty(dictionary, "Weight", nameof(BeamProperties.GetWeight), null, eUnitType.kWeight);
       InsertCustomProperty(dictionary, "Weight (Exact)", nameof(BeamProperties.GetWeightExact), null, eUnitType.kWeight);
-      InsertProperty(dictionary, "Weight (Per Meter)", nameof(ASBeam.GetWeightPerMeter), eUnitType.kWeight);
-      InsertProperty(dictionary, "Start Point", nameof(ASBeam.GetPointAtStart));
-      InsertProperty(dictionary, "End Point", nameof(ASBeam.GetPointAtEnd));
+      InsertCustomProperty(dictionary, "Weight (Fast)", nameof(BeamProperties.GetWeightFast), null, eUnitType.kWeight);
       InsertCustomProperty(dictionary, "Beam Points", nameof(BeamProperties.GetListPoints), null);
       InsertCustomProperty(dictionary, "Beam Line", nameof(BeamProperties.GetLine), null);
-      InsertProperty(dictionary, "Paint Area", nameof(ASBeam.GetPaintArea), eUnitType.kArea);
       InsertCustomProperty(dictionary, "Profile Type Code", nameof(BeamProperties.GetProfileTypeCode), null);
       InsertCustomProperty(dictionary, "Profile Type", nameof(BeamProperties.GetProfileType), null);
       InsertCustomProperty(dictionary, "Saw Length", nameof(BeamProperties.GetSawLength), null, eUnitType.kAreaPerDistance);
@@ -59,8 +64,54 @@ namespace AdvanceSteel.Nodes
       InsertCustomProperty(dictionary, "Flange Angle At End", nameof(BeamProperties.GetFlangeAngleAtEnd), null, eUnitType.kAngle);
       InsertCustomProperty(dictionary, "Web Angle At Start", nameof(BeamProperties.GetWebAngleAtStart), null, eUnitType.kAngle);
       InsertCustomProperty(dictionary, "Web Angle At End", nameof(BeamProperties.GetWebAngleAtEnd), null, eUnitType.kAngle);
+      InsertCustomProperty(dictionary, "Saw Information", nameof(BeamProperties.GetSawInformationComplete), null);
 
       return dictionary;
+    }
+
+    private static ASPoint3d GetPointAtStart(ASBeam beam)
+    {
+      return beam.GetPointAtStart();
+    }
+
+    private static void SetPointAtStart(ASBeam beam, ASPoint3d startPoint)
+    {
+      beam.SetSysStart(startPoint);
+    }
+
+    private static ASPoint3d GetPointAtEnd(ASBeam beam)
+    {
+      return beam.GetPointAtEnd();
+    }
+
+    private static void SetPointAtEnd(ASBeam beam, ASPoint3d endPoint)
+    {
+      beam.SetSysEnd(endPoint);
+    }
+
+    private static bool IsCrossSectionMirrored(ASBeam beam)
+    {
+      return beam.IsCrossSectionMirrored;
+    }
+
+    private static void SetIsCrossSectionMirrored(ASBeam beam, bool isCrossSectionMirrored)
+    {
+      beam.SetCrossSectionMirrored(isCrossSectionMirrored);
+    }
+
+    private static string GetReferenceAxisDescription(ASBeam beam)
+    {
+      return beam.RefAxis.ToString();
+    }
+
+    private static int GetReferenceAxis(ASBeam beam)
+    {
+      return (int)beam.RefAxis;
+    }
+
+    private static void SetReferenceAxis(ASBeam beam, int refAxis)
+    {
+      beam.RefAxis = (eRefAxis)refAxis;
     }
 
     private static double GetWeight(ASBeam beam)
@@ -73,6 +124,12 @@ namespace AdvanceSteel.Nodes
     {
       //1 yields the weight, 2 the exact weight
       return RoundWeight(beam.GetWeight(2));
+    }
+
+    private static double GetWeightFast(ASBeam beam)
+    {
+      //3 the fast weight
+      return RoundWeight(beam.GetWeight(3));
     }
 
     private static double RoundWeight(double value)
@@ -118,32 +175,67 @@ namespace AdvanceSteel.Nodes
 
     private static double GetSawLength(ASBeam beam)
     {
-      beam.GetSawInformation(out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
+      GetSawInformation(beam, out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
       return sawLength;
     }
 
     private static double GetFlangeAngleAtStart(ASBeam beam)
     {
-      beam.GetSawInformation(out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
+      GetSawInformation(beam, out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
       return Utils.DegreeToRad(flangeAngleAtStart);
     }
 
     private static double GetWebAngleAtStart(ASBeam beam)
     {
-      beam.GetSawInformation(out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
+      GetSawInformation(beam, out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
       return Utils.DegreeToRad(webAngleAtStart);
     }
 
     private static double GetFlangeAngleAtEnd(ASBeam beam)
     {
-      beam.GetSawInformation(out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
+      GetSawInformation(beam, out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
       return Utils.DegreeToRad(flangeAngleAtEnd);
     }
 
     private static double GetWebAngleAtEnd(ASBeam beam)
     {
-      beam.GetSawInformation(out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
+      GetSawInformation(beam, out var sawLength, out var flangeAngleAtStart, out var webAngleAtStart, out var flangeAngleAtEnd, out var webAngleAtEnd);
       return Utils.DegreeToRad(webAngleAtEnd);
+    }
+
+    private static Dictionary<string, double> GetSawInformationComplete(ASBeam beam)
+    {
+      Dictionary<string, double> ret = new Dictionary<string, double>();
+
+      double sawLength = 0;
+      double flangeAngleAtStart = 0;
+      double webAngleAtStart = 0;
+      double flangeAngleAtEnd = 0;
+      double webAngleAtEnd = 0;
+      ret.Add("SawLength", Utils.FromInternalDistanceUnits(sawLength, true));
+      ret.Add("FlangeAngleAtStart", flangeAngleAtStart);
+      ret.Add("WebAngleAtStart", webAngleAtStart);
+      ret.Add("FlangeAngleAtEnd", flangeAngleAtEnd);
+      ret.Add("WebAngleAtEnd", webAngleAtEnd);
+
+      GetSawInformation(beam, out sawLength, out flangeAngleAtStart, out webAngleAtStart, out flangeAngleAtEnd, out webAngleAtEnd);
+
+      ret["SawLength"] = Utils.FromInternalDistanceUnits(sawLength, true);
+      ret["FlangeAngleAtStart"] = Utils.FromInternalAngleUnits(Utils.DegreeToRad(flangeAngleAtStart), true);
+      ret["WebAngleAtStart"] = Utils.FromInternalAngleUnits(Utils.DegreeToRad(webAngleAtStart), true);
+      ret["FlangeAngleAtEnd"] = Utils.FromInternalAngleUnits(Utils.DegreeToRad(flangeAngleAtEnd), true);
+      ret["WebAngleAtEnd"] = Utils.FromInternalAngleUnits(Utils.DegreeToRad(webAngleAtEnd), true);
+
+      return ret;
+    }
+
+    private static void GetSawInformation(ASBeam beam, out double sawLength, out double flangeAngleAtStart, out double webAngleAtStart, out double flangeAngleAtEnd, out double webAngleAtEnd)
+    {
+      int executed = beam.GetSawInformation(out sawLength, out flangeAngleAtStart, out webAngleAtStart, out flangeAngleAtEnd, out webAngleAtEnd);
+      if (executed <= 0)
+      {
+        throw new System.Exception("No Values were found for Steel Beam from Function");
+      }
     }
   }
 }

@@ -210,7 +210,7 @@ namespace AdvanceSteel.Nodes
       {
         FilerObject filerObj = Utils.GetObject(steelObject.Handle);
 
-        Property extractionProperty = Utils.GetProperty(filerObj.GetType(), propertyName);
+        Property extractionProperty = UtilsProperties.GetProperty(filerObj.GetType(), propertyName);
         extractionProperty.EvaluateFromObject(filerObj);
 
         return extractionProperty;
@@ -246,7 +246,7 @@ namespace AdvanceSteel.Nodes
       using (var ctx = new SteelServices.DocContext())
       {
         FilerObject filerObj = Utils.GetObject(steelObject.Handle);
-        Dictionary<string, Property> allProperties = Utils.GetAllProperties(filerObj.GetType());
+        Dictionary<string, Property> allProperties = UtilsProperties.GetAllProperties(filerObj.GetType());
 
         foreach (KeyValuePair<string, Property> prop in allProperties)
         {
@@ -311,11 +311,11 @@ namespace AdvanceSteel.Nodes
 
       if (string.IsNullOrEmpty(this.MemberName))
       {
-        newProperty = Utils.GetProperty(objectType, this._description);
+        newProperty = UtilsProperties.GetProperty(objectType, this._description);
       }
       else
       {
-        newProperty = Utils.GetPropertyByMemberName(objectType, this.MemberName);
+        newProperty = UtilsProperties.GetPropertyByMemberName(objectType, this.MemberName);
       }
 
       this.CopyProperty(newProperty);
@@ -485,6 +485,11 @@ namespace AdvanceSteel.Nodes
     private object ConvertFromDyn(Autodesk.DesignScript.Geometry.PolyCurve objectDyn)
     {
       return objectDyn.ToAstPolyline3dOpened();
+    }
+
+    private object ConvertFromDyn(Autodesk.DesignScript.Geometry.Plane objectDyn)
+    {
+      return objectDyn.ToAstPlane();
     }
 
     private object ConvertFromDyn(object objectDyn)

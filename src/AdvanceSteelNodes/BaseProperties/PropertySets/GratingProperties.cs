@@ -45,11 +45,12 @@ namespace AdvanceSteel.Nodes
       InsertProperty(dictionary, "Center Point on Top", nameof(Grating.GetCenterOnTop));
       InsertProperty(dictionary, "Exact Paint Area", nameof(Grating.GetExactPaintArea), eUnitType.kArea);
       InsertProperty(dictionary, "Top Normal", nameof(Grating.GetTopNormal));
-      InsertProperty(dictionary, "top Plane", nameof(Grating.GetTopPlane));
+      InsertProperty(dictionary, "Top Plane", nameof(Grating.GetTopPlane));
       InsertProperty(dictionary, "Y Direction", nameof(Grating.GetYDir));
 
       InsertCustomProperty(dictionary, "Connector Type", nameof(GratingProperties.GetConnectorType), null);
       InsertCustomProperty(dictionary, "Grating Type", nameof(GratingProperties.GetGratingType), null);
+      InsertCustomProperty(dictionary, "Grating Type Description", nameof(GratingProperties.GetGratingTypeDescription), null);
 
       return dictionary;
     }
@@ -59,9 +60,15 @@ namespace AdvanceSteel.Nodes
       return grating.ConnectorType.ToString();
     }
 
-    private static string GetGratingType(Grating grating)
+    private static int GetGratingType(Grating grating)
+    {
+      return (int)grating.GratingType;
+    }
+
+    private static string GetGratingTypeDescription(Grating grating)
     {
       return grating.GratingType.ToString();
     }
+
   }
 }

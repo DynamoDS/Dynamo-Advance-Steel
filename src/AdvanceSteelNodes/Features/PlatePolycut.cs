@@ -128,7 +128,7 @@ namespace AdvanceSteel.Nodes.Features
 
         if (defaultData != null)
         {
-          Utils.SetParameters(plateFeat, defaultData);
+          UtilsProperties.SetParameters(plateFeat, defaultData);
         }
 
         atomic.AddFeature(plateFeat);
@@ -178,7 +178,7 @@ namespace AdvanceSteel.Nodes.Features
 
         if (defaultData != null)
         {
-          Utils.SetParameters(plateFeat, defaultData);
+          UtilsProperties.SetParameters(plateFeat, defaultData);
         }
 
         atomic.AddFeature(plateFeat);
@@ -188,7 +188,7 @@ namespace AdvanceSteel.Nodes.Features
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(plateFeat, postWriteDBData);
+        UtilsProperties.SetParameters(plateFeat, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(plateFeat);
@@ -215,7 +215,7 @@ namespace AdvanceSteel.Nodes.Features
 
         if (defaultData != null)
         {
-          Utils.SetParameters(plateFeat, defaultData);
+          UtilsProperties.SetParameters(plateFeat, defaultData);
         }
 
         plate.AddFeature(plateFeat);
@@ -234,7 +234,7 @@ namespace AdvanceSteel.Nodes.Features
 
         if (defaultData != null)
         {
-          Utils.SetParameters(plateFeat, defaultData);
+          UtilsProperties.SetParameters(plateFeat, defaultData);
         }
 
         atomic.AddFeature(plateFeat);
@@ -244,7 +244,7 @@ namespace AdvanceSteel.Nodes.Features
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(plateFeat, postWriteDBData);
+        UtilsProperties.SetParameters(plateFeat, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(plateFeat);
@@ -346,9 +346,9 @@ namespace AdvanceSteel.Nodes.Features
       {
         listPlateFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(typeof(ASPlateContourNotch), listPlateFeatureData, nameof(ASPlateContourNotch.Length), length);
-      if (width > 0) Utils.CheckListUpdateOrAddValue(typeof(ASPlateContourNotch), listPlateFeatureData, nameof(ASPlateContourNotch.Width), width);
-      if (radius > 0) Utils.CheckListUpdateOrAddValue(typeof(ASPlateContourNotch), listPlateFeatureData, nameof(ASPlateContourNotch.Radius), radius);
+      if (length > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(ASPlateContourNotch), listPlateFeatureData, nameof(ASPlateContourNotch.Length), length);
+      if (width > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(ASPlateContourNotch), listPlateFeatureData, nameof(ASPlateContourNotch.Width), width);
+      if (radius > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(ASPlateContourNotch), listPlateFeatureData, nameof(ASPlateContourNotch.Radius), radius);
       return listPlateFeatureData;
     }
 

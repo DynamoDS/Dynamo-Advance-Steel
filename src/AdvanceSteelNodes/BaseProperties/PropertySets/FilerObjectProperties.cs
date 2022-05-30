@@ -23,7 +23,7 @@ namespace AdvanceSteel.Nodes
 
     private static string GetFormatedType(object filerObject)
     {
-      return Utils.GetDescriptionObject(filerObject.GetType());
+      return UtilsProperties.GetDescriptionObject(filerObject.GetType());
     }
   }
 }

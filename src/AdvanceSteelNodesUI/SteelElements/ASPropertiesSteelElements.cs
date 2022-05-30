@@ -227,4 +227,20 @@ namespace AdvanceSteel.Nodes
     : base(inPorts, outPorts) { }
   }
 
+  [NodeName("FoldedPlateProperties")]
+  [NodeDescription("Lists all the property names of an Advance Steel Folded Plate")]
+  [NodeCategory("AdvanceSteel.Nodes.Plates")]
+  [IsDesignScriptCompatible]
+
+  public class ASPropertiesFoldedPlate : ASPropertiesBase
+  {
+    protected override Type GetObjectType => typeof(FoldedPlate);
+
+    public ASPropertiesFoldedPlate() : base() { }
+
+    [JsonConstructor]
+    public ASPropertiesFoldedPlate(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(inPorts, outPorts) { }
+  }
+
 }

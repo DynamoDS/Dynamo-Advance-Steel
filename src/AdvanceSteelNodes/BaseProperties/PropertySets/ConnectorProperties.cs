@@ -22,6 +22,7 @@ namespace AdvanceSteel.Nodes
       InsertProperty(dictionary, "Grade", nameof(Connector.Grade));
       InsertProperty(dictionary, "Standard", nameof(Connector.Standard));
       InsertProperty(dictionary, "Normal", nameof(Connector.Normal), LevelEnum.Default);
+      InsertProperty(dictionary, "Weight", nameof(Connector.GetWeight), eUnitType.kWeight);
 
       return dictionary;
     }

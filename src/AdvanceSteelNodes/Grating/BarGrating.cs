@@ -51,7 +51,7 @@ namespace AdvanceSteel.Nodes.Gratings
 
         if (defaultData != null)
         {
-          Utils.SetParameters(gratings, defaultData);
+          UtilsProperties.SetParameters(gratings, defaultData);
         }
 
         gratings.WriteToDb();
@@ -66,7 +66,7 @@ namespace AdvanceSteel.Nodes.Gratings
 
         if (defaultData != null)
         {
-          Utils.SetParameters(gratings, defaultData);
+          UtilsProperties.SetParameters(gratings, defaultData);
         }
       }
 
@@ -74,7 +74,7 @@ namespace AdvanceSteel.Nodes.Gratings
 
       if (postWriteDBData != null)
       {
-        Utils.SetParameters(gratings, postWriteDBData);
+        UtilsProperties.SetParameters(gratings, postWriteDBData);
       }
 
       SteelServices.ElementBinder.CleanupAndSetElementForTrace(gratings);
