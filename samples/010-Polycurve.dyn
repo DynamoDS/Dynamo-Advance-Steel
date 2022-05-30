@@ -1,0 +1,513 @@
+{
+  "Uuid": "27054420-4e23-4489-9aeb-1531a19dec01",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "TestePoly",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASObjectSelection, AdvanceSteelNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "17053B"
+      ],
+      "Id": "12ba709262bf47c9acd3153ae854fe4f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a3eef9e1d1d6413caafaefce4322ff83",
+          "Name": "steelObjects",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASObjectSelection, AdvanceSteelNodesUI",
+      "NodeType": "ExtensionNode",
+      "InstanceId": [
+        "16EB87"
+      ],
+      "Id": "2eb6d0531c4c44cbabc9bc8dad1051bf",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "2d774268ac6a42c0b60a35684477b7ef",
+          "Name": "steelObjects",
+          "Description": "The selected elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesPolyBeam, AdvanceSteelNodesUI",
+      "SelectedIndex": 51,
+      "SelectedString": "Poly Curve",
+      "NodeType": "ExtensionNode",
+      "Id": "c3368ecac88b4c23bcd247e4db33facc",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "2a8ae6f738964d658fe9c6c27312dbf1",
+          "Name": "propertyName",
+          "Description": "name of the selected property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Poly Beam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.GetObjectProperty@AdvanceSteel.Nodes.SteelDbObject,string",
+      "Id": "5126f684262b4c3b813c60462376c560",
+      "Inputs": [
+        {
+          "Id": "53ba20a38d1845378417b408f7f128d2",
+          "Name": "steelObject",
+          "Description": "Steel object\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4e49dac69dca48ef8fd008256bac324c",
+          "Name": "propertyName",
+          "Description": "Name of the property\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "45e68ce1a9fe4bcb970fb092b2cb12b8",
+          "Name": "property",
+          "Description": "The desired property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get a property from a steel object\n\nProperty.GetObjectProperty (steelObject: SteelDbObject, propertyName: string): Property"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.SetObjectProperty@AdvanceSteel.Nodes.SteelDbObject,AdvanceSteel.Nodes.Property",
+      "Id": "1767e60508854cfea839e52dc939e7ad",
+      "Inputs": [
+        {
+          "Id": "a6e68834391c424da11c38f2e817c389",
+          "Name": "steelObject",
+          "Description": "Steel Object\n\nSteelDbObject",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0a38402a08d848f88c05330ecc7c05b7",
+          "Name": "property",
+          "Description": "Property object\n\nProperty",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "260472d99ffe45609b50de327ebbf6dd",
+          "Name": "steelObject",
+          "Description": "The updated steel object",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Set a property for a Steel Object\n\nProperty.SetObjectProperty (steelObject: SteelDbObject, property: Property): SteelDbObject"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
+      "Id": "a08957f375ee4b298d6ad4ba38aeed17",
+      "Inputs": [
+        {
+          "Id": "f636c650a88441a884c6dfe2e6b8c41b",
+          "Name": "propertyName",
+          "Description": "Name from property list node for a particular steel object type\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "667eba778f8c40f4bc748831b232a859",
+          "Name": "value",
+          "Description": "Native data to store in the property object\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c5bef52715d84d04817e1c3a50bb3de3",
+          "Name": "property",
+          "Description": "property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
+    },
+    {
+      "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesPolyBeam, AdvanceSteelNodesUI",
+      "SelectedIndex": 51,
+      "SelectedString": "Poly Curve",
+      "NodeType": "ExtensionNode",
+      "Id": "849deea73648417d9abb4b537184099a",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ac34f1bd41314fdc91d2313ff12f2e8b",
+          "Name": "propertyName",
+          "Description": "name of the selected property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Lists all the property names of an Advance Steel Poly Beam"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.List.FirstItem@var[]..[]",
+      "Id": "3a16d24fa5ed4bb380cd6d122819c185",
+      "Inputs": [
+        {
+          "Id": "5829a111d2934c34ab453b8b2ae56f25",
+          "Name": "list",
+          "Description": "List to get the first item from.\n\nvar[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9147498f7ccf48e8bc038d72a2cfdbac",
+          "Name": "item",
+          "Description": "First item in the list.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Returns the first item in a list.\n\nList.FirstItem (list: var[]..[]): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.Value",
+      "Id": "4dcd5720ee6b4fa283f1648bc2aed288",
+      "Inputs": [
+        {
+          "Id": "40a48df2d6fc4b32a770be1adfd2ba46",
+          "Name": "property",
+          "Description": "AdvanceSteel.Nodes.Property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d9cbd0b9508f4d519f652a517215c8ca",
+          "Name": "Value",
+          "Description": "The value of the property",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get the value from the property\n\nProperty.Value: var[]..[]"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "a3eef9e1d1d6413caafaefce4322ff83",
+      "End": "53ba20a38d1845378417b408f7f128d2",
+      "Id": "41a6fca188144bcd80c8cceed75fc8af",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "2d774268ac6a42c0b60a35684477b7ef",
+      "End": "a6e68834391c424da11c38f2e817c389",
+      "Id": "35f7ba40e1b3404a92de4a9dd870ae48",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "2a8ae6f738964d658fe9c6c27312dbf1",
+      "End": "4e49dac69dca48ef8fd008256bac324c",
+      "Id": "f3e4f5b5c5984ea8a6c3e4d6b61cc623",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "45e68ce1a9fe4bcb970fb092b2cb12b8",
+      "End": "5829a111d2934c34ab453b8b2ae56f25",
+      "Id": "0063017dc2974673af7f62c8ed2bc355",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "c5bef52715d84d04817e1c3a50bb3de3",
+      "End": "0a38402a08d848f88c05330ecc7c05b7",
+      "Id": "fdc045f2308a4663875ee7a9294e62db",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "ac34f1bd41314fdc91d2313ff12f2e8b",
+      "End": "f636c650a88441a884c6dfe2e6b8c41b",
+      "Id": "1218f43ea6bc44c8837060f740f8a6c1",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "9147498f7ccf48e8bc038d72a2cfdbac",
+      "End": "40a48df2d6fc4b32a770be1adfd2ba46",
+      "Id": "aa4c240ebd8744349a3abd719a162826",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "d9cbd0b9508f4d519f652a517215c8ca",
+      "End": "667eba778f8c40f4bc748831b232a859",
+      "Id": "e221e8c42ffa4a7f97908c5f47f4e293",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.13",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 100.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.13.1.3887",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Name": "SelectAdvanceSteelObjects",
+        "ShowGeometry": true,
+        "Id": "12ba709262bf47c9acd3153ae854fe4f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -54.218393816604362,
+        "Y": 17.670137326447389
+      },
+      {
+        "Name": "SelectAdvanceSteelObjects",
+        "ShowGeometry": true,
+        "Id": "2eb6d0531c4c44cbabc9bc8dad1051bf",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -49.636864786253682,
+        "Y": 647.55240755523869
+      },
+      {
+        "Name": "PolyBeamProperties",
+        "ShowGeometry": true,
+        "Id": "c3368ecac88b4c23bcd247e4db33facc",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 334.216461406813,
+        "Y": 31.430792115908417
+      },
+      {
+        "Name": "Property.GetObjectProperty",
+        "ShowGeometry": true,
+        "Id": "5126f684262b4c3b813c60462376c560",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 732.71025211989831,
+        "Y": 32.11177885705257
+      },
+      {
+        "Name": "Property.SetObjectProperty",
+        "ShowGeometry": true,
+        "Id": "1767e60508854cfea839e52dc939e7ad",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 790.77768453572412,
+        "Y": 647.19599717415826
+      },
+      {
+        "Name": "Property.ByNameAndValue",
+        "ShowGeometry": true,
+        "Id": "a08957f375ee4b298d6ad4ba38aeed17",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 386.26801533947048,
+        "Y": 644.423407476266
+      },
+      {
+        "Name": "PolyBeamProperties",
+        "ShowGeometry": true,
+        "Id": "849deea73648417d9abb4b537184099a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 128.86283282198019,
+        "Y": 862.29824740059769
+      },
+      {
+        "Name": "List.FirstItem",
+        "ShowGeometry": true,
+        "Id": "3a16d24fa5ed4bb380cd6d122819c185",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 337.51154475016392,
+        "Y": 259.20402674639905
+      },
+      {
+        "Name": "Property.Value",
+        "ShowGeometry": true,
+        "Id": "4dcd5720ee6b4fa283f1648bc2aed288",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 564.88842332442948,
+        "Y": 253.80094919087907
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "4a05cc4ac7a240958ffcec7e18db6bb2",
+        "Title": "Get Poly Curve of any Polybeam",
+        "DescriptionText": "Use the polycurve of any polybeam for set in another polybeam",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "12ba709262bf47c9acd3153ae854fe4f",
+          "c3368ecac88b4c23bcd247e4db33facc",
+          "5126f684262b4c3b813c60462376c560",
+          "3a16d24fa5ed4bb380cd6d122819c185",
+          "4dcd5720ee6b4fa283f1648bc2aed288"
+        ],
+        "HasNestedGroups": false,
+        "Left": -64.218393816604362,
+        "Top": -55.329862673552611,
+        "Width": 1086.9286459365026,
+        "Height": 453.13081186443168,
+        "FontSize": 36.0,
+        "InitialTop": 17.670137326447389,
+        "InitialHeight": 410.13081186443168,
+        "TextblockHeight": 63.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "f772c92881204ca88576598f9834ec87",
+        "Title": "Set Poly Curve of any Polybeam",
+        "DescriptionText": "<Double click here to edit group description>",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "2eb6d0531c4c44cbabc9bc8dad1051bf",
+          "1767e60508854cfea839e52dc939e7ad",
+          "a08957f375ee4b298d6ad4ba38aeed17",
+          "849deea73648417d9abb4b537184099a"
+        ],
+        "HasNestedGroups": false,
+        "Left": -59.636864786253682,
+        "Top": 571.423407476266,
+        "Width": 1139.4145493219778,
+        "Height": 422.8748399243317,
+        "FontSize": 36.0,
+        "InitialTop": 644.423407476266,
+        "InitialHeight": 379.8748399243317,
+        "TextblockHeight": 63.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 157.8242768053986,
+    "Y": 93.400110763392945,
+    "Zoom": 0.3948930830298189
+  }
+}
