@@ -33,6 +33,16 @@ namespace Dynamo.Applications.AdvanceSteel
 
     public void LeaveContext(DocContext ctx)
     {
+      CloseTransaction();
+    }
+
+    public void ForceCloseTransaction()
+    {
+      CloseTransaction();
+    }
+
+    private void CloseTransaction()
+    {
       if (SteelTransaction != null)
       {
         SteelTransaction.Commit();
@@ -45,5 +55,6 @@ namespace Dynamo.Applications.AdvanceSteel
         DocumentLocked = false;
       }
     }
+
   }
 }

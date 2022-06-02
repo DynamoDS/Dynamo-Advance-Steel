@@ -1,38 +1,32 @@
 ﻿using Autodesk.Windows;
+using System.Linq;
 
 namespace Dynamo.Applications.AdvanceSteel
 {
   public class RibbonUtils
   {
-    public static string DynamoASTabUID = "Add-ins";
-    public static string DynamoASPanelUID = "ID_PanelOnlineDocuments";
-    public static string DynamoASButtonUID = "DYNAMOAS";
+    private const string DynamoASTabUID = "Add-ins";
+    private const string DynamoASPanelUID = "ID_PanelOnlineDocuments";
+    private const string DynamoASButtonUID = "DYNAMOAS";
 
-    public static void SetEnabled(string tabName, string panelUID, string buttonUID, bool enabled)
+    public static void SetEnabledDynamoButton(bool pEnable)
     {
-      RibbonTabCollection oTabs = Autodesk.Windows.ComponentManager.Ribbon.Tabs;
-      foreach (RibbonTab oTab in oTabs)
-      {
-        if (oTab.Title == tabName)
-        {
-          RibbonPanelCollection bPans = oTab.Panels;
-
-          foreach (RibbonPanel oPanel in bPans)
-          {
-            if (oPanel.UID == panelUID)
-            {
-              foreach (RibbonItem item in oPanel.Source.Items)
-              {
-                if (item.UID == buttonUID)
-                {
-                  item.IsEnabled = enabled;
-                }
-              }
-            }
-          }
-          break;
-        }
-      }
+      SetEnabledButton(DynamoASButtonUID, pEnable);
     }
+
+    private static void SetEnabledButton(string pButtonUID, bool pEnable)
+    {
+      RibbonTabCollection tabs = Autodesk.Windows.ComponentManager.Ribbon.Tabs;
+
+      RibbonButton item = tabs.FirstOrDefault(x => x.Name == DynamoASTabUID)?.Panels.FirstOrDefault(x => x.UID == DynamoASPanelUID)?.FindItem(pButtonUID) as RibbonButton;
+    
+      if (item != null)
+      {
+        item.IsEnabled = pEnable;
+      }
+
+      //Autodesk.Windows.ComponentManager.Ribbon.UpdateLayout();
+    }
+
   }
 }

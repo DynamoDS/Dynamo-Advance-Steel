@@ -8,51 +8,77 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Windows;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 [assembly: CommandClassAttribute(typeof(Dynamo.Applications.AdvanceSteel.Command))]
 
 namespace Dynamo.Applications.AdvanceSteel
 {
-  public static class Model
-  {
-    public static DynamoViewModel ViewModel;
-    public static DynamoSteelModel DynamoModel;
-  }
-
   public class Command
   {
     private static string GeometryFactoryPath = "";
 
-    [CommandMethodAttribute("DYNAMO", "RunDynamo", "RunDynamo", CommandFlags.Modal | CommandFlags.UsePickSet | CommandFlags.Redraw)]
+    private const string GroupDynamo = "DYNAMO";
+    private const string RunDynamoCommand = "RunDynamo";
+
+    [CommandMethodAttribute(GroupDynamo, RunDynamoCommand, RunDynamoCommand, CommandFlags.Modal | CommandFlags.UsePickSet | CommandFlags.Redraw)]
     public void RunDynamo()
     {
+      if (ModelController.DynamoView != null)
+      {
+        RibbonUtils.SetEnabledDynamoButton(false);
+
+        ModelController.DynamoView.Focus();
+        CenterWindowOnScreen(ModelController.DynamoView);
+        return;
+      }
+
       try
       {
         InitializeCore();
 
-        Model.DynamoModel = InitializeCoreModel();
+        ModelController.DynamoModel = InitializeCoreModel();
 
-        Model.DynamoModel.HostAnalyticsInfo = new Models.HostAnalyticsInfo() { HostName = "Dynamo AS", };
-        Model.DynamoModel.HostVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        Model.DynamoModel.UpdateManager.RegisterExternalApplicationProcessId(Process.GetCurrentProcess().Id);
+        ModelController.DynamoModel.Logger.Log("SYSTEM", string.Format("Environment Path:{0}", Environment.GetEnvironmentVariable("PATH")));
 
-        Model.ViewModel = InitializeCoreViewModel(Model.DynamoModel);
+        ModelController.ViewModel = InitializeCoreViewModel(ModelController.DynamoModel);
 
-        Autodesk.AutoCAD.ApplicationServices.Application.ShowModelessWindow(InitializeCoreView());
+        ModelController.DynamoView = InitializeCoreView(ModelController.ViewModel);
 
-        RibbonUtils.SetEnabled(RibbonUtils.DynamoASTabUID, RibbonUtils.DynamoASPanelUID, RibbonUtils.DynamoASButtonUID, false);
+        Autodesk.AutoCAD.ApplicationServices.Application.ShowModelessWindow(ModelController.DynamoView);
+
+        RibbonUtils.SetEnabledDynamoButton(false);
       }
       catch (Exception ex)
       {
+        RibbonUtils.SetEnabledDynamoButton(true);
         MessageBox.Show(ex.ToString());
       }
     }
 
+    /// <summary>
+    /// To center dynamo window at the second time launch
+    /// </summary>
+    /// <param name="window"></param>
+    private void CenterWindowOnScreen(Window window)
+    {
+      double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+      double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+      double windowWidth = window.Width;
+      double windowHeight = window.Height;
+      window.Left = (screenWidth / 2) - (windowWidth / 2);
+      window.Top = (screenHeight / 2) - (windowHeight / 2);
+    }
+
     private static DynamoSteelModel InitializeCoreModel()
     {
-      var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dynamo", "Dynamo Advance Steel", "2023");
-      var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel", "2023");
+      string folder1 = "Dynamo";
+      string folder2 = "Dynamo Advance Steel";
+      string folder3 = "2023";
+
+      var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), folder1, folder2, folder3);
+      var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), folder1, folder2, folder3);
 
       var startConfiguration = new Dynamo.Models.DynamoModel.DefaultStartConfiguration()
       {
@@ -69,7 +95,7 @@ namespace Dynamo.Applications.AdvanceSteel
 
     private static DynamoViewModel InitializeCoreViewModel(DynamoSteelModel advanceSteelModel)
     {
-      var config = new DynamoViewModel.StartConfiguration()
+      var config = new DynamoSteelViewModel.StartConfiguration()
       {
         DynamoModel = advanceSteelModel
       };
@@ -77,18 +103,26 @@ namespace Dynamo.Applications.AdvanceSteel
       return DynamoViewModel.Start(config);
     }
 
-    private static DynamoView InitializeCoreView()
+    private static DynamoView InitializeCoreView(DynamoViewModel advanceSteelViewModel)
     {
-      DynamoView dynamoView = new DynamoView(Model.ViewModel);
+      DynamoView dynamoView = new DynamoView(advanceSteelViewModel);
+      dynamoView.Loaded += OnDynamoViewLoaded;
       dynamoView.Closed += OnDynamoViewClosed;
-      dynamoView.Loaded += (o, e) => UpdateLibraryLayoutSpec();
 
       return dynamoView;
     }
+    private static void OnDynamoViewLoaded(object sender, EventArgs e)
+    {
+      UpdateLibraryLayoutSpec();
+    }
+
     private static void OnDynamoViewClosed(object sender, EventArgs e)
     {
       var view = (DynamoView)sender;
+      view.Loaded -= OnDynamoViewLoaded;
       view.Closed -= OnDynamoViewClosed;
+
+      RibbonUtils.SetEnabledDynamoButton(true);
     }
 
     /// <summary>
@@ -97,7 +131,7 @@ namespace Dynamo.Applications.AdvanceSteel
     /// </summary>
     private static void UpdateLibraryLayoutSpec()
     {
-      var customization = Model.DynamoModel.ExtensionManager.Service<ILibraryViewCustomization>();
+      var customization = ModelController.DynamoModel.ExtensionManager.Service<ILibraryViewCustomization>();
       if (customization == null) return;
 
       //Make sure to notify customization for application closing
@@ -180,8 +214,8 @@ namespace Dynamo.Applications.AdvanceSteel
       if (initializedCore)
         return;
 
-      string path = Environment.GetEnvironmentVariable("PATH");
-      Environment.SetEnvironmentVariable("PATH", path + ";" + DynamoSteelApp.DynamoCorePath);
+      string path = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
+      Environment.SetEnvironmentVariable("PATH", path + ";" + DynamoSteelApp.DynamoCorePath, EnvironmentVariableTarget.Process);
 
       //var acadLocale = CultureInfo.CurrentUICulture.ToString();
       //Environment.SetEnvironmentVariable("LANGUAGE", acadLocale.Replace("-", "_"));

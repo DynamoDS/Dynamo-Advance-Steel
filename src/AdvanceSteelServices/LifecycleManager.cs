@@ -26,6 +26,14 @@ namespace Dynamo.Applications.AdvanceSteel.Services
       return manager;
     }
 
+    public static void DisposeInstance()
+    {
+      if (manager != null)
+      {
+        manager = null;
+      }
+    }
+
     /// <summary>
     /// Register a new dependency between an element handle and a wrapper
     /// </summary>
