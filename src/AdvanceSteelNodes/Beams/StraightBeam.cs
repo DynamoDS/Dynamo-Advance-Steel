@@ -6,7 +6,6 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 using System.Linq;
-using ASStraightBeam = Autodesk.AdvanceSteel.Modelling.StraightBeam;
 
 namespace AdvanceSteel.Nodes.Beams
 {
@@ -16,104 +15,103 @@ namespace AdvanceSteel.Nodes.Beams
   [DynamoServices.RegisterForTrace]
   public class StraightBeam : GraphicObject
   {
-    private StraightBeam(Autodesk.DesignScript.Geometry.Point ptStart,
-                         Autodesk.DesignScript.Geometry.Point ptEnd,
-                         Autodesk.DesignScript.Geometry.Vector vOrientation,
-                         int refAxis, bool crossSectionMirror,
-                         List<Property> beamProperties)
+
+    internal StraightBeam()
     {
-      SafeInit(() => InitStraightBeam(ptStart, ptEnd, vOrientation, refAxis, crossSectionMirror, beamProperties));
     }
 
-    private StraightBeam(ASStraightBeam beam)
-    {
-      SafeInit(() => SetHandle(beam));
-    }
-
-    internal static StraightBeam FromExisting(ASStraightBeam beam)
-    {
-      return new StraightBeam(beam)
-      {
-        IsOwnedByDynamo = false
-      };
-    }
-
-    private void InitStraightBeam(Autodesk.DesignScript.Geometry.Point ptStart,
+    internal StraightBeam(Autodesk.DesignScript.Geometry.Point ptStart,
                           Autodesk.DesignScript.Geometry.Point ptEnd,
                           Autodesk.DesignScript.Geometry.Vector vOrientation,
                           int refAxis, bool crossSectionMirror,
                           List<Property> beamProperties)
     {
-      List<Property> defaultData = beamProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
-      List<Property> postWriteDBData = beamProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
-      Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.MemberName == nameof(Beam.ProfName));
-      string sectionName = "";
-      if (foundProfName != null)
+      lock (access_obj)
       {
-        sectionName = (string)foundProfName.InternalValue;
-      }
-
-      Point3d beamStart = Utils.ToAstPoint(ptStart, true);
-      Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
-      Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
-
-      if (string.IsNullOrEmpty(sectionName))
-      {
-        ProfileName profName = new ProfileName();
-        ProfilesManager.GetProfTypeAsDefault("I", out profName);
-        sectionName = profName.Name;
-      }
-
-      ASStraightBeam beam = SteelServices.ElementBinder.GetObjectASFromTrace<ASStraightBeam>();
-      if (beam == null)
-      {
-        beam = new ASStraightBeam(sectionName, beamStart, beamEnd, refVect);
-        if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
+        using (var ctx = new SteelServices.DocContext())
         {
-          beam.RefAxis = (Beam.eRefAxis)refAxis;
-        }
-        beam.SetCrossSectionMirrored(crossSectionMirror, false);
 
-        if (defaultData != null)
-        {
-          UtilsProperties.SetParameters(beam, defaultData);
-        }
+          List<Property> defaultData = beamProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+          Property foundProfName = beamProperties.FirstOrDefault<Property>(x => x.Name == "ProfName");
+          string sectionName = "";
+          if (foundProfName != null)
+          {
+            sectionName = (string)foundProfName.InternalValue;
+          }
 
-        beam.WriteToDb();
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+
+          Point3d beamStart = Utils.ToAstPoint(ptStart, true);
+          Point3d beamEnd = Utils.ToAstPoint(ptEnd, true);
+          Vector3d refVect = Utils.ToAstVector3d(vOrientation, true);
+
+          if (string.IsNullOrEmpty(sectionName))
+          {
+            ProfileName profName = new ProfileName();
+            ProfilesManager.GetProfTypeAsDefault("I", out profName);
+            sectionName = profName.Name;
+          }
+
+          Autodesk.AdvanceSteel.Modelling.StraightBeam beam = null;
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
+            beam = new Autodesk.AdvanceSteel.Modelling.StraightBeam(sectionName, beamStart, beamEnd, refVect);
+            if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
+            {
+              beam.RefAxis = (Beam.eRefAxis)refAxis;
+            }
+            beam.SetCrossSectionMirrored(crossSectionMirror, false);
+
+            if (defaultData != null)
+            {
+              Utils.SetParameters(beam, defaultData);
+            }
+
+            beam.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(beam, postWriteDBData);
+            }
+          }
+          else
+          {
+            beam = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.StraightBeam;
+
+            if (beam != null && beam.IsKindOf(FilerObject.eObjectType.kStraightBeam))
+            {
+              string sectionType = Utils.SplitSectionName(sectionName)[0];
+              string sectionSize = Utils.SplitSectionName(sectionName)[1];
+              Utils.AdjustBeamEnd(beam, beamStart);
+              beam.SetSysStart(beamStart);
+              beam.SetSysEnd(beamEnd);
+              beam.ChangeProfile(sectionType, sectionSize);
+              if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
+              {
+                beam.RefAxis = (Beam.eRefAxis)refAxis;
+              }
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(beam, defaultData);
+              }
+
+              beam.SetCrossSectionMirrored(crossSectionMirror, false);
+              Utils.SetOrientation(beam, refVect);
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(beam, postWriteDBData);
+              }
+            }
+            else
+              throw new System.Exception("Not a straight Beam");
+          }
+          Handle = beam.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
+        }
       }
-      else
-      {
-        if (!beam.IsKindOf(FilerObject.eObjectType.kStraightBeam))
-          throw new System.Exception("Not a straight Beam");
-
-        string sectionType = Utils.SplitSectionName(sectionName)[0];
-        string sectionSize = Utils.SplitSectionName(sectionName)[1];
-        Utils.AdjustBeamEnd(beam, beamStart);
-        beam.SetSysStart(beamStart);
-        beam.SetSysEnd(beamEnd);
-        beam.ChangeProfile(sectionType, sectionSize);
-        if (Beam.eRefAxis.IsDefined(typeof(Beam.eRefAxis), refAxis) == true)
-        {
-          beam.RefAxis = (Beam.eRefAxis)refAxis;
-        }
-
-        if (defaultData != null)
-        {
-          UtilsProperties.SetParameters(beam, defaultData);
-        }
-
-        beam.SetCrossSectionMirrored(crossSectionMirror, false);
-        Utils.SetOrientation(beam, refVect);
-      }
-
-      SetHandle(beam);
-
-      if (postWriteDBData != null)
-      {
-        UtilsProperties.SetParameters(beam, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(beam);
     }
 
     /// <summary>
@@ -274,18 +272,23 @@ namespace AdvanceSteel.Nodes.Beams
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      var beam = Utils.GetObject(Handle) as Beam;
-
-      Point3d asPt1 = beam.GetPointAtStart(0);
-      Point3d asPt2 = beam.GetPointAtEnd(0);
-
-      using (var pt1 = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
-      using (var pt2 = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
+      lock (access_obj)
       {
-        var line = Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(pt1, pt2);
-        return line;
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var beam = Utils.GetObject(Handle) as Beam;
+
+          Point3d asPt1 = beam.GetPointAtStart(0);
+          Point3d asPt2 = beam.GetPointAtEnd(0);
+
+          using (var pt1 = Utils.ToDynPoint(beam.GetPointAtStart(0), true))
+          using (var pt2 = Utils.ToDynPoint(beam.GetPointAtEnd(0), true))
+          {
+            var line = Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(pt1, pt2);
+            return line;
+          }
+        }
       }
     }
-
   }
 }

@@ -150,6 +150,42 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
+    /// Get Plane from planar objects like - plate, grating, slab or isolated footing
+    /// </summary>
+    /// <param name="steelObject"> Advance Steel element</param>
+    /// <returns name="plane"> returns a plane from plannar objects - plate, slab, footing isolated or grating</returns>
+    public static Autodesk.DesignScript.Geometry.Plane GetPlane(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    {
+      Autodesk.DesignScript.Geometry.Plane ret = null;
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kPlate) ||
+                filerObj.IsKindOf(FilerObject.eObjectType.kSlab) ||
+                filerObj.IsKindOf(FilerObject.eObjectType.kFootingIsolated) ||
+                filerObj.IsKindOf(FilerObject.eObjectType.kGrating))
+            {
+              PlateBase selectedObj = filerObj as PlateBase;
+              Plane plane = selectedObj.DefinitionPlane;
+              ret = Utils.ToDynPlane(plane, true);
+            }
+            else
+              throw new System.Exception("Wrong type of Steel Object found, must be a Plate, Grating, Slab or Footing Isolated - Planner Object");
+          }
+          else
+            throw new System.Exception("No Object found via registered handle");
+        }
+        else
+          throw new System.Exception("No Steel Object found");
+      }
+      return ret;
+    }
+
+    /// <summary>
     /// Creates one plane either side of the centre point in relation to the normal
     /// </summary>
     /// <param name="centrePoint"> Input Dynamo Centre Point between created planes</param>
@@ -200,7 +236,7 @@ namespace AdvanceSteel.Nodes.Util
         }
         double lineLen = line.Length;
         double distToProjPoint = sp.DistanceTo(projectionPoint);
-        double distanceToProjPoint = distToProjPoint * Math.Cos(angle);
+        double distanceToProjPoint = distToProjPoint * Math.Cos(angle); ;
         double checkDistance = lineLen / Math.Cos(angle);
         Point3d calculatedPoint = new Point3d(sp).Add(distanceToProjPoint * vecLine.Normalize());
         bool isOnLine = false;

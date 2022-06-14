@@ -12,8 +12,6 @@ using SteelGeometry = Autodesk.AdvanceSteel.Geometry;
 using Autodesk.AdvanceSteel.Arrangement;
 using Autodesk.AdvanceSteel.Contours;
 using System;
-using ASConnectionHolePlate = Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
-using Autodesk.AdvanceSteel.Connection;
 
 namespace AdvanceSteel.Nodes.Features
 {
@@ -24,235 +22,236 @@ namespace AdvanceSteel.Nodes.Features
   public class PlateHoles : GraphicObject
   {
 
-    private PlateHoles(AdvanceSteel.Nodes.SteelDbObject element,
+    internal PlateHoles()
+    {
+    }
+
+    internal PlateHoles(AdvanceSteel.Nodes.SteelDbObject element,
                                     SteelGeometry.Matrix3d cs,
                                     int holeType, int arrangementType, int boundType,
                                     List<Property> holeData)
     {
-      SafeInit(() => InitPlateHoles(element, cs, holeType, arrangementType, boundType, holeData));
-    }
-
-    private PlateHoles(ASConnectionHolePlate holes)
-    {
-      SafeInit(() => SetHandle(holes));
-    }
-
-    internal static PlateHoles FromExisting(ASConnectionHolePlate holes)
-    {
-      return new PlateHoles(holes)
+      lock (access_obj)
       {
-        IsOwnedByDynamo = false
-      };
-    }
-
-    private void InitPlateHoles(AdvanceSteel.Nodes.SteelDbObject element,
-                                    SteelGeometry.Matrix3d cs,
-                                    int holeType, int arrangementType, int boundType,
-                                    List<Property> holeData)
-    {
-      List<Property> defaultData = holeData.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
-      List<Property> defaultHoleData = holeData.Where(x => x.Level == LevelEnum.HoleDefault).ToList<Property>();
-      List<Property> postWriteDBData = holeData.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
-
-      double dX, dY, diameterHole, slotLength, sunkDepth, alphaE, headDepth, radius, wX, wY, width, length;
-      int nX, nY, isTappingRight, slotDirection;
-
-      dX = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Dx)).InternalValue;
-      dY = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Dy)).InternalValue;
-      wX = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Wx)).InternalValue;
-      wY = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Wy)).InternalValue;
-      nX = (int)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Nx)).InternalValue;
-      nY = (int)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Ny)).InternalValue;
-      diameterHole = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Hole.Diameter)).InternalValue;
-      slotLength = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(SlottedHole.SlotLength)).InternalValue;
-      slotDirection = (int)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(SlottedHole.SlotDirection)).InternalValue;
-      sunkDepth = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(ExtendedHole.SunkDepth)).InternalValue;
-      alphaE = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(ExtendedHole.Alpha_e)).InternalValue;
-      isTappingRight = (int)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(ExtendedHole.IsTappingRight)).InternalValue;
-      headDepth = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(ExtendedHole.HeadDiameter)).InternalValue;
-      radius = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Radius)).InternalValue;
-      width = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Width)).InternalValue;
-      length = (double)defaultHoleData.FirstOrDefault<Property>(x => x.MemberName == nameof(Arranger.Length)).InternalValue;
-
-      FilerObject obj = Utils.GetObject(element.Handle);
-      if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kPlate)))
-        throw new System.Exception("No Input Element found");
-
-      ASConnectionHolePlate holes = SteelServices.ElementBinder.GetObjectASFromTrace<ASConnectionHolePlate>();
-      if (holes == null)
-      {
-        Autodesk.AdvanceSteel.Modelling.Plate atomic = obj as Autodesk.AdvanceSteel.Modelling.Plate;
-
-        holes = new ASConnectionHolePlate(atomic, cs);
-
-        switch (arrangementType)
+        using (var ctx = new SteelServices.DocContext())
         {
-          case 0:
-            holes.Arranger = new RectangularArranger(new Matrix2d(), dX, dY, nX, nY);
-            break;
-          case 1:
-            holes.Arranger = new CircleArranger(new Matrix2d(), radius, nX);
-            break;
-          case 2:
-            BoundedRectArranger bArr = new BoundedRectArranger((Arranger.eBoundedSide)boundType);
-            //if (boundType == 1)
-            //{
-            bArr.Length = width;
-            bArr.Width = length;
-            //}
-            bArr.Nx = nX;
-            bArr.Ny = nY;
-            bArr.Wx = wX;
-            bArr.Wy = wY;
-            holes.Arranger = bArr;
-            break;
+          List<Property> defaultData = holeData.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> defaultHoleData = holeData.Where(x => x.Level == "-").ToList<Property>();
+          List<Property> postWriteDBData = holeData.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+          double dX, dY, diameterHole, slotLength, sunkDepth, alphaE, headDepth, radius, wX, wY, width, length;
+          int nX, nY, isTappingRight, slotDirection;
+
+          dX = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Dx").InternalValue;
+          dY = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Dy").InternalValue;
+          wX = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Wx").InternalValue;
+          wY = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Wy").InternalValue;
+          nX = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Nx").InternalValue;
+          nY = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Ny").InternalValue;
+          diameterHole = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Diameter").InternalValue;
+          slotLength = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "SlotLength").InternalValue;
+          slotDirection = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "SlotDirection").InternalValue; 
+          sunkDepth = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "SunkDepth").InternalValue;
+          alphaE = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "AlphaE").InternalValue;
+          isTappingRight = (int)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "IsTappingRight").InternalValue;
+          headDepth = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "HeadDepth").InternalValue;
+          radius = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Radius").InternalValue;
+          width = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Width").InternalValue;
+          length = (double)defaultHoleData.FirstOrDefault<Property>(x => x.Name == "Length").InternalValue;
+
+          Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate holes = null;
+
+          string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
+          string elementHandle = element.Handle;
+          FilerObject obj = Utils.GetObject(elementHandle);
+
+          if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kPlate))
+          {
+            if (string.IsNullOrEmpty(existingFeatureHandle) || Utils.GetObject(existingFeatureHandle) == null)
+            {
+              Autodesk.AdvanceSteel.Modelling.Plate atomic = obj as Autodesk.AdvanceSteel.Modelling.Plate;
+
+              holes = new Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate(atomic, cs);
+
+              switch (arrangementType)
+              {
+                case 0:
+                  holes.Arranger = new RectangularArranger(new Matrix2d(), dX, dY, nX, nY);
+                  break;
+                case 1:
+                  holes.Arranger = new CircleArranger(new Matrix2d(), radius, nX);
+                  break;
+                case 2:
+                  BoundedRectArranger bArr = new BoundedRectArranger((Arranger.eBoundedSide)boundType);
+                  //if (boundType == 1)
+                  //{
+                    bArr.Length = width;
+                    bArr.Width = length;
+                  //}
+                  bArr.Nx = nX;
+                  bArr.Ny = nY;
+                  bArr.Wx = wX;
+                  bArr.Wy = wY;
+                  holes.Arranger = bArr;
+                  break;
+              }
+
+              holes.SetHoleType((Autodesk.AdvanceSteel.Contours.Hole.eHoleType)holeType);
+
+              switch (holeType)
+              {
+                case 1:
+                  //Hole
+                  Hole hol = new Hole(diameterHole);
+                  holes.Hole = hol;
+                  break;
+                case 2:
+                  //Slotted Hole
+                  SlottedHole slhol = new SlottedHole(diameterHole, slotLength, (SlottedHole.eDirection)slotDirection); 
+                  holes.Hole = slhol;
+                  break;
+                case 3:
+                  //Counter Sunk Hole
+                  ExtendedHole cSunkHole = new ExtendedHole(Hole.eHoleType.kCounterSunk);
+                  cSunkHole.Alpha_e = alphaE; //Angle of of Sunk Hole up
+                  cSunkHole.Diameter = diameterHole; //Diamter of Hole at the top of the sink hole
+                  cSunkHole.SunkDepth = sunkDepth; //overall Depth of sink
+                  holes.Hole = cSunkHole;
+                  break;
+                case 4:
+                  //Blind Hole
+                  ExtendedHole blindHole = new ExtendedHole(Hole.eHoleType.kBlindHole);
+                  blindHole.Diameter = diameterHole; //Diamter of Hole at the top of the blind hole
+                  blindHole.SunkDepth = sunkDepth; //overall Depth of blind hole
+                  holes.Hole = blindHole;
+                  break;
+                case 5:
+                  //Threaded Hole
+                  ExtendedHole thrdHole = new ExtendedHole(Hole.eHoleType.kThreadHole);
+                  thrdHole.Diameter = diameterHole; //Diamter of holes to be threaded
+                  thrdHole.IsTappingRight = Convert.ToBoolean(isTappingRight); //Tickbox
+                  thrdHole.HeadDiameter = headDepth; //Tapping Holes size
+                  thrdHole.SunkDepth = sunkDepth; //Overall Threaded Hole depth distance
+                  thrdHole.Alpha_e = alphaE;//back taper thread
+                  holes.Hole = thrdHole;
+                  break;
+                case 6:
+                  //Sunk Hole
+                  ExtendedHole sunkHole = new ExtendedHole(Hole.eHoleType.kSunkBolt);
+                  sunkHole.Alpha_e = 45; //Angle of of Sunk Hole up
+                  sunkHole.Diameter = 12; //Diamter of Hole at the bottom of the sunk hole
+                  sunkHole.HeadDiameter = 15; //Sunk Diameter
+                  sunkHole.SunkDepth = 6; //Depth of bottom of sunk
+                  holes.Hole = sunkHole;
+                  break;
+                case 7:
+                  //Punch Mark
+			            ExtendedHole punchMark = new ExtendedHole(Hole.eHoleType.kPunchMark);
+                  holes.Hole = punchMark;
+                  break;
+              }
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(holes, defaultData);
+              }
+
+              atomic.AddFeature(holes);
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(holes, postWriteDBData);
+              }
+
+            }
+            else
+            {
+              holes = Utils.GetObject(existingFeatureHandle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
+              if (holes != null && holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
+              {
+                holes.CS = cs;
+                holes.SetHoleType((Autodesk.AdvanceSteel.Contours.Hole.eHoleType)holeType);
+                holes.Arranger.Dx = dX;
+                holes.Arranger.Dy = dY;
+                holes.Arranger.Nx = nX;
+                holes.Arranger.Ny = nY;
+
+                switch (holeType)
+                {
+                  case 1:
+                    //Hole
+                    Hole hol = holes.Hole;
+                    hol.Diameter = diameterHole;
+                    holes.Hole = hol;
+                    break;
+                  case 2:
+                    //Slotted Hole
+                    SlottedHole slhol = (SlottedHole)holes.Hole;
+                    slhol.Diameter = diameterHole;
+                    slhol.SlotLength = slotLength;
+                    slhol.SlotDirection = (SlottedHole.eDirection)slotDirection;
+                    holes.Hole = slhol;
+                    break;
+                  case 3:
+                    //Counter Sunk Hole
+                    ExtendedHole cSunkHole = (ExtendedHole)holes.Hole;
+                    cSunkHole.Alpha_e = alphaE; //Angle of of Sunk Hole up
+                    cSunkHole.Diameter = diameterHole; //Diamter of Hole at the top of the sink hole
+                    cSunkHole.SunkDepth = sunkDepth; //overall Depth of sink
+                    holes.Hole = cSunkHole;
+                    break;
+                  case 4:
+                    //Blind Hole
+                    ExtendedHole blindHole = (ExtendedHole)holes.Hole;
+                    blindHole.Diameter = diameterHole; //Diamter of Hole at the top of the blind hole
+                    blindHole.SunkDepth = sunkDepth; //overall Depth of blind hole
+                    holes.Hole = blindHole;
+                    break;
+                  case 5:
+                    //Threaded Hole
+                    ExtendedHole thrdHole = (ExtendedHole)holes.Hole;
+                    thrdHole.Diameter = diameterHole; //Diamter of holes to be threaded
+                    thrdHole.IsTappingRight = Convert.ToBoolean(isTappingRight); //Tickbox
+                    thrdHole.HeadDiameter = headDepth; //Tapping Holes size
+                    thrdHole.SunkDepth = sunkDepth; //Overall Threaded Hole depth distance
+                    thrdHole.Alpha_e = alphaE;//back taper thread
+                    holes.Hole = thrdHole;
+                    break;
+                  case 6:
+                    //Sunk Hole
+                    ExtendedHole sunkHole = (ExtendedHole)holes.Hole;
+                    sunkHole.Alpha_e = 45; //Angle of of Sunk Hole up
+                    sunkHole.Diameter = 12; //Diamter of Hole at the bottom of the sunk hole
+                    sunkHole.HeadDiameter = 15; //Sunk Diameter
+                    sunkHole.SunkDepth = 6; //Depth of bottom of sunk
+                    holes.Hole = sunkHole;
+                    break;
+                  case 7:
+                    //Punch Mark
+                    ExtendedHole punchMark = (ExtendedHole)holes.Hole;
+                    holes.Hole = punchMark;
+                    break;
+                }
+
+                if (defaultData != null)
+                {
+                  Utils.SetParameters(holes, defaultData);
+                }
+
+                if (postWriteDBData != null)
+                {
+                  Utils.SetParameters(holes, postWriteDBData);
+                }
+              }
+              else
+                throw new System.Exception("Not a rectangular pattern for Plates");
+            }
+          }
+
+          Handle = holes.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(holes);
         }
-
-        holes.SetHoleType((Autodesk.AdvanceSteel.Contours.Hole.eHoleType)holeType);
-
-        switch (holeType)
-        {
-          case 1:
-            //Hole
-            Hole hol = new Hole(diameterHole);
-            holes.Hole = hol;
-            break;
-          case 2:
-            //Slotted Hole
-            SlottedHole slhol = new SlottedHole(diameterHole, slotLength, (SlottedHole.eDirection)slotDirection);
-            holes.Hole = slhol;
-            break;
-          case 3:
-            //Counter Sunk Hole
-            ExtendedHole cSunkHole = new ExtendedHole(Hole.eHoleType.kCounterSunk);
-            cSunkHole.Alpha_e = alphaE; //Angle of of Sunk Hole up
-            cSunkHole.Diameter = diameterHole; //Diamter of Hole at the top of the sink hole
-            cSunkHole.SunkDepth = sunkDepth; //overall Depth of sink
-            holes.Hole = cSunkHole;
-            break;
-          case 4:
-            //Blind Hole
-            ExtendedHole blindHole = new ExtendedHole(Hole.eHoleType.kBlindHole);
-            blindHole.Diameter = diameterHole; //Diamter of Hole at the top of the blind hole
-            blindHole.SunkDepth = sunkDepth; //overall Depth of blind hole
-            holes.Hole = blindHole;
-            break;
-          case 5:
-            //Threaded Hole
-            ExtendedHole thrdHole = new ExtendedHole(Hole.eHoleType.kThreadHole);
-            thrdHole.Diameter = diameterHole; //Diamter of holes to be threaded
-            thrdHole.IsTappingRight = Convert.ToBoolean(isTappingRight); //Tickbox
-            thrdHole.HeadDiameter = headDepth; //Tapping Holes size
-            thrdHole.SunkDepth = sunkDepth; //Overall Threaded Hole depth distance
-            thrdHole.Alpha_e = alphaE;//back taper thread
-            holes.Hole = thrdHole;
-            break;
-          case 6:
-            //Sunk Hole
-            ExtendedHole sunkHole = new ExtendedHole(Hole.eHoleType.kSunkBolt);
-            sunkHole.Alpha_e = 45; //Angle of of Sunk Hole up
-            sunkHole.Diameter = 12; //Diamter of Hole at the bottom of the sunk hole
-            sunkHole.HeadDiameter = 15; //Sunk Diameter
-            sunkHole.SunkDepth = 6; //Depth of bottom of sunk
-            holes.Hole = sunkHole;
-            break;
-          case 7:
-            //Punch Mark
-            ExtendedHole punchMark = new ExtendedHole(Hole.eHoleType.kPunchMark);
-            holes.Hole = punchMark;
-            break;
-        }
-
-        if (defaultData != null)
-        {
-          UtilsProperties.SetParameters(holes, defaultData);
-        }
-
-        atomic.AddFeature(holes);
       }
-      else
-      {
-        if (!holes.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
-          throw new System.Exception("Not a rectangular pattern for Plates");
-
-        holes.CS = cs;
-        holes.SetHoleType((Autodesk.AdvanceSteel.Contours.Hole.eHoleType)holeType);
-        holes.Arranger.Dx = dX;
-        holes.Arranger.Dy = dY;
-        holes.Arranger.Nx = nX;
-        holes.Arranger.Ny = nY;
-
-        switch (holeType)
-        {
-          case 1:
-            //Hole
-            Hole hol = holes.Hole;
-            hol.Diameter = diameterHole;
-            holes.Hole = hol;
-            break;
-          case 2:
-            //Slotted Hole
-            SlottedHole slhol = (SlottedHole)holes.Hole;
-            slhol.Diameter = diameterHole;
-            slhol.SlotLength = slotLength;
-            slhol.SlotDirection = (SlottedHole.eDirection)slotDirection;
-            holes.Hole = slhol;
-            break;
-          case 3:
-            //Counter Sunk Hole
-            ExtendedHole cSunkHole = (ExtendedHole)holes.Hole;
-            cSunkHole.Alpha_e = alphaE; //Angle of of Sunk Hole up
-            cSunkHole.Diameter = diameterHole; //Diamter of Hole at the top of the sink hole
-            cSunkHole.SunkDepth = sunkDepth; //overall Depth of sink
-            holes.Hole = cSunkHole;
-            break;
-          case 4:
-            //Blind Hole
-            ExtendedHole blindHole = (ExtendedHole)holes.Hole;
-            blindHole.Diameter = diameterHole; //Diamter of Hole at the top of the blind hole
-            blindHole.SunkDepth = sunkDepth; //overall Depth of blind hole
-            holes.Hole = blindHole;
-            break;
-          case 5:
-            //Threaded Hole
-            ExtendedHole thrdHole = (ExtendedHole)holes.Hole;
-            thrdHole.Diameter = diameterHole; //Diamter of holes to be threaded
-            thrdHole.IsTappingRight = Convert.ToBoolean(isTappingRight); //Tickbox
-            thrdHole.HeadDiameter = headDepth; //Tapping Holes size
-            thrdHole.SunkDepth = sunkDepth; //Overall Threaded Hole depth distance
-            thrdHole.Alpha_e = alphaE;//back taper thread
-            holes.Hole = thrdHole;
-            break;
-          case 6:
-            //Sunk Hole
-            ExtendedHole sunkHole = (ExtendedHole)holes.Hole;
-            sunkHole.Alpha_e = 45; //Angle of of Sunk Hole up
-            sunkHole.Diameter = 12; //Diamter of Hole at the bottom of the sunk hole
-            sunkHole.HeadDiameter = 15; //Sunk Diameter
-            sunkHole.SunkDepth = 6; //Depth of bottom of sunk
-            holes.Hole = sunkHole;
-            break;
-          case 7:
-            //Punch Mark
-            ExtendedHole punchMark = (ExtendedHole)holes.Hole;
-            holes.Hole = punchMark;
-            break;
-        }
-
-        if (defaultData != null)
-        {
-          UtilsProperties.SetParameters(holes, defaultData);
-        }
-      }
-
-      SetHandle(holes);
-
-      if (postWriteDBData != null)
-      {
-        UtilsProperties.SetParameters(holes, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(holes);
     }
 
     #region "Hole = 1"
@@ -327,7 +326,7 @@ namespace AdvanceSteel.Nodes.Features
                                                       [DefaultArgument("2;")] int noOfHolesY,
                                                       double spacingBoltsX,
                                                       double spacingBoltsY,
-                                                      double diameterHole,
+                                                      double diameterHole, 
                                                       double slotLength,
                                                       [DefaultArgument("1;")] int slotDirection,
                                                       [DefaultArgument("null")] List<Property> additionalHoleParameters)
@@ -358,8 +357,8 @@ namespace AdvanceSteel.Nodes.Features
                                                   [DefaultArgument("null")] List<Property> additionalHoleParameters)
     {
       additionalHoleParameters = PreSetValuesInListProps(additionalHoleParameters, noOfHolesX, 0, 0, 0,
-                                                          Utils.ToInternalDistanceUnits(diameterHole, true), Utils.ToInternalDistanceUnits(slotLength, true),
-                                                          slotDirection, 0, 0, 0, 0,
+                                                          Utils.ToInternalDistanceUnits(diameterHole, true), Utils.ToInternalDistanceUnits(slotLength, true), 
+                                                          slotDirection, 0, 0, 0, 0, 
                                                           Utils.ToInternalDistanceUnits(radius, true), 0, 0, 0, 0);
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 2, 1, -1, additionalHoleParameters);
     }
@@ -392,8 +391,8 @@ namespace AdvanceSteel.Nodes.Features
                                                       [DefaultArgument("null")] List<Property> additionalHoleParameters)
     {
       additionalHoleParameters = PreSetValuesInListProps(additionalHoleParameters, noOfHolesX, noOfHolesY, Utils.ToInternalDistanceUnits(spacingBoltsX, true), Utils.ToInternalDistanceUnits(spacingBoltsY, true),
-                                                          Utils.ToInternalDistanceUnits(diameterHole, true), 0, 0,
-                                                          Utils.ToInternalDistanceUnits(sunkDepth, true),
+                                                          Utils.ToInternalDistanceUnits(diameterHole, true), 0, 0, 
+                                                          Utils.ToInternalDistanceUnits(sunkDepth, true), 
                                                           Utils.ToInternalAngleUnits(sunkAngle, true), 0, 0, 0, 0, 0, 0, 0);
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 3, 0, -1, additionalHoleParameters);
     }
@@ -421,7 +420,7 @@ namespace AdvanceSteel.Nodes.Features
     {
       additionalHoleParameters = PreSetValuesInListProps(additionalHoleParameters, noOfHolesX, 0, 0, 0,
                                                           Utils.ToInternalDistanceUnits(diameterHole, true), 0, 0,
-                                                          Utils.ToInternalDistanceUnits(sunkDepth, true),
+                                                          Utils.ToInternalDistanceUnits(sunkDepth, true), 
                                                           Utils.ToInternalAngleUnits(sunkAngle, true), 0, 0,
                                                           Utils.ToInternalDistanceUnits(radius, true), 0, 0, 0, 0);
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 3, 1, -1, additionalHoleParameters);
@@ -517,10 +516,10 @@ namespace AdvanceSteel.Nodes.Features
                                                       double threadTaper,
                                                       [DefaultArgument("null")] List<Property> additionalHoleParameters)
     {
-      additionalHoleParameters = PreSetValuesInListProps(additionalHoleParameters, noOfHolesX, noOfHolesY, Utils.ToInternalDistanceUnits(spacingBoltsX, true),
+      additionalHoleParameters = PreSetValuesInListProps(additionalHoleParameters, noOfHolesX, noOfHolesY, Utils.ToInternalDistanceUnits(spacingBoltsX, true), 
                                                           Utils.ToInternalDistanceUnits(spacingBoltsY, true),
                                                           Utils.ToInternalDistanceUnits(diameterHole, true), 0, 0,
-                                                          Utils.ToInternalDistanceUnits(threadHoleDepth, true),
+                                                          Utils.ToInternalDistanceUnits(threadHoleDepth, true), 
                                                           Utils.ToInternalAngleUnits(threadTaper, true), threadTappingRight,
                                                           Utils.ToInternalDistanceUnits(tappingHoleSize, true), 0, 0, 0, 0, 0);
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 5, 0, -1, additionalHoleParameters);
@@ -555,7 +554,7 @@ namespace AdvanceSteel.Nodes.Features
                                                           Utils.ToInternalDistanceUnits(diameterHole, true), 0, 0,
                                                           Utils.ToInternalDistanceUnits(threadHoleDepth, true),
                                                           Utils.ToInternalAngleUnits(threadTaper, true), threadTappingRight,
-                                                          Utils.ToInternalDistanceUnits(tappingHoleSize, true),
+                                                          Utils.ToInternalDistanceUnits(tappingHoleSize, true), 
                                                           Utils.ToInternalDistanceUnits(radius, true), 0, 0, 0, 0);
       return new PlateHoles(element, Utils.ToAstMatrix3d(coordinateSystem, true), 5, 1, -1, additionalHoleParameters);
     }
@@ -707,7 +706,8 @@ namespace AdvanceSteel.Nodes.Features
               FilerObject fea = DatabaseManager.Open(idsOfFeatures[i]);
               if (fea.IsKindOf(FilerObject.eObjectType.kConnectionHolePlate))
               {
-                SteelDbObject foundSteelObj = fea.ToDSType();
+                SteelDbObject foundSteelObj = new PlateHoles(); 
+                foundSteelObj.Handle = fea.Handle;
                 foundHandlesOfHolesInPlate.Add(foundSteelObj);
               }
             }
@@ -863,7 +863,7 @@ namespace AdvanceSteel.Nodes.Features
             if (holes.Hole.Type == Hole.eHoleType.kSlottedHole)
             {
               SlottedHole sh = (SlottedHole)holes.Hole;
-              ret = (int)sh.SlotDirection;
+              ret =  (int)sh.SlotDirection;
             }
             else
               throw new System.Exception("Failed - not a slotted hole");
@@ -1088,7 +1088,7 @@ namespace AdvanceSteel.Nodes.Features
     /// <param name="plateObject"> Select Advance Steel Plate Hole Object</param>
     /// <param name="holeObject">  Selected Advance Steel Plate Hole Object</param>
     /// <param name="radius"> New Radius Value</param>
-    public static void SetHoleArrangementRadius(SteelDbObject plateObject,
+    public static void SetHoleArrangementRadius(SteelDbObject plateObject, 
                                                 SteelDbObject holeObject,
                                                 double radius)
     {
@@ -1146,7 +1146,7 @@ namespace AdvanceSteel.Nodes.Features
     #endregion
 
     private static List<Property> PreSetValuesInListProps(List<Property> listOfHoleParameters, int nx, int ny, double dx, double dy, double diameterHole,
-                                                          double slotLength = 0, int slotDirection = 1, double sunkDepth = 0, double alphaE = 0,
+                                                          double slotLength = 0, int slotDirection = 1, double sunkDepth = 0, double alphaE = 0, 
                                                           int isTappingRight = 0, double headDepth = 0, double radius = 0, double length = 0,
                                                           double width = 0, double wx = 0, double wy = 0)
     {
@@ -1155,23 +1155,23 @@ namespace AdvanceSteel.Nodes.Features
         listOfHoleParameters = new List<Property>() { };
       }
 
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Nx), nx);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Ny), ny);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Dx), dx);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Dy), dy);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Hole.Diameter), diameterHole);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(SlottedHole.SlotLength), slotLength);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(SlottedHole.SlotDirection), slotDirection);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(ExtendedHole.SunkDepth), sunkDepth);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(ExtendedHole.Alpha_e), alphaE);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(ExtendedHole.IsTappingRight), isTappingRight);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(ExtendedHole.HeadDiameter), headDepth);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Nx", nx, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Ny", ny, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Dx", dx, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Dy", dy, "-"); 
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Diameter", diameterHole, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "SlotLength", slotLength, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "SlotDirection", slotDirection, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "SunkDepth", sunkDepth, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "AlphaE", alphaE, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "IsTappingRight", isTappingRight, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "HeadDepth", headDepth, "-");
 
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Radius), radius);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Length), length);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Width), width);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Wx), wx);
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(Arranger), listOfHoleParameters, nameof(Arranger.Wy), wy);
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Radius", radius, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Length", length, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Width", width, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Wx", wx, "-");
+      Utils.CheckListUpdateOrAddValue(listOfHoleParameters, "Wy", wy, "-");
 
 
       return listOfHoleParameters;
@@ -1182,31 +1182,40 @@ namespace AdvanceSteel.Nodes.Features
     {
       IList<Autodesk.DesignScript.Interfaces.IGraphicItem> ret = new List<Autodesk.DesignScript.Interfaces.IGraphicItem>();
 
-      var boltPattern = Utils.GetObject(Handle) as ASConnectionHolePlate;
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var boltPattern = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.ConnectionHolePlate;
 
-      if (boltPattern == null)
-      {
-        throw new Exception("Null Plate Holes pattern");
+          if (boltPattern == null)
+          {
+            throw new Exception("Null Plate Holes pattern");
+          }
+
+          SteelGeometry.Point3d[] defPoints = null;
+          boltPattern.GetElementOrigins(out defPoints);
+          Hole hl = boltPattern.Hole;
+          double rad = 0;
+          if (hl.Diameter != 0)
+          {
+            rad = hl.Diameter / 2;
+          }
+          else
+          {
+            rad = 2;
+          }
+
+          foreach (var item in defPoints)
+          {
+
+            var line1 = Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadius(Utils.ToDynPoint(item, true), rad);
+            ret.Add(line1);
+
+          }
+        }
       }
 
-      SteelGeometry.Point3d[] defPoints = null;
-      boltPattern.GetElementOrigins(out defPoints);
-      Hole hl = boltPattern.Hole;
-      double rad = 0;
-      if (hl.Diameter != 0)
-      {
-        rad = hl.Diameter / 2;
-      }
-      else
-      {
-        rad = 2;
-      }
-
-      foreach (var item in defPoints)
-      {
-        var line1 = Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadius(Utils.ToDynPoint(item, true), rad);
-        ret.Add(line1);
-      }
       return ret;
     }
 

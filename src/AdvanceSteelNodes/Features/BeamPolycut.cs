@@ -6,7 +6,6 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
-using ASBeamMultiContourNotch = Autodesk.AdvanceSteel.Modelling.BeamMultiContourNotch;
 
 namespace AdvanceSteel.Nodes.Features
 {
@@ -16,7 +15,11 @@ namespace AdvanceSteel.Nodes.Features
   [DynamoServices.RegisterForTrace]
   public class BeamPolycut : GraphicObject
   {
-    private BeamPolycut(AdvanceSteel.Nodes.SteelDbObject element,
+    internal BeamPolycut()
+    {
+    }
+
+    internal BeamPolycut(AdvanceSteel.Nodes.SteelDbObject element,
                       int cutShapeRectCircle,
                       Autodesk.AdvanceSteel.Geometry.Point3d insertPoint,
                       Autodesk.AdvanceSteel.Geometry.Vector3d normal,
@@ -24,213 +27,221 @@ namespace AdvanceSteel.Nodes.Features
                       int corner,
                       List<Property> beamFeatureProperties)
     {
-      SafeInit(() => InitBeamPolycut(element, cutShapeRectCircle, insertPoint, normal, lengthVector, corner, beamFeatureProperties));
-    }
-
-    private BeamPolycut(AdvanceSteel.Nodes.SteelDbObject element,
-                      Polyline3d cutPolyline,
-                      Autodesk.AdvanceSteel.Geometry.Vector3d normal,
-                      Autodesk.AdvanceSteel.Geometry.Vector3d lengthVector,
-                      List<Property> beamFeatureProperties)
-    {
-      SafeInit(() => InitBeamPolycut(element, cutPolyline, normal, lengthVector, beamFeatureProperties));
-    }
-
-    private BeamPolycut(ASBeamMultiContourNotch beamFeat)
-    {
-      SafeInit(() => SetHandle(beamFeat));
-    }
-
-    internal static BeamPolycut FromExisting(ASBeamMultiContourNotch beamFeat)
-    {
-      return new BeamPolycut(beamFeat)
+      lock (access_obj)
       {
-        IsOwnedByDynamo = false
-      };
-    }
-
-    private void InitBeamPolycut(AdvanceSteel.Nodes.SteelDbObject element,
-                      int cutShapeRectCircle,
-                      Autodesk.AdvanceSteel.Geometry.Point3d insertPoint,
-                      Autodesk.AdvanceSteel.Geometry.Vector3d normal,
-                      Autodesk.AdvanceSteel.Geometry.Vector3d lengthVector,
-                      int corner,
-                      List<Property> beamFeatureProperties)
-    {
-      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
-      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
-
-      double length = 0;
-      double width = 0;
-      double radius = 0;
-
-      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASBeamMultiContourNotch.Length)) != null)
-      {
-        length = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASBeamMultiContourNotch.Length)).InternalValue;
-      }
-      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASBeamMultiContourNotch.Width)) != null)
-      {
-        width = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASBeamMultiContourNotch.Width)).InternalValue;
-      }
-      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASBeamMultiContourNotch.Radius)) != null)
-      {
-        radius = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASBeamMultiContourNotch.Radius)).InternalValue;
-      }
-
-      FilerObject obj = Utils.GetObject(element.Handle);
-      if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kBeam)))
-        throw new System.Exception("No Input Element found");
-
-      ASBeamMultiContourNotch beamFeat = SteelServices.ElementBinder.GetObjectASFromTrace<ASBeamMultiContourNotch>();
-      if (beamFeat == null)
-      {
-        Beam bmObj = obj as Beam;
-        switch (cutShapeRectCircle)
+        using (var ctx = new SteelServices.DocContext())
         {
-          case 0:
-            beamFeat = new ASBeamMultiContourNotch(bmObj, (Beam.eEnd)1, insertPoint, normal, lengthVector, length, width);
-            break;
-          case 1:
-            beamFeat = new ASBeamMultiContourNotch(bmObj, (Beam.eEnd)1, insertPoint, normal, lengthVector, radius);
-            break;
-        }
+          List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
-        Vector2d offset;
-        switch (corner)
-        {
-          case 0:  //Top Left
-            offset = new Vector2d(-1, 1);
-            break;
-          case 1: //Top Right
-            offset = new Vector2d(1, 1);
-            break;
-          case 2: //Bottom Right
-            offset = new Vector2d(1, -1);
-            break;
-          case 3: //Bottom left
-            offset = new Vector2d(-1, -1);
-            break;
-          default: //Anything else ignore
-            offset = new Vector2d(0, 0);
-            break;
-        }
-        beamFeat.Offset = offset;
+          double length = 0;
+          double width = 0;
+          double radius = 0;
 
-        if (defaultData != null)
-        {
-          UtilsProperties.SetParameters(beamFeat, defaultData);
-        }
+          if (defaultData.FirstOrDefault<Property>(x => x.Name == "Length") != null)
+          {
+            length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Length").InternalValue;
+          }
+          if (defaultData.FirstOrDefault<Property>(x => x.Name == "Width") != null)
+          {
+            width = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Width").InternalValue;
+          }
+          if (defaultData.FirstOrDefault<Property>(x => x.Name == "Radius") != null)
+          {
+            radius = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Radius").InternalValue;
+          }
 
-        bmObj.AddFeature(beamFeat);
-      }
-      else
-      {
-        if (!beamFeat.IsKindOf(FilerObject.eObjectType.kBeamMultiContourNotch))
-          throw new System.Exception("Not a Beam Feature");
+          string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
 
-        beamFeat.End = (Beam.eEnd)0;
-        Matrix3d cutMatrix = beamFeat.CS;
-        Point3d orgin = null;
-        Vector3d xVec = null;
-        Vector3d yVec = null;
-        Vector3d zVec = null;
-        cutMatrix.GetCoordSystem(out orgin, out xVec, out yVec, out zVec);
-        xVec = new Vector3d(lengthVector);
-        yVec = xVec.CrossProduct(normal);
-        zVec = xVec.CrossProduct(yVec);
-        cutMatrix.SetCoordSystem(insertPoint, xVec, yVec, zVec);
-        beamFeat.CS = cutMatrix;
+          string elementHandle = element.Handle;
+          FilerObject obj = Utils.GetObject(elementHandle);
+          BeamMultiContourNotch beamFeat = null;
+          if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kBeam))
+          {
+            if (string.IsNullOrEmpty(existingFeatureHandle) || Utils.GetObject(existingFeatureHandle) == null)
+            {
+              Beam bmObj = obj as Beam;
+              switch (cutShapeRectCircle)
+              {
+                case 0:
+                  beamFeat = new BeamMultiContourNotch(bmObj, (Beam.eEnd)1, insertPoint, normal, lengthVector, length, width);
+                  break;
+                case 1:
+                  beamFeat = new BeamMultiContourNotch(bmObj, (Beam.eEnd)1, insertPoint, normal, lengthVector, radius);
+                  break;
+              }
 
-        Vector2d offset;
-        switch (corner)
-        {
-          case 0:  //Top Left
-            offset = new Vector2d(-1, 1);
-            break;
-          case 1: //Top Right
-            offset = new Vector2d(1, 1);
-            break;
-          case 2: //Bottom Right
-            offset = new Vector2d(1, -1);
-            break;
-          case 3: //Bottom left
-            offset = new Vector2d(-1, -1);
-            break;
-          default: //Anything else ignore
-            offset = new Vector2d(0, 0);
-            break;
-        }
-        beamFeat.Offset = offset;
+              Vector2d offset;
+              switch (corner)
+              {
+                case 0:  //Top Left
+                  offset = new Vector2d(-1, 1);
+                  break;
+                case 1: //Top Right
+                  offset = new Vector2d(1, 1);
+                  break;
+                case 2: //Bottom Right
+                  offset = new Vector2d(1, -1);
+                  break;
+                case 3: //Bottom left
+                  offset = new Vector2d(-1, -1);
+                  break;
+                default: //Anything else ignore
+                  offset = new Vector2d(0, 0);
+                  break;
+              }
+              beamFeat.Offset = offset;
 
-        if (defaultData != null)
-        {
-          UtilsProperties.SetParameters(beamFeat, defaultData);
+              if (defaultData != null)
+              {
+                Utils.SetParameters(beamFeat, defaultData);
+              }
+
+              bmObj.AddFeature(beamFeat);
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(beamFeat, postWriteDBData);
+              }
+
+            }
+            else
+            {
+              beamFeat = Utils.GetObject(existingFeatureHandle) as BeamMultiContourNotch;
+              if (beamFeat != null && beamFeat.IsKindOf(FilerObject.eObjectType.kBeamMultiContourNotch))
+              {
+                beamFeat.End = (Beam.eEnd)0;
+                Matrix3d cutMatrix = beamFeat.CS;
+                Point3d orgin = null;
+                Vector3d xVec = null;
+                Vector3d yVec = null;
+                Vector3d zVec = null;
+                cutMatrix.GetCoordSystem(out orgin, out xVec, out yVec, out zVec);
+                xVec = new Vector3d(lengthVector);
+                yVec = xVec.CrossProduct(normal);
+                zVec = xVec.CrossProduct(yVec);
+                cutMatrix.SetCoordSystem(insertPoint, xVec, yVec, zVec);
+                beamFeat.CS = cutMatrix;
+
+                Vector2d offset;
+                switch (corner)
+                {
+                  case 0:  //Top Left
+                    offset = new Vector2d(-1, 1);
+                    break;
+                  case 1: //Top Right
+                    offset = new Vector2d(1, 1);
+                    break;
+                  case 2: //Bottom Right
+                    offset = new Vector2d(1, -1);
+                    break;
+                  case 3: //Bottom left
+                    offset = new Vector2d(-1, -1);
+                    break;
+                  default: //Anything else ignore
+                    offset = new Vector2d(0, 0);
+                    break;
+                }
+                beamFeat.Offset = offset;
+
+                if (defaultData != null)
+                {
+                  Utils.SetParameters(beamFeat, defaultData);
+                }
+
+                if (postWriteDBData != null)
+                {
+                  Utils.SetParameters(beamFeat, postWriteDBData);
+                }
+
+              }
+              else
+                throw new System.Exception("Not a Beam Feature");
+            }
+          }
+          else
+            throw new System.Exception("No Input Element found");
+
+          Handle = beamFeat.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
         }
       }
-
-      SetHandle(beamFeat);
-
-      if (postWriteDBData != null)
-      {
-        UtilsProperties.SetParameters(beamFeat, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
     }
 
-    private void InitBeamPolycut(AdvanceSteel.Nodes.SteelDbObject element,
+    internal BeamPolycut(AdvanceSteel.Nodes.SteelDbObject element,
                         Polyline3d cutPolyline,
                         Autodesk.AdvanceSteel.Geometry.Vector3d normal,
                         Autodesk.AdvanceSteel.Geometry.Vector3d lengthVector,
                         List<Property> beamFeatureProperties)
     {
-      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
-      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
-
-      FilerObject obj = Utils.GetObject(element.Handle);
-      if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kBeam)))
-        throw new System.Exception("No Input Element found");
-
-      ASBeamMultiContourNotch beamFeat = SteelServices.ElementBinder.GetObjectASFromTrace<ASBeamMultiContourNotch>();
-      if (beamFeat == null)
+      lock (access_obj)
       {
-        Beam bmObj = obj as Beam;
-        beamFeat = new ASBeamMultiContourNotch(bmObj, (Beam.eEnd)1, cutPolyline, normal, lengthVector);
-
-        if (defaultData != null)
+        using (var ctx = new SteelServices.DocContext())
         {
-          UtilsProperties.SetParameters(beamFeat, defaultData);
+          List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+          string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
+
+          string elementHandle = element.Handle;
+          FilerObject obj = Utils.GetObject(elementHandle);
+          BeamMultiContourNotch beamFeat = null;
+          if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kBeam))
+          {
+            if (string.IsNullOrEmpty(existingFeatureHandle) || Utils.GetObject(existingFeatureHandle) == null)
+            {
+              Beam bmObj = obj as Beam;
+              beamFeat = new BeamMultiContourNotch(bmObj, (Beam.eEnd)1, cutPolyline, normal, lengthVector);
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(beamFeat, defaultData);
+              }
+
+              bmObj.AddFeature(beamFeat);
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(beamFeat, postWriteDBData);
+              }
+
+            }
+            else
+            {
+              beamFeat = Utils.GetObject(existingFeatureHandle) as BeamMultiContourNotch;
+              if (beamFeat != null && beamFeat.IsKindOf(FilerObject.eObjectType.kBeamMultiContourNotch))
+              {
+
+                Beam bmObj = obj as Beam;
+                bmObj.DelFeature(beamFeat);
+                bmObj.WriteToDb();
+
+                beamFeat = new BeamMultiContourNotch(bmObj, (Beam.eEnd)1, cutPolyline, normal, lengthVector);
+
+                if (defaultData != null)
+                {
+                  Utils.SetParameters(beamFeat, defaultData);
+                }
+
+                bmObj.AddFeature(beamFeat);
+
+                if (postWriteDBData != null)
+                {
+                  Utils.SetParameters(beamFeat, postWriteDBData);
+                }
+
+              }
+              else
+                throw new System.Exception("Not a Beam Feature");
+            }
+          }
+          else
+            throw new System.Exception("No Input Element found");
+
+          Handle = beamFeat.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
         }
-
-        bmObj.AddFeature(beamFeat);
       }
-      else
-      {
-        if (!beamFeat.IsKindOf(FilerObject.eObjectType.kBeamMultiContourNotch))
-          throw new System.Exception("Not a Beam Feature");
-
-        Beam bmObj = obj as Beam;
-        bmObj.DelFeature(beamFeat);
-        bmObj.WriteToDb();
-
-        beamFeat = new ASBeamMultiContourNotch(bmObj, (Beam.eEnd)1, cutPolyline, normal, lengthVector);
-
-        if (defaultData != null)
-        {
-          UtilsProperties.SetParameters(beamFeat, defaultData);
-        }
-
-        bmObj.AddFeature(beamFeat);
-      }
-
-      SetHandle(beamFeat);
-
-      if (postWriteDBData != null)
-      {
-        UtilsProperties.SetParameters(beamFeat, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
     }
 
     /// <summary>
@@ -395,21 +406,26 @@ namespace AdvanceSteel.Nodes.Features
       {
         listBeamFeatureData = new List<Property>() { };
       }
-      if (length > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(ASBeamMultiContourNotch), listBeamFeatureData, nameof(ASBeamMultiContourNotch.Length), length);
-      if (width > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(ASBeamMultiContourNotch), listBeamFeatureData, nameof(ASBeamMultiContourNotch.Width), width);
+      if (length > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Length", length, ".");
+      if (width > 0) Utils.CheckListUpdateOrAddValue(listBeamFeatureData, "Width", width, ".");
       return listBeamFeatureData;
     }
 
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      var beamFeat = Utils.GetObject(Handle) as ASBeamMultiContourNotch;
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var beamFeat = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.BeamMultiContourNotch;
 
-      Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = beamFeat.CS;
-      var poly = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(beamFeat.GetPolygon(), true));
+          Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = beamFeat.CS;
+          var poly = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(beamFeat.GetPolygon(), true));
 
-      return poly;
+          return poly;
+        }
+      }
     }
-
   }
 }

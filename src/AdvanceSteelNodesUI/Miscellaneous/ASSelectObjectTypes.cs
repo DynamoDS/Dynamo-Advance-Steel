@@ -15,20 +15,56 @@ namespace AdvanceSteel.Nodes
   [OutPortNames("steelObjects")]
   [OutPortTypes("AdvanceSteel.Nodes.SteelDbObject")]
   [IsDesignScriptCompatible]
-  public class ASSelectObjecTypes : ASObjectTypeBase
+  public class ASSelectObjecTypes : AstDropDownBase
   {
-    public ASSelectObjecTypes() : base() { }
+    private const string outputName = "steelObjects";
+
+    public ASSelectObjecTypes()
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
     [JsonConstructor]
-    public ASSelectObjecTypes(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts) : base(inPorts, outPorts) { }
-
-
-    protected override AssociativeNode CreateAssociativeNode(DynamoDropDownItem dynamoDropDownItem)
+    public ASSelectObjecTypes(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
     {
-      StringNode stringNode = AstFactory.BuildStringNode(Items[SelectedIndex].Name);
-      AssociativeNode node = AstFactory.BuildFunctionCall(new Func<string, IEnumerable<SteelDbObject>>(Utils.GetDynObjectsByType), new List<AssociativeNode>() { stringNode });
+    }
 
-      return node;
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
+
+      var newItems = new List<DynamoDropDownItem>();
+      Dictionary<Autodesk.AdvanceSteel.CADAccess.FilerObject.eObjectType, string> filterItems = Utils.GetASObjectFilters();
+      foreach (var item in filterItems)
+      {
+        newItems.Add(new DynamoDropDownItem(item.Value, (long)item.Key));
+      }
+
+      Items.AddRange(newItems);
+
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
+
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
+      if (Items.Count == 0 ||
+          Items[SelectedIndex].Name == "Select Object Type..." ||
+          SelectedIndex < 0)
+      {
+        return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
+      }
+      AssociativeNode node;
+      IntNode intNode2 = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
+      node = AstFactory.BuildFunctionCall(new Func<int, IEnumerable<SteelDbObject>>(Utils.GetDynObjects), new List<AssociativeNode>() { intNode2 });
+
+      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), node);
+      return new List<AssociativeNode> { assign };
+
     }
   }
 }

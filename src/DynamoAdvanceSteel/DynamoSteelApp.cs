@@ -1,13 +1,10 @@
-﻿using AdvanceSteel.Nodes;
-using Autodesk.AdvanceSteel.Runtime;
-using Autodesk.AutoCAD.EditorInput;
+﻿using Autodesk.AdvanceSteel.Runtime;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using acadApp = Autodesk.AutoCAD.ApplicationServices.Application;
 
 [assembly: ExtensionApplicationAttribute(typeof(Dynamo.Applications.AdvanceSteel.DynamoSteelApp))]
 
@@ -22,21 +19,6 @@ namespace Dynamo.Applications.AdvanceSteel
     void IExtensionApplication.Initialize()
     {
       SubscribeAssemblyResolvingEvent();
-
-      //Load dictionary properties
-      InicializeSteelObjectPropertySets();
-    }
-
-    private void InicializeSteelObjectPropertySets()
-    {
-      try
-      {
-        UtilsProperties.LoadASTypeDictionary();
-      }
-      catch (Exception ex)
-      {
-        throw new Exception("Dynamo Load Error - Type Dictionary not loaded");
-      }
     }
 
     void IExtensionApplication.Terminate()

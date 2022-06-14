@@ -15,23 +15,54 @@ namespace AdvanceSteel.Nodes
   [OutPortTypes("int")]
   [OutPortDescriptions("weld connection type")]
   [IsDesignScriptCompatible]
-  public class WeldConnectionType : ASListBase
+  public class WeldConnectionType : AstDropDownBase
   {
-    protected override string GetListName => "Weld Type";
+    private const string outputName = "weldType";
 
-    public WeldConnectionType() : base() { }
+    public WeldConnectionType()
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
     [JsonConstructor]
-    public WeldConnectionType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts) : base(inPorts, outPorts) { }
-
-    protected override List<DynamoDropDownItem> GetListDropDown()
+    public WeldConnectionType(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
     {
-      var list = new List<DynamoDropDownItem>()
+    }
+
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
+
+      var newItems = new List<DynamoDropDownItem>()
+            {
+                new DynamoDropDownItem("Select Weld Type...", -1L),
+                new DynamoDropDownItem("OnSite", 0L),
+                new DynamoDropDownItem("InShop", 2L)
+            };
+
+      Items.AddRange(newItems);
+
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
+
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
+      if (Items.Count == 0 ||
+          Items[SelectedIndex].Name == "Select Weld Type..." ||
+          SelectedIndex < 0)
       {
-        new DynamoDropDownItem("OnSite", 0L),
-        new DynamoDropDownItem("InShop", 2L)
-      };
-      return list;
+        return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
+      }
+
+      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
+      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
+      return new List<AssociativeNode> { assign };
+
     }
   }
 }

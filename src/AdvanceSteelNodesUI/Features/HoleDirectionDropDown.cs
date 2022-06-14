@@ -15,24 +15,55 @@ namespace AdvanceSteel.Nodes
   [OutPortTypes("int")]
   [OutPortDescriptions("slotted hole direciton")]
   [IsDesignScriptCompatible]
-  public class SlotDirection : ASListBase
+  public class SlotDirection : AstDropDownBase
   {
-    protected override string GetListName => "Slotted Hole Direction";
+    private const string outputName = "slotDirection";
 
-    public SlotDirection() : base() { }
+    public SlotDirection()
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
     [JsonConstructor]
-    public SlotDirection(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts) : base(inPorts, outPorts) { }
-
-    protected override List<DynamoDropDownItem> GetListDropDown()
+    public SlotDirection(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
     {
-      var list = new List<DynamoDropDownItem>()
+    }
+
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
+
+      var newItems = new List<DynamoDropDownItem>()
+            {
+                new DynamoDropDownItem("Select Slotted Hole Direction...", -1L),
+                new DynamoDropDownItem("Arc Along", 2L),
+                new DynamoDropDownItem("X-Axis", 1L),
+                new DynamoDropDownItem("Y-Axis", 2L)
+            };
+      
+      Items.AddRange(newItems);
+
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
+
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
+      if (Items.Count == 0 ||
+          Items[SelectedIndex].Name == "Select Slotted Hole Direction..." ||
+          SelectedIndex < 0)
       {
-        new DynamoDropDownItem("Arc Along", 2L),
-        new DynamoDropDownItem("X-Axis", 1L),
-        new DynamoDropDownItem("Y-Axis", 2L)
-      };
-      return list;
+        return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
+      }
+
+      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
+      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
+      return new List<AssociativeNode> { assign };
+
     }
   }
 }

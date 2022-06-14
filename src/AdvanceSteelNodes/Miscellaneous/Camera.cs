@@ -4,7 +4,6 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
-using ASCamera = Autodesk.AdvanceSteel.ConstructionHelper.Camera;
 
 namespace AdvanceSteel.Nodes.Miscellaneous
 {
@@ -14,61 +13,66 @@ namespace AdvanceSteel.Nodes.Miscellaneous
   [DynamoServices.RegisterForTrace]
   public class Camera : GraphicObject
   {
-    private Camera(List<Property> cameraProperties)
+    internal Camera()
     {
-      SafeInit(() => InitCamera(cameraProperties));
     }
 
-    private Camera(ASCamera camera)
+    internal Camera(List<Property> cameraProperties)
     {
-      SafeInit(() => SetHandle(camera));
-    }
-
-    internal static Camera FromExisting(ASCamera camera)
-    {
-      return new Camera(camera)
+      lock (access_obj)
       {
-        IsOwnedByDynamo = false
-      };
-    }
-
-    private void InitCamera(List<Property> cameraProperties)
-    {
-      List<Property> defaultData = cameraProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
-      List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
-
-      Matrix3d cameraMat = (Matrix3d)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASCamera.CameraCS)).InternalValue;
-
-      ASCamera camera = SteelServices.ElementBinder.GetObjectASFromTrace<ASCamera>();
-      if (camera == null)
-      {
-        camera = new ASCamera(cameraMat);
-        if (defaultData != null)
+        using (var ctx = new SteelServices.DocContext())
         {
-          UtilsProperties.SetParameters(camera, defaultData);
+
+          List<Property> defaultData = cameraProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+          Matrix3d cameraMat = (Matrix3d)defaultData.FirstOrDefault<Property>(x => x.Name == "CameraCS").InternalValue;
+
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+
+          Autodesk.AdvanceSteel.ConstructionHelper.Camera camera = null;
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
+            camera = new Autodesk.AdvanceSteel.ConstructionHelper.Camera(cameraMat);
+            if (defaultData != null)
+            {
+              Utils.SetParameters(camera, defaultData);
+            }
+
+            camera.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(camera, postWriteDBData);
+            }
+
+          }
+          else
+          {
+            camera = Utils.GetObject(handle) as Autodesk.AdvanceSteel.ConstructionHelper.Camera;
+
+            if (camera != null && camera.IsKindOf(FilerObject.eObjectType.kCamera))
+            {
+              if (defaultData != null)
+              {
+                Utils.SetParameters(camera, defaultData);
+              }
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(camera, postWriteDBData);
+              }
+
+            }
+            else
+              throw new System.Exception("Not a Camera");
+          }
+
+          Handle = camera.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(camera);
         }
-
-        camera.WriteToDb();
       }
-      else
-      {
-        if (!camera.IsKindOf(FilerObject.eObjectType.kCamera))
-          throw new System.Exception("Not a Camera");
-
-        if (defaultData != null)
-        {
-          UtilsProperties.SetParameters(camera, defaultData);
-        }
-      }
-
-      SetHandle(camera);
-
-      if (postWriteDBData != null)
-      {
-        UtilsProperties.SetParameters(camera, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(camera);
     }
 
     /// <summary>
@@ -224,37 +228,41 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       {
         listCameraData = new List<Property>() { };
       }
-
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(ASCamera), listCameraData, nameof(ASCamera.CameraCS), cameraCS);
+      Utils.CheckListUpdateOrAddValue(listCameraData, "CameraCS", cameraCS, ".");
       return listCameraData;
     }
 
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      var camera = Utils.GetObject(Handle) as ASCamera;
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var camera = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.ConstructionHelper.Camera;
 
-      Matrix3d cameraCS = camera.CameraCS;
-      Vector3d xVect = null;
-      Vector3d yVect = null;
-      Vector3d ZVect = null;
-      Point3d origin = null;
-      cameraCS.GetCoordSystem(out origin, out xVect, out yVect, out ZVect);
-      var cameraPoint = Utils.ToDynPoint(origin, true);
-      var p1 = origin + (xVect * -100);
-      p1 = p1 + (yVect * 100);
-      var p2 = p1 + (xVect * 200);
-      var p4 = p1 + (yVect * -200);
-      var p3 = p4 + (xVect * 200);
+          Matrix3d cameraCS = camera.CameraCS;
+          Vector3d xVect = null;
+          Vector3d yVect = null;
+          Vector3d ZVect = null;
+          Point3d origin = null;
+          cameraCS.GetCoordSystem(out origin, out xVect, out yVect, out ZVect);
+          var cameraPoint = Utils.ToDynPoint(origin, true);
+          var p1 = origin + (xVect * -100);
+          p1 = p1 + (yVect * 100);
+          var p2 = p1 + (xVect * 200);
+          var p4 = p1 + (yVect * -200);
+          var p3 = p4 + (xVect * 200);
 
-      List<Point3d> lstPoints = new List<Point3d>() { p1, p2, p3, p4 };
+          List<Point3d> lstPoints = new List<Point3d>() { p1, p2, p3, p4 };
 
-      IEnumerable<Autodesk.DesignScript.Geometry.Point> dynPoints = Utils.ToDynPoints(lstPoints.ToArray(), true);
-      var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, true);
-      foreach (var pt in dynPoints) { pt.Dispose(); }
+          IEnumerable<Autodesk.DesignScript.Geometry.Point> dynPoints = Utils.ToDynPoints(lstPoints.ToArray(), true);
+          var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, true);
+          foreach (var pt in dynPoints) { pt.Dispose(); }
 
-      return poly;
+          return poly;
+        }
+      }
     }
-
   }
 }

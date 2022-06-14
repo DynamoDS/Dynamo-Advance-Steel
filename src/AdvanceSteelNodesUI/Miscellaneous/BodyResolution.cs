@@ -14,25 +14,56 @@ namespace AdvanceSteel.Nodes
   [OutPortTypes("int")]
   [OutPortDescriptions("body resolution")]
   [IsDesignScriptCompatible]
-  public class BodyResolution : ASListBase
+  public class BodyResolution : AstDropDownBase
   {
-    protected override string GetListName => "Body Resolution";
+    private const string outputName = "bodyResolution";
 
-    public BodyResolution() : base() { }
+    public BodyResolution()
+        : base(outputName)
+    {
+      InPorts.Clear();
+      OutPorts.Clear();
+      RegisterAllPorts();
+    }
 
     [JsonConstructor]
-    public BodyResolution(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts) : base(inPorts, outPorts) { }
-
-    protected override List<DynamoDropDownItem> GetListDropDown()
+    public BodyResolution(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
+    : base(outputName, inPorts, outPorts)
     {
-      var list = new List<DynamoDropDownItem>()
+    }
+
+    protected override SelectionState PopulateItemsCore(string currentSelection)
+    {
+      Items.Clear();
+
+      var newItems = new List<DynamoDropDownItem>()
+            {
+                new DynamoDropDownItem("Select Body Resolution...", -1L),
+                new DynamoDropDownItem("Normal", 0L),
+                new DynamoDropDownItem("Detailed", 1L),
+                new DynamoDropDownItem("Hull", 2L),
+                new DynamoDropDownItem("UnNotched", 3L)
+            };
+
+      Items.AddRange(newItems);
+
+      SelectedIndex = 0;
+      return SelectionState.Restore;
+    }
+
+    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
+    {
+      if (Items.Count == 0 ||
+          Items[SelectedIndex].Name == "Select Body Resolution..." ||
+          SelectedIndex < 0)
       {
-        new DynamoDropDownItem("Normal", 0L),
-        new DynamoDropDownItem("Detailed", 1L),
-        new DynamoDropDownItem("Hull", 2L),
-        new DynamoDropDownItem("UnNotched", 3L)
-      };
-      return list;
+        return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
+      }
+
+      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
+      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
+      return new List<AssociativeNode> { assign };
+
     }
   }
 }

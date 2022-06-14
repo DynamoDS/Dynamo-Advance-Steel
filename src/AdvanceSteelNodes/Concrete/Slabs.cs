@@ -5,7 +5,6 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
-using ASSlab = Autodesk.AdvanceSteel.Modelling.Slab;
 
 namespace AdvanceSteel.Nodes.Concrete
 {
@@ -15,199 +14,217 @@ namespace AdvanceSteel.Nodes.Concrete
   [DynamoServices.RegisterForTrace]
   public class Slabs : GraphicObject
   {
-    private Slabs(Autodesk.DesignScript.Geometry.Polygon poly,
-                    double thickness,
-                    List<Property> concreteProperties)
+    internal Slabs()
     {
-      SafeInit(() => InitSlabs(poly, thickness, concreteProperties));
     }
 
-    private Slabs(Point3d ptCenter,
-                    double dWidth, double dLength, double thickness,
-                    Vector3d vNormal,
-                    List<Property> concreteProperties)
-    {
-      SafeInit(() => InitSlabs(ptCenter, dWidth, dLength, thickness, vNormal, concreteProperties));
-    }
-
-    private Slabs(Point3d ptCenter,
-                    double dRadius, double thickness,
-                    Vector3d vNormal,
-                    List<Property> concreteProperties)
-    {
-      SafeInit(() => InitSlabs(ptCenter, dRadius, thickness, vNormal, concreteProperties));
-    }
-
-    private Slabs(ASSlab slab)
-    {
-      SafeInit(() => SetHandle(slab));
-    }
-
-    internal static Slabs FromExisting(ASSlab slab)
-    {
-      return new Slabs(slab)
-      {
-        IsOwnedByDynamo = false
-      };
-    }
-
-    private void InitSlabs(Autodesk.DesignScript.Geometry.Polygon poly,
+    internal Slabs(Autodesk.DesignScript.Geometry.Polygon poly,
                     double thickness,
                     List<Property> concreteProperties)
     {
       if (poly.IsPlanar == false)
         throw new System.Exception("Polygon is not planar");
 
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
-
-      Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
-      double[] cornerRadii = (double[])System.Collections.ArrayList.Repeat(0.0, poly.Points.Length).ToArray(typeof(double));
-
-      var astPoly = new Autodesk.AdvanceSteel.Geometry.Polyline3d(astPoints, null, poly.IsClosed, true);
-      var polyPlane = new Plane(astPoints[0], astPoly.Normal);
-
-      ASSlab floorSlab = SteelServices.ElementBinder.GetObjectASFromTrace<ASSlab>();
-      if (floorSlab == null)
+      lock (access_obj)
       {
-        floorSlab = new ASSlab(polyPlane, astPoints);
-        floorSlab.Thickness = thickness;
-        Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
-        IEnumerable<ObjectId> deletedFeaturesIds = null;
-        IEnumerable<ObjectId> newFeaturesIds = null;
-        floorSlab.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
-        if (defaultData != null)
+        using (var ctx = new SteelServices.DocContext())
         {
-          UtilsProperties.SetParameters(floorSlab, defaultData);
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+
+          Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
+          double[] cornerRadii = (double[])System.Collections.ArrayList.Repeat(0.0, poly.Points.Length).ToArray(typeof(double));
+
+          var astPoly = new Autodesk.AdvanceSteel.Geometry.Polyline3d(astPoints, null, poly.IsClosed, true);
+          var polyPlane = new Plane(astPoints[0], astPoly.Normal);
+
+          Autodesk.AdvanceSteel.Modelling.Slab floorSlab = null;
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
+            floorSlab = new Autodesk.AdvanceSteel.Modelling.Slab(polyPlane, astPoints);
+            floorSlab.Thickness = thickness;
+            Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
+            IEnumerable<ObjectId> deletedFeaturesIds = null;
+            IEnumerable<ObjectId> newFeaturesIds = null;
+            floorSlab.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
+            if (defaultData != null)
+            {
+              Utils.SetParameters(floorSlab, defaultData);
+            }
+
+            floorSlab.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(floorSlab, postWriteDBData);
+            }
+          }
+          else
+          {
+            floorSlab = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Slab;
+
+            if (floorSlab != null && floorSlab.IsKindOf(FilerObject.eObjectType.kSlab))
+            {
+              floorSlab.DefinitionPlane = polyPlane;
+              floorSlab.Thickness = thickness;
+              Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
+              IEnumerable<ObjectId> deletedFeaturesIds = null;
+              IEnumerable<ObjectId> newFeaturesIds = null;
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(floorSlab, defaultData);
+              }
+
+              floorSlab.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(floorSlab, postWriteDBData);
+              }
+            }
+            else
+              throw new System.Exception("Not a Slab");
+          }
+
+          Handle = floorSlab.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(floorSlab);
         }
-
-        floorSlab.WriteToDb();
       }
-      else
-      {
-        if (!floorSlab.IsKindOf(FilerObject.eObjectType.kSlab))
-          throw new System.Exception("Not a Slab");
-
-        floorSlab.DefinitionPlane = polyPlane;
-        floorSlab.Thickness = thickness;
-        Polyline3d outerPoly = new Polyline3d(astPoints, cornerRadii, true, astPoly.Normal, false, 0, true, true);
-        IEnumerable<ObjectId> deletedFeaturesIds = null;
-        IEnumerable<ObjectId> newFeaturesIds = null;
-
-        if (defaultData != null)
-        {
-          UtilsProperties.SetParameters(floorSlab, defaultData);
-        }
-
-        floorSlab.SetOuterContour(outerPoly, out deletedFeaturesIds, out newFeaturesIds);
-      }
-
-      SetHandle(floorSlab);
-
-      if (postWriteDBData != null)
-      {
-        UtilsProperties.SetParameters(floorSlab, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(floorSlab);
     }
 
-    private void InitSlabs(Point3d ptCenter,
+    internal Slabs(Point3d ptCenter,
                     double dWidth, double dLength, double thickness,
                     Vector3d vNormal,
                     List<Property> concreteProperties)
     {
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
-
-      Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
-    
-      ASSlab floorSlab = SteelServices.ElementBinder.GetObjectASFromTrace<ASSlab>();
-      if (floorSlab == null)
+      lock (access_obj)
       {
-        floorSlab = new ASSlab(plane, ptCenter, dWidth, dLength);
-        floorSlab.SetLength(dWidth, true);
-        floorSlab.SetWidth(dLength, true);
-        floorSlab.Thickness = thickness;
-        if (defaultData != null)
+        using (var ctx = new SteelServices.DocContext())
         {
-          UtilsProperties.SetParameters(floorSlab, defaultData);
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+          Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
+          Autodesk.AdvanceSteel.Modelling.Slab floorSlab = null;
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
+            floorSlab = new Autodesk.AdvanceSteel.Modelling.Slab(plane, ptCenter, dWidth, dLength);
+            floorSlab.SetLength(dWidth, true);
+            floorSlab.SetWidth(dLength, true);
+            floorSlab.Thickness = thickness;
+            if (defaultData != null)
+            {
+              Utils.SetParameters(floorSlab, defaultData);
+            }
+
+            floorSlab.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(floorSlab, postWriteDBData);
+            }
+          }
+          else
+          {
+            floorSlab = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Slab;
+            if (floorSlab != null && floorSlab.IsKindOf(FilerObject.eObjectType.kSlab))
+            {
+              floorSlab.DefinitionPlane = plane;
+              floorSlab.Thickness = thickness;
+              floorSlab.SetLength(dWidth, true);
+              floorSlab.SetWidth(dLength, true);
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(floorSlab, defaultData);
+              }
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(floorSlab, postWriteDBData);
+              }
+
+            }
+            else
+            {
+              throw new System.Exception("Not a Slab");
+            }
+          }
+
+          Handle = floorSlab.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(floorSlab);
         }
-
-        floorSlab.WriteToDb();
       }
-      else
-      {
-        if (!floorSlab.IsKindOf(FilerObject.eObjectType.kSlab))
-          throw new System.Exception("Not a Slab");
-
-        floorSlab.DefinitionPlane = plane;
-        floorSlab.Thickness = thickness;
-        floorSlab.SetLength(dWidth, true);
-        floorSlab.SetWidth(dLength, true);
-
-        if (defaultData != null)
-        {
-          UtilsProperties.SetParameters(floorSlab, defaultData);
-        }
-      }
-
-      SetHandle(floorSlab);
-
-      if (postWriteDBData != null)
-      {
-        UtilsProperties.SetParameters(floorSlab, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(floorSlab);
     }
 
-    private void InitSlabs(Point3d ptCenter,
+    internal Slabs(Point3d ptCenter,
                     double dRadius, double thickness,
                     Vector3d vNormal,
                     List<Property> concreteProperties)
     {
-      List<Property> defaultData = concreteProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
-      List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
-
-      Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
-
-      ASSlab floorSlab = SteelServices.ElementBinder.GetObjectASFromTrace<ASSlab>();
-      if (floorSlab == null)
+      lock (access_obj)
       {
-        floorSlab = new Autodesk.AdvanceSteel.Modelling.Slab(plane, ptCenter, dRadius, 0);
-        floorSlab.setRadius(dRadius, true); //Not Working
-        floorSlab.Thickness = thickness;
-        if (defaultData != null)
+        using (var ctx = new SteelServices.DocContext())
         {
-          UtilsProperties.SetParameters(floorSlab, defaultData);
+          List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+          Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(ptCenter, vNormal);
+          Autodesk.AdvanceSteel.Modelling.Slab floorSlab = null;
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
+            floorSlab = new Autodesk.AdvanceSteel.Modelling.Slab(plane, ptCenter, dRadius, 0);
+            floorSlab.setRadius(dRadius, true); //Not Working
+            floorSlab.Thickness = thickness;
+            if (defaultData != null)
+            {
+              Utils.SetParameters(floorSlab, defaultData);
+            }
+
+            floorSlab.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(floorSlab, postWriteDBData);
+            }
+          }
+          else
+          {
+            floorSlab = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Slab;
+            if (floorSlab != null && floorSlab.IsKindOf(FilerObject.eObjectType.kSlab))
+            {
+              floorSlab.DefinitionPlane = plane;
+              floorSlab.setRadius(dRadius, true); //Not Working
+              floorSlab.Thickness = thickness;
+
+              if (defaultData != null)
+              {
+                Utils.SetParameters(floorSlab, defaultData);
+              }
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(floorSlab, postWriteDBData);
+              }
+
+            }
+            else
+            {
+              throw new System.Exception("Not a Slab");
+            }
+          }
+
+          Handle = floorSlab.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(floorSlab);
         }
-
-        floorSlab.WriteToDb();
       }
-      else
-      {
-        if (!floorSlab.IsKindOf(FilerObject.eObjectType.kSlab))
-          throw new System.Exception("Not a Slab");
-
-        floorSlab.DefinitionPlane = plane;
-        floorSlab.setRadius(dRadius, true); //Not Working
-        floorSlab.Thickness = thickness;
-
-        if (defaultData != null)
-        {
-          UtilsProperties.SetParameters(floorSlab, defaultData);
-        }
-      }
-
-      SetHandle(floorSlab);
-
-      if (postWriteDBData != null)
-      {
-        UtilsProperties.SetParameters(floorSlab, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(floorSlab);
     }
 
     /// <summary>
@@ -279,18 +296,23 @@ namespace AdvanceSteel.Nodes.Concrete
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      var slab = Utils.GetObject(Handle) as ASSlab;
+      lock (access_obj)
+      {
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var slab = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.Slab;
 
-      Polyline3d astPoly = null;
-      slab.GetBaseContourPolygon(0.0, out astPoly);
+          Polyline3d astPoly = null;
+          slab.GetBaseContourPolygon(0.0, out astPoly);
 
-      var dynPoints = Utils.ToDynPoints(astPoly.Vertices, true);
-      var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, astPoly.IsClosed);
+          var dynPoints = Utils.ToDynPoints(astPoly.Vertices, true);
+          var poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, astPoly.IsClosed);
 
-      foreach (var pt in dynPoints) { pt.Dispose(); }
+          foreach (var pt in dynPoints) { pt.Dispose(); }
 
-      return poly;
+          return poly;
+        }
+      }
     }
-
   }
 }

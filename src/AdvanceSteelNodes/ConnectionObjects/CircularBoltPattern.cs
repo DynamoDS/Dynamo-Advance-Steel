@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using Autodesk.AdvanceSteel.Geometry;
 using System.Linq;
 using System;
-using ASCircleScrewBoltPattern = Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern;
 
 namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 {
@@ -19,59 +18,54 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
   [DynamoServices.RegisterForTrace]
   public class CircularBoltPattern : GraphicObject
   {
-    private CircularBoltPattern(SteelGeometry.Point3d holeInsertPoint, IEnumerable<string> handlesToConnect,
+    internal CircularBoltPattern()
+    {
+    }
+
+    internal CircularBoltPattern(SteelGeometry.Point3d holeInsertPoint, IEnumerable<string> handlesToConnect,
                                   SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
                                   List<Property> boltData,
                                   int boltCon)
     {
-      SafeInit(() => InitCircularBoltPattern(holeInsertPoint, handlesToConnect, vx, vy, boltData, boltCon));
-    }
-
-    private CircularBoltPattern(ASCircleScrewBoltPattern bolt)
-    {
-      SafeInit(() => SetHandle(bolt));
-    }
-
-    internal static CircularBoltPattern FromExisting(ASCircleScrewBoltPattern bolt)
-    {
-      return new CircularBoltPattern(bolt)
+      lock (access_obj)
       {
-        IsOwnedByDynamo = false
-      };
-    }
+        using (var ctx = new SteelServices.DocContext())
+        {
+          Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern bolts = null;
 
-    private void InitCircularBoltPattern(SteelGeometry.Point3d holeInsertPoint, IEnumerable<string> handlesToConnect,
-                                  SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
-                                  List<Property> boltData,
-                                  int boltCon)
-    {
-      ASCircleScrewBoltPattern bolt = SteelServices.ElementBinder.GetObjectASFromTrace<ASCircleScrewBoltPattern>();
-      if (bolt == null)
-      {
-        bolt = new ASCircleScrewBoltPattern(holeInsertPoint, vx, vy);
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
+            bolts = new Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern(holeInsertPoint, vx, vy);
 
-        UtilsProperties.SetParameters(bolt, boltData);
+            Utils.SetParameters(bolts, boltData);
 
-        bolt.WriteToDb();
+            bolts.WriteToDb();
+          }
+          else
+          {
+            bolts = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern;
+
+            if (bolts != null && bolts.IsKindOf(FilerObject.eObjectType.kCircleScrewBoltPattern))
+            {
+              bolts.RefPoint = holeInsertPoint;
+              bolts.XDirection = vx;
+              bolts.YDirection = vy;
+
+              Utils.SetParameters(bolts, boltData);
+
+            }
+            else
+              throw new System.Exception("Not a circular pattern");
+          }
+
+          FilerObject[] filerObjects = Utils.GetFilerObjects(handlesToConnect);
+          bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
+
+          Handle = bolts.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolts);
+        }
       }
-      else
-      {
-        if (!bolt.IsKindOf(FilerObject.eObjectType.kCircleScrewBoltPattern))
-          throw new System.Exception("Not a circular pattern");
-
-        bolt.RefPoint = holeInsertPoint;
-        bolt.XDirection = vx;
-        bolt.YDirection = vy;
-
-        UtilsProperties.SetParameters(bolt, boltData);
-      }
-
-      SetHandle(bolt);
-
-      FilerObject[] filerObjects = Utils.GetFilerObjects(handlesToConnect);
-      bolt.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolt);
     }
 
     /// <summary>
@@ -136,7 +130,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
         listOfBoltParameters = new List<Property>() { };
       }
 
-      UtilsProperties.CheckListUpdateOrAddValue(typeof(ASCircleScrewBoltPattern), listOfBoltParameters, nameof(ASCircleScrewBoltPattern.Radius), radius);
+      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Radius", radius);
 
       return listOfBoltParameters;
     }
@@ -144,18 +138,23 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      var boltPattern = Utils.GetObject(Handle) as ASCircleScrewBoltPattern;
-      if (boltPattern == null)
+      lock (access_obj)
       {
-        throw new Exception("Null bolt pattern");
-      }
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var boltPattern = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.CircleScrewBoltPattern;
+          if (boltPattern == null)
+          {
+            throw new Exception("Null bolt pattern");
+          }
 
-      using (var point = Utils.ToDynPoint(boltPattern.RefPoint, true))
-      using (var norm = Utils.ToDynVector(boltPattern.Normal, true))
-      {
-        return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadiusNormal(point, Utils.FromInternalDistanceUnits(boltPattern.Radius, true), norm);
+          using (var point = Utils.ToDynPoint(boltPattern.RefPoint, true))
+          using (var norm = Utils.ToDynVector(boltPattern.Normal, true))
+          {
+            return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadiusNormal(point, Utils.FromInternalDistanceUnits(boltPattern.Radius, true), norm);
+          }
+        }
       }
     }
-
   }
 }

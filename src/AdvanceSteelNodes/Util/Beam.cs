@@ -22,6 +22,133 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
+    /// Set Advance Steel Beam Insert Reference Axis
+    /// </summary>
+    /// <param name="steelObject"> Advance Steel element</param>
+    /// <param name="refAxis"> Input Beam reference axis UpperLeft = 0, UpperSys = 1, UpperRight = 2, MidLeft = 3, SysSys = 4, MidRight = 5, LowerLeft = 6, LowerSys = 7, LowerRight = 8, ContourCenter = 9</param>
+    public static void SetBeamReferenceAxis(AdvanceSteel.Nodes.SteelDbObject steelObject,
+                                            int refAxis)
+    {
+      if (Enum.IsDefined(typeof(Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis), refAxis) == false)
+        throw new System.Exception("Invalid Reference axis");
+
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
+              selectedObj.RefAxis = (Autodesk.AdvanceSteel.Modelling.Beam.eRefAxis)refAxis;
+            }
+            else
+              throw new System.Exception("Not a BEAM Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object is null");
+      }
+    }
+
+    /// <summary>
+    /// Set Beam Cross Section to be Mirrored - i.e. Channels with toe pointing in the opposite direction
+    /// </summary>
+    /// <param name="steelObject"> Advance Steel element</param>
+    /// <param name="crossSectionMirrored"> Input True or False Value</param>
+    public static void SetBeamCrossSectionMirrored(AdvanceSteel.Nodes.SteelDbObject steelObject,
+                                        [DefaultArgument("true")] bool crossSectionMirrored)
+    {
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
+              selectedObj.SetCrossSectionMirrored(crossSectionMirrored);
+            }
+            else
+              throw new System.Exception("Not a BEAM Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object is null");
+      }
+    }
+
+    /// <summary>
+    /// Set Beam System Line Start Point
+    /// </summary>
+    /// <param name="steelObject"> Advance Steel element</param>
+    /// <param name="point"> Input Dynamo Point</param>
+    public static void SetSystemLineStartPoint(AdvanceSteel.Nodes.SteelDbObject steelObject,
+                                    Autodesk.DesignScript.Geometry.Point point)
+    {
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
+              selectedObj.SetSysStart(Utils.ToAstPoint(point, true));
+            }
+            else
+              throw new System.Exception("Not a BEAM Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object is null");
+      }
+    }
+
+    /// <summary>
+    /// Set Beam System Line End Point
+    /// </summary>
+    /// <param name="steelObject"> Advance Steel element</param>
+    /// <param name="point"> Input Dynamo Point</param>
+    public static void SetSystemLineEndPoint(AdvanceSteel.Nodes.SteelDbObject steelObject,
+                                    Autodesk.DesignScript.Geometry.Point point)
+    {
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
+              selectedObj.SetSysEnd(Utils.ToAstPoint(point, true));
+            }
+            else
+              throw new System.Exception("Not a BEAM Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object is null");
+      }
+    }
+
+    /// <summary>
     /// Get closest point on the system line relative to a point
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
@@ -54,6 +181,48 @@ namespace AdvanceSteel.Nodes.Util
             }
             else
               throw new System.Exception("Not a BEAM Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object is null");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Return Dynamo Line object from the Beam System Line. Supports Straight Beam, Tapered Beam, Unfolded Beam or Compound Beam
+    /// </summary>
+    /// <param name="steelObject"> Advance Steel element</param>
+    /// <returns name="line"> beam system line as line object</returns>
+    public static Autodesk.DesignScript.Geometry.Line GetBeamLine(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    {
+      Autodesk.DesignScript.Geometry.Line ret = null;
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kStraightBeam) ||
+                filerObj.IsKindOf(FilerObject.eObjectType.kBeamTapered) ||
+                filerObj.IsKindOf(FilerObject.eObjectType.kUnfoldedStraightBeam) ||
+                filerObj.IsKindOf(FilerObject.eObjectType.kCompoundStraightBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
+              Point3d foundStartPoint = selectedObj.GetPointAtStart();
+              Point3d foundEndPoint = selectedObj.GetPointAtEnd();
+              if (foundStartPoint != null || foundEndPoint != null)
+              {
+                ret = Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(Utils.ToDynPoint(foundStartPoint, true), Utils.ToDynPoint(foundEndPoint, true));
+              }
+              else
+                throw new System.Exception("No Points wer returned from the Object");
+            }
+            else
+              throw new System.Exception("Not a Straight Beam, Tapered Beam, Unfolded Beam or Compound Beam Object");
           }
           else
             throw new System.Exception("AS Object is null");
@@ -186,7 +355,66 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
-    /// Get Beam data
+    /// Get Saw Cut information from Beam Objects
+    /// </summary>
+    /// <param name="steelObject"> Advance Steel element</param>
+    /// <returns name="SawLength"> The Saw Length, Flange Angle At Start, Web Angle At Start, Flange Angle At End and Web Angle At End </returns>
+    [MultiReturn(new[] { "SawLength", "FlangeAngleAtStart", "WebAngleAtStart", "FlangeAngleAtEnd", "WebAngleAtEnd" })]
+    public static Dictionary<string, double> GetBeamSawInformation(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    {
+      Dictionary<string, double> ret = new Dictionary<string, double>();
+
+      double sawLength = 0;
+      double flangeAngleAtStart = 0;
+      double webAngleAtStart = 0;
+      double flangeAngleAtEnd = 0;
+      double webAngleAtEnd = 0;
+      ret.Add("SawLength", Utils.FromInternalDistanceUnits(sawLength, true));
+      ret.Add("FlangeAngleAtStart", flangeAngleAtStart);
+      ret.Add("WebAngleAtStart", webAngleAtStart);
+      ret.Add("FlangeAngleAtEnd", flangeAngleAtEnd);
+      ret.Add("WebAngleAtEnd", webAngleAtEnd);
+
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
+              int executed = selectedObj.GetSawInformation(out sawLength,
+                                                          out flangeAngleAtStart,
+                                                          out webAngleAtStart,
+                                                          out flangeAngleAtEnd,
+                                                          out webAngleAtEnd);
+              if (executed > 0)
+              {
+                ret["SawLength"] = Utils.FromInternalDistanceUnits(sawLength, true);
+                ret["FlangeAngleAtStart"] = Utils.FromInternalAngleUnits(Utils.DegreeToRad(flangeAngleAtStart), true); 
+                ret["WebAngleAtStart"] = Utils.FromInternalAngleUnits(Utils.DegreeToRad(webAngleAtStart), true); 
+                ret["FlangeAngleAtEnd"] = Utils.FromInternalAngleUnits(Utils.DegreeToRad(flangeAngleAtEnd), true); 
+                ret["WebAngleAtEnd"] = Utils.FromInternalAngleUnits(Utils.DegreeToRad(webAngleAtEnd), true); 
+              }
+              else
+                throw new System.Exception("No Values were found for Steel Beam from Function");
+            }
+            else
+              throw new System.Exception("Not a BEAM Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object is null");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Get BEAM data
     /// </summary>
     /// <param name="steelObject"> Advance Steel element</param>
     /// <param name="bodyResolutionForLength"> Set Steel body display resolution</param>
@@ -246,6 +474,70 @@ namespace AdvanceSteel.Nodes.Util
     }
 
     /// <summary>
+    /// Get Beam Insert Reference Axis
+    /// </summary>
+    /// <param name="steelObject">Advance Steel element</param>
+    /// <returns name="beamReferenceAxis"> Integer value for beam reference axis</returns>
+    public static int GetBeamReferenceAxis(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    {
+      int ret = -1;
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
+              ret = (int)selectedObj.RefAxis;
+            }
+            else
+              throw new System.Exception("Not a BEAM Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object or Point is null");
+      }
+      return ret;
+    }
+
+    /// <summary>
+    /// Get Beam Length
+    /// </summary>
+    /// <param name="steelObject">Advance Steel element</param>
+    /// <returns name="beamLenth"> The beam length value</returns>
+    public static double GetLength(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    {
+      double ret = 0;
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
+              ret = (double)selectedObj.GetLength();
+            }
+            else
+              throw new System.Exception("Not a BEAM Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object or Point is null");
+      }
+      return Utils.FromInternalDistanceUnits(ret, true);
+    }
+
+    /// <summary>
     /// Get Beam Length relative to object display
     /// </summary>
     /// <param name="steelObject">Advance Steel element</param>
@@ -268,7 +560,7 @@ namespace AdvanceSteel.Nodes.Util
               ret = (double)selectedObj.GetLength((BodyContext.eBodyContext)bodyResolutionForLength);
             }
             else
-              throw new System.Exception("Not a Beam Object");
+              throw new System.Exception("Not a BEAM Object");
           }
           else
             throw new System.Exception("AS Object is null");
@@ -277,6 +569,38 @@ namespace AdvanceSteel.Nodes.Util
           throw new System.Exception("Steel Object or Point is null");
       }
       return Utils.FromInternalDistanceUnits(ret, true);
+    }
+
+    /// <summary>
+    /// Get Beam Weight Per Meter
+    /// </summary>
+    /// <param name="steelObject">Advance Steel element</param>
+    /// <returns name="beamWeightPerMeter"> The beam weight per meter</returns>
+    public static double GetWeightPerMeter(AdvanceSteel.Nodes.SteelDbObject steelObject)
+    {
+      double ret = 0;
+      using (var ctx = new SteelServices.DocContext())
+      {
+        if (steelObject != null)
+        {
+          FilerObject filerObj = Utils.GetObject(steelObject.Handle);
+          if (filerObj != null)
+          {
+            if (filerObj.IsKindOf(FilerObject.eObjectType.kBeam))
+            {
+              Autodesk.AdvanceSteel.Modelling.Beam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.Beam;
+              ret = (double)selectedObj.GetWeightPerMeter();
+            }
+            else
+              throw new System.Exception("Not a BEAM Object");
+          }
+          else
+            throw new System.Exception("AS Object is null");
+        }
+        else
+          throw new System.Exception("Steel Object or Point is null");
+      }
+      return Utils.FromInternalWeightPerDistanceUnits(ret, true);
     }
 
     /// <summary>
@@ -295,6 +619,7 @@ namespace AdvanceSteel.Nodes.Util
 
         if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kBeam))
         {
+
           string sectionType = Utils.SplitSectionName(sectionName)[0];
           string sectionSize = Utils.SplitSectionName(sectionName)[1];
 

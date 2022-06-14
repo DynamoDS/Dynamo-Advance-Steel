@@ -4,7 +4,6 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
-using ASSpecialPart = Autodesk.AdvanceSteel.Modelling.SpecialPart;
 
 namespace AdvanceSteel.Nodes.Miscellaneous
 {
@@ -14,64 +13,66 @@ namespace AdvanceSteel.Nodes.Miscellaneous
   [DynamoServices.RegisterForTrace]
   public class SpecialPart : GraphicObject
   {
-    private SpecialPart(Matrix3d insertMatrix, string blockName, List<Property> cameraProperties)
+    internal SpecialPart()
     {
-      SafeInit(() => InitSpecialPart(insertMatrix, blockName, cameraProperties));
     }
 
-    private SpecialPart(ASSpecialPart specPart)
+    internal SpecialPart(Matrix3d insertMatrix, string blockName, List<Property> cameraProperties)
     {
-      SafeInit(() => SetHandle(specPart));
-    }
-
-    internal static SpecialPart FromExisting(ASSpecialPart specPart)
-    {
-      return new SpecialPart(specPart)
+      lock (access_obj)
       {
-        IsOwnedByDynamo = false
-      };
-    }
-
-    private void InitSpecialPart(Matrix3d insertMatrix, string blockName, List<Property> cameraProperties)
-    {
-      List<Property> defaultData = cameraProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
-      List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
-
-      double scale = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASSpecialPart.Scale)).InternalValue;
-
-      ASSpecialPart specPart = SteelServices.ElementBinder.GetObjectASFromTrace<ASSpecialPart>();
-      if (specPart == null)
-      {
-        specPart = new ASSpecialPart(insertMatrix);
-        specPart.SetBlock(blockName, scale);
-
-        if (defaultData != null)
+        using (var ctx = new SteelServices.DocContext())
         {
-          UtilsProperties.SetParameters(specPart, defaultData);
+
+          List<Property> defaultData = cameraProperties.Where(x => x.Level == ".").ToList<Property>();
+          List<Property> postWriteDBData = cameraProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+
+          double scale = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Scale").InternalValue;
+
+          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+
+          Autodesk.AdvanceSteel.Modelling.SpecialPart specPart = null;
+          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
+          {
+            specPart = new Autodesk.AdvanceSteel.Modelling.SpecialPart(insertMatrix);
+            specPart.SetBlock(blockName, scale);
+            if (defaultData != null)
+            {
+              Utils.SetParameters(specPart, defaultData);
+            }
+            specPart.WriteToDb();
+
+            if (postWriteDBData != null)
+            {
+              Utils.SetParameters(specPart, postWriteDBData);
+            }
+
+          }
+          else
+          {
+            specPart = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.SpecialPart;
+
+            if (specPart != null && specPart.IsKindOf(FilerObject.eObjectType.kSpecialPart))
+            {
+              specPart.SetBlock(blockName, scale);
+              if (defaultData != null)
+              {
+                Utils.SetParameters(specPart, defaultData);
+              }
+
+              if (postWriteDBData != null)
+              {
+                Utils.SetParameters(specPart, postWriteDBData);
+              }
+            }
+            else
+              throw new System.Exception("Not a Special Part");
+          }
+
+          Handle = specPart.Handle;
+          SteelServices.ElementBinder.CleanupAndSetElementForTrace(specPart);
         }
-
-        specPart.WriteToDb();
       }
-      else
-      {
-        if (!specPart.IsKindOf(FilerObject.eObjectType.kSpecialPart))
-          throw new System.Exception("Not a Special Part");
-
-        specPart.SetBlock(blockName, scale);
-        if (defaultData != null)
-        {
-          UtilsProperties.SetParameters(specPart, defaultData);
-        }
-      }
-
-      SetHandle(specPart);
-
-      if (postWriteDBData != null)
-      {
-        UtilsProperties.SetParameters(specPart, postWriteDBData);
-      }
-
-      SteelServices.ElementBinder.CleanupAndSetElementForTrace(specPart);
     }
 
     /// <summary>
@@ -123,7 +124,7 @@ namespace AdvanceSteel.Nodes.Miscellaneous
       if (listSpecialPartData == null)
       {
         listSpecialPartData = new List<Property>() { };
-        UtilsProperties.CheckListUpdateOrAddValue(typeof(ASSpecialPart), listSpecialPartData, nameof(ASSpecialPart.Scale), scale);
+        Utils.CheckListUpdateOrAddValue(listSpecialPartData, "Scale", scale, ".");
       }
       return listSpecialPartData;
     }
@@ -132,20 +133,25 @@ namespace AdvanceSteel.Nodes.Miscellaneous
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      var camera = Utils.GetObject(Handle) as ASSpecialPart;
-
-      Matrix3d cameraCS = camera.CS;
-      Vector3d xVect = null;
-      Vector3d yVect = null;
-      Vector3d ZVect = null;
-      Point3d origin = null;
-      cameraCS.GetCoordSystem(out origin, out xVect, out yVect, out ZVect);
-
-      using (var dynPoint = Utils.ToDynPoint(origin, true))
+      lock (access_obj)
       {
-        return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadius(dynPoint, 0.01);
+        using (var ctx = new SteelServices.DocContext())
+        {
+          var camera = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.SpecialPart;
+
+          Matrix3d cameraCS = camera.CS;
+          Vector3d xVect = null;
+          Vector3d yVect = null;
+          Vector3d ZVect = null;
+          Point3d origin = null;
+          cameraCS.GetCoordSystem(out origin, out xVect, out yVect, out ZVect);
+
+          using (var dynPoint = Utils.ToDynPoint(origin, true))
+          {
+            return Autodesk.DesignScript.Geometry.Circle.ByCenterPointRadius(dynPoint, 0.01);
+          }
+        }
       }
     }
-
   }
 }
