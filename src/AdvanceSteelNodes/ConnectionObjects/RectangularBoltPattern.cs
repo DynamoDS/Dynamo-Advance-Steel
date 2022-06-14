@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using Autodesk.AdvanceSteel.Geometry;
 using System.Linq;
 using System;
-
+using Autodesk.AdvanceSteel.Modelling;
 
 namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
 {
@@ -19,100 +19,115 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
   [DynamoServices.RegisterForTrace]
   public class RectangularBoltPattern : GraphicObject
   {
-    internal RectangularBoltPattern()
-    {
-    }
-
-    internal RectangularBoltPattern(SteelGeometry.Point3d boltPatternInsertPoint,
+    private RectangularBoltPattern(SteelGeometry.Point3d boltPatternInsertPoint,
                                     SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
                                     IEnumerable<string> handlesToConnect,
                                     List<Property> boltData, int boltCon)
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          Autodesk.AdvanceSteel.Modelling.InfinitMidScrewBoltPattern bolts = null;
-
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-          {
-            bolts = new Autodesk.AdvanceSteel.Modelling.InfinitMidScrewBoltPattern(boltPatternInsertPoint, vx, vy);
-            Utils.SetParameters(bolts, boltData);
-            bolts.WriteToDb();
-          }
-          else
-          {
-            bolts = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.InfinitMidScrewBoltPattern;
-
-            if (bolts != null && bolts.IsKindOf(FilerObject.eObjectType.kInfinitMidScrewBoltPattern))
-            {
-              Utils.SetParameters(bolts, boltData);
-            }
-            else
-              throw new System.Exception("Not a rectangular pattern");
-          }
-
-          FilerObject[] filerObjects = Utils.GetSteelObjectsToConnect(handlesToConnect);
-          bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
-
-          Handle = bolts.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolts);
-        }
-      }
+      SafeInit(() => InitRectangularBoltPattern(boltPatternInsertPoint, vx, vy, handlesToConnect, boltData, boltCon));
     }
 
-    internal RectangularBoltPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2,
+    private RectangularBoltPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2,
                                             IEnumerable<string> handlesToConnect,
                                             SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
                                             List<Property> boltData, int boltCon)
     {
-      lock (access_obj)
+      SafeInit(() => InitRectangularBoltPattern(astPoint1, astPoint2, handlesToConnect, vx, vy, boltData, boltCon));
+    }
+
+    private RectangularBoltPattern(InfinitMidScrewBoltPattern bolts)
+    {
+      SafeInit(() => SetHandle(bolts));
+    }
+
+    private RectangularBoltPattern(FinitRectScrewBoltPattern bolts)
+    {
+      SafeInit(() => SetHandle(bolts));
+    }
+
+    internal static RectangularBoltPattern FromExisting(InfinitMidScrewBoltPattern bolts)
+    {
+      return new RectangularBoltPattern(bolts)
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          Autodesk.AdvanceSteel.Modelling.FinitRectScrewBoltPattern bolts = null;
+        IsOwnedByDynamo = false
+      };
+    }
 
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-          if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
-          {
-            bolts = new Autodesk.AdvanceSteel.Modelling.FinitRectScrewBoltPattern(astPoint1, astPoint2, vx, vy);
+    internal static RectangularBoltPattern FromExisting(FinitRectScrewBoltPattern bolts)
+    {
+      return new RectangularBoltPattern(bolts)
+      {
+        IsOwnedByDynamo = false
+      };
+    }
 
-            bolts.RefPoint = astPoint1 + (astPoint2 - astPoint1) * 0.5;
-            bolts.Length = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
-            bolts.Height = Utils.GetRectangleHeight(astPoint1, astPoint2, vy);
-
-            Utils.SetParameters(bolts, boltData);
-
-            bolts.WriteToDb();
-          }
-          else
-          {
-            bolts = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.FinitRectScrewBoltPattern;
-
-            if (bolts != null && bolts.IsKindOf(FilerObject.eObjectType.kFinitRectScrewBoltPattern))
-            {
-              bolts.XDirection = vx;
-              bolts.YDirection = vy;
-
-              bolts.RefPoint = astPoint1 + (astPoint2 - astPoint1) * 0.5;
-              bolts.Length = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
-              bolts.Height = Utils.GetRectangleHeight(astPoint1, astPoint2, vy);
-
-              Utils.SetParameters(bolts, boltData);
-
-            }
-            else
-              throw new System.Exception("Not a rectangular pattern");
-          }
-
-          FilerObject[] filerObjects = Utils.GetSteelObjectsToConnect(handlesToConnect);
-          bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
-
-          Handle = bolts.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolts);
-        }
+    private void InitRectangularBoltPattern(SteelGeometry.Point3d boltPatternInsertPoint,
+                                    SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
+                                    IEnumerable<string> handlesToConnect,
+                                    List<Property> boltData, int boltCon)
+    {
+      InfinitMidScrewBoltPattern bolts = SteelServices.ElementBinder.GetObjectASFromTrace<InfinitMidScrewBoltPattern>();
+      if (bolts == null)
+      {
+        bolts = new InfinitMidScrewBoltPattern(boltPatternInsertPoint, vx, vy);
+        UtilsProperties.SetParameters(bolts, boltData);
+        bolts.WriteToDb();
       }
+      else
+      {
+        if (!bolts.IsKindOf(FilerObject.eObjectType.kInfinitMidScrewBoltPattern))
+          throw new System.Exception("Not a rectangular pattern");
+
+        UtilsProperties.SetParameters(bolts, boltData);
+      }
+
+      SetHandle(bolts);
+
+      FilerObject[] filerObjects = Utils.GetSteelObjectsToConnect(handlesToConnect);
+      bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolts);
+    }
+
+    private void InitRectangularBoltPattern(SteelGeometry.Point3d astPoint1, SteelGeometry.Point3d astPoint2,
+                                            IEnumerable<string> handlesToConnect,
+                                            SteelGeometry.Vector3d vx, SteelGeometry.Vector3d vy,
+                                            List<Property> boltData, int boltCon)
+    {
+      FinitRectScrewBoltPattern bolts = SteelServices.ElementBinder.GetObjectASFromTrace<FinitRectScrewBoltPattern>();
+      if (bolts == null)
+      {
+        bolts = new FinitRectScrewBoltPattern(astPoint1, astPoint2, vx, vy);
+
+        bolts.RefPoint = astPoint1 + (astPoint2 - astPoint1) * 0.5;
+        bolts.Length = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
+        bolts.Height = Utils.GetRectangleHeight(astPoint1, astPoint2, vy);
+
+        UtilsProperties.SetParameters(bolts, boltData);
+
+        bolts.WriteToDb();
+      }
+      else
+      {
+        if (!bolts.IsKindOf(FilerObject.eObjectType.kFinitRectScrewBoltPattern))
+          throw new System.Exception("Not a rectangular pattern");
+
+        bolts.XDirection = vx;
+        bolts.YDirection = vy;
+
+        bolts.RefPoint = astPoint1 + (astPoint2 - astPoint1) * 0.5;
+        bolts.Length = Utils.GetRectangleLength(astPoint1, astPoint2, vx);
+        bolts.Height = Utils.GetRectangleHeight(astPoint1, astPoint2, vy);
+
+        UtilsProperties.SetParameters(bolts, boltData);
+      }
+
+      SetHandle(bolts);
+
+      FilerObject[] filerObjects = Utils.GetSteelObjectsToConnect(handlesToConnect);
+      bolts.Connect(filerObjects, (AtomicElement.eAssemblyLocation)boltCon);
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(bolts);
     }
 
     /// <summary>
@@ -134,8 +149,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     {
       var norm = Utils.ToAstVector3d(rectangle.Normal, true);
 
-      List<string> handlesList = new List<string>();
-      handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
+      List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
 
       var dynCorners = rectangle.Corners();
       var astCorners = Utils.ToAstPoints(dynCorners, true);
@@ -166,8 +180,7 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
                                                   [DefaultArgument("2;")] int boltConnectionType,
                                                   [DefaultArgument("null")] List<Property> additionalBoltParameters)
     {
-      List<string> handlesList = new List<string>();
-      handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
+      List<string> handlesList = Utils.GetSteelDbObjectsToConnect(objectsToConnect);
 
       var vx = Utils.ToAstVector3d(boltCS.XAxis, true);
       var vy = Utils.ToAstVector3d(boltCS.YAxis, true);
@@ -184,8 +197,8 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
         listOfBoltParameters = new List<Property>() { };
       }
 
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Nx", nx);
-      Utils.CheckListUpdateOrAddValue(listOfBoltParameters, "Ny", ny);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(CountableScrewBoltPattern), listOfBoltParameters, nameof(CountableScrewBoltPattern.Nx), nx);
+      UtilsProperties.CheckListUpdateOrAddValue(typeof(CountableScrewBoltPattern), listOfBoltParameters, nameof(CountableScrewBoltPattern.Ny), ny);
 
       return listOfBoltParameters;
     }
@@ -193,45 +206,38 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Bolts
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
+      var boltPattern = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.CountableScrewBoltPattern;
+
+      if (boltPattern == null)
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var boltPattern = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.CountableScrewBoltPattern;
-
-          if (boltPattern == null)
-          {
-            throw new Exception("Null bolt pattern");
-          }
-
-          var temp1 = boltPattern.XDirection * boltPattern.Length / 2.0;
-          var temp2 = boltPattern.YDirection * boltPattern.Height / 2.0;
-
-          var pt1 = new SteelGeometry.Point3d(boltPattern.CenterPoint);
-          pt1.Add(temp1 + temp2);
-
-          var pt2 = new SteelGeometry.Point3d(boltPattern.CenterPoint);
-          pt2.Add(temp1 - temp2);
-
-          var pt3 = new SteelGeometry.Point3d(boltPattern.CenterPoint);
-          pt3.Add(-temp1 - temp2);
-
-          var pt4 = new SteelGeometry.Point3d(boltPattern.CenterPoint);
-          pt4.Add(-temp1 + temp2);
-
-          {
-            List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>
-            {
-              Utils.ToDynPoint(pt1, true),
-              Utils.ToDynPoint(pt2, true),
-              Utils.ToDynPoint(pt3, true),
-              Utils.ToDynPoint(pt4, true)
-            };
-
-            return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
-          }
-        }
+        throw new Exception("Null bolt pattern");
       }
+
+      var temp1 = boltPattern.XDirection * boltPattern.Length / 2.0;
+      var temp2 = boltPattern.YDirection * boltPattern.Height / 2.0;
+
+      var pt1 = new SteelGeometry.Point3d(boltPattern.CenterPoint);
+      pt1.Add(temp1 + temp2);
+
+      var pt2 = new SteelGeometry.Point3d(boltPattern.CenterPoint);
+      pt2.Add(temp1 - temp2);
+
+      var pt3 = new SteelGeometry.Point3d(boltPattern.CenterPoint);
+      pt3.Add(-temp1 - temp2);
+
+      var pt4 = new SteelGeometry.Point3d(boltPattern.CenterPoint);
+      pt4.Add(-temp1 + temp2);
+
+      List<DynGeometry.Point> polyPoints = new List<DynGeometry.Point>
+      {
+        Utils.ToDynPoint(pt1, true),
+        Utils.ToDynPoint(pt2, true),
+        Utils.ToDynPoint(pt3, true),
+        Utils.ToDynPoint(pt4, true)
+      };
+
+      return Autodesk.DesignScript.Geometry.Polygon.ByPoints(polyPoints);
     }
+
   }
 }

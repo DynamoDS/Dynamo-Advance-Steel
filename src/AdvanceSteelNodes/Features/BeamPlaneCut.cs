@@ -6,6 +6,7 @@ using Autodesk.DesignScript.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
+using ASBeamShortening = Autodesk.AdvanceSteel.Modelling.BeamShortening;
 
 namespace AdvanceSteel.Nodes.Features
 {
@@ -15,175 +16,170 @@ namespace AdvanceSteel.Nodes.Features
   [DynamoServices.RegisterForTrace]
   public class BeamPlaneCut : GraphicObject
   {
-    internal BeamPlaneCut()
-    {
-    }
-
-    internal BeamPlaneCut(AdvanceSteel.Nodes.SteelDbObject element,
+    private BeamPlaneCut(AdvanceSteel.Nodes.SteelDbObject element,
                       Point3d cutPoint,
                       Vector3d normal,
                       List<Property> beamFeatureProperties)
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-          string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
-
-          string elementHandle = element.Handle;
-          FilerObject obj = Utils.GetObject(elementHandle);
-          BeamShortening beamFeat = null;
-          if (obj != null && (obj.IsKindOf(FilerObject.eObjectType.kBeam)))
-          {
-            if (string.IsNullOrEmpty(existingFeatureHandle) || Utils.GetObject(existingFeatureHandle) == null)
-            {
-              AtomicElement atomic = obj as AtomicElement;
-              beamFeat = new BeamShortening();
-              atomic.AddFeature(beamFeat);
-              beamFeat.Set(cutPoint, normal);
-              if (defaultData != null)
-              {
-                Utils.SetParameters(beamFeat, defaultData);
-              }
-              atomic.AddFeature(beamFeat);
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(beamFeat, postWriteDBData);
-              }
-            }
-            else
-            {
-              beamFeat = Utils.GetObject(existingFeatureHandle) as BeamShortening;
-              if (beamFeat != null && beamFeat.IsKindOf(FilerObject.eObjectType.kBeamShortening))
-              {
-                beamFeat.Set(cutPoint, normal);
-                if (defaultData != null)
-                {
-                  Utils.SetParameters(beamFeat, defaultData);
-                }
-
-                if (postWriteDBData != null)
-                {
-                  Utils.SetParameters(beamFeat, postWriteDBData);
-                }
-              }
-              else
-                throw new System.Exception("Not a Beam Shorting Feature");
-            }
-          }
-          else
-            throw new System.Exception("No Input Element found");
-
-          Handle = beamFeat.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
-        }
-      }
+      SafeInit(() => InitBeamPlaneCut(element, cutPoint, normal, beamFeatureProperties));
     }
 
-    internal BeamPlaneCut(AdvanceSteel.Nodes.SteelDbObject element,
+    private BeamPlaneCut(AdvanceSteel.Nodes.SteelDbObject element,
                   int end,
                   double shorteningLength,
                   List<Property> beamFeatureProperties)
     {
-      lock (access_obj)
+      SafeInit(() => InitBeamPlaneCut(element, end, shorteningLength, beamFeatureProperties));
+    }
+
+    private BeamPlaneCut(ASBeamShortening beamFeat)
+    {
+      SafeInit(() => SetHandle(beamFeat));
+    }
+
+    internal static BeamPlaneCut FromExisting(ASBeamShortening beamFeat)
+    {
+      return new BeamPlaneCut(beamFeat)
       {
-        using (var ctx = new SteelServices.DocContext())
+        IsOwnedByDynamo = false
+      };
+    }
+
+    private void InitBeamPlaneCut(AdvanceSteel.Nodes.SteelDbObject element,
+                      Point3d cutPoint,
+                      Vector3d normal,
+                      List<Property> beamFeatureProperties)
+    {
+      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
+
+      FilerObject obj = Utils.GetObject(element.Handle);
+      if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kBeam)))
+        throw new System.Exception("No Input Element found");
+
+      ASBeamShortening beamFeat = SteelServices.ElementBinder.GetObjectASFromTrace<ASBeamShortening>();
+      if (beamFeat == null)
+      {
+        AtomicElement atomic = obj as AtomicElement;
+        beamFeat = new ASBeamShortening();
+        atomic.AddFeature(beamFeat);
+        beamFeat.Set(cutPoint, normal);
+        if (defaultData != null)
         {
-          List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+          UtilsProperties.SetParameters(beamFeat, defaultData);
+        }
+        atomic.AddFeature(beamFeat);
+      }
+      else
+      {
+        if (!beamFeat.IsKindOf(FilerObject.eObjectType.kBeamShortening))
+          throw new System.Exception("Not a Beam Shorting Feature");
 
-          string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
-          string elementHandle = element.Handle;
-          FilerObject obj = Utils.GetObject(elementHandle);
-          BeamShortening beamFeat = null;
-          if (obj != null && (obj.IsKindOf(FilerObject.eObjectType.kBeam)))
-          {
-            Matrix3d matrixAtPointOnBeam = null;
-            Point3d shortPt = null;
-            Point3d cutPoint = null;
-            Vector3d normal = null;
-            if (obj.IsKindOf(FilerObject.eObjectType.kBentBeam))
-            {
-              BentBeam actObj = obj as BentBeam;
-              switch (end)
-              {
-                case 0: //Start
-                  shortPt = actObj.GetPointAtStart(shorteningLength);
-                  break;
-                case 1: //End
-                  shortPt = actObj.GetPointAtEnd(shorteningLength);
-                  break;
-              }
-              matrixAtPointOnBeam = actObj.GetCSAtPoint(shortPt);
-            }
-            else
-            {
-              Beam actObj = obj as Beam;
-              switch (end)
-              {
-                case 0: //Start
-                  shortPt = actObj.GetPointAtStart(shorteningLength);
-                  break;
-                case 1: //End
-                  shortPt = actObj.GetPointAtEnd(shorteningLength);
-                  break;
-              }
-              matrixAtPointOnBeam = actObj.GetCSAtPoint(shortPt);
-            }
-            Point3d orgin = null;
-            Vector3d xV = null;
-            Vector3d xY = null;
-            Vector3d xZ = null;
-            matrixAtPointOnBeam.GetCoordSystem(out orgin, out xV, out xY, out xZ);
-            cutPoint = orgin;
-            normal = (end == 0 ? xV : xV.Negate());
-            if (string.IsNullOrEmpty(existingFeatureHandle) || Utils.GetObject(existingFeatureHandle) == null)
-            {
-              AtomicElement atomic = obj as AtomicElement;
-              beamFeat = new BeamShortening();
-              atomic.AddFeature(beamFeat);
-              beamFeat.Set(cutPoint, normal);
-              if (defaultData != null)
-              {
-                Utils.SetParameters(beamFeat, defaultData);
-              }
-              atomic.AddFeature(beamFeat);
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(beamFeat, postWriteDBData);
-              }
-            }
-            else
-            {
-              beamFeat = Utils.GetObject(existingFeatureHandle) as BeamShortening;
-              if (beamFeat != null && beamFeat.IsKindOf(FilerObject.eObjectType.kBeamShortening))
-              {
-                beamFeat.Set(cutPoint, normal);
-                if (defaultData != null)
-                {
-                  Utils.SetParameters(beamFeat, defaultData);
-                }
-
-                if (postWriteDBData != null)
-                {
-                  Utils.SetParameters(beamFeat, postWriteDBData);
-                }
-              }
-              else
-                throw new System.Exception("Not a Beam Shorting Feature");
-            }
-          }
-          else
-            throw new System.Exception("No Input Element found");
-
-          Handle = beamFeat.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
+        beamFeat.Set(cutPoint, normal);
+        if (defaultData != null)
+        {
+          UtilsProperties.SetParameters(beamFeat, defaultData);
         }
       }
+
+      SetHandle(beamFeat);
+
+      if (postWriteDBData != null)
+      {
+        UtilsProperties.SetParameters(beamFeat, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
     }
+
+    private void InitBeamPlaneCut(AdvanceSteel.Nodes.SteelDbObject element,
+                  int end,
+                  double shorteningLength,
+                  List<Property> beamFeatureProperties)
+    {
+      List<Property> defaultData = beamFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = beamFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
+
+      FilerObject obj = Utils.GetObject(element.Handle);
+      if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kBeam)))
+        throw new System.Exception("No Input Element found");
+
+      Matrix3d matrixAtPointOnBeam = null;
+      Point3d shortPt = null;
+      Point3d cutPoint = null;
+      Vector3d normal = null;
+      if (obj.IsKindOf(FilerObject.eObjectType.kBentBeam))
+      {
+        BentBeam actObj = obj as BentBeam;
+        switch (end)
+        {
+          case 0: //Start
+            shortPt = actObj.GetPointAtStart(shorteningLength);
+            break;
+          case 1: //End
+            shortPt = actObj.GetPointAtEnd(shorteningLength);
+            break;
+        }
+        matrixAtPointOnBeam = actObj.GetCSAtPoint(shortPt);
+      }
+      else
+      {
+        Beam actObj = obj as Beam;
+        switch (end)
+        {
+          case 0: //Start
+            shortPt = actObj.GetPointAtStart(shorteningLength);
+            break;
+          case 1: //End
+            shortPt = actObj.GetPointAtEnd(shorteningLength);
+            break;
+        }
+        matrixAtPointOnBeam = actObj.GetCSAtPoint(shortPt);
+      }
+
+      Point3d orgin = null;
+      Vector3d xV = null;
+      Vector3d xY = null;
+      Vector3d xZ = null;
+      matrixAtPointOnBeam.GetCoordSystem(out orgin, out xV, out xY, out xZ);
+      cutPoint = orgin;
+      normal = (end == 0 ? xV : xV.Negate());
+
+      ASBeamShortening beamFeat = SteelServices.ElementBinder.GetObjectASFromTrace<ASBeamShortening>();
+      if (beamFeat == null)
+      {
+        AtomicElement atomic = obj as AtomicElement;
+        beamFeat = new ASBeamShortening();
+        atomic.AddFeature(beamFeat);
+        beamFeat.Set(cutPoint, normal);
+        if (defaultData != null)
+        {
+          UtilsProperties.SetParameters(beamFeat, defaultData);
+        }
+        atomic.AddFeature(beamFeat);
+      }
+      else
+      {
+        if (!beamFeat.IsKindOf(FilerObject.eObjectType.kBeamShortening))
+          throw new System.Exception("Not a Beam Shorting Feature");
+
+        beamFeat.Set(cutPoint, normal);
+        if (defaultData != null)
+        {
+          UtilsProperties.SetParameters(beamFeat, defaultData);
+        }
+      }
+
+      SetHandle(beamFeat);
+
+      if (postWriteDBData != null)
+      {
+        UtilsProperties.SetParameters(beamFeat, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(beamFeat);
+    }
+
     /// <summary>
     /// Create an Advance Steel Beam Plane Cut by Coordinate System
     /// </summary>
@@ -258,19 +254,14 @@ namespace AdvanceSteel.Nodes.Features
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var beamFeat = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.BeamShortening;
-          Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = beamFeat.CS;
-          var poly = Autodesk.DesignScript.Geometry.Rectangle.ByWidthLength(Utils.ToDynCoordinateSys(matrix, true),
-                                                         Utils.FromInternalDistanceUnits(200, true),
-                                                         Utils.FromInternalDistanceUnits(100, true));
+      var beamFeat = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.BeamShortening;
+      Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = beamFeat.CS;
+      var poly = Autodesk.DesignScript.Geometry.Rectangle.ByWidthLength(Utils.ToDynCoordinateSys(matrix, true),
+                                                     Utils.FromInternalDistanceUnits(200, true),
+                                                     Utils.FromInternalDistanceUnits(100, true));
 
-          return poly;
-        }
-      }
+      return poly;
     }
+
   }
 }

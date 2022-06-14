@@ -26,47 +26,37 @@ namespace AdvanceSteel.Nodes.Selection
     /// <param name="steelObjects">List of steel objects</param>
     /// <param name="objectTypeFilters"> List of accepted Steel Object Types</param>
     /// <returns name="steelObjects"> gets a filtered list of steel objects that match the list of steel object types</returns>
-    public static List<SteelDbObject> FilterSelectionByType(List<SteelDbObject> steelObjects,
-                                                  List<int> objectTypeFilters)
+    public static List<SteelDbObject> FilterSelectionByType(List<SteelDbObject> steelObjects, List<string> objectTypeFilters)
     {
       List<SteelDbObject> retListOfFilteredSteelObjects = new List<SteelDbObject>();
-      ClassTypeFilter filter = createFilterObject(objectTypeFilters);
+      List<Type> typeFilters = Utils.GetASObjectTypeFilters(objectTypeFilters);
 
       using (var ctx = new SteelServices.DocContext())
       {
-
-        if (objectTypeFilters.Count > 0)
+        if (objectTypeFilters.Count == 0)
         {
-          for (int i = 0; i < steelObjects.Count; i++)
-          {
-            FilerObject objX = Utils.GetObject(steelObjects[i].Handle);
-            if (objX != null)
-            {
-              if (filter.Filter(objX.Type()) != FilerObject.eObjectType.kUnknown)
-              {
-                retListOfFilteredSteelObjects.Add(steelObjects[i]);
-              }
-            }
-            else
-              throw new System.Exception("No Object return Null during Filtering");
-          }
-        }
-        else
           throw new System.Exception("No Object Filter List Provided");
+        }
+
+        for (int i = 0; i < steelObjects.Count; i++)
+        {
+          FilerObject objX = Utils.GetObject(steelObjects[i].Handle);
+          if (objX == null)
+          {
+            throw new System.Exception("No Object return Null during Filtering");
+          }
+
+          var typeAS = objX.GetType();
+
+          if (typeFilters.Any(x => typeAS.IsSubclassOf(x) || typeAS.IsEquivalentTo(x)))
+          {
+            retListOfFilteredSteelObjects.Add(steelObjects[i]);
+          }
+
+        }
       }
 
       return retListOfFilteredSteelObjects;
-    }
-
-    private static ClassTypeFilter createFilterObject(List<int> objectFilters)
-    {
-      ClassTypeFilter filter = new ClassTypeFilter();
-      filter.RejectAllFirst();
-      for (int i = 0; i < objectFilters.Count; i++)
-      {
-        filter.AppendAcceptedClass((FilerObject.eObjectType)objectFilters[i]);
-      }
-      return filter;
     }
   }
 }

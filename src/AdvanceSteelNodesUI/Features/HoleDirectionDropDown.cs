@@ -15,55 +15,24 @@ namespace AdvanceSteel.Nodes
   [OutPortTypes("int")]
   [OutPortDescriptions("slotted hole direciton")]
   [IsDesignScriptCompatible]
-  public class SlotDirection : AstDropDownBase
+  public class SlotDirection : ASListBase
   {
-    private const string outputName = "slotDirection";
+    protected override string GetListName => "Slotted Hole Direction";
 
-    public SlotDirection()
-        : base(outputName)
-    {
-      InPorts.Clear();
-      OutPorts.Clear();
-      RegisterAllPorts();
-    }
+    public SlotDirection() : base() { }
 
     [JsonConstructor]
-    public SlotDirection(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts)
-    : base(outputName, inPorts, outPorts)
+    public SlotDirection(IEnumerable<PortModel> inPorts, IEnumerable<PortModel> outPorts) : base(inPorts, outPorts) { }
+
+    protected override List<DynamoDropDownItem> GetListDropDown()
     {
-    }
-
-    protected override SelectionState PopulateItemsCore(string currentSelection)
-    {
-      Items.Clear();
-
-      var newItems = new List<DynamoDropDownItem>()
-            {
-                new DynamoDropDownItem("Select Slotted Hole Direction...", -1L),
-                new DynamoDropDownItem("Arc Along", 2L),
-                new DynamoDropDownItem("X-Axis", 1L),
-                new DynamoDropDownItem("Y-Axis", 2L)
-            };
-      
-      Items.AddRange(newItems);
-
-      SelectedIndex = 0;
-      return SelectionState.Restore;
-    }
-
-    public override IEnumerable<AssociativeNode> BuildOutputAst(List<AssociativeNode> inputAstNodes)
-    {
-      if (Items.Count == 0 ||
-          Items[SelectedIndex].Name == "Select Slotted Hole Direction..." ||
-          SelectedIndex < 0)
+      var list = new List<DynamoDropDownItem>()
       {
-        return new[] { AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), AstFactory.BuildNullNode()) };
-      }
-
-      var intNode = AstFactory.BuildIntNode((long)Items[SelectedIndex].Item);
-      var assign = AstFactory.BuildAssignment(GetAstIdentifierForOutputIndex(0), intNode);
-      return new List<AssociativeNode> { assign };
-
+        new DynamoDropDownItem("Arc Along", 2L),
+        new DynamoDropDownItem("X-Axis", 1L),
+        new DynamoDropDownItem("Y-Axis", 2L)
+      };
+      return list;
     }
   }
 }

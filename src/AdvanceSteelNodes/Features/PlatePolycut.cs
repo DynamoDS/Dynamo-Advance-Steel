@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using SteelServices = Dynamo.Applications.AdvanceSteel.Services;
 using Autodesk.AdvanceSteel.Modelling;
+using ASPlateFeatContour = Autodesk.AdvanceSteel.Modelling.PlateFeatContour;
+using ASPlateContourNotch = Autodesk.AdvanceSteel.Modelling.PlateContourNotch;
 
 namespace AdvanceSteel.Nodes.Features
 {
@@ -15,239 +17,237 @@ namespace AdvanceSteel.Nodes.Features
   [DynamoServices.RegisterForTrace]
   public class PlatePolycut : GraphicObject
   {
-    internal PlatePolycut()
-    {
-    }
-
-    internal PlatePolycut(AdvanceSteel.Nodes.SteelDbObject element,
+    private PlatePolycut(AdvanceSteel.Nodes.SteelDbObject element,
                       double xOffset, double yOffset, int corner,
                       int cutShapeRectCircle,
                       List<Property> plateFeatureProperties)
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          List<Property> defaultData = plateFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = plateFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
-
-          double length = 0;
-          double width = 0;
-          double radius = 0;
-
-          if (defaultData.FirstOrDefault<Property>(x => x.Name == "Length") != null)
-          {
-            length = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Length").InternalValue;
-          }
-          if (defaultData.FirstOrDefault<Property>(x => x.Name == "Width") != null)
-          {
-            width = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Width").InternalValue;
-          }
-          if (defaultData.FirstOrDefault<Property>(x => x.Name == "Radius") != null)
-          {
-            radius = (double)defaultData.FirstOrDefault<Property>(x => x.Name == "Radius").InternalValue;
-          }
-
-          string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
-
-          string elementHandle = element.Handle;
-          FilerObject obj = Utils.GetObject(elementHandle);
-          PlateFeatContour plateFeat = null;
-          if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kPlate))
-          {
-            if (string.IsNullOrEmpty(existingFeatureHandle) || Utils.GetObject(existingFeatureHandle) == null)
-            {
-              Matrix2d m2d = new Matrix2d();
-              m2d.SetCoordSystem(new Point2d(xOffset, yOffset), new Vector2d(1, 0), new Vector2d(0, 1));
-              switch (cutShapeRectCircle)
-              {
-                case 0:
-                  plateFeat = new PlateFeatContour(m2d, length, width);
-                  break;
-                case 1:
-                  plateFeat = new PlateFeatContour(m2d, radius);
-                  break;
-              }
-
-              Vector2d offset;
-              switch (corner)
-              {
-                case 0:  //Top Left
-                  offset = new Vector2d(-1, 1);
-                  break;
-                case 1: //Top Right
-                  offset = new Vector2d(1, 1);
-                  break;
-                case 2: //Bottom Right
-                  offset = new Vector2d(1, -1);
-                  break;
-                case 3: //Bottom left
-                  offset = new Vector2d(-1, -1);
-                  break;
-                default: //Anything else ignore
-                  offset = new Vector2d(0, 0);
-                  break;
-              }
-              plateFeat.Offset = offset;
-              AtomicElement atomic = obj as AtomicElement;
-
-              if (defaultData != null)
-              {
-                Utils.SetParameters(plateFeat, defaultData);
-              }
-
-              atomic.AddFeature(plateFeat);
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(plateFeat, postWriteDBData);
-              }
-
-            }
-            else
-            {
-              plateFeat = Utils.GetObject(existingFeatureHandle) as PlateFeatContour;
-              if (plateFeat != null && plateFeat.IsKindOf(FilerObject.eObjectType.kPlateFeatContour))
-              {
-                Plate plate = obj as Plate;
-                plate.DelFeature(plateFeat);
-                plate.WriteToDb();
-
-                Matrix2d m2d = new Matrix2d();
-                m2d.SetCoordSystem(new Point2d(xOffset, yOffset), new Vector2d(1, 0), new Vector2d(0, 1));
-                switch (cutShapeRectCircle)
-                {
-                  case 0:
-                    plateFeat = new PlateFeatContour(m2d, length, width);
-                    break;
-                  case 1:
-                    plateFeat = new PlateFeatContour(m2d, radius);
-                    break;
-                }
-
-                Vector2d offset;
-                switch (corner)
-                {
-                  case 0:  //Top Left
-                    offset = new Vector2d(-1, 1);
-                    break;
-                  case 1: //Top Right
-                    offset = new Vector2d(1, 1);
-                    break;
-                  case 2: //Bottom Right
-                    offset = new Vector2d(1, -1);
-                    break;
-                  case 3: //Bottom left
-                    offset = new Vector2d(-1, -1);
-                    break;
-                  default: //Anything else ignore
-                    offset = new Vector2d(0, 0);
-                    break;
-                }
-                plateFeat.Offset = offset;
-                AtomicElement atomic = obj as AtomicElement;
-
-                if (defaultData != null)
-                {
-                  Utils.SetParameters(plateFeat, defaultData);
-                }
-
-                atomic.AddFeature(plateFeat);
-
-                if (postWriteDBData != null)
-                {
-                  Utils.SetParameters(plateFeat, postWriteDBData);
-                }
-
-              }
-              else
-                throw new System.Exception("Not a Plate Feature");
-            }
-          }
-          else
-            throw new System.Exception("No Input Element found");
-
-          Handle = plateFeat.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(plateFeat);
-        }
-      }
+      SafeInit(() => InitPlatePolycut(element, xOffset, yOffset, corner, cutShapeRectCircle, plateFeatureProperties));
     }
 
-    internal PlatePolycut(AdvanceSteel.Nodes.SteelDbObject element,
+    private PlatePolycut(AdvanceSteel.Nodes.SteelDbObject element,
                           Polyline3d cutPolyline,
                           Autodesk.AdvanceSteel.Geometry.Vector3d normal,
                           Autodesk.AdvanceSteel.Geometry.Vector3d lengthVector,
                           List<Property> plateFeatureProperties)
     {
-      lock (access_obj)
+      SafeInit(() => InitPlatePolycut(element, cutPolyline, normal, lengthVector, plateFeatureProperties));
+    }
+
+    private PlatePolycut(ASPlateFeatContour plateFeat)
+    {
+      SafeInit(() => SetHandle(plateFeat));
+    }
+
+    private PlatePolycut(ASPlateContourNotch plateFeat)
+    {
+      SafeInit(() => SetHandle(plateFeat));
+    }
+
+    internal static PlatePolycut FromExisting(ASPlateFeatContour plateFeat)
+    {
+      return new PlatePolycut(plateFeat)
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          List<Property> defaultData = plateFeatureProperties.Where(x => x.Level == ".").ToList<Property>();
-          List<Property> postWriteDBData = plateFeatureProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
+        IsOwnedByDynamo = false
+      };
+    }
 
-          string existingFeatureHandle = SteelServices.ElementBinder.GetHandleFromTrace();
+    internal static PlatePolycut FromExisting(ASPlateContourNotch plateFeat)
+    {
+      return new PlatePolycut(plateFeat)
+      {
+        IsOwnedByDynamo = false
+      };
+    }
 
-          string elementHandle = element.Handle;
-          FilerObject obj = Utils.GetObject(elementHandle);
-          PlateContourNotch plateFeat = null;
-          if (obj != null && obj.IsKindOf(FilerObject.eObjectType.kPlate))
-          {
-            if (string.IsNullOrEmpty(existingFeatureHandle) || Utils.GetObject(existingFeatureHandle) == null)
-            {
-              Plate plate = obj as Plate;
-              plateFeat = new PlateContourNotch(plate, 0, cutPolyline, normal, lengthVector);
+    private void InitPlatePolycut(AdvanceSteel.Nodes.SteelDbObject element,
+                      double xOffset, double yOffset, int corner,
+                      int cutShapeRectCircle,
+                      List<Property> plateFeatureProperties)
+    {
+      List<Property> defaultData = plateFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = plateFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
 
-              if (defaultData != null)
-              {
-                Utils.SetParameters(plateFeat, defaultData);
-              }
+      double length = 0;
+      double width = 0;
+      double radius = 0;
 
-              plate.AddFeature(plateFeat);
-
-              if (postWriteDBData != null)
-              {
-                Utils.SetParameters(plateFeat, postWriteDBData);
-              }
-
-            }
-            else
-            {
-              plateFeat = Utils.GetObject(existingFeatureHandle) as PlateContourNotch;
-              if (plateFeat != null && plateFeat.IsKindOf(FilerObject.eObjectType.kPlateContourNotch))
-              {
-
-                Plate plate = obj as Plate;
-                plate.DelFeature(plateFeat);
-                plate.WriteToDb();
-
-                plateFeat = new PlateContourNotch(plate, 0, cutPolyline, normal, lengthVector);
-                AtomicElement atomic = obj as AtomicElement;
-
-                if (defaultData != null)
-                {
-                  Utils.SetParameters(plateFeat, defaultData);
-                }
-
-                atomic.AddFeature(plateFeat);
-
-                if (postWriteDBData != null)
-                {
-                  Utils.SetParameters(plateFeat, postWriteDBData);
-                }
-
-              }
-              else
-                throw new System.Exception("Not a Plate Feature");
-            }
-          }
-          else
-            throw new System.Exception("No Input Element found");
-
-          Handle = plateFeat.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(plateFeat);
-        }
+      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASPlateFeatContour.Length)) != null)
+      {
+        length = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASPlateFeatContour.Length)).InternalValue;
       }
+      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASPlateFeatContour.Width)) != null)
+      {
+        width = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASPlateFeatContour.Width)).InternalValue;
+      }
+      if (defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASPlateFeatContour.Radius)) != null)
+      {
+        radius = (double)defaultData.FirstOrDefault<Property>(x => x.MemberName == nameof(ASPlateFeatContour.Radius)).InternalValue;
+      }
+
+      FilerObject obj = Utils.GetObject(element.Handle);
+      if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kPlate)))
+        throw new System.Exception("No Input Element found");
+
+      ASPlateFeatContour plateFeat = SteelServices.ElementBinder.GetObjectASFromTrace<ASPlateFeatContour>();
+      if (plateFeat == null)
+      {
+        Matrix2d m2d = new Matrix2d();
+        m2d.SetCoordSystem(new Point2d(xOffset, yOffset), new Vector2d(1, 0), new Vector2d(0, 1));
+        switch (cutShapeRectCircle)
+        {
+          case 0:
+            plateFeat = new PlateFeatContour(m2d, length, width);
+            break;
+          case 1:
+            plateFeat = new PlateFeatContour(m2d, radius);
+            break;
+        }
+
+        Vector2d offset;
+        switch (corner)
+        {
+          case 0:  //Top Left
+            offset = new Vector2d(-1, 1);
+            break;
+          case 1: //Top Right
+            offset = new Vector2d(1, 1);
+            break;
+          case 2: //Bottom Right
+            offset = new Vector2d(1, -1);
+            break;
+          case 3: //Bottom left
+            offset = new Vector2d(-1, -1);
+            break;
+          default: //Anything else ignore
+            offset = new Vector2d(0, 0);
+            break;
+        }
+        plateFeat.Offset = offset;
+        AtomicElement atomic = obj as AtomicElement;
+
+        if (defaultData != null)
+        {
+          UtilsProperties.SetParameters(plateFeat, defaultData);
+        }
+
+        atomic.AddFeature(plateFeat);
+      }
+      else
+      {
+        if (!plateFeat.IsKindOf(FilerObject.eObjectType.kPlateFeatContour))
+          throw new System.Exception("Not a Plate Feature");
+
+        Plate plate = obj as Plate;
+        plate.DelFeature(plateFeat);
+        plate.WriteToDb();
+
+        Matrix2d m2d = new Matrix2d();
+        m2d.SetCoordSystem(new Point2d(xOffset, yOffset), new Vector2d(1, 0), new Vector2d(0, 1));
+        switch (cutShapeRectCircle)
+        {
+          case 0:
+            plateFeat = new PlateFeatContour(m2d, length, width);
+            break;
+          case 1:
+            plateFeat = new PlateFeatContour(m2d, radius);
+            break;
+        }
+
+        Vector2d offset;
+        switch (corner)
+        {
+          case 0:  //Top Left
+            offset = new Vector2d(-1, 1);
+            break;
+          case 1: //Top Right
+            offset = new Vector2d(1, 1);
+            break;
+          case 2: //Bottom Right
+            offset = new Vector2d(1, -1);
+            break;
+          case 3: //Bottom left
+            offset = new Vector2d(-1, -1);
+            break;
+          default: //Anything else ignore
+            offset = new Vector2d(0, 0);
+            break;
+        }
+        plateFeat.Offset = offset;
+        AtomicElement atomic = obj as AtomicElement;
+
+        if (defaultData != null)
+        {
+          UtilsProperties.SetParameters(plateFeat, defaultData);
+        }
+
+        atomic.AddFeature(plateFeat);
+      }
+
+      SetHandle(plateFeat);
+
+      if (postWriteDBData != null)
+      {
+        UtilsProperties.SetParameters(plateFeat, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(plateFeat);
+    }
+
+    private void InitPlatePolycut(AdvanceSteel.Nodes.SteelDbObject element,
+                          Polyline3d cutPolyline,
+                          Autodesk.AdvanceSteel.Geometry.Vector3d normal,
+                          Autodesk.AdvanceSteel.Geometry.Vector3d lengthVector,
+                          List<Property> plateFeatureProperties)
+    {
+      List<Property> defaultData = plateFeatureProperties.Where(x => x.Level == LevelEnum.Default).ToList<Property>();
+      List<Property> postWriteDBData = plateFeatureProperties.Where(x => x.Level == LevelEnum.PostWriteDB).ToList<Property>();
+
+      FilerObject obj = Utils.GetObject(element.Handle);
+      if (obj == null || !(obj.IsKindOf(FilerObject.eObjectType.kPlate)))
+        throw new System.Exception("No Input Element found");
+
+      ASPlateContourNotch plateFeat = SteelServices.ElementBinder.GetObjectASFromTrace<ASPlateContourNotch>();
+      if (plateFeat == null)
+      {
+        Plate plate = obj as Plate;
+        plateFeat = new ASPlateContourNotch(plate, 0, cutPolyline, normal, lengthVector);
+
+        if (defaultData != null)
+        {
+          UtilsProperties.SetParameters(plateFeat, defaultData);
+        }
+
+        plate.AddFeature(plateFeat);
+      }
+      else
+      {
+        if (!plateFeat.IsKindOf(FilerObject.eObjectType.kPlateContourNotch))
+          throw new System.Exception("Not a Plate Feature");
+
+        Plate plate = obj as Plate;
+        plate.DelFeature(plateFeat);
+        plate.WriteToDb();
+
+        plateFeat = new PlateContourNotch(plate, 0, cutPolyline, normal, lengthVector);
+        AtomicElement atomic = obj as AtomicElement;
+
+        if (defaultData != null)
+        {
+          UtilsProperties.SetParameters(plateFeat, defaultData);
+        }
+
+        atomic.AddFeature(plateFeat);
+      }
+
+      SetHandle(plateFeat);
+
+      if (postWriteDBData != null)
+      {
+        UtilsProperties.SetParameters(plateFeat, postWriteDBData);
+      }
+
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(plateFeat);
     }
 
     /// <summary>
@@ -346,41 +346,35 @@ namespace AdvanceSteel.Nodes.Features
       {
         listPlateFeatureData = new List<Property>() { };
       }
-      if (length > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Length", length, ".");
-      if (width > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Width", width, ".");
-      if (radius > 0) Utils.CheckListUpdateOrAddValue(listPlateFeatureData, "Radius", radius, ".");
+      if (length > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(ASPlateContourNotch), listPlateFeatureData, nameof(ASPlateContourNotch.Length), length);
+      if (width > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(ASPlateContourNotch), listPlateFeatureData, nameof(ASPlateContourNotch.Width), width);
+      if (radius > 0) UtilsProperties.CheckListUpdateOrAddValue(typeof(ASPlateContourNotch), listPlateFeatureData, nameof(ASPlateContourNotch.Radius), radius);
       return listPlateFeatureData;
     }
 
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
+      Autodesk.DesignScript.Geometry.PolyCurve poly = null;
+      FilerObject obj = Utils.GetObject(Handle);
+
+      if (obj is ASPlateFeatContour)
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          Autodesk.DesignScript.Geometry.PolyCurve poly = null;
-          var plateFeat = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.PlateFeatContour;
+        var plateFeat = obj as ASPlateFeatContour;
 
-          if (plateFeat != null)
-          {
-            var dynPoints = Utils.ToDynPoints(plateFeat.GetContourPolygon(0), true);
-            poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, true);
-            foreach (var pt in dynPoints) { pt.Dispose(); }
-          }
-          else
-          {
-            var plateFeatx = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.PlateContourNotch;
-            if (plateFeatx != null)
-            {
-              Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = plateFeat.CS;
-              poly = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(plateFeatx.GetPolygon(), true));
-            }
-          }
-
-          return poly;
-        }
+        var dynPoints = Utils.ToDynPoints(plateFeat.GetContourPolygon(0), true);
+        poly = Autodesk.DesignScript.Geometry.Polygon.ByPoints(dynPoints, true);
+        foreach (var pt in dynPoints) { pt.Dispose(); }
       }
+      else if (obj is ASPlateContourNotch)
+      {
+        var plateFeatx = obj as ASPlateContourNotch;
+        //Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = plateFeatx.CS;
+        poly = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(plateFeatx.GetPolygon(), true));
+      }
+
+      return poly;
     }
+
   }
 }

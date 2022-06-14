@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Autodesk.AdvanceSteel.Geometry;
 using System.Linq;
 using System;
+using ASWeldLine = Autodesk.AdvanceSteel.Modelling.WeldLine;
 
 namespace AdvanceSteel.Nodes.ConnectionObjects.Welds
 {
@@ -18,32 +19,37 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Welds
   [DynamoServices.RegisterForTrace]
   public class WeldLine : GraphicObject
   {
-    internal WeldLine()
+    private WeldLine(SteelGeometry.Point3d[] astPoints, IEnumerable<string> handlesToConnect, int connectionType, bool isClosed = false)
     {
+      SafeInit(() => InitWeldLine(astPoints, handlesToConnect, connectionType, isClosed));
     }
 
-    internal WeldLine(SteelGeometry.Point3d[] astPoints, IEnumerable<string> handlesToConnect, int connectionType, bool isClosed = false)
+    private WeldLine(ASWeldLine weld)
     {
-      lock (access_obj)
+      SafeInit(() => SetHandle(weld));
+    }
+
+    internal static WeldLine FromExisting(ASWeldLine weld)
+    {
+      return new WeldLine(weld)
       {
-        using (var ctx = new SteelServices.DocContext())
-        {
+        IsOwnedByDynamo = false
+      };
+    }
 
-          string handle = SteelServices.ElementBinder.GetHandleFromTrace();
+    private void InitWeldLine(SteelGeometry.Point3d[] astPoints, IEnumerable<string> handlesToConnect, int connectionType, bool isClosed = false)
+    {
+      ASWeldLine weld = SteelServices.ElementBinder.GetObjectASFromTrace<ASWeldLine>();
+      weld?.DelFromDb();
 
-          FilerObject existingObject = Utils.GetObject(handle);
-          existingObject?.DelFromDb();
+      weld = new ASWeldLine(astPoints, Vector3d.kXAxis, Vector3d.kYAxis);
+      weld.IsClosed = isClosed;
+      weld.WriteToDb();
 
-          var weld = new Autodesk.AdvanceSteel.Modelling.WeldLine(astPoints, Vector3d.kXAxis, Vector3d.kYAxis);
-          weld.IsClosed = isClosed;
-          weld.WriteToDb();
+      weld.Connect(Utils.GetSteelObjectsToConnect(handlesToConnect), (AtomicElement.eAssemblyLocation)connectionType);
 
-          weld.Connect(Utils.GetSteelObjectsToConnect(handlesToConnect), (AtomicElement.eAssemblyLocation)connectionType);
-
-          Handle = weld.Handle;
-          SteelServices.ElementBinder.CleanupAndSetElementForTrace(weld);
-        }
-      }
+      SetHandle(weld);
+      SteelServices.ElementBinder.CleanupAndSetElementForTrace(weld);
     }
 
     /// <summary>
@@ -76,21 +82,16 @@ namespace AdvanceSteel.Nodes.ConnectionObjects.Welds
     [IsVisibleInDynamoLibrary(false)]
     public override Autodesk.DesignScript.Geometry.Curve GetDynCurve()
     {
-      lock (access_obj)
-      {
-        using (var ctx = new SteelServices.DocContext())
-        {
-          var weld = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.WeldLine;
+      var weld = Utils.GetObject(Handle) as ASWeldLine;
 
-          if (weld == null)
-            throw new Exception("Null weld line");
+      if (weld == null)
+        throw new Exception("Null weld line");
 
-          weld.GetWeldPoints(out Point3d[] arrPoints, Autodesk.AdvanceSteel.Modelling.WeldPattern.eSeamPosition.kUpper);
-          DynGeometry.Point[] dynPoints = Utils.ToDynPoints(arrPoints, true);
-          return Autodesk.DesignScript.Geometry.PolyCurve.ByPoints(new HashSet<DynGeometry.Point>(dynPoints), weld.IsClosed);
-        }
-      }
+      weld.GetWeldPoints(out Point3d[] arrPoints, Autodesk.AdvanceSteel.Modelling.WeldPattern.eSeamPosition.kUpper);
+      DynGeometry.Point[] dynPoints = Utils.ToDynPoints(arrPoints, true);
+      return Autodesk.DesignScript.Geometry.PolyCurve.ByPoints(new HashSet<DynGeometry.Point>(dynPoints), weld.IsClosed);
     }
+
   }
 }
 
