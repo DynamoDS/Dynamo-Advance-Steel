@@ -20,7 +20,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="AttIdx">The index of the User attribute. Is a number between 1 and 10</param>
     /// <param name="value">Attribute value</param>
     /// <returns></returns>
-    [Obsolete]
+    [Obsolete("UserAttribute.SetUserAttribute is obsolete, please use SteelObject.SetUserAttribute instead.")]
     public static void SetUserAttribute(AdvanceSteel.Nodes.SteelDbObject steelObject, int AttIdx, string value)
     {
       if (AttIdx < 1 || AttIdx > 10)
@@ -51,7 +51,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="steelObject">Advance Steel element</param>
     /// <param name="AttIdx">The index of the User attribute. Is a number between 1 and 10</param>
     /// <returns></returns>
-    [Obsolete]
+    [Obsolete("UserAttribute.GetUserAttribute is obsolete, please use SteelObject.GetUserAttribute instead.")]
     public static string GetUserAttribute(AdvanceSteel.Nodes.SteelDbObject steelObject, int AttIdx)
     {
       string ret = string.Empty;

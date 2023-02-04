@@ -374,7 +374,7 @@ namespace AdvanceSteel.Nodes.Features
             if (plateFeatx != null)
             {
               Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = plateFeat.CS;
-              poly = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(plateFeatx.GetPolygon(), true));
+              poly = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(plateFeatx.GetPolygon(), true), 0.001, false);
             }
           }
 

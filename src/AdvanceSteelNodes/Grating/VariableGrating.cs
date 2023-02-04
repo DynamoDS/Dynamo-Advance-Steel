@@ -101,6 +101,7 @@ namespace AdvanceSteel.Nodes.Gratings
       {
         using (var ctx = new SteelServices.DocContext())
         {
+          Autodesk.DesignScript.Geometry.PolyCurve polyCurve = poly;
 
           List<Property> defaultData = additionalGratingParameters.Where(x => x.Level == ".").ToList<Property>();
           List<Property> postWriteDBData = additionalGratingParameters.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
@@ -111,7 +112,7 @@ namespace AdvanceSteel.Nodes.Gratings
           Autodesk.AdvanceSteel.Geometry.Plane plane = new Plane(Utils.ToAstPoint(poly.Center(), true), vNormal);
           Autodesk.AdvanceSteel.Modelling.Grating gratings = null;
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
-          Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
+          Point3d[] astPoints = Utils.ToAstPoints(polyCurve.Points, true);
 
           if (string.IsNullOrEmpty(handle) || Utils.GetObject(handle) == null)
           {

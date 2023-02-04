@@ -11,7 +11,7 @@ using System.Windows.Threading;
 
 namespace Dynamo.Applications.AdvanceSteel
 {
-  internal class SteelAuthProvider : IAuthProvider
+  internal class SteelAuthProvider : IOAuth2AuthProvider
   {
     private readonly SynchronizationContext SyncContext;
 
@@ -66,31 +66,7 @@ namespace Dynamo.Applications.AdvanceSteel
         throw new Exception("You must be logged into AutoCAD to use the package manager.");
       }
 
-      var url = client.BaseUrl + m.Resource;
-
-      HttpMethod method = HttpMethod.Get;
-      if (m.Method == Method.PUT)
-      {
-        method = HttpMethod.Put;
-      }
-      else if (m.Method == Method.POST)
-      {
-        method = HttpMethod.Post;
-      }
-
-      var paramList = new List<WebServiceRequestParam>();
-      foreach (var p in m.Parameters)
-      {
-        if (p.Value is string value)
-        {
-          paramList.Add(new WebServiceRequestParam(p.Name, UrlEncodeRelaxed(value)));
-        }
-      }
-
-      // pass empty consumer key/secret to use AutoCAD oauth.
-      var auth = WSUtils.SignRequest(url, paramList.ToArray(), method, WebServiceRequestParsingMode.ParseForRequestContent, string.Empty, string.Empty);
-
-      m.Resource = m.Resource + "?" + auth;
+      m.AddHeader("Authorization", $"Bearer {WSUtils.GetO2tk("data:create data:write")}");
     }
 
     private static readonly string[] UriRfc3986CharsToEscape = new[] { "!", "*", "'", "(", ")" };

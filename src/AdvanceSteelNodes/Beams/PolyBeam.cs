@@ -132,7 +132,7 @@ namespace AdvanceSteel.Nodes.Beams
           var beam = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.PolyBeam;
 
           Polyline3d poly = beam.GetPolyline();
-          Autodesk.DesignScript.Geometry.PolyCurve pCurve = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(poly, true));
+          Autodesk.DesignScript.Geometry.PolyCurve pCurve = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(poly, true), 0.001, false);
           return pCurve;
         }
       }
@@ -160,7 +160,7 @@ namespace AdvanceSteel.Nodes.Beams
               Autodesk.AdvanceSteel.Modelling.PolyBeam selectedObj = filerObj as Autodesk.AdvanceSteel.Modelling.PolyBeam;
               Polyline3d poly = selectedObj.GetPolyline();
               intRet = Utils.ToDynPolyCurves(poly, true);
-              ret = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(intRet);
+              ret = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(intRet, 0.001, false);
             }
             throw new System.Exception("Wrong type of Steel Object found, must be a Polybeam");
           }

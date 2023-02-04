@@ -20,12 +20,13 @@
       "Id": "b42f84c4386f473590f8ed6c1574f58b",
       "Name": "radius",
       "Type": "number",
+      "Type2": "number",
       "Value": "15000",
       "MaximumValue": 20000.0,
       "MinimumValue": 0.0,
       "StepValue": 0.1,
       "NumberType": "Double",
-      "Description": "A slider that produces numeric values.",
+      "Description": "Produces numeric values",
       "SelectedIndex": 0
     }
   ],
@@ -53,7 +54,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "A slider that produces numeric values."
+      "Description": "Produces numeric values"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -691,7 +692,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.UserAttribute.SetUserAttribute@AdvanceSteel.Nodes.SteelDbObject,int,string",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.SteelObject.SetUserAttribute@AdvanceSteel.Nodes.SteelDbObject,int,string",
       "Id": "601c97f73e2c47bcadff79d60bbe3007",
       "Inputs": [
         {
@@ -734,12 +735,12 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nSteelObject.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.UserAttribute.SetUserAttribute@AdvanceSteel.Nodes.SteelDbObject,int,string",
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.SteelObject.SetUserAttribute@AdvanceSteel.Nodes.SteelDbObject,int,string",
       "Id": "a7fdb379ac8b49f2afb915b07f8f4e28",
       "Inputs": [
         {
@@ -782,7 +783,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nUserAttribute.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
+      "Description": "This node can set User attributes for Advance Steel elements from Dynamo\n\nSteelObject.SetUserAttribute (steelObject: SteelDbObject, AttIdx: int, value: string): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -1135,7 +1136,7 @@
   "NodeLibraryDependencies": [
     {
       "Name": "MeshToolkit",
-      "Version": "2.0.1",
+      "Version": "4.0.0",
       "ReferenceType": "Package",
       "Nodes": [
         "8f13274e21b747b8896d9fbb576e2323",
@@ -1164,15 +1165,15 @@
   "Bindings": [],
   "View": {
     "Dynamo": {
-      "ScaleFactor": 1.0,
+      "ScaleFactor": 100.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.13.1.3887",
+      "Version": "2.17.0.3472",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
     "Camera": {
-      "Name": "Background Preview",
+      "Name": "_Background Preview",
       "EyeX": 50433.57421875,
       "EyeY": 35716.515625,
       "EyeZ": 4048.370849609375,
@@ -1376,7 +1377,7 @@
         "Y": 2580.1743675066332
       },
       {
-        "Name": "UserAttribute.SetUserAttribute",
+        "Name": "SteelObject.SetUserAttribute",
         "ShowGeometry": false,
         "Id": "601c97f73e2c47bcadff79d60bbe3007",
         "IsSetAsInput": false,
@@ -1386,7 +1387,7 @@
         "Y": 2302.9281186744847
       },
       {
-        "Name": "UserAttribute.SetUserAttribute",
+        "Name": "SteelObject.SetUserAttribute",
         "ShowGeometry": false,
         "Id": "a7fdb379ac8b49f2afb915b07f8f4e28",
         "IsSetAsInput": false,
@@ -1456,9 +1457,10 @@
         "HasNestedGroups": false,
         "Left": 274.48595137262669,
         "Top": 2195.8734287929606,
-        "Width": 1110.0,
+        "Width": 1115.0,
         "Height": 699.17250000000013,
         "FontSize": 14.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
         "InitialTop": 2245.8734287929606,
         "InitialHeight": 650.17250000000013,
         "TextblockHeight": 40.0,
@@ -1491,9 +1493,10 @@
         "HasNestedGroups": false,
         "Left": 1490.54633876127,
         "Top": 2185.3468675066333,
-        "Width": 2474.0,
+        "Width": 2479.0,
         "Height": 738.82749999999987,
         "FontSize": 14.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
         "InitialTop": 2235.3468675066333,
         "InitialHeight": 689.82749999999987,
         "TextblockHeight": 40.0,
@@ -1514,9 +1517,10 @@
         "HasNestedGroups": false,
         "Left": 4065.8623132821267,
         "Top": 2252.9281186744847,
-        "Width": 580.0,
+        "Width": 564.0,
         "Height": 483.0,
         "FontSize": 14.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
         "InitialTop": 2302.9281186744847,
         "InitialHeight": 369.0,
         "TextblockHeight": 40.0,
@@ -1536,6 +1540,7 @@
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
         "InitialTop": 0.0,
         "InitialHeight": 0.0,
         "TextblockHeight": 0.0,
