@@ -19,7 +19,7 @@ namespace AdvanceSteel.Nodes.Util
     /// <param name="element">Advance Steel element</param>
     /// <param name="materialName">Material</param>
     /// <returns></returns>
-    [Obsolete]
+    [Obsolete("Material.SetMaterial is obsolete. Please use Property.ByNameAndValue with name \"Material\" and the desired material value, followed by Property.SetObjectProperty.")]
     public static void SetMaterial(AdvanceSteel.Nodes.SteelDbObject element, string materialName)
     {
       //lock the document and start transaction

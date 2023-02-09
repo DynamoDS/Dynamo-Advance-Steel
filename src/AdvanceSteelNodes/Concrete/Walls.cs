@@ -187,13 +187,15 @@ namespace AdvanceSteel.Nodes.Concrete
       {
         using (var ctx = new SteelServices.DocContext())
         {
+          Autodesk.DesignScript.Geometry.PolyCurve polyCurve = poly;
+
           List<Property> defaultData = concreteProperties.Where(x => x.Level == ".").ToList<Property>();
           List<Property> postWriteDBData = concreteProperties.Where(x => x.Level == "Z_PostWriteDB").ToList<Property>();
 
           string handle = SteelServices.ElementBinder.GetHandleFromTrace();
 
-          Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
-          double[] cornerRadii = (double[])System.Collections.ArrayList.Repeat(0.0, poly.Points.Length).ToArray(typeof(double));
+          Point3d[] astPoints = Utils.ToAstPoints(polyCurve.Points, true);
+          double[] cornerRadii = (double[])System.Collections.ArrayList.Repeat(0.0, polyCurve.Points.Length).ToArray(typeof(double));
 
           var astPoly = new Autodesk.AdvanceSteel.Geometry.Polyline3d(astPoints, null, poly.IsClosed, true);
           var polyPlane = new Plane(astPoints[0], astPoly.Normal);

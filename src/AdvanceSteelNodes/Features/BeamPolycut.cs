@@ -421,7 +421,7 @@ namespace AdvanceSteel.Nodes.Features
           var beamFeat = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.BeamMultiContourNotch;
 
           Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = beamFeat.CS;
-          var poly = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(beamFeat.GetPolygon(), true));
+          var poly = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(beamFeat.GetPolygon(), true), 0.001, false);
 
           return poly;
         }

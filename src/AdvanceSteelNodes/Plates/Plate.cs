@@ -195,8 +195,9 @@ namespace AdvanceSteel.Nodes.Plates
     public static Plate ByPolygon(Autodesk.DesignScript.Geometry.Polygon poly,
                                   [DefaultArgument("null")] List<Property> additionalPlateParameters)
     {
+      Autodesk.DesignScript.Geometry.PolyCurve polyCurve = poly;
       additionalPlateParameters = PreSetDefaults(additionalPlateParameters);
-      Point3d[] astPoints = Utils.ToAstPoints(poly.Points, true);
+      Point3d[] astPoints = Utils.ToAstPoints(polyCurve.Points, true);
       return new Plate(astPoints, Utils.ToAstVector3d(poly.Normal, true), additionalPlateParameters);
     }
 
