@@ -15,7 +15,7 @@ This repository contains the source files for the Dynamo Extension for Advance S
 1. Build the DynamoAdvanceSteel.sln solution in Release configuration.
 1. Copy all files and folders from "Dynamo Core 2.17.0" build to .\bin\AnyCPU\Release\steel-pkg\bin\Core
 1. Register DynamoAdvanceSteel.dll as an addon for Advance Steel (see "Register addon" section from Advance Steel [online help](http://help.autodesk.com/view/ADSTPR/2023/ENU/?guid=GUID-A4DA627E-6680-4388-9C04-79F5F3D9D075))
-1. (Optional) If Dynamo fails to load Dynamo under Advance Steel, run the the PowerShell command `Get-ChildItem *.* -Recurse | Unblock-File` inside .\bin\AnyCPU\Release\steel-pkg\bin\Core
+1. (Optional) If Dynamo fails to load under Advance Steel, run the the PowerShell command `Get-ChildItem *.* -Recurse | Unblock-File` inside .\bin\AnyCPU\Release\steel-pkg\bin\Core
 
 ## To build the installer:
 
