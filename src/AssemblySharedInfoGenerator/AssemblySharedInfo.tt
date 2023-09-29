@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyCompany("Autodesk, Inc")]
 [assembly: AssemblyProduct("Dynamo")]
-[assembly: AssemblyCopyright("Copyright © Autodesk, Inc 2021")]
+[assembly: AssemblyCopyright("Copyright © Autodesk, Inc 2024")]
 [assembly: AssemblyTrademark("")]
 
 // Make it easy to distinguish Debug and Release (i.e. Retail) builds;
@@ -56,8 +56,8 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyFileVersion("<#= this.MajorVersion #>.<#= this.MinorVersion #>.<#= this.BuildNumber #>.<#= this.RevisionNumber #>")]
 <#+
-int MajorVersion = 2;
-int MinorVersion = 10;
+int MajorVersion = 3;
+int MinorVersion = 0;
 int BuildNumber = 1;
 int RevisionNumber = ((int)(DateTime.UtcNow - new DateTime(2021,1,1)).TotalDays)*10+((int)DateTime.UtcNow.Hour)/3;
 #>

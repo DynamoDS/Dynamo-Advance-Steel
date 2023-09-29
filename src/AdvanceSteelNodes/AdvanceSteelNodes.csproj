@@ -1,25 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)Config/CS.props" />
   </ImportGroup>
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{785BB90B-886C-411D-8D34-8F85E9479A9C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AdvanceSteel.Nodes</RootNamespace>
-    <AssemblyName>AdvanceSteelNodes</AssemblyName>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>$(OutputPath)\AdvanceSteelNodes.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DocumentationFile>$(OutputPath)\AdvanceSteelNodes.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
@@ -59,78 +45,11 @@
       <HintPath>$(DYNAMOAPI)\ProtoGeometry.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(SolutionDir)AssemblySharedInfoGenerator\AssemblySharedInfo.cs">
-      <Link>Properties\AssemblySharedInfo.cs</Link>
-    </Compile>
-    <Compile Include="Base\Property.cs" />
-    <Compile Include="Base\SteelDynObject.cs" />
-    <Compile Include="Beams\BentBeam.cs" />
-    <Compile Include="Beams\CompoundBeam.cs" />
-    <Compile Include="Beams\PolyBeam.cs" />
-    <Compile Include="Beams\UnFoldedBeam.cs" />
-    <Compile Include="Beams\StraightBeam.cs" />
-    <Compile Include="Base\GraphicObject.cs" />
-    <Compile Include="Base\SteelDbObject.cs" />
-    <Compile Include="Base\Utils.cs" />
-    <Compile Include="Beams\TaperedBeam.cs" />
-    <Compile Include="Concrete\ConcreteBentBeam.cs" />
-    <Compile Include="Concrete\ConcreteStraightBeam.cs" />
-    <Compile Include="Concrete\Footings.cs" />
-    <Compile Include="Concrete\Slabs.cs" />
-    <Compile Include="Concrete\Walls.cs" />
-    <Compile Include="ConnectionObjects\CircularAnchorPattern.cs" />
-    <Compile Include="ConnectionObjects\CircularBoltPattern.cs" />
-    <Compile Include="ConnectionObjects\CircularShearStudsPattern.cs" />
-    <Compile Include="ConnectionObjects\RectangularAnchorPattern.cs" />
-    <Compile Include="Features\PlateHoles.cs" />
-    <Compile Include="ConnectionObjects\RectangularBoltPattern.cs" />
-    <Compile Include="ConnectionObjects\RectangularShearStudsPattern.cs" />
-    <Compile Include="ConnectionObjects\WeldLine.cs" />
-    <Compile Include="ConnectionObjects\WeldPoint.cs" />
-    <Compile Include="Grating\BarGrating.cs" />
-    <Compile Include="Grating\Grating.cs" />
-    <Compile Include="Grating\GratingDraw.cs" />
-    <Compile Include="Grating\StandardGrating.cs" />
-    <Compile Include="Grating\VariableGrating.cs" />
-    <Compile Include="Features\BeamPolycut.cs" />
-    <Compile Include="Features\BeamPlaneCut.cs" />
-    <Compile Include="Features\BeamCope.cs" />
-    <Compile Include="Features\PlateVertexCut.cs" />
-    <Compile Include="Features\PlatePolycut.cs" />
-    <Compile Include="Miscellaneous\Grid.cs" />
-    <Compile Include="Miscellaneous\SpecialPart.cs" />
-    <Compile Include="Miscellaneous\Camera.cs" />
-    <Compile Include="Plates\Plate.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\BeamSection.cs" />
-    <Compile Include="Util\Beam.cs" />
-    <Compile Include="ConnectionObjects\ConnectionObject.cs" />
-    <Compile Include="Util\Material.cs" />
-    <Compile Include="Util\SelectionFilter.cs" />
-    <Compile Include="Util\Geometry.cs" />
-    <Compile Include="Util\SteelObject.cs" />
-    <Compile Include="Util\UserAttribute.cs" />
+    <Compile Include="$(SolutionDir)AssemblySharedInfoGenerator\AssemblySharedInfo.cs" Link="Properties\AssemblySharedInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AdvanceSteelServices\AdvanceSteelServices.csproj">
-      <Project>{00ed013f-0b34-4a79-9760-a21fd14d4bd5}</Project>
-      <Name>AdvanceSteelServices</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\AdvanceSteelServices\AdvanceSteelServices.csproj" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
