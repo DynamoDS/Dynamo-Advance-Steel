@@ -1,6 +1,9 @@
-﻿using Dynamo.Interfaces;
+﻿using Dynamo.Configuration;
+using Dynamo.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace Dynamo.Applications.AdvanceSteel
@@ -69,6 +72,28 @@ namespace Dynamo.Applications.AdvanceSteel
     public string CommonDataRootFolder
     {
       get { return commonDataRootFolder; }
+    }
+
+    public IEnumerable<string> GetDynamoUserDataLocations()
+    {
+      var appDatafolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+      var paths = new List<string>();
+      //Pre 1.0 Dynamo Studio user data was stored at %appdata%\Dynamo\
+      var dynamoFolder = Path.Combine(appDatafolder, "Dynamo");
+      if (Directory.Exists(dynamoFolder))
+      {
+        paths.AddRange(Directory.EnumerateDirectories(dynamoFolder));
+      }
+
+      //From 1.0 onwards Dynamo Studio user data is stored at %appdata%\Dynamo\Dynamo Advance Steel
+      var advanceSteelFolder = Path.Combine(dynamoFolder, "Dynamo Advance Steel");
+      if (Directory.Exists(advanceSteelFolder))
+      {
+        paths.AddRange(Directory.EnumerateDirectories(advanceSteelFolder));
+      }
+
+      return paths;
     }
   }
 }
