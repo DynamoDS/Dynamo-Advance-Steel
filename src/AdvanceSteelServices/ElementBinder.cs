@@ -15,21 +15,17 @@ namespace Dynamo.Applications.AdvanceSteel.Services
 
     public static string GetHandleFromTrace()
     {
-      ISerializable traceData = DynamoServices.TraceUtils.GetTraceData(REVIT_TRACE_ID);
+      string traceData = DynamoServices.TraceUtils.GetTraceData(REVIT_TRACE_ID);
 
-      SerializableHandle tracedHandle = traceData as SerializableHandle;
-      if (tracedHandle == null)
+      if (traceData == null)
         return null; //There was no usable data in the trace cache
 
-      return tracedHandle.Handle;
+      return traceData;
     }
 
     public static void SetElementForTrace(string handle)
     {
-      SerializableHandle tracedHandle = new SerializableHandle();
-      tracedHandle.Handle = handle;
-
-      DynamoServices.TraceUtils.SetTraceData(REVIT_TRACE_ID, tracedHandle);
+      DynamoServices.TraceUtils.SetTraceData(REVIT_TRACE_ID, handle);
     }
 
     public static void CleanupAndSetElementForTrace(FilerObject newElement)

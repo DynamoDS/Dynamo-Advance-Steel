@@ -8,6 +8,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
+    <NoWarn>CS0067</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="accoremgd">
@@ -30,8 +31,12 @@
       <HintPath>$(ADVANCESTEELAPI)\ASMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ASSettingsMgd">
+      <HintPath>$(ADVANCESTEELAPI)\ASSettingsMgd.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="DotNetRoots">
-      <HintPath>$(ADVANCESTEELAPI)\DotNetRoots.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\Extensions\DotNetRoots.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASCADLinkMgd">

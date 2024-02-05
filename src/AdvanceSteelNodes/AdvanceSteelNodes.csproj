@@ -7,6 +7,7 @@
     <RootNamespace>AdvanceSteel.Nodes</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DocumentationFile>$(OutputPath)\AdvanceSteelNodes.xml</DocumentationFile>
+    <NoWarn>MSB3277;CS1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ASCADLinkMgd">
@@ -30,7 +31,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="DotNetRoots">
-      <HintPath>$(ADVANCESTEELAPI)\DotNetRoots.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\Extensions\DotNetRoots.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DSCoreNodes">

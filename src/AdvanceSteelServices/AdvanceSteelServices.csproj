@@ -6,6 +6,7 @@
     <ProjectGuid>{00ED013F-0B34-4A79-9760-A21FD14D4BD5}</ProjectGuid>
     <RootNamespace>Dynamo.Applications.AdvanceSteel.Services</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <NoWarn>MSB3277</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ASCADLinkMgd">
@@ -17,7 +18,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="DotNetRoots">
-      <HintPath>$(ADVANCESTEELAPI)\DotNetRoots.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\Extensions\DotNetRoots.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASGeometryMgd">

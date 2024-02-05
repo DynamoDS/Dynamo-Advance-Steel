@@ -4,7 +4,7 @@
     <Import Project="$(SolutionDir)Config/user_local.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputPath>$(SolutionDir)..\bin\$(Platform)\$(Configuration)\steel-pkg\bin\</OutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -17,10 +17,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UICulture>en-US</UICulture>
-    <NoWarn>1591;3016;3003;3001;3002</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputPath>$(SolutionDir)..\bin\$(Platform)\$(Configuration)\steel-pkg\bin\</OutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -32,6 +31,5 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UICulture>en-US</UICulture>
-    <NoWarn>1591;3016;3003;3001;3002</NoWarn>
   </PropertyGroup>
 </Project>

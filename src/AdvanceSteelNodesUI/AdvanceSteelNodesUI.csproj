@@ -7,13 +7,14 @@
     <RootNamespace>AdvanceSteel.Nodes</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DocumentationFile>$(OutputPath)\AdvanceSteelNodesUI.xml</DocumentationFile>
+    <NoWarn>MSB3277;CS0067;CS1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>"$(OutputPath)\ContentBuilder.exe" $(OutputPath) "$(OutputPath)..\..\..\..\..\nodes.md"</PostBuildEvent>
+    <PostBuildEvent>"$(OutputPath)\ContentBuilder.exe" "$(OutputPath)" "$(OutputPath)..\..\..\..\..\nodes.md"</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ASControls">
-      <HintPath>$(ADVANCESTEELAPI)\ASControls.dll</HintPath>
+      <HintPath>$(ADVANCESTEELAPI)\Extensions\ASControls.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASObjectsMgd">
