@@ -146,9 +146,8 @@ namespace Dynamo.Applications.AdvanceSteel
     }
     internal static Version PreloadAsm()
     {
-      var assembly = Assembly.GetAssembly(typeof(Command));
-      var location = Path.GetDirectoryName(assembly.Location);
-      string paths = $"{location};{location}\\Core";
+      var location = Path.GetDirectoryName(typeof(Command).Assembly.Location);
+      string paths = $"{location};{DynamoSteelApp.DynamoCorePath}";
       Autodesk.AdvanceSteel.ASAssemblyLocator.AddSearchPaths(paths);
 
       var acadPath = DynamoSteelApp.ACADCorePath;
