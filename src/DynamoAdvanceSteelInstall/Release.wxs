@@ -10,6 +10,10 @@
       <ComponentRef Id="AdvanceSteelNodesUI.xml" />
       <ComponentRef Id="DynamoAdvanceSteel.cuix" />
       <ComponentRef Id="DynamoAdvanceSteel.xml" />
+      <ComponentRef Id="AdvanceSteelNodes.deps.json" />
+      <ComponentRef Id="AdvanceSteelNodesUI.deps.json" />
+      <ComponentRef Id="AdvanceSteelServices.deps.json" />
+      <ComponentRef Id="DynamoAdvanceSteel.deps.json" />
     </ComponentGroup>
   </Fragment>
   <Fragment>
@@ -82,6 +86,34 @@
     <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)\steel-pkg\bin">
       <Component Id="AdvanceSteelNodesUI.xml" Guid="{5D8617AF-7CDC-4D68-B60A-0DCD8A4264F3}" Win64="yes">
         <File Id="AdvanceSteelNodesUI.xml" Name="AdvanceSteelNodesUI.xml" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)\steel-pkg\bin">
+      <Component Id="AdvanceSteelNodes.deps.json" Guid="{D6E73A99-A17B-4245-B9A3-B00A63498CA7}" Win64="yes">
+        <File Id="AdvanceSteelNodes.deps.json" Name="AdvanceSteelNodes.deps.json" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)\steel-pkg\bin">
+      <Component Id="AdvanceSteelNodesUI.deps.json" Guid="{F8411586-96B9-4964-BA31-39F1EFDACBA2}" Win64="yes">
+        <File Id="AdvanceSteelNodesUI.deps.json" Name="AdvanceSteelNodesUI.deps.json" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)\steel-pkg\bin">
+      <Component Id="AdvanceSteelServices.deps.json" Guid="{392A475B-EC32-43A4-9D7C-4665C1428156}" Win64="yes">
+        <File Id="AdvanceSteelServices.deps.json" Name="AdvanceSteelServices.deps.json" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="AdvanceSteelDynamo" FileSource="$(var.solPath)\bin\AnyCPU\$(var.Configuration)\steel-pkg\bin">
+      <Component Id="DynamoAdvanceSteel.deps.json" Guid="{A9E0ECE7-817F-4618-8634-FB25F0E509D4}" Win64="yes">
+        <File Id="DynamoAdvanceSteel.deps.json" Name="DynamoAdvanceSteel.deps.json" KeyPath="yes" />
       </Component>
     </DirectoryRef>
   </Fragment>

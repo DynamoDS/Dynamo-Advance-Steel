@@ -1,7 +1,9 @@
 ﻿using Autodesk.Windows;
+using System.Runtime.Versioning;
 
 namespace Dynamo.Applications.AdvanceSteel
 {
+  [SupportedOSPlatform("windows")]
   public class RibbonUtils
   {
     public static string DynamoASTabUID = "Add-ins";

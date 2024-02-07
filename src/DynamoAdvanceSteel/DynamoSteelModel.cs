@@ -1,9 +1,11 @@
 ﻿using Dynamo.Graph.Workspaces;
 using Dynamo.Migration.AdvanceSteel;
 using Dynamo.Models;
+using System.Runtime.Versioning;
 
 namespace Dynamo.Applications.AdvanceSteel
 {
+  [SupportedOSPlatform("windows")]
   public class DynamoSteelModel : DynamoModel
   {
     public new static DynamoSteelModel Start(IStartConfiguration configuration)

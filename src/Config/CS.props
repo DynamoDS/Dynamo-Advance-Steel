@@ -4,15 +4,12 @@
     <Import Project="$(SolutionDir)Config/user_local.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <TargetFrameworkProfile />
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputPath>$(SolutionDir)..\bin\$(Platform)\$(Configuration)\steel-pkg\bin\</OutputPath>
-    <BaseIntermediateOutputPath>$(SolutionDir)..\bin\$(Platform)\$(Configuration)\int\</BaseIntermediateOutputPath>
-	<FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <FileAlignment>512</FileAlignment>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -20,24 +17,19 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UICulture>en-US</UICulture>
-	<NoWarn>1591;3016;3003;3001;3002</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <TargetFrameworkProfile />
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputPath>$(SolutionDir)..\bin\$(Platform)\$(Configuration)\steel-pkg\bin\</OutputPath>
-    <BaseIntermediateOutputPath>$(SolutionDir)..\bin\$(Platform)\$(Configuration)\int\</BaseIntermediateOutputPath>
-	<FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <FileAlignment>512</FileAlignment>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UICulture>en-US</UICulture>
-	<NoWarn>1591;3016;3003;3001;3002</NoWarn>
   </PropertyGroup>
 </Project>
