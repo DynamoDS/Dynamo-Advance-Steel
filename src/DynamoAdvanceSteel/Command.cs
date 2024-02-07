@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -20,6 +21,7 @@ namespace Dynamo.Applications.AdvanceSteel
     public static DynamoSteelModel DynamoModel;
   }
 
+  [SupportedOSPlatform("windows")]
   public class Command
   {
     private static string GeometryFactoryPath = "";
@@ -33,9 +35,8 @@ namespace Dynamo.Applications.AdvanceSteel
 
         Model.DynamoModel = InitializeCoreModel();
 
-        Model.DynamoModel.HostAnalyticsInfo = new Models.HostAnalyticsInfo() { HostName = "Dynamo AS", };
+        Models.DynamoModel.HostAnalyticsInfo = new Models.HostAnalyticsInfo() { HostName = "Dynamo AS", };
         Model.DynamoModel.HostVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        Model.DynamoModel.UpdateManager.RegisterExternalApplicationProcessId(Process.GetCurrentProcess().Id);
 
         Model.ViewModel = InitializeCoreViewModel(Model.DynamoModel);
 
@@ -51,8 +52,8 @@ namespace Dynamo.Applications.AdvanceSteel
 
     private static DynamoSteelModel InitializeCoreModel()
     {
-      var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dynamo", "Dynamo Advance Steel", "2024");
-      var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel", "2024");
+      var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dynamo", "Dynamo Advance Steel", "2025");
+      var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel", "2025");
 
       var startConfiguration = new Dynamo.Models.DynamoModel.DefaultStartConfiguration()
       {
@@ -145,6 +146,10 @@ namespace Dynamo.Applications.AdvanceSteel
     }
     internal static Version PreloadAsm()
     {
+      var location = Path.GetDirectoryName(typeof(Command).Assembly.Location);
+      string paths = $"{location};{DynamoSteelApp.DynamoCorePath}";
+      Autodesk.AdvanceSteel.ASAssemblyLocator.AddSearchPaths(paths);
+
       var acadPath = DynamoSteelApp.ACADCorePath;
       Version libGVersion = findCurrentASMVersion(acadPath);
       var preloaderLocation = DynamoShapeManager.Utilities.GetLibGPreloaderLocation(libGVersion, DynamoSteelApp.DynamoCorePath);
