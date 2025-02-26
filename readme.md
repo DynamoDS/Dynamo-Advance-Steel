@@ -9,7 +9,7 @@ This repository contains the source files for the Dynamo Extension for Advance S
 1. Prerequisites needed:
    - Advance Steel 2026;
    - Visual Studio 2022;
-   - Dynamo Core 3.0.3 runtime from http://www.github.com/DynamoDS/Dynamo;
+   - Dynamo Core 3.4.2 runtime from http://www.github.com/DynamoDS/Dynamo;
    - [.NET 8 SDK](https://dotnet.microsoft.com/download/visual-studio-sdks)
 1. Update the paths from [`\src\Config\user_local.props`](/src/Config/user_local.props) with the ones from your machine
 1. Build the DynamoAdvanceSteel.sln solution in Release configuration.
