@@ -1,10 +1,10 @@
 ﻿using Autodesk.AdvanceSteel.Runtime;
-using Microsoft.Win32;
+using Autodesk.AdvanceSteel;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
+using Autodesk.AdvanceSteel.ASSettings;
+using System.Runtime.Versioning;
 
 [assembly: ExtensionApplicationAttribute(typeof(Dynamo.Applications.AdvanceSteel.DynamoSteelApp))]
 
@@ -13,7 +13,9 @@ namespace Dynamo.Applications.AdvanceSteel
   public sealed class DynamoSteelApp : IExtensionApplication
   {
     public static string DynamoCorePath = ProductLocator.GetDynamoCorePath();
-    public static string ACADCorePath = ProductLocator.GetACADCorePath();
+#pragma warning disable CA1416 // Validate platform compatibility
+    public static string ASCInstallPath = ProductLocator.GetASCInstallPath();
+#pragma warning restore CA1416 // Validate platform compatibility
     public static Action ShutdownHandler = null;
 
     void IExtensionApplication.Initialize()
@@ -65,10 +67,10 @@ namespace Dynamo.Applications.AdvanceSteel
       return Path.Combine(currentDir, "Core");
     }
 
-    public static string GetACADCorePath()
+    [SupportedOSPlatform("windows")]
+    public static string GetASCInstallPath()
     {
-      string acadExePath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-      return System.IO.Path.GetDirectoryName(acadExePath);
+      return ASSettingsUtils.GetASCInstallPath();
     }
   }
 }

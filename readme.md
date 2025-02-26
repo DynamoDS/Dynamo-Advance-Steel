@@ -7,7 +7,7 @@ This repository contains the source files for the Dynamo Extension for Advance S
 ## How to build and use this extension:
 
 1. Prerequisites needed:
-   - Advance Steel 2025;
+   - Advance Steel 2026;
    - Visual Studio 2022;
    - Dynamo Core 3.0.3 runtime from http://www.github.com/DynamoDS/Dynamo;
    - [.NET 8 SDK](https://dotnet.microsoft.com/download/visual-studio-sdks)
