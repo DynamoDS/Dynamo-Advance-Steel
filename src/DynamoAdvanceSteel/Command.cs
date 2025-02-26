@@ -52,8 +52,8 @@ namespace Dynamo.Applications.AdvanceSteel
 
     private static DynamoSteelModel InitializeCoreModel()
     {
-      var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dynamo", "Dynamo Advance Steel", "2025");
-      var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel", "2025");
+      var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dynamo", "Dynamo Advance Steel", "2026");
+      var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel", "2026");
 
       var startConfiguration = new Dynamo.Models.DynamoModel.DefaultStartConfiguration()
       {
@@ -150,8 +150,8 @@ namespace Dynamo.Applications.AdvanceSteel
       string paths = $"{location};{DynamoSteelApp.DynamoCorePath}";
       Autodesk.AdvanceSteel.ASAssemblyLocator.AddSearchPaths(paths);
 
-      var acadPath = DynamoSteelApp.ACADCorePath;
-      Version libGVersion = findCurrentASMVersion(acadPath);
+      var asmLocation = DynamoSteelApp.ASCInstallPath;
+      Version libGVersion = findCurrentASMVersion(asmLocation);
       var preloaderLocation = DynamoShapeManager.Utilities.GetLibGPreloaderLocation(libGVersion, DynamoSteelApp.DynamoCorePath);
 
       // The LibG version maybe different in Dynamo and AutoCAD, using the one which is in Dynamo.

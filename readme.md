@@ -7,15 +7,15 @@ This repository contains the source files for the Dynamo Extension for Advance S
 ## How to build and use this extension:
 
 1. Prerequisites needed:
-   - Advance Steel 2025;
+   - Advance Steel 2026;
    - Visual Studio 2022;
-   - Dynamo Core 3.0.3 runtime from http://www.github.com/DynamoDS/Dynamo;
-   - [.NET 8 SDK](https://dotnet.microsoft.com/download/visual-studio-sdks)
-1. Update the paths from [`\src\Config\user_local.props`](/src/Config/user_local.props) with the ones from your machine
+   - Dynamo Core 3.4.2 runtime from http://www.github.com/DynamoDS/Dynamo;
+   - .NET 8 SDK from https://dotnet.microsoft.com/download/visual-studio-sdks
+1. Update the paths from [`\src\Config\user_local.props`](/src/Config/user_local.props) with the ones on your machine
 1. Build the DynamoAdvanceSteel.sln solution in Release configuration.
 1. Copy all files and folders from "Dynamo Core 3.0.3" build to .\bin\AnyCPU\Release\steel-pkg\bin\Core
+1. (Optional) On Windows 10 version 1709 and later, run the the PowerShell command `Get-ChildItem *.* -Recurse | Unblock-File` inside .\bin\AnyCPU\Release\steel-pkg\bin\Core otherwise Dynamo can fail to load under Advance Steel. This is due to newer Windows blocking .NET assemblies downloaded from the internet.
 1. Register DynamoAdvanceSteel.dll as an addon for Advance Steel (see "Register addon" section from Advance Steel [online help](https://help.autodesk.com/view/ADSTPR/2024/ENU/?guid=GUID-A4DA627E-6680-4388-9C04-79F5F3D9D075#GUID-A4DA627E-6680-4388-9C04-79F5F3D9D075__SECTION_7F1482FDAB9845CC8CEAB9D042201C2A))
-1. (Optional) If Dynamo fails to load under Advance Steel, run the the PowerShell command `Get-ChildItem *.* -Recurse | Unblock-File` inside .\bin\AnyCPU\Release\steel-pkg\bin\Core
 
 ## To build the installer:
 

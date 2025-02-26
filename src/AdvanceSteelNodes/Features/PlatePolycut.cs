@@ -373,7 +373,7 @@ namespace AdvanceSteel.Nodes.Features
             var plateFeatx = Utils.GetObject(Handle) as Autodesk.AdvanceSteel.Modelling.PlateContourNotch;
             if (plateFeatx != null)
             {
-              Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = plateFeat.CS;
+              Autodesk.AdvanceSteel.Geometry.Matrix3d matrix = plateFeatx.CS;
               poly = Autodesk.DesignScript.Geometry.PolyCurve.ByJoinedCurves(Utils.ToDynPolyCurves(plateFeatx.GetPolygon(), true), 0.001, false);
             }
           }

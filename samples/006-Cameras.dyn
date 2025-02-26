@@ -24,9 +24,8 @@
   "Nodes": [
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
-      "NodeType": "CodeBlockNode",
-      "Code": "CoordinateSystem.ByOriginVectors(Point.ByCoordinates(0,0),Vector.XAxis(),Vector.YAxis());",
       "Id": "4f14889efbe1461fbe093d32967b0953",
+      "NodeType": "CodeBlockNode",
       "Inputs": [],
       "Outputs": [
         {
@@ -40,13 +39,14 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Allows for DesignScript code to be authored directly"
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "CoordinateSystem.ByOriginVectors(Point.ByCoordinates(0,0),Vector.XAxis(),Vector.YAxis());"
     },
     {
       "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
       "VariableInputPorts": true,
-      "NodeType": "ExtensionNode",
       "Id": "ce3308257c6e48898180eac457ca57a9",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "8bbe0cdc88f84409a625f3514667bc0d",
@@ -74,9 +74,8 @@
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.ByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,AdvanceSteel.Nodes.Property[]",
       "Id": "a02d8207fe5c4740b8eafd5864be33e4",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "190be75476d548de93e312bceed6edd2",
@@ -108,14 +107,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.ByCS@Autodesk.DesignScript.Geometry.CoordinateSystem,AdvanceSteel.Nodes.Property[]",
       "Replication": "Auto",
       "Description": "Create an Advance Steel Camera\n\nCamera.ByCS (coordinateSystem: CoordinateSystem, additionalCameraParameters: Property[] = null): Camera"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
       "Id": "24fdaeec90a0486eaf8c82ef745e9ed7",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "8291d6a4b9d04d21927186f100f9a087",
@@ -147,6 +146,7 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "AdvanceSteel.Nodes.Property.ByNameAndValue@string,var",
       "Replication": "Auto",
       "Description": "Create a Property object\n\nProperty.ByNameAndValue (propertyName: string, value: var): Property"
     },
@@ -154,8 +154,8 @@
       "ConcreteType": "AdvanceSteel.Nodes.ASPropertiesCamera, AdvanceSteelNodesUI",
       "SelectedIndex": 1,
       "SelectedString": "Camera Description",
-      "NodeType": "ExtensionNode",
       "Id": "3e01ab2920f046359bbb4af5c3961f3b",
+      "NodeType": "ExtensionNode",
       "Inputs": [],
       "Outputs": [
         {
@@ -173,9 +173,8 @@
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
-      "NodeType": "CodeBlockNode",
-      "Code": "\"This is Camera\";",
       "Id": "014efa4cdf9343a983fec180479eb3ac",
+      "NodeType": "CodeBlockNode",
       "Inputs": [],
       "Outputs": [
         {
@@ -189,13 +188,13 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Allows for DesignScript code to be authored directly"
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "\"This is Camera\";"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
-      "NodeType": "CodeBlockNode",
-      "Code": "501;\n1000;\n1001;\n1000;\n2;\n3;",
       "Id": "de00650c919e44fe817c3cfaadf0b829",
+      "NodeType": "CodeBlockNode",
       "Inputs": [],
       "Outputs": [
         {
@@ -254,13 +253,13 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Allows for DesignScript code to be authored directly"
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "501;\n1000;\n1001;\n1000;\n2;\n3;"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.GetCameraExtents@AdvanceSteel.Nodes.SteelDbObject",
       "Id": "fac18d24d9df41088f75980b4d99dd35",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "aec82ab9b1e44269a5c6d417a9aa0b69",
@@ -292,14 +291,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.GetCameraExtents@AdvanceSteel.Nodes.SteelDbObject",
       "Replication": "Auto",
       "Description": "Get Camera Extents Values\n\nCamera.GetCameraExtents (steelObject: SteelDbObject): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.GetCameraClipping@AdvanceSteel.Nodes.SteelDbObject",
       "Id": "2fee850a95874312a7a47c3b7d930be7",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "b13bd35acb204eccbf14c5fc4a817805",
@@ -331,14 +330,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.GetCameraClipping@AdvanceSteel.Nodes.SteelDbObject",
       "Replication": "Auto",
       "Description": "Get Camera Clipping Values\n\nCamera.GetCameraClipping (steelObject: SteelDbObject): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.SetZClipping@AdvanceSteel.Nodes.SteelDbObject,int,double,double",
       "Id": "4eabd2b5ed714aacb5f7ee995c5f412b",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "c6fea951c22d4b79ac7bf25e4c0df1ee",
@@ -388,14 +387,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.SetZClipping@AdvanceSteel.Nodes.SteelDbObject,int,double,double",
       "Replication": "Auto",
       "Description": "Set Advance Steel Camera Clipping Values\n\nCamera.SetZClipping (steelObject: SteelDbObject, clippingSide: int = 3, upperClippingValue: double = 0, lowerClippingValue: double = 0): void"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.SetXYExtents@AdvanceSteel.Nodes.SteelDbObject,int,double,double",
       "Id": "85c509b61f3d4c7caaf96e4f09abb354",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "6049c22439c94e50a969ed65ff185af9",
@@ -445,13 +444,16 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "AdvanceSteel.Nodes.Miscellaneous.Camera.SetXYExtents@AdvanceSteel.Nodes.SteelDbObject,int,double,double",
       "Replication": "Auto",
       "Description": "Set Advance Steel Camera Extents / Size\n\nCamera.SetXYExtents (steelObject: SteelDbObject, cameraExtents: int = 0, xCameraSize: double = 0, yCameraSize: double = 0): void"
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 50.0,
+      "WatchHeight": 38.0,
       "Id": "fd41cb61501646c89b160648bb7063d6",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "fd631b90ff5b47c8992bffa00059ea12",
@@ -479,8 +481,10 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 50.0,
+      "WatchHeight": 38.0,
       "Id": "c1747b8c4a084c6b84a51327ca93d51d",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "ef831575409845e8ab35ec12b7047f45",
@@ -508,8 +512,10 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 155.0,
+      "WatchHeight": 38.0,
       "Id": "aa275566672946ebbe08674ea34b802a",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "8d01a5abe42c469b83e2d7e961350ea3",
@@ -537,8 +543,10 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 42.0,
+      "WatchHeight": 38.0,
       "Id": "ed867f6a266f4fd1aaf5129710ef6607",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "ddebda9f70ec4fe1a0404734cbbac8ef",
@@ -683,6 +691,7 @@
   ],
   "Dependencies": [],
   "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": true,
   "Thumbnail": "",
   "GraphDocumentationURL": null,
   "ExtensionWorkspaceData": [
@@ -704,7 +713,7 @@
     {
       "NodeId": "a02d8207-fe5c-4740-b8ea-fd5864be33e4",
       "Binding": {
-        "ByCS_InClassDecl-1_InFunctionScope-1_Instance0_a02d8207-fe5c-4740-b8ea-fd5864be33e4": "PFNPQVAtRU5WOkVudmVsb3BlIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOlNPQVAtRU5DPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyIgeG1sbnM6U09BUC1FTlY9Imh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3NvYXAvZW52ZWxvcGUvIiB4bWxuczpjbHI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vc29hcC9lbmNvZGluZy9jbHIvMS4wIiBTT0FQLUVOVjplbmNvZGluZ1N0eWxlPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy9zb2FwL2VuY29kaW5nLyI+DQo8U09BUC1FTlY6Qm9keT4NCjxhMTpDYWxsU2l0ZV94MDAyQl9UcmFjZVNlcmlhbGlzZXJIZWxwZXIgaWQ9InJlZi0xIiB4bWxuczphMT0iaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS9jbHIvbnNhc3NlbS9Qcm90b0NvcmUvUHJvdG9Db3JlJTJDJTIwVmVyc2lvbiUzRDIuMTcuMC4zNDcyJTJDJTIwQ3VsdHVyZSUzRG5ldXRyYWwlMkMlMjBQdWJsaWNLZXlUb2tlbiUzRG51bGwiPg0KPE51bWJlck9mRWxlbWVudHM+MTwvTnVtYmVyT2ZFbGVtZW50cz4NCjxCYXNlLTBfSGFzRGF0YT50cnVlPC9CYXNlLTBfSGFzRGF0YT4NCjxCYXNlLTBfRGF0YSBpZD0icmVmLTMiPlBGTlBRVkF0UlU1V09rVnVkbVZzYjNCbElIaHRiRzV6T25oemFUMGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TVM5WVRVeFRZMmhsYldFdGFXNXpkR0Z1WTJVaUlIaHRiRzV6T25oelpEMGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TVM5WVRVeFRZMmhsYldFaUlIaHRiRzV6T2xOUFFWQXRSVTVEUFNKb2RIUndPaTh2YzJOb1pXMWhjeTU0Yld4emIyRndMbTl5Wnk5emIyRndMMlZ1WTI5a2FXNW5MeUlnZUcxc2JuTTZVMDlCVUMxRlRsWTlJbWgwZEhBNkx5OXpZMmhsYldGekxuaHRiSE52WVhBdWIzSm5MM052WVhBdlpXNTJaV3h2Y0dVdklpQjRiV3h1Y3pwamJISTlJbWgwZEhBNkx5OXpZMmhsYldGekxtMXBZM0p2YzI5bWRDNWpiMjB2YzI5aGNDOWxibU52WkdsdVp5OWpiSEl2TVM0d0lpQlRUMEZRTFVWT1ZqcGxibU52WkdsdVoxTjBlV3hsUFNKb2RIUndPaTh2YzJOb1pXMWhjeTU0Yld4emIyRndMbTl5Wnk5emIyRndMMlZ1WTI5a2FXNW5MeUkrRFFvOFUwOUJVQzFGVGxZNlFtOWtlVDROQ2p4aE1UcFRaWEpwWVd4cGVtRmliR1ZJWVc1a2JHVWdhV1E5SW5KbFppMHhJaUI0Yld4dWN6cGhNVDBpYUhSMGNEb3ZMM05qYUdWdFlYTXViV2xqY205emIyWjBMbU52YlM5amJISXZibk5oYzNObGJTOUVlVzVoYlc4dVFYQndiR2xqWVhScGIyNXpMa0ZrZG1GdVkyVlRkR1ZsYkM1VFpYSjJhV05sY3k5QlpIWmhibU5sVTNSbFpXeFRaWEoyYVdObGN5VXlReVV5TUZabGNuTnBiMjRsTTBReUxqRXdMakV1TnpZeU5pVXlReVV5TUVOMWJIUjFjbVVsTTBSdVpYVjBjbUZzSlRKREpUSXdVSFZpYkdsalMyVjVWRzlyWlc0bE0wUnVkV3hzSWo0TkNqeElZVzVrYkdVZ2FXUTlJbkpsWmkweklqNURRMFU4TDBoaGJtUnNaVDROQ2p3dllURTZVMlZ5YVdGc2FYcGhZbXhsU0dGdVpHeGxQZzBLUEM5VFQwRlFMVVZPVmpwQ2IyUjVQZzBLUEM5VFQwRlFMVVZPVmpwRmJuWmxiRzl3WlQ0TkNnPT08L0Jhc2UtMF9EYXRhPg0KPEJhc2UtMF9IYXNOZXN0ZWREYXRhPmZhbHNlPC9CYXNlLTBfSGFzTmVzdGVkRGF0YT4NCjwvYTE6Q2FsbFNpdGVfeDAwMkJfVHJhY2VTZXJpYWxpc2VySGVscGVyPg0KPC9TT0FQLUVOVjpCb2R5Pg0KPC9TT0FQLUVOVjpFbnZlbG9wZT4NCg=="
+        "ByCS_InClassDecl-1_InFunctionScope-1_Instance0_a02d8207-fe5c-4740-b8ea-fd5864be33e4": "H4sIAAAAAAAACouuVkpJLElUslIytDBQqo0FAIwcDn0QAAAA"
       }
     }
   ],
@@ -713,7 +722,7 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.17.0.3472",
+      "Version": "3.4.2.7731",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -732,152 +741,152 @@
     "ConnectorPins": [],
     "NodeViews": [
       {
-        "Name": "Code Block",
-        "ShowGeometry": true,
         "Id": "4f14889efbe1461fbe093d32967b0953",
+        "Name": "Code Block",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 219.43511341109684,
-        "Y": 951.76695034814838
+        "Y": 951.7669503481484
       },
       {
-        "Name": "List Create",
-        "ShowGeometry": true,
         "Id": "ce3308257c6e48898180eac457ca57a9",
+        "Name": "List Create",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 1561.3619357106647,
         "Y": 1179.4881929167154
       },
       {
-        "Name": "Camera.ByCS",
-        "ShowGeometry": true,
         "Id": "a02d8207fe5c4740b8eafd5864be33e4",
+        "Name": "Camera.ByCS",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 1871.0450181630715,
-        "Y": 923.88796838485268
+        "Y": 923.8879683848527
       },
       {
-        "Name": "Property.ByNameAndValue",
-        "ShowGeometry": true,
         "Id": "24fdaeec90a0486eaf8c82ef745e9ed7",
+        "Name": "Property.ByNameAndValue",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 1186.3619357106647,
         "Y": 1179.4881929167154
       },
       {
-        "Name": "Camera Properties",
-        "ShowGeometry": true,
         "Id": "3e01ab2920f046359bbb4af5c3961f3b",
+        "Name": "Camera Properties",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 484.84199949423817,
         "Y": 1109.8242754133519
       },
       {
-        "Name": "Code Block",
-        "ShowGeometry": true,
         "Id": "014efa4cdf9343a983fec180479eb3ac",
+        "Name": "Code Block",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 518.78777247177152,
+        "ShowGeometry": true,
+        "X": 518.7877724717715,
         "Y": 1259.8007116806348
       },
       {
-        "Name": "Code Block",
-        "ShowGeometry": true,
         "Id": "de00650c919e44fe817c3cfaadf0b829",
+        "Name": "Code Block",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2778.7702885667468,
+        "ShowGeometry": true,
+        "X": 2778.770288566747,
         "Y": 1440.8985613728782
       },
       {
-        "Name": "Camera.GetCameraExtents",
-        "ShowGeometry": true,
         "Id": "fac18d24d9df41088f75980b4d99dd35",
+        "Name": "Camera.GetCameraExtents",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 2734.386857585615,
         "Y": -136.51749221537295
       },
       {
-        "Name": "Camera.GetCameraClipping",
-        "ShowGeometry": true,
         "Id": "2fee850a95874312a7a47c3b7d930be7",
+        "Name": "Camera.GetCameraClipping",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 2726.6153609406824,
         "Y": 639.9665871932234
       },
       {
-        "Name": "Camera.SetZClipping",
-        "ShowGeometry": true,
         "Id": "4eabd2b5ed714aacb5f7ee995c5f412b",
+        "Name": "Camera.SetZClipping",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3097.7702885667468,
-        "Y": 1554.2785613728779
+        "ShowGeometry": true,
+        "X": 3097.770288566747,
+        "Y": 1554.278561372878
       },
       {
-        "Name": "Camera.SetXYExtents",
-        "ShowGeometry": true,
         "Id": "85c509b61f3d4c7caaf96e4f09abb354",
+        "Name": "Camera.SetXYExtents",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 3097.7702885667468,
-        "Y": 1306.2785613728779
+        "ShowGeometry": true,
+        "X": 3097.770288566747,
+        "Y": 1306.278561372878
       },
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "fd41cb61501646c89b160648bb7063d6",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 3104.386857585615,
         "Y": -276.51749221537295
       },
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "c1747b8c4a084c6b84a51327ca93d51d",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 3104.386857585615,
         "Y": 37.482507784627046
       },
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "aa275566672946ebbe08674ea34b802a",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 3121.6153609406824,
         "Y": 813.9665871932234
       },
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "ed867f6a266f4fd1aaf5129710ef6607",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 3121.6153609406824,
         "Y": 499.9665871932234
       }
@@ -920,12 +929,12 @@
         ],
         "HasNestedGroups": false,
         "Left": 1861.0450181630715,
-        "Top": 792.88796838485268,
-        "Width": 357.99999999999977,
+        "Top": 792.8879683848527,
+        "Width": 357.9999999999998,
         "Height": 293.0,
         "FontSize": 36.0,
         "GroupStyleId": "00000000-0000-0000-0000-000000000000",
-        "InitialTop": 865.88796838485268,
+        "InitialTop": 865.8879683848527,
         "InitialHeight": 203.0,
         "TextblockHeight": 63.0,
         "Background": "#FF71C6A8"
@@ -945,13 +954,13 @@
         ],
         "HasNestedGroups": false,
         "Left": 209.43511341109684,
-        "Top": 831.76695034814838,
+        "Top": 831.7669503481484,
         "Width": 758.0,
-        "Height": 560.03376133248639,
+        "Height": 560.0337613324864,
         "FontSize": 36.0,
         "GroupStyleId": "00000000-0000-0000-0000-000000000000",
-        "InitialTop": 904.76695034814838,
-        "InitialHeight": 500.03376133248639,
+        "InitialTop": 904.7669503481484,
+        "InitialHeight": 500.0337613324864,
         "TextblockHeight": 63.0,
         "Background": "#FF71C6A8"
       },
@@ -996,7 +1005,7 @@
         "HasNestedGroups": false,
         "Left": 2716.6153609406824,
         "Top": 426.9665871932234,
-        "Width": 542.0,
+        "Width": 647.0,
         "Height": 523.0,
         "FontSize": 36.0,
         "GroupStyleId": "00000000-0000-0000-0000-000000000000",
@@ -1019,13 +1028,13 @@
           "b94ed479a05f4081b5e45acddb43dc16"
         ],
         "HasNestedGroups": false,
-        "Left": 2768.7702885667468,
-        "Top": 1233.2785613728779,
+        "Left": 2768.770288566747,
+        "Top": 1233.278561372878,
         "Width": 607.0,
         "Height": 553.0,
         "FontSize": 36.0,
         "GroupStyleId": "00000000-0000-0000-0000-000000000000",
-        "InitialTop": 1306.2785613728779,
+        "InitialTop": 1306.278561372878,
         "InitialHeight": 393.0,
         "TextblockHeight": 63.0,
         "Background": "#FF71C6A8"
@@ -1040,7 +1049,7 @@
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 219.43511341109684,
-        "Top": 912.76695034814838,
+        "Top": 912.7669503481484,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -1080,7 +1089,7 @@
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 1931.0450181630715,
-        "Top": 873.88796838485268,
+        "Top": 873.8879683848527,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -1140,7 +1149,7 @@
         "HeightAdjustment": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
-        "Left": 2778.7702885667468,
+        "Left": 2778.770288566747,
         "Top": 1401.8985613728782,
         "Width": 0.0,
         "Height": 0.0,
@@ -1152,7 +1161,7 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": -72.459751650654312,
+    "X": -72.45975165065431,
     "Y": 187.3636403337228,
     "Zoom": 0.3830751311689321
   }

@@ -31,7 +31,8 @@
           "KeepListStructure": false
         }
       ],
-      "Replication": "Disabled"
+      "Replication": "Disabled",
+      "Description": "Asks the user to do a selection, only the Advance Steel objects are added to the selection set"
     },
     {
       "ConcreteType": "AdvanceSteel.Nodes.ASPointSelection, AdvanceSteelNodesUI",
@@ -50,14 +51,15 @@
           "KeepListStructure": false
         }
       ],
-      "Replication": "Disabled"
+      "Replication": "Disabled",
+      "Description": "Asks the user to select point in model space"
     },
     {
       "ConcreteType": "AdvanceSteel.Nodes.ASObjecTypes, AdvanceSteelNodesUI",
       "SelectedIndex": 20,
       "SelectedString": "Straight Beam",
-      "NodeType": "ExtensionNode",
       "Id": "1e7d70a09bcd48789b024d02e69be100",
+      "NodeType": "ExtensionNode",
       "Inputs": [],
       "Outputs": [
         {
@@ -75,9 +77,8 @@
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Selection.SelectionFilter.FilterSelectionByType@AdvanceSteel.Nodes.SteelDbObject[],int[]",
       "Id": "eed24e4dd8ef45079b6fb75f7037fba1",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "6a8bd6a39d2344518864ce2dd2a1cd05",
@@ -109,14 +110,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "AdvanceSteel.Nodes.Selection.SelectionFilter.FilterSelectionByType@AdvanceSteel.Nodes.SteelDbObject[],int[]",
       "Replication": "Auto",
       "Description": "Filter a collection of steel objects by a list of object types\n\nSelectionFilter.FilterSelectionByType (steelObjects: SteelDbObject[], objectTypeFilters: int[]): SteelDbObject[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.DesignScript.Geometry.Geometry.Translate@Autodesk.DesignScript.Geometry.Vector,double",
       "Id": "0d169b734639411a984053342e9a5133",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "85e4ee412c1d4470b8067ebb5d6f5210",
@@ -157,14 +158,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Geometry.Translate@Autodesk.DesignScript.Geometry.Vector,double",
       "Replication": "Auto",
       "Description": "Translates any geometry type by the given distance in the given direction.\n\nGeometry.Translate (direction: Vector, distance: double): Geometry"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
-      "NodeType": "CodeBlockNode",
-      "Code": "Vector.XAxis();\n100;",
       "Id": "be7d85cc63724664ab7b43afa6de9a84",
+      "NodeType": "CodeBlockNode",
       "Inputs": [],
       "Outputs": [
         {
@@ -187,12 +188,15 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Allows for DesignScript code to be authored directly"
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "Vector.XAxis();\n100;"
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 200.0,
+      "WatchHeight": 38.0,
       "Id": "5ebbda0298a342338f38ab72b6fac403",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "37e046798c0f463b8e3c5100d9999201",
@@ -221,8 +225,8 @@
     {
       "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
       "VariableInputPorts": true,
-      "NodeType": "ExtensionNode",
       "Id": "4f9101f5f34a4a569d7849a29c794cb7",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "983a34879e264a1d877021a2267d6c67",
@@ -261,8 +265,8 @@
       "ConcreteType": "AdvanceSteel.Nodes.ASObjecTypes, AdvanceSteelNodesUI",
       "SelectedIndex": 13,
       "SelectedString": "Grating",
-      "NodeType": "ExtensionNode",
       "Id": "3e94a2e2043944008964f2e5fc11298a",
+      "NodeType": "ExtensionNode",
       "Inputs": [],
       "Outputs": [
         {
@@ -280,8 +284,10 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 200.0,
+      "WatchHeight": 38.0,
       "Id": "c825d9ea12de480489ed88d1fd2a5516",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "f4830498283c4c2ebed21bc7996b7f65",
@@ -309,8 +315,10 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 200.0,
+      "WatchHeight": 38.0,
       "Id": "088efac041d349beb6be58d37891e475",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "c07a564303e444debedf0f0d2409cda8",
@@ -340,8 +348,8 @@
       "ConcreteType": "AdvanceSteel.Nodes.ASSelectObjecTypes, AdvanceSteelNodesUI",
       "SelectedIndex": 20,
       "SelectedString": "Straight Beam",
-      "NodeType": "ExtensionNode",
       "Id": "45ff0d8b08bf4bd3af71b26b7314a19b",
+      "NodeType": "ExtensionNode",
       "Inputs": [],
       "Outputs": [
         {
@@ -422,6 +430,7 @@
   ],
   "Dependencies": [],
   "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": true,
   "Thumbnail": "",
   "GraphDocumentationURL": null,
   "ExtensionWorkspaceData": [
@@ -445,7 +454,7 @@
       "ScaleFactor": 100.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.17.0.3472",
+      "Version": "3.4.2.7731",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -464,123 +473,123 @@
     "ConnectorPins": [],
     "NodeViews": [
       {
-        "Name": "SelectAdvanceSteelObjects",
-        "ShowGeometry": true,
         "Id": "fb0a4c00b91c4fc69cede3cccd82bd16",
+        "Name": "SelectAdvanceSteelObjects",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": -203.1424597396649,
         "Y": 408.0773146754218
       },
       {
-        "Name": "SelectPoint",
-        "ShowGeometry": true,
         "Id": "8d32ec3c77b74b55b58cccf23c483f0e",
+        "Name": "SelectPoint",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": -406.08851256655885,
-        "Y": 929.05021912434927
+        "Y": 929.0502191243493
       },
       {
-        "Name": "AdvanceSteelObjectTypes",
-        "ShowGeometry": true,
         "Id": "1e7d70a09bcd48789b024d02e69be100",
+        "Name": "AdvanceSteelObjectTypes",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -953.20485039136793,
+        "ShowGeometry": true,
+        "X": -953.2048503913679,
         "Y": 429.52527110007213
       },
       {
-        "Name": "SelectionFilter.FilterSelectionByType",
-        "ShowGeometry": true,
         "Id": "eed24e4dd8ef45079b6fb75f7037fba1",
+        "Name": "SelectionFilter.FilterSelectionByType",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 196.8575402603351,
         "Y": 408.0773146754218
       },
       {
-        "Name": "Geometry.Translate",
-        "ShowGeometry": true,
         "Id": "0d169b734639411a984053342e9a5133",
+        "Name": "Geometry.Translate",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 227.59793680200124,
         "Y": 1118.5258688150038
       },
       {
-        "Name": "Code Block",
-        "ShowGeometry": true,
         "Id": "be7d85cc63724664ab7b43afa6de9a84",
+        "Name": "Code Block",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": -352.02576378180083,
         "Y": 1324.641336160935
       },
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "5ebbda0298a342338f38ab72b6fac403",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 564.59793680200119,
+        "ShowGeometry": true,
+        "X": 564.5979368020012,
         "Y": 1118.5258688150038
       },
       {
-        "Name": "List Create",
-        "ShowGeometry": true,
         "Id": "4f9101f5f34a4a569d7849a29c794cb7",
+        "Name": "List Create",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -587.20485039136793,
+        "ShowGeometry": true,
+        "X": -587.2048503913679,
         "Y": 486.52527110007213
       },
       {
-        "Name": "AdvanceSteelObjectTypes",
-        "ShowGeometry": true,
         "Id": "3e94a2e2043944008964f2e5fc11298a",
+        "Name": "AdvanceSteelObjectTypes",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -953.20485039136793,
-        "Y": 577.52527110007213
+        "ShowGeometry": true,
+        "X": -953.2048503913679,
+        "Y": 577.5252711000721
       },
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "c825d9ea12de480489ed88d1fd2a5516",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 645.8575402603351,
         "Y": 408.0773146754218
       },
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "088efac041d349beb6be58d37891e475",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 341.78563543442056,
         "Y": 1651.633276445003
       },
       {
-        "Name": "GetSteelObjectsByType",
-        "ShowGeometry": true,
         "Id": "45ff0d8b08bf4bd3af71b26b7314a19b",
+        "Name": "GetSteelObjectsByType",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -50.408062155550851,
+        "ShowGeometry": true,
+        "X": -50.40806215555085,
         "Y": 1648.4208345383831
       }
     ],
@@ -623,13 +632,13 @@
         ],
         "HasNestedGroups": false,
         "Left": -416.08851256655885,
-        "Top": 809.05021912434927,
+        "Top": 809.0502191243493,
         "Width": 252.0,
         "Height": 271.0,
         "FontSize": 36.0,
         "GroupStyleId": "00000000-0000-0000-0000-000000000000",
-        "InitialTop": 882.05021912434927,
-        "InitialHeight": 203.0,
+        "InitialTop": 882.0502191243493,
+        "InitialHeight": 192.0,
         "TextblockHeight": 63.0,
         "Background": "#FFBB87C6"
       },
@@ -670,7 +679,7 @@
         ],
         "HasNestedGroups": false,
         "Left": 217.59793680200124,
-        "Top": 998.52586881500383,
+        "Top": 998.5258688150038,
         "Width": 634.0,
         "Height": 317.0,
         "FontSize": 36.0,
@@ -692,7 +701,7 @@
           "77969233f56e4c92b4bf4516b2607ef8"
         ],
         "HasNestedGroups": false,
-        "Left": -60.408062155550851,
+        "Left": -60.40806215555085,
         "Top": 1502.4208345383831,
         "Width": 275.0,
         "Height": 278.0,
@@ -717,7 +726,7 @@
           "43abbd46419248dca88fe1dd68f6d7b0"
         ],
         "HasNestedGroups": false,
-        "Left": -963.20485039136793,
+        "Left": -963.2048503913679,
         "Top": 309.52527110007213,
         "Width": 546.0,
         "Height": 400.0,
@@ -758,7 +767,7 @@
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": -406.08851256655885,
-        "Top": 890.05021912434927,
+        "Top": 890.0502191243493,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -818,7 +827,7 @@
         "HeightAdjustment": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
-        "Left": -24.408062155550851,
+        "Left": -24.40806215555085,
         "Top": 1583.4208345383831,
         "Width": 0.0,
         "Height": 0.0,
@@ -839,7 +848,7 @@
         "HeightAdjustment": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
-        "Left": -953.20485039136793,
+        "Left": -953.2048503913679,
         "Top": 390.52527110007213,
         "Width": 0.0,
         "Height": 0.0,
@@ -851,8 +860,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 631.69231421361042,
+    "X": 631.6923142136104,
     "Y": -183.64622585909837,
-    "Zoom": 0.63374025444155468
+    "Zoom": 0.6337402544415547
   }
 }
