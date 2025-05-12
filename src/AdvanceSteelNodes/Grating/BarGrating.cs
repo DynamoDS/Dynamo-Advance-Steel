@@ -55,8 +55,6 @@ namespace AdvanceSteel.Nodes.Gratings
           else
           {
             gratings = Utils.GetObject(handle) as Autodesk.AdvanceSteel.Modelling.Grating;
-            if (gratings != null && gratings.IsKindOf(FilerObject.eObjectType.kGrating))
-            {
               gratings.DefinitionPlane = plane;
               gratings.SetLength(dLength, true);
 
@@ -69,11 +67,7 @@ namespace AdvanceSteel.Nodes.Gratings
               {
                 Utils.SetParameters(gratings, postWriteDBData);
               }
-            }
-            else
-            {
-              throw new System.Exception("Not a Bar Grating pattern");
-            }
+            
           }
           Handle = gratings.Handle;
           SteelServices.ElementBinder.CleanupAndSetElementForTrace(gratings);
