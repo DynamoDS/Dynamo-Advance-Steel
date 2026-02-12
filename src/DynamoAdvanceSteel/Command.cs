@@ -52,8 +52,8 @@ namespace Dynamo.Applications.AdvanceSteel
 
     private static DynamoSteelModel InitializeCoreModel()
     {
-      var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dynamo", "Dynamo Advance Steel", "2026");
-      var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel", "2026");
+      var userDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dynamo", "Dynamo Advance Steel", "2027");
+      var commonDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Dynamo", "Dynamo Advance Steel", "2027");
 
       var startConfiguration = new Dynamo.Models.DynamoModel.DefaultStartConfiguration()
       {
