@@ -14,7 +14,7 @@
       "Type2": "number",
       "Value": "15",
       "NumberType": "Double",
-      "Description": "Creates a number"
+      "Description": "Creates a number."
     }
   ],
   "Outputs": [],
@@ -103,8 +103,8 @@
       "Outputs": [
         {
           "Id": "29e6df2a8bbd42189a41f754cfc51989",
-          "Name": "",
-          "Description": "Value of expression at line 1",
+          "Name": "range",
+          "Description": "a..b..#x",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -241,8 +241,8 @@
       "Outputs": [
         {
           "Id": "26493a28411e4d33848a48b2ac049c89",
-          "Name": "",
-          "Description": "Value of expression at line 1",
+          "Name": "range",
+          "Description": "0..heigth..#x",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -256,7 +256,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "Code": "import clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n#The inputs to this node will be stored as a list in the IN variable.\r\ninp = IN[0]\r\n\r\n#Assign your output to the OUT variable\r\n\r\nstart = []\r\nend = []\r\nfor i in range(len(inp)-1):\r\n for j in range(len(inp)):\r\n  start.append(inp[i][(j+i) %(len(inp[i]))])\r\n  end.append(inp[i+1][(j+i+1) %(len(inp[i]))])\r\n  start.append(inp[i][(j+i) %(len(inp[i]))])\r\n  end.append(inp[i+1][(j+i+len(inp[i])-1) %(len(inp[i]))])\r\nOUT = [start,end]",
-      "Engine": "CPython3",
+      "Engine": "PythonNet3",
       "VariableInputPorts": true,
       "Id": "6355bc56b12d463a870bc125a813a665",
       "NodeType": "PythonScriptNode",
@@ -303,8 +303,8 @@
       "Outputs": [
         {
           "Id": "ec046e524a5449beab6bc87b7be38442",
-          "Name": "",
-          "Description": "Value of expression at line 1",
+          "Name": "function",
+          "Description": "DesignScript.Builtin.Get.ValueAtIndex(x, 0)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -312,8 +312,8 @@
         },
         {
           "Id": "378ffc9aa82c41e29c176c0159263e59",
-          "Name": "",
-          "Description": "Value of expression at line 2",
+          "Name": "function",
+          "Description": "DesignScript.Builtin.Get.ValueAtIndex(x, 1)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -499,8 +499,8 @@
       "Outputs": [
         {
           "Id": "7c1f9776236741d68db43704cdec899b",
-          "Name": "",
-          "Description": "Value of expression at line 1",
+          "Name": "double",
+          "Description": "0.5",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -675,8 +675,8 @@
       "Outputs": [
         {
           "Id": "f63923993ee84378bfb83323eb4dbc83",
-          "Name": "",
-          "Description": "Value of expression at line 1",
+          "Name": "double",
+          "Description": "0.5",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -744,7 +744,7 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Creates a number",
+      "Description": "Creates a number.",
       "InputValue": 15.0
     },
     {
@@ -755,8 +755,8 @@
       "Outputs": [
         {
           "Id": "36a3813f66884c6a9635e2c48ff5839b",
-          "Name": "",
-          "Description": "Value of expression at line 1",
+          "Name": "integer",
+          "Description": "50000",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -775,8 +775,8 @@
       "Outputs": [
         {
           "Id": "825b729953ac4d0daabf9fb0e78bb73c",
-          "Name": "",
-          "Description": "Value of expression at line 1",
+          "Name": "integer",
+          "Description": "10000",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -795,8 +795,8 @@
       "Outputs": [
         {
           "Id": "d209d6b1f5674c398d90ce953c061842",
-          "Name": "",
-          "Description": "Value of expression at line 1",
+          "Name": "integer",
+          "Description": "5000",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1257,13 +1257,13 @@
     {
       "NodeId": "3653594b-2a68-4f14-b705-18b0a5f1e9b4",
       "Binding": {
-        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_3653594b-2a68-4f14-b705-18b0a5f1e9b4": "H4sIAAAAAAAACn3WPW7bUBQF4b2oTkGeS1JiOv5uwnBhwG7TxF2QvSfPlT4EIdTosJm5r5qXX7cfHz8/P973t8+32/eXf+b7159bfx9vv789zbtzdq7O3XkyH72znHIfch9yH3Ifch9y57/c1/bhPxfPisyKzIrMisyKzIrMiiw+wCJ3kbvIXeQuche5y3l98arIqsiqyKrIqsiqyKrI6gNscje5m9xN7iZ3k7vt1xdviuyK7IrsiuyK7Irsiuw+wC73kHvIPeQecg+5x3p98aHIocipyKnIqcipyKnI6QOcck+46eCmg5sObjq46ebLi9Mhkg6RdIr0ivSK9Ir0ivQ8QHq5vdxebuRGbuTmfn1xFIkiUSSKlCKlSClSPkDJLbklt+QOcge5w3h98aDIoMigyKDIoMioyKjI6AOMcke5o9xR7ih3kjvV9cWTIpMikyKTIpMikyJ3Re4+gB0QOyB2QOyA2AGxA9I64OpiwyCGQQyDGAYxDGIYxDBIC4PnKdcOiB0QOyB2QOyAtA64utgwiGEQwyCGQQyDGAYxDNLC4GnaAbEDYgfEDogdEDsgrQOuLjYMYhjEMIhhEMMghkEMg7QweJ5yd7l2QOyA2AGxA9I64OpiwyCGQQyDGAYxDGIYxDBIC4PnKdcOiB0QOyB2QOyAtA64utgwiGEQw6AMgzIMyjAow6BaGDxPuGUHlB1QdkDZAWUHVOuAi4vLMCjDoAyDMgzKMCjDoAyDamHwPOXaAWUHlB1QdkDZAdU64LX9/gBpEzZeQA4AAA=="
+        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_3653594b-2a68-4f14-b705-18b0a5f1e9b4": "H4sIAAAAAAAACn3WPW7bUBQF4b2oTkGeS1JiOv5uwnBhwG7TxF3gvQfPlT4EIdTosJm5r5qXP7dfH78/P973t8+328+Xf+b7959bfx9vXz+e5t05O1fn7jyZj95ZTrkPuQ+5D7kPuQ+5c3/7em0f/nPxrMisyKzIrMisyKzIrMjiAyxyF7mL3EXuIneRu5zXF6+KrIqsiqyKrIqsiqyKrD7AJneTu8nd5G5yN7nbfn3xpsiuyK7IrsiuyK7IrsjuA+xyD7mH3EPuIfeQe6zXFx+KHIqcipyKnIqcipyKnD7AKfeEmw5uOrjp4KaDm26+vDgdIukQSadIr0ivSK9Ir0jPA6SX28vt5UZu5EZu7tcXR5EoEkWiSClSipQi5QOU3JJbckvuIHeQO4zXFw+KDIoMigyKDIqMioyKjD7AKHeUO8od5Y5yJ7lTXV88KTIpMikyKTIpMilyV+TuA9gBsQNiB8QOiB0QOyCtA64uNgxiGMQwiGEQwyCGQQyDtDB4nnLtgNgBsQNiB8QOSOuAq4sNgxgGMQxiGMQwiGEQwyAtDJ6mHRA7IHZA7IDYAbED0jrg6mLDIIZBDIMYBjEMYhjEMEgLg+cp1w6IHRA7IHZA7IC0Dri62DCIYRDDIIZBDIMYBjEM0sLgecq1A2IHxA6IHRA7IK0Dri42DGIYxDAow6AMgzIMyjCoFgbPE27ZAWUHlB1QdkDZAdU64OLiMgzKMCjDoAyDMgzKMCjDoFoYPE+5dkDZAWUHlB1QdkC1Dnhtv79pEzZeQA4AAA=="
       }
     },
     {
       "NodeId": "326b1dec-0470-4330-92db-c8b37d59311f",
       "Binding": {
-        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_326b1dec-0470-4330-92db-c8b37d59311f": "H4sIAAAAAAAAClXVIRLTABiE0btUI5p290+Da5rmEgyCGbAYcAx3Z0Dx3K765Pv06/L924+f374eX35+uXz89Ovy9d+43O/r5feH/+7m3b2H9+Rm8d699dqN3diN3dit3dqt3dqt3dqt3dodu2N37I7dsTt2x+7YXe2udle7q93V7mp3tbvafdh92H3Yfdh92H3Yfdh92N3sbnY3u5vdze5md7O72X3afdp92n3afdp92n3afdrd7e52d7u73d3ubne3u9t92X3Zfdl92X3Zfdl92X3ZPewedg+7h93D7mH3sHvYfdt9233bfdt9233bfdt92z3tnnZPu6fd0+5p97R70s2Vbq50c6WbK91c6eZKN1e6udpd7C52F7uL3cXuYnexu9i92b3Zvdm92b3Zvdm92b3Zvdu9273b1d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9zWFXf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv97WFXf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/Z2//n7+/fkP1WyWya4YAAA="
+        "ByStartPointEndPoint_InClassDecl-1_InFunctionScope-1_Instance0_326b1dec-0470-4330-92db-c8b37d59311f": "H4sIAAAAAAAAClXVIRLTABiE0btUI5p290+Da5rmEgyCGbAYcAx3Z0Dx3K765Pv06/L924+f374eX35+uXz89Ovy9d+43O/r5feH/+7m3b2H9+Rm8d699dqN3diN3dit3dqt3dqt3dqt3dodu2N37I7dsTt2x+7YXe2udle7q93V7mp3tbvafdh92H3Yfdh92H3Yfdh92N3sbnY3u5vdze5md7O72X3afdp92n3afdp92n3afdrd7e52d7u73d3ubne3u9t92X3Zfdl92X3Zfdl92X3ZPewedg+7h93D7mH3sHvYfdt9233bfdt9233bfdt92z3tnnZPu6fd0+5p97R70s2Vbq50c6WbK91c6eZKN1e6udpd7C52F7uL3cXuYnexu9i92b3Zvdm92b3Zvdm92b3Zvdu9273b1d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9jf5Gf6O/0d/ob/Q3+hv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9rf5Wf6u/1d/qb/W3+lv9Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/R39Hf0d/Z2//n7+/fkP1WyWya4YAAA="
       }
     }
   ],
@@ -1272,7 +1272,7 @@
       "ScaleFactor": 100.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "3.4.2.7731",
+      "Version": "4.0.0.3277",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -1579,6 +1579,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "b866648ffc17445da5c95985bb93937b",
           "35dc4140752e4b8b9f94011d591699ef",
@@ -1595,6 +1597,10 @@
         "InitialTop": -53.43353434281755,
         "InitialHeight": 591.9254877987936,
         "TextblockHeight": 40.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFFF7BAC"
       },
       {
@@ -1604,6 +1610,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "a316e7f0509b4e2cb60f1db73f62b675",
           "ec3525cb82994fd0aa6a22a507345f08",
@@ -1622,6 +1630,10 @@
         "InitialTop": -114.04929105416772,
         "InitialHeight": 654.0,
         "TextblockHeight": 40.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       },
       {
@@ -1631,6 +1643,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "6355bc56b12d463a870bc125a813a665",
           "037028c0140349188dd6f3f9961cb0bf",
@@ -1655,6 +1669,10 @@
         "InitialTop": 733.3202011471886,
         "InitialHeight": 375.8275000000002,
         "TextblockHeight": 40.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       },
       {
@@ -1664,6 +1682,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "8bfbf0b11eaf4da6a24168644b8ebb18"
         ],
@@ -1677,6 +1697,10 @@
         "InitialTop": -909.3070189763117,
         "InitialHeight": 145.0,
         "TextblockHeight": 63.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FF848484"
       },
       {
@@ -1686,6 +1710,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "8179a239d0db4884867e9afa69539dff"
         ],
@@ -1699,6 +1725,10 @@
         "InitialTop": -417.80993549930054,
         "InitialHeight": 145.0,
         "TextblockHeight": 63.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFD8D8D8"
       },
       {
@@ -1708,6 +1738,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "50a1329aae0149be965295aed1755388"
         ],
@@ -1721,6 +1753,10 @@
         "InitialTop": -586.7751336060358,
         "InitialHeight": 145.0,
         "TextblockHeight": 63.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FF71C6A8"
       },
       {
@@ -1730,6 +1766,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "7b591d73676f42b687741f547d3f226d"
         ],
@@ -1743,6 +1781,10 @@
         "InitialTop": -589.5034143138193,
         "InitialHeight": 145.0,
         "TextblockHeight": 63.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFFFAA45"
       },
       {
@@ -1752,6 +1794,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "869ea28dc04242ddaebd6dc193a5f8f9"
         ],
@@ -1765,6 +1809,10 @@
         "InitialTop": -420.89682590252426,
         "InitialHeight": 145.0,
         "TextblockHeight": 63.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFFFC999"
       },
       {
@@ -1774,6 +1822,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "26612eeb215d4162a20de35063be0fef"
         ],
@@ -1787,6 +1837,10 @@
         "InitialTop": -754.8834601515206,
         "InitialHeight": 145.0,
         "TextblockHeight": 63.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFFF7BAC"
       },
       {
@@ -1796,6 +1850,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "3d56863c8ef44ef1b20ba6fb1b6d9b80"
         ],
@@ -1809,6 +1865,10 @@
         "InitialTop": -751.9061635462898,
         "InitialHeight": 145.0,
         "TextblockHeight": 63.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FF48B9FF"
       },
       {
@@ -1818,6 +1878,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "603892d49cdb4f5aa1334752036cd218"
         ],
@@ -1831,6 +1893,10 @@
         "InitialTop": -927.6621838200318,
         "InitialHeight": 145.0,
         "TextblockHeight": 63.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FF848484"
       },
       {
@@ -1840,6 +1906,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "15f2a50576944e8abfbb123f65015561"
         ],
@@ -1853,6 +1921,10 @@
         "InitialTop": -921.3154303696318,
         "InitialHeight": 145.0,
         "TextblockHeight": 63.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFBB87C6"
       },
       {
@@ -1862,6 +1934,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [
           "9d8ffe8d75ac4900aebbb29f8077dbf1"
         ],
@@ -1875,6 +1949,10 @@
         "InitialTop": -918.6045145827012,
         "InitialHeight": 145.0,
         "TextblockHeight": 63.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       },
       {
@@ -1884,6 +1962,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 2547.616247718801,
@@ -1895,6 +1975,10 @@
         "InitialTop": 0.0,
         "InitialHeight": 0.0,
         "TextblockHeight": 0.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       },
       {
@@ -1904,6 +1988,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 2107.3410335323556,
@@ -1915,6 +2001,10 @@
         "InitialTop": 0.0,
         "InitialHeight": 0.0,
         "TextblockHeight": 0.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       },
       {
@@ -1924,6 +2014,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 2109.1779978492755,
@@ -1935,6 +2027,10 @@
         "InitialTop": 0.0,
         "InitialHeight": 0.0,
         "TextblockHeight": 0.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       },
       {
@@ -1944,6 +2040,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 1828.1585257526092,
@@ -1955,6 +2053,10 @@
         "InitialTop": 0.0,
         "InitialHeight": 0.0,
         "TextblockHeight": 0.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       },
       {
@@ -1964,6 +2066,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 1827.317870156479,
@@ -1975,6 +2079,10 @@
         "InitialTop": 0.0,
         "InitialHeight": 0.0,
         "TextblockHeight": 0.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       },
       {
@@ -1984,6 +2092,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 1829.395510681551,
@@ -1995,6 +2105,10 @@
         "InitialTop": 0.0,
         "InitialHeight": 0.0,
         "TextblockHeight": 0.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       },
       {
@@ -2004,6 +2118,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 2108.1081500258074,
@@ -2015,6 +2131,10 @@
         "InitialTop": 0.0,
         "InitialHeight": 0.0,
         "TextblockHeight": 0.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       },
       {
@@ -2024,6 +2144,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 1362.317872503371,
@@ -2035,6 +2157,10 @@
         "InitialTop": 0.0,
         "InitialHeight": 0.0,
         "TextblockHeight": 0.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       },
       {
@@ -2044,6 +2170,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 1828.938904117121,
@@ -2055,6 +2183,10 @@
         "InitialTop": 0.0,
         "InitialHeight": 0.0,
         "TextblockHeight": 0.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       },
       {
@@ -2064,6 +2196,8 @@
         "IsExpanded": true,
         "WidthAdjustment": 0.0,
         "HeightAdjustment": 0.0,
+        "UserSetWidth": 0.0,
+        "UserSetHeight": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 2107.4950113023174,
@@ -2075,6 +2209,10 @@
         "InitialTop": 0.0,
         "InitialHeight": 0.0,
         "TextblockHeight": 0.0,
+        "IsOptionalInPortsCollapsed": false,
+        "IsUnconnectedOutPortsCollapsed": false,
+        "HasToggledOptionalInPorts": false,
+        "HasToggledUnconnectedOutPorts": false,
         "Background": "#FFC1D676"
       }
     ],
