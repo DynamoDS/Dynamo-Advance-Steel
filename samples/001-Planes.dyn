@@ -28,8 +28,10 @@
   "Nodes": [
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 420.0,
+      "WatchHeight": 40.0,
       "Id": "704359fb7e844de7b206c330c858db10",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "71905a3cfc10496e82026b22eb7940dd",
@@ -57,8 +59,10 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 80.0,
+      "WatchHeight": 40.0,
       "Id": "ddcc63d850fa43b4a841652c3ccedf29",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "cbf0d6176a3d4320afb11f3053060a26",
@@ -86,8 +90,10 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 80.0,
+      "WatchHeight": 40.0,
       "Id": "1abf34600df0468390b2bee7fa548146",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "a2bbadfab6044521bbefa05281629424",
@@ -115,15 +121,14 @@
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
-      "NodeType": "CodeBlockNode",
-      "Code": "Point.ByCoordinates(50,50,20);\nPoint.ByCoordinates(50,10,20);\n20;\nPoint.ByCoordinates(0,-100,0);\n150;\nPoint.ByCoordinates(-100,-100,-100);",
       "Id": "b86516ced99241b382a4b5b54f572c46",
+      "NodeType": "CodeBlockNode",
       "Inputs": [],
       "Outputs": [
         {
           "Id": "77eb23ea0bc641068b263c098971dba7",
-          "Name": "",
-          "Description": "Value of expression at line 1",
+          "Name": "function",
+          "Description": "Autodesk.DesignScript.Geometry.Point.ByCoordinates(50, 50, 20)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -131,8 +136,8 @@
         },
         {
           "Id": "fca233113b53432abbf6da8010aaea8f",
-          "Name": "",
-          "Description": "Value of expression at line 2",
+          "Name": "function",
+          "Description": "Autodesk.DesignScript.Geometry.Point.ByCoordinates(50, 10, 20)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -140,8 +145,8 @@
         },
         {
           "Id": "ad15f03884a74dd6bf2de0c7bf7afb2e",
-          "Name": "",
-          "Description": "Value of expression at line 3",
+          "Name": "integer",
+          "Description": "20",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -149,8 +154,8 @@
         },
         {
           "Id": "699c8c7749bb4b8dbd9cd994e39d004e",
-          "Name": "",
-          "Description": "Value of expression at line 4",
+          "Name": "function",
+          "Description": "Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, -100, 0)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -158,8 +163,8 @@
         },
         {
           "Id": "70001698a92644e6ad17677f7decc9fa",
-          "Name": "",
-          "Description": "Value of expression at line 5",
+          "Name": "integer",
+          "Description": "150",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -167,8 +172,8 @@
         },
         {
           "Id": "f963937a4fd947f9aab265d7735b799e",
-          "Name": "",
-          "Description": "Value of expression at line 6",
+          "Name": "function",
+          "Description": "Autodesk.DesignScript.Geometry.Point.ByCoordinates(-100, -100, -100)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -176,13 +181,13 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Allows for DesignScript code to be authored directly"
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "Point.ByCoordinates(50,50,20);\nPoint.ByCoordinates(50,10,20);\n20;\nPoint.ByCoordinates(0,-100,0);\n150;\nPoint.ByCoordinates(-100,-100,-100);"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.DesignScript.Geometry.Plane.ByOriginNormal@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
       "Id": "d04bc1bfce3d4aa6a6f1c8024586fdd4",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "7096c294a7e34b70a3217f0eb5b49c38",
@@ -214,14 +219,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Plane.ByOriginNormal@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
       "Replication": "Auto",
       "Description": "Create a Plane centered at root Point, with input normal Vector.\n\nPlane.ByOriginNormal (origin: Point = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0), normal: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 1)): Plane"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.DesignScript.Geometry.Plane.ByThreePoints@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point",
       "Id": "97100a2fc15c4eb18f144c059b8eb318",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "72b8b47c27f748ce95bf31a7ac79d8ef",
@@ -262,14 +267,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Plane.ByThreePoints@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Point",
       "Replication": "Auto",
       "Description": "Create a the Plane containing the three input Points.\n\nPlane.ByThreePoints (origin: Point, planePoint: Point, xAxisPoint: Point): Plane"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.DesignScript.Geometry.Vector.ZAxis",
       "Id": "5bb059abee1641809bf34db561d20e0d",
+      "NodeType": "FunctionNode",
       "Inputs": [],
       "Outputs": [
         {
@@ -282,14 +287,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Vector.ZAxis",
       "Replication": "Auto",
       "Description": "Get the canonical Z axis Vector (0,0,1)\n\nVector.ZAxis ( ): Vector"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.ByCoordinates@double,double,double",
       "Id": "1a68204104cf405694157e7ed1f87d3e",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "88c55e06b21348cb92b7b9f77ca43412",
@@ -330,13 +335,16 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.ByCoordinates@double,double,double",
       "Replication": "Auto",
       "Description": "Form a Point given 3 cartesian coordinates\n\nPoint.ByCoordinates (x: double = 0, y: double = 0, z: double = 0): Point"
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 305.0,
+      "WatchHeight": 40.0,
       "Id": "b48a41e299804826bbcfe0d55bb41b77",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "e569766d18904a5eb632fe11379c01de",
@@ -364,8 +372,10 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 320.0,
+      "WatchHeight": 40.0,
       "Id": "033d89954ac244a4affc4d5af41561a3",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "b9d56cf508d446d49fcaf00813f9310c",
@@ -393,8 +403,10 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
-      "NodeType": "ExtensionNode",
+      "WatchWidth": 420.0,
+      "WatchHeight": 40.0,
       "Id": "63af4fe2030948229ea234511054bf91",
+      "NodeType": "ExtensionNode",
       "Inputs": [
         {
           "Id": "9632ca785da74760979fb2c8f00976d9",
@@ -422,9 +434,8 @@
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.Origin",
       "Id": "4de6df94ab3f41b38914c2aa975e4898",
+      "NodeType": "FunctionNode",
       "Inputs": [],
       "Outputs": [
         {
@@ -437,20 +448,20 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Point.Origin",
       "Replication": "Auto",
       "Description": "Get the Origin point (0,0,0)\n\nPoint.Origin ( ): Point"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
-      "NodeType": "CodeBlockNode",
-      "Code": "Point.ByCoordinates(50,20,0);\nPoint.ByCoordinates(70,30,0);\nPoint.ByCoordinates(50,30,0);",
       "Id": "cbea1dae3e694d098fca6b501581d1e3",
+      "NodeType": "CodeBlockNode",
       "Inputs": [],
       "Outputs": [
         {
           "Id": "167846458be0472898bfb1f4abc69b76",
-          "Name": "",
-          "Description": "Value of expression at line 1",
+          "Name": "function",
+          "Description": "Autodesk.DesignScript.Geometry.Point.ByCoordinates(50, 20, 0)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -458,8 +469,8 @@
         },
         {
           "Id": "5378a9ff92eb4d30ba8ef027d32e6752",
-          "Name": "",
-          "Description": "Value of expression at line 2",
+          "Name": "function",
+          "Description": "Autodesk.DesignScript.Geometry.Point.ByCoordinates(70, 30, 0)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -467,8 +478,8 @@
         },
         {
           "Id": "8fe8781169404513961337d3d3295110",
-          "Name": "",
-          "Description": "Value of expression at line 3",
+          "Name": "function",
+          "Description": "Autodesk.DesignScript.Geometry.Point.ByCoordinates(50, 30, 0)",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -476,19 +487,19 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Allows for DesignScript code to be authored directly"
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "Point.ByCoordinates(50,20,0);\nPoint.ByCoordinates(70,30,0);\nPoint.ByCoordinates(50,30,0);"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
-      "NodeType": "CodeBlockNode",
-      "Code": "0;",
       "Id": "494cf7d17f344a96b39b55afd8f0c0bd",
+      "NodeType": "CodeBlockNode",
       "Inputs": [],
       "Outputs": [
         {
           "Id": "2e70d0e53b6549709e1ec919fbfbb4f8",
-          "Name": "",
-          "Description": "Value of expression at line 1",
+          "Name": "integer",
+          "Description": "0",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -496,13 +507,13 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Allows for DesignScript code to be authored directly"
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "0;"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "AdvanceSteel.Nodes.Util.Geometry.GetPlaneOffsetByCentre@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,double",
       "Id": "2af28137ff614ad98473589df1deb224",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "66de7397044740ce9c08113c46058610",
@@ -552,14 +563,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "AdvanceSteel.Nodes.Util.Geometry.GetPlaneOffsetByCentre@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector,double",
       "Replication": "Auto",
       "Description": "Creates one plane either side of the centre point in relation to the normal\n\nGeometry.GetPlaneOffsetByCentre (centrePoint: Point, planeNormal: Vector, distance: double): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.DesignScript.Geometry.Vector.ZAxis",
       "Id": "b5707b3a7d54460c80ce957ab7161cff",
+      "NodeType": "FunctionNode",
       "Inputs": [],
       "Outputs": [
         {
@@ -572,14 +583,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Vector.ZAxis",
       "Replication": "Auto",
       "Description": "Get the canonical Z axis Vector (0,0,1)\n\nVector.ZAxis ( ): Vector"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.DesignScript.Geometry.Vector.XAxis",
       "Id": "bcb02ac05eb249f1bc00f59d5de79a29",
+      "NodeType": "FunctionNode",
       "Inputs": [],
       "Outputs": [
         {
@@ -592,14 +603,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Vector.XAxis",
       "Replication": "Auto",
       "Description": "Get the canonical X axis Vector (1,0,0)\n\nVector.XAxis ( ): Vector"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.DesignScript.Geometry.Plane.ByOriginNormal@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
       "Id": "02752c6aa89e463ab25275014d6e302a",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "7552b3e0770246ac9b2d643df084cf2c",
@@ -631,14 +642,14 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Plane.ByOriginNormal@Autodesk.DesignScript.Geometry.Point,Autodesk.DesignScript.Geometry.Vector",
       "Replication": "Auto",
       "Description": "Create a Plane centered at root Point, with input normal Vector.\n\nPlane.ByOriginNormal (origin: Point = Autodesk.DesignScript.Geometry.Point.ByCoordinates(0, 0, 0), normal: Vector = Autodesk.DesignScript.Geometry.Vector.ByCoordinates(0, 0, 1)): Plane"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "Autodesk.DesignScript.Geometry.Geometry.ClosestPointTo@Autodesk.DesignScript.Geometry.Geometry",
       "Id": "f77aed6ecb614b9c89db9509b366fce0",
+      "NodeType": "FunctionNode",
       "Inputs": [
         {
           "Id": "8298e170937f4eddb3ae82dc20a7ea84",
@@ -670,6 +681,7 @@
           "KeepListStructure": false
         }
       ],
+      "FunctionSignature": "Autodesk.DesignScript.Geometry.Geometry.ClosestPointTo@Autodesk.DesignScript.Geometry.Geometry",
       "Replication": "Auto",
       "Description": "Obtain the closest Point on this Geometry to the other\n\nGeometry.ClosestPointTo (other: Geometry): Point"
     }
@@ -786,6 +798,7 @@
   ],
   "Dependencies": [],
   "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": true,
   "Thumbnail": "",
   "GraphDocumentationURL": null,
   "ExtensionWorkspaceData": [
@@ -809,16 +822,16 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.17.0.3472",
+      "Version": "3.7.0.11777",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
     "Camera": {
       "Name": "_Background Preview",
-      "EyeX": -2.3781255247277429,
-      "EyeY": 73.953822896391685,
+      "EyeX": -2.378125524727743,
+      "EyeY": 73.95382289639169,
       "EyeZ": 135.39964474631412,
-      "LookX": 29.711558115537741,
+      "LookX": 29.71155811553774,
       "LookY": -32.18752129183256,
       "LookZ": -143.60586422509908,
       "UpX": 0.0,
@@ -828,194 +841,194 @@
     "ConnectorPins": [],
     "NodeViews": [
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "704359fb7e844de7b206c330c858db10",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 1912.7097587935716,
-        "Y": 839.71325441830243
+        "Y": 839.7132544183024
       },
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "ddcc63d850fa43b4a841652c3ccedf29",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2645.7097587935718,
-        "Y": 839.71325441830243
+        "ShowGeometry": true,
+        "X": 2645.709758793572,
+        "Y": 839.7132544183024
       },
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "1abf34600df0468390b2bee7fa548146",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2118.9912580039531,
+        "ShowGeometry": true,
+        "X": 2118.991258003953,
         "Y": 519.876670389049
       },
       {
-        "Name": "Code Block",
-        "ShowGeometry": true,
         "Id": "b86516ced99241b382a4b5b54f572c46",
+        "Name": "Code Block",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 1113.7097587935716,
-        "Y": 745.54075441830241
+        "Y": 745.5407544183024
       },
       {
-        "Name": "Plane.ByOriginNormal",
-        "ShowGeometry": true,
         "Id": "d04bc1bfce3d4aa6a6f1c8024586fdd4",
+        "Name": "Plane.ByOriginNormal",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 70.907698133248687,
-        "Y": 610.50634090123071
+        "ShowGeometry": true,
+        "X": 70.90769813324869,
+        "Y": 610.5063409012307
       },
       {
-        "Name": "Plane.ByThreePoints",
-        "ShowGeometry": true,
         "Id": "97100a2fc15c4eb18f144c059b8eb318",
+        "Name": "Plane.ByThreePoints",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 141.56434645602263,
-        "Y": 930.45220545860116
+        "Y": 930.4522054586012
       },
       {
-        "Name": "Vector.ZAxis",
-        "ShowGeometry": true,
         "Id": "5bb059abee1641809bf34db561d20e0d",
+        "Name": "Vector.ZAxis",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -261.09230186675131,
-        "Y": 733.50634090123071
+        "ShowGeometry": true,
+        "X": -261.0923018667513,
+        "Y": 733.5063409012307
       },
       {
-        "Name": "Point.ByCoordinates",
-        "ShowGeometry": true,
         "Id": "1a68204104cf405694157e7ed1f87d3e",
+        "Name": "Point.ByCoordinates",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -261.09230186675131,
-        "Y": 521.50634090123071
+        "ShowGeometry": true,
+        "X": -261.0923018667513,
+        "Y": 521.5063409012307
       },
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "b48a41e299804826bbcfe0d55bb41b77",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 275.35876442851622,
+        "ShowGeometry": true,
+        "X": 275.3587644285162,
         "Y": 1456.2048351449334
       },
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "033d89954ac244a4affc4d5af41561a3",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 141.56434645602263,
         "Y": 1142.4522054586012
       },
       {
-        "Name": "Watch",
-        "ShowGeometry": true,
         "Id": "63af4fe2030948229ea234511054bf91",
+        "Name": "Watch",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 409.90769813324869,
-        "Y": 610.50634090123071
+        "ShowGeometry": true,
+        "X": 409.9076981332487,
+        "Y": 610.5063409012307
       },
       {
-        "Name": "Point.Origin",
-        "ShowGeometry": true,
         "Id": "4de6df94ab3f41b38914c2aa975e4898",
+        "Name": "Point.Origin",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 13.358764428516224,
         "Y": 1456.2048351449334
       },
       {
-        "Name": "World UCS Origin Point",
-        "ShowGeometry": true,
         "Id": "cbea1dae3e694d098fca6b501581d1e3",
+        "Name": "World UCS Origin Point",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -263.43565354397742,
-        "Y": 956.76220545860144
+        "ShowGeometry": true,
+        "X": -263.4356535439774,
+        "Y": 956.7622054586014
       },
       {
-        "Name": "Code Block",
-        "ShowGeometry": true,
         "Id": "494cf7d17f344a96b39b55afd8f0c0bd",
+        "Name": "Code Block",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -515.09230186675131,
+        "ShowGeometry": true,
+        "X": -515.0923018667513,
         "Y": 555.3338409012307
       },
       {
-        "Name": "Geometry.GetPlaneOffsetByCentre",
-        "ShowGeometry": true,
         "Id": "2af28137ff614ad98473589df1deb224",
+        "Name": "Geometry.GetPlaneOffsetByCentre",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 1687.9912580039531,
         "Y": 485.87667038904897
       },
       {
-        "Name": "Vector.ZAxis",
-        "ShowGeometry": true,
         "Id": "b5707b3a7d54460c80ce957ab7161cff",
+        "Name": "Vector.ZAxis",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 1113.7097587935716,
-        "Y": 967.71325441830243
+        "Y": 967.7132544183024
       },
       {
-        "Name": "Vector.XAxis",
-        "ShowGeometry": true,
         "Id": "bcb02ac05eb249f1bc00f59d5de79a29",
+        "Name": "Vector.XAxis",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 1422.9912580039531,
         "Y": 519.876670389049
       },
       {
-        "Name": "Plane.ByOriginNormal",
-        "ShowGeometry": true,
         "Id": "02752c6aa89e463ab25275014d6e302a",
+        "Name": "Plane.ByOriginNormal",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
+        "ShowGeometry": true,
         "X": 1573.7097587935716,
-        "Y": 839.71325441830243
+        "Y": 839.7132544183024
       },
       {
-        "Name": "Geometry.ClosestPointTo",
-        "ShowGeometry": true,
         "Id": "f77aed6ecb614b9c89db9509b366fce0",
+        "Name": "Geometry.ClosestPointTo",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2284.7097587935718,
-        "Y": 839.71325441830243
+        "ShowGeometry": true,
+        "X": 2284.709758793572,
+        "Y": 839.7132544183024
       }
     ],
     "Annotations": [
@@ -1040,13 +1053,13 @@
           "0b591586abb74598b277062324632871"
         ],
         "HasNestedGroups": false,
-        "Left": -525.09230186675131,
-        "Top": 401.50634090123071,
+        "Left": -525.0923018667513,
+        "Top": 401.5063409012307,
         "Width": 1442.0,
-        "Height": 1190.6984942437027,
+        "Height": 1186.6984942437027,
         "FontSize": 36.0,
         "GroupStyleId": "00000000-0000-0000-0000-000000000000",
-        "InitialTop": 474.50634090123071,
+        "InitialTop": 474.5063409012307,
         "InitialHeight": 1126.6984942437027,
         "TextblockHeight": 63.0,
         "Background": "#FFC1D676"
@@ -1074,11 +1087,11 @@
         "Left": 1103.7097587935716,
         "Top": 412.87667038904897,
         "Width": 1709.0000000000002,
-        "Height": 686.83658402925334,
+        "Height": 686.8365840292533,
         "FontSize": 36.0,
         "GroupStyleId": "00000000-0000-0000-0000-000000000000",
         "InitialTop": 485.87667038904897,
-        "InitialHeight": 626.83658402925334,
+        "InitialHeight": 626.8365840292533,
         "TextblockHeight": 63.0,
         "Background": "#FF71C6A8"
       },
@@ -1092,7 +1105,7 @@
         "Nodes": [],
         "HasNestedGroups": false,
         "Left": 1113.7097587935716,
-        "Top": 706.54075441830241,
+        "Top": 706.5407544183024,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -1111,8 +1124,8 @@
         "HeightAdjustment": 0.0,
         "Nodes": [],
         "HasNestedGroups": false,
-        "Left": -261.09230186675131,
-        "Top": 482.50634090123071,
+        "Left": -261.0923018667513,
+        "Top": 482.5063409012307,
         "Width": 0.0,
         "Height": 0.0,
         "FontSize": 36.0,
@@ -1123,7 +1136,7 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 193.93027910623471,
+    "X": 193.9302791062347,
     "Y": -59.035236006888226,
     "Zoom": 0.42327436893260684
   }
