@@ -78,5 +78,11 @@ namespace Dynamo.Applications.AdvanceSteel
         SubscribedToRefreshCompleted = false;
       }
     }
+
+    public void Reset()
+    {
+      UnsubscribeFromRefreshCompleted();
+      CloseTransaction();
+    }
   }
 }

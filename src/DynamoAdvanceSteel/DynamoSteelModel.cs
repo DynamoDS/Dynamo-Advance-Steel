@@ -27,6 +27,7 @@ namespace Dynamo.Applications.AdvanceSteel
 
     protected override void ShutDownCore(bool shutdownHost)
     {
+      Services.DocContext.Manager.Reset();
       Services.DisposeLogic.IsShuttingDown = true;
       //Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.DocumentActivationEnabled = true;
 

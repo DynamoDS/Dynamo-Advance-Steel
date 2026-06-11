@@ -45,5 +45,19 @@ namespace Dynamo.Applications.AdvanceSteel
         DocumentLocked = false;
       }
     }
+
+    public void Reset()
+    {
+      if (SteelTransaction != null)
+      {
+        SteelTransaction.Abort();
+        SteelTransaction = null;
+      }
+      if (DocumentLocked)
+      {
+        DocumentManager.UnlockCurrentDocument();
+        DocumentLocked = false;
+      }
+    }
   }
 }
