@@ -5,5 +5,6 @@ namespace Dynamo.Applications.AdvanceSteel.Services
   {
     void EnsureInContext(DocContext ctx);
     void LeaveContext(DocContext ctx);
+    void Reset();
   }
 }
